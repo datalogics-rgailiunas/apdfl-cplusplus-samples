@@ -1,0 +1,473 @@
+﻿//# Copyright (c) 2015, Datalogics, Inc. All rights reserved.
+//
+//# Sample addElements/ Adds a series of elements onto a pdf
+//
+//# This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
+//# Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
+//# source code examples for integrating to the Adobe PDF Library
+//# ("the Example Code"). By accepting this agreement you agree to be bound
+//# by the following terms of use for the Example Code.
+//#
+//# LICENSE
+//# -------
+//# Datalogics hereby grants you a royalty-free, non-exclusive license to
+//# download and use the Example Code for any lawful purpose. There is no charge
+//# for use of Example Code.
+//#
+//# OWNERSHIP
+//# ---------
+//# The Example Code and any related documentation and trademarks are and shall
+//# remain the sole and exclusive property of Datalogics and are protected by
+//# the laws of copyright in the U.S. and other countries.
+//#
+//# Datalogics is a trademark of Datalogics, Inc.
+//#
+//# TERM
+//# ----
+//# This license is effective until terminated. You may terminate it at any
+//# other time by destroying the Example Code.
+//#
+//# WARRANTY DISCLAIMER
+//# -------------------
+//# THE EXAMPLE CODE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER
+//# EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES
+//# OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+//#
+//# DATALOGICS DISCLAIM ALL OTHER WARRANTIES, CONDITIONS, UNDERTAKINGS OR
+//# TERMS OF ANY KIND, EXPRESS OR IMPLIED, WRITTEN OR ORAL, BY OPERATION OF
+//# LAW, ARISING BY STATUTE, COURSE OF DEALING, USAGE OF TRADE OR OTHERWISE,
+//# INCLUDING, WARRANTIES OR CONDITIONS OF MERCHANTABILITY, FITNESS FOR A
+//# PARTICULAR PURPOSE, SATISFACTORY QUALITY, LACK OF VIRUSES, TITLE,
+//# NON-INFRINGEMENT, ACCURACY OR COMPLETENESS OF RESPONSES, RESULTS, AND/OR
+//# LACK OF WORKMANLIKE EFFORT. THE PROVISIONS OF THIS SECTION SET FORTH
+//# SUBLICENSEE'S SOLE REMEDY AND DATALOGICS'S SOLE LIABILITY WITH RESPECT
+//# TO THE WARRANTY SET FORTH HEREIN. NO REPRESENTATION OR OTHER AFFIRMATION
+//# OF FACT, INCLUDING STATEMENTS REGARDING PERFORMANCE OF THE EXAMPLE CODE,
+//# WHICH IS NOT CONTAINED IN THIS AGREEMENT, SHALL BE BINDING ON DATALOGICS.
+//# NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
+//# DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
+
+
+//
+// Project: addElements - Modifying existing page by adding elements to it
+//
+// Note: By default, this example program opens a file called addElements.pdf in the
+//      source directory.  It adds several different elements to the page and
+//		saves it as out.pdf
+//
+// Steps:
+//
+//-Open an existing PDF document.
+//-Add some PDE elements to the document.
+//-Save the document as a new PDF (don't alter the original).
+//-Close.
+
+
+
+#include <iostream>
+// DLADD: RickK 03Apr2009 APDFL9 - Undefine LITTLE_ENDIAN.
+#undef LITTLE_ENDIAN 
+#include "PERCalls.h"
+#include "PEWCalls.h"
+#include "PagePDECntCalls.h"
+#include "MyPDFLibUtils.h"
+#include "PSFCalls.h"
+#include "ASCalls.h"
+#include "ASExtraCalls.h"
+
+
+PDEPath   PathRect(ASFixed, ASFixed, ASFixed, ASFixed, int, int, int, int);
+
+// DLADD: RickK 03Apr2009 APDFL9 - Use argc and argv for DL.
+int main(int argc, char **argv)
+{
+    int initErr = MyPDFLInit();
+
+    if (initErr != 0)
+    {
+        std::cerr << "Initialization error. See \"AcroErr.h\" for more info.\n" << std::endl;
+        std::cerr << "Error system: " << ErrGetSystem(initErr) << std::endl;
+        std::cerr << "Error Severity: " << ErrGetSeverity(initErr) << std::endl;
+        std::cerr << "Error Code: " << ErrGetCode(initErr) << std::endl;
+    }
+
+
+    // DLADD: RickK 11Jan2011 - SF32528 - Initialize selected
+    // DLADD: variables.  If these variable are left uninitialized,
+    // DLADD: and an exception occurs early in the execution of the
+    // DLADD: addelem sample, a Segmentation Violation crash is
+    // DLADD: likely.  Properly initializing these variables to NULL
+    // DLADD: avoids the crash.
+    wchar_t  pathToOrig[] = L"../_Data/addElementsTo.pdf";  // WideString filename used by PDDocOpen() 
+    PDDoc pdDocOrig = NULL;					            // A PDF document object
+    PDPage pdPage = NULL;				                // A page in document object
+    PDEContent pdeContent = NULL;		                // Container for page content 
+    PDEFontAttrs attrs;					                // Font attributes    
+    PDEText pdeText = NULL;				                // Container for text 
+    ASDoubleMatrix textMatrix;			                // Transformation matrix for text 
+    PDEGraphicState gState;				                // Graphic state to apply to operation 
+    PDEColorSpace pdeColorSpace = NULL;                 // ColorSpace 
+    PDEFont otfFont = NULL;                             // Font element that represents a non-embedded OpenType font
+    PDEFont otfEmbedFont = NULL;                        // Font element that represents a Embedded OpenType font
+    PDEFont otfSubsetFont = NULL;                       // Font element that represents a PDEFontSubset Font
+    PDEFont PS_OutlineFont = NULL;                      // Font element that represents a PostScript Outline Font
+    PDEPath rect = NULL;                                // Path element that will be formed into a rectangle 
+    PDSysFont sysFont;                                  // System font object
+    ASErrorCode errCode = 0;                             // Use to catch errors
+    ASInt32 err = 0;                                    //
+    ASText origPathText = NULL;                         // The input file path text object
+    ASPathName origPathName = NULL;                     // The input file path name 
+    ASText outPathText = NULL;				        	// Path to save to
+    ASPathName outPathName = NULL;                        // Pathname for saving
+    wchar_t  pathToOut[] = L"out.pdf";              // The text for the pathname
+    /*char * pathToFile = "../_Data/addelem.pdf";
+    ASPathName path;*/
+
+    //Headers and foooters that will be displayed
+    std::string headerText = "Here is an Example Header Using an OpenType Font";
+    std::string footerText = "*Here is an example footer using a fully embedded OpenType font ";
+    std::string footerText2 = "**Here is another example footer using a subset-embedded OpenType Font";
+    std::string bodyTextPS = "-> I am a PostScript outline font element. Below me is a PDEPath element <-";
+
+    DURING
+
+        //Open input document and check see if it opened sucessfully 
+    if (sizeof(wchar_t) == 2)
+        origPathText = ASTextFromUnicode((ASUTF16Val *)pathToOrig, kUTF16HostEndian);
+    else
+        origPathText = ASTextFromUnicode((ASUTF16Val *)pathToOrig, kUTF32HostEndian);
+
+    origPathName = ASFileSysCreatePathFromDIPathText(NULL, origPathText, NULL);
+
+    pdDocOrig = PDDocOpen(origPathName, NULL, NULL, true);
+
+    if (pdDocOrig == NULL)
+    {
+        std::cerr << "Failed to open file " << pathToOrig << std::endl;
+        E_RETURN(0);
+    }
+
+    //=================================================================//
+    // PDEFontCreate example 1: Creating a PDEFont from a system font. //
+    // Using a font that can be embedded.                              //
+    //=================================================================//
+    memset(&attrs, 0, sizeof(attrs));
+    attrs.name = ASAtomFromString("CourierStd");				// Set PDEFontAttrs name
+    attrs.type = ASAtomFromString("Type1");						// Set PDEFontAttrs type
+    sysFont = PDFindSysFont(&attrs, sizeof(PDEFontAttrs), 0);	// Get the corresponding sys font
+
+    //If sys font was retrieved create the PDEFont
+    if (sysFont)
+        PS_OutlineFont = PDEFontCreateFromSysFont(sysFont, kPDEFontDoNotEmbed);
+
+    //=================================================================//
+    // PDEFontCreate example 2: Creating a PDEFont from a system font  //
+    // and checking the embedding policy.                              //
+    //=================================================================//
+    memset(&attrs, 0, sizeof(attrs));
+    //Set PDEFontAttrs name 
+    attrs.name = ASAtomFromString("Verdana");
+    //Set PDEFontAttrs type 
+    attrs.type = ASAtomFromString("OpenType");
+    //Get the corresponding sys font. 
+    sysFont = PDFindSysFont(&attrs, sizeof(attrs), kPDSysFontMatchFontType);
+    //Checking to see if the system font was retrieved. 
+    if (sysFont)
+    {
+        //Non embedded font 
+        otfFont = PDEFontCreateFromSysFont(sysFont, 0);
+
+        //Get font embedding policy 
+        PDSysFontGetAttrs(sysFont, &attrs, sizeof(PDEFontAttrs));
+
+        //Check font embedding policy 
+        if (attrs.cantEmbed != 0)
+            std::cerr << "Font " << ASAtomGetString(attrs.name) << "can't be embedded";
+        else
+            //Fully embedded font 
+            otfEmbedFont = PDEFontCreateFromSysFont(sysFont, kPDEFontCreateEmbedded);
+
+        //Subset embedded font 
+        otfSubsetFont = PDEFontCreateFromSysFont(sysFont, kPDEFontCreateEmbedded | kPDEFontCreateSubset);
+    }
+
+    //=================================================================//
+    // Setting up the default graphics state. This is done in order to //
+    // free PDEColor objects                                           //
+    //=================================================================//
+    pdeColorSpace = PDEColorSpaceCreateFromName(ASAtomFromString("DeviceGray"));
+
+    memset(&gState, 0, sizeof(PDEGraphicState));
+    gState.strokeColorSpec.space = gState.fillColorSpec.space = pdeColorSpace;
+    gState.miterLimit = fixedTen;
+    gState.flatness = fixedOne;
+    gState.lineWidth = fixedOne;
+
+    //=================================================================//
+    //  Text matrix determines where the text will appear on the page. //
+    //=================================================================//
+    memset(&textMatrix, 0, sizeof(textMatrix)); // clear structure 
+    textMatrix.a = 9.6;							// set font width and height 
+    textMatrix.d = 9.6;							// to 10 point size       
+    textMatrix.h = 72;							// x,y coordinate on page 
+    textMatrix.v = 60;
+
+    //=================================================================//
+    //		         Add PDEText Elements into the document            //
+    //=================================================================//
+
+    //Create new text run 
+    pdeText = PDETextCreate();
+
+    if (PS_OutlineFont)
+    {
+        textMatrix.a = 12;
+        textMatrix.d = 12;
+        textMatrix.h = 30;
+        textMatrix.v = 500;				//Adjust header x, y coordinate on page 
+
+        PDETextAddEx(pdeText,			//Text container to add to  
+            kPDETextRun,				//kPDETextRun, kPDETextChar 
+            0,							//Index 
+            (Uns8 *)bodyTextPS.c_str(),	//Text to add    
+            bodyTextPS.length(),		//Length of text 
+            PS_OutlineFont,				//Font to apply to text 
+            &gState, sizeof(gState),	//Graphic state to apply to text  
+            NULL, 0,					//Text state and size of structure
+            &textMatrix,				//Transformation matrix for text  
+            NULL);						//Stroke matrix  
+
+        std::cout << "created PS_OutlineFont" << std::endl;
+
+    }
+
+    if (otfFont)
+    {
+        textMatrix.a = 16;				//Make header text larger
+        textMatrix.d = 16;
+        textMatrix.h = 90;
+        textMatrix.v = 760;			    //Adjust header x, y coordinate on page 
+
+        PDETextAddEx(pdeText,			//Text container to add to  
+            kPDETextRun,				//kPDETextRun, kPDETextChar 
+            0,							//Index 
+            (Uns8 *)headerText.c_str(),	//Text to add    
+            headerText.length(),		//Length of text 
+            otfFont,					//Font to apply to text 
+            &gState, sizeof(gState),	//Graphic state to apply to text  
+            NULL, 0,					//Text state and size of structure
+            &textMatrix,				//Transformation matrix for text  
+            NULL);						//Stroke matrix  
+        textMatrix.v = 760;
+        textMatrix.h = 90;
+
+        std::cout << "created otfFont" << std::endl;
+    }
+
+    if (otfEmbedFont)
+    {
+        textMatrix.a = 7;
+        textMatrix.d = 7;
+        textMatrix.v = 42;
+        textMatrix.h = 90;				//Adjust matrix down to footer location 
+
+        PDETextAddEx(pdeText,			//Text container to add to  
+            kPDETextRun,				//kPDETextRun, kPDETextChar 
+            0,							//Index 
+            (Uns8 *)footerText.c_str(),	//Text to add    
+            footerText.length(),		//Length of text 
+            otfEmbedFont,				//Font to apply to text 
+            &gState, sizeof(gState),	//Graphic state to apply to text  
+            NULL, 0,					//Text state and size of structure
+            &textMatrix,				//Transformation matrix for text  
+            NULL);						//Stroke matrix  
+
+        std::cout << "created otfEmbedFont" << std::endl;
+    }
+
+    if (otfSubsetFont)
+    {
+        textMatrix.a = 7;
+        textMatrix.d = 7;
+        textMatrix.v = 28;
+        textMatrix.h = 90;				//Adjust matrix down to footer location 
+
+        PDETextAddEx(pdeText,			//Text container to add to  
+            kPDETextRun,				//kPDETextRun, kPDETextChar 
+            0,							//Index 
+            (Uns8 *)footerText2.c_str(),//Text to add    
+            footerText2.length(),		//Length of text 
+            otfSubsetFont,				//Font to apply to text 
+            &gState, sizeof(gState),	//Graphic state to apply to text  
+            NULL, 0,					//Text state and size of structure
+            &textMatrix,				//Transformation matrix for text  
+            NULL);						//Stroke matrix  
+
+        std::cout << "created otfSubsetFont" << std::endl;
+    }
+
+    //|---in inches--|
+    //Call PathRect to transform PDEPath in a rectangle of xPos,yPos,height,width, lineWidth, r, g, b
+    rect = PathRect(3 * ASInt32ToFixed(72), 4 * ASInt32ToFixed(72), ASInt32ToFixed(72 * 2), ASInt32ToFixed(72 * 2), 36, 0, 0, 1);
+    std::cout << "created PDEPath in the form of a rectangle" << std::endl;
+
+    //====================================================================//
+    // Iterate through each page in the document and adjust the location  //
+    // of data on each page.                                              //
+    //====================================================================//
+
+    //Get the PDPage 
+    pdPage = PDDocAcquirePage(pdDocOrig, 0);
+    //Get content on the page 
+    pdeContent = PDPageAcquirePDEContent(pdPage, 0);
+
+
+    //Add the newly created PDEPath object to the page content 
+    PDEContentAddElem(pdeContent, kPDEAfterLast, (PDEElement)rect);
+
+    //Insert text into page content 
+    PDEContentAddElem(pdeContent, kPDEAfterLast, reinterpret_cast<PDEElement> (pdeText));
+    std::cout << "Added all the above elements" << std::endl;
+
+    //Set maximum precision flag for PDE content 
+    ASUns32 flags = 0;
+    PDPageGetPDEContentFlags(pdPage, &flags);
+    flags |= kPDEContentUseMaxPrecision;
+    if (!PDPageSetPDEContentFlags(pdPage, flags))
+    {
+        fprintf(stderr, "Unable to set kPDEContentUseMaxPrecision flag for PDE Content. \n");
+        ASRaise(ERRORCODE);
+    }
+
+    //Set the PDEContent for the page 
+    // DLADD dtom 10Feb2010:
+    //Use PDPageSetPDEContentCanRaise instead of PDPageSetPDEContent.
+    // DLADD YuriG 04Jan2012 
+    PDPageSetPDEContentCanRaise(pdPage, NULL);
+
+    //Remember to release all objects that were created  
+    PDPageReleasePDEContent(pdPage, NULL);
+    PDPageRelease(pdPage);
+    pdPage = NULL;
+
+
+    //Fonts that needs to be subset are subsetted right before the save. 
+    if (otfSubsetFont)
+        PDEFontSubsetNow(otfSubsetFont, PDDocGetCosDoc(pdDocOrig));
+
+    //=================================================================//
+    //				Save Output and Release Used Objects               //
+    //=================================================================//
+
+    //Save document to a file 
+
+    if (sizeof(wchar_t) == 2)
+        outPathText = ASTextFromUnicode((ASUTF16Val *)pathToOut, kUTF16HostEndian);
+    else
+        outPathText = ASTextFromUnicode((ASUTF16Val *)pathToOut, kUTF32HostEndian);
+
+    outPathName = ASFileSysCreatePathFromDIPathText(NULL, outPathText, NULL);
+
+
+
+    //Save file using the ASPathName
+    PDDocSave(pdDocOrig, PDSaveFull | PDSaveLinearized, outPathName, ASGetDefaultFileSys(), NULL, NULL);
+
+    ASFileSysReleasePath(NULL, outPathName);
+
+    HANDLER
+        err = ERRORCODE;
+    END_HANDLER
+
+
+
+    //Release used objects 
+    if (pdeText)
+        PDERelease((PDEObject)pdeText);
+    if (pdeColorSpace)
+        PDERelease((PDEObject)pdeColorSpace);
+    if (otfFont)
+        PDERelease((PDEObject)otfFont);
+    if (otfEmbedFont)
+        PDERelease((PDEObject)otfEmbedFont);
+    if (otfSubsetFont)
+        PDERelease((PDEObject)otfSubsetFont);
+    if (rect)
+        PDERelease((PDEObject)rect);
+
+    PDDocRelease(pdDocOrig);
+
+    //If there was an error display
+    if (err)
+    {
+        DisplayError(errCode);
+    }
+
+    MyPDFLTerm();
+    return 0;
+}
+
+
+//Function that transforms PDEPath to rectangle of xPosition,yPosition,height,width, lineWidth, r, g, b
+PDEPath   PathRect(ASFixed  x, ASFixed  y, ASFixed  width, ASFixed  height,
+    int  lineWidth, int  r, int  g, int  b)
+{
+    PDEPath path = PDEPathCreate();
+
+    PDEPathSetPaintOp(path, kPDEStroke);	//Where path is PDEpath, and kPDEStroke is the stroke flag
+
+    PDEGraphicState  gState;						//Graphics state
+    PDEColorSpec  strokeClrSpec, fillClrSpec;		//Structure describing color specification, space and value 
+    PDEColorSpace  clrSpace;						//Color scheme
+    PDEColorValue  strokeClrValue, fillClrValue;	//A structure describing a color value.
+
+    memset(&strokeClrValue, 0, sizeof (PDEColorValue));
+    memset(&fillClrValue, 0, sizeof (PDEColorValue));
+
+    //PDEColorValue color component. For example, a Gray color space has one component, an RGB color space has three components, a CMYK has four components
+    strokeClrValue.color[0] = ASInt32ToFixed(r);
+    strokeClrValue.color[1] = ASInt32ToFixed(g);
+    strokeClrValue.color[2] = ASInt32ToFixed(b);
+
+    //Use complement colors for the fill operation 
+    fillClrValue.color[0] = fixedOne - ASInt32ToFixed(r);
+    fillClrValue.color[1] = fixedOne - ASInt32ToFixed(g);
+    fillClrValue.color[2] = fixedOne - ASInt32ToFixed(b);
+
+    //Use RGB color space 
+    clrSpace = PDEColorSpaceCreateFromName(ASAtomFromString("DeviceRGB"));
+
+    //Assign fill/stroke values to the appropriate PDEColorSpec
+    strokeClrSpec.space = fillClrSpec.space = clrSpace;
+    strokeClrSpec.value = strokeClrValue;
+    fillClrSpec.value = fillClrValue;
+
+    //Set up graphics state along with color specs
+    memset(&gState, 0, sizeof (PDEGraphicState));
+    gState.fillColorSpec = fillClrSpec;
+    gState.strokeColorSpec = strokeClrSpec;
+    gState.lineWidth = ASInt32ToFixed(lineWidth + 10);
+    gState.miterLimit = fixedTen;
+    gState.flatness = fixedOne;
+
+    //Set graphics state to the Path
+    PDEElementSetGState((PDEElement)path, &gState, sizeof (PDEGraphicState));
+
+    //Array structure for pathData needed for a rectangle
+    ASFixed  pathData[5];
+    pathData[0] = kPDERect;
+    pathData[1] = x;
+    pathData[2] = y;
+    pathData[3] = width;
+    pathData[4] = height;
+
+    //Assign the pathData to the path to form rectangle
+    PDEPathSetData(path, pathData, sizeof (pathData));
+
+    //Return the path shaped as a rectangle
+    return  path;
+}
+
+
+
+
