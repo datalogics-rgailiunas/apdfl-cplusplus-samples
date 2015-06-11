@@ -98,7 +98,7 @@ int main(int argc, char **argv)
     // DLADD: addelem sample, a Segmentation Violation crash is
     // DLADD: likely.  Properly initializing these variables to NULL
     // DLADD: avoids the crash.
-    wchar_t  pathToOrig[] = L"../_Data/addElementsTo.pdf";  // WideString filename used by PDDocOpen() 
+    wchar_t  pathToOrig[] = L"addElementsTo.pdf";  // WideString filename used by PDDocOpen() 
     PDDoc pdDocOrig = NULL;                                 // A PDF document object
     PDPage pdPage = NULL;                                   // A page in document object
     PDEContent pdeContent = NULL;                           // Container for page content 
