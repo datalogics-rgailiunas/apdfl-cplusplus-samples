@@ -53,7 +53,7 @@
 //
 // Note: By default, this example program opens a file called addElements.pdf in the
 //      source directory.  It adds several different elements to the page and
-//		saves it as out.pdf
+//      saves it as out.pdf
 //
 // Steps:
 //
@@ -99,13 +99,13 @@ int main(int argc, char **argv)
     // DLADD: likely.  Properly initializing these variables to NULL
     // DLADD: avoids the crash.
     wchar_t  pathToOrig[] = L"../_Data/addElementsTo.pdf";  // WideString filename used by PDDocOpen() 
-    PDDoc pdDocOrig = NULL;					            // A PDF document object
-    PDPage pdPage = NULL;				                // A page in document object
-    PDEContent pdeContent = NULL;		                // Container for page content 
-    PDEFontAttrs attrs;					                // Font attributes    
-    PDEText pdeText = NULL;				                // Container for text 
-    ASDoubleMatrix textMatrix;			                // Transformation matrix for text 
-    PDEGraphicState gState;				                // Graphic state to apply to operation 
+    PDDoc pdDocOrig = NULL;                             // A PDF document object
+    PDPage pdPage = NULL;                               // A page in document object
+    PDEContent pdeContent = NULL;                       // Container for page content 
+    PDEFontAttrs attrs;                                 // Font attributes    
+    PDEText pdeText = NULL;                             // Container for text 
+    ASDoubleMatrix textMatrix;                          // Transformation matrix for text 
+    PDEGraphicState gState;                             // Graphic state to apply to operation 
     PDEColorSpace pdeColorSpace = NULL;                 // ColorSpace 
     PDEFont otfFont = NULL;                             // Font element that represents a non-embedded OpenType font
     PDEFont otfEmbedFont = NULL;                        // Font element that represents a Embedded OpenType font
@@ -117,7 +117,7 @@ int main(int argc, char **argv)
     ASInt32 err = 0;                                    //
     ASText origPathText = NULL;                         // The input file path text object
     ASPathName origPathName = NULL;                     // The input file path name 
-    ASText outPathText = NULL;				        	// Path to save to
+    ASText outPathText = NULL;                          // Path to save to
     ASPathName outPathName = NULL;                        // Pathname for saving
     wchar_t  pathToOut[] = L"out.pdf";              // The text for the pathname
     /*char * pathToFile = "../_Data/addelem.pdf";
@@ -152,9 +152,9 @@ int main(int argc, char **argv)
     // Using a font that can be embedded.                              //
     //=================================================================//
     memset(&attrs, 0, sizeof(attrs));
-    attrs.name = ASAtomFromString("CourierStd");				// Set PDEFontAttrs name
-    attrs.type = ASAtomFromString("Type1");						// Set PDEFontAttrs type
-    sysFont = PDFindSysFont(&attrs, sizeof(PDEFontAttrs), 0);	// Get the corresponding sys font
+    attrs.name = ASAtomFromString("CourierStd");                // Set PDEFontAttrs name
+    attrs.type = ASAtomFromString("Type1");                     // Set PDEFontAttrs type
+    sysFont = PDFindSysFont(&attrs, sizeof(PDEFontAttrs), 0);   // Get the corresponding sys font
 
     //If sys font was retrieved create the PDEFont
     if (sysFont)
@@ -207,13 +207,13 @@ int main(int argc, char **argv)
     //  Text matrix determines where the text will appear on the page. //
     //=================================================================//
     memset(&textMatrix, 0, sizeof(textMatrix)); // clear structure 
-    textMatrix.a = 9.6;							// set font width and height 
-    textMatrix.d = 9.6;							// to 10 point size       
-    textMatrix.h = 72;							// x,y coordinate on page 
+    textMatrix.a = 9.6;                         // set font width and height 
+    textMatrix.d = 9.6;                         // to 10 point size       
+    textMatrix.h = 72;                          // x,y coordinate on page 
     textMatrix.v = 60;
 
     //=================================================================//
-    //		         Add PDEText Elements into the document            //
+    //               Add PDEText Elements into the document            //
     //=================================================================//
 
     //Create new text run 
@@ -224,18 +224,18 @@ int main(int argc, char **argv)
         textMatrix.a = 12;
         textMatrix.d = 12;
         textMatrix.h = 30;
-        textMatrix.v = 500;				//Adjust header x, y coordinate on page 
+        textMatrix.v = 500;             //Adjust header x, y coordinate on page 
 
-        PDETextAddEx(pdeText,			//Text container to add to  
-            kPDETextRun,				//kPDETextRun, kPDETextChar 
-            0,							//Index 
-            (Uns8 *)bodyTextPS.c_str(),	//Text to add    
-            bodyTextPS.length(),		//Length of text 
-            PS_OutlineFont,				//Font to apply to text 
-            &gState, sizeof(gState),	//Graphic state to apply to text  
-            NULL, 0,					//Text state and size of structure
-            &textMatrix,				//Transformation matrix for text  
-            NULL);						//Stroke matrix  
+        PDETextAddEx(pdeText,           //Text container to add to  
+            kPDETextRun,                //kPDETextRun, kPDETextChar 
+            0,                          //Index 
+            (Uns8 *)bodyTextPS.c_str(), //Text to add    
+            bodyTextPS.length(),        //Length of text 
+            PS_OutlineFont,             //Font to apply to text 
+            &gState, sizeof(gState),    //Graphic state to apply to text  
+            NULL, 0,                    //Text state and size of structure
+            &textMatrix,                //Transformation matrix for text  
+            NULL);                      //Stroke matrix  
 
         std::cout << "created PS_OutlineFont" << std::endl;
 
@@ -243,21 +243,21 @@ int main(int argc, char **argv)
 
     if (otfFont)
     {
-        textMatrix.a = 16;				//Make header text larger
+        textMatrix.a = 16;              //Make header text larger
         textMatrix.d = 16;
         textMatrix.h = 90;
-        textMatrix.v = 760;			    //Adjust header x, y coordinate on page 
+        textMatrix.v = 760;             //Adjust header x, y coordinate on page 
 
-        PDETextAddEx(pdeText,			//Text container to add to  
-            kPDETextRun,				//kPDETextRun, kPDETextChar 
-            0,							//Index 
-            (Uns8 *)headerText.c_str(),	//Text to add    
-            headerText.length(),		//Length of text 
-            otfFont,					//Font to apply to text 
-            &gState, sizeof(gState),	//Graphic state to apply to text  
-            NULL, 0,					//Text state and size of structure
-            &textMatrix,				//Transformation matrix for text  
-            NULL);						//Stroke matrix  
+        PDETextAddEx(pdeText,           //Text container to add to  
+            kPDETextRun,                //kPDETextRun, kPDETextChar 
+            0,                          //Index 
+            (Uns8 *)headerText.c_str(), //Text to add    
+            headerText.length(),        //Length of text 
+            otfFont,                    //Font to apply to text 
+            &gState, sizeof(gState),    //Graphic state to apply to text  
+            NULL, 0,                    //Text state and size of structure
+            &textMatrix,                //Transformation matrix for text  
+            NULL);                      //Stroke matrix  
         textMatrix.v = 760;
         textMatrix.h = 90;
 
@@ -269,18 +269,18 @@ int main(int argc, char **argv)
         textMatrix.a = 7;
         textMatrix.d = 7;
         textMatrix.v = 42;
-        textMatrix.h = 90;				//Adjust matrix down to footer location 
+        textMatrix.h = 90;              //Adjust matrix down to footer location 
 
-        PDETextAddEx(pdeText,			//Text container to add to  
-            kPDETextRun,				//kPDETextRun, kPDETextChar 
-            0,							//Index 
-            (Uns8 *)footerText.c_str(),	//Text to add    
-            footerText.length(),		//Length of text 
-            otfEmbedFont,				//Font to apply to text 
-            &gState, sizeof(gState),	//Graphic state to apply to text  
-            NULL, 0,					//Text state and size of structure
-            &textMatrix,				//Transformation matrix for text  
-            NULL);						//Stroke matrix  
+        PDETextAddEx(pdeText,           //Text container to add to  
+            kPDETextRun,                //kPDETextRun, kPDETextChar 
+            0,                          //Index 
+            (Uns8 *)footerText.c_str(), //Text to add    
+            footerText.length(),        //Length of text 
+            otfEmbedFont,               //Font to apply to text 
+            &gState, sizeof(gState),    //Graphic state to apply to text  
+            NULL, 0,                    //Text state and size of structure
+            &textMatrix,                //Transformation matrix for text  
+            NULL);                      //Stroke matrix  
 
         std::cout << "created otfEmbedFont" << std::endl;
     }
@@ -290,18 +290,18 @@ int main(int argc, char **argv)
         textMatrix.a = 7;
         textMatrix.d = 7;
         textMatrix.v = 28;
-        textMatrix.h = 90;				//Adjust matrix down to footer location 
+        textMatrix.h = 90;              //Adjust matrix down to footer location 
 
-        PDETextAddEx(pdeText,			//Text container to add to  
-            kPDETextRun,				//kPDETextRun, kPDETextChar 
-            0,							//Index 
+        PDETextAddEx(pdeText,           //Text container to add to  
+            kPDETextRun,                //kPDETextRun, kPDETextChar 
+            0,                          //Index 
             (Uns8 *)footerText2.c_str(),//Text to add    
-            footerText2.length(),		//Length of text 
-            otfSubsetFont,				//Font to apply to text 
-            &gState, sizeof(gState),	//Graphic state to apply to text  
-            NULL, 0,					//Text state and size of structure
-            &textMatrix,				//Transformation matrix for text  
-            NULL);						//Stroke matrix  
+            footerText2.length(),       //Length of text 
+            otfSubsetFont,              //Font to apply to text 
+            &gState, sizeof(gState),    //Graphic state to apply to text  
+            NULL, 0,                    //Text state and size of structure
+            &textMatrix,                //Transformation matrix for text  
+            NULL);                      //Stroke matrix  
 
         std::cout << "created otfSubsetFont" << std::endl;
     }
@@ -356,7 +356,7 @@ int main(int argc, char **argv)
         PDEFontSubsetNow(otfSubsetFont, PDDocGetCosDoc(pdDocOrig));
 
     //=================================================================//
-    //				Save Output and Release Used Objects               //
+    //              Save Output and Release Used Objects               //
     //=================================================================//
 
     //Save document to a file 
@@ -414,12 +414,12 @@ PDEPath   PathRect(ASFixed  x, ASFixed  y, ASFixed  width, ASFixed  height,
 {
     PDEPath path = PDEPathCreate();
 
-    PDEPathSetPaintOp(path, kPDEStroke);	//Where path is PDEpath, and kPDEStroke is the stroke flag
+    PDEPathSetPaintOp(path, kPDEStroke);    //Where path is PDEpath, and kPDEStroke is the stroke flag
 
-    PDEGraphicState  gState;						//Graphics state
-    PDEColorSpec  strokeClrSpec, fillClrSpec;		//Structure describing color specification, space and value 
-    PDEColorSpace  clrSpace;						//Color scheme
-    PDEColorValue  strokeClrValue, fillClrValue;	//A structure describing a color value.
+    PDEGraphicState  gState;                        //Graphics state
+    PDEColorSpec  strokeClrSpec, fillClrSpec;       //Structure describing color specification, space and value 
+    PDEColorSpace  clrSpace;                        //Color scheme
+    PDEColorValue  strokeClrValue, fillClrValue;    //A structure describing a color value.
 
     memset(&strokeClrValue, 0, sizeof (PDEColorValue));
     memset(&fillClrValue, 0, sizeof (PDEColorValue));
