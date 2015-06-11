@@ -99,29 +99,28 @@ int main(int argc, char **argv)
     // DLADD: likely.  Properly initializing these variables to NULL
     // DLADD: avoids the crash.
     wchar_t  pathToOrig[] = L"../_Data/addElementsTo.pdf";  // WideString filename used by PDDocOpen() 
-    PDDoc pdDocOrig = NULL;                             // A PDF document object
-    PDPage pdPage = NULL;                               // A page in document object
-    PDEContent pdeContent = NULL;                       // Container for page content 
-    PDEFontAttrs attrs;                                 // Font attributes    
-    PDEText pdeText = NULL;                             // Container for text 
-    ASDoubleMatrix textMatrix;                          // Transformation matrix for text 
-    PDEGraphicState gState;                             // Graphic state to apply to operation 
-    PDEColorSpace pdeColorSpace = NULL;                 // ColorSpace 
-    PDEFont otfFont = NULL;                             // Font element that represents a non-embedded OpenType font
-    PDEFont otfEmbedFont = NULL;                        // Font element that represents a Embedded OpenType font
-    PDEFont otfSubsetFont = NULL;                       // Font element that represents a PDEFontSubset Font
-    PDEFont PS_OutlineFont = NULL;                      // Font element that represents a PostScript Outline Font
-    PDEPath rect = NULL;                                // Path element that will be formed into a rectangle 
-    PDSysFont sysFont;                                  // System font object
-    ASErrorCode errCode = 0;                             // Use to catch errors
-    ASInt32 err = 0;                                    //
-    ASText origPathText = NULL;                         // The input file path text object
-    ASPathName origPathName = NULL;                     // The input file path name 
-    ASText outPathText = NULL;                          // Path to save to
-    ASPathName outPathName = NULL;                        // Pathname for saving
-    wchar_t  pathToOut[] = L"out.pdf";              // The text for the pathname
-    /*char * pathToFile = "../_Data/addelem.pdf";
-    ASPathName path;*/
+    PDDoc pdDocOrig = NULL;                                 // A PDF document object
+    PDPage pdPage = NULL;                                   // A page in document object
+    PDEContent pdeContent = NULL;                           // Container for page content 
+    PDEFontAttrs attrs;                                     // Font attributes    
+    PDEText pdeText = NULL;                                 // Container for text 
+    ASDoubleMatrix textMatrix;                              // Transformation matrix for text 
+    PDEGraphicState gState;                                 // Graphic state to apply to operation 
+    PDEColorSpace pdeColorSpace = NULL;                     // ColorSpace 
+    PDEFont otfFont = NULL;                                 // Font element that represents a non-embedded OpenType font
+    PDEFont otfEmbedFont = NULL;                            // Font element that represents a Embedded OpenType font
+    PDEFont otfSubsetFont = NULL;                           // Font element that represents a PDEFontSubset Font
+    PDEFont PS_OutlineFont = NULL;                          // Font element that represents a PostScript Outline Font
+    PDEPath rect = NULL;                                    // Path element that will be formed into a rectangle 
+    PDSysFont sysFont;                                      // System font object
+    ASErrorCode errCode = 0;                                // Use to catch errors
+    ASInt32 err = 0;                                        //
+    ASText origPathText = NULL;                             // The input file path text object
+    ASPathName origPathName = NULL;                         // The input file path name 
+    ASText outPathText = NULL;                              // Path to save to
+    ASPathName outPathName = NULL;                          // Pathname for saving
+    wchar_t  pathToOut[] = L"out.pdf";                      // The text for the pathname
+
 
     //Headers and foooters that will be displayed
     std::string headerText = "Here is an Example Header Using an OpenType Font";
@@ -318,6 +317,7 @@ int main(int argc, char **argv)
 
     //Get the PDPage 
     pdPage = PDDocAcquirePage(pdDocOrig, 0);
+
     //Get content on the page 
     pdeContent = PDPageAcquirePDEContent(pdPage, 0);
 
@@ -381,7 +381,7 @@ int main(int argc, char **argv)
 
 
 
-    //Release used objects 
+        //Release used objects 
     if (pdeText)
         PDERelease((PDEObject)pdeText);
     if (pdeColorSpace)
