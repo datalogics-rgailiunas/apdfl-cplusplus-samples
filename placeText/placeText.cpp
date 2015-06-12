@@ -107,80 +107,92 @@ int main(int argc, char **argv)
     ASErrorCode errCode = 0;                    //errCode check variable
     ASPathName asOutPath = NULL;                //Pathname for saving
     wchar_t  wideStringOut[] = L"out.pdf";      //The text for the pathname
+    PDEColorSpace  pdeColorSpace = NULL;        //ColorSpace representing color scheme 
+    PDEGraphicState gState;                     //Graphic state for rendering 
+    PDETextState tState;                        //Text state for rendering
 
     DURING
 
         doc = PDDocCreate();    //Creates a new document
 
-    //Set up the rectangular bounds for the page
-    rect.left = fixedZero;
-    rect.top = Int16ToFixed(4 * 72);
-    rect.right = Int16ToFixed(4 * 72);
-    rect.bottom = fixedZero;
+        //Set up the 4" by 4" bounds for the page
+        rect.left = fixedZero;
+        rect.top = Int16ToFixed(4 * 72);
+        rect.right = Int16ToFixed(4 * 72);
+        rect.bottom = fixedZero;
 
-    //Initialize page from source document, where to place, and bound rectangle
-    page = PDDocCreatePage(doc, PDBeforeFirstPage, rect);
+        //Initialize page from source document, where to place, and bound rectangle
+        page = PDDocCreatePage(doc, PDBeforeFirstPage, rect);
 
-    //Grab contenet from the page
-    content = PDPageAcquirePDEContent(page, NULL);
+        //Grab contenet from the page
+        content = PDPageAcquirePDEContent(page, NULL);
 
-    //Initialize font Attributes
-    memset(&fontAttrs, 0, sizeof(fontAttrs));
-    fontAttrs.name = ASAtomFromString("CourierStd");    //font style
-    fontAttrs.type = ASAtomFromString("Type1");         //font type
+        //Initialize font Attributes
+        memset(&fontAttrs, 0, sizeof(fontAttrs));
+        fontAttrs.name = ASAtomFromString("CourierStd");    //font style
+        fontAttrs.type = ASAtomFromString("Type1");         //font type
 
-    //Create system font using font attributes, its size, and flags
-    sysFont = PDFindSysFont(&fontAttrs, sizeof(fontAttrs), 0);
-    //Create the pdeFont with the sysFont and PDEFontCreateFlags      
-    pdeFont = PDEFontCreateFromSysFont(sysFont, kPDEFontDoNotEmbed);
+        //Create system font using font attributes, its size, and flags
+        sysFont = PDFindSysFont(&fontAttrs, sizeof(fontAttrs), 0);
 
-    memset(&textMatrix, 0, sizeof(textMatrix));
-    textMatrix.a = 12; //Character width (matrix element size)
-    textMatrix.d = 12; //Character width (matrix element size)
-    textMatrix.h = 1 * 72; //Place at a x-val of an inch
-    textMatrix.v = 2 * 72; //Place at a y-val of 2 inches
+        //Create the pdeFont with the sysFont and PDEFontCreateFlags      
+        pdeFont = PDEFontCreateFromSysFont(sysFont, kPDEFontCreateEmbedded);
 
-    textObj = PDETextCreate();
+        //Set the grahpics state to its default values 
+        PDEDefaultGState(&gState,0);
 
-    PDETextAddEx(textObj,           //PDEText
-        kPDETextRun,                //kPDETextRun/kPDETextChar
-        0,                          //index
-        (Uns8*)placeStr,            //String converter to Unsigned 8-bit form
-        strlen(placeStr),           //string length
-        pdeFont,                    //the used font
-        NULL,                       //PDEGraphicState
-        NULL,                       //^ its size
-        NULL,                       //text state
-        0,                          //^ its size
-        &textMatrix,                //the ASDoubleMatix
-        NULL);                      //stroke matrix
+        //Setting up a matrix for setting text size and placement location
+        memset(&textMatrix, 0, sizeof(textMatrix));
+        textMatrix.a = 12; //Character width (matrix element size)
+        textMatrix.d = 12; //Character width (matrix element size)
+        textMatrix.h = 1 * 72.0; //Place at a x-val of an inch
+        textMatrix.v = 2 * 72.0; //Place at a y-val of 2 inches
 
-    std::cout << "Text element created and set." << std::endl;
+        textObj = PDETextCreate();
 
-    //Add the text element to the page's content
-    PDEContentAddElem(content, kPDEAfterLast, reinterpret_cast<PDEElement>(textObj));
+        PDETextAddEx(textObj,           //PDEText
+            kPDETextRun,                //kPDETextRun/kPDETextChar
+            0,                          //index
+            (Uns8*)placeStr,            //String converter to Unsigned 8-bit form
+            strlen(placeStr),           //string length
+            pdeFont,                    //the used font
+            &gState,                    //PDEGraphicState
+            0,                          //^ its size
+            &tState,                    //text state
+            0,                          //^ its size
+            &textMatrix,                //the ASDoubleMatix
+            NULL);                      //stroke matrix
 
-    //Set the content back into the page
-    PDPageSetPDEContentCanRaise(page, NULL);
+        std::cout << "Text element created and set." << std::endl;
+
+        //Add the text element to the page's content
+        PDEContentAddElem(content, kPDEAfterLast, reinterpret_cast<PDEElement>(textObj));
+
+        //Set the content back into the page
+        PDPageSetPDEContentCanRaise(page, NULL);
 
 
-    //Save document
+        //Save document
 
-    if (sizeof(wchar_t) == 2)
-        outPathName = ASTextFromUnicode((ASUTF16Val *)wideStringOut, kUTF16HostEndian);
-    else
-        outPathName = ASTextFromUnicode((ASUTF16Val *)wideStringOut, kUTF32HostEndian);
+        if (sizeof(wchar_t) == 2)
+            outPathName = ASTextFromUnicode((ASUTF16Val *)wideStringOut, kUTF16HostEndian);
+        else
+            outPathName = ASTextFromUnicode((ASUTF16Val *)wideStringOut, kUTF32HostEndian);
 
-    asOutPath = ASFileSysCreatePathFromDIPathText(NULL, outPathName, NULL);
+        asOutPath = ASFileSysCreatePathFromDIPathText(NULL, outPathName, NULL);
 
-    PDDocSave(doc, PDSaveFull | PDSaveLinearized, asOutPath, ASGetDefaultFileSys(), NULL, NULL);
-    std::cout << "out.pdf saved with text to be placed." << std::endl << std::endl;
+        PDDocSave(doc, PDSaveFull | PDSaveLinearized, asOutPath, ASGetDefaultFileSys(), NULL, NULL);
+        std::cout << "out.pdf saved with text to be placed." << std::endl << std::endl;
 
     HANDLER
         errCode = ERRORCODE;
     END_HANDLER
 
     //Free up used objects  
+
+    PDERelease(reinterpret_cast<PDEObject>(gState.strokeColorSpec.space));
+    PDERelease(reinterpret_cast<PDEObject>(gState.fillColorSpec.space));
+
     if (outPathName)    ASTextDestroy(outPathName);
     if (asOutPath)      ASFileSysReleasePath(NULL, asOutPath);
 
