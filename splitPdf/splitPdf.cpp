@@ -90,10 +90,9 @@ int main(int argc, char **argv)
     }
 
 
-    //Initialize selected
-    //variables.  If these variable are left uninitialized,
-    //and an exception occurs early in the execution of the
-    //sample, a Segmentation Violation crash is
+    //Initialize selected variables.  If these variable are 
+    //left uninitialized, and an exception occurs early in the 
+    //execution of the sample, a Segmentation Violation crash is
     //likely.  Properly initializing these variables to NULL
     //avoids the crash.
 
@@ -120,68 +119,67 @@ int main(int argc, char **argv)
     DURING
 
         //Open the document to be split 
+        if (sizeof(wchar_t) == 2)
+            uniFormat = kUTF16HostEndian;
+        else
+            uniFormat = kUTF32HostEndian;
 
-    if (sizeof(wchar_t) == 2)
-        uniFormat = kUTF16HostEndian;
-    else
-        uniFormat = kUTF32HostEndian;
+        origPathText = ASTextFromUnicode((ASUTF16Val *)pathToOrig, uniFormat);
 
-    origPathText = ASTextFromUnicode((ASUTF16Val *)pathToOrig, uniFormat);
+        origPathName = ASFileSysCreatePathFromDIPathText(NULL, origPathText, NULL);
 
-    origPathName = ASFileSysCreatePathFromDIPathText(NULL, origPathText, NULL);
+        pdDocOrig = PDDocOpen(origPathName, NULL, NULL, true);
 
-    pdDocOrig = PDDocOpen(origPathName, NULL, NULL, true);
-
-    //Ensure document opened
-    if (!pdDocOrig)
-    {
-        std::cerr << "Unable to open file to be split" << pathToOrig << "$$$" << std::endl;
-        E_RETURN(0);
-    }
+        //Ensure document opened
+        if (!pdDocOrig)
+        {
+            std::cerr << "Unable to open file to be split" << pathToOrig << "$$$" << std::endl;
+            E_RETURN(0);
+        }
 
 
-    /*===========================================================================*\
-         Extract each page from orignal pdf and save as seperate file; Splitting
-    \*===========================================================================*/
+        /*===========================================================================*\
+             Extract each page from orignal pdf and save as seperate file; Splitting
+        \*===========================================================================*/
 
-    //A vector of the PDDoc type that will hold the individual pages of a document
-    std::vector<PDDoc> splitDocs(PDDocGetNumPages(pdDocOrig));
+        //A vector of the PDDoc type that will hold the individual pages of a document
+        std::vector<PDDoc> splitDocs(PDDocGetNumPages(pdDocOrig));
 
-    //An iterator used to get track of and access the above splitDocs vector
-    std::vector<PDDoc>::iterator iter = splitDocs.begin();
+        //An iterator used to get track of and access the above splitDocs vector
+        std::vector<PDDoc>::iterator iter = splitDocs.begin();
 
-    int tracker;    //Tracks the index of the iterator
+        //Tracks the index of the iterator
+        int tracker;    
 
-    //Advance the iterator through the splitDocs vector
-    for (iter = splitDocs.begin(); iter < splitDocs.end(); iter++)
-    {
+        //Advance the iterator through the splitDocs vector
+        for (iter = splitDocs.begin(); iter < splitDocs.end(); iter++)
+        {
 
-        //Derefernce to iterator to get the page it's meant to point to and create it as a PDDoc 
-        *iter = PDDocCreate();
-        tracker = iter - splitDocs.begin(); //set to current index
-        std::cout << tracker << " is tracker num" << std::endl;
+            //Derefernce to iterator to get the page it's meant to point to and create it as a PDDoc 
+            *iter = PDDocCreate();
+            tracker = iter - splitDocs.begin(); //set to current index
 
-        //Insert the right page from the source pdf, based on the index of the iterator
-        PDDocInsertPages(*iter, PDBeforeFirstPage, pdDocOrig, tracker, 1, NULL, NULL, NULL, NULL, NULL);
+            //Insert the right page from the source pdf, based on the index of the iterator
+            PDDocInsertPages(*iter, PDBeforeFirstPage, pdDocOrig, tracker, 1, NULL, NULL, NULL, NULL, NULL);
 
-        //Set the output file name according to what page number is currently accessed              
-        pageNameString = pageNameWStringBase + std::to_wstring(tracker) + pageNameWStringEnd;
+            //Set the output file name according to what page number is currently accessed              
+            pageNameString = pageNameWStringBase + std::to_wstring(tracker) + pageNameWStringEnd;
 
-        outPathText = ASTextFromUnicode((ASUTF16Val *)(wchar_t*)(pageNameString.c_str()), uniFormat);
+            outPathText = ASTextFromUnicode((ASUTF16Val *)(wchar_t*)(pageNameString.c_str()), uniFormat);
 
-        //Use the string to form ASPathName
-        outPathName = ASFileSysCreatePathFromDIPathText(NULL, outPathText, NULL);
+            //Use the string to form ASPathName
+            outPathName = ASFileSysCreatePathFromDIPathText(NULL, outPathText, NULL);
 
-        //Save file using the ASPathName
-        PDDocSave(*iter, PDSaveFull | PDSaveLinearized, outPathName, ASGetDefaultFileSys(), NULL, NULL);
-        std::wcout << std::endl << pageNameString << " was created and saved";
+            //Save file using the ASPathName
+            PDDocSave(*iter, PDSaveFull | PDSaveLinearized, outPathName, ASGetDefaultFileSys(), NULL, NULL);
+            std::wcout << std::endl << pageNameString << " was created and saved";
 
-        //Release the document after saving
-        PDDocRelease(*iter);
+            //Release the document after saving
+            PDDocRelease(*iter);
 
-        //Release the path so that it can be reused within the loop
-        ASFileSysReleasePath(NULL, outPathName);
-    }
+            //Release the path so that it can be reused within the loop
+            ASFileSysReleasePath(NULL, outPathName);
+        }
 
     HANDLER
         errCode = ERRORCODE;
