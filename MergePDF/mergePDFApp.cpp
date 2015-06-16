@@ -74,7 +74,7 @@ int main (int argc, char **argv)
         std::cerr << "Error system: " << ErrGetSystem(err) << std::endl;
         std::cerr << "Error Severity: " << ErrGetSeverity(err) << std::endl;
         std::cerr << "Error Code: " << ErrGetCode(err) << std::endl;
-        return 0;
+		exit(EXIT_FAILURE);
     }
 
     //Paths passed to OpenAndMerge class constructor
@@ -99,6 +99,7 @@ int main (int argc, char **argv)
         std::wcout << "Saved the output file " << outputFile << " in the working directory." << std::endl;
     else
         std::wcerr << "Failed to merge files." << std::endl;
+
 //==================================================================
 //Step 3) Close and release resources
 //==================================================================

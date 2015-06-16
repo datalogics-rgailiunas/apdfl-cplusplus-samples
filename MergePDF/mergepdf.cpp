@@ -76,7 +76,7 @@ OpenAndMerge::OpenAndMerge()
     asPathName = NULL;
     asOutPathName = NULL; 
 }
-///==================================================================
+//==================================================================
 //Constructor for OpenAndMerge Class:
 //Opens a PDF OpenAndMerge and checks to see that the open was sucessful
 //==================================================================
@@ -98,14 +98,20 @@ OpenAndMerge::OpenAndMerge(wchar_t * newPathName)
         //Check to see if OpenAndMerge opened successfully and print message
         if (pdDoc != NULL)
             std::wcout << "Successfully opened " << pathName << "!" << std::endl;
-        else
-            std::cerr << "Failed to open " << pathName << "." << std::endl;
+		else
+		{
+			std::wcerr << "Failed to open " << pathName << "." << std::endl;
+			exit(EXIT_FAILURE);
+		}
 
     HANDLER
         //If there was an exception generate an error code
         ASErrorCode errCode = ERRORCODE;
+
         char buf[256];
+
         ASGetErrorString(ERRORCODE, buf, sizeof(buf));
+
         //Print out error code
         std::cerr << "Error Code: " << errCode << "Error Message: " << buf;
     END_HANDLER
@@ -134,8 +140,11 @@ bool OpenAndMerge::merge(OpenAndMerge &docToMerge, wchar_t * outputFileName)
         HANDLER
             //If there was an exception generate an error code
             ASErrorCode errCode = ERRORCODE;
+
             char buf[256];
+
             ASGetErrorString(ERRORCODE, buf, sizeof(buf));
+
             //Print out error code
             std::cerr << "Error Code: " << errCode << "Error Message: " << buf;
         END_HANDLER
@@ -170,8 +179,11 @@ void OpenAndMerge::setASPathName(wchar_t * pathToCreate, volatile ASPathName & a
     HANDLER
         //If there was an exception generate an error code
         ASErrorCode errCode = ERRORCODE;
+
         char buf[256];
+
         ASGetErrorString(ERRORCODE, buf, sizeof(buf));
+
         //Print out error code
         std::cerr << "Error Code: " << errCode << "Error Message: " << buf;
     END_HANDLER
@@ -188,9 +200,11 @@ void OpenAndMerge::closeAndRelease()
 {
     //Release PDDoc object 
     PDDocClose(pdDoc);
+
     //Release ASPathName objects 
     ASFileSysReleasePath(NULL, asPathName);
     ASFileSysReleasePath(NULL, asOutPathName);
+
     //Print Message upon release 
     std::cout << "PDDoc and ASPathNames have been released. " << std::endl;
 
