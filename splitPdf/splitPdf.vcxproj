@@ -129,14 +129,13 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Samples\utils\MyPDFLibApp.cpp" />
     <ClCompile Include="..\..\Samples\utils\MyPDFLibUtils.cpp" />
     <ClCompile Include="..\..\Include\Source\PDFLInitCommon.c" />
     <ClCompile Include="..\..\Include\Source\PDFLInitHFT.c" />
     <ClCompile Include="splitPdf.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\utils\MyPDFLibUtils.h" />
+    <ClInclude Include="..\..\Samples\utils\MyPDFLibUtils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
