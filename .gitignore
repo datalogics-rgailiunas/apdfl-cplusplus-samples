@@ -3,6 +3,7 @@
 
 # User-specific files
 <<<<<<< HEAD
+<<<<<<< HEAD
 ../DLPDFApp/
 DLPDFApp/
 *.suo
@@ -28,30 +29,47 @@ bld/
 # Visual Studio 2015 cache/options directory
 .vs/
 =======
+=======
+../DLPDFApp/
+DLPDFApp/
+>>>>>>> removed unecessary comments
 *.suo
 *.user
+*.userosscache
 *.sln.docstates
+*.filters
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
 
 # Build results
-
 [Dd]ebug/
+[Dd]ebugPublic/
 [Rr]elease/
-*/x64/
-*/Win32/
-
+[Rr]eleases/
+x64/
+x86/
 build/
+bld/
 [Bb]in/
 [Oo]bj/
 
+<<<<<<< HEAD
 # Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
 !packages/*/build/
 >>>>>>> Updating git ignore file
+=======
+# Visual Studio 2015 cache/options directory
+.vs/
+>>>>>>> removed unecessary comments
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> removed unecessary comments
 # NUNIT
 *.VisualState.xml
 TestResult.xml
@@ -64,6 +82,7 @@ dlldata.c
 # DNX
 project.lock.json
 artifacts/
+<<<<<<< HEAD
 
 *_i.c
 *_p.c
@@ -75,11 +94,16 @@ artifacts/
 *.suo
 *.sdf
 *.pdf
+=======
+>>>>>>> removed unecessary comments
 
-#stuff that was already here
 *_i.c
 *_p.c
+<<<<<<< HEAD
 >>>>>>> Updating git ignore file
+=======
+*_i.h
+>>>>>>> removed unecessary comments
 *.ilk
 *.meta
 *.obj
@@ -100,6 +124,7 @@ artifacts/
 .builds
 *.pidb
 <<<<<<< HEAD
+<<<<<<< HEAD
 *.svclog
 *.scc
 
@@ -111,6 +136,14 @@ _Chutzpah*
 *.scc
 
 >>>>>>> Updating git ignore file
+=======
+*.svclog
+*.scc
+
+# Chutzpah Test files
+_Chutzpah*
+
+>>>>>>> removed unecessary comments
 # Visual C++ cache files
 ipch/
 *.aps
@@ -125,11 +158,17 @@ ipch/
 *.vspx
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 # TFS 2012 Local Workspace
 $tf/
 
 =======
 >>>>>>> Updating git ignore file
+=======
+# TFS 2012 Local Workspace
+$tf/
+
+>>>>>>> removed unecessary comments
 # Guidance Automation Toolkit
 *.gpState
 
@@ -137,12 +176,18 @@ $tf/
 _ReSharper*/
 *.[Rr]e[Ss]harper
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> removed unecessary comments
 *.DotSettings.user
 
 # JustCode is a .NET coding add-in
 .JustCode
+<<<<<<< HEAD
 =======
 >>>>>>> Updating git ignore file
+=======
+>>>>>>> removed unecessary comments
 
 # TeamCity is a build add-in
 _TeamCity*
@@ -151,6 +196,7 @@ _TeamCity*
 *.dotCover
 
 # NCrunch
+<<<<<<< HEAD
 <<<<<<< HEAD
 _NCrunch_*
 .*crunch*.local.xml
@@ -167,6 +213,18 @@ AutoTest.Net/
 .*crunch*.local.xml
 
 >>>>>>> Updating git ignore file
+=======
+_NCrunch_*
+.*crunch*.local.xml
+
+# MightyMoose
+*.mm.*
+AutoTest.Net/
+
+# Web workbench (sass)
+.sass-cache/
+
+>>>>>>> removed unecessary comments
 # Installshield output folder
 [Ee]xpress/
 
@@ -185,6 +243,9 @@ publish/
 
 # Publish Web Output
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> removed unecessary comments
 *.[Pp]ublish.xml
 *.azurePubxml
 # TODO: Comment the next line if you want to checkin your web deploy settings 
@@ -200,6 +261,7 @@ publish/
 !**/packages/build/
 # Uncomment if necessary however generally it will be regenerated when needed
 #!**/packages/repositories.config
+<<<<<<< HEAD
 
 # Windows Azure Build Output
 csx/
@@ -213,29 +275,42 @@ csx/
 # Windows Azure Build Output
 csx
 >>>>>>> Updating git ignore file
+=======
+
+# Windows Azure Build Output
+csx/
+>>>>>>> removed unecessary comments
 *.build.csdef
 
 # Windows Store app package directory
 AppPackages/
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> removed unecessary comments
 # Visual Studio cache files
 # files ending in .cache can be ignored
 *.[Cc]ache
 # but keep track of directories ending in .cache
 !*.[Cc]ache/
 
+<<<<<<< HEAD
 # Others
 =======
 # Others
 sql/
 *.Cache
 >>>>>>> Updating git ignore file
+=======
+# Others
+>>>>>>> removed unecessary comments
 ClientBin/
 [Ss]tyle[Cc]op.*
 ~$*
 *~
 *.dbmdl
+<<<<<<< HEAD
 <<<<<<< HEAD
 *.dbproj.schemaview
 *.pfx
@@ -247,10 +322,18 @@ orleans.codegen.cs
 *.pfx
 *.publishsettings
 >>>>>>> Updating git ignore file
+=======
+*.dbproj.schemaview
+*.pfx
+*.publishsettings
+node_modules/
+orleans.codegen.cs
+>>>>>>> removed unecessary comments
 
 # RIA/Silverlight projects
 Generated_Code/
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 # Backup & report files from converting an old project file
 # to a newer Visual Studio version. Backup files are not needed,
@@ -259,12 +342,18 @@ Generated_Code/
 # Backup & report files from converting an old project file to a newer
 # Visual Studio version. Backup files are not needed, because we have git ;-)
 >>>>>>> Updating git ignore file
+=======
+# Backup & report files from converting an old project file
+# to a newer Visual Studio version. Backup files are not needed,
+# because we have git ;-)
+>>>>>>> removed unecessary comments
 _UpgradeReport_Files/
 Backup*/
 UpgradeLog*.XML
 UpgradeLog*.htm
 
 # SQL Server files
+<<<<<<< HEAD
 <<<<<<< HEAD
 *.mdf
 *.ldf
@@ -290,26 +379,31 @@ FakesAssemblies/
 App_Data/*.mdf
 App_Data/*.ldf
 
+=======
+*.mdf
+*.ldf
+>>>>>>> removed unecessary comments
 
-#LightSwitch generated files
-GeneratedArtifacts/
-_Pvt_Extensions/
-ModelManifest.xml
+# Business Intelligence projects
+*.rdl.data
+*.bim.layout
+*.bim_*.settings
 
-# =========================
-# Windows detritus
-# =========================
+# Microsoft Fakes
+FakesAssemblies/
 
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
+# Node.js Tools for Visual Studio
+.ntvs_analysis.dat
 
-# Folder config file
-Desktop.ini
+# Visual Studio 6 build log
+*.plg
 
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
+# Visual Studio 6 workspace options file
+*.opt
 
+<<<<<<< HEAD
 # Mac desktop service store files
 .DS_Store
 >>>>>>> Updating git ignore file
+=======
+>>>>>>> removed unecessary comments

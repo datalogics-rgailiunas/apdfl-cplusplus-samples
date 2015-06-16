@@ -65,7 +65,6 @@
 
 
 #include <iostream>
-// DLADD: RickK 03Apr2009 APDFL9 - Undefine LITTLE_ENDIAN.
 #undef LITTLE_ENDIAN 
 #include "PERCalls.h"
 #include "PEWCalls.h"
@@ -78,7 +77,7 @@
 
 PDEPath   PathRect(ASFixed, ASFixed, ASFixed, ASFixed, int, int, int, int);
 
-// DLADD: RickK 03Apr2009 APDFL9 - Use argc and argv for DL.
+
 int main(int argc, char **argv)
 {
     int initErr = MyPDFLInit();
@@ -89,16 +88,11 @@ int main(int argc, char **argv)
         std::cerr << "Error system: " << ErrGetSystem(initErr) << std::endl;
         std::cerr << "Error Severity: " << ErrGetSeverity(initErr) << std::endl;
         std::cerr << "Error Code: " << ErrGetCode(initErr) << std::endl;
+        return 0;
     }
 
 
-    // DLADD: RickK 11Jan2011 - SF32528 - Initialize selected
-    // DLADD: variables.  If these variable are left uninitialized,
-    // DLADD: and an exception occurs early in the execution of the
-    // DLADD: addelem sample, a Segmentation Violation crash is
-    // DLADD: likely.  Properly initializing these variables to NULL
-    // DLADD: avoids the crash.
-    wchar_t  pathToOrig[] = L"addElementsTo.pdf";  // WideString filename used by PDDocOpen() 
+    wchar_t  pathToOrig[] = L"addElementsTo.pdf";           // WideString filename used by PDDocOpen() 
     PDDoc pdDocOrig = NULL;                                 // A PDF document object
     PDPage pdPage = NULL;                                   // A page in document object
     PDEContent pdeContent = NULL;                           // Container for page content 
@@ -344,9 +338,6 @@ int main(int argc, char **argv)
         }
 
         //Set the PDEContent for the page 
-        // DLADD dtom 10Feb2010:
-        //Use PDPageSetPDEContentCanRaise instead of PDPageSetPDEContent.
-        // DLADD YuriG 04Jan2012 
         PDPageSetPDEContentCanRaise(pdPage, NULL);
 
         //Remember to release all objects that were created  
@@ -380,7 +371,6 @@ int main(int argc, char **argv)
 
 
     //Release used objects 
-
     if (pdeText)
         PDERelease((PDEObject)pdeText);
     if (pdeColorSpace)
