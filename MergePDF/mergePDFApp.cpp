@@ -78,8 +78,8 @@ int main (int argc, char **argv)
     }
 
     //Paths passed to OpenAndMerge class constructor
-    wchar_t * pathToFile1 = L"../_Data/mergepdf1.pdf\0";
-    wchar_t * pathToFile2 = L"../_Data/mergepdf2.pdf\0";
+    wchar_t * pathToFile1 = L"../Input/mergepdf1.pdf\0";
+    wchar_t * pathToFile2 = L"../Input/mergepdf2.pdf\0";
     wchar_t * outputFile = L"out.pdf\0";
 
 //==================================================================
@@ -98,7 +98,7 @@ int main (int argc, char **argv)
     if (didMerge)
         std::wcout << "Saved the output file " << outputFile << " in the working directory." << std::endl;
     else
-        std::cerr << "Failed to merge files." << std::endl;
+        std::wcerr << "Failed to merge files." << std::endl;
 //==================================================================
 //Step 3) Close and release resources
 //==================================================================
