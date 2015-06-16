@@ -380,6 +380,7 @@ int main(int argc, char **argv)
 
 
     //Release used objects 
+
     if (pdeText)
         PDERelease((PDEObject)pdeText);
     if (pdeColorSpace)
@@ -393,8 +394,7 @@ int main(int argc, char **argv)
     if (rect)
         PDERelease((PDEObject)rect);
     
-    PDERelease(reinterpret_cast<PDEObject>(gState.strokeColorSpec.space));
-    PDERelease(reinterpret_cast<PDEObject>(gState.fillColorSpec.space));
+    
 
     PDDocRelease(pdDocOrig);
 
@@ -410,8 +410,7 @@ int main(int argc, char **argv)
 
 
 //Function that transforms PDEPath to rectangle of xPosition,yPosition,height,width, lineWidth, r, g, b
-PDEPath   PathRect(ASFixed  x, ASFixed  y, ASFixed  width, ASFixed  height,
-    int  lineWidth, int  r, int  g, int  b)
+PDEPath   PathRect(ASFixed  x, ASFixed  y, ASFixed  width, ASFixed  height, int  lineWidth, int  r, int  g, int  b)
 {
     PDEPath path = PDEPathCreate();
 
