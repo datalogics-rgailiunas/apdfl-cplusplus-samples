@@ -120,6 +120,7 @@ int main(int argc, char **argv)
     ASText outPathText = NULL;                              // Path to save to
     ASPathName outPathName = NULL;                          // Pathname for saving
     wchar_t  pathToOut[] = L"out.pdf";                      // The text for the pathname
+    ASUnicodeFormat uniFormat = NULL;                       // Format object to be used to hold the Unicode format for path access
 
 
     //Headers and foooters that will be displayed
@@ -131,249 +132,246 @@ int main(int argc, char **argv)
     DURING
 
         //Open input document and check see if it opened sucessfully 
-    if (sizeof(wchar_t) == 2)
-        origPathText = ASTextFromUnicode((ASUTF16Val *)pathToOrig, kUTF16HostEndian);
-    else
-        origPathText = ASTextFromUnicode((ASUTF16Val *)pathToOrig, kUTF32HostEndian);
-
-    origPathName = ASFileSysCreatePathFromDIPathText(NULL, origPathText, NULL);
-
-    pdDocOrig = PDDocOpen(origPathName, NULL, NULL, true);
-
-    if (pdDocOrig == NULL)
-    {
-        std::cerr << "Failed to open file " << pathToOrig << std::endl;
-        E_RETURN(0);
-    }
-
-    //=================================================================//
-    // PDEFontCreate example 1: Creating a PDEFont from a system font. //
-    // Using a font that can be embedded.                              //
-    //=================================================================//
-    memset(&attrs, 0, sizeof(attrs));
-    attrs.name = ASAtomFromString("CourierStd");                // Set PDEFontAttrs name
-    attrs.type = ASAtomFromString("Type1");                     // Set PDEFontAttrs type
-    sysFont = PDFindSysFont(&attrs, sizeof(PDEFontAttrs), 0);   // Get the corresponding sys font
-
-    //If sys font was retrieved create the PDEFont
-    if (sysFont)
-        PS_OutlineFont = PDEFontCreateFromSysFont(sysFont, kPDEFontDoNotEmbed);
-
-    //=================================================================//
-    // PDEFontCreate example 2: Creating a PDEFont from a system font  //
-    // and checking the embedding policy.                              //
-    //=================================================================//
-    memset(&attrs, 0, sizeof(attrs));
-    //Set PDEFontAttrs name 
-    attrs.name = ASAtomFromString("Verdana");
-    //Set PDEFontAttrs type 
-    attrs.type = ASAtomFromString("OpenType");
-    //Get the corresponding sys font. 
-    sysFont = PDFindSysFont(&attrs, sizeof(attrs), kPDSysFontMatchFontType);
-    //Checking to see if the system font was retrieved. 
-    if (sysFont)
-    {
-        //Non embedded font 
-        otfFont = PDEFontCreateFromSysFont(sysFont, 0);
-
-        //Get font embedding policy 
-        PDSysFontGetAttrs(sysFont, &attrs, sizeof(PDEFontAttrs));
-
-        //Check font embedding policy 
-        if (attrs.cantEmbed != 0)
-            std::cerr << "Font " << ASAtomGetString(attrs.name) << "can't be embedded";
+        if (sizeof(wchar_t) == 2)
+            uniFormat = kUTF16HostEndian;
         else
-            //Fully embedded font 
-            otfEmbedFont = PDEFontCreateFromSysFont(sysFont, kPDEFontCreateEmbedded);
+            uniFormat = kUTF32HostEndian;
 
-        //Subset embedded font 
-        otfSubsetFont = PDEFontCreateFromSysFont(sysFont, kPDEFontCreateEmbedded | kPDEFontCreateSubset);
-    }
+        origPathText = ASTextFromUnicode((ASUTF16Val *)pathToOrig, uniFormat);
 
-    //=================================================================//
-    // Setting up the default graphics state. This is done in order to //
-    // free PDEColor objects                                           //
-    //=================================================================//
-    pdeColorSpace = PDEColorSpaceCreateFromName(ASAtomFromString("DeviceGray"));
+        origPathName = ASFileSysCreatePathFromDIPathText(NULL, origPathText, NULL);
 
-    memset(&gState, 0, sizeof(PDEGraphicState));
-    gState.strokeColorSpec.space = gState.fillColorSpec.space = pdeColorSpace;
-    gState.miterLimit = fixedTen;
-    gState.flatness = fixedOne;
-    gState.lineWidth = fixedOne;
+        pdDocOrig = PDDocOpen(origPathName, NULL, NULL, true);
 
-    //=================================================================//
-    //  Text matrix determines where the text will appear on the page. //
-    //=================================================================//
-    memset(&textMatrix, 0, sizeof(textMatrix)); // clear structure 
-    textMatrix.a = 9.6;                         // set font width and height 
-    textMatrix.d = 9.6;                         // to 10 point size       
-    textMatrix.h = 72;                          // x,y coordinate on page 
-    textMatrix.v = 60;
+        //Ensure document opened
+        if (pdDocOrig == NULL)
+        {
+            std::cerr << "Failed to open file " << pathToOrig << std::endl;
+            E_RETURN(0);
+        }
 
-    //=================================================================//
-    //               Add PDEText Elements into the document            //
-    //=================================================================//
+        //=================================================================//
+        // PDEFontCreate example 1: Creating a PDEFont from a system font. //
+        // Using a font that can be embedded.                              //
+        //=================================================================//
+        memset(&attrs, 0, sizeof(attrs));
+        attrs.name = ASAtomFromString("CourierStd");                // Set PDEFontAttrs name
+        attrs.type = ASAtomFromString("Type1");                     // Set PDEFontAttrs type
+        sysFont = PDFindSysFont(&attrs, sizeof(PDEFontAttrs), 0);   // Get the corresponding sys font
 
-    //Create new text run 
-    pdeText = PDETextCreate();
+        //If sys font was retrieved create the PDEFont
+        if (sysFont)
+            PS_OutlineFont = PDEFontCreateFromSysFont(sysFont, kPDEFontDoNotEmbed);
 
-    if (PS_OutlineFont)
-    {
-        textMatrix.a = 12;
-        textMatrix.d = 12;
-        textMatrix.h = 30;
-        textMatrix.v = 500;             //Adjust header x, y coordinate on page 
+        //=================================================================//
+        // PDEFontCreate example 2: Creating a PDEFont from a system font  //
+        // and checking the embedding policy.                              //
+        //=================================================================//
+        memset(&attrs, 0, sizeof(attrs));
+        //Set PDEFontAttrs name 
+        attrs.name = ASAtomFromString("Verdana");
+        //Set PDEFontAttrs type 
+        attrs.type = ASAtomFromString("OpenType");
+        //Get the corresponding sys font. 
+        sysFont = PDFindSysFont(&attrs, sizeof(attrs), kPDSysFontMatchFontType);
+        //Checking to see if the system font was retrieved. 
+        if (sysFont)
+        {
+            //Non embedded font 
+            otfFont = PDEFontCreateFromSysFont(sysFont, 0);
 
-        PDETextAddEx(pdeText,           //Text container to add to  
-            kPDETextRun,                //kPDETextRun, kPDETextChar 
-            0,                          //Index 
-            (Uns8 *)bodyTextPS.c_str(), //Text to add    
-            bodyTextPS.length(),        //Length of text 
-            PS_OutlineFont,             //Font to apply to text 
-            &gState, sizeof(gState),    //Graphic state to apply to text  
-            NULL, 0,                    //Text state and size of structure
-            &textMatrix,                //Transformation matrix for text  
-            NULL);                      //Stroke matrix  
+            //Get font embedding policy 
+            PDSysFontGetAttrs(sysFont, &attrs, sizeof(PDEFontAttrs));
 
-        std::cout << "created PS_OutlineFont" << std::endl;
+            //Check font embedding policy 
+            if (attrs.cantEmbed != 0)
+                std::cerr << "Font " << ASAtomGetString(attrs.name) << "can't be embedded";
+            else
+                //Fully embedded font 
+                otfEmbedFont = PDEFontCreateFromSysFont(sysFont, kPDEFontCreateEmbedded);
 
-    }
+            //Subset embedded font 
+            otfSubsetFont = PDEFontCreateFromSysFont(sysFont, kPDEFontCreateEmbedded | kPDEFontCreateSubset);
+        }
 
-    if (otfFont)
-    {
-        textMatrix.a = 16;              //Make header text larger
-        textMatrix.d = 16;
-        textMatrix.h = 90;
-        textMatrix.v = 760;             //Adjust header x, y coordinate on page 
+        //=================================================================//
+        // Setting up the default graphics state. This is done in order to //
+        // free PDEColor objects                                           //
+        //=================================================================//
+        pdeColorSpace = PDEColorSpaceCreateFromName(ASAtomFromString("DeviceGray"));
 
-        PDETextAddEx(pdeText,           //Text container to add to  
-            kPDETextRun,                //kPDETextRun, kPDETextChar 
-            0,                          //Index 
-            (Uns8 *)headerText.c_str(), //Text to add    
-            headerText.length(),        //Length of text 
-            otfFont,                    //Font to apply to text 
-            &gState, sizeof(gState),    //Graphic state to apply to text  
-            NULL, 0,                    //Text state and size of structure
-            &textMatrix,                //Transformation matrix for text  
-            NULL);                      //Stroke matrix  
-        textMatrix.v = 760;
-        textMatrix.h = 90;
+        memset(&gState, 0, sizeof(PDEGraphicState));
+        gState.strokeColorSpec.space = gState.fillColorSpec.space = pdeColorSpace;
+        gState.miterLimit = fixedTen;
+        gState.flatness = fixedOne;
+        gState.lineWidth = fixedOne;
 
-        std::cout << "created otfFont" << std::endl;
-    }
+        //===============================================================================//
+        //  Text matrix determines where the text will appear on the page and what size. //
+        //===============================================================================//
+        memset(&textMatrix, 0, sizeof(textMatrix)); // clear structure 
+        textMatrix.a = 9.6;                         // set font width and height 
+        textMatrix.d = 9.6;                         // to 10 point size       
+        textMatrix.h = 72;                          // x,y coordinate on page 
+        textMatrix.v = 60;
 
-    if (otfEmbedFont)
-    {
-        textMatrix.a = 7;
-        textMatrix.d = 7;
-        textMatrix.v = 42;
-        textMatrix.h = 90;              //Adjust matrix down to footer location 
+        //=================================================================//
+        //               Add PDEText Elements into the document            //
+        //=================================================================//
 
-        PDETextAddEx(pdeText,           //Text container to add to  
-            kPDETextRun,                //kPDETextRun, kPDETextChar 
-            0,                          //Index 
-            (Uns8 *)footerText.c_str(), //Text to add    
-            footerText.length(),        //Length of text 
-            otfEmbedFont,               //Font to apply to text 
-            &gState, sizeof(gState),    //Graphic state to apply to text  
-            NULL, 0,                    //Text state and size of structure
-            &textMatrix,                //Transformation matrix for text  
-            NULL);                      //Stroke matrix  
+        //Create new text run 
+        pdeText = PDETextCreate();
 
-        std::cout << "created otfEmbedFont" << std::endl;
-    }
+        if (PS_OutlineFont)
+        {
+            textMatrix.a = 12;
+            textMatrix.d = 12;
+            textMatrix.h = 30;
+            textMatrix.v = 500;             //Adjust header x, y coordinate on page 
 
-    if (otfSubsetFont)
-    {
-        textMatrix.a = 7;
-        textMatrix.d = 7;
-        textMatrix.v = 28;
-        textMatrix.h = 90;              //Adjust matrix down to footer location 
+            PDETextAddEx(pdeText,           //Text container to add to  
+                kPDETextRun,                //kPDETextRun, kPDETextChar 
+                0,                          //Index 
+                (Uns8 *)bodyTextPS.c_str(), //Text to add    
+                bodyTextPS.length(),        //Length of text 
+                PS_OutlineFont,             //Font to apply to text 
+                &gState, sizeof(gState),    //Graphic state to apply to text  
+                NULL, 0,                    //Text state and size of structure
+                &textMatrix,                //Transformation matrix for text  
+                NULL);                      //Stroke matrix  
 
-        PDETextAddEx(pdeText,           //Text container to add to  
-            kPDETextRun,                //kPDETextRun, kPDETextChar 
-            0,                          //Index 
-            (Uns8 *)footerText2.c_str(),//Text to add    
-            footerText2.length(),       //Length of text 
-            otfSubsetFont,              //Font to apply to text 
-            &gState, sizeof(gState),    //Graphic state to apply to text  
-            NULL, 0,                    //Text state and size of structure
-            &textMatrix,                //Transformation matrix for text  
-            NULL);                      //Stroke matrix  
+            std::cout << "created PS_OutlineFont" << std::endl;
 
-        std::cout << "created otfSubsetFont" << std::endl;
-    }
+        }
 
-    //|---in inches--|
-    //Call PathRect to transform PDEPath in a rectangle of xPos,yPos,height,width, lineWidth, r, g, b
-    rect = PathRect(3 * ASInt32ToFixed(72), 4 * ASInt32ToFixed(72), ASInt32ToFixed(72 * 2), ASInt32ToFixed(72 * 2), 36, 0, 0, 1);
-    std::cout << "created PDEPath in the form of a rectangle" << std::endl;
+        if (otfFont)
+        {
+            textMatrix.a = 16;              //Make header text larger
+            textMatrix.d = 16;
+            textMatrix.h = 90;
+            textMatrix.v = 760;             //Adjust header x, y coordinate on page 
 
-    //====================================================================//
-    // Iterate through each page in the document and adjust the location  //
-    // of data on each page.                                              //
-    //====================================================================//
+            PDETextAddEx(pdeText,           //Text container to add to  
+                kPDETextRun,                //kPDETextRun, kPDETextChar 
+                0,                          //Index 
+                (Uns8 *)headerText.c_str(), //Text to add    
+                headerText.length(),        //Length of text 
+                otfFont,                    //Font to apply to text 
+                &gState, sizeof(gState),    //Graphic state to apply to text  
+                NULL, 0,                    //Text state and size of structure
+                &textMatrix,                //Transformation matrix for text  
+                NULL);                      //Stroke matrix  
+            textMatrix.v = 760;
+            textMatrix.h = 90;
 
-    //Get the PDPage 
-    pdPage = PDDocAcquirePage(pdDocOrig, 0);
+            std::cout << "created otfFont" << std::endl;
+        }
 
-    //Get content on the page 
-    pdeContent = PDPageAcquirePDEContent(pdPage, 0);
+        if (otfEmbedFont)
+        {
+            textMatrix.a = 7;
+            textMatrix.d = 7;
+            textMatrix.v = 42;
+            textMatrix.h = 90;              //Adjust matrix down to footer location 
+
+            PDETextAddEx(pdeText,           //Text container to add to  
+                kPDETextRun,                //kPDETextRun, kPDETextChar 
+                0,                          //Index 
+                (Uns8 *)footerText.c_str(), //Text to add    
+                footerText.length(),        //Length of text 
+                otfEmbedFont,               //Font to apply to text 
+                &gState, sizeof(gState),    //Graphic state to apply to text  
+                NULL, 0,                    //Text state and size of structure
+                &textMatrix,                //Transformation matrix for text  
+                NULL);                      //Stroke matrix  
+
+            std::cout << "created otfEmbedFont" << std::endl;
+        }
+
+        if (otfSubsetFont)
+        {
+            textMatrix.a = 7;
+            textMatrix.d = 7;
+            textMatrix.v = 28;
+            textMatrix.h = 90;              //Adjust matrix down to footer location 
+
+            PDETextAddEx(pdeText,           //Text container to add to  
+                kPDETextRun,                //kPDETextRun, kPDETextChar 
+                0,                          //Index 
+                (Uns8 *)footerText2.c_str(),//Text to add    
+                footerText2.length(),       //Length of text 
+                otfSubsetFont,              //Font to apply to text 
+                &gState, sizeof(gState),    //Graphic state to apply to text  
+                NULL, 0,                    //Text state and size of structure
+                &textMatrix,                //Transformation matrix for text  
+                NULL);                      //Stroke matrix  
+
+            std::cout << "created otfSubsetFont" << std::endl;
+        }
+
+                                                                //|---in inches--|
+        //Call PathRect to transform PDEPath in a rectangle of xPos,yPos,height,width, lineWidth, r, g, b
+        rect = PathRect(3 * ASInt32ToFixed(72), 4 * ASInt32ToFixed(72), ASInt32ToFixed(72 * 2), ASInt32ToFixed(72 * 2), 36, 0, 0, 1);
+        std::cout << "created PDEPath in the form of a rectangle" << std::endl;
+
+        //====================================================================//
+        // Iterate through each page in the document and adjust the location  //
+        // of data on each page.                                              //
+        //====================================================================//
+
+        //Get the PDPage 
+        pdPage = PDDocAcquirePage(pdDocOrig, 0);
+
+        //Get content on the page 
+        pdeContent = PDPageAcquirePDEContent(pdPage, 0);
 
 
-    //Add the newly created PDEPath object to the page content 
-    PDEContentAddElem(pdeContent, kPDEAfterLast, (PDEElement)rect);
+        //Add the newly created PDEPath object to the page content 
+        PDEContentAddElem(pdeContent, kPDEAfterLast, (PDEElement)rect);
 
-    //Insert text into page content 
-    PDEContentAddElem(pdeContent, kPDEAfterLast, reinterpret_cast<PDEElement> (pdeText));
-    std::cout << "Added all the above elements" << std::endl;
+        //Insert text into page content 
+        PDEContentAddElem(pdeContent, kPDEAfterLast, reinterpret_cast<PDEElement> (pdeText));
+        std::cout << "Added all the above elements" << std::endl;
 
-    //Set maximum precision flag for PDE content 
-    ASUns32 flags = 0;
-    PDPageGetPDEContentFlags(pdPage, &flags);
-    flags |= kPDEContentUseMaxPrecision;
-    if (!PDPageSetPDEContentFlags(pdPage, flags))
-    {
-        fprintf(stderr, "Unable to set kPDEContentUseMaxPrecision flag for PDE Content. \n");
-        ASRaise(ERRORCODE);
-    }
+        //Set maximum precision flag for PDE content 
+        ASUns32 flags = 0;
+        PDPageGetPDEContentFlags(pdPage, &flags);
+        flags |= kPDEContentUseMaxPrecision;
+        if (!PDPageSetPDEContentFlags(pdPage, flags))
+        {
+            fprintf(stderr, "Unable to set kPDEContentUseMaxPrecision flag for PDE Content. \n");
+            ASRaise(ERRORCODE);
+        }
 
-    //Set the PDEContent for the page 
-    // DLADD dtom 10Feb2010:
-    //Use PDPageSetPDEContentCanRaise instead of PDPageSetPDEContent.
-    // DLADD YuriG 04Jan2012 
-    PDPageSetPDEContentCanRaise(pdPage, NULL);
+        //Set the PDEContent for the page 
+        // DLADD dtom 10Feb2010:
+        //Use PDPageSetPDEContentCanRaise instead of PDPageSetPDEContent.
+        // DLADD YuriG 04Jan2012 
+        PDPageSetPDEContentCanRaise(pdPage, NULL);
 
-    //Remember to release all objects that were created  
-    PDPageReleasePDEContent(pdPage, NULL);
-    PDPageRelease(pdPage);
-    pdPage = NULL;
-
-
-    //Fonts that needs to be subset are subsetted right before the save. 
-    if (otfSubsetFont)
-        PDEFontSubsetNow(otfSubsetFont, PDDocGetCosDoc(pdDocOrig));
-
-    //=================================================================//
-    //              Save Output and Release Used Objects               //
-    //=================================================================//
-
-    //Save document to a file 
-
-    if (sizeof(wchar_t) == 2)
-        outPathText = ASTextFromUnicode((ASUTF16Val *)pathToOut, kUTF16HostEndian);
-    else
-        outPathText = ASTextFromUnicode((ASUTF16Val *)pathToOut, kUTF32HostEndian);
-
-    outPathName = ASFileSysCreatePathFromDIPathText(NULL, outPathText, NULL);
+        //Remember to release all objects that were created  
+        PDPageReleasePDEContent(pdPage, NULL);
+        PDPageRelease(pdPage);
+        pdPage = NULL;
 
 
+        //Fonts that needs to be subset are subsetted right before the save. 
+        if (otfSubsetFont)
+            PDEFontSubsetNow(otfSubsetFont, PDDocGetCosDoc(pdDocOrig));
 
-    //Save file using the ASPathName
-    PDDocSave(pdDocOrig, PDSaveFull | PDSaveLinearized, outPathName, ASGetDefaultFileSys(), NULL, NULL);
+        //=================================================================//
+        //              Save Output and Release Used Objects               //
+        //=================================================================//
 
-    ASFileSysReleasePath(NULL, outPathName);
+        //Save document to a file 
+        outPathText = ASTextFromUnicode((ASUTF16Val *)pathToOut, uniFormat);
+
+        outPathName = ASFileSysCreatePathFromDIPathText(NULL, outPathText, NULL);
+
+        //Save file using the ASPathName
+        PDDocSave(pdDocOrig, PDSaveFull | PDSaveLinearized, outPathName, ASGetDefaultFileSys(), NULL, NULL);
+
+        ASFileSysReleasePath(NULL, outPathName);
 
     HANDLER
         err = ERRORCODE;
@@ -381,7 +379,7 @@ int main(int argc, char **argv)
 
 
 
-        //Release used objects 
+    //Release used objects 
     if (pdeText)
         PDERelease((PDEObject)pdeText);
     if (pdeColorSpace)
@@ -394,6 +392,9 @@ int main(int argc, char **argv)
         PDERelease((PDEObject)otfSubsetFont);
     if (rect)
         PDERelease((PDEObject)rect);
+    
+    PDERelease(reinterpret_cast<PDEObject>(gState.strokeColorSpec.space));
+    PDERelease(reinterpret_cast<PDEObject>(gState.fillColorSpec.space));
 
     PDDocRelease(pdDocOrig);
 
