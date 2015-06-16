@@ -59,10 +59,10 @@
 //
 // Steps: 
 //
-// * Open split pdf
+// * Open toBeSplit.pdf
 // * Create, name and save each page as a new pdf
 //          in the baseDocument_Page<PAGE NUMBER>.pdf
-// 
+// * Save output files into working directory
 
 
 
@@ -96,7 +96,7 @@ int main(int argc, char **argv)
     //likely.  Properly initializing these variables to NULL
     //avoids the crash.
 
-    wchar_t  pathToOrig[] = L"toBeSplit.pdf";                           // C-String filename used by MyPDDocOpen() 
+    wchar_t  pathToOrig[] = L"../Input/toBeSplit.pdf";                           // C-String filename used by MyPDDocOpen() 
     PDDoc pdDocOrig = NULL;                                             // The source pdf from which the split pdfs will orignate from             
     ASErrorCode errCode = 0;                                            // Used by HANDLER to report exceptions 
     std::wstring pageNameString = L"";                                  // Name of page used for saving
@@ -163,7 +163,7 @@ int main(int argc, char **argv)
             PDDocInsertPages(*iter, PDBeforeFirstPage, pdDocOrig, tracker, 1, NULL, NULL, NULL, NULL, NULL);
 
             //Set the output file name according to what page number is currently accessed              
-            pageNameString = pageNameWStringBase + std::to_wstring(tracker) + pageNameWStringEnd;
+            pageNameString = pageNameWStringBase + std::to_wstring(tracker+1) + pageNameWStringEnd;
 
             outPathText = ASTextFromUnicode((ASUTF16Val *)(wchar_t*)(pageNameString.c_str()), uniFormat);
 
