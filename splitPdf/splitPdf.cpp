@@ -96,7 +96,7 @@ int main(int argc, char **argv)
     //likely.  Properly initializing these variables to NULL
     //avoids the crash.
 
-    wchar_t  pathToOrig[] = L"../Input/toBeSplit.pdf";                           // C-String filename used by MyPDDocOpen() 
+    wchar_t  pathToOrig[] = L"../Input/toBeSplit.pdf";                  // C-String filename used by MyPDDocOpen() 
     PDDoc pdDocOrig = NULL;                                             // The source pdf from which the split pdfs will orignate from             
     ASErrorCode errCode = 0;                                            // Used by HANDLER to report exceptions 
     std::wstring pageNameString = L"";                                  // Name of page used for saving
