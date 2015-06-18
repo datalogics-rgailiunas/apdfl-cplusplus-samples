@@ -80,8 +80,10 @@ PDEPath PathRect(ASFixed, ASFixed, ASFixed, ASFixed, int, int, int, int);
 
 int main(int argc, char **argv)
 {
-    int initErr = MyPDFLInit();
+    //Initialize the pdf library
+    int initErr = MyPDFLInit(); 
 
+    //Check for errors upon initialization
     if (initErr != 0)
     {
         std::cerr << "Initialization error. See \"AcroErr.h\" for more info.\n" << std::endl;
@@ -91,11 +93,18 @@ int main(int argc, char **argv)
         return 0;
     }
 
+   
+    //Initialize selected variables. If these variable
+    //are left uninitialized, and an exception may occur early
+    //in the execution of the placetext sample
+
     //The Elements that will appear on the page
+    //*
     PDEText pdeText = NULL;                                 // Element to display text 
     PDEPath rect = NULL;                                    // Path element that will be formed into a rectangle 
-    PDEFont otfEmbedFont = NULL;                            // Font element that represents a Embedded OpenType font
-
+    PDEFont verdanaFont = NULL;                            // Font element that represents a Embedded OpenType font
+    //*
+  
     wchar_t  pathToOrig[] = L"../Input/addElementsTo.pdf";  // WideString filename used by PDDocOpen() 
     PDDoc pdDocOrig = NULL;                                 // A PDF document object
     PDPage pdPage = NULL;                                   // A page in document object
@@ -103,9 +112,9 @@ int main(int argc, char **argv)
     PDEFontAttrs attrs;                                     // Font attributes    
     ASDoubleMatrix textMatrix;                              // Transformation matrix for text 
     PDEGraphicState gState;                                 // Graphic state to apply to operation 
-    PDEColorSpace pdeColorSpace = NULL;                     // ColorSpace    
+    PDEColorSpace pdeColorSpace = NULL;                     // Object holding the ColorSpace or color scale used 
     PDSysFont sysFont;                                      // System font object
-    ASErrorCode errCode = 0;                                // Use to catch errors
+    ASErrorCode errCode = 0;                                // Used to catch errors
     ASInt32 err = 0;                                        //
     ASText origPathText = NULL;                             // The input file path text object
     ASPathName origPathName = NULL;                         // The input file path name 
@@ -113,13 +122,14 @@ int main(int argc, char **argv)
     ASPathName outPathName = NULL;                          // Pathname for saving
     wchar_t  pathToOut[] = L"out.pdf";                      // The text for the pathname
     ASUnicodeFormat uniFormat = NULL;                       // Format object to be used to hold the Unicode format for path access
+    PDETextState tState;                                    //Text state for rendering
 
     //Text that will be displayed
-    std::string footerText = "*Here is an example footer using a fully embedded OpenType font ";
+    std::string textToDisplay = "Here is some text using the Verdana font ";
 
     DURING
 
-        //Open input document and check see if it opened sucessfully 
+        //Set up path and open input document and check see if it opened sucessfully 
         if (sizeof(wchar_t) == 2)
             uniFormat = kUTF16HostEndian;
         else
@@ -139,9 +149,9 @@ int main(int argc, char **argv)
         }
 
         //=================================================================//
-        // PDEFontCreate example 2: Creating a PDEFont from a system font  //
-        // and checking the embedding policy.                              //
+        //             Creating a PDEFont from a system font               //                     
         //=================================================================//
+        
         memset(&attrs, 0, sizeof(attrs));
         
         //Set PDEFontAttrs name 
@@ -164,7 +174,7 @@ int main(int argc, char **argv)
                 std::cerr << "Font " << ASAtomGetString(attrs.name) << "can't be embedded";
             else
                 //Fully embedded font 
-                otfEmbedFont = PDEFontCreateFromSysFont(sysFont, kPDEFontCreateEmbedded);
+                verdanaFont = PDEFontCreateFromSysFont(sysFont, kPDEFontCreateEmbedded);
         }
 
         //If sysFont is not valid exit program
@@ -174,21 +184,17 @@ int main(int argc, char **argv)
         // Setting up the default graphics state. This is done in order to //
         // free PDEColor objects                                           //
         //=================================================================//
-        pdeColorSpace = PDEColorSpaceCreateFromName(ASAtomFromString("DeviceGray"));
 
-        memset(&gState, 0, sizeof(PDEGraphicState));
-        gState.strokeColorSpec.space = gState.fillColorSpec.space = pdeColorSpace;
-        gState.miterLimit = fixedTen;
-        gState.flatness = fixedOne;
-        gState.lineWidth = fixedOne;
+        //Set the grahpics state to its default values 
+        PDEDefaultGState(&gState, 0);
 
         //===============================================================================//
         //  Text matrix determines where the text will appear on the page and what size. //
         //===============================================================================//
-        memset(&textMatrix, 0, sizeof(textMatrix)); // clear structure 
-        textMatrix.a = 9.6;                         // set font width and height 
-        textMatrix.d = 9.6;                         // to 10 point size       
-        textMatrix.h = 72*2;                          // x,y coordinate on page 
+        memset(&textMatrix, 0, sizeof(textMatrix));   // clear structure 
+        textMatrix.a = 9.6;                           // set font width and height 
+        textMatrix.d = 9.6;                           // to 10 point size       
+        textMatrix.h = 72*2;                          // x,y coordinate on page starting from bottom left
         textMatrix.v = 72*8;
 
         //=================================================================//
@@ -198,28 +204,24 @@ int main(int argc, char **argv)
         //Create new text run 
         pdeText = PDETextCreate();
 
-        PDETextAddEx(pdeText,           //Text container to add to  
-            kPDETextRun,                //kPDETextRun, kPDETextChar 
-            0,                          //Index 
-            (Uns8 *)footerText.c_str(), //Text to add    
-            footerText.length(),        //Length of text 
-            otfEmbedFont,               //Font to apply to text 
-            &gState, sizeof(gState),    //Graphic state to apply to text  
-            NULL, 0,                    //Text state and size of structure
-            &textMatrix,                //Transformation matrix for text  
-            NULL);                      //Stroke matrix  
+        //adding the text run to the PDE text object
+        PDETextAddEx(pdeText,               //Text container to add to  
+            kPDETextRun,                    //kPDETextRun, kPDETextChar 
+            0,                              //Index 
+            (Uns8 *)textToDisplay.c_str(),  //Text to add    
+            textToDisplay.length(),         //Length of text 
+            verdanaFont,                    //Font to apply to text 
+            &gState, 0,                     //Graphic state to apply to text  
+            &tState, 0,                     //Text state and size of structure
+            &textMatrix,                    //Transformation matrix for text  
+            NULL);                          //Stroke matrix  
 
-        std::cout << "created otfEmbedFont" << std::endl;  
+        std::cout << "Created verdanaFont" << std::endl;  
 
                                                                 //|---in inches--|
         //Call PathRect to transform PDEPath in a rectangle of xPos,yPos,height,width, lineWidth, r, g, b
         rect = PathRect(3 * ASInt32ToFixed(72), 4 * ASInt32ToFixed(72), ASInt32ToFixed(72 * 2), ASInt32ToFixed(72 * 2), 36, 0, 0, 1);
-        std::cout << "created PDEPath in the form of a rectangle" << std::endl;
-
-        //====================================================================//
-        // Iterate through each page in the document and adjust the location  //
-        // of data on each page.                                              //
-        //====================================================================//
+        std::cout << "Created PDEPath in the form of a rectangle" << std::endl;
 
         //Get the PDPage 
         pdPage = PDDocAcquirePage(pdDocOrig, 0);
@@ -232,24 +234,24 @@ int main(int argc, char **argv)
 
         //Insert text into page content 
         PDEContentAddElem(pdeContent, kPDEAfterLast, reinterpret_cast<PDEElement> (pdeText));
-        std::cout << "Added all the above elements" << std::endl;
+        std::cout << "Added all Elements" << std::endl;
 
         //Set the PDEContent for the page 
         PDPageSetPDEContentCanRaise(pdPage, NULL);
 
-        //Remember to release all objects that were created  
+        //Release the page and its contents
         PDPageReleasePDEContent(pdPage, NULL);
         PDPageRelease(pdPage);
         pdPage = NULL;
 
         //Determine the needed flags for embedding and call the appropriate routines for doing so
-        PDEFontEmbedNow(otfEmbedFont, PDDocGetCosDoc(pdDocOrig));
+        PDEFontEmbedNow(verdanaFont, PDDocGetCosDoc(pdDocOrig));
 
         //=================================================================//
         //              Save Output and Release Used Objects               //
         //=================================================================//
 
-        //Save document to a file 
+        //Save document to a file with the unicode format determined prior
         outPathText = ASTextFromUnicode((ASUTF16Val *)pathToOut, uniFormat);
 
         outPathName = ASFileSysCreatePathFromDIPathText(NULL, outPathText, NULL);
@@ -264,12 +266,20 @@ int main(int argc, char **argv)
     END_HANDLER
 
     //Release used objects 
+
+    PDERelease(reinterpret_cast<PDEObject>(gState.strokeColorSpec.space));
+    PDERelease(reinterpret_cast<PDEObject>(gState.fillColorSpec.space));
+
+    if (outPathText) 
+        ASTextDestroy(outPathText);
+    if (outPathName)   
+        ASFileSysReleasePath(NULL, outPathName);
     if (pdeText)
         PDERelease((PDEObject)pdeText);
     if (pdeColorSpace)
         PDERelease((PDEObject)pdeColorSpace);
-    if (otfEmbedFont)
-        PDERelease((PDEObject)otfEmbedFont);
+    if (verdanaFont)
+        PDERelease((PDEObject)verdanaFont);
     if (rect)
         PDERelease((PDEObject)rect);
 
@@ -287,11 +297,11 @@ int main(int argc, char **argv)
 
 
 //Function that transforms PDEPath to rectangle of xPosition,yPosition,height,width, lineWidth, r, g, b
-PDEPath   PathRect(ASFixed  x, ASFixed  y, ASFixed  width, ASFixed  height, int  lineWidth, int  r, int  g, int  b)
+PDEPath PathRect(ASFixed  x, ASFixed  y, ASFixed  width, ASFixed  height, int  lineWidth, int  r, int  g, int  b)
 {
     PDEPath path = PDEPathCreate();
 
-    PDEPathSetPaintOp(path, kPDEStroke);            //Where path is PDEpath, and kPDEStroke is the stroke flag
+    PDEPathSetPaintOp(path, kPDEStroke);            //Set the fill and stroke attribute
 
     PDEGraphicState  gState;                        //Graphics state
     PDEColorSpec  strokeClrSpec, fillClrSpec;       //Structure describing color specification, space and value 
