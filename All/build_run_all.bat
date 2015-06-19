@@ -135,14 +135,9 @@ cd ..
 FOR /D %%G IN (*) DO (
 	REM *** names of folders you don't want to search
 	IF NOT %%G==All  (
-		REM *** Determine if a sample is in this folder.
-		SET /A "DID_FIND_SAMPLE=0"
 		CD %%G
-		FOR %%S IN (*.sln) DO (
-			SET  /A "DID_FIND_SAMPLE=1"
+		IF EXIST *.sln (
 			SET /A "NUM_SAMPLES+=1"
-		)
-		IF !DID_FIND_SAMPLE! NEQ 0 (
 			ECHO #Running sample %%G...
 			cd %ARCH%\%STAGE%
 			IF !ERRORLEVEL! NEQ 0 (
