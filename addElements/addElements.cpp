@@ -125,7 +125,7 @@ int main(int argc, char **argv)
     PDETextState tState;                                    //Text state for rendering
 
     //Text that will be displayed
-    std::string textToDisplay = "Here is some text using the Verdana font ";
+    std::string textToDisplay = "Here is some text in the Verdana font, using both PDEtext and PDEFont. Below is a PDEPath rectangle ";
 
     DURING
 
@@ -141,7 +141,7 @@ int main(int argc, char **argv)
 
         pdDocOrig = PDDocOpen(origPathName, NULL, NULL, true);
 
-        //If the document did not exist we exit the DURING block and enter HANDLER
+        //If the document did not exist, we exit the DURING block and enter HANDLER
         
 
         //=================================================================//
@@ -184,14 +184,15 @@ int main(int argc, char **argv)
         //Set the grahpics state to its default values 
         PDEDefaultGState(&gState, 0);
 
-        //=======================================================================minor ========//
+        //===============================================================================//
         //  Text matrix determines where the text will appear on the page and what size. //
         //===============================================================================//
         memset(&textMatrix, 0, sizeof(textMatrix));   // clear structure 
         textMatrix.a = 9.6;                           // set font width and height 
         textMatrix.d = 9.6;                           // to 10 point size       
-        textMatrix.h = 72*2;                          // x,y coordinate on page starting from bottom left
-        textMatrix.v = 72*8;
+        textMatrix.h = 72*1;                          // x
+        textMatrix.v = 72*8;                          //,y coordinate on page starting from bottom left
+                                                      // where 72 represents an inch
 
         //=================================================================//
         //               Add PDEText Elements into the document            //
