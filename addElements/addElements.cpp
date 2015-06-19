@@ -102,7 +102,7 @@ int main(int argc, char **argv)
     //*
     PDEText pdeText = NULL;                                 // Element to display text 
     PDEPath rect = NULL;                                    // Path element that will be formed into a rectangle 
-    PDEFont verdanaFont = NULL;                            // Font element that represents a Embedded OpenType font
+    PDEFont verdanaFont = NULL;                             // Font element that represents a Embedded OpenType font
     //*
   
     wchar_t  pathToOrig[] = L"../Input/addElementsTo.pdf";  // WideString filename used by PDDocOpen() 
@@ -141,12 +141,8 @@ int main(int argc, char **argv)
 
         pdDocOrig = PDDocOpen(origPathName, NULL, NULL, true);
 
-        //Ensure document opened
-        if (pdDocOrig == NULL)
-        {
-            std::cerr << "Failed to open file " << pathToOrig << std::endl;
-            E_RETURN(0);
-        }
+        //If the document did not exist we exit the DURING block and enter HANDLER
+        
 
         //=================================================================//
         //             Creating a PDEFont from a system font               //                     
@@ -188,7 +184,7 @@ int main(int argc, char **argv)
         //Set the grahpics state to its default values 
         PDEDefaultGState(&gState, 0);
 
-        //===============================================================================//
+        //=======================================================================minor ========//
         //  Text matrix determines where the text will appear on the page and what size. //
         //===============================================================================//
         memset(&textMatrix, 0, sizeof(textMatrix));   // clear structure 
@@ -267,8 +263,7 @@ int main(int argc, char **argv)
 
     //Release used objects 
 
-    PDERelease(reinterpret_cast<PDEObject>(gState.strokeColorSpec.space));
-    PDERelease(reinterpret_cast<PDEObject>(gState.fillColorSpec.space));
+    
 
     if (outPathText) 
         ASTextDestroy(outPathText);
@@ -281,14 +276,24 @@ int main(int argc, char **argv)
     if (verdanaFont)
         PDERelease((PDEObject)verdanaFont);
     if (rect)
-        PDERelease((PDEObject)rect);
+        PDERelease((PDEObject)rect);    
+    if (pdDocOrig)
+    {
+        PDDocRelease(pdDocOrig);
+        PDERelease(reinterpret_cast<PDEObject>(gState.strokeColorSpec.space));
+        PDERelease(reinterpret_cast<PDEObject>(gState.fillColorSpec.space));
+    }
 
-    PDDocRelease(pdDocOrig);
-
-    //If there was an error display
+    //If there was an error display 
     if (err)
     {
+        std::cout << "erroo";
         DisplayError(errCode);
+       
+        if (pdDocOrig == NULL)
+        {
+            std::cerr << "Failed to open input file " << std::endl;
+        }
     }
 
     MyPDFLTerm();
