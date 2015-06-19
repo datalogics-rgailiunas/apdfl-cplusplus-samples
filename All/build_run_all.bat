@@ -50,12 +50,17 @@ REM ***  DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 REM ***  
 REM **********************************************************************************
 
-REM ******************************************************
-REM *** This batch builds and runs all APDFL samples.  ***
-REM *** By default, this occurs with the debug         ***
-REM *** configuration. Pass in "release" as            ***
-REM *** a parameter to use the release configuration.  ***
-REM ******************************************************
+REM **********************************************************
+REM *** This batch builds and runs all APDFL samples. By   ***
+REM *** default, this occurs with the debug configuration. ***  
+REM *** Pass in "release" as a parameter to use the        ***
+REM *** release configuration.   						   ***
+REM **********************************************************
+REM *** It is important to note that this program assumes  *** 
+REM *** that if the sample was built, it was built in the  ***
+REM *** correct directory. The final summary will be       ***
+REM *** incorrect if this does not occur for some sample.  ***
+REM **********************************************************
 
 REM *** Initialize environment variables, enable delayed expansion.
 SETLOCAL EnableDelayedExpansion
@@ -140,29 +145,30 @@ FOR /D %%G IN (*) DO (
 		IF !DID_FIND_SAMPLE! NEQ 0 (
 			ECHO #Running sample %%G...
 			cd %ARCH%\%STAGE%
-			IF !ERRORLEVEL! NEQ 0 ECHO #^!Error^!^: .exe directory not found.
-			SET /A "DID_FIND_EXE=0"
-			REM *** Run the built exe.
-			FOR %%S IN (*.exe) DO (
-				SET /A "DID_FIND_EXE=1"
-				CALL %%S
-				REM *** If it didn't run successfully, update accordingly.
-				IF !ERRORLEVEL! NEQ 0 (
-					SET /A "NUM_FAIL_RUN+=1"
-					ECHO #Failed with error code !ERRORLEVEL!
-					SET "DESC_FAIL_RUN=!DESC_FAIL_RUN!^-%%G with error code !ERRORLEVEL!^& echo."
-					
+			IF !ERRORLEVEL! NEQ 0 (
+				ECHO #^!Error^!^: .exe directory not found.
+				SET "DESC_FAIL_BUILD=!DESC_FAIL_BUILD!^-%%G ^(no exe directory found^) ^& echo."
+				CD ..
+			) ELSE (
+				IF EXIST %%G.exe (
+					CALL %%G.exe
+					REM *** If it didn't run successfully, update accordingly.
+					IF !ERRORLEVEL! NEQ 0 (
+						SET /A "NUM_FAIL_RUN+=1"
+						ECHO #Failed with error code !ERRORLEVEL!
+						SET "DESC_FAIL_RUN=!DESC_FAIL_RUN!^-%%G with error code !ERRORLEVEL!^& echo."
+					) ELSE (
+						SET /A "NUM_SUCCEED_RUN+=1"
+						SET "DESC_SUCCEED_RUN=!DESC_SUCCEED_RUN!^-%%G^& echo."
+					)
 				) ELSE (
-					SET /A "NUM_SUCCEED_RUN+=1"
-					SET "DESC_SUCCEED_RUN=!DESC_SUCCEED_RUN!^-%%G^& echo."
+					ECHO #This sample failed to build.
+					REM *** The number of failed builds was determined by the original devenv call,
+					REM *** so does not need to be updated.
+					SET "DESC_FAIL_BUILD=!DESC_FAIL_BUILD!^-%%G^& echo."
 				)
+				CD ..\..
 			)
-			IF !DID_FIND_EXE! EQU 0 (
-				ECHO #This sample failed to build.
-				SET "DESC_FAIL_BUILD=!DESC_FAIL_BUILD!^-%%G^& echo."
-				
-			)
-			CD ..\..\.
 		) ELSE (
 			REM *** No sample found.
 		)
