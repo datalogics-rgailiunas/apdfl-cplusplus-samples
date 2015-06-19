@@ -112,7 +112,6 @@ int main(int argc, char **argv)
     PDEFontAttrs attrs;                                     // Font attributes    
     ASDoubleMatrix textMatrix;                              // Transformation matrix for text 
     PDEGraphicState gState;                                 // Graphic state to apply to operation 
-    PDEColorSpace pdeColorSpace = NULL;                     // Object holding the ColorSpace or color scale used 
     PDSysFont sysFont;                                      // System font object
     ASErrorCode errCode = 0;                                // Used to catch errors
     ASInt32 err = 0;                                        //
@@ -188,8 +187,8 @@ int main(int argc, char **argv)
         //  Text matrix determines where the text will appear on the page and what size. //
         //===============================================================================//
         memset(&textMatrix, 0, sizeof(textMatrix));   // clear structure 
-        textMatrix.a = 9.6;                           // set font width and height 
-        textMatrix.d = 9.6;                           // to 10 point size       
+        textMatrix.a = 10;                           // set font width and height 
+        textMatrix.d = 10;                           // to 10 point size       
         textMatrix.h = 72*1;                          // x
         textMatrix.v = 72*8;                          //,y coordinate on page starting from bottom left
                                                       // where 72 represents an inch
@@ -264,16 +263,12 @@ int main(int argc, char **argv)
 
     //Release used objects 
 
-    
-
     if (outPathText) 
         ASTextDestroy(outPathText);
     if (outPathName)   
         ASFileSysReleasePath(NULL, outPathName);
     if (pdeText)
         PDERelease((PDEObject)pdeText);
-    if (pdeColorSpace)
-        PDERelease((PDEObject)pdeColorSpace);
     if (verdanaFont)
         PDERelease((PDEObject)verdanaFont);
     if (rect)
@@ -288,7 +283,6 @@ int main(int argc, char **argv)
     //If there was an error display 
     if (err)
     {
-        std::cout << "erroo";
         DisplayError(errCode);
        
         if (pdDocOrig == NULL)
@@ -357,6 +351,9 @@ PDEPath PathRect(ASFixed  x, ASFixed  y, ASFixed  width, ASFixed  height, int  l
 
     //Assign the pathData to the path to form rectangle
     PDEPathSetData(path, pathData, sizeof (pathData));
+
+    //Released objects no longer in need
+    PDERelease((PDEObject)clrSpace);
 
     //Return the path shaped as a rectangle
     return  path;
