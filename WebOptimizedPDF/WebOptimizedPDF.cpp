@@ -140,6 +140,13 @@ int main(int argc, char**argv)
 
 		//Report error message to standard error
 		std::cerr << "Error Code: " << errCode << "Error Message: " << message;
+
+		//Set pdDoc to NULL
+		pdDoc = NULL;
+
+		//Exit program
+		exit(EXIT_FAILURE);
+
 	END_HANDLER
 
 	//Close the PDDoc Object
