@@ -1,6 +1,6 @@
 // Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
-// Sample <<Decryption/Opens a password-protected document and removes the password>>
+// Sample Decryption / Defines the Decryptor class.
 //
 // This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
@@ -56,17 +56,16 @@ class Decryptor {
 public:
 	Decryptor();
 
-	PDDoc openEncrypted(wchar_t* filepath, char* password); //Opens a password-protected PDF document.
-	void removeEncryption(PDDoc encrypted); //Removes the password from an opened PDF document.
 	ASErrorCode attemptOpen(wchar_t* file_path);   //Opens a document as if it had no security whatsoever and returns the error code.
+	static ACCB1 ASBool ACCB2 openAuthorizationProcedure(PDDoc encrypted, void *clientData); //Called by PDDocOpenEx to authorize open permission. Must be static.
 
 	ASPathName makeASPathName(wchar_t* pathname); //Properly creates an ASPathName from the input filepath with host unicode format.
 
 	static int initPDFL(); //Initializes the PDF library. For want of a better home.
 
+	static void setPassword(char* pass); //Set the password to be used for opening encrypted documents.
 private:
-	static char* open_password; //The password for an encrypted document. Since the authorization procedure is static, this must be stored statically.
-								//Note: cannot be a wchar_t.
+	static char* password; //The password for an encrypted document. Since the authorization procedure is static, this must be stored statically.
+                           //Note: cannot be a wchar_t.
 	ASUnicodeFormat hostUniFormat; //The host's unicode format. Computed during construction.
-	static ACCB1 ASBool ACCB2 openAuthorizationProcedure(PDDoc encrypted, void *clientData); //Called by PDDocOpenEx to authorize open permission. Must be static.
 };

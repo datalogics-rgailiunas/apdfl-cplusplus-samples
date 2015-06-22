@@ -1,6 +1,7 @@
 // Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
-// Sample <<Decryption/Opens a password-protected document and removes the password>>
+// Sample Decryption / Opens a password-protected document, removes the password, saves, 
+//					   and ensures the document is no longer password-protected.
 //
 // This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
@@ -59,30 +60,32 @@ int main(){
 	if (initError) return initError;
 
 	//APDFL variables
-	ASErrorCode errCode = 0;				             //Tracks errors
+	ASErrorCode errCode = 0; //Tracks errors
 
 	//Sample variables
-	Decryptor decryptor;					             //Handles most of the sample code
-	PDDoc encrypted_document;						     //For processing the still-encrypted document
+	Decryptor decryptor;                                 //Handles most of the sample code
+	PDDoc encrypted_document;                            //For processing the still-encrypted document
 	wchar_t* encrypted_path = L"../Input/encrypted.pdf"; //Filepath of the encrypted document
-	char* password = "mypassword";						 //Password for that document. NOTE: This does not work for wide chars. 
+	char* password = "mypassword";                       //Password for that document. NOTE: This does not work for wide chars. 
 
 	DURING
-		
+
 		//Open the encrypted PDF document
-		encrypted_document = decryptor.openEncrypted(encrypted_path, password);
+		Decryptor::setPassword(password);
+		encrypted_document = PDDocOpenEx(decryptor.makeASPathName(encrypted_path), ASGetDefaultFileSys(),
+			ASCallbackCreateProto(PDAuthProcEx, &Decryptor::openAuthorizationProcedure), 0, true);
 		std::wcout << L"Opened the document." << std::endl;
 
 		//Remove the encryption
-		decryptor.removeEncryption(encrypted_document);
+		PDDocSetNewCryptHandler(encrypted_document, ASAtomNull); //Completely removes security from the document
 		std::wcout << L"The encryption was removed." << std::endl;
 
 		//Overwrite the document
-		PDDocSave(encrypted_document,					  //Document to save
-			PDDocNeedsSave | PDDocIsOpen,				  //PDDocSaveFlags
+		PDDocSave(encrypted_document,                     //Document to save
+			PDDocNeedsSave | PDDocIsOpen,                 //PDDocSaveFlags
 			decryptor.makeASPathName(encrypted_path),     //ASPath to save
-			ASGetDefaultFileSys(),						  //File system
-			NULL, NULL);								  //Progress monitor, progreess monitor client data
+			ASGetDefaultFileSys(),                        //File system
+			NULL, NULL);                                  //Progress monitor, progreess monitor client data
 		std::wcout << L"The document was saved..." << std::endl;
 
 		//Close the document

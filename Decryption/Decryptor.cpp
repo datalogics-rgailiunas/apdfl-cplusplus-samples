@@ -1,6 +1,6 @@
 // Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
-// Sample <<Decryption/Opens a password-protected document and removes the password>>
+// Sample Decryption / Performs important auxiliary functions for the encryption sample.
 //
 // This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
@@ -48,7 +48,7 @@
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 #include "Decryptor.h"
 
-char* Decryptor::open_password = "";	//Default the password to nothing.
+char* Decryptor::password = "";     //Default the password to nothing.
 
 Decryptor::Decryptor(){
 
@@ -59,30 +59,8 @@ Decryptor::Decryptor(){
 		hostUniFormat = kUTF32HostEndian;
 }
 
-PDDoc Decryptor::openEncrypted(wchar_t* filepath, char* open_password){
-
-	Decryptor::open_password = open_password;					//Sets the password to use
-	ASPathName encrypted_aspath = makeASPathName(filepath);     //File path for the encrypted document
-	ASErrorCode errCode = 0;									//Stores errors
-	PDDoc opened;                                               //To hold the document
-
-	DURING
-		//Open the document with authorization callback procedure.
-		opened = PDDocOpenEx(encrypted_aspath, ASGetDefaultFileSys(),
-			ASCallbackCreateProto(PDAuthProcEx, &Decryptor::openAuthorizationProcedure), 0, true);
-	HANDLER
-		errCode = ERRORCODE;
-	END_HANDLER
-
-	//Release instantiated objects
-	ASFileSysReleasePath(ASGetDefaultFileSys(), encrypted_aspath);
-
-	if (errCode)
-		ASRaise(errCode);
-
-	Decryptor::open_password = "\0"; //Done with this password, so reset it.
-
-	return opened;
+void Decryptor::setPassword(char* pass){
+	Decryptor::password = pass;
 }
 
 ACCB1 ASBool ACCB2 Decryptor::openAuthorizationProcedure(PDDoc encrypted, void *clientData){
@@ -92,9 +70,9 @@ ACCB1 ASBool ACCB2 Decryptor::openAuthorizationProcedure(PDDoc encrypted, void *
 	DURING
 		//Request open permission by supplying the password
 		permReqStatus = PDDocPermRequest(encrypted,
-			PDPermReqObjDoc/*Permission request Object*/,
-			PDPermReqOprOpen/*Permission request operation*/,
-			(void*)Decryptor::open_password);
+			PDPermReqObjDoc,  //Permission request Object
+			PDPermReqOprOpen, //Permission request operation
+			(void*)Decryptor::password);
 	HANDLER
 		RERAISE();
 	END_HANDLER
@@ -121,9 +99,9 @@ ACCB1 ASBool ACCB2 Decryptor::openAuthorizationProcedure(PDDoc encrypted, void *
 
 ASErrorCode Decryptor::attemptOpen(wchar_t* file_path){
 
-	ASPathName doc_path = makeASPathName(file_path);	//Filepath of the document
-	PDDoc doc = NULL;									//Stores the document
-	ASErrorCode errCode = 0;							//Tracks errors
+	ASPathName doc_path = makeASPathName(file_path);    //Filepath of the document
+	PDDoc doc = NULL;                                   //Stores the document
+	ASErrorCode errCode = 0;                            //Tracks errors
 
 	DURING
 		doc = PDDocOpen(doc_path, NULL, NULL, true);
@@ -138,21 +116,10 @@ ASErrorCode Decryptor::attemptOpen(wchar_t* file_path){
 	return errCode;
 }
 
-void Decryptor::removeEncryption(PDDoc open_encrypted){
-
-	DURING
-		//Completely removes security from the document.
-		PDDocSetNewCryptHandler(open_encrypted, ASAtomNull);
-	HANDLER
-		RERAISE();
-	END_HANDLER
-	return;
-}
-
 ASPathName Decryptor::makeASPathName(wchar_t* pathname){
 
-	ASText pathText = NULL;			//Text of pathname
-	ASPathName pathASPath = NULL;	//ASPathName for path
+	ASText pathText = NULL;         //Text of pathname
+	ASPathName pathASPath = NULL;   //ASPathName for path
 
 	DURING
 		pathText = ASTextFromUnicode((ASUTF16Val *)pathname, hostUniFormat);
