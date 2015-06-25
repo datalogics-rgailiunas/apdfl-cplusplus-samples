@@ -2,7 +2,7 @@
 REM **********************************************************************************
 REM ***  Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 REM ***
-REM ***  Sample <<ALL.BAT/BUILDS ALL.SLN AND RUNS EACH SAMPLE>>
+REM ***  Sample ALL.BAT/BUILDS ALL.SLN AND RUNS EACH SAMPLE
 REM ***  This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
 REM ***  Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
 REM ***  source code examples for integrating to the Adobe PDF Library
@@ -50,17 +50,15 @@ REM ***  DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 REM ***  
 REM **********************************************************************************
 
-REM **********************************************************
-REM *** This batch builds and runs all APDFL samples. By   ***
-REM *** default, this occurs with the debug configuration. ***  
-REM *** Pass in "release" as a parameter to use the        ***
-REM *** release configuration.   						   ***
-REM **********************************************************
-REM *** It is important to note that this program assumes  *** 
-REM *** that if the sample was built, it was built in the  ***
-REM *** correct directory. The final summary will be       ***
-REM *** incorrect if this does not occur for some sample.  ***
-REM **********************************************************
+REM ***
+REM *** This batch builds and runs all Datalogics Samples for APDFL.
+REM *** By default, this occurs with the debug configuration.
+REM *** Pass in "release" as a parameter to use the release configuration.   						   
+REM ***
+REM *** It is important to note that this program assumes that if the sample was 
+REM *** built, it was built in the correct directory. The final summary will be  
+REM *** incorrect if this does not occur for some sample.  
+REM ***
 
 REM *** Initialize environment variables, enable delayed expansion.
 SETLOCAL EnableDelayedExpansion
@@ -84,25 +82,25 @@ SET DESC_FAIL_RUN=
 
 REM *** Setting ARCH and STAGE portions of the pathname to build and run in ***
 
-REM *********************************************************
-REM *** Replace from :rep1 to :rep2 with this ***************
-REM *** maybe + eventually. It's preferential ***************
-REM *** and one can allow both.	(with liberal ***************
-REM *** use of IF,GOTO)          			  ***************
-REM *********************************************************
+REM ***
+REM *** Replace from :rep1 to :rep2 with this
+REM *** maybe + eventually. It's preferential
+REM *** and one can allow both.	(with liberal
+REM *** use of IF,GOTO)          
+REM ***
 REM CHOICE /c DR /m "Run the debug or release executables?"
 REM if %ERRORLEVEL% EQU 2 SET STAGE=Release
 REM if %ERRORLEVEL% EQU 1 SET STAGE=Debug
 REM CHOICE /c 36 /m "Run the 32 or 64 bit versions?"
 REM if %ERRORLEVEL% EQU 2 SET ARCH=x64
 REM if %ERRORLEVEL% EQU 1 SET ARCH=Win32
-REM *********************************************************
-REM *** The above is probably an easier way of specifying ***
-REM *** which set of samples you'd like to run, so this   ***
-REM *** doesn't have to be run through the command line.  ***
-REM *** But since we're only testing one set of samples   ***
-REM *** now, choosing at all is unnecessary work.         ***
-REM *********************************************************
+REM ***
+REM *** The above is probably an easier way of specifying 
+REM *** which set of samples you'd like to run, so this  
+REM *** doesn't have to be run through the command line. 
+REM *** But since we're only testing one set of samples 
+REM *** now, choosing at all is unnecessary work. 
+REM ***
 
 :rep1
 IF /i "%1"=="release" (
