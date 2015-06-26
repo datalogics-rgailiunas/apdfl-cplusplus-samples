@@ -51,7 +51,7 @@
 #include "SampleUtils.h"
 
 Utilities::Utilities(){
-    //Compute host's unicode format.
+    //Compute host's unicode format
     if (sizeof(wchar_t) == 2)
         hostUniFormat = kUTF16HostEndian;
     else
