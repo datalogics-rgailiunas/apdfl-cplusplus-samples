@@ -57,13 +57,13 @@
 class Utilities{
 
 public:
-    Utilities(); //Constructor.
-    ASPathName makeASPathName(wchar_t* pathname); //Properly creates an ASPathName from a wchar_t*.
-    ASFile openASFile(wchar_t* filepath); //Opens a file.
-    PDDoc openPDFNoSecurity(wchar_t* filepath); //Opens an unprotected PDF file.
-    int initPDFL(); //Initializes the PDF library.
+    Utilities(); //Constructor
+    ASPathName makeASPathName(wchar_t* pathname); //Properly creates an ASPathName from a wchar_t*
+    ASFile openASFile(wchar_t* filepath); //Opens a file
+    PDDoc openPDFNoSecurity(wchar_t* filepath); //Opens an unprotected PDF file
+    int initPDFL(); //Initializes the PDF library
 
 private:
-    ASUnicodeFormat hostUniFormat; //Host's unicode format. Set in constructor.
+    ASUnicodeFormat hostUniFormat; //Host's unicode format. Set in constructor
 
 };
