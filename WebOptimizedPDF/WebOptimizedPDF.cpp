@@ -63,6 +63,9 @@ int main(int argc, char**argv)
 	//Initialize the APDFL 
 	int  err = MyPDFLInit();
 
+    //Tracks errors
+    ASErrorCode errCode = 0;
+
 	//Report any errors if there were any in initialization
 	if (err != 0)
 	{
@@ -130,7 +133,7 @@ int main(int argc, char**argv)
 
 	HANDLER
 		//Generate and print error code if there was an exception
-		ASErrorCode errCode = ERRORCODE;
+		errCode = ERRORCODE;
 
 		//String holds errors message
 		char message[256];
@@ -150,5 +153,5 @@ int main(int argc, char**argv)
 	//Terminate the APDFL
 	MyPDFLTerm();
 
-	return (EXIT_SUCCESS);
+	return (errCode);
 }
