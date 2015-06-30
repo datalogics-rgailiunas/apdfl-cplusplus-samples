@@ -49,31 +49,40 @@
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
 //Sample includes
-#include "Decryptor.h"
+#include "SampleUtils.h"
+#include "OpenAuthorizationProcedure.cpp"
 
 //STD includes
 #include <iostream>
 
 int main(){
 	//Initialize the APDF libary
-	int initError = Decryptor::initPDFL();
-	if (initError) return initError;
+    int initError = MyPDFLInit();
+    if (initError) {
+        std::wcerr << L"Initialization error. See \"AcroErr.h\" for more info.\n" << std::endl;
+        std::wcerr << L"Error system: " << ErrGetSystem(initError) << std::endl;
+        std::wcerr << L"Error Severity: " << ErrGetSeverity(initError) << std::endl;
+        std::wcerr << L"Error Code: " << ErrGetCode(initError) << std::endl;
+        return initError;
+    }
 
 	//APDFL variables
 	ASErrorCode errCode = 0; //Tracks errors
 
 	//Sample variables
-	Decryptor decryptor;                                 //Handles most of the sample code
+	//Decryptor decryptor;                               //Handles most of the sample code
+    Utilities util;                                      //Performs some common actions
 	PDDoc encrypted_document;                            //For processing the still-encrypted document
-	wchar_t* encrypted_path = L"../Input/encrypted.pdf"; //Filepath of the encrypted document
-	char* password = "mypassword";                       //Password for that document. NOTE: This does not work for wide chars. 
+    PDDoc unencrypted_document;                          //For checking that the document has been unencrypted.
+    ASPathName encrypted_path = util.makeASPathName(L"../Input/encrypted.pdf"); //Filepath of the encrypted document
+	char* myPassword = "mypassword";                     //Password for that document. NOTE: This does not work for wide chars. 
 
 	DURING
 
 		//Open the encrypted PDF document
-		Decryptor::setPassword(password);
-		encrypted_document = PDDocOpenEx(decryptor.makeASPathName(encrypted_path), ASGetDefaultFileSys(),
-			ASCallbackCreateProto(PDAuthProcEx, &Decryptor::openAuthorizationProcedure), 0, true);
+        setPassword(myPassword);
+        encrypted_document = PDDocOpenEx(encrypted_path, ASGetDefaultFileSys(),
+			ASCallbackCreateProto(PDAuthProcEx, &openAuthorizationProcedure), 0, true);
 		std::wcout << L"Opened the document." << std::endl;
 
 		//Remove the encryption
@@ -81,44 +90,50 @@ int main(){
 		std::wcout << L"The encryption was removed." << std::endl;
 
 		//Overwrite the document
-		PDDocSave(encrypted_document,                     //Document to save
-			PDDocNeedsSave | PDDocIsOpen,                 //PDDocSaveFlags
-			decryptor.makeASPathName(encrypted_path),     //ASPath to save
-			ASGetDefaultFileSys(),                        //File system
-			NULL, NULL);                                  //Progress monitor, progreess monitor client data
+		PDDocSave(encrypted_document,        //Document to save
+			PDDocNeedsSave | PDDocIsOpen,    //PDDocSaveFlags
+            encrypted_path,                  //ASPath to save
+			ASGetDefaultFileSys(),           //File system
+			NULL, NULL);                     //Progress monitor, progreess monitor client data
 		std::wcout << L"The document was saved..." << std::endl;
 
 		//Close the document
 		PDDocClose(encrypted_document);
 		
-		//Verify it is no longer encrypted
-		int openError = decryptor.attemptOpen(encrypted_path);
+		//Verify it is no longer encrypted by attempting to open it
+        ASErrorCode openError = 0;
+	    DURING
+            unencrypted_document = PDDocOpen(encrypted_path, NULL, NULL, true);
+	    HANDLER
+            openError = ERRORCODE;
+	    END_HANDLER
 		if (openError){
-			if (ErrGetSystem(openError) == ErrSysPDDoc && ErrGetCode(openError) == pdErrNeedPassword){
-				std::wcout << L"...But still requires a password [FAILURE]." << std::endl;
-			}
-			else{
-				std::wcout << L"An unexpected error occured." << std::endl;
-				ASRaise(openError);
-			}
-		}
-		else{
+		    if (ErrGetSystem(openError) == ErrSysPDDoc && ErrGetCode(openError) == pdErrNeedPassword){
+		    	std::wcout << L"...But still requires a password [FAILURE]." << std::endl;
+		    } else{
+		    	std::wcout << L"An unexpected error occured." << std::endl;
+		    	ASRaise(openError);
+		    }
+		} else{
 			std::wcout << L"...And is no longer encrypted!" << std::endl;
+            PDDocClose(unencrypted_document);
 		}
 
 	HANDLER
 		errCode = ERRORCODE;
 	END_HANDLER
 
-	//Release created objects.
-	if (encrypted_document) PDDocClose(encrypted_document);
+	//Release created objects
+    if (encrypted_document) PDDocClose(encrypted_document);
+    if (unencrypted_document) PDDocClose(unencrypted_document);
+    ASFileSysReleasePath(ASGetDefaultFileSys(), encrypted_path);
 
-	//If there was an error, display it.
+	//If there was an error, display it
 	if (errCode) DisplayError(errCode);
 	
-	//Terminate the APDFL library.
+	//Terminate the APDFL library
 	MyPDFLTerm();
 
-	//End.
+	//End
 	return errCode;
 }

@@ -1,6 +1,6 @@
 // Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
-// Sample Decryption / Defines the Decryptor class.
+// Sample addAttachment / Defines sample's Utilities class.
 //
 // This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
@@ -47,25 +47,23 @@
 // NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
+//APDFL includes
 #include "MyPDFLibUtils.h"
 #include "ASExtraCalls.h"
+
+//STD includes
 #include <iostream>
 
-class Decryptor {
+class Utilities{
 
 public:
-	Decryptor();
+    Utilities(); //Constructor
+    ASPathName makeASPathName(wchar_t* pathname); //Properly creates an ASPathName from a wchar_t*
+    ASFile openASFile(wchar_t* filepath); //Opens a file
+    PDDoc openPDFNoSecurity(wchar_t* filepath); //Opens an unprotected PDF file
+    int initPDFL(); //Initializes the PDF library
 
-	ASErrorCode attemptOpen(wchar_t* file_path);   //Opens a document as if it had no security whatsoever and returns the error code.
-	static ACCB1 ASBool ACCB2 openAuthorizationProcedure(PDDoc encrypted, void *clientData); //Called by PDDocOpenEx to authorize open permission. Must be static.
-
-	ASPathName makeASPathName(wchar_t* pathname); //Properly creates an ASPathName from the input filepath with host unicode format.
-
-	static int initPDFL(); //Initializes the PDF library. For want of a better home.
-
-	static void setPassword(char* pass); //Set the password to be used for opening encrypted documents.
 private:
-	static char* password; //The password for an encrypted document. Since the authorization procedure is static, this must be stored statically.
-                           //Note: cannot be a wchar_t.
-	ASUnicodeFormat hostUniFormat; //The host's unicode format. Computed during construction.
+    ASUnicodeFormat hostUniFormat; //Host's unicode format. Set in constructor
+
 };

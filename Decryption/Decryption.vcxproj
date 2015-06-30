@@ -151,11 +151,12 @@
     <ClCompile Include="..\..\Samples\utils\MyPDFLibApp.cpp" />
     <ClCompile Include="..\..\Samples\utils\MyPDFLibUtils.cpp" />
     <ClCompile Include="Decryption.cpp" />
-    <ClCompile Include="Decryptor.cpp" />
+    <ClCompile Include="OpenAuthorizationProcedure.cpp" />
+    <ClCompile Include="SampleUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Samples\utils\MyPDFLibUtils.h" />
-    <ClInclude Include="Decryptor.h" />
+    <ClInclude Include="SampleUtils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

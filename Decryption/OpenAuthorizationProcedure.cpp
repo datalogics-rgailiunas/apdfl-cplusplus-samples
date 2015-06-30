@@ -1,6 +1,6 @@
 // Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
-// Sample Decryption / Performs important auxiliary functions for the encryption sample.
+// Sample Decryption / stores the password and the open authorization function.
 //
 // This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
@@ -46,24 +46,19 @@
 // WHICH IS NOT CONTAINED IN THIS AGREEMENT, SHALL BE BINDING ON DATALOGICS.
 // NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
-#include "Decryptor.h"
 
-char* Decryptor::password = "";     //Default the password to nothing.
+#include "MyPDFLibUtils.h"
+#include "ASExtraCalls.h"
+#include <iostream>
 
-Decryptor::Decryptor(){
+static char* password = "";     //Default the password to nothing.
 
-	//Compute host's unicode format.
-	if (sizeof(wchar_t) == 2)
-		hostUniFormat = kUTF16HostEndian;
-	else
-		hostUniFormat = kUTF32HostEndian;
+static void setPassword(char* pass){
+	password = pass;
 }
 
-void Decryptor::setPassword(char* pass){
-	Decryptor::password = pass;
-}
-
-ACCB1 ASBool ACCB2 Decryptor::openAuthorizationProcedure(PDDoc encrypted, void *clientData){
+//Called by PDDocOpenEx to obtain permission to open the document.
+static ACCB1 ASBool ACCB2 openAuthorizationProcedure(PDDoc encrypted, void *clientData){
 
 	PDPermReqStatus permReqStatus; //Stores the result of the permission request
 
@@ -72,7 +67,7 @@ ACCB1 ASBool ACCB2 Decryptor::openAuthorizationProcedure(PDDoc encrypted, void *
 		permReqStatus = PDDocPermRequest(encrypted,
 			PDPermReqObjDoc,  //Permission request Object
 			PDPermReqOprOpen, //Permission request operation
-			(void*)Decryptor::password);
+			(void*)password);
 	HANDLER
 		RERAISE();
 	END_HANDLER
@@ -97,53 +92,3 @@ ACCB1 ASBool ACCB2 Decryptor::openAuthorizationProcedure(PDDoc encrypted, void *
 	return (permReqStatus == PDPermReqGranted);
 }
 
-ASErrorCode Decryptor::attemptOpen(wchar_t* file_path){
-
-	ASPathName doc_path = makeASPathName(file_path);    //Filepath of the document
-	PDDoc doc = NULL;                                   //Stores the document
-	ASErrorCode errCode = 0;                            //Tracks errors
-
-	DURING
-		doc = PDDocOpen(doc_path, NULL, NULL, true);
-	HANDLER
-		errCode = ERRORCODE;
-	END_HANDLER
-
-	//Release instantiated objects
-	ASFileSysReleasePath(ASGetDefaultFileSys(), doc_path);
-	if (doc) PDDocClose(doc);
-
-	return errCode;
-}
-
-ASPathName Decryptor::makeASPathName(wchar_t* pathname){
-
-	ASText pathText = NULL;         //Text of pathname
-	ASPathName pathASPath = NULL;   //ASPathName for path
-
-	DURING
-		pathText = ASTextFromUnicode((ASUTF16Val *)pathname, hostUniFormat);
-		pathASPath = ASFileSysCreatePathFromDIPathText(NULL, pathText, NULL);
-	HANDLER
-		RERAISE();
-	END_HANDLER
-	
-	//Release resources
-	ASTextDestroy(pathText);
-
-	return pathASPath;
-}
-
-int Decryptor::initPDFL(){
-
-	int initError = MyPDFLInit();
-
-	if (initError) {
-		std::wcerr << L"Initialization error. See \"AcroErr.h\" for more info.\n" << std::endl;
-		std::wcerr << L"Error system: " << ErrGetSystem(initError) << std::endl;
-		std::wcerr << L"Error Severity: " << ErrGetSeverity(initError) << std::endl;
-		std::wcerr << L"Error Code: " << ErrGetCode(initError) << std::endl;
-	}
-
-	return initError;
-}
