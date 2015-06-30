@@ -73,8 +73,9 @@ int main(int argc, char**argv)
 		return (EXIT_FAILURE);
 	}
 
-	//Declare pdDoc used for opening and saving the non web optimized PDF
+	//Declare pdDoc used for opening and saving the non web optimized PDF as web optimized
 	PDDoc pdDoc = NULL;
+
 	DURING
 		//Variable holding the file name to be optimized
 		wchar_t * inputPathName = L"../Input/nonweboptimizedpdf.pdf";
@@ -143,9 +144,6 @@ int main(int argc, char**argv)
 
 		//Set pdDoc to NULL
 		pdDoc = NULL;
-
-		//Exit program
-		exit(EXIT_FAILURE);
 
 	END_HANDLER
 
