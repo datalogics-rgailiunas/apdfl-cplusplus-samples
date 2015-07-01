@@ -90,7 +90,7 @@ int main(int argc, char **argv)
         std::cerr << "Error system: " << ErrGetSystem(initErr) << std::endl;
         std::cerr << "Error Severity: " << ErrGetSeverity(initErr) << std::endl;
         std::cerr << "Error Code: " << ErrGetCode(initErr) << std::endl;
-        return 0;
+        return initErr;
     }
 
    
@@ -114,7 +114,6 @@ int main(int argc, char **argv)
     PDEGraphicState gState;                                 // Graphic state to apply to operation 
     PDSysFont sysFont;                                      // System font object
     ASErrorCode errCode = 0;                                // Used to catch errors
-    ASInt32 err = 0;                                        //
     ASText origPathText = NULL;                             // The input file path text object
     ASPathName origPathName = NULL;                         // The input file path name 
     ASText outPathText = NULL;                              // Path to save to
@@ -258,7 +257,7 @@ int main(int argc, char **argv)
         ASFileSysReleasePath(NULL, outPathName);
     
     HANDLER
-        err = ERRORCODE;
+        errCode = ERRORCODE;
     END_HANDLER
 
     //Release used objects 
@@ -281,7 +280,7 @@ int main(int argc, char **argv)
     }
 
     //If there was an error display 
-    if (err)
+    if (errCode)
     {
         DisplayError(errCode);
        
@@ -292,7 +291,7 @@ int main(int argc, char **argv)
     }
 
     MyPDFLTerm();
-    return 0;
+    return errCode;
 }
 
 
