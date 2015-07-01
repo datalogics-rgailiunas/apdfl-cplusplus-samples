@@ -210,7 +210,7 @@ int main(int argc, char **argv)
         DisplayError(errCode);
 
     MyPDFLTerm();   //Terminate the pdf library
-    return 0;
+    return errCode;
 }
 
 
