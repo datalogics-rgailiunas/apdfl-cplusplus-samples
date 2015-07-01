@@ -90,7 +90,7 @@ int main(int argc, char **argv)
         std::cerr << "Error system: " << ErrGetSystem(initErr) << std::endl;
         std::cerr << "Error Severity: " << ErrGetSeverity(initErr) << std::endl;
         std::cerr << "Error Code: " << ErrGetCode(initErr) << std::endl;
-        return 0;
+        return initErr;
     }
 
    
