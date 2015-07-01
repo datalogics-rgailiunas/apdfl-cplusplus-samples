@@ -47,8 +47,7 @@
 // NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
-#include "MyPDFLibUtils.h"
-#include "ASExtraCalls.h"
+#include "SampleUtils.h"
 #include <iostream>
 
 static char* password = "";     //Default the password to nothing.

@@ -49,7 +49,6 @@
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
 //Sample includes
-#include "SampleUtils.h"
 #include "OpenAuthorizationProcedure.cpp"
 
 //STD includes
