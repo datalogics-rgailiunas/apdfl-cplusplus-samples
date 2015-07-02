@@ -1,62 +1,63 @@
 //# Copyright(c) 2015, Datalogics, Inc.All rights reserved.
-
-//************************************************************************
-// Sample: AddDocumentInformation opens a document, inserts metadata and saves
 //
-// Note: This program only inserts standard metadata contained in the 
+//************************************************************************
+// Sample: AddDocumentInformation opens a document, inserts document 
+// information and saves
+//
+// Note: This program inserts standard document information contained in the
 // "Document Information Dictionary" see the PDF Reference section 10.2 for 
 // more information
 //
 //Steps:
-// 1) Open the Document that the document information (metadata) will be inserted into
-// 2) Insert the document information (meta data)
+// 1) Open the Document that the document information will be inserted into
+// 2) Insert the document information 
 // 3) Save the document and release resources
 //************************************************************************
-
-//# This agreement is between Datalogics, Inc. 101 N.Wacker Drive, Suite 1800,
-//# Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
-//# source code examples for integrating to the Adobe PDF Library
-//# ("the Example Code"). By accepting this agreement you agree to be bound
-//# by the following terms of use for the Example Code.
-//#
-//# LICENSE
-//# -------
-//# Datalogics hereby grants you a royalty - free, non - exclusive license to
-//# download and use the Example Code for any lawful purpose.There is no charge
-//# for use of Example Code.
-//#
-//# OWNERSHIP
-//# ---------
-//# The Example Code and any related documentation and trademarks are and shall
-//# remain the sole and exclusive property of Datalogics and are protected by
-//# the laws of copyright in the U.S.and other countries.
-//#
-//# Datalogics is a trademark of Datalogics, Inc.
-//#
-//# TERM
-//# ----
-//# This license is effective until terminated.You may terminate it at any
-//# other time by destroying the Example Code.
-//#
-//# WARRANTY DISCLAIMER
-//# -------------------
-//# THE EXAMPLE CODE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER
-//# EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES
-//# OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-//#
-//# DATALOGICS DISCLAIM ALL OTHER WARRANTIES, CONDITIONS, UNDERTAKINGS OR
-//# TERMS OF ANY KIND, EXPRESS OR IMPLIED, WRITTEN OR ORAL, BY OPERATION OF
-//# LAW, ARISING BY STATUTE, COURSE OF DEALING, USAGE OF TRADE OR OTHERWISE,
-//# INCLUDING, WARRANTIES OR CONDITIONS OF MERCHANTABILITY, FITNESS FOR A
-//# PARTICULAR PURPOSE, SATISFACTORY QUALITY, LACK OF VIRUSES, TITLE,
-//# NON - INFRINGEMENT, ACCURACY OR COMPLETENESS OF RESPONSES, RESULTS, AND / OR
-//# LACK OF WORKMANLIKE EFFORT.THE PROVISIONS OF THIS SECTION SET FORTH
-//# SUBLICENSEE'S SOLE REMEDY AND DATALOGICS'S SOLE LIABILITY WITH RESPECT
-//# TO THE WARRANTY SET FORTH HEREIN.NO REPRESENTATION OR OTHER AFFIRMATION
-//# OF FACT, INCLUDING STATEMENTS REGARDING PERFORMANCE OF THE EXAMPLE CODE,
-//# WHICH IS NOT CONTAINED IN THIS AGREEMENT, SHALL BE BINDING ON DATALOGICS.
-//# NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
-//# DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE. 
+//
+// This agreement is between Datalogics, Inc. 101 N.Wacker Drive, Suite 1800,
+// Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
+// source code examples for integrating to the Adobe PDF Library
+// ("the Example Code"). By accepting this agreement you agree to be bound
+// by the following terms of use for the Example Code.
+//
+// LICENSE
+// -------
+// Datalogics hereby grants you a royalty - free, non - exclusive license to
+// download and use the Example Code for any lawful purpose.There is no charge
+// for use of Example Code.
+//
+// OWNERSHIP
+// ---------
+// The Example Code and any related documentation and trademarks are and shall
+// remain the sole and exclusive property of Datalogics and are protected by
+// the laws of copyright in the U.S.and other countries.
+//
+// Datalogics is a trademark of Datalogics, Inc.
+//
+// TERM
+// ----
+// This license is effective until terminated.You may terminate it at any
+// other time by destroying the Example Code.
+//
+// WARRANTY DISCLAIMER
+// -------------------
+// THE EXAMPLE CODE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER
+// EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES
+// OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+//
+// DATALOGICS DISCLAIM ALL OTHER WARRANTIES, CONDITIONS, UNDERTAKINGS OR
+// TERMS OF ANY KIND, EXPRESS OR IMPLIED, WRITTEN OR ORAL, BY OPERATION OF
+// LAW, ARISING BY STATUTE, COURSE OF DEALING, USAGE OF TRADE OR OTHERWISE,
+// INCLUDING, WARRANTIES OR CONDITIONS OF MERCHANTABILITY, FITNESS FOR A
+// PARTICULAR PURPOSE, SATISFACTORY QUALITY, LACK OF VIRUSES, TITLE,
+// NON - INFRINGEMENT, ACCURACY OR COMPLETENESS OF RESPONSES, RESULTS, AND / OR
+// LACK OF WORKMANLIKE EFFORT.THE PROVISIONS OF THIS SECTION SET FORTH
+// SUBLICENSEE'S SOLE REMEDY AND DATALOGICS'S SOLE LIABILITY WITH RESPECT
+// TO THE WARRANTY SET FORTH HEREIN.NO REPRESENTATION OR OTHER AFFIRMATION
+// OF FACT, INCLUDING STATEMENTS REGARDING PERFORMANCE OF THE EXAMPLE CODE,
+// WHICH IS NOT CONTAINED IN THIS AGREEMENT, SHALL BE BINDING ON DATALOGICS.
+// NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
+// DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE. 
 
 #include <iostream>
 #include "MyPDFLibUtils.h"
@@ -84,7 +85,7 @@ int main()
 //*************************************************************************
 
 		//File path used to open the PDF Document
-		wchar_t * inputFilePath = L"../Input/AddDocumentInformation.pdf\0";
+		wchar_t * inputFilePath = L"../Input/AddDocumentInformation.pdf";
 
 		//Argument passed to function ASTextFromUnicode
 		ASUnicodeFormat unicodeFormat;
@@ -113,22 +114,21 @@ int main()
 		ASFileSysReleasePath(NULL, asPathName);
 
 //*************************************************************************
-//Step 2) Insert document information (metadata) into Document
+//Step 2) Insert document information into Document
 //        Title and Author are demonstrated here.
 //
-//		  Standard Key values contained in Document Information Dictionary: 
+//Note:   Standard Key values contained in Document Information Dictionary: 
 //        {"Title, Author, Subject, Keywords, Creator, Producer, Trapped"}  
 //
-//		  "key" refers to the field the metadata will be inserted into
-//        "value" is the metadata being inserted
+//Note:   "key" refers to the document information field will be inserted into
+//        "value" is the data being inserted
 //*************************************************************************
 
-		//Document Title:
-		//Create unicode strings for inserting metadata into the document.
-		ASText key = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Title\0"), unicodeFormat);
-		ASText value = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Sample Title\0"), unicodeFormat);
+		//Create unicode strings for inserting the document's Title into the document.
+		ASText key = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Title"), unicodeFormat);
+		ASText value = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Sample Title"), unicodeFormat);
 
-		//Insert the metadeta
+		//Insert the document information
 		PDDocSetInfoAsASText(pdDoc, key, value);
 
 		//Free up the resources
@@ -137,12 +137,11 @@ int main()
 
 		std::wcout << L"The documents title was inserted." << std::endl;
 
-		//Document's Author:
-		//Create unicode strings for inserting metadata into the document.
-		key = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Author\0"), unicodeFormat);
-		value = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Sample Author\0"), unicodeFormat);
+		//Create unicode strings for inserting the document's Author into the document.
+		key = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Author"), unicodeFormat);
+		value = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Sample Author"), unicodeFormat);
 
-		//Insert the metadeta
+		//Insert the document information
 		PDDocSetInfoAsASText(pdDoc, key, value);
 
 		//Free up the resources
@@ -161,10 +160,10 @@ int main()
 		//Create the asPathName to open the input file
 		asPathName = ASFileSysCreatePathFromDIPathText(NULL, asText, NULL);
 
-		//Save the new document containing metadata
+		//Save the new document
 		PDDocSave(pdDoc, PDSaveFull, asPathName, NULL, NULL, NULL);
 
-		std::wcout << L"The PDF Document has been saved and now contains metadata." << std::endl;
+		std::wcout << L"The PDF Document has been saved and now contains Document Information." << std::endl;
 
 		//Release remaining resources
 		ASTextDestroy(asText);
@@ -187,3 +186,4 @@ int main()
 
 	return errorCode;
 }
+
