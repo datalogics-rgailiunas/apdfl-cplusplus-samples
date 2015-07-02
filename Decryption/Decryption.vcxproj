@@ -151,7 +151,6 @@
     <ClCompile Include="..\..\Samples\utils\MyPDFLibApp.cpp" />
     <ClCompile Include="..\..\Samples\utils\MyPDFLibUtils.cpp" />
     <ClCompile Include="Decryption.cpp" />
-    <ClCompile Include="OpenAuthorizationProcedure.cpp" />
     <ClCompile Include="SampleUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
