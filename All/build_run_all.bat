@@ -1,8 +1,24 @@
 @ECHO OFF
-REM **********************************************************************************
+REM ***
 REM ***  Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 REM ***
-REM ***  Sample ALL.BAT/BUILDS ALL.SLN AND RUNS EACH SAMPLE
+
+REM **********************************************************************************
+REM *** Sample: All - Builds and runs each DataLogics APDFL sample.
+REM ***
+REM *** Note: By default, this occurs with the debug configuration.
+REM *** Pass in "release" as an argument to use the release configuration.
+REM *** It is important to note that this program assumes that if any sample was 
+REM *** built, it was built in the correct directory. The final summary will be  
+REM *** incorrect if this is untrue.
+REM ***
+REM *** Steps:
+REM *** 1) Initialize
+REM *** 2) Build each sample
+REM *** 3) Run each sample via iteration
+REM *** 4) Print the results
+REM **********************************************************************************
+
 REM ***  This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
 REM ***  Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
 REM ***  source code examples for integrating to the Adobe PDF Library
@@ -48,17 +64,11 @@ REM ***  WHICH IS NOT CONTAINED IN THIS AGREEMENT, SHALL BE BINDING ON DATALOGIC
 REM ***  NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
 REM ***  DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 REM ***  
-REM **********************************************************************************
+REM ***
 
-REM ***
-REM *** This batch builds and runs all Datalogics Samples for APDFL.
-REM *** By default, this occurs with the debug configuration.
-REM *** Pass in "release" as a parameter to use the release configuration.   						   
-REM ***
-REM *** It is important to note that this program assumes that if the sample was 
-REM *** built, it was built in the correct directory. The final summary will be  
-REM *** incorrect if this does not occur for some sample.  
-REM ***
+REM *************************************************
+REM *** 1) Initialize
+REM *************************************************
 
 REM *** Initialize environment variables, enable delayed expansion.
 SETLOCAL EnableDelayedExpansion
@@ -81,27 +91,6 @@ REM *** A listing of descriptions of the failed runs.
 SET DESC_FAIL_RUN=
 
 REM *** Setting ARCH and STAGE portions of the pathname to build and run in ***
-
-REM ***
-REM *** Replace from :rep1 to :rep2 with this
-REM *** maybe + eventually. It's preferential
-REM *** and one can allow both.	(with liberal
-REM *** use of IF,GOTO)          
-REM ***
-REM CHOICE /c DR /m "Run the debug or release executables?"
-REM if %ERRORLEVEL% EQU 2 SET STAGE=Release
-REM if %ERRORLEVEL% EQU 1 SET STAGE=Debug
-REM CHOICE /c 36 /m "Run the 32 or 64 bit versions?"
-REM if %ERRORLEVEL% EQU 2 SET ARCH=x64
-REM if %ERRORLEVEL% EQU 1 SET ARCH=Win32
-REM ***
-REM *** The above is probably an easier way of specifying 
-REM *** which set of samples you'd like to run, so this  
-REM *** doesn't have to be run through the command line. 
-REM *** But since we're only testing one set of samples 
-REM *** now, choosing at all is unnecessary work. 
-REM ***
-
 :rep1
 IF /i "%1"=="release" (
 	SET STAGE=Release
@@ -119,13 +108,16 @@ IF "%VS120COMNTOOLS%" == "" GOTO Usage
 CALL "%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat" x64
 IF "%VSINSTALLDIR%" == "" GOTO Usage
 
+REM *************************************************
+REM *** 2) Build each sample
+REM *************************************************
 
-REM *** rebuild each sample via %ALL_SLN% **
 devenv %ALL_SLN% /rebuild "%STAGE%|%ARCH%"
 SET /A "NUM_FAIL_BUILD=%ERRORLEVEL%"
 
-
-REM *** Run each sample.
+REM *************************************************
+REM *** 3) Run each sample via iteration
+REM *************************************************
 
 REM *** Necessary for running.
 SET PATH=..\..\Libs;%PATH%
@@ -169,6 +161,10 @@ FOR /D %%G IN (*) DO (
 		CD ..
 	)
 )
+
+REM *************************************************
+REM *** 3) Print the results
+REM *************************************************
 
 ECHO =====================================
 ECHO =========Build/Run complete.
