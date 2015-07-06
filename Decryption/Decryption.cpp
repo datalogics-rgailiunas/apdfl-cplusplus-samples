@@ -166,7 +166,7 @@ int main()
 
     if (errCode) DisplayError(errCode);    //If there was an error, display it
     MyPDFLTerm();                          //Terminate the APDFL library
-    return errCode;                        //End
+    return errCode;                        //End.
 };
 
 //==================================================================
@@ -175,7 +175,7 @@ int main()
 //==================================================================
 static ACCB1 ASBool ACCB2 openAuthorizationProcedure(PDDoc encrypted, void *clientData){
 
-    PDPermReqStatus permReqStatus;    //Stores the result of the permission request
+    PDPermReqStatus permReqStatus;               //Stores the result of the permission request
 
     DURING
 
