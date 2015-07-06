@@ -150,10 +150,12 @@
     <ClCompile Include="..\..\Include\Source\PDFLInitHFT.c" />
     <ClCompile Include="..\..\Samples\utils\MyPDFLibApp.cpp" />
     <ClCompile Include="..\..\Samples\utils\MyPDFLibUtils.cpp" />
+    <ClCompile Include="InitializeLibrary.cpp" />
+    <ClCompile Include="TestInit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Samples\utils\MyPDFLibUtils.h" />
-    <ClInclude Include="InternitializeLibrary.h" />
+    <ClInclude Include="InitializeLibrary.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
