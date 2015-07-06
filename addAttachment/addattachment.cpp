@@ -64,35 +64,30 @@
 
 int main()
 {
-    //For common subroutines.
-    Utilities util;
+    Utilities util;                                            //For common subroutines
+    if (int error = util.initPDFL()) return error;             //Initialize the PDF library
 
-    //Initialize the PDF library.
-    if (int error = util.initPDFL()) return error;
+    //APDFL variables
+    ASErrorCode  errCode = 0;                                  //Tracks errors.
 
     //Sample variables
     wchar_t* path_attachment1 = L"../Input/attachment1.xlsx";  //Path to attachment name tree
     wchar_t* path_attachment2 = L"../Input/attachment2.docx";  //Path to attachment for annotation
     wchar_t* path_inputpdf = L"../Input/noattachment.pdf";     //Path to input pdf
     wchar_t* path_attached = L"../Input/attachment.pdf";       //Path to output pdf
+    PDDoc inputpdf = NULL;                                     //Reference to input pdf
 
-    //PDFL variables
-    ASErrorCode  errCode = 0;          //Tracks errors.
-
-    //Sample variables
-    PDDoc inputpdf = NULL;             //Reference to input pdf
-
-    //For name tree attachment (attachment 1)
-    ASFile attach1_as;                 //ASFile reference for attachment 1
-    PDFileAttachment attach1_pfa;      //PDFileAttachment reference for attachment 1
-    PDNameTree files_tree;             //Name tree to attach it to
+    //For name tree attachment  (attachment 1)
+    ASFile attach1_as;                                         //ASFile reference for attachment 1
+    PDFileAttachment attach1_pfa;                              //PDFileAttachment reference for attachment 1
+    PDNameTree files_tree;                                     //Name tree to attach it to
 
     //For annotation attachment (attachment 2)
-    ASFile attach2_as;                 //ASFile for attachment 2
-    PDFileAttachment attach2_pfa;      //PDFileAttachment for attachment 2
-    ASFixedRect annot_location;        //Defines annotation's location
-    PDLinkAnnot attachment_annot;      //The annotation in which we'll embed attachment 2
-    PDPage page1 = NULL;               //Reference to page 1, where the annotation goes
+    ASFile attach2_as;                                         //ASFile for attachment 2
+    PDFileAttachment attach2_pfa;                              //PDFileAttachment for attachment 2
+    ASFixedRect annot_location;                                //Defines annotation's location
+    PDLinkAnnot attachment_annot;                              //The annotation in which we'll embed attachment 2
+    PDPage page1 = NULL;                                       //Reference to page 1, where the annotation goes
 
 
     DURING
@@ -108,11 +103,11 @@ int main()
     std::wcout << L"Opening attachment 1." << std::endl;
     attach1_as = util.openASFile(path_attachment1);
     attach1_pfa = PDFileAttachmentNewFromFile(
-                    PDDocGetCosDoc(inputpdf),     //The relevant pdf
-                    attach1_as,                   //The relevant ASFile
-                    NULL, (ASUns32) 0,            //No filters for the file attachment stream
-                    CosNewNull(),                 //No filter parameters
-                    NULL, NULL, NULL);            //No ASProgressMonitor
+                    PDDocGetCosDoc(inputpdf),              //The relevant pdf
+                    attach1_as,                            //The relevant ASFile
+                    NULL, (ASUns32) 0,                     //No filters for the file attachment stream
+                    CosNewNull(),                          //No filter parameters
+                    NULL, NULL, NULL);                     //No ASProgressMonitor
 
     //Retrieve the proper file embedding name tree
     //(This name tree has not yet been used, so we must "create" it)
@@ -121,10 +116,10 @@ int main()
     //Embed the attachment in the name tree
     std::wcout << L"Placing it in the name tree." << std::endl;
     PDNameTreePut(
-        files_tree,                                 //The tree to put it in
-        CosNewString(PDDocGetCosDoc(inputpdf),      //The KEY (totally arbitrary)
+        files_tree,                                        //The tree to put it in
+        CosNewString(PDDocGetCosDoc(inputpdf),             //The KEY (totally arbitrary)
             true,"TheSpreadsheet",14),
-        PDFileAttachmentGetCosObj(attach1_pfa));    //The VALUE: the attachment's file specification
+        PDFileAttachmentGetCosObj(attach1_pfa));           //The VALUE: the attachment's file specification
 
     //==================================================================
     //Step 2) Create and embed an attachment to an annotation
@@ -134,37 +129,29 @@ int main()
     std::wcout << L"Opening attachment 2." << std::endl;
     attach2_as = util.openASFile(path_attachment2);
     attach2_pfa = PDFileAttachmentNewFromFile(
-                    PDDocGetCosDoc(inputpdf),   //The relevant pdf
-                    attach2_as,                 //The relevant ASFile
-                    NULL, (ASUns32)0,           //No filters for the file attachment stream
-                    CosNewNull(),               //No filter parameters
-                    NULL, NULL, NULL);          //No ASProgressMonitor
-       
+                    PDDocGetCosDoc(inputpdf),              //The relevant pdf
+                    attach2_as,                            //The relevant ASFile
+                    NULL, (ASUns32)0,                      //No filters for the file attachment stream
+                    CosNewNull(),                          //No filter parameters
+                    NULL, NULL, NULL);                     //No ASProgressMonitor
+
     //Create the annotation
     std::wcout << L"Embedding it through an annotation." << std::endl;
 
-    //Our rect determines the annotation's placement on the page
+    //This rect determines the annotation's placement on the page
     annot_location.left   = Int16ToFixed(2.50 * 72);
     annot_location.right  = Int16ToFixed(3.00 * 72);
     annot_location.top    = Int16ToFixed(8.40 * 72);
     annot_location.bottom = Int16ToFixed(8.90 * 72);
 
-    //The annotation will go on page 1...
-    page1 = PDDocAcquirePage(inputpdf, (ASInt32)0);
-
-    //Create a File Attachment annotation (it still must be edited and officially added to the page)
     attachment_annot = PDPageCreateAnnot(page1, ASAtomFromString("FileAttachment"), &annot_location);
+    CosDictPutKeyString(                                   //Embed the file specification into the annotation's cos dictionary.
+        PDAnnotGetCosObj(attachment_annot),                //The dictionary we want to edit
+        "FS",                                              //The KEY for the dictionary: we're editing the File Specification
+        PDFileAttachmentGetCosObj(attach2_pfa));           //The VALUE for the dictionary: The file spec we want the annot to open
 
-    //Put the file specification into the annotation's cos dictionary.
-    //This effectively sets the annotation's action to open the document,
-    //and properly embeds the document.
-    CosDictPutKeyString(
-        PDAnnotGetCosObj(attachment_annot),      //The annotation dictionary we want to edit
-        "FS",                                    //The KEY for the dictionary: we're editing the File Specification
-        PDFileAttachmentGetCosObj(attach2_pfa)); //The VALUE for the dictionary: The file spec we want the annot to open
-
-    //Add the annotation as the first annotation on the page
-    PDPageAddAnnot(page1,(ASInt32)-2,attachment_annot);
+    page1 = PDDocAcquirePage(inputpdf, (ASInt32)0);
+    PDPageAddAnnot(page1,(ASInt32)-2,attachment_annot);    //Add the annotation as the first annotation on the page
 
     //==================================================================
     //Step 3) Save and close
@@ -172,33 +159,27 @@ int main()
 
     std::wcout << L"All embeddings successful. Saving the output document." << std::endl;
 
-    PDPageRelease(page1);   //Release your pages before saving!
-
+    PDPageRelease(page1);
     PDDocSave(inputpdf, PDDocNeedsSave | PDDocIsOpen | PDSaveCopy,
         util.makeASPathName(path_attached), ASGetDefaultFileSys(), NULL, NULL);
 
     std::wcout << L"The document was saved." << std::endl;
 
-    //Close the input document
-    PDDocClose(inputpdf);
+    PDDocClose(inputpdf);                  //Close the input document
 
     HANDLER
+
         errCode = ERRORCODE;
+
     END_HANDLER
 
     //Release resources
-    if (page1) PDPageRelease(page1);
+    if (page1)      PDPageRelease(page1);
     if (inputpdf)   PDDocRelease(inputpdf);
     if (attach1_as) ASFileClose(attach1_as);
     if (attach2_as) ASFileClose(attach2_as);
 
-    //Display errors
-    if (errCode)
-        DisplayError(errCode);
-
-    //Terminate the PDF library
-    MyPDFLTerm();
-
-    //End.
-    return errCode;
+    if (errCode) DisplayError(errCode);    //Display errors, if any
+    MyPDFLTerm();                          //Terminate the PDF library
+    return errCode;                        //End.
 }
