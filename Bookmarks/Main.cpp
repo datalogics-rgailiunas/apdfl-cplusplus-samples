@@ -70,27 +70,27 @@
 
 int main(int argc, char* argv)
 {
-    Utilities util;             //Performs some common functions
+    Utilities util;                 //Performs some common functions
 
     //Initialize library and sample variables.
-    int  err = util.initPDFL(); //Will display errors.
+    int  err = util.initPDFL();     //Will display errors.
     if (err) return err;
 
-    ASErrorCode errCode = 0;    //Tracks runtime errors in the application
-    PDDoc mydoc = NULL;         //Reference to input pdf document
+    ASErrorCode errCode = 0;        //Tracks runtime errors in the application
+    PDDoc mydoc = NULL;             //Reference to input pdf document
 
     //[S] Bolded text search iteration variables. Defined here to release after DURING/HANDLER.
     //see matching comment below.
-    PDPage nextPage;            //Iterates over each PDPage
-    PDEContent nextContent;     //Iterates over each PDEContent per PDPage
-    PDEText nextText;           //Iterates over each text object per PDEContent
-    PDEElement nextElem;        //Iterates over the elements of each text object
-    PDEFont nextFont;           //The font of the next run of text
-    ASFixedRect* nextTextLoc;   //The location of the bolded text
+    PDPage nextPage;                //Iterates over each PDPage
+    PDEContent nextContent;         //Iterates over each PDEContent per PDPage
+    PDEText nextText;               //Iterates over each text object per PDEContent
+    PDEElement nextElem;            //Iterates over the elements of each text object
+    PDEFont nextFont;               //The font of the next run of text
+    ASFixedRect* nextTextLoc;       //The location of the bolded text
 
     //[B] Bookmark creation iteration variables. Defined here to release after DURING/HANDLER.
     //see matching comment below.
-    PDPage nextDPage = NULL;    //The associated page of the bookmark destination.
+    PDPage nextDPage = NULL;        //The associated page of the bookmark destination.
 
     //[Z] Zoom Factor demonstration variables. Defined here to release after DURING/HANDLER.
     //see matching comment below.
@@ -117,27 +117,27 @@ int main(int argc, char* argv)
     PDEFontAttrs nextFontAttrs;                    //The font attributes of the next text run's font
 
     std::wcout << L"Searching for bolded text..." << std::endl;
-    for (auto page = 0; page < numPages; ++page) //For each page...
+    for (auto page = 0; page < numPages; ++page)   //For each page...
     {
         nextPage = PDDocAcquirePage(mydoc, page);
         nextContent = PDPageAcquirePDEContent(nextPage, 0);
         ASInt32 numElem = PDEContentGetNumElems(nextContent);
 
-        for (auto elemCount = 0; elemCount < numElem; ++elemCount) //For each element in that page...
+        for (auto elemCount = 0; elemCount < numElem; ++elemCount)       //For each element in that page...
         {
             nextElem = PDEContentGetElem(nextContent, elemCount);
 
-            if (PDEObjectGetType((PDEObject)nextElem) == kPDEText) //For each text element among those elements...
+            if (PDEObjectGetType((PDEObject)nextElem) == kPDEText)       //For each text element among those elements...
             {
                 //Determine where the bolded text is by iterating through the text runs
                 //The bolded text may be made of several text runs, making iteration necessary.
                 nextText = reinterpret_cast<PDEText>(nextElem);
                 int numRuns = PDETextGetNumRuns(nextText);
 
-                bool currentlyBold = false;      //Whether the previous text run was bold
-                std::wstring nextBCopy = L"";    //Stores the bolded text, when found
+                bool currentlyBold = false;                              //Whether the previous text run was bold
+                std::wstring nextBCopy = L"";                            //Stores the bolded text, when found
 
-                for (auto runCount = 0; runCount < numRuns; ++runCount) //For each text run in that text element...
+                for (auto runCount = 0; runCount < numRuns; ++runCount)  //For each text run in that text element...
                 {
                     //Check if it's bold
                     nextFont = PDETextGetFont(nextText, kPDETextRun, runCount);
@@ -146,13 +146,11 @@ int main(int argc, char* argv)
 
                     if ((fontstr.find("Bold") != std::string::npos))
                     {
-                        if (!currentlyBold)
+                        if (!currentlyBold)                              //This is the first text run of a bolded text section.
                         {
-                            //This is the first text run of a bolded text.
-
                             //Retrieve the location and store it
                             nextTextLoc = new ASFixedRect;
-                            PDETextGetBBox(nextText, kPDETextRun, runCount, nextTextLoc);    //The location of the text on the page
+                            PDETextGetBBox(nextText, kPDETextRun, runCount, nextTextLoc);
                             btextLocs.push_back(*nextTextLoc);
 
                             //Store the page index this bookmark was found on
@@ -166,7 +164,7 @@ int main(int argc, char* argv)
                             nextBCopy += nextFragment;
                             delete[] nextFragment;
 
-                            currentlyBold = true;    //Update the iteration state
+                            currentlyBold = true;
                         }
                         else
                         {
@@ -184,15 +182,14 @@ int main(int argc, char* argv)
                     else
                     {
                         //We've found an unbolded text run...
-
-                        if (currentlyBold)
+                        if (currentlyBold)    //...Which ended the bolded text.
                         {
-                            //...Which ended the bolded text.
-                            //Now we know we've captured the full bolded text,
+                            //Now we've captured the full bolded text,
                             //So we record it and prepare to capture the next one
-                            btextCopy.push_back(nextBCopy.substr(0, nextBCopy.size() - 2));    //Remove the single trailing space
+                            btextCopy.push_back(nextBCopy.substr(0, nextBCopy.size() - 2));
                             nextBCopy = L"";
-                            currentlyBold = false;    //Update the iteration state
+
+                            currentlyBold = false;
                         }
                         //An unbolded text run is irrelevant otherwise.
                     }
@@ -205,9 +202,9 @@ int main(int argc, char* argv)
     }
 
     std::wcout << L"I found " << btextLocs.size() << L" bolded texts:" << std::endl;
-    for (auto x : btextCopy){
+    for (auto x : btextCopy)
         std::wcout << x << std::endl;
-    }
+
 #undef BUFFERSIZE
 
     //========================================================================
@@ -217,13 +214,13 @@ int main(int argc, char* argv)
 
     //We'll create each bookmark by iterating over the text we found.
 
-    auto numBold = btextCopy.size();                    //The size of each vector is the same
-    PDBookmark bmRoot = PDDocGetBookmarkRoot(mydoc);    //The root of the document's bookmark tree
+    auto numBold = btextCopy.size();                               //The size of each vector is the same
+    PDBookmark bmRoot = PDDocGetBookmarkRoot(mydoc);               //The root of the document's bookmark tree
     
     //[B] Bookmark creation iteration variables. See matching comment above.
-    PDBookmark nextbm;                                  //Next bookmark to create
-    std::wstringstream nextbmTitle;                     //The title for the next bookmark
-    PDAction nextDestAct;                               //The destination for the next bookmark
+    PDBookmark nextbm;                                             //Next bookmark to create
+    std::wstringstream nextbmTitle;                                //The title for the next bookmark
+    PDAction nextDestAct;                                          //The destination for the next bookmark
 
     //Create a bookmark for each bold text
     for (int btext = 0; btext < numBold; ++btext)
@@ -245,7 +242,7 @@ int main(int argc, char* argv)
         PDBookmarkSetAction(nextbm, nextDestAct);
         PDPageRelease(nextDPage);
 
-        nextbmTitle.str(std::wstring());    //Clear the stringstream for the next text
+        nextbmTitle.str(std::wstring());                           //Clear the stringstream for the next text
     }
     std::wcout << L"Done." << std::endl;
 
