@@ -22,7 +22,7 @@
     <ProjectGuid>{1013E460-05A7-43D2-9E4F-B6366E7D1898}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BlankSample</RootNamespace>
-    <ProjectName>Practice</ProjectName>
+    <ProjectName>Bookmarks</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
