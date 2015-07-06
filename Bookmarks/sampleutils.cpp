@@ -1,7 +1,12 @@
 // Copyright (c) 2015, Datalogics, Inc. All rights reserved.
+
+//************************************************************************
+// Sample: Bookmarks - Performs common functions for the sample
 //
-// Sample addAttachment / Performs several utility functions for the sample.
-//
+// This class performs several repeatedly used functions which are
+// not critical for the sample to perform explicitly.
+//************************************************************************
+
 // This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
 // source code examples for integrating to the Adobe PDF Library
@@ -47,17 +52,21 @@
 // NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
-//Sample
 #include "SampleUtilities.h"
 
+//==================================================================
+//Constructor computes the host's unicode format.
+//==================================================================
 Utilities::Utilities(){
-    //Compute host's unicode format
     if (sizeof(wchar_t) == 2)
         hostUniFormat = kUTF16HostEndian;
     else
         hostUniFormat = kUTF32HostEndian;
-}
+};
 
+//==================================================================
+//Initialize the PDF library.
+//==================================================================
 int Utilities::initPDFL(){
 
     int initError = MyPDFLInit();
@@ -70,22 +79,30 @@ int Utilities::initPDFL(){
     }
 
     return initError;
-}
+};
 
+//==================================================================
+//Convert a string to a wide string. The caller must delete[]
+//the returned array.
+//==================================================================
 wchar_t* Utilities::toWide(const char* str){
 
     const size_t strlen = (std::strlen(str)) + 1;
     wchar_t* wstr = new wchar_t[strlen];
     mbstowcs(wstr, str, strlen);
     return wstr;
+};
 
-}
-
+//==================================================================
+//Convert a wide string to an ASText object.
+//==================================================================
 ASText Utilities::toASText(const wchar_t* string){
     return ASTextFromUnicode((ASUTF16Val *)string, hostUniFormat);
-}
+};
 
-
+//==================================================================
+//Create an ASPathName from a wchar_t*.
+//==================================================================
 ASPathName Utilities::makeASPathName(wchar_t* pathname){
 
     ASText pathText = NULL;         //Text of pathname
@@ -102,8 +119,11 @@ ASPathName Utilities::makeASPathName(wchar_t* pathname){
         ASTextDestroy(pathText);
 
     return pathASPath;
-}
+};
 
+//==================================================================
+//Open a file.
+//==================================================================
 ASFile Utilities::openASFile(wchar_t* filepath){
     ASErrorCode errCode = 0;       //Tracks errors
     ASFile file = NULL;            //The file we want to open
@@ -126,8 +146,11 @@ ASFile Utilities::openASFile(wchar_t* filepath){
     ASFileSysReleasePath(ASGetDefaultFileSys(), aspfilepath);
 
     return file;
-}
+};
 
+//==================================================================
+//Open an unprotected PDF file
+//==================================================================
 PDDoc Utilities::openPDFNoSecurity(wchar_t* filepath){
 
     ASPathName doc_path = makeASPathName(filepath);    //Filepath of the document
@@ -143,4 +166,4 @@ PDDoc Utilities::openPDFNoSecurity(wchar_t* filepath){
         ASFileSysReleasePath(ASGetDefaultFileSys(), doc_path);
 
     return doc;
-}
+};

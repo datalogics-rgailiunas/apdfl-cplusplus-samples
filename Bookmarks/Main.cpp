@@ -162,7 +162,9 @@ int main(int argc, char* argv)
                             char buffer[BUFFERSIZE];
                             memset(buffer, '\0', BUFFERSIZE);
                             PDETextGetText(nextText, kPDETextRun, runCount, (ASUns8*)buffer);
-                            nextBCopy += util.toWide(buffer);
+                            wchar_t* nextFragment = util.toWide(buffer);
+                            nextBCopy += nextFragment;
+                            delete[] nextFragment;
 
                             currentlyBold = true;    //Update the iteration state
                         }
@@ -174,7 +176,9 @@ int main(int argc, char* argv)
                             char buffer[BUFFERSIZE];
                             memset(buffer, L'\0', BUFFERSIZE);
                             PDETextGetText(nextText, kPDETextRun, runCount, (ASUns8*)buffer);
-                            nextBCopy += util.toWide(buffer);
+                            wchar_t* nextFragment = util.toWide(buffer);
+                            nextBCopy += nextFragment;
+                            delete[] nextFragment;
                         }
                     }
                     else

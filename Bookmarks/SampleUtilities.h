@@ -1,7 +1,13 @@
 // Copyright (c) 2015, Datalogics, Inc. All rights reserved.
+
+//************************************************************************
+// Sample: Bookmarks - Performs common functions for the sample
 //
-// Sample addAttachment / Defines sample's Utilities class.
-//
+// This header file defines a class which performs several
+// repeatedly used functions which are not critical for the
+// sample to perform explicitly.
+//************************************************************************
+
 // This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
 // source code examples for integrating to the Adobe PDF Library
@@ -57,13 +63,13 @@
 class Utilities{
 
 public:
-    Utilities(); //Constructor
-    ASPathName makeASPathName(wchar_t* pathname); //Properly creates an ASPathName from a wchar_t*
-    ASFile openASFile(wchar_t* filepath); //Opens a file
-    PDDoc openPDFNoSecurity(wchar_t* filepath); //Opens an unprotected PDF file
-    int initPDFL(); //Initializes the PDF library
-    ASText toASText(const wchar_t* string); //Converts a wide string to an ASText object.
-    wchar_t* toWide(const char* str); //Converts a string to a wide string.
+    Utilities();
+    ASPathName makeASPathName(wchar_t* pathname);
+    ASFile openASFile(wchar_t* filepath);
+    PDDoc openPDFNoSecurity(wchar_t* filepath);
+    int initPDFL(); 
+    ASText toASText(const wchar_t* string);
+    wchar_t* toWide(const char* str);
 
 private:
     ASUnicodeFormat hostUniFormat; //Host's unicode format. Set in constructor
