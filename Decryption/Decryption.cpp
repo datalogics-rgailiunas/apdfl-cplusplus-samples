@@ -62,10 +62,10 @@
 #include <iostream>
 
 static char* password = "";     //The document's password is stored statically
-                                //because OpenAuthProc is static.
+                                //because openAuthorizationProcedure is static.
                                 //Note that the password cannot be a wchar_t*.
-//Called by PDDocOpenEx to obtain permission to open the document
-//by supplying the password.
+
+//Called by PDDocOpenEx to obtain permission to open the document by supplying the password.
 static ACCB1 ASBool ACCB2 openAuthorizationProcedure(PDDoc encrypted, void *clientData);
 
 int main()
@@ -82,13 +82,13 @@ int main()
     }
 
     //APDFL variables
-    ASErrorCode errCode = 0; //Tracks errors
+    ASErrorCode errCode = 0;       //Tracks errors
 
     //Sample variables
-    Utilities util;                                      //Performs some common actions
-    PDDoc encrypted_document;                            //For processing the still-encrypted document
-    PDDoc unencrypted_document;                          //For checking that the document has been unencrypted.
-    ASPathName encrypted_path;                           //Filepath of the encrypted document
+    Utilities util;                //Performs some common actions
+    PDDoc encrypted_document;      //For processing the still-encrypted document
+    PDDoc unencrypted_document;    //For checking that the document has been unencrypted.
+    ASPathName encrypted_path;     //Filepath of the encrypted document
 
 
     DURING
@@ -98,18 +98,18 @@ int main()
     //==================================================================
 
     password = "mypassword";
-	encrypted_path = util.makeASPathName(L"../Input/encrypted.pdf");
-    encrypted_document = PDDocOpenEx(encrypted_path, ASGetDefaultFileSys(), //Calls openAuthorizationProcedure to supply the password
+    encrypted_path = util.makeASPathName(L"../Input/encrypted.pdf");
+    encrypted_document = PDDocOpenEx(encrypted_path, ASGetDefaultFileSys(),    //Calls openAuthorizationProcedure to supply the password
                             ASCallbackCreateProto(PDAuthProcEx, &openAuthorizationProcedure), 0, true);
-							
+
     std::wcout << L"Opened the document." << std::endl;
 
     //==================================================================
     //Step 2) Remove the encryption
     //==================================================================
 
-    PDDocSetNewCryptHandler(encrypted_document, ASAtomNull); //Completely removes security from the document
-	
+    PDDocSetNewCryptHandler(encrypted_document, ASAtomNull);    //Completely removes security from the document
+
     std::wcout << L"The encryption was removed." << std::endl;
 
     //==================================================================
@@ -153,7 +153,7 @@ int main()
         }
 
     HANDLER
-    
+
     errCode = ERRORCODE;
 
     END_HANDLER
@@ -164,14 +164,9 @@ int main()
     if (unencrypted_document) PDDocClose(unencrypted_document);
     ASFileSysReleasePath(ASGetDefaultFileSys(), encrypted_path);
 
-    //If there was an error, display it
-    if (errCode) DisplayError(errCode);
-
-    //Terminate the APDFL library
-    MyPDFLTerm();
-
-    //End
-    return errCode;
+    if (errCode) DisplayError(errCode);    //If there was an error, display it
+    MyPDFLTerm();                          //Terminate the APDFL library
+    return errCode;                        //End
 };
 
 //==================================================================
@@ -180,14 +175,14 @@ int main()
 //==================================================================
 static ACCB1 ASBool ACCB2 openAuthorizationProcedure(PDDoc encrypted, void *clientData){
 
-    PDPermReqStatus permReqStatus; //Stores the result of the permission request
+    PDPermReqStatus permReqStatus;    //Stores the result of the permission request
 
     DURING
 
-        //Request open permission by supplying the password
-        permReqStatus = PDDocPermRequest(encrypted,
-                            PDPermReqObjDoc,  //Object of the request: a document
-                            PDPermReqOprOpen, //Target operation of the request: to open
+        permReqStatus = PDDocPermRequest(        //Request open permission by supplying the password
+                            encrypted,
+                            PDPermReqObjDoc,     //Object of the request: a document
+                            PDPermReqOprOpen,    //Target operation of the request: to open
                             (void*)password);
     HANDLER
 
