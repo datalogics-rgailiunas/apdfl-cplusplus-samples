@@ -63,7 +63,7 @@
 #include "MyPDFLibUtils.h"
 #include "ASExtraCalls.h"
 
-int main()
+int main(int argc, char **argv)
 {
     //Initialize the APDFL prior to making any APDFL calls
     ASErrorCode errorCode = MyPDFLInit();
