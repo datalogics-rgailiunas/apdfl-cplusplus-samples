@@ -113,7 +113,7 @@ int main(int argc, char* argv)
 
     //[S] Bolded text search iteration variables. See matching comment above.
     ASInt16 numPages = PDDocGetNumPages(mydoc);
-    #define BUFFERSIZE 100                         //For a buffer which reads the bolded text
+    const ASInt8 bufferSize = 100;                 //For a buffer which reads the bolded text
     PDEFontAttrs nextFontAttrs;                    //The font attributes of the next text run's font
 
     std::wcout << L"Searching for bolded text..." << std::endl;
@@ -157,8 +157,8 @@ int main(int argc, char* argv)
                             btextPages.push_back((ASInt16)page);
 
                             //Begin storing the next bold text
-                            char buffer[BUFFERSIZE];
-                            memset(buffer, '\0', BUFFERSIZE);
+                            char buffer[bufferSize];
+                            memset(buffer, '\0', bufferSize);
                             PDETextGetText(nextText, kPDETextRun, runCount, (ASUns8*)buffer);
                             wchar_t* nextFragment = util.toWide(buffer);
                             nextBCopy += nextFragment;
@@ -171,8 +171,8 @@ int main(int argc, char* argv)
                             //This text run is NOT the first of a bold piece of text,
                             //but some part of that bolded text
                             //So just continue storing the text
-                            char buffer[BUFFERSIZE];
-                            memset(buffer, L'\0', BUFFERSIZE);
+                            char buffer[bufferSize];
+                            memset(buffer, L'\0', bufferSize);
                             PDETextGetText(nextText, kPDETextRun, runCount, (ASUns8*)buffer);
                             wchar_t* nextFragment = util.toWide(buffer);
                             nextBCopy += nextFragment;
@@ -197,15 +197,15 @@ int main(int argc, char* argv)
             }
         }
         //Release the page and its content. We acquire new ones in the next iteration
-        PDPageRelease(nextPage);
         PDPageReleasePDEContent(nextPage, 0);
+        PDPageRelease(nextPage);
+        nextPage = NULL;
+        nextContent = NULL;
     }
 
     std::wcout << L"I found " << btextLocs.size() << L" bolded texts:" << std::endl;
     for (auto x : btextCopy)
         std::wcout << x << std::endl;
-
-#undef BUFFERSIZE
 
     //========================================================================
     //Step 2) Create a bookmark for each bolded section with this information.
@@ -241,6 +241,7 @@ int main(int argc, char* argv)
 
         PDBookmarkSetAction(nextbm, nextDestAct);
         PDPageRelease(nextDPage);
+        nextDPage = NULL;
 
         nextbmTitle.str(std::wstring());                           //Clear the stringstream for the next text
     }
@@ -282,6 +283,7 @@ int main(int argc, char* argv)
                 mydoc, PDViewDestCreate(mydoc, parentPage, fitType, &locationRect, ASFloatToFixed(zoomfactors[i]), 0), mydoc));
     }
     PDPageRelease(parentPage);
+    parentPage = NULL;
 
     std::wcout << L"Done. Saving and closing the document." << std::endl;
 
@@ -312,12 +314,8 @@ int main(int argc, char* argv)
         if (nextContent) PDPageReleasePDEContent(nextPage,0);
         PDPageRelease(nextPage);
     }
-    if (nextText)    PDERelease(reinterpret_cast<PDEObject>(nextText));
-    if (nextElem)    PDERelease(reinterpret_cast<PDEObject>(nextElem));
-    if (nextTextLoc) PDERelease(reinterpret_cast<PDEObject>(nextTextLoc));
     if (nextDPage)   PDPageRelease(nextDPage);
     if (parentPage)  PDPageRelease(parentPage);
-    if (nextFont)    PDERelease(reinterpret_cast<PDEObject>(nextFont));
     if (mydoc)       PDDocRelease(mydoc);
 
     MyPDFLTerm();      //Terminate the library
