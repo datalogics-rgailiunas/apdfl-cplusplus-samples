@@ -104,7 +104,8 @@ int main()
 
         //Free up resources
         ASTextDestroy(asText);
-        
+        asText = NULL;
+
         //Open the Document
         PDDoc pdDoc = PDDocOpen(asPathName, NULL, NULL, true);
 
@@ -112,6 +113,7 @@ int main()
 
         //Free up resources
         ASFileSysReleasePath(NULL, asPathName);
+        asPathName = NULL;
 
 //*************************************************************************
 //Step 2) Insert document information into Document
