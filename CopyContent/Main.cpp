@@ -99,22 +99,22 @@ int main(int argc, char** argv)
     willCopyList.insert(I_B_PAIR(kPDEContainer, true));
     willCopyList.insert(I_B_PAIR(kPDEForm,      true));
     willCopyList.insert(I_B_PAIR(kPDEGroup,     true));
-    willCopyList.insert(I_B_PAIR(kPDEImage,     true));
+    willCopyList.insert(I_B_PAIR(kPDEImage,     false));
     willCopyList.insert(I_B_PAIR(kPDEPath,      true));
     willCopyList.insert(I_B_PAIR(kPDEPlace,     true));
     willCopyList.insert(I_B_PAIR(kPDEPS,        true));
     willCopyList.insert(I_B_PAIR(kPDEShading,   true));
-    willCopyList.insert(I_B_PAIR(kPDEText,      true));
+    willCopyList.insert(I_B_PAIR(kPDEText,      false));
     willCopyList.insert(I_B_PAIR(kPDEUnknown,   true));
     willCopyList.insert(I_B_PAIR(kPDEXObject,   true));
 
-    ASInt32 pagesToCopy[] = { 0, 1, 3, 5, 9, 12 };                  //Which pages we'll copy. First page is 0.
+    ASInt32 pagesToCopy[] = { 0, 1, 3 };                  //Which pages we'll copy. First page is 0.
 #define WILL_COPY_ALL_PAGES 0                                       //Set to 1 if you just want to copy every page
 
 
 
     //Paths to in/out documents.
-    const wchar_t* inPath  = L"../Input/nonweboptimizedpdf.pdf";    //Placeholder input
+    const wchar_t* inPath  = L"../Input/CopyContent.pdf";    //Placeholder input
     std::wstring outPath = inPath;
     outPath.insert(outPath.find(L".pdf"), L"_Copy");
 
