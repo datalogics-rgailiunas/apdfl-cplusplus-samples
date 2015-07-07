@@ -184,7 +184,9 @@ int main()
 
         //Print out error code
         std::cerr << "Error Code: " << errorCode << "Error Message: " << buf << std::endl;
-    END_HANDLER
+        END_HANDLER
 
-    return errorCode;
+    MyPDFLTerm();       //Terminate the library
+    
+    return errorCode;   
 }
