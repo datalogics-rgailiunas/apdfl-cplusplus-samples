@@ -78,15 +78,15 @@ int main()
     PDDoc inputpdf = NULL;                                     //Reference to input pdf
 
     //For name tree attachment  (attachment 1)
-    ASFile attach1_as;                                         //ASFile reference for attachment 1
+    ASFile attach1_as = NULL;                                  //ASFile reference for attachment 1
     PDFileAttachment attach1_pfa;                              //PDFileAttachment reference for attachment 1
     PDNameTree files_tree;                                     //Name tree to attach it to
 
     //For annotation attachment (attachment 2)
     ASFile attach2_as;                                         //ASFile for attachment 2
     PDFileAttachment attach2_pfa;                              //PDFileAttachment for attachment 2
-    ASFixedRect annot_location;                                //Defines annotation's location
     PDLinkAnnot attachment_annot;                              //The annotation in which we'll embed attachment 2
+    ASFixedRect annot_location;                                //Defines annotation's location
     PDPage page1 = NULL;                                       //Reference to page 1, where the annotation goes
 
 
@@ -108,6 +108,10 @@ int main()
                     NULL, (ASUns32) 0,                     //No filters for the file attachment stream
                     CosNewNull(),                          //No filter parameters
                     NULL, NULL, NULL);                     //No ASProgressMonitor
+    
+    ASFileClose(attach1_as);
+    attach1_as = NULL;
+
 
     //Retrieve the proper file embedding name tree
     //(This name tree has not yet been used, so we must "create" it)
@@ -135,6 +139,9 @@ int main()
                     CosNewNull(),                          //No filter parameters
                     NULL, NULL, NULL);                     //No ASProgressMonitor
 
+    ASFileClose(attach2_as);
+    attach2_as = NULL;
+
     //Create the annotation
     std::wcout << L"Embedding it through an annotation." << std::endl;
 
@@ -144,13 +151,13 @@ int main()
     annot_location.top    = Int16ToFixed(8.40 * 72);
     annot_location.bottom = Int16ToFixed(8.90 * 72);
 
+    page1 = PDDocAcquirePage(inputpdf, (ASInt32)0);
     attachment_annot = PDPageCreateAnnot(page1, ASAtomFromString("FileAttachment"), &annot_location);
     CosDictPutKeyString(                                   //Embed the file specification into the annotation's cos dictionary.
         PDAnnotGetCosObj(attachment_annot),                //The dictionary we want to edit
         "FS",                                              //The KEY for the dictionary: we're editing the File Specification
         PDFileAttachmentGetCosObj(attach2_pfa));           //The VALUE for the dictionary: The file spec we want the annot to open
 
-    page1 = PDDocAcquirePage(inputpdf, (ASInt32)0);
     PDPageAddAnnot(page1,(ASInt32)-2,attachment_annot);    //Add the annotation as the first annotation on the page
 
     //==================================================================
@@ -160,12 +167,15 @@ int main()
     std::wcout << L"All embeddings successful. Saving the output document." << std::endl;
 
     PDPageRelease(page1);
+    page1 = NULL;
+
     PDDocSave(inputpdf, PDDocNeedsSave | PDDocIsOpen | PDSaveCopy,
         util.makeASPathName(path_attached), ASGetDefaultFileSys(), NULL, NULL);
 
     std::wcout << L"The document was saved." << std::endl;
 
-    PDDocClose(inputpdf);                  //Close the input document
+    PDDocClose(inputpdf);
+    inputpdf = NULL;
 
     HANDLER
 
