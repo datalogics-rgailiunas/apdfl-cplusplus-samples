@@ -160,7 +160,7 @@
     <ClCompile Include="..\..\Include\Source\PDFLInitHFT.c" />
     <ClCompile Include="..\..\Samples\utils\MyPDFLibApp.cpp" />
     <ClCompile Include="..\..\Samples\utils\MyPDFLibUtils.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Bookmarks.cpp" />
     <ClCompile Include="sampleutils.cpp" />
   </ItemGroup>
   <ItemGroup>
