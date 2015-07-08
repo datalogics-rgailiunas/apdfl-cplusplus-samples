@@ -70,7 +70,7 @@ static ACCB1 ASBool ACCB2 openAuthorizationProcedure(PDDoc encrypted, void *clie
 
 int main()
 {
-	//Initialize the APDF libary
+    //Initialize the APDF libary
     int initError = MyPDFLInit();
     if (initError)
     {
@@ -86,9 +86,9 @@ int main()
 
     //Sample variables
     Utilities util;                //Performs some common actions
-    PDDoc encrypted_document;      //For processing the still-encrypted document
-    PDDoc unencrypted_document;    //For checking that the document has been unencrypted.
-    ASPathName encrypted_path;     //Filepath of the encrypted document
+    PDDoc document;                //Reference to the input document
+    ASPathName doc_path;           //Filepath of the encrypted document
+    password = "mypassword";       //Password to open the document
 
 
     DURING
@@ -97,10 +97,9 @@ int main()
     //Step 1) Open the document with the password
     //==================================================================
 
-    password = "mypassword";
-    encrypted_path = util.makeASPathName(L"../Input/encrypted.pdf");
-    encrypted_document = PDDocOpenEx(encrypted_path, ASGetDefaultFileSys(),    //Calls openAuthorizationProcedure to supply the password
-                            ASCallbackCreateProto(PDAuthProcEx, &openAuthorizationProcedure), 0, true);
+    doc_path = util.makeASPathName(L"../Input/encrypted.pdf");
+    document = PDDocOpenEx(doc_path, ASGetDefaultFileSys(),       //Calls openAuthorizationProcedure to supply the password
+                           ASCallbackCreateProto(PDAuthProcEx, &openAuthorizationProcedure), 0, true);
 
     std::wcout << L"Opened the document." << std::endl;
 
@@ -108,7 +107,7 @@ int main()
     //Step 2) Remove the encryption
     //==================================================================
 
-    PDDocSetNewCryptHandler(encrypted_document, ASAtomNull);    //Completely removes security from the document
+    PDDocSetNewCryptHandler(document, ASAtomNull);                //Completely removes security from the document
 
     std::wcout << L"The encryption was removed." << std::endl;
 
@@ -116,12 +115,13 @@ int main()
     //Step 2) Save and close the document
     //==================================================================
 
-    PDDocSave(encrypted_document,PDDocNeedsSave | PDDocIsOpen,
-        encrypted_path,ASGetDefaultFileSys(),NULL, NULL);
+    PDDocSave(document, PDDocNeedsSave | PDDocIsOpen,
+              doc_path, ASGetDefaultFileSys(), NULL, NULL);
 
     std::wcout << L"The document was saved..." << std::endl;
 
-    PDDocClose(encrypted_document);
+    PDDocClose(document);
+    document = NULL;
 
     //==================================================================
     //Step 2) Try opening it again to ensure the encryption is gone
@@ -130,7 +130,7 @@ int main()
     ASErrorCode openError = 0;
 
     DURING
-        unencrypted_document = PDDocOpen(encrypted_path, NULL, NULL, true);
+        document = PDDocOpen(doc_path, NULL, NULL, true);
     HANDLER
         openError = ERRORCODE;
     END_HANDLER
@@ -149,7 +149,8 @@ int main()
         else
         {
             std::wcout << L"...And is no longer encrypted!" << std::endl;
-            PDDocClose(unencrypted_document);
+            PDDocClose(document);
+            document = NULL;
         }
 
     HANDLER
@@ -159,10 +160,9 @@ int main()
     END_HANDLER
 
 
-    //Release created objects
-    if (encrypted_document)   PDDocClose(encrypted_document);
-    if (unencrypted_document) PDDocClose(unencrypted_document);
-    ASFileSysReleasePath(ASGetDefaultFileSys(), encrypted_path);
+    //Release resources
+    if (document) PDDocClose(document);
+    ASFileSysReleasePath(ASGetDefaultFileSys(), doc_path);
 
     if (errCode) DisplayError(errCode);    //If there was an error, display it
     MyPDFLTerm();                          //Terminate the APDFL library
