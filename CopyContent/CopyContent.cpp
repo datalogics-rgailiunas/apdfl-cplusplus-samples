@@ -236,6 +236,7 @@ void copyElements(PDEContent* to, PDEContent* from, const std::map<ASInt32,bool>
     PDEGroup toGroup = NULL;              //A new group
     //If nextElem is a form:
     PDEForm toForm = NULL;                //A new form
+    PDEContent fromFormContent = NULL;    //the old form's content
     //else:
     PDEElement copyNextElem  = NULL;      //A copy of nextElem
 
@@ -308,18 +309,20 @@ void copyElements(PDEContent* to, PDEContent* from, const std::map<ASInt32,bool>
                     //    Then add the new form into "to".
                     //***********************************************************************
                     PDEForm fromForm = reinterpret_cast<PDEForm>(nextElem);
-                    PDEContent fromContent = PDEFormGetContent(fromForm);
+                    fromFormContent = PDEFormGetContent(fromForm);
 
                     toForm = PDEFormCreateClone(fromForm);                   //Note: this also clones the underlying xObject Cos Object(s), for each occurence.
                     //Replace the contents of toForm with a new one,
                     //with only the elements we want copied 
                     PDEContent toContent = PDEContentCreate();               //A blank content to copy the desired elements into.
-                    copyElements(&toContent, &fromContent, willCopyList);
+                    copyElements(&toContent, &fromFormContent, willCopyList);
                     PDEFormSetContent(toForm, toContent);
                     
                     PDEContentAddElem(*to, kPDEAfterLast,                    //Now copy the new form  into "to"
                         reinterpret_cast<PDEElement>(toForm));
 
+                    RELEASE_PDEOBJ(fromFormContent);
+                    fromFormContent = NULL;
                     RELEASE_PDEOBJ(toForm);
                     toForm = NULL;
                 }
@@ -350,5 +353,6 @@ void copyElements(PDEContent* to, PDEContent* from, const std::map<ASInt32,bool>
     if (toContainer) RELEASE_PDEOBJ(toContainer);
     if (toGroup) RELEASE_PDEOBJ(toGroup);
     if (toForm) RELEASE_PDEOBJ(toForm);
+    if (fromFormContent) RELEASE_PDEOBJ(fromFormContent);
     if (copyNextElem) RELEASE_PDEOBJ(copyNextElem);
 };
