@@ -71,6 +71,7 @@
 //Some defines to reduce verbosity
 #define I_B_PAIR std::make_pair<ASInt32, bool>
 #define RELEASE_PDEOBJ(o) PDERelease(reinterpret_cast<PDEObject>(o))
+#define NIL NULL
 
 //Copies all elements in "from" into "to". See definition below.
 void copyElements(PDEContent* to, PDEContent* from, std::map<ASInt32, bool> willCopyList);
@@ -83,11 +84,11 @@ int main(int argc, char** argv)
 
     ASErrorCode errCode = 0;       //Tracks APDFL errors
 
+    PDPage copyPage;
+    PDPage inPage;
     PDDoc inDoc;                   //Reference to input document
     PDDoc copyDoc;                 //Reference to output document
 
-    PDPage inPage;                 //Iterates over the input's pages
-    PDPage copyPage;               //Iterates over the output's pages
     PDEContent inContent;          //The input page's content
     PDEContent copyContent;        //The output page's content
     
@@ -99,17 +100,17 @@ int main(int argc, char** argv)
     willCopyList.insert(I_B_PAIR(kPDEContainer, true));
     willCopyList.insert(I_B_PAIR(kPDEForm,      true));
     willCopyList.insert(I_B_PAIR(kPDEGroup,     true));
-    willCopyList.insert(I_B_PAIR(kPDEImage,     false));
+    willCopyList.insert(I_B_PAIR(kPDEImage,     true));
     willCopyList.insert(I_B_PAIR(kPDEPath,      true));
     willCopyList.insert(I_B_PAIR(kPDEPlace,     true));
     willCopyList.insert(I_B_PAIR(kPDEPS,        true));
     willCopyList.insert(I_B_PAIR(kPDEShading,   true));
-    willCopyList.insert(I_B_PAIR(kPDEText,      false));
+    willCopyList.insert(I_B_PAIR(kPDEText,      true));
     willCopyList.insert(I_B_PAIR(kPDEUnknown,   true));
     willCopyList.insert(I_B_PAIR(kPDEXObject,   true));
 
-    ASInt32 pagesToCopy[] = { 0, 1, 3 };                  //Which pages we'll copy. First page is 0.
-#define WILL_COPY_ALL_PAGES 0                                       //Set to 1 if you just want to copy every page
+    ASInt32 pagesToCopy[] = { 0, 1, 3, 5 };                  //Which pages we'll copy. First page is 0.
+#define WILL_COPY_ALL_PAGES 0                                //Set to 1 if you just want to copy every page
 
 
 
@@ -149,19 +150,28 @@ int main(int argc, char** argv)
             inPageSize.left = fixedZero;
             inPageSize.bottom = fixedZero;
 
-            copyPage = PDDocCreatePage(                                         //Make page i with these dimensions
+            copyPage = PDDocCreatePage(                                  //Make page i with these dimensions
                 copyDoc, PDDocGetNumPages(copyDoc) - 1, inPageSize);
 
             //Now copy the content
             inContent = PDPageAcquirePDEContent(inPage, 0);
+
             copyContent = PDPageAcquirePDEContent(copyPage, 0);
 
             std::wcout << L"Copying page " << i << "'s elements." << std::endl;
             copyElements(&copyContent, &inContent, willCopyList);               //Copy the contents of page i
 
             PDPageSetPDEContentCanRaise(copyPage, 0);                           //Set the content into the page
+
+            //Release resources
+            PDPageReleasePDEContent(copyPage,0);
             PDPageRelease(copyPage);
+            copyContent = NIL;
+            copyPage = NIL;
+            PDPageReleasePDEContent(inPage,0);
             PDPageRelease(inPage);
+            inContent = NIL;
+            inPage = NIL;
         }
     };
 
@@ -180,22 +190,22 @@ int main(int argc, char** argv)
 
     END_HANDLER
 
-    if (errCode)
-        DisplayError(errCode);
+    if (errCode) DisplayError(errCode);
 
     //Release resources
-    if (inDoc)
+    if (inPage)
     {
-        if (inPage) PDPageRelease(inPage);
-        PDDocRelease(inDoc);
+        if (inContent) PDPageReleasePDEContent(inPage,0);
+        PDPageRelease(inPage);
     }
-    if (copyDoc)
+    PDDocClose(inDoc);
+    if (copyPage)
     {
-        if (copyPage) PDPageRelease(copyPage);
-        PDDocRelease(copyDoc);
+        if (copyContent) PDPageReleasePDEContent(copyPage, 0);
+        PDPageRelease(copyPage);
     }
-    if (inContent) RELEASE_PDEOBJ(inContent);
-    if (copyContent) RELEASE_PDEOBJ(copyContent);
+    PDDocClose(copyDoc);
+
 
     MyPDFLTerm();
 
@@ -257,6 +267,9 @@ void copyElements(PDEContent* to, PDEContent* from, std::map<ASInt32,bool> willC
 
                     PDEContentAddElem(*to, kPDEAfterLast,                        //Now copy the new container into "to".
                             reinterpret_cast<PDEElement>(toContainer)); 
+
+                    RELEASE_PDEOBJ(toContainer);
+                    toContainer = NIL;
                 }
                 else
                 {
@@ -265,6 +278,9 @@ void copyElements(PDEContent* to, PDEContent* from, std::map<ASInt32,bool> willC
                     //***********************************************************************
                     copyNextElem = PDEElementCopy(nextElem, kPDEElementCopyClipping);
                     PDEContentAddElem(*to, kPDEAfterLast, reinterpret_cast<PDEElement>(copyNextElem));
+
+                    RELEASE_PDEOBJ(copyNextElem);
+                    copyNextElem = NIL;
                 }
             }
         }
@@ -279,9 +295,6 @@ void copyElements(PDEContent* to, PDEContent* from, std::map<ASInt32,bool> willC
     END_HANDLER
 
     //Release resources
-    if (fromContainer) RELEASE_PDEOBJ(fromContainer);
-    if (toContainer)   RELEASE_PDEOBJ(toContainer);
-    if (copyNextElem)  RELEASE_PDEOBJ(copyNextElem);
-    if (toContent)  RELEASE_PDEOBJ(toContent);
-    //We cannot release nextElem or fromContent in case we are inside a recursion.
+    if (toContainer) RELEASE_PDEOBJ(toContainer);
+    if (copyNextElem) RELEASE_PDEOBJ(copyNextElem);
 };
