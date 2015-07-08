@@ -98,9 +98,9 @@ int main(int argc, char** argv)
     std::wstring outPath = inPath;
     outPath.insert(outPath.find(L".pdf"), L"_Copy");
 
-//==================================================================
-//Step 1) Configure sample functionality
-//==================================================================
+    //==================================================================
+    //Step 1) Configure sample functionality
+    //==================================================================
 
     //This map defines the kinds of content that
     //will be copied into the output.
