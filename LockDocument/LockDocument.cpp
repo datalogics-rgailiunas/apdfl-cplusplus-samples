@@ -6,7 +6,7 @@
 //Steps: 
 //1) Open the document and create new security data
 //2) Set the security data into the document
-//4) Save and close the document
+//3) Save and close the document
 //************************************************************************
 
 // This agreement is between Datalogics, Inc. 101 N.Wacker Drive, Suite 1800,
@@ -140,7 +140,7 @@ int main(int argc, char** argv)
     if (errCode)
         DisplayError(errCode);
 
-    //Ensure resources have beeen released
+    //Ensure resources have been released
     if (securityData) ASfree((void*)securityData);
     if (document) PDDocClose(document);
 
