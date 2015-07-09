@@ -188,7 +188,7 @@ int main(int argc, char** argv)
         std::cout << "New security permissions have been set...." << std::endl;
 
         //==================================================================
-        //Step 2) Set the security data into the document.
+        //Step 3) Set the security data into the document.
         //==================================================================
 
         PDDocSetNewSecurityData(document, (void*)securityData);
@@ -197,7 +197,7 @@ int main(int argc, char** argv)
         std::cout << "...and added to the document." << std::endl;
 
         //==================================================================
-        //4) Save and close the document.
+        //Step 4) Save and close the document.
         //==================================================================
         std::cout << "Saving the new file." << std::endl;
         PDDocSave(document, PDSaveFull | PDSaveLinearized, util.makeASPathName(outPath), ASGetDefaultFileSys(), NULL, NULL);
@@ -217,7 +217,7 @@ int main(int argc, char** argv)
     if (errCode)
         DisplayError(errCode);
 
-    //Ensure resources have beeen released
+    //Ensure resources have been released
     if (securityData) ASfree((void*)securityData);
     if (document) PDDocClose(document);
 
