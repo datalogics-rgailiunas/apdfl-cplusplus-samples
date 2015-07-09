@@ -56,7 +56,6 @@
 #define NUM_COLOR_PROFS 1
 #define NUM_PLUGIN_DIRS 1
 
-#include "PDFInit.h"
 #include "PDFLCalls.h"
 #include <iostream>
 
@@ -67,24 +66,19 @@ public:
     ~APDFLib();
 
     ASInt32 getInitError();
+    ASBool isValid();
     static void displayError(ASErrorCode errCode);
 
 private:
-
-    static PDFLDataRec	pdflData;
+    PDFLDataRec pdflData;
     ASInt32 initError;
+    ASBool initValid;
 
     void fillDirectories();
 
     ASUTF16Val* fontDirList[NUM_FONTS];                //TODO: platform divergences
-    ASInt32 fontDirListLen;
-    ASUTF16Val* cMapDir;                               //TODO: platform divergences
-    ASUTF16Val* unicodeDir;                            //TODO: platform divergences
     ASUTF16Val* colorProfDirList[NUM_COLOR_PROFS];     //TODO: platform divergences
-    ASInt32 colorProfDirListLen;
     ASUTF16Val* pluginDirList[NUM_PLUGIN_DIRS];        //TODO: platform divergences
-    ASInt32 pluginDirListLen;
-
 };
 
 #endif //INITLIB_H
