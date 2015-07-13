@@ -1,6 +1,6 @@
 // Copyright(c) 2015, Datalogics, Inc.All rights reserved.
 
-//************************************************************************
+//======================================================================
 // Sample: Bookmarks - Adds some bookmarks to the input pdf
 //
 // This sample adds a bookmark wherever a bolded section of text occurs
@@ -13,7 +13,7 @@
 // 2) Create a bookmark for each bolded section with this information.
 // 3) Demonstration: Different zoom levels.
 // 4) Save and close the document.
-//************************************************************************
+//======================================================================
 
 // This agreement is between Datalogics, Inc. 101 N.Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
@@ -77,34 +77,18 @@ int main(int argc, char* argv)
     if (err) return err;
 
     ASErrorCode errCode = 0;        //Tracks runtime errors in the application
-    PDDoc mydoc = NULL;             //Reference to input pdf document
-
-    //[S] Bolded text search iteration variables. Defined here to release after DURING/HANDLER.
-    //see matching comment below.
-    PDPage nextPage;                //Iterates over each PDPage
-    PDEContent nextContent;         //Iterates over each PDEContent per PDPage
-    PDEText nextText;               //Iterates over each text object per PDEContent
-    PDEElement nextElem;            //Iterates over the elements of each text object
-    PDEFont nextFont;               //The font of the next run of text
-    ASFixedRect* nextTextLoc;       //The location of the bolded text
-
-    //[B] Bookmark creation iteration variables. Defined here to release after DURING/HANDLER.
-    //see matching comment below.
-    PDPage nextDPage = NULL;        //The associated page of the bookmark destination.
-
-    //[Z] Zoom Factor demonstration variables. Defined here to release after DURING/HANDLER.
-    //see matching comment below.
-    PDPage parentPage = NULL;
+    wchar_t* inputDir  = L"../Input/NoBookmark.pdf";
+    wchar_t* outputDir = L"Bookmarked.pdf";
 
     DURING
 
     std::wcout << L"Opening the input document." << std::endl;
-    mydoc = util.openPDFNoSecurity(L"../Input/NoBookmark.pdf");
+    PDDoc mydoc = util.openPDFNoSecurity(inputDir);    //Input document
 
-    //==================================================================
-    //Step 1) Find each section of bolded text in the document and 
-    //        record their location and text.
-    //==================================================================
+//===========================================================================================
+//Step 1) Find each section of bolded text in the document and 
+//        record their location and text.
+//===========================================================================================
 
     //These vectors store the needed information about the bolded text we will search for
     std::vector<ASFixedRect> btextLocs;            //The location of each text
@@ -112,26 +96,25 @@ int main(int argc, char* argv)
     std::vector<std::wstring> btextCopy;           //The copy of each text
 
     //[S] Bolded text search iteration variables. See matching comment above.
-    ASInt16 numPages = PDDocGetNumPages(mydoc);
     const ASInt8 bufferSize = 100;                 //For a buffer which reads the bolded text
     PDEFontAttrs nextFontAttrs;                    //The font attributes of the next text run's font
 
     std::wcout << L"Searching for bolded text..." << std::endl;
-    for (auto page = 0; page < numPages; ++page)   //For each page...
+    for (auto page = 0; page < PDDocGetNumPages(mydoc); ++page)   //For each page...
     {
-        nextPage = PDDocAcquirePage(mydoc, page);
-        nextContent = PDPageAcquirePDEContent(nextPage, 0);
+        PDPage nextPage = PDDocAcquirePage(mydoc, page);
+        PDEContent nextContent = PDPageAcquirePDEContent(nextPage, 0);
         ASInt32 numElem = PDEContentGetNumElems(nextContent);
 
         for (auto elemCount = 0; elemCount < numElem; ++elemCount)       //For each element in that page...
         {
-            nextElem = PDEContentGetElem(nextContent, elemCount);
+            PDEElement nextElem = PDEContentGetElem(nextContent, elemCount);
 
             if (PDEObjectGetType((PDEObject)nextElem) == kPDEText)       //For each text element among those elements...
             {
                 //Determine where the bolded text is by iterating through the text runs
                 //The bolded text may be made of several text runs, making iteration necessary.
-                nextText = reinterpret_cast<PDEText>(nextElem);
+                PDEText nextText = reinterpret_cast<PDEText>(nextElem);
                 int numRuns = PDETextGetNumRuns(nextText);
 
                 bool currentlyBold = false;                              //Whether the previous text run was bold
@@ -140,7 +123,7 @@ int main(int argc, char* argv)
                 for (auto runCount = 0; runCount < numRuns; ++runCount)  //For each text run in that text element...
                 {
                     //Check if it's bold
-                    nextFont = PDETextGetFont(nextText, kPDETextRun, runCount);
+                    PDEFont nextFont = PDETextGetFont(nextText, kPDETextRun, runCount);
                     PDEFontGetAttrs(nextFont, &nextFontAttrs, sizeof(nextFontAttrs));
                     std::string fontstr = ASAtomGetString(nextFontAttrs.name);
 
@@ -149,7 +132,7 @@ int main(int argc, char* argv)
                         if (!currentlyBold)                              //This is the first text run of a bolded text section.
                         {
                             //Retrieve the location and store it
-                            nextTextLoc = new ASFixedRect;
+                            ASFixedRect* nextTextLoc = new ASFixedRect;
                             PDETextGetBBox(nextText, kPDETextRun, runCount, nextTextLoc);
                             btextLocs.push_back(*nextTextLoc);
 
@@ -199,17 +182,16 @@ int main(int argc, char* argv)
         //Release the page and its content. We acquire new ones in the next iteration
         PDPageReleasePDEContent(nextPage, 0);
         PDPageRelease(nextPage);
-        nextPage = NULL;
-        nextContent = NULL;
     }
 
     std::wcout << L"I found " << btextLocs.size() << L" bolded texts:" << std::endl;
     for (auto x : btextCopy)
         std::wcout << x << std::endl;
 
-    //========================================================================
-    //Step 2) Create a bookmark for each bolded section with this information.
-    //========================================================================
+//===========================================================================================
+//Step 2) Create a bookmark for each bolded section with this information.
+//===========================================================================================
+
     std::wcout << L"Creating a bookmark for each..." << std::endl;
 
     //We'll create each bookmark by iterating over the text we found.
@@ -225,7 +207,7 @@ int main(int argc, char* argv)
     //Create a bookmark for each bold text
     for (int btext = 0; btext < numBold; ++btext)
     {
-        nextDPage = PDDocAcquirePage(mydoc, btextPages[btext]);    //Get the associated page
+        PDPage nextDPage = PDDocAcquirePage(mydoc, btextPages[btext]);    //Get the associated page
         nextbmTitle << (btext + 1) << L" " << btextCopy[btext];    //Construct the title
         nextbm = PDBookmarkAddNewChildASText(                      //Create the bookmark before setting its action
             bmRoot, util.toASText(nextbmTitle.str().c_str()));
@@ -241,15 +223,15 @@ int main(int argc, char* argv)
 
         PDBookmarkSetAction(nextbm, nextDestAct);
         PDPageRelease(nextDPage);
-        nextDPage = NULL;
 
         nextbmTitle.str(std::wstring());                           //Clear the stringstream for the next text
     }
     std::wcout << L"Done." << std::endl;
 
-    //==================================================================
-    //Step 3) Demonstration: Different zoom levels
-    //==================================================================
+//===========================================================================================
+//Step 3) Demonstration: Different zoom levels
+//===========================================================================================
+
     std::wcout << L"Adding zoom demonstration bookmarks." << std::endl;
 
     //This steps adds a few child bookmarks to the first bookmark of the
@@ -272,28 +254,29 @@ int main(int argc, char* argv)
     ASFixed zoomFactor;
 
     PDViewDestGetAttr(    //Copy the attributes of the parent bookmark
-        PDActionGetDest(PDBookmarkGetAction(parentBm)), &pageNumber, &fitType, &locationRect, &zoomFactor);
-    parentPage = PDDocAcquirePage(mydoc, pageNumber);
+        PDActionGetDest(PDBookmarkGetAction(parentBm)), 
+            &pageNumber, &fitType, &locationRect, &zoomFactor);
+    PDPage parentPage = PDDocAcquirePage(mydoc, pageNumber);
 
     //Set each bookmark's zoom factor per the above array
     for (auto i = 0; i < num_bookmarks; ++i)
     {
         PDBookmarkSetAction(bookmarks[i],
             PDActionNewFromDest(
-                mydoc, PDViewDestCreate(mydoc, parentPage, fitType, &locationRect, ASFloatToFixed(zoomfactors[i]), 0), mydoc));
+                mydoc, PDViewDestCreate(mydoc, parentPage, fitType, 
+                            &locationRect, ASFloatToFixed(zoomfactors[i]), 0), mydoc));
     }
     PDPageRelease(parentPage);
-    parentPage = NULL;
 
     std::wcout << L"Done. Saving and closing the document." << std::endl;
 
-    //==================================================================
-    //Step 5) Save and close the document.
-    //==================================================================
+//===========================================================================================
+//Step 5) Save and close the document.
+//===========================================================================================
 
     PDDocSave(mydoc,PDDocNeedsSave | PDDocIsOpen | PDSaveCopy, 
-        util.makeASPathName(L"../Input/Bookmark.pdf"), ASGetDefaultFileSys(), NULL, NULL);
-        
+        util.makeASPathName(outputDir),
+        ASGetDefaultFileSys(), NULL, NULL);
     PDDocClose(mydoc);
 
     HANDLER
@@ -307,16 +290,6 @@ int main(int argc, char* argv)
         DisplayError(errCode);
     else
         std::wcout << L"Success." << std::endl;
-
-    //Release resources
-    if (nextPage) 
-    {
-        if (nextContent) PDPageReleasePDEContent(nextPage,0);
-        PDPageRelease(nextPage);
-    }
-    if (nextDPage)   PDPageRelease(nextDPage);
-    if (parentPage)  PDPageRelease(parentPage);
-    if (mydoc)       PDDocRelease(mydoc);
 
     MyPDFLTerm();      //Terminate the library
     return errCode;    //End
