@@ -71,15 +71,14 @@ int main(int argc, char** argv)
     if (err) return (err);
 
     //Sample variables
-    ASErrorCode errCode = 0;                                 //Tracks runtime errors in the application
+    ASErrorCode errCode = 0;                                              //Tracks runtime errors in the application
     const wchar_t* inPath  = L"../Input/SetUniquePermissions.pdf";        //Input document path
-    const wchar_t* outPath = L"../Input/SetUniquePermissions_Out.pdf";    //Output document path
-    PDDoc document = NULL;                                   //Reference to input document
-    StdSecurityData securityData = NULL;                     //Struct containing the security data we'll fill out
+    const wchar_t* outPath = L"SetUniquePermissions_Out.pdf";    //Output document path
+    const char*   password = "Datalogics";                                //Password to change permissions
 
-    //==================================================================
-    //Step 1) Select which permissions you want to allow.
-    //==================================================================
+//=============================================================================
+//Step 1) Select which permissions you want to allow.
+//=============================================================================
 
     std::vector<std::pair<bool, PDPerms>> permList(17);    //There are 17 permissions here
 
@@ -147,19 +146,19 @@ int main(int argc, char** argv)
 
     DURING
 
-        //==================================================================
-        //Step 2) Create the security data with the supplied permissions.
-        //==================================================================
+//=============================================================================
+//Step 2) Create the security data with the supplied permissions.
+//=============================================================================
 
         std::cout << "Opening the input document." << std::endl;
 
-        document = util.openPDFNoSecurity(inPath);
+        PDDoc document = util.openPDFNoSecurity(inPath);
 
         std::cout << "Creating the new security data." << std::endl;
 
         //This structure will hold the new security data
         PDDocSetNewCryptHandler(document, ASAtomFromString("Standard"));   //Prepare to create new security data
-        securityData = (StdSecurityData)PDDocNewSecurityData(document);    //...and create it
+        StdSecurityData securityData = (StdSecurityData)PDDocNewSecurityData(document);    //...and create it
         securityData->size = sizeof(StdSecurityDataRec);
 
         //See Samples "AddPassword" and "LockDocument" for password demonstration.
@@ -168,7 +167,7 @@ int main(int argc, char** argv)
         //The permissions of the document cannot be changed back unless the user supplies this password.
         securityData->hasOwnerPW = true;
         securityData->newOwnerPW = true;
-        strcpy(securityData->ownerPW, "Datalogics");
+        strcpy(securityData->ownerPW, password);
 
         //Set the encryption method
         //2 = CF_METHOD_RC4_V2 - RC4 algorithm
@@ -187,26 +186,24 @@ int main(int argc, char** argv)
 
         std::cout << "New security permissions have been set...." << std::endl;
 
-        //==================================================================
-        //Step 3) Set the security data into the document.
-        //==================================================================
+//=============================================================================
+//Step 3) Set the security data into the document.
+//=============================================================================
 
         PDDocSetNewSecurityData(document, (void*)securityData);
+        ASfree((void*)securityData);
         PDDocSetFlags(document, PDDocRequiresFullSave );           //Changing the security data requires a full save
 
         std::cout << "...and added to the document." << std::endl;
 
-        //==================================================================
-        //Step 4) Save and close the document.
-        //==================================================================
-        std::cout << "Saving the new file." << std::endl;
-        PDDocSave(document, PDSaveFull | PDSaveLinearized, util.makeASPathName(outPath), ASGetDefaultFileSys(), NULL, NULL);
+//=============================================================================
+//Step 4) Save and close the document.
+//=============================================================================
 
-        //Release resources
-        ASfree((void*)securityData);
-        securityData = NULL;
+        std::cout << "Saving the new file." << std::endl;
+        PDDocSave(document, PDSaveFull | PDSaveLinearized, 
+            util.makeASPathName(outPath), ASGetDefaultFileSys(), NULL, NULL);
         PDDocClose(document);
-        document = NULL;
 
     HANDLER
 
@@ -216,10 +213,6 @@ int main(int argc, char** argv)
 
     if (errCode)
         DisplayError(errCode);
-
-    //Ensure resources have been released
-    if (securityData) ASfree((void*)securityData);
-    if (document) PDDocClose(document);
 
     MyPDFLTerm();      //Terminate the library
     return errCode;    //End.
