@@ -77,7 +77,7 @@ int main(int argc, char* argv)
     if (err) return err;
 
     ASErrorCode errCode = 0;        //Tracks runtime errors in the application
-    wchar_t* inputDir  = L"../Input/NoBookmark.pdf";
+    wchar_t* inputDir  = L"../Input/Ulysses.pdf";
     wchar_t* outputDir = L"Bookmarked.pdf";
 
     DURING
