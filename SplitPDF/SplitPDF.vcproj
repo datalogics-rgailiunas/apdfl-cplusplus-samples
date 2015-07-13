@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="splitPdf"
+	Name="SplitPDF"
 	ProjectGUID="{BF3F5105-EBCC-448A-8262-53DE2A125F54}"
-	RootNamespace="splitPdf"
+	RootNamespace="SplitPDF"
 	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
