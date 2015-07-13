@@ -1,8 +1,8 @@
 // Copyright(c) 2015, Datalogics, Inc.All rights reserved.
 
-//************************************************************************
+//========================================================================
 // Sample: Initialize - Initializes the APDFLibrary.
-//************************************************************************
+//========================================================================
 
 // This agreement is between Datalogics, Inc. 101 N.Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads

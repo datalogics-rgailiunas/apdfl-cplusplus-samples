@@ -51,10 +51,10 @@
 
 #include "InitializeLibrary.h"
 
-//****************************************************
+//====================================================
 //Sets the PDFLDataRec and initializes the library 
 //with that data.
-//****************************************************
+//====================================================
 APDFLib::APDFLib()
 {
     initValid = false;
@@ -70,19 +70,19 @@ APDFLib::APDFLib()
     initValid = true;
 }
 
-//****************************************************
+//====================================================
 //Whether the initilization was followed all the way
 //through without a thrown exception.
-//****************************************************
+//====================================================
 ASBool APDFLib::isValid() 
 {
     return initValid;
 }
 
-//****************************************************
+//====================================================
 //Reports whether an error happened and returns that 
 //error.
-//****************************************************
+//====================================================
 ASInt32 APDFLib::getInitError()
 {
     if (initError)
@@ -96,9 +96,9 @@ ASInt32 APDFLib::getInitError()
     return initError;
 }
 
-//****************************************************
+//====================================================
 //Sets directory information for our PDFLDataRec.
-//****************************************************
+//====================================================
 void APDFLib::fillDirectories()
 {
     fontDirList[0] = (ASUTF16Val*)L"..\\..\\..\\APDFL\\Resource\\Font";
@@ -121,17 +121,17 @@ void APDFLib::fillDirectories()
     pdflData.pluginDirListLen = NUM_PLUGIN_DIRS;
 }
 
-//****************************************************
+//====================================================
 //Terminates the APDFL library.
-//****************************************************
+//====================================================
 APDFLib::~APDFLib()
 {
     PDFLTermHFT();
 }
 
-//****************************************************
+//====================================================
 //Terminates the APDFL library.
-//****************************************************
+//====================================================
 void APDFLib::displayError(ASErrorCode errCode)
 {
     if (errCode == 0) return;
