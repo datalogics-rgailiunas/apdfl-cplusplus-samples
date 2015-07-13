@@ -1,6 +1,6 @@
 // Copyright(c) 2015, Datalogics, Inc.All rights reserved.
 
-//************************************************************************
+//======================================================================
 // Sample: CopyContent - Copies the contents of the input PDF file into
 //                       a new PDF file. You can specify which kinds
 //                       of content you want to copy, and which
@@ -11,7 +11,7 @@
 // 2) Open input PDF, create output PDF
 // 3) Copy the content from input into output
 // 4) Save and close
-//************************************************************************
+//======================================================================
 
 // This agreement is between Datalogics, Inc. 101 N.Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
@@ -84,23 +84,13 @@ int main(int argc, char** argv)
 
     ASErrorCode errCode = 0;       //Tracks APDFL errors
 
-    PDPage copyPage;
-    PDPage inPage;
-    PDDoc inDoc;                   //Reference to input document
-    PDDoc copyDoc;                 //Reference to output document
-
-    PDEContent inContent;          //The input page's content
-    PDEContent copyContent;        //The output page's content
-
-
     //Paths to in/out documents.
     const wchar_t* inPath = L"../Input/CopyContent.pdf";
-    std::wstring outPath = inPath;
-    outPath.insert(outPath.find(L".pdf"), L"_Copy");
+    const wchar_t* outPath = L"CopiedContent.pdf";
 
-    //==================================================================
-    //Step 1) Configure sample functionality
-    //==================================================================
+//=============================================================================
+//Step 1) Configure sample functionality
+//=============================================================================
 
     //This map defines the kinds of content that
     //will be copied into the output.
@@ -122,21 +112,21 @@ int main(int argc, char** argv)
     ASInt32 pagesToCopy[] = { 0, 1, 3, 5 };                  //Which pages we'll copy. First page is 0.
 #define WILL_COPY_ALL_PAGES 0                                //Set to 1 if you just want to copy every page
 
-
-
     DURING
 
-    //==================================================================
-    //Step 2) Open input PDF, create output PDF
-    //==================================================================
+//=============================================================================
+//Step 2) Open input PDF, create output PDF
+//=============================================================================
+
     std::wcout << L"Opening the input document." << std::endl;
 
-    inDoc = util.openPDFNoSecurity(inPath);
-    copyDoc = PDDocCreate();
+    PDDoc inDoc = util.openPDFNoSecurity(inPath);
+    PDDoc copyDoc = PDDocCreate();
 
-    //==================================================================
-    //Step 3) Copy the content from input into output
-    //==================================================================
+//=============================================================================
+//Step 3) Copy the content from input into output
+//=============================================================================
+
     ASInt32 numPages = PDDocGetNumPages(inDoc);
 
 #if WILL_COPY_ALL_PAGES == 0
@@ -148,20 +138,20 @@ int main(int argc, char** argv)
         if (i < numPages)    //Make sure the page number is valid
         {
             //Give the output document a new page with input page i's dimensions
-            inPage = PDDocAcquirePage(inDoc, i);
+            PDPage inPage = PDDocAcquirePage(inDoc, i);
             ASFixedRect inPageSize;                                                //Stores the size of page i
 
             PDPageGetSize(inPage, &(inPageSize.right), &(inPageSize.top));
             inPageSize.left = fixedZero;
             inPageSize.bottom = fixedZero;
 
-            copyPage = PDDocCreatePage(                                            //Make page i with these dimensions
+            PDPage copyPage = PDDocCreatePage(                                            //Make page i with these dimensions
                 copyDoc, PDDocGetNumPages(copyDoc) - 1, inPageSize);
 
             //Now copy the content
-            inContent = PDPageAcquirePDEContent(inPage, 0);
+            PDEContent inContent = PDPageAcquirePDEContent(inPage, 0);
 
-            copyContent = PDPageAcquirePDEContent(copyPage, 0);
+            PDEContent copyContent = PDPageAcquirePDEContent(copyPage, 0);
 
             std::wcout << L"Copying page " << i << "'s elements." << std::endl;
             copyElements(&copyContent, &inContent, &willCopyList);                 //Copy the contents of page i
@@ -171,23 +161,21 @@ int main(int argc, char** argv)
             //Release resources
             PDPageReleasePDEContent(copyPage,0);
             PDPageRelease(copyPage);
-            copyContent = NULL;
-            copyPage = NULL;
             PDPageReleasePDEContent(inPage,0);
             PDPageRelease(inPage);
-            inContent = NULL;
-            inPage = NULL;
         }
     };
+    PDDocClose(inDoc);
 
-    //==================================================================
-    //Step 4) Save and close
-    //==================================================================
+//=============================================================================
+//Step 4) Save and close
+//=============================================================================
 
     std::wcout << L"Done. Saving the new document." << std::endl;
 
     PDDocSave(copyDoc, PDDocNeedsSave | PDSaveFull,
-        util.makeASPathName(outPath.c_str()), ASGetDefaultFileSys(), NULL, NULL);
+        util.makeASPathName(outPath), ASGetDefaultFileSys(), NULL, NULL);
+    PDDocClose(copyDoc);
 
     HANDLER
 
@@ -197,26 +185,11 @@ int main(int argc, char** argv)
 
     if (errCode) DisplayError(errCode);
 
-    //Release resources
-    if (inPage)
-    {
-        if (inContent) PDPageReleasePDEContent(inPage,0);
-        PDPageRelease(inPage);
-    }
-    PDDocClose(inDoc);
-    if (copyPage)
-    {
-        if (copyContent) PDPageReleasePDEContent(copyPage, 0);
-        PDPageRelease(copyPage);
-    }
-    PDDocClose(copyDoc);
-
-
     MyPDFLTerm();      //Close the library,
     return errCode;    //End.
 };
 
-//******************************************************************
+//===============================================================
 //Copy all elements from "from" into "to".
 //
 //For each element i:
@@ -226,27 +199,16 @@ int main(int argc, char** argv)
 //             i's elements into it, following willCopyList.
 //             Then copy the new object into "to".
 //          a2)It is not, just copy i to "to".
-//******************************************************************
+//===============================================================
 void copyElements(PDEContent* to, PDEContent* from, const std::map<ASInt32,bool>* willCopyList)
 {
-    //PDEObjects used during iteration that need releasing
-    //If nextElem is a container:
-    PDEContainer toContainer   = NULL;    //A new container
-    //If nextElem is a group:
-    PDEGroup toGroup = NULL;              //A new group
-    //If nextElem is a form:
-    PDEForm toForm = NULL;                //A new form
-    PDEContent fromFormContent = NULL;    //the old form's content
-    //else:
-    PDEElement copyNextElem  = NULL;      //A copy of nextElem
-
     DURING
 
     for (int i = 0; i < PDEContentGetNumElems(*from); ++i)
     {
-        //***********************************************************************
-        //a) If i's type is true for willCopyList...
-        //***********************************************************************
+//===================================================================================
+//a) If i's type is true for willCopyList...
+//===================================================================================
 
         PDEElement nextElem = PDEContentGetElem(*from, i);                                //The next element to consider copying
         ASInt32 type = PDEObjectGetType(reinterpret_cast<PDEObject>(nextElem));           //Its type
@@ -258,15 +220,16 @@ void copyElements(PDEContent* to, PDEContent* from, const std::map<ASInt32,bool>
             {
                 if (type == kPDEContainer)
                 {
-                    //***********************************************************************
-                    //a1) Construct a new PDEContainer and copy nextElem's elements into it,
-                    //    then add the new container into "to".
-                    //***********************************************************************
+//===================================================================================
+//a1) Construct a new PDEContainer and copy nextElem's elements into it,
+//    then add the new container into "to".
+//===================================================================================
+
                     PDEContainer fromContainer = 
                         reinterpret_cast<PDEContainer>(nextElem);                        //Our container element,
                     PDEContent fromContent = PDEContainerGetContent(fromContainer);      //and its contents
 
-                    toContainer = PDEContainerCreate(                                    //The new container,
+                    PDEContainer toContainer = PDEContainerCreate(                       //The new container,
                                     PDEContainerGetMCTag(fromContainer), NULL, true);
                     PDEContainerSetContent(toContainer, PDEContentCreate());             //which we give blank contents
                     PDEContent toContent = PDEContainerGetContent(toContainer);
@@ -277,18 +240,18 @@ void copyElements(PDEContent* to, PDEContent* from, const std::map<ASInt32,bool>
                             reinterpret_cast<PDEElement>(toContainer)); 
 
                     RELEASE_PDEOBJ(toContainer);
-                    toContainer = NULL;
                 }
                 else if (type == kPDEGroup)
                 {
-                    //***********************************************************************
-                    //a1) Construct a new PDEGroup and copy nextElem's elements into it,
-                    //    then add the new group into "to".
-                    //***********************************************************************
+//===================================================================================
+//a1) Construct a new PDEGroup and copy nextElem's elements into it,
+//    then add the new group into "to".
+//===================================================================================
+
                     PDEGroup fromGroup = reinterpret_cast<PDEGroup>(nextElem);    //Our group element,
                     PDEContent fromContent = PDEGroupGetContent(fromGroup);       //and its content
 
-                    toGroup = PDEGroupCreate();                                   //The new container,
+                    PDEGroup toGroup = PDEGroupCreate();                          //The new container,
                     PDEGroupSetContent(toGroup, PDEContentCreate());              //which we give blank contents
                     PDEContent toContent = PDEGroupGetContent(toGroup);
 
@@ -298,20 +261,20 @@ void copyElements(PDEContent* to, PDEContent* from, const std::map<ASInt32,bool>
                         reinterpret_cast<PDEElement>(toGroup));
 
                     RELEASE_PDEOBJ(toGroup);
-                    toGroup = NULL;
 
                 }
                 else if (type == kPDEForm)
                 {
-                    //***********************************************************************
-                    //a1) Clone the PDEForm into a new form, and remove undesired content
-                    //    elements.
-                    //    Then add the new form into "to".
-                    //***********************************************************************
-                    PDEForm fromForm = reinterpret_cast<PDEForm>(nextElem);
-                    fromFormContent = PDEFormGetContent(fromForm);
+//===================================================================================
+//a1) Clone the PDEForm into a new form, and remove undesired content
+//    elements.
+//    Then add the new form into "to".
+//===================================================================================
 
-                    toForm = PDEFormCreateClone(fromForm);                   //Note: this also clones the underlying xObject Cos Object(s), for each occurence.
+                    PDEForm fromForm = reinterpret_cast<PDEForm>(nextElem);
+                    PDEContent fromFormContent = PDEFormGetContent(fromForm);
+
+                    PDEForm toForm = PDEFormCreateClone(fromForm);           //Note: this also clones the underlying xObject Cos Object(s), for each occurence.
                     //Replace the contents of toForm with a new one,
                     //with only the elements we want copied 
                     PDEContent toContent = PDEContentCreate();               //A blank content to copy the desired elements into.
@@ -322,20 +285,19 @@ void copyElements(PDEContent* to, PDEContent* from, const std::map<ASInt32,bool>
                         reinterpret_cast<PDEElement>(toForm));
 
                     RELEASE_PDEOBJ(fromFormContent);
-                    fromFormContent = NULL;
                     RELEASE_PDEOBJ(toForm);
-                    toForm = NULL;
                 }
                 else
                 {
-                    //***********************************************************************
-                    //a2) Copy nextElem to "to".
-                    //***********************************************************************
-                    copyNextElem = PDEElementCopy(nextElem, kPDEElementCopyClipping);
-                    PDEContentAddElem(*to, kPDEAfterLast, reinterpret_cast<PDEElement>(copyNextElem));
+//===================================================================================
+//a2) Copy nextElem to "to".
+//===================================================================================
+
+                    PDEElement copyNextElem = PDEElementCopy(nextElem, kPDEElementCopyClipping);
+                    PDEContentAddElem(*to, kPDEAfterLast, 
+                        reinterpret_cast<PDEElement>(copyNextElem));
 
                     RELEASE_PDEOBJ(copyNextElem);
-                    copyNextElem = NULL;
                 }
             }
         }
@@ -349,10 +311,5 @@ void copyElements(PDEContent* to, PDEContent* from, const std::map<ASInt32,bool>
 
     END_HANDLER
 
-    //Release resources
-    if (toContainer) RELEASE_PDEOBJ(toContainer);
-    if (toGroup) RELEASE_PDEOBJ(toGroup);
-    if (toForm) RELEASE_PDEOBJ(toForm);
-    if (fromFormContent) RELEASE_PDEOBJ(fromFormContent);
-    if (copyNextElem) RELEASE_PDEOBJ(copyNextElem);
+    return;
 };
