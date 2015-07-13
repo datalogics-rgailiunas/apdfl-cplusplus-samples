@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>addelem</ProjectName>
+    <ProjectName>addElements</ProjectName>
     <ProjectGuid>{826BF32A-5414-4DF3-8AF4-C65583AA773D}</ProjectGuid>
-    <RootNamespace>addelem</RootNamespace>
+    <RootNamespace>addElements</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -89,7 +89,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Midl>
-      <TypeLibraryName>$(OutDir)Addelem.tlb</TypeLibraryName>
+      <TypeLibraryName>$(OutDir)addElements.tlb</TypeLibraryName>
       <HeaderFileName />
     </Midl>
     <ResourceCompile>
@@ -100,7 +100,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>$(OutDir)Addelem.tlb</TypeLibraryName>
+      <TypeLibraryName>$(OutDir)addElements.tlb</TypeLibraryName>
       <HeaderFileName />
     </Midl>
     <ResourceCompile>
@@ -110,7 +110,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Midl>
-      <TypeLibraryName>$(OutDir)Addelem.tlb</TypeLibraryName>
+      <TypeLibraryName>$(OutDir)addElements.tlb</TypeLibraryName>
       <HeaderFileName />
     </Midl>
     <ResourceCompile>
@@ -121,7 +121,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>$(OutDir)Addelem.tlb</TypeLibraryName>
+      <TypeLibraryName>$(OutDir)addElements.tlb</TypeLibraryName>
       <HeaderFileName />
     </Midl>
     <ResourceCompile>
