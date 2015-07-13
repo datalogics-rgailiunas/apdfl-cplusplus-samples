@@ -1,6 +1,6 @@
 // Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 
-//************************************************************************
+//===============================================================
 // Sample: Decryption - Removes security from a document
 //
 // This sample completely removes the security from a password-
@@ -11,7 +11,7 @@
 // 2) Remove the encryption
 // 3) Save and close the document
 // 4) Try opening it again to ensure the encryption is gone
-//************************************************************************
+//===============================================================
 
 // This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
@@ -81,62 +81,62 @@ int main()
         return initError;
     }
 
-    //APDFL variables
     ASErrorCode errCode = 0;       //Tracks errors
-
-    //Sample variables
     Utilities util;                //Performs some common actions
-    PDDoc document;                //Reference to the input document
-    ASPathName doc_path;           //Filepath of the encrypted document
     password = "mypassword";       //Password to open the document
 
 
     DURING
 
-    //==================================================================
-    //Step 1) Open the document with the password
-    //==================================================================
+//========================================================================================
+//Step 1) Open the document with the password
+//========================================================================================
 
-    doc_path = util.makeASPathName(L"../Input/encrypted.pdf");
-    document = PDDocOpenEx(doc_path, ASGetDefaultFileSys(),       //Calls openAuthorizationProcedure to supply the password
-                           ASCallbackCreateProto(PDAuthProcEx, &openAuthorizationProcedure), 0, true);
+    ASPathName in_path = util.makeASPathName(L"../Input/encrypted.pdf");
+    ASPathName out_path = util.makeASPathName(L"unencrypted.pdf");
+    PDDoc document = PDDocOpenEx(in_path, ASGetDefaultFileSys(),       //Calls openAuthorizationProcedure to supply the password
+                           ASCallbackCreateProto(PDAuthProcEx, 
+                           &openAuthorizationProcedure), 0, true);
+    ASFileSysReleasePath(ASGetDefaultFileSys(), in_path);
 
     std::wcout << L"Opened the document." << std::endl;
 
-    //==================================================================
-    //Step 2) Remove the encryption
-    //==================================================================
+//========================================================================================
+//Step 2) Remove the encryption
+//========================================================================================
 
     PDDocSetNewCryptHandler(document, ASAtomNull);                //Completely removes security from the document
 
     std::wcout << L"The encryption was removed." << std::endl;
 
-    //==================================================================
-    //Step 2) Save and close the document
-    //==================================================================
+//========================================================================================
+//Step 2) Save and close the document
+//========================================================================================
 
     PDDocSave(document, PDDocNeedsSave | PDDocIsOpen,
-              doc_path, ASGetDefaultFileSys(), NULL, NULL);
+        out_path, ASGetDefaultFileSys(), NULL, NULL);
 
     std::wcout << L"The document was saved..." << std::endl;
 
     PDDocClose(document);
-    document = NULL;
 
-    //==================================================================
-    //Step 2) Try opening it again to ensure the encryption is gone
-    //==================================================================
+//========================================================================================
+//Step 2) Try opening it again to ensure the encryption is gone
+//========================================================================================
 
     ASErrorCode openError = 0;
 
     DURING
-        document = PDDocOpen(doc_path, NULL, NULL, true);
+        document = PDDocOpen(out_path, NULL, NULL, true);
+        PDDocClose(document);
+        document = NULL;
     HANDLER
         openError = ERRORCODE;
     END_HANDLER
         if (openError)
         {
-            if (ErrGetSystem(openError) == ErrSysPDDoc && ErrGetCode(openError) == pdErrNeedPassword)
+            if (ErrGetSystem(openError) == ErrSysPDDoc 
+               && ErrGetCode(openError) == pdErrNeedPassword)
             {
                 std::wcout << L"...But still requires a password [FAILURE]." << std::endl;
             }
@@ -153,26 +153,25 @@ int main()
             document = NULL;
         }
 
+        if (document) PDDocClose(document);
+        ASFileSysReleasePath(ASGetDefaultFileSys(), out_path);
+
     HANDLER
 
-    errCode = ERRORCODE;
+        errCode = ERRORCODE;
 
     END_HANDLER
 
-
-    //Release resources
-    if (document) PDDocClose(document);
-    ASFileSysReleasePath(ASGetDefaultFileSys(), doc_path);
 
     if (errCode) DisplayError(errCode);    //If there was an error, display it
     MyPDFLTerm();                          //Terminate the APDFL library
     return errCode;                        //End.
 };
 
-//==================================================================
+//========================================================================================
 //Called by PDDocOpenEx to obtain permission to open the document
 //by supplying the password.
-//==================================================================
+//========================================================================================
 static ACCB1 ASBool ACCB2 openAuthorizationProcedure(PDDoc encrypted, void *clientData){
 
     PDPermReqStatus permReqStatus;               //Stores the result of the permission request
