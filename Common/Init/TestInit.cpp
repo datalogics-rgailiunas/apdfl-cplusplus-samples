@@ -28,7 +28,7 @@ int main()
         b = ERRORCODE;
     END_HANDLER
 
-    DisplayError(b);
+    lib.displayError(b);
 
     //The deconstructor of APDFLib terminates the library.
     return 0;
