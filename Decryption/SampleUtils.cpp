@@ -47,7 +47,6 @@
 // NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
-//Sample
 #include "SampleUtils.h"
 
 Utilities::Utilities(){
@@ -56,20 +55,6 @@ Utilities::Utilities(){
         hostUniFormat = kUTF16HostEndian;
     else
         hostUniFormat = kUTF32HostEndian;
-}
-
-int Utilities::initPDFL(){
-
-    int initError = MyPDFLInit();
-
-    if (initError) {
-        std::wcerr << L"Initialization error. See \"AcroErr.h\" for more info.\n" << std::endl;
-        std::wcerr << L"Error system: " << ErrGetSystem(initError) << std::endl;
-        std::wcerr << L"Error Severity: " << ErrGetSeverity(initError) << std::endl;
-        std::wcerr << L"Error Code: " << ErrGetCode(initError) << std::endl;
-    }
-
-    return initError;
 }
 
 ASPathName Utilities::makeASPathName(wchar_t* pathname){

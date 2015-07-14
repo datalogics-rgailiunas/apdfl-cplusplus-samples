@@ -60,6 +60,7 @@
 
 #include "SampleUtils.h"
 #include <iostream>
+#include "../Common/Init/InitializeLibrary.h"
 
 static char* password = "";     //The document's password is stored statically
                                 //because openAuthorizationProcedure is static.
@@ -71,15 +72,9 @@ static ACCB1 ASBool ACCB2 openAuthorizationProcedure(PDDoc encrypted, void *clie
 int main()
 {
     //Initialize the APDF libary
-    int initError = MyPDFLInit();
-    if (initError)
-    {
-        std::wcerr << L"Initialization error. See \"AcroErr.h\" for more info.\n" << std::endl;
-        std::wcerr << L"Error system: " << ErrGetSystem(initError) << std::endl;
-        std::wcerr << L"Error Severity: " << ErrGetSeverity(initError) << std::endl;
-        std::wcerr << L"Error Code: " << ErrGetCode(initError) << std::endl;
-        return initError;
-    }
+    APDFLib lib;
+    int err = lib.getInitError(); //Will display errors, if any
+    if (err) return err;
 
     ASErrorCode errCode = 0;       //Tracks errors
     Utilities util;                //Performs some common actions
@@ -163,9 +158,8 @@ int main()
     END_HANDLER
 
 
-    if (errCode) DisplayError(errCode);    //If there was an error, display it
-    MyPDFLTerm();                          //Terminate the APDFL library
-    return errCode;                        //End.
+    if (errCode) lib.displayError(errCode);    //If there was an error, display it
+    return errCode;                            //End. lib's destructor terminates the library.
 };
 
 //========================================================================================
