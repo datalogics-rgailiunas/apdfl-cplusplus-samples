@@ -61,9 +61,7 @@
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
 #include "SampleUtilities.h"
-#include "PERCalls.h"
-#include "PagePDECntCalls.h"
-#include <iostream>
+#include "../Common/Init/InitializeLibrary.h"
 #include <sstream>
 #include <string>
 #include <vector>
@@ -72,8 +70,10 @@ int main(int argc, char* argv)
 {
     Utilities util;                 //Performs some common functions
 
-    //Initialize library and sample variables.
-    int  err = util.initPDFL();     //Will display errors.
+
+    //Initialize the APDF libary
+    APDFLib lib;
+    int err = lib.getInitError(); //Will display errors, if any
     if (err) return err;
 
     ASErrorCode errCode = 0;        //Tracks runtime errors in the application
@@ -285,12 +285,6 @@ int main(int argc, char* argv)
 
     END_HANDLER
 
-    //Display errors, if any
-    if (errCode)
-        DisplayError(errCode);
-    else
-        std::wcout << L"Success." << std::endl;
-
-    MyPDFLTerm();      //Terminate the library
-    return errCode;    //End
+    if (errCode) lib.displayError(errCode);    //If there was an error, display it
+    return errCode;                            //End. lib's destructor terminates the library.
 };
