@@ -47,12 +47,19 @@
 // NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
-//APDFL
-#include "MyPDFLibUtils.h"
 #include "ASExtraCalls.h"
-
-//STD
+#include <CosCalls.h>
 #include <iostream>
+#include "ASExtraCalls.h"
+#include "PDFInit.h"
+#include "PDFLCalls.h"
+#include "PDExpT.h"
+#include "PDFInit.h"
+#include "PDFLCalls.h"
+#include "ASCalls.h"
+#include "PDCalls.h"
+#include "PERCalls.h"
+#include "PagePDECntCalls.h"
 
 class Utilities{
 
@@ -61,7 +68,6 @@ public:
     ASPathName makeASPathName(wchar_t* pathname); //Properly creates an ASPathName from a wchar_t*
     ASFile openASFile(wchar_t* filepath); //Opens a file
     PDDoc openPDFNoSecurity(wchar_t* filepath); //Opens an unprotected PDF file
-    int initPDFL(); //Initializes the PDF library
 
 private:
     ASUnicodeFormat hostUniFormat; //Host's unicode format. Set in constructor

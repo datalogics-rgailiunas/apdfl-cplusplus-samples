@@ -59,14 +59,17 @@
 // NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
-#include <CosCalls.h>
 #include "SampleUtils.h"
-#include "PERCalls.h"
+#include "../Common/Init/InitializeLibrary.h"
 
 int main()
 {
     Utilities util;                                            //For common subroutines
-    if (int error = util.initPDFL()) return error;             //Initialize the PDF library
+
+    //Initialize the APDF libary
+    APDFLib lib;
+    int err = lib.getInitError(); //Will display errors, if any
+    if (err) return err;
 
     //APDFL variables
     ASErrorCode  errCode = 0;                                  //Tracks errors.
@@ -171,7 +174,6 @@ int main()
 
     END_HANDLER
 
-    if (errCode) DisplayError(errCode);    //Display errors, if any
-    MyPDFLTerm();                          //Terminate the PDF library
-    return errCode;                        //End.
+    if (errCode) lib.displayError(errCode);    //If there was an error, display it
+    return errCode;                            //End. lib's destructor terminates the library.
 }
