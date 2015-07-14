@@ -154,12 +154,12 @@
     <ClCompile Include="..\..\Include\Source\PDFLInitCommon.c" />
     <ClCompile Include="..\..\Include\Source\PDFLInitHFT.c" />
     <ClCompile Include="..\..\Samples\utils\MyPDFLibApp.cpp" />
-    <ClCompile Include="..\..\Samples\utils\MyPDFLibUtils.cpp" />
+    <ClCompile Include="..\Common\Init\InitializeLibrary.cpp" />
     <ClCompile Include="SampleUtils.cpp" />
     <ClCompile Include="LockDocument.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Samples\utils\MyPDFLibUtils.h" />
+    <ClInclude Include="..\Common\Init\InitializeLibrary.h" />
     <ClInclude Include="SampleUtils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

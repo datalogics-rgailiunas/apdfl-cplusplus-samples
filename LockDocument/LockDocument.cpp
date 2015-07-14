@@ -56,14 +56,18 @@
 
 #include <iostream>
 #include "SampleUtils.h"
+#include "../Common/Init/InitializeLibrary.h"
 
 int main(int argc, char** argv)
 {
-    Utilities util;                //Performs common functions...
-    int  err = util.initPDFL();    //Will display any errors.
-    if (err) return (err);
+
+    //Initialize the APDF libary
+    APDFLib lib;
+    int err = lib.getInitError(); //Will display errors, if any
+    if (err) return err;
 
     //Sample variables
+    Utilities util;                                               //Performs common operations.
     ASErrorCode errCode = 0;                                      //Tracks runtime errors in the application
     const wchar_t* inPath  = L"../Input/LockDocument.pdf";        //Input document path
     const wchar_t* outPath = L"LockDocument_Out.pdf";             //Output document path
@@ -134,9 +138,6 @@ int main(int argc, char** argv)
 
     END_HANDLER
 
-    if (errCode)
-        DisplayError(errCode);
-
-    MyPDFLTerm();      //Terminate the library
-    return errCode;    //End.
+    if (errCode) lib.displayError(errCode);    //If there was an error, display it
+    return errCode;                            //End. lib's destructor terminates the library.
 };
