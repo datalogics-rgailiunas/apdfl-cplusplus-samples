@@ -55,8 +55,7 @@
 #ifndef APDFLDOC_H
 #define APDFLDOC_H
 
-#include "MyPDFLibUtils.h"
-#include "APDFLDoc.h"
+
 #include "PDCalls.h"
 #include "ASCalls.h"
 #include "ASExtraCalls.h"
@@ -65,28 +64,36 @@
 #include <vector>
 
 class APDFLDoc {
-    
-public:
-    static const unsigned MAX_PATH_LENGTH = 260;                    //Data members assosciated with document
+private:
+
+    static const unsigned MAX_PATH_LENGTH = 1024;                          //Private data members assosciated with document.
     wchar_t nameOfDocument[MAX_PATH_LENGTH];
+
     volatile ASPathName asPathName;
-    PDPage pdPage;
-    volatile PDDoc pdDoc;
     ASErrorCode errorCode;
 
-    
-    APDFLDoc(wchar_t*, bool doRepairDamagedFile);                   //Constructor used to open a document
-    APDFLDoc(unsigned width = 0, unsigned height = 0);              //Constructor used to create a document
-    void setDocumentName(const wchar_t *);                          //Used to set the name of the document
-    ASErrorCode setASPathName(wchar_t *);                           //Used to set ASPathNameObjects
-    ASErrorCode insertPage(const int & width, const int & height);  //Inserts a page into the document
-    ASErrorCode saveWebOptimized();                                 //saves doc as weboptimized
-    ASErrorCode saveDoc();                                          //fully saves non web optimized doc
-    ASErrorCode printErrorHandlerMessage();                         //Prints/Returns the error message within the handler block
-    ~APDFLDoc();                                                    //Destructor frees up resources
+    void initialize();                                                     //Initializes data members in constructors.
+    ASErrorCode printErrorHandlerMessage();                                //Prints and returns the error message within the handler block
+    ASErrorCode setASPathName(wchar_t* );                                  //Used to set ASPathNameObjects.
 
-    APDFLDoc(const APDFLDoc &){};                                   //Do not allow copy constructor or assignment operator to be used
-    APDFLDoc& operator=(const APDFLDoc&){};                         //in order to prevent shallow copies of objects
+public:
+    volatile PDDoc pdDoc;                                                  //Made public so it can be used directly if more convienent 
+                                                                           //than returning a reference to the same object.
+
+    APDFLDoc(wchar_t*, bool doRepairDamagedFile);                          //Constructor used to open a document.
+    APDFLDoc();                                                            //Constructor used to create a document.
+    
+    ASErrorCode insertPage(const int& width, const int& height, ASInt32);  //Inserts a page into the document.
+    PDPage& getPageNumber(ASInt32);                                        //Returns page specified first page is 0.
+
+    volatile PDDoc& getPDDoc(){ return pdDoc; };                           //Returns a reference to the PDDoc that was created or opened.
+
+    ASErrorCode saveDoc(wchar_t* = NULL, PDSaveFlags = PDSaveFull);        //fully saves by default.
+    
+    ~APDFLDoc();                                                           //Destructor frees up resources.
+
+    APDFLDoc(const APDFLDoc& ){};                                          //Do not allow copy constructor or assignment operator to be used.
+    APDFLDoc& operator=(const APDFLDoc&){};                                //in order to prevent shallow copies of objects.
 };
 
 #endif
