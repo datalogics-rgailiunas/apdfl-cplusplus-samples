@@ -62,7 +62,7 @@
 #include <map>
 #include <utility>
 #include <string>
-#include "MyPDFLibUtils.h"
+#include "../Common/Init/InitializeLibrary.h"
 #include "SampleUtils.h"
 #include "PEExpT.h"
 #include "PagePDECntCalls.h"
@@ -78,10 +78,11 @@ void copyElements(PDEContent* to, PDEContent* from, const std::map<ASInt32, bool
 
 int main(int argc, char** argv)
 {
-    Utilities util;                //Performs common functions.
-    int  err = util.initPDFL();    //Init the library
+    APDFLib lib;                   //Constructor initializes library.
+    int  err = lib.getInitError(); //Will display the error.
     if (err) return err;
 
+    Utilities util;                //Performs common functions.
     ASErrorCode errCode = 0;       //Tracks APDFL errors
 
     //Paths to in/out documents.
@@ -183,10 +184,9 @@ int main(int argc, char** argv)
 
     END_HANDLER
 
-    if (errCode) DisplayError(errCode);
+    if (errCode) lib.displayError(errCode);
 
-    MyPDFLTerm();      //Close the library,
-    return errCode;    //End.
+    return errCode;    //End. Lib's destructor terminates the library.
 };
 
 //===============================================================
@@ -306,8 +306,7 @@ void copyElements(PDEContent* to, PDEContent* from, const std::map<ASInt32,bool>
     }
     HANDLER
 
-    ASErrorCode a = ERRORCODE;
-    DisplayError(a);
+        RERAISE();
 
     END_HANDLER
 

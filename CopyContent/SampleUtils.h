@@ -53,11 +53,9 @@
 // NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
-//APDFL
-#include "MyPDFLibUtils.h"
 #include "ASExtraCalls.h"
-
-//STD
+#include "PDCalls.h"
+#include "ASCalls.h"
 #include <iostream>
 
 class Utilities{
@@ -67,7 +65,6 @@ public:
     ASPathName makeASPathName(const wchar_t* pathname);
     ASFile openASFile(wchar_t* filepath);
     PDDoc openPDFNoSecurity(const wchar_t* filepath);
-    int initPDFL();
     ASText toASText(const wchar_t* string);
     wchar_t* toWide(const char* str);
 
