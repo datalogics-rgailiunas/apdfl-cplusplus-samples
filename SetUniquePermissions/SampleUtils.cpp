@@ -64,22 +64,6 @@ Utilities::Utilities(){
         hostUniFormat = kUTF32HostEndian;
 };
 
-//==================================================================
-//Initialize the PDF library.
-//==================================================================
-int Utilities::initPDFL(){
-
-    int initError = MyPDFLInit();
-
-    if (initError) {
-        std::wcerr << L"Initialization error. See \"AcroErr.h\" for more info.\n" << std::endl;
-        std::wcerr << L"Error system: " << ErrGetSystem(initError) << std::endl;
-        std::wcerr << L"Error Severity: " << ErrGetSeverity(initError) << std::endl;
-        std::wcerr << L"Error Code: " << ErrGetCode(initError) << std::endl;
-    }
-
-    return initError;
-};
 
 //==================================================================
 //Convert a string to a wide string. The caller must delete[]

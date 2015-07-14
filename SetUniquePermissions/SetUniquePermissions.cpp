@@ -57,9 +57,8 @@
 // NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
-#include <iostream>
-#include <vector>
 #include "SampleUtils.h"
+#include "../Common/Init/InitializeLibrary.h"
 
 //To reduce verbosity
 #define B_P_PAIR std::make_pair<bool,PDPerms>
@@ -67,8 +66,10 @@
 int main(int argc, char** argv)
 {
     Utilities util;                //Performs common functions...
-    int  err = util.initPDFL();    //Will display any errors.
-    if (err) return (err);
+    //Initialize the APDF libary
+    APDFLib lib;
+    int err = lib.getInitError(); //Will display errors, if any
+    if (err) return err;
 
     //Sample variables
     ASErrorCode errCode = 0;                                              //Tracks runtime errors in the application
@@ -211,9 +212,6 @@ int main(int argc, char** argv)
 
     END_HANDLER
 
-    if (errCode)
-        DisplayError(errCode);
-
-    MyPDFLTerm();      //Terminate the library
-    return errCode;    //End.
+    if (errCode) lib.displayError(errCode);    //If there was an error, display it
+    return errCode;                            //End. lib's destructor terminates the library.
 };
