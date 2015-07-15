@@ -65,14 +65,13 @@ public:
     APDFLib();
     ~APDFLib();
 
-    ASInt32 getInitError();
-    ASBool isValid();
-    static void displayError(ASErrorCode errCode);
+    ASInt32 getInitError();                        //Reports error during initialization and returns error code.
+    ASBool isValid() { return initValid; };        //Returns true if library did initialize.
 
 private:
-    PDFLDataRec pdflData;
-    ASInt32 initError;
-    ASBool initValid;
+    PDFLDataRec pdflData;                          //Struct containing information to initialize APDFL
+    ASInt32 initError;                             //Used to report errors in initialization
+    ASBool initValid;                              //true if library did initialize
 
     void fillDirectories();
 
