@@ -60,21 +60,61 @@
 // NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
-#include "SampleUtilities.h"
-#include "../Common/Init/InitializeLibrary.h"
+#include "APDFLDoc.h"
+#include "InitializeLibrary.h"
+#include "ASExtraCalls.h"
+#include "PDFInit.h"
+#include "PDFLCalls.h"
+#include "PDExpT.h"
+#include "PDFInit.h"
+#include "PDFLCalls.h"
+#include "ASCalls.h"
+#include "PDCalls.h"
+#include "PERCalls.h"
+#include "PagePDECntCalls.h"
 #include <sstream>
 #include <string>
 #include <vector>
 
+//================================================
+//Converts a char string to a wchar string.
+//================================================
+wchar_t* toWide(const char* str){
+
+    const size_t strlen = (std::strlen(str)) + 1;
+    wchar_t* wstr = new wchar_t[strlen];
+    mbstowcs(wstr, str, strlen);
+    return wstr;
+};
+
+//==================================================================
+//Convert a wide string to an ASText object.
+//==================================================================
+ASText toASText(const wchar_t* string){
+    ASUnicodeFormat hostUniFormat;
+
+    DURING
+
+    if (sizeof(wchar_t) == 2)
+        hostUniFormat = kUTF16HostEndian;
+    else
+        hostUniFormat = kUTF32HostEndian;
+
+    return ASTextFromUnicode((ASUTF16Val *)string, hostUniFormat);
+
+    HANDLER
+        RERAISE();
+    END_HANDLER
+
+    return NULL;
+};
+
 int main(int argc, char* argv)
 {
-    Utilities util;                 //Performs some common functions
-
-
-    //Initialize the APDF libary
+    //Initialize the APDF Library.
     APDFLib lib;
-    int err = lib.getInitError(); //Will display errors, if any
-    if (err) return err;
+    if (!lib.isValid())
+        return lib.getInitError();    //Will display the error, if any.
 
     ASErrorCode errCode = 0;        //Tracks runtime errors in the application
     wchar_t* inputDir  = L"../Input/Ulysses.pdf";
@@ -83,7 +123,8 @@ int main(int argc, char* argv)
     DURING
 
     std::wcout << L"Opening the input document." << std::endl;
-    PDDoc mydoc = util.openPDFNoSecurity(inputDir);    //Input document
+    APDFLDoc APDoc(inputDir,true);
+    PDDoc mydoc = APDoc.getPDDoc();
 
 //===========================================================================================
 //Step 1) Find each section of bolded text in the document and 
@@ -102,7 +143,7 @@ int main(int argc, char* argv)
     std::wcout << L"Searching for bolded text..." << std::endl;
     for (auto page = 0; page < PDDocGetNumPages(mydoc); ++page)   //For each page...
     {
-        PDPage nextPage = PDDocAcquirePage(mydoc, page);
+        PDPage nextPage = APDoc.getPageNumber(page);
         PDEContent nextContent = PDPageAcquirePDEContent(nextPage, 0);
         ASInt32 numElem = PDEContentGetNumElems(nextContent);
 
@@ -143,7 +184,7 @@ int main(int argc, char* argv)
                             char buffer[bufferSize];
                             memset(buffer, '\0', bufferSize);
                             PDETextGetText(nextText, kPDETextRun, runCount, (ASUns8*)buffer);
-                            wchar_t* nextFragment = util.toWide(buffer);
+                            wchar_t* nextFragment = toWide(buffer);
                             nextBCopy += nextFragment;
                             delete[] nextFragment;
 
@@ -157,7 +198,7 @@ int main(int argc, char* argv)
                             char buffer[bufferSize];
                             memset(buffer, L'\0', bufferSize);
                             PDETextGetText(nextText, kPDETextRun, runCount, (ASUns8*)buffer);
-                            wchar_t* nextFragment = util.toWide(buffer);
+                            wchar_t* nextFragment = toWide(buffer);
                             nextBCopy += nextFragment;
                             delete[] nextFragment;
                         }
@@ -207,10 +248,10 @@ int main(int argc, char* argv)
     //Create a bookmark for each bold text
     for (int btext = 0; btext < numBold; ++btext)
     {
-        PDPage nextDPage = PDDocAcquirePage(mydoc, btextPages[btext]);    //Get the associated page
+        PDPage nextDPage = APDoc.getPageNumber(btextPages[btext]);    //Get the associated page
         nextbmTitle << (btext + 1) << L" " << btextCopy[btext];    //Construct the title
         nextbm = PDBookmarkAddNewChildASText(                      //Create the bookmark before setting its action
-            bmRoot, util.toASText(nextbmTitle.str().c_str()));
+            bmRoot, toASText(nextbmTitle.str().c_str()));
 
         nextDestAct = PDActionNewFromDest(                         //Create the view destination action for the bookmark
                     mydoc,                                         //The associated document
@@ -256,7 +297,7 @@ int main(int argc, char* argv)
     PDViewDestGetAttr(    //Copy the attributes of the parent bookmark
         PDActionGetDest(PDBookmarkGetAction(parentBm)), 
             &pageNumber, &fitType, &locationRect, &zoomFactor);
-    PDPage parentPage = PDDocAcquirePage(mydoc, pageNumber);
+    PDPage parentPage = APDoc.getPageNumber(pageNumber);
 
     //Set each bookmark's zoom factor per the above array
     for (auto i = 0; i < num_bookmarks; ++i)
@@ -274,10 +315,7 @@ int main(int argc, char* argv)
 //Step 5) Save and close the document.
 //===========================================================================================
 
-    PDDocSave(mydoc,PDDocNeedsSave | PDDocIsOpen | PDSaveCopy, 
-        util.makeASPathName(outputDir),
-        ASGetDefaultFileSys(), NULL, NULL);
-    PDDocClose(mydoc);
+    APDoc.saveDoc(outputDir, PDDocNeedsSave | PDDocIsOpen | PDSaveCopy);
 
     HANDLER
 
