@@ -57,25 +57,36 @@
 // NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
-#include "SampleUtils.h"
-#include "../Common/Init/InitializeLibrary.h"
+#include "ASExtraCalls.h"
+#include "ASExtraCalls.h"
+#include "PDFInit.h"
+#include "PDFLCalls.h"
+#include "PDExpT.h"
+#include "PDFInit.h"
+#include "PDFLCalls.h"
+#include "ASCalls.h"
+#include "PDCalls.h"
+#include "PERCalls.h"
+#include "PagePDECntCalls.h"
+#include "APDFLDoc.h"
+#include "InitializeLibrary.h"
 
 //To reduce verbosity
 #define B_P_PAIR std::make_pair<bool,PDPerms>
 
 int main(int argc, char** argv)
 {
-    Utilities util;                //Performs common functions...
-    //Initialize the APDF libary
+
+    //Initialize the APDF Library.
     APDFLib lib;
-    int err = lib.getInitError(); //Will display errors, if any
-    if (err) return err;
+    if (!lib.isValid())
+        return lib.getInitError();    //Will display the error, if any.
 
     //Sample variables
     ASErrorCode errCode = 0;                                              //Tracks runtime errors in the application
-    const wchar_t* inPath  = L"../Input/SetUniquePermissions.pdf";        //Input document path
-    const wchar_t* outPath = L"SetUniquePermissions_Out.pdf";    //Output document path
-    const char*   password = "Datalogics";                                //Password to change permissions
+    wchar_t* inPath  = L"../Input/SetUniquePermissions.pdf";        //Input document path
+    wchar_t* outPath = L"SetUniquePermissions_Out.pdf";    //Output document path
+    char*   password = "Datalogics";                                //Password to change permissions
 
 //=============================================================================
 //Step 1) Select which permissions you want to allow.
@@ -153,7 +164,8 @@ int main(int argc, char** argv)
 
         std::cout << "Opening the input document." << std::endl;
 
-        PDDoc document = util.openPDFNoSecurity(inPath);
+        APDFLDoc APDoc(inPath,true);
+        PDDoc document = APDoc.getPDDoc();
 
         std::cout << "Creating the new security data." << std::endl;
 
@@ -193,7 +205,6 @@ int main(int argc, char** argv)
 
         PDDocSetNewSecurityData(document, (void*)securityData);
         ASfree((void*)securityData);
-        PDDocSetFlags(document, PDDocRequiresFullSave );           //Changing the security data requires a full save
 
         std::cout << "...and added to the document." << std::endl;
 
@@ -202,9 +213,7 @@ int main(int argc, char** argv)
 //=============================================================================
 
         std::cout << "Saving the new file." << std::endl;
-        PDDocSave(document, PDSaveFull | PDSaveLinearized, 
-            util.makeASPathName(outPath), ASGetDefaultFileSys(), NULL, NULL);
-        PDDocClose(document);
+        APDoc.saveDoc(outPath, PDSaveFull | PDSaveLinearized);
 
     HANDLER
 
