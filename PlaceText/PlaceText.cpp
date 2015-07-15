@@ -58,26 +58,20 @@
 #include "PERCalls.h"
 #include "PEWCalls.h"
 #include "PagePDECntCalls.h"
-#include "MyPDFLibUtils.h"
 #include "ASExtraCalls.h"
+#include "APDFLDoc.h"
+#include "InitializeLibrary.h"
 #include <iostream>
 
 int main(int argc, char** argv)
 {
 
-    int initErr = MyPDFLInit();    //Initialize the pdf library
-
-    //Check for errors upon initialization 
-    if (initErr != 0)
-    {
-        std::wcerr << L"Initialization error. See \"AcroErr.h\" for more info.\n" << std::endl;
-        std::wcerr << L"Error system: " << ErrGetSystem(initErr) << std::endl;
-        std::wcerr << L"Error Severity: " << ErrGetSeverity(initErr) << std::endl;
-        std::wcerr << L"Error Code: " << ErrGetCode(initErr) << std::endl;
-        return 0;
-    }
-
+    APDFLib libInit;            //Initialize the APDFL.
     ASErrorCode errCode = 0;    //Variable that represents errors
+
+    if (libInit.isValid() == false)         //Check for errors in initialization.
+        errCode = libInit.getInitError();   //If there was an error set the code.
+    
     PDDoc origDoc = NULL;       //The new pdf document to add text to
 
     DURING
