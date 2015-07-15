@@ -61,11 +61,12 @@
 
 int main(int argc, char** argv)
 {
-    APDFLib lib;                   //Constructor initializes the APDF Library.
-    int err = lib.getInitError(); //Will display the error, if any.
-    if (err) return err;
+    //Initialize the APDF Library.
+    APDFLib lib;
+    if (!lib.isValid())
+        return lib.getInitError();    //Will display the error, if any.
  
-    ASErrorCode errCode = 0;                                 //Tracks runtime errors in the application
+    ASErrorCode errCode = 0;                           //Tracks runtime errors in the application
     wchar_t* inPath  = L"../Input/AddPassword.pdf";    //Input document path
     wchar_t* outPath = L"AddPassword_Out.pdf";         //Output document path
     char*   password = "Datalogics";                   //Password to open document (cannot be wide char)
