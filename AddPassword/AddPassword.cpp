@@ -56,8 +56,8 @@
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
 #include <iostream>
-#include "SampleUtils.h"
 #include "../Common/Init/InitializeLibrary.h"
+#include "../Common/APDFLDoc/APDFLDoc.h"
 
 int main(int argc, char** argv)
 {
@@ -65,11 +65,10 @@ int main(int argc, char** argv)
     int err = lib.getInitError(); //Will display the error, if any.
     if (err) return err;
  
-    Utilities util;                                          //Performs common functions.
     ASErrorCode errCode = 0;                                 //Tracks runtime errors in the application
-    const wchar_t* inPath  = L"../Input/AddPassword.pdf";    //Input document path
-    const wchar_t* outPath = L"AddPassword_Out.pdf";         //Output document path
-    const char*   password = "Datalogics";                   //Password to open document (cannot be wide char)
+    wchar_t* inPath  = L"../Input/AddPassword.pdf";    //Input document path
+    wchar_t* outPath = L"AddPassword_Out.pdf";         //Output document path
+    char*   password = "Datalogics";                   //Password to open document (cannot be wide char)
 
     DURING
 
@@ -79,7 +78,8 @@ int main(int argc, char** argv)
 
         std::cout << "Opening the input document." << std::endl;
 
-        PDDoc document = util.openPDFNoSecurity(inPath);
+        APDFLDoc APDoc(inPath,true);
+        PDDoc document = APDoc.getPDDoc();
 
         std::cout << "Creating the new security data." << std::endl;
 
@@ -116,7 +116,7 @@ int main(int argc, char** argv)
 //=========================================================================================================================
 
         PDDocSetNewSecurityData(document, (void*)securityData);
-        PDDocSetFlags(document, PDDocRequiresFullSave );           //Changing the security data requires a full save
+        PDDocSetFlags(document, PDDocRequiresFullSave);           //Changing the security data requires a full save
         ASfree((void*)securityData);
 
         std::cout << "...and added to the document." << std::endl;
@@ -126,7 +126,8 @@ int main(int argc, char** argv)
 //=========================================================================================================================
 
         std::cout << "Saving the new file." << std::endl;
-        PDDocSave(document, PDSaveFull | PDSaveLinearized, util.makeASPathName(outPath), ASGetDefaultFileSys(), NULL, NULL);
+
+        APDoc.saveDoc(outPath, PDSaveFull | PDSaveLinearized);
         PDDocClose(document);
 
     HANDLER
