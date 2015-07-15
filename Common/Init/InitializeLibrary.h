@@ -67,6 +67,7 @@ public:
 
     ASInt32 getInitError();                        //Reports error during initialization and returns error code.
     ASBool isValid() { return initValid; };        //Returns true if library did initialize.
+    void displayError(ASErrorCode);
 
 private:
     PDFLDataRec pdflData;                          //Struct containing information to initialize APDFL

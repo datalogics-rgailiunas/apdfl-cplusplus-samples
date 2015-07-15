@@ -114,6 +114,17 @@ void APDFLib::fillDirectories()
 }
 
 //====================================================
+//Utility method, may be used to report errors.
+//====================================================
+void APDFLib::displayError(ASErrorCode errCode)
+{
+    if (errCode == 0) return;
+
+    char errStr[250];
+    std::fprintf(stderr, "[Error %ld] %s\n", errCode, ASGetErrorString(errCode, errStr, sizeof(errStr)));
+}
+
+//====================================================
 //Destructor terminates the library when program ends.
 //====================================================
 APDFLib::~APDFLib()
