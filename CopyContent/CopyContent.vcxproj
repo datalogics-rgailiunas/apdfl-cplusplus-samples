@@ -90,7 +90,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>“_CONSOLE;_DEBUG;DEBUG;_WIN32;WIN32;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";PI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6;_CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../../Include/Headers;../../Include/Source;../../Samples/utils;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../Include/Headers;../../Include/Source;../../Samples/utils;../Common/Init;../Common/APDFLDoc;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -107,7 +107,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>“_CONSOLE;_DEBUG;DEBUG;_WIN32;WIN32;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";PI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6;_CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../../Include/Headers;../../Include/Source;../../Samples/utils;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../Include/Headers;../../Include/Source;../../Samples/utils;../Common/Init;../Common/APDFLDoc;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -154,13 +154,13 @@
     <ClCompile Include="..\..\Include\Source\PDFLInitCommon.c" />
     <ClCompile Include="..\..\Include\Source\PDFLInitHFT.c" />
     <ClCompile Include="..\..\Samples\utils\MyPDFLibApp.cpp" />
+    <ClCompile Include="..\Common\APDFLDoc\APDFLDoc.cpp" />
     <ClCompile Include="..\Common\Init\InitializeLibrary.cpp" />
     <ClCompile Include="CopyContent.cpp" />
-    <ClCompile Include="SampleUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Common\APDFLDoc\APDFLDoc.h" />
     <ClInclude Include="..\Common\Init\InitializeLibrary.h" />
-    <ClInclude Include="SampleUtils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

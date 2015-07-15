@@ -62,8 +62,11 @@
 #include <map>
 #include <utility>
 #include <string>
-#include "../Common/Init/InitializeLibrary.h"
-#include "SampleUtils.h"
+#include "InitializeLibrary.h"
+#include "APDFLDoc.h"
+#include "ASExtraCalls.h"
+#include "PDCalls.h"
+#include "ASCalls.h"
 #include "PEExpT.h"
 #include "PagePDECntCalls.h"
 #include "PERCalls.h"
@@ -78,16 +81,15 @@ void copyElements(PDEContent* to, PDEContent* from, const std::map<ASInt32, bool
 
 int main(int argc, char** argv)
 {
-    APDFLib lib;                   //Constructor initializes library.
-    int  err = lib.getInitError(); //Will display the error.
-    if (err) return err;
+    //Initialize the APDF Library.
+    APDFLib lib;
+    if (!lib.isValid())
+        return lib.getInitError();    //Will display the error, if any.
 
-    Utilities util;                //Performs common functions.
     ASErrorCode errCode = 0;       //Tracks APDFL errors
-
     //Paths to in/out documents.
-    const wchar_t* inPath = L"../Input/CopyContent.pdf";
-    const wchar_t* outPath = L"CopiedContent.pdf";
+    wchar_t* inPath = L"../Input/CopyContent.pdf";
+    wchar_t* outPath = L"CopiedContent.pdf";
 
 //=============================================================================
 //Step 1) Configure sample functionality
@@ -121,8 +123,10 @@ int main(int argc, char** argv)
 
     std::wcout << L"Opening the input document." << std::endl;
 
-    PDDoc inDoc = util.openPDFNoSecurity(inPath);
-    PDDoc copyDoc = PDDocCreate();
+    APDFLDoc inAPDoc(inPath,true);
+    PDDoc inDoc = inAPDoc.getPDDoc();
+    APDFLDoc outAPDoc;
+    PDDoc outDoc = outAPDoc.getPDDoc();
 
 //=============================================================================
 //Step 3) Copy the content from input into output
@@ -139,15 +143,13 @@ int main(int argc, char** argv)
         if (i < numPages)    //Make sure the page number is valid
         {
             //Give the output document a new page with input page i's dimensions
-            PDPage inPage = PDDocAcquirePage(inDoc, i);
+            PDPage inPage = inAPDoc.getPageNumber(i);
             ASFixedRect inPageSize;                                                //Stores the size of page i
 
             PDPageGetSize(inPage, &(inPageSize.right), &(inPageSize.top));
-            inPageSize.left = fixedZero;
-            inPageSize.bottom = fixedZero;
 
-            PDPage copyPage = PDDocCreatePage(                                            //Make page i with these dimensions
-                copyDoc, PDDocGetNumPages(copyDoc) - 1, inPageSize);
+            outAPDoc.insertPage(inPageSize.right, inPageSize.top, PDDocGetNumPages(outDoc) - 1);
+            PDPage copyPage = outAPDoc.getPageNumber(PDDocGetNumPages(outDoc) - 1);
 
             //Now copy the content
             PDEContent inContent = PDPageAcquirePDEContent(inPage, 0);
@@ -174,9 +176,7 @@ int main(int argc, char** argv)
 
     std::wcout << L"Done. Saving the new document." << std::endl;
 
-    PDDocSave(copyDoc, PDDocNeedsSave | PDSaveFull,
-        util.makeASPathName(outPath), ASGetDefaultFileSys(), NULL, NULL);
-    PDDocClose(copyDoc);
+    outAPDoc.saveDoc(outPath, PDDocNeedsSave | PDSaveFull);
 
     HANDLER
 
