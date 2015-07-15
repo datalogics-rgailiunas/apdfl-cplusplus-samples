@@ -56,8 +56,8 @@
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
 #include <iostream>
-#include "../Common/Init/InitializeLibrary.h"
-#include "../Common/APDFLDoc/APDFLDoc.h"
+#include "InitializeLibrary.h"
+#include "APDFLDoc.h"
 
 int main(int argc, char** argv)
 {
