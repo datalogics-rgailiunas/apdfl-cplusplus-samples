@@ -1,8 +1,8 @@
 // Copyright(c) 2015, Datalogics, Inc.All rights reserved.
 
-//************************************************************************
+//=========================================================================
 // Sample: Initialize - Initializes the APDFLibrary.
-//************************************************************************
+//=========================================================================
 
 // This agreement is between Datalogics, Inc. 101 N.Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
@@ -62,21 +62,13 @@ APDFLib::APDFLib()
     memset(&pdflData, 0, sizeof(PDFLDataRec));
 
     pdflData.size = sizeof(PDFLDataRec);
-    pdflData.allocator = NULL;    //Use default memory allocation procedures.
-    fillDirectories();
+    pdflData.allocator = NULL;          //Use default memory allocation procedures.
+    fillDirectories();                  //Sets the PDFLData datamember prior to calling PDFLInitHFT()
 
-    initError = PDFLInitHFT(&pdflData);
+    initError = PDFLInitHFT(&pdflData); //Initialize the library
 
-    initValid = true;
-}
-
-//====================================================
-//Whether the initilization was followed all the way
-//through without a thrown exception.
-//====================================================
-ASBool APDFLib::isValid() 
-{
-    return initValid;
+    if (initError == 0)                 //If initError is 0, initialization success
+        initValid = true;              
 }
 
 //====================================================
@@ -85,7 +77,7 @@ ASBool APDFLib::isValid()
 //====================================================
 ASInt32 APDFLib::getInitError()
 {
-    if (initError)
+    if (initValid == false)
     {
         std::wcerr << L"Initialization error. See \"AcroErr.h\" for more info.\n" << std::endl;
         std::wcerr << L"Error system: " << ErrGetSystem(initError) << std::endl;
@@ -122,20 +114,9 @@ void APDFLib::fillDirectories()
 }
 
 //====================================================
-//Terminates the APDFL library.
+//Destructor terminates the library when program ends.
 //====================================================
 APDFLib::~APDFLib()
 {
     PDFLTermHFT();
-}
-
-//====================================================
-//Terminates the APDFL library.
-//====================================================
-void APDFLib::displayError(ASErrorCode errCode)
-{
-    if (errCode == 0) return;
-
-    char errStr[250];
-    std::fprintf(stderr, "[Error %ld] %s\n", errCode, ASGetErrorString(errCode, errStr, sizeof(errStr)));
 }
