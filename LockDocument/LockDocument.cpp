@@ -1,13 +1,13 @@
 // Copyright(c) 2015, Datalogics, Inc.All rights reserved.
 
-//************************************************************************
+//=================================================================
 // Sample: LockDocument - Makes the input document read-only.
 //
 //Steps: 
 //1) Open the document and create new security data
 //2) Set the security data into the document
 //3) Save and close the document
-//************************************************************************
+//=================================================================
 
 // This agreement is between Datalogics, Inc. 101 N.Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
@@ -55,23 +55,21 @@
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
 #include <iostream>
-#include "SampleUtils.h"
 #include "../Common/Init/InitializeLibrary.h"
+#include "../Common/APDFLDoc/APDFLDoc.h"
 
 int main(int argc, char** argv)
 {
-
-    //Initialize the APDF libary
+    //Initialize the APDF Library.
     APDFLib lib;
-    int err = lib.getInitError(); //Will display errors, if any
-    if (err) return err;
+    if (!lib.isValid())
+        return lib.getInitError();    //Will display the error, if any.
 
     //Sample variables
-    Utilities util;                                               //Performs common operations.
     ASErrorCode errCode = 0;                                      //Tracks runtime errors in the application
-    const wchar_t* inPath  = L"../Input/LockDocument.pdf";        //Input document path
-    const wchar_t* outPath = L"LockDocument_Out.pdf";             //Output document path
-    const char*   password = "Datalogics";                        //Password to change permissions
+    wchar_t* inPath  = L"../Input/LockDocument.pdf";        //Input document path
+    wchar_t* outPath = L"LockDocument_Out.pdf";             //Output document path
+    char*   password = "Datalogics";                        //Password to change permissions
 
     DURING
 
@@ -81,7 +79,8 @@ int main(int argc, char** argv)
 
         std::cout << "Opening the input document." << std::endl;
 
-        PDDoc document = util.openPDFNoSecurity(inPath);
+        APDFLDoc APDoc(inPath,false);
+        PDDoc document = APDoc.getPDDoc();
 
         std::cout << "Creating the new security data." << std::endl;
 
@@ -128,9 +127,7 @@ int main(int argc, char** argv)
 //=============================================================================
 
         std::cout << "Saving the new file." << std::endl;
-        PDDocSave(document, PDSaveFull | PDSaveLinearized, 
-            util.makeASPathName(outPath), ASGetDefaultFileSys(), NULL, NULL);
-        PDDocClose(document);
+        APDoc.saveDoc(outPath, PDSaveFull | PDSaveLinearized);
 
     HANDLER
 
