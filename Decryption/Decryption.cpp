@@ -58,9 +58,21 @@
 // NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
-#include "SampleUtils.h"
 #include <iostream>
-#include "../Common/Init/InitializeLibrary.h"
+#include "InitializeLibrary.h"
+#include "ASExtraCalls.h"
+#include <iostream>
+#include "ASCalls.h"
+#include "PDCalls.h"
+#include "PEWCalls.h"
+#include "PDFLExpT.h"
+#include "PEExpT.h"
+#include "PagePDECntCalls.h"
+#include "PERCalls.h"
+#include "PEWCalls.h"
+#include "ASExtraCalls.h"
+#include "PDCalls.h"
+#include "ASCalls.h"
 
 static char* password = "";     //The document's password is stored statically
                                 //because openAuthorizationProcedure is static.
@@ -69,15 +81,40 @@ static char* password = "";     //The document's password is stored statically
 //Called by PDDocOpenEx to obtain permission to open the document by supplying the password.
 static ACCB1 ASBool ACCB2 openAuthorizationProcedure(PDDoc encrypted, void *clientData);
 
+//=====================================================
+//Creates an ASPathName from a wchar string.
+//=====================================================
+ASPathName makeASPathName(wchar_t* pathname){
+
+    ASText pathText = NULL;         //Text of pathname
+    ASPathName pathASPath = NULL;   //ASPathName for path
+
+    ASUnicodeFormat hostUniFormat;
+    if (sizeof(wchar_t) == 2)
+        hostUniFormat = kUTF16HostEndian;
+    else
+        hostUniFormat = kUTF32HostEndian;
+
+    DURING
+        pathText = ASTextFromUnicode((ASUTF16Val *)pathname, hostUniFormat);
+        pathASPath = ASFileSysCreatePathFromDIPathText(NULL, pathText, NULL);
+    HANDLER
+        RERAISE();
+    END_HANDLER
+
+    //Release resources
+    ASTextDestroy(pathText);
+
+    return pathASPath;
+}
 int main()
 {
-    //Initialize the APDF libary
+    //Initialize the APDF Library.
     APDFLib lib;
-    int err = lib.getInitError(); //Will display errors, if any
-    if (err) return err;
+    if (!lib.isValid())
+        return lib.getInitError();    //Will display the error, if any.
 
     ASErrorCode errCode = 0;       //Tracks errors
-    Utilities util;                //Performs some common actions
     password = "mypassword";       //Password to open the document
 
 
@@ -87,8 +124,8 @@ int main()
 //Step 1) Open the document with the password
 //========================================================================================
 
-    ASPathName in_path = util.makeASPathName(L"../Input/encrypted.pdf");
-    ASPathName out_path = util.makeASPathName(L"unencrypted.pdf");
+    ASPathName in_path = makeASPathName(L"../Input/encrypted.pdf");
+    ASPathName out_path = makeASPathName(L"unencrypted.pdf");
     PDDoc document = PDDocOpenEx(in_path, ASGetDefaultFileSys(),       //Calls openAuthorizationProcedure to supply the password
                            ASCallbackCreateProto(PDAuthProcEx, 
                            &openAuthorizationProcedure), 0, true);
@@ -108,8 +145,10 @@ int main()
 //Step 2) Save and close the document
 //========================================================================================
 
+
     PDDocSave(document, PDDocNeedsSave | PDDocIsOpen,
         out_path, ASGetDefaultFileSys(), NULL, NULL);
+    ASFileSysReleasePath(ASGetDefaultFileSys(), out_path);
 
     std::wcout << L"The document was saved..." << std::endl;
 
