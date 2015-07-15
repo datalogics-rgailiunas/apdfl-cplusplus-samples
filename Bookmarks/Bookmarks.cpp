@@ -250,8 +250,10 @@ int main(int argc, char* argv)
     {
         PDPage nextDPage = APDoc.getPageNumber(btextPages[btext]);    //Get the associated page
         nextbmTitle << (btext + 1) << L" " << btextCopy[btext];    //Construct the title
+        ASText nextbmName = toASText(nextbmTitle.str().c_str());
         nextbm = PDBookmarkAddNewChildASText(                      //Create the bookmark before setting its action
-            bmRoot, toASText(nextbmTitle.str().c_str()));
+            bmRoot, nextbmName);
+        ASTextDestroy(nextbmName);
 
         nextDestAct = PDActionNewFromDest(                         //Create the view destination action for the bookmark
                     mydoc,                                         //The associated document
