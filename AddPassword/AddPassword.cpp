@@ -64,7 +64,7 @@ int main(int argc, char** argv)
     //Initialize the APDF Library.
     APDFLib lib;
     if (!lib.isValid())
-        return lib.getInitError();    //Will display the error, if any.
+        return lib.getInitError();                     //Will display the error, if any.
  
     ASErrorCode errCode = 0;                           //Tracks runtime errors in the application
     wchar_t* inPath  = L"../Input/AddPassword.pdf";    //Input document path
@@ -117,7 +117,7 @@ int main(int argc, char** argv)
 //=========================================================================================================================
 
         PDDocSetNewSecurityData(document, (void*)securityData);
-        PDDocSetFlags(document, PDDocRequiresFullSave);           //Changing the security data requires a full save
+        PDDocSetFlags(document, PDDocRequiresFullSave);    //Changing the security data requires a full save
         ASfree((void*)securityData);
 
         std::cout << "...and added to the document." << std::endl;
