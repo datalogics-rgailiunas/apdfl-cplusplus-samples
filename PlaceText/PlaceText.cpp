@@ -72,27 +72,20 @@ int main(int argc, char** argv)
     if (libInit.isValid() == false)         //Check for errors in initialization.
         errCode = libInit.getInitError();   //If there was an error set the code.
     
-    PDDoc origDoc = NULL;       //The new pdf document to add text to
-
     DURING
 
 //============================================================================================================
 // Step 1) Create new pdf document with core attributes
 //============================================================================================================
-        
-        //Create a new document
-        origDoc = PDDocCreate();
 
-        ASFixedRect rectBound;   //Rectangle bound for sizing 
+        //Create a new document
+        APDFLDoc doc;
 
         //Set up the 4" by 4" bounds for the page
-        rectBound.left = fixedZero;
-        rectBound.top = Int16ToFixed(4 * 72);
-        rectBound.right = Int16ToFixed(4 * 72);
-        rectBound.bottom = fixedZero;
-
+        doc.insertPage((4 * 72), (4 * 72), PDBeforeFirstPage);
+        
         //Initialize page from source document, where to place, and bound rectangle
-        PDPage page = PDDocCreatePage(origDoc, PDBeforeFirstPage, rectBound);
+        PDPage page = doc.getPageNumber(0);
 
         //Grab contenet from the page
         PDEContent content = PDPageAcquirePDEContent(page, NULL);
@@ -127,7 +120,7 @@ int main(int argc, char** argv)
 
         textMatrix.a = 12;          //Character width (matrix element size)
         textMatrix.d = 12;          //Character width (matrix element size)
-        textMatrix.h = 1 * 72.0;    //Place at a x-val of an inch
+        textMatrix.h = 1 * 72.0;    //Place at a x-val of 1 inch
         textMatrix.v = 2 * 72.0;    //Place at a y-val of 2 inches
           
         PDEText textObj = PDETextCreate();    //Create object for holding text 
@@ -167,41 +160,17 @@ int main(int argc, char** argv)
 // Step 3) Save result as textPlaced.pdf 
 //============================================================================================================
      
-        ASText outPathText;    //The input file path text object
-
-        //Determine unicode format
-        if (sizeof(wchar_t) == 2)
-            outPathText = ASTextFromUnicode((ASUTF16Val *)L"textPlaced.pdf", kUTF16HostEndian);
-        else
-            outPathText = ASTextFromUnicode((ASUTF16Val *)L"textPlaced.pdf", kUTF32HostEndian);
-
-        //The input file path text object, made with input file path and uniCode format
-        ASPathName outPathName = ASFileSysCreatePathFromDIPathText(NULL, outPathText, NULL);
-
-        //Save document, with the source document, save flags, and path
-        PDDocSave(origDoc, PDSaveFull | PDSaveLinearized, outPathName, ASGetDefaultFileSys(), NULL, NULL);
+        //Save document with the given output path, and proper saving flags
+        doc.saveDoc(L"textPlaced.pdf", PDSaveFull | PDSaveLinearized);
 
         std::wcout << L"textPlaced.pdf saved with text to be placed." << std::endl << std::endl;
 
-        //Release objects no longer in use
-        ASTextDestroy(outPathText);
-        ASFileSysReleasePath(NULL, outPathName);
-
     HANDLER
 
-        //If there was an exception generate an error code 
-        errCode = ERRORCODE;
+            //If there was an exception generate an error code 
+            libInit.displayError(errCode);
 
     END_HANDLER
-
-    //Free up used objects  
-    PDDocRelease(origDoc);
-
-    //Display error code if there was one
-    if (errCode)    DisplayError(errCode);
-
-    //Terminate the pdf library
-    MyPDFLTerm();   
 
     return errCode;
 
