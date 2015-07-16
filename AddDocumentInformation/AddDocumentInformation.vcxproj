@@ -161,11 +161,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\Include\Source\PDFLInitCommon.c" />
     <ClCompile Include="..\..\Include\Source\PDFLInitHFT.c" />
-    <ClCompile Include="..\..\Samples\utils\MyPDFLibUtils.cpp" />
     <ClCompile Include="AddDocumentInformation.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\Samples\utils\MyPDFLibUtils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
