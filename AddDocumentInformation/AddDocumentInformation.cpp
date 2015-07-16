@@ -60,7 +60,6 @@
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE. 
 
 #include <iostream>
-#include "MyPDFLibUtils.h"
 #include "ASExtraCalls.h"
 
 int main(int argc, char** argv)
