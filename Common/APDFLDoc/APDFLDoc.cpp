@@ -223,18 +223,18 @@ ASErrorCode APDFLDoc::insertPage(const ASFixed & width, const ASFixed & height, 
 
         PDPage pdPage;
 
-    //Create page dimensions
-    ASFixedRect mediaBox;
-    mediaBox.left = fixedZero;
-    mediaBox.right = width;
-    mediaBox.bottom = fixedZero;
-    mediaBox.top = height;
+        //Create page dimensions
+        ASFixedRect mediaBox;
+        mediaBox.left = fixedZero;
+        mediaBox.right = width;
+        mediaBox.bottom = fixedZero;
+        mediaBox.top = height;
 
-    //Create and insert a page into the PDDoc
-    pdPage = PDDocCreatePage(pdDoc, afterPageNum, mediaBox);
+        //Create and insert a page into the PDDoc
+        pdPage = PDDocCreatePage(pdDoc, afterPageNum, mediaBox);
 
-    PDPageRelease(pdPage);
-    pdPage = NULL;
+        PDPageRelease(pdPage);
+        pdPage = NULL;
 
     HANDLER
 
@@ -251,21 +251,22 @@ ASErrorCode APDFLDoc::insertPage(const ASFixed & width, const ASFixed & height, 
 // Important note: Caller is responsible for calling PDPageRelease on page.
 //************************************************************************
 
-PDPage& APDFLDoc::getPageNumber(ASInt32 pageNumber)
+PDPage APDFLDoc::getPageNumber(ASInt32 pageNumber)
 {
 
-    DURING
+    PDPage pdPage = NULL;
 
-        PDPage pdPage = NULL;
-        return pdPage = PDDocAcquirePage(pdDoc, pageNumber);
+    DURING
+  
+        pdPage = PDDocAcquirePage(pdDoc, pageNumber); //Get the page number
 
     HANDLER
 
-            printErrorHandlerMessage();
+        printErrorHandlerMessage();                   //if exception occurs print the error.
 
     END_HANDLER
 
-        return nullptr;
+        return pdPage;
 }
 
 //************************************************************************
