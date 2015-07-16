@@ -1,11 +1,13 @@
 ﻿// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
-//*******************************************************************************
+
+//===============================================================================
 //Helper App. for Samples: APDFLDoc is intended to assist with common PDDoc
 //operations. This class contains methods that open and create documents and 
 //performs other common operations.
 //APDFLDoc.cpp: Contains implementations of methods.
 //APDFLDoc.h: Contains class definition.
-//*******************************************************************************
+//===============================================================================
+
 // Sample placeText/ Places text onto a pdf
 // This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
