@@ -59,17 +59,67 @@
 // NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
-#include "SampleUtils.h"
-#include "../Common/Init/InitializeLibrary.h"
+#include "InitializeLibrary.h"
+#include "APDFLDoc.h"
+#include "ASExtraCalls.h"
+#include "CosCalls.h"
+#include <iostream>
+#include "PDFInit.h"
+#include "PDFLCalls.h"
+#include "PDExpT.h"
+#include "PDFInit.h"
+#include "PDFLCalls.h"
+#include "ASCalls.h"
+#include "PDCalls.h"
+#include "PERCalls.h"
+#include "PagePDECntCalls.h"
+
+//====================================================
+//Returns a pointer to a new ASFile give a wide path.
+//====================================================
+ASFile* openASFile(wchar_t* filepath){
+    ASErrorCode errCode = 0;          //Tracks errors
+    ASFile* file = new ASFile();              //The file we want to open
+    ASText pathText = NULL;
+    ASPathName aspfilepath = NULL;    //Filepath of the document
+
+    //Compute host's unicode format
+    ASUnicodeFormat hostUniFormat;
+    if (sizeof(wchar_t) == 2)
+        hostUniFormat = kUTF16HostEndian;
+    else
+        hostUniFormat = kUTF32HostEndian;
+
+    DURING
+
+        pathText = ASTextFromUnicode((ASUTF16Val *)filepath, hostUniFormat);
+        aspfilepath = ASFileSysCreatePathFromDIPathText(NULL, pathText, NULL);
+        errCode = ASFileSysOpenFile(
+                    ASGetDefaultFileSys(),    //ASFileSys
+                    aspfilepath,              //ASPathName
+                    ASFILE_READ,              //ASFileMode
+                    file);                    //ASFile*, filled by ASFileSysOpenFile
+
+        ASTextDestroy(pathText);
+        ASFileSysReleasePath(ASGetDefaultFileSys(), aspfilepath);
+
+    HANDLER
+        RERAISE();
+    END_HANDLER
+
+    if (errCode)
+        ASRaise(errCode);
+
+    return file;
+};
 
 int main()
 {
-    Utilities util;                                            //For common subroutines
-
-    //Initialize the APDF libary
+    //Initialize the APDF Library.
     APDFLib lib;
-    int err = lib.getInitError(); //Will display errors, if any
-    if (err) return err;
+    if (!lib.isValid())
+        return lib.getInitError();    //Will display the error, if any.
+
 
     //APDFL variables
     ASErrorCode  errCode = 0;                                  //Tracks errors.
@@ -78,12 +128,13 @@ int main()
     wchar_t* path_attachment1 = L"../Input/attachment1.xlsx";  //Path to attachment name tree
     wchar_t* path_attachment2 = L"../Input/attachment2.docx";  //Path to attachment for annotation
     wchar_t* path_inputpdf = L"../Input/noattachment.pdf";     //Path to input pdf
-    wchar_t* path_attached = L"attached.pdf";       //Path to output pdf
+    wchar_t* path_attached = L"attached.pdf";                  //Path to output pdf
 
     DURING
 
         std::wcout << L"Opening the input PDF." << std::endl;
-        PDDoc inputpdf = util.openPDFNoSecurity(path_inputpdf);
+        APDFLDoc inputAPDoc(path_inputpdf,true);
+        PDDoc inputpdf = inputAPDoc.getPDDoc();
 
 //===========================================================================================
 //Step 1) Create and embed an attachment to the name tree.
@@ -91,16 +142,16 @@ int main()
 
         //Create PDFileAttachment 1
         std::wcout << L"Opening attachment 1." << std::endl;
-        ASFile attach1_as = util.openASFile(path_attachment1);
+        ASFile* attach1_as = openASFile(path_attachment1);
         PDFileAttachment attach1_pfa = PDFileAttachmentNewFromFile(
                                         PDDocGetCosDoc(inputpdf),              //The relevant pdf
-                                        attach1_as,                            //The relevant ASFile
+                                        *attach1_as,                            //The relevant ASFile
                                         NULL, (ASUns32) 0,                     //No filters for the file attachment stream
                                         CosNewNull(),                          //No filter parameters
                                         NULL, NULL, NULL);                     //No ASProgressMonitor
 
-        ASFileClose(attach1_as);
-
+        ASFileClose(*attach1_as);
+        delete(attach1_as);
 
         //Retrieve the proper file embedding name tree
         //(This name tree has not yet been used, so we must "create" it)
@@ -121,16 +172,16 @@ int main()
 
         //Create PDFileAttachment 2
         std::wcout << L"Opening attachment 2." << std::endl;
-        ASFile attach2_as = util.openASFile(path_attachment2);
+        ASFile* attach2_as = openASFile(path_attachment2);
         PDFileAttachment attach2_pfa = PDFileAttachmentNewFromFile(
                                         PDDocGetCosDoc(inputpdf),              //The relevant pdf
-                                        attach2_as,                            //The relevant ASFile
+                                        *attach2_as,                            //The relevant ASFile
                                         NULL, (ASUns32)0,                      //No filters for the file attachment stream
                                         CosNewNull(),                          //No filter parameters
                                         NULL, NULL, NULL);                     //No ASProgressMonitor
 
-        ASFileClose(attach2_as);
-        attach2_as = NULL;
+        ASFileClose(*attach2_as);
+        delete(attach2_as);
 
         //Create the annotation
         std::wcout << L"Embedding it through an annotation." << std::endl;
@@ -161,12 +212,9 @@ int main()
 
         PDPageRelease(page1);
 
-        PDDocSave(inputpdf, PDDocNeedsSave | PDDocIsOpen | PDSaveCopy,
-            util.makeASPathName(path_attached), ASGetDefaultFileSys(), NULL, NULL);
+        inputAPDoc.saveDoc(path_attached, PDDocNeedsSave | PDDocIsOpen | PDSaveCopy);
 
         std::wcout << L"The document was saved." << std::endl;
-
-        PDDocClose(inputpdf);
 
     HANDLER
 
@@ -176,4 +224,4 @@ int main()
 
     if (errCode) lib.displayError(errCode);    //If there was an error, display it
     return errCode;                            //End. lib's destructor terminates the library.
-}
+};
