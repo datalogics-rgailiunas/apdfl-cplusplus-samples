@@ -22,7 +22,7 @@
     <ProjectGuid>{1013E460-05A7-43D2-9E4F-B6366E7D1898}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BlankSample</RootNamespace>
-    <ProjectName>Bookmarks</ProjectName>
+    <ProjectName>AddBookmarks</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -158,7 +158,7 @@
     <ClCompile Include="..\..\Samples\utils\MyPDFLibUtils.cpp" />
     <ClCompile Include="..\Common\APDFLDoc\APDFLDoc.cpp" />
     <ClCompile Include="..\Common\Init\InitializeLibrary.cpp" />
-    <ClCompile Include="Bookmarks.cpp" />
+    <ClCompile Include="AddBookmarks.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Samples\utils\MyPDFLibUtils.h" />

@@ -1,7 +1,7 @@
 // Copyright(c) 2015, Datalogics, Inc.All rights reserved.
 
 //======================================================================
-// Sample: Bookmarks - Adds some bookmarks to the input pdf
+// Sample: AddBookmarks - Adds some bookmarks to the input pdf
 //
 // This sample adds a bookmark wherever a bolded section of text occurs
 // in the input document. The sample also adds a few bookmarks which
