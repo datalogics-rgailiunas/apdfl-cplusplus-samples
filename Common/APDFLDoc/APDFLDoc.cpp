@@ -265,6 +265,7 @@ PDPage& APDFLDoc::getPageNumber(ASInt32 pageNumber)
 
     END_HANDLER
 
+        return nullptr;
 }
 
 //************************************************************************
