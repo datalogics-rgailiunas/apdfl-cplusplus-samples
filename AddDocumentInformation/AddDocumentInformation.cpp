@@ -61,30 +61,24 @@
 
 #include <iostream>
 #include "ASExtraCalls.h"
+#include "InitializeLibrary.h"
 
 int main(int argc, char** argv)
 {
-    ASErrorCode errorCode = MyPDFLInit();   //Initialize the APDFL
+    APDFLib libInit;                               //Initialize the APDFL.
+    ASErrorCode errCode = 0;                       //Set error code to 0.
 
-    //Check for errors upon initialization of APDFL
-    if (errorCode != 0)
-    {
-        std::wcerr << L"Initialization error. See \"AcroErr.h\" for more info.\n" << std::endl;
-        std::wcerr << L"Error system: " << ErrGetSystem(errorCode) << std::endl;
-        std::wcerr << L"Error Severity: " << ErrGetSeverity(errorCode) << std::endl;
-        std::wcerr << L"Error Code: " << ErrGetCode(errorCode) << std::endl;
-
-        return errorCode;
-    }
+    if (libInit.isValid() == false)                  //Check to see if the APDFL initialized.
+        return errCode = libInit.getInitError();   //If it failed return the error code.
 
     DURING
 //==========================================================================================================================================
 //Step 1) Open the PDF Document
 //==========================================================================================================================================
       
-        wchar_t* inputFilePath = L"../Input/AddDocumentInformation.pdf";   //File path used to open the PDF Document
+        wchar_t* inputFilePath = L"../Input/AddDocumentInformation.pdf";   //File path used to open the PDF Document.
  
-        ASUnicodeFormat unicodeFormat;                                      //Argument passed to function ASTextFromUnicode
+        ASUnicodeFormat unicodeFormat;                                      //Argument passed to function ASTextFromUnicode.
 
         //Determine host computers unicode format	
         if (sizeof(wchar_t) == 2)
@@ -92,20 +86,20 @@ int main(int argc, char** argv)
         else
             unicodeFormat = kUTF32HostEndian;
 
-        //ASText is the unicode string used to create ASPathName for opening the PDDoc
+        //ASText is the unicode string used to create ASPathName for opening the PDDoc.
         ASText asText = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(inputFilePath), unicodeFormat);
 
-        //Create the asPathName to open the input file
+        //Create the asPathName to open the input file.
         ASPathName asPathName = ASFileSysCreatePathFromDIPathText(NULL, asText, NULL);
   
-        ASTextDestroy(asText);  //Free up resources
+        ASTextDestroy(asText);  //Free up resources.
         asText = NULL;
      
-        PDDoc pdDoc = PDDocOpen(asPathName, NULL, NULL, true);  //Open the Document
+        PDDoc pdDoc = PDDocOpen(asPathName, NULL, NULL, true);  //Open the Document.
 
         std::wcout << L"Document was sucessfully opened." << std::endl;
   
-        ASFileSysReleasePath(NULL, asPathName); //Free up resources
+        ASFileSysReleasePath(NULL, asPathName); //Free up resources.
         asPathName = NULL;
 
 //==========================================================================================================================================
@@ -123,9 +117,9 @@ int main(int argc, char** argv)
         ASText key = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Title"), unicodeFormat);
         ASText value = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Sample Title"), unicodeFormat);
    
-        PDDocSetInfoAsASText(pdDoc, key, value); //Insert the document information
+        PDDocSetInfoAsASText(pdDoc, key, value); //Insert the document information.
  
-        ASTextDestroy(key); //Free up the resources
+        ASTextDestroy(key); //Free up the resources.
         ASTextDestroy(value);
 
         std::wcout << L"The documents title was inserted." << std::endl;
@@ -134,9 +128,9 @@ int main(int argc, char** argv)
         key = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Author"), unicodeFormat);
         value = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Sample Author"), unicodeFormat);
 
-        PDDocSetInfoAsASText(pdDoc, key, value); //Insert the document information
+        PDDocSetInfoAsASText(pdDoc, key, value); //Insert the document information.
 
-        ASTextDestroy(key); //Free up the resources
+        ASTextDestroy(key);     //Free up resources.
         ASTextDestroy(value);
 
         std::wcout << L"The documents author was inserted." << std::endl;
@@ -145,33 +139,25 @@ int main(int argc, char** argv)
 //Step 3) Save the Document and release Resources
 //==========================================================================================================================================
      
-        asText = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"out.pdf"), unicodeFormat); //Create unicode string for output file
+        asText = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"out.pdf"), unicodeFormat); //Create unicode string for output file.
      
-        asPathName = ASFileSysCreatePathFromDIPathText(NULL, asText, NULL);                   //Create the asPathName to open the input file
+        asPathName = ASFileSysCreatePathFromDIPathText(NULL, asText, NULL);                   //Create the asPathName to open the input file.
   
-        PDDocSave(pdDoc, PDSaveFull, asPathName, NULL, NULL, NULL);                           //Save the new document
+        PDDocSave(pdDoc, PDSaveFull, asPathName, NULL, NULL, NULL);                           //Save the new document.
 
         std::wcout << L"The PDF Document has been saved and now contains Document Information." << std::endl;
 
-        ASTextDestroy(asText); //Release remaining resources
+        ASTextDestroy(asText); //Release remaining resources.
         ASFileSysReleasePath(NULL, asPathName);
         PDDocClose(pdDoc);
 
         std::wcout << L"All remaining resources have been released" << std::endl;
 
     HANDLER
-        
-        errorCode = ERRORCODE;  //If there was an exception generate an error code 
 
-        char buf[256];
-
-        ASGetErrorString(ERRORCODE, buf, sizeof(buf));
-
-        std::wcerr << L"Error Code: " << errorCode << L"Error Message: " << buf << std::endl;  //Print out error code
+            libInit.displayError(errCode);  //Display any errors/exceptions that may have occured.
 
     END_HANDLER
 
-    MyPDFLTerm();   //Terminate the library
-    
-    return errorCode;   
+    return errCode;   
 }
