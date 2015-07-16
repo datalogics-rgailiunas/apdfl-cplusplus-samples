@@ -1,5 +1,5 @@
 //# Copyright(c) 2015, Datalogics, Inc.All rights reserved.
-//
+
 //************************************************************************
 // Sample: WebOptimizedPDF - Takes a non web optimized document as input and
 // converts it into a web optimized document.
@@ -8,7 +8,7 @@
 // it optimizes the document and saves it in the working directory
 //
 //************************************************************************
-//
+
 // This agreement is between Datalogics, Inc. 101 N.Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
 // source code examples for integrating to the Adobe PDF Library
@@ -55,108 +55,78 @@
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE. 
 
 #include <iostream>
-#include "MyPDFLibUtils.h"
 #include "ASExtraCalls.h"
+#include "InitializeLibrary.h"
 
 int main(int argc, char**argv)
 {
-	//Initialize the APDFL 
-	int  err = MyPDFLInit();
+    APDFLib libInit;                        //Initialize the APDFL
+    ASErrorCode errCode = 0;                //Set return value to 0        
 
-    //Tracks errors
-    ASErrorCode errCode = 0;
+    if (libInit.isValid() == false)         //Test to see if initialization succeeded
+        errCode = libInit.getInitError();   //Set the error code if there was an error/exception
 
-	//Report any errors if there were any in initialization
-	if (err != 0)
-	{
-		std::cerr << "Initialization error. See \"AcroErr.h\" for more info.\n" << std::endl;
-		std::cerr << "Error system: " << ErrGetSystem(err) << std::endl;
-		std::cerr << "Error Severity: " << ErrGetSeverity(err) << std::endl;
-		std::cerr << "Error Code: " << ErrGetCode(err) << std::endl;
-		return (err);
-	}
+    DURING
 
-	//Declare pdDoc used for opening and saving the non web optimized PDF as web optimized
-	PDDoc pdDoc = NULL;
+        PDDoc pdDoc = NULL;                                             //Declare pdDoc used for opening and saving the non web optimized PDF as web optimized
 
-	DURING
-		//Variable holding the file name to be optimized
-		wchar_t * inputPathName = L"../Input/nonweboptimizedpdf.pdf";
-		wchar_t * outputPathName = L"weboptimized.pdf";
+        wchar_t * inputPathName = L"../Input/nonweboptimizedpdf.pdf";   //Variables holding the input/output file names
+        wchar_t * outputPathName = L"weboptimized.pdf";
 
-		//ASPathName used by PDDocOpen()
-		ASPathName asPathNameInputFile = NULL;
-		ASPathName asPathNameOutputFile = NULL;
+        ASPathName asPathNameInputFile = NULL;                          //ASPathNames used by PDDocOpen()
+        ASPathName asPathNameOutputFile = NULL;
 
-		//Use ASText object to create ASPathName for compatibility on different machines
-		ASText asTextForInputFile = NULL;
-		ASText asTextForOutputFile = NULL;
+        ASText asTextForInputFile = NULL;                               //Use ASText object to create ASPathNames for compatibility on different machines
+        ASText asTextForOutputFile = NULL;
 
-		//Determine hosts native Endian order based on size of wchar_t
-		if (sizeof(wchar_t) == 2)
-		{
-			//Initialize ASText Object 
-			asTextForInputFile = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(inputPathName), kUTF16HostEndian);
-			asTextForOutputFile = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(outputPathName), kUTF16HostEndian);
-		}
-		else
-		{
-			//Initialize ASText Object 
-			asTextForInputFile = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(inputPathName), kUTF32HostEndian);
-			asTextForOutputFile = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(outputPathName), kUTF32HostEndian);
-		}
+        //Determine hosts native Endian order based on size of wchar_t
+        if (sizeof(wchar_t) == 2)
+        {
+            //Initialize ASText Object 
+            asTextForInputFile = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(inputPathName), kUTF16HostEndian);
+            asTextForOutputFile = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(outputPathName), kUTF16HostEndian);
+        }
+        else
+        {
+            //Initialize ASText Object 
+            asTextForInputFile = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(inputPathName), kUTF32HostEndian);
+            asTextForOutputFile = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(outputPathName), kUTF32HostEndian);
+        }
 
-		//Initialize ASPathNames for use by PDDocOpen() and PDDocSave()
-		asPathNameInputFile = ASFileSysCreatePathFromDIPathText(NULL, asTextForInputFile, NULL);
-		asPathNameOutputFile = ASFileSysCreatePathFromDIPathText(NULL, asTextForOutputFile, NULL);
+        //Initialize ASPathNames for use by PDDocOpen() and PDDocSave()
+        asPathNameInputFile = ASFileSysCreatePathFromDIPathText(NULL, asTextForInputFile, NULL);
+        asPathNameOutputFile = ASFileSysCreatePathFromDIPathText(NULL, asTextForOutputFile, NULL);
 
-		//Release the ASTextObjects
-		ASTextDestroy(asTextForOutputFile);
-		ASTextDestroy(asTextForInputFile);
+        ASTextDestroy(asTextForOutputFile);                       //Release the ASTextObjects
+        ASTextDestroy(asTextForInputFile);
 
-		std::cout << "Opening non web optimized pdf document..." << std::endl;
+        std::wcout << L"Opening non web optimized pdf document..." << std::endl;
 
-		//Open the PDF Document
-		pdDoc = PDDocOpen(asPathNameInputFile, NULL, NULL, true);
+        pdDoc = PDDocOpen(asPathNameInputFile, NULL, NULL, true); // Open the PDF Document
 
-		std::cout << "Document open " << std::endl;
+        std::wcout << L"Document open. " << std::endl;
 
-		std::cout << "Optimizing document for web..." << std::endl;
+        std::wcout << L"Optimizing document for web..." << std::endl;
 
-		//Save the newly opened document as a Web Optimimized PDF Document
-		PDDocSave(pdDoc, PDSaveFull | PDSaveLinearized, asPathNameOutputFile, NULL, NULL, NULL);
+        
+        PDDocSave(pdDoc, PDSaveFull | PDSaveLinearized, asPathNameOutputFile, NULL, NULL, NULL);    //Save the newly opened document as a Web Optimimized PDF Document
 
-		std::cout << "Document has been web optimized " << std::endl;
+        std::wcout << L"Document has been web optimized. " << std::endl;
 
-		//Release the pathname objects
-		ASFileSysReleasePath(NULL, asPathNameOutputFile);
-		ASFileSysReleasePath(NULL, asPathNameInputFile);
+        ASFileSysReleasePath(NULL, asPathNameOutputFile);   //Release the pathname objects
+        ASFileSysReleasePath(NULL, asPathNameInputFile);
+ 
+        PDDocClose(pdDoc);                                  //Close the PDDoc Object
 
-	HANDLER
-		//Generate and print error code if there was an exception
-		errCode = ERRORCODE;
+        pdDoc = NULL;
 
-		//String holds errors message
-		char message[256];
+    HANDLER
 
-		//Get the error message
-		ASGetErrorString(ERRORCODE, message, sizeof(message));
+        libInit.displayError(errCode); //Display any exceptions that may have occured.
 
-		//Report error message to standard error
-		std::cerr << "Error Code: " << errCode << "Error Message: " << message;
+    END_HANDLER
 
-		//Set pdDoc to NULL
-		pdDoc = NULL;
+    std::wcout << L"Document has been closed. " << std::endl;
 
-	END_HANDLER
-
-	//Close the PDDoc Object
-	PDDocClose(pdDoc);
-
-	std::cout << "Document has been closed. " << std::endl;
-
-	//Terminate the APDFL
-	MyPDFLTerm();
-
-	return (errCode);
+    return (errCode);
 }
