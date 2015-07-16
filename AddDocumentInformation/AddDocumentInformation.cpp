@@ -122,7 +122,7 @@ int main(int argc, char** argv)
         ASTextDestroy(key); //Free up the resources.
         ASTextDestroy(value);
 
-        std::wcout << L"The documents title was inserted." << std::endl;
+        std::wcout << L"The document's title was inserted." << std::endl;
 
         //Create unicode strings for inserting the document's Author into the document.
         key = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Author"), unicodeFormat);
@@ -133,7 +133,7 @@ int main(int argc, char** argv)
         ASTextDestroy(key);     //Free up resources.
         ASTextDestroy(value);
 
-        std::wcout << L"The documents author was inserted." << std::endl;
+        std::wcout << L"The document's author was inserted." << std::endl;
 
 //==========================================================================================================================================
 //Step 3) Save the Document and release Resources
