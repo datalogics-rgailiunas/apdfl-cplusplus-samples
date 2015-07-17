@@ -125,10 +125,11 @@ REM *************************************************
 
 REM *** Necessary for running.
 SET PATH=..\..\Libs;%PATH%
-cd ..
+CD ..
+SET SAMPLEDIR=%CD%
 FOR /D %%G IN (*) DO (
     REM *** names of folders you don't want to search
-    IF NOT %%G==All  (
+    IF NOT %%G==All IF NOT %%G==BlankSample  (
         CD %%G
         IF EXIST *.sln (
             SET /A "NUM_SAMPLES+=1"
@@ -137,7 +138,6 @@ FOR /D %%G IN (*) DO (
             IF !ERRORLEVEL! NEQ 0 (
                 ECHO #^!Error^!^: .exe directory not found.
                 SET "DESC_FAIL_BUILD=!DESC_FAIL_BUILD!^-%%G ^(no exe directory found^) ^& ECHO."
-                CD ..
             ) ELSE (
                 IF EXIST %%G.exe (
                     CALL %%G.exe
@@ -155,14 +155,13 @@ FOR /D %%G IN (*) DO (
 					SET /A "NUM_CANT_FIND_BUILD+=1"
                     SET "DESC_FAIL_BUILD=!DESC_FAIL_BUILD!^-%%G^& ECHO."
                 )
-                CD ..\..
             )
         ) ELSE (
             REM *** No sample found.
         )
         ECHO.
-        CD ..
     )
+	CD %SAMPLEDIR%
 )
 
 REM *************************************************
