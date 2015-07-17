@@ -94,7 +94,7 @@ SET /A "NUM_FAIL_RUN=0"
 REM *** A listing of descriptions of the failed runs.
 SET DESC_FAIL_RUN=
 
-REM *** Setting ARCH and STAGE portions of the pathname to build and run in
+REM *** Setting ARCH and STAGE portions of the pathname to build and run in.
 :rep1
 IF /i "%1"=="release" (
     SET STAGE=Release
