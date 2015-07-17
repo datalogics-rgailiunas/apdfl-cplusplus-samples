@@ -3,10 +3,10 @@ REM ***
 REM ***  Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 REM ***
 
-REM **********************************************************************************
+REM **********************************************************************************************************************
 REM *** Sample: All - Builds and runs each DataLogics APDFL sample, and outputs the results.
 REM ***
-REM *** Note: By default, this occurs with the debug configuration.
+REM *** By default, this occurs with the debug configuration.
 REM *** Pass in "release" as an argument to use the release configuration.
 REM *** It is important to note that this program assumes: 
 REM ***    1. A sample was built successfully <-> Its exe is located in <samplefolder>/<arch>/<stage>/<samplename>.exe
@@ -16,9 +16,9 @@ REM ***
 REM *** Steps:
 REM *** 1) Initialize
 REM *** 2) Build each sample
-REM *** 3) Run each sample via iteration
+REM *** 3) Run each sample
 REM *** 4) Output the results
-REM **********************************************************************************
+REM **********************************************************************************************************************
 
 REM ***  This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
 REM ***  Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
@@ -65,47 +65,41 @@ REM ***  WHICH IS NOT CONTAINED IN THIS AGREEMENT, SHALL BE BINDING ON DATALOGIC
 REM ***  NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
 REM ***  DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 REM ***  
-REM ***
 
 REM *************************************************
 REM *** 1) Initialize
 REM *************************************************
 
 REM *** Initialize environment variables, enable delayed expansion.
-SETLOCAL EnableDelayedExpansion
+SETLOCAL EnableDelayedExpansion  
 REM *** Filename of All project.
 SET ALL_SLN=All.sln
 
-REM *** The number of samples discovered
-SET /A "NUM_SAMPLES=0"
+
+REM ************* Initialize variables which track our progress ******************
 REM *** The number of samples that failed to build, according to devenv
 SET /A "NUM_FAIL_BUILD=0"
-REM *** The number of samples whose builds we can't find.
-REM *** The above assumptions are not met if by the end it is NEQ NUM_FAIL_BUILD.
-SET /A "NUM_CANT_FIND_BUILD=0"
 REM *** A list of the failed builds.
 SET DESC_FAIL_BUILD=
+REM *** The number of samples whose builds we can't find.
+SET /A "NUM_CANT_FIND_BUILD=0"
 REM *** The number of samples that successfully ran.
 SET /A "NUM_SUCCEED_RUN=0"
 REM *** A list of the successful runs.
 SET DESC_SUCCEED_RUN=
 REM *** The number of samples that failed to run.
 SET /A "NUM_FAIL_RUN=0"
-REM *** A listing of descriptions of the failed runs.
+REM *** A list of the failed runs.
 SET DESC_FAIL_RUN=
 
 REM *** Setting ARCH and STAGE portions of the pathname to build and run in.
-:rep1
+REM *** (<arch> and <stage> in the description at the top)
 IF /i "%1"=="release" (
     SET STAGE=Release
 ) ELSE ( 
     SET STAGE=Debug
 )
 SET ARCH=x64
-:rep2
-
-REM *** The .exe directory for each sample folder
-SET EXEDIR=%ARCH%\%STAGE%
 
 REM *** Set up the visual studio environment
 IF "%VS120COMNTOOLS%" == "" GOTO Usage
@@ -120,49 +114,114 @@ devenv %ALL_SLN% /rebuild "%STAGE%|%ARCH%"
 SET /A "NUM_FAIL_BUILD=%ERRORLEVEL%"
 
 REM *************************************************
-REM *** 3) Run each sample via iteration
+REM *** 3) Run each sample
 REM *************************************************
 
+REM *** A list of sample names (<samplename> in the description at the top)
+REM *** This program will run each of the samples listed here.
+REM *** It is imperative that All.sln builds all and only these samples.
+REM *** To add a sample to this script's functionality, include its name here,
+REM *** and add the project to All.sln.
+REM *** And don't forget to update NUM_SAMPLES!
+SET "SAMPLE_LIST=(AddDocumentInformation addElements placeText SplitPDF WebOptimizedPDF)"
+SET /A "NUM_SAMPLES=5"
+REM *** i iterates over each sample.
+SET /A "i=0"
+
+REM ** Prepare to go through all the samples.
+CD ..
+REM *** The directory in which the sample folders are located.
+SET SAMPLEDIR=%CD%
 REM *** Necessary for running.
 SET PATH=..\..\Libs;%PATH%
-CD ..
-SET SAMPLEDIR=%CD%
-FOR /D %%G IN (*) DO (
-    REM *** names of folders you don't want to search
-    IF NOT %%G==All IF NOT %%G==BlankSample  (
-        CD %%G
-        IF EXIST *.sln (
-            SET /A "NUM_SAMPLES+=1"
-            ECHO #Running sample %%G...
-            cd %ARCH%\%STAGE%
-            IF !ERRORLEVEL! NEQ 0 (
-                ECHO #^!Error^!^: .exe directory not found.
-                SET "DESC_FAIL_BUILD=!DESC_FAIL_BUILD!^-%%G ^(no exe directory found^) ^& ECHO."
-            ) ELSE (
-                IF EXIST %%G.exe (
-                    CALL %%G.exe
-                    REM *** If it didn't run successfully, update accordingly.
-                    IF !ERRORLEVEL! NEQ 0 (
-                        SET /A "NUM_FAIL_RUN+=1"
-                        ECHO #Failed with error code !ERRORLEVEL!
-                        SET "DESC_FAIL_RUN=!DESC_FAIL_RUN!^-%%G with error code !ERRORLEVEL!^& ECHO."
-                    ) ELSE (
-                        SET /A "NUM_SUCCEED_RUN+=1"
-                        SET "DESC_SUCCEED_RUN=!DESC_SUCCEED_RUN!^-%%G^& ECHO."
-                    )
-                ) ELSE (
-                    ECHO #This sample failed to build, or was not built in the correct directory.
-					SET /A "NUM_CANT_FIND_BUILD+=1"
-                    SET "DESC_FAIL_BUILD=!DESC_FAIL_BUILD!^-%%G^& ECHO."
-                )
-            )
-        ) ELSE (
-            REM *** No sample found.
-        )
-        ECHO.
-    )
-	CD %SAMPLEDIR%
+SET CURRENT_SAMPLE=
+
+REM ************************************************************
+REM ******************** MAIN LOOP *****************************
+REM ************************************************************
+:SampleLoop_START
+REM *** If we've run all the samples, end
+IF %i% GEQ %NUM_SAMPLES% GOTO SampleLoop_END
+
+REM *** Retrieve the ith sample.
+GOTO GetIthSample
+:GotIthSample
+
+ECHO #Calling %CURRENT_SAMPLE%.exe...
+CD %SAMPLEDIR%\%CURRENT_SAMPLE%\%ARCH%\%STAGE%
+
+REM *** If the directory could not be found.
+IF %ERRORLEVEL% NEQ 0 (GOTO CantFindExeDirectory)
+REM *** If the exe file could not be found.
+IF NOT EXIST %CURRENT_SAMPLE%.exe (GOTO CantFindExe)
+
+CALL %CURRENT_SAMPLE%.exe
+
+REM *** If it failed to run
+IF %ERRORLEVEL% NEQ 0 (GOTO FailedRun)
+REM *** Otherwise, it succeeded!
+GOTO SuccessfulRun
+
+:SampleLoop_NEXT_ITER
+REM *** Prepare for next iteration
+SET /A "i+=1"
+ECHO.
+GOTO SampleLoop_START
+
+REM ************************************************************
+REM ************************************************************
+REM ************************************************************
+
+REM ********************************
+REM ******* SUBROUTINES ************
+REM ********************************
+:GetIthSample
+
+SET /A "n=0"
+FOR %%S IN %SAMPLE_LIST% DO (
+	IF !n! EQU !i! SET CURRENT_SAMPLE=%%S
+	SET /A "n+=1"
 )
+
+GOTO GotIthSample
+REM ********************************
+:SuccessfulRun
+
+SET /A "NUM_SUCCEED_RUN+=1"
+ECHO #Ran successfully.
+SET "DESC_SUCCEED_RUN=%DESC_SUCCEED_RUN%^*%CURRENT_SAMPLE%^& ECHO."
+
+GOTO SampleLoop_NEXT_ITER
+REM ********************************
+:FailedRun
+
+SET /A "NUM_FAIL_RUN+=1"
+ECHO #Failed ^(%ERRORLEVEL%^)
+SET "DESC_FAIL_RUN=%DESC_FAIL_RUN%^*%CURRENT_SAMPLE% !ERRORLEVEL! ^& ECHO."
+
+GOTO SampleLoop_NEXT_ITER
+REM ********************************
+:CantFindExeDirectory
+
+ECHO #^!Error^!^: %CURRENT_SAMPLE%.exe directory not found.
+SET "DESC_FAIL_BUILD=%DESC_FAIL_BUILD%^*%CURRENT_SAMPLE% ^(%EXEDIR% directory does not exist^) ^& ECHO."
+SET /A "NUM_CANT_FIND_BUILD+=1"
+
+GOTO SampleLoop_NEXT_ITER
+REM ********************************
+:CantFindExe
+
+ECHO #^!Error^!^: This sample failed to build, or was not built in the correct directory.
+SET /A "NUM_CANT_FIND_BUILD+=1"
+SET "DESC_FAIL_BUILD=%DESC_FAIL_BUILD%^*%CURRENT_SAMPLE% ^& ECHO."
+
+GOTO SampleLoop_NEXT_ITER
+REM ********************************
+REM ********************************
+REM ********************************
+:SampleLoop_END
+
+
 
 REM *************************************************
 REM *** 3) Print the results
@@ -178,16 +237,13 @@ IF %NUM_SUCCEED_RUN% EQU %NUM_SAMPLES% (
     ECHO %DESC_SUCCEED_RUN%
 ) ELSE (
     IF %NUM_FAIL_BUILD% GTR 0 (
-        ECHO %NUM_FAIL_BUILD% samples failed to build.
+        ECHO Failed builds^: %NUM_FAIL_BUILD% 
         ECHO %DESC_FAIL_BUILD%
-    ) ELSE (
-		ECHO No samples failed to build.
-	)
+    )
     IF %NUM_FAIL_BUILD% NEQ %NUM_CANT_FIND_BUILD% (
         SET /A "NUM_INCORRECT=%NUM_CANT_FIND_BUILD%-%NUM_FAIL_BUILD%"
-        ECHO !NUM_INCORRECT! samples appear to have been built in an incorrect directory.
+        ECHO %NUM_INCORRECT% samples appear to have been built in an incorrect directory.
 	)
-	ECHO.
     IF %NUM_FAIL_RUN% GTR 0 (
         ECHO Failed runs^: %NUM_FAIL_RUN%
         ECHO %DESC_FAIL_RUN%
@@ -197,7 +253,6 @@ IF %NUM_SUCCEED_RUN% EQU %NUM_SAMPLES% (
         ECHO %DESC_SUCCEED_RUN%
     )
 )
-
 ECHO =====================================
 ECHO =====================================
 GOTO End
