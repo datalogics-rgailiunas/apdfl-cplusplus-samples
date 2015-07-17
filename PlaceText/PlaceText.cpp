@@ -70,7 +70,7 @@ int main(int argc, char** argv)
     ASErrorCode errCode = 0;    //Variable that represents errors
 
     if (libInit.isValid() == false)         //Check for errors in initialization.
-        errCode = libInit.getInitError();   //If there was an error set the code.
+        return libInit.getInitError();   //If there was an error set the code.
     
     DURING
 
@@ -82,7 +82,7 @@ int main(int argc, char** argv)
         APDFLDoc doc;
 
         //Set up the 4" by 4" bounds for the page
-        doc.insertPage((4 * 72), (4 * 72), PDBeforeFirstPage);
+        doc.insertPage(Int16ToFixed((4 * 72)), Int16ToFixed((4 * 72)), PDBeforeFirstPage);
         
         //Initialize page from source document, where to place, and bound rectangle
         PDPage page = doc.getPageNumber(0);
