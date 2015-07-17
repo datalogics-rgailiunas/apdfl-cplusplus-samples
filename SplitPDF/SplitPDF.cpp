@@ -1,6 +1,6 @@
 // Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
-//*********************************************************************************
+//=================================================================================
 // Sample: Opens a file called toBeSplit.pdf which can be any length, and splits 
 //         it into seperate pdf's each being a single page of the original. These 
 //         split documents are then saved to the current directory.
@@ -8,9 +8,9 @@
 // Steps: 
 //  1) Open toBeSplit.pdf, the source of the split pdf files
 //  2) Create, and name each page as a new pdf in the form
-//         baseDocument_Page<PAGE NUMBER>.pdf
+//         baseDocument_Page<PAGE_NUMBER>.pdf
 //  3) Save output files into working directory, then exit
-//*********************************************************************************
+//=================================================================================
 //
 // This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
@@ -128,7 +128,8 @@ int main(int argc, char** argv)
         //If there was an exception generate an error code 
         errCode = ERRORCODE;
 
-        libInit.displayError(errCode); //Display the error code
+        //Display the error code
+        libInit.displayError(errCode); 
 
     END_HANDLER
 
