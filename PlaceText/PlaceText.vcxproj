@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{82006940-7ECC-454B-A571-B3854C407D25}</ProjectGuid>
-    <RootNamespace>helowrld</RootNamespace>
+    <ProjectName>PlaceText</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -87,55 +87,42 @@
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Midl>
-      <TypeLibraryName>$(OutDir)helowrld.tlb</TypeLibraryName>
-      <HeaderFileName />
-    </Midl>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0409</Culture>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <Midl>
-      <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>$(OutDir)helowrld.tlb</TypeLibraryName>
-      <HeaderFileName />
-    </Midl>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0409</Culture>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Midl>
-      <TypeLibraryName>$(OutDir)helowrld.tlb</TypeLibraryName>
-      <HeaderFileName />
-    </Midl>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0409</Culture>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <Midl>
-      <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>$(OutDir)helowrld.tlb</TypeLibraryName>
-      <HeaderFileName />
-    </Midl>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0409</Culture>
     </ResourceCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\Common\Init;..\Common\APDFLDoc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Samples\utils\MyPDFLibUtils.cpp" />
     <ClCompile Include="..\..\Include\Source\PDFLInitCommon.c" />
     <ClCompile Include="..\..\Include\Source\PDFLInitHFT.c" />
-    <ClCompile Include="placeText.cpp" />
+    <ClCompile Include="..\Common\APDFLDoc\APDFLDoc.cpp" />
+    <ClCompile Include="..\Common\Init\InitializeLibrary.cpp" />
+    <ClCompile Include="PlaceText.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Samples\utils\MyPDFLibUtils.h" />
+    <ClInclude Include="..\Common\APDFLDoc\APDFLDoc.h" />
+    <ClInclude Include="..\Common\Init\InitializeLibrary.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
