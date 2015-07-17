@@ -93,8 +93,6 @@ int main(int argc, char** argv)
        
         int tracker;                      //Tracks the index of the iterator     
         std::wstring pageNameString;      //Name of page used for saving
-        ASText outPathText = NULL;        //The output file path test object for the splits
-        ASPathName outPathName = NULL;    //The output file path name for the splits
 
         //Advance the iterator through the splitDocs vector
         for (iter = splitDocs.begin(); iter < splitDocs.end(); iter++)
