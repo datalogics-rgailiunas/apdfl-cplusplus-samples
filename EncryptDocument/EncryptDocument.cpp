@@ -144,6 +144,8 @@ int main(int argv, char** argc)
 
         //Check if the document has an encryption set. 
         if (PDDocGetCryptHandler(inDoc))    std::wcout << L"encrypted.pdf saved with encryption." << std::endl << std::endl;
+
+        PDDocRelease(inDoc);
     
     HANDLER
 
