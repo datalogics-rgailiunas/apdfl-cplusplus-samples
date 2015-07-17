@@ -62,7 +62,7 @@
 #include "ASExtraCalls.h"
 #include <iostream>
 
-int main()
+int main(int argc, char** argv)
 {
 
     APDFLib libInit;                        //Initialize the APDFL.
@@ -105,18 +105,16 @@ int main()
 
         std::wcout << L"Normal Page Number Labels Added" << std::endl;
 
+        
+
 //******************************************************************************************************************
 // Step 3) Save and exit
 //******************************************************************************************************************
 
-        ////Save document, with the source document, save flags, and path
-        //ASText outPathText = ASTextFromUnicode((ASUTF16Val *)L"labelled.pdf", uniFormat);
-        //ASPathName outPathName = ASFileSysCreatePathFromDIPathText(NULL, outPathText, NULL);
-        //PDDocSave(inDoc, PDSaveFull | PDSaveLinearized, outPathName, ASGetDefaultFileSys(), NULL, NULL);
-        //std::wcout << L"out.pdf saved with text to be placed." << std::endl << std::endl;
-
         //Save the document, with output path, and save flags
         document.saveDoc(L"labelled.pdf", PDSaveFull | PDSaveLinearized);
+
+        PDDocRelease(inDoc);
 
         HANDLER
 
