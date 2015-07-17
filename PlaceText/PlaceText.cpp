@@ -167,7 +167,10 @@ int main(int argc, char** argv)
 
     HANDLER
 
-            //If there was an exception generate an error code 
+            //If an exception was raised generate error code
+            errCode = ERRORCODE;           
+
+            //If there was an error code, display
             libInit.displayError(errCode);
 
     END_HANDLER
