@@ -5,7 +5,7 @@
 //       
 // Steps: 
 //  1) Create new pdf document with core attributes
-//  2) Setup up and add text
+//  2) Setup and add text
 //  3) Save result as textPlaced.pdf     
 //===============================================================
 //
