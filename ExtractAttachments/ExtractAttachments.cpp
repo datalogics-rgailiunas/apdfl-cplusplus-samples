@@ -64,17 +64,17 @@
 #include "APDFLDoc.h"
 #include <iostream>
 
-//Functor that goes through the nametree and extracts and saves them
+//Function that goes through the nametree and extracts and saves them
 ACCB1 ASBool ACCB2 extractor(CosObj obj, CosObj value, void *clientData);
 
 int main(int argc, char** argv)
 {
 
-    APDFLib libInit;                        //Initialize the APDFL.
-    ASErrorCode errCode = 0;                //Error code initially is 0.
+    APDFLib libInit;                     //Initialize the APDFL.
+    ASErrorCode errCode = 0;             //Error code initially is 0.
 
-    if (libInit.isValid() == false)         //Check for errors in initialization.
-        errCode = libInit.getInitError();   //If there was an error set the code.
+    if (libInit.isValid() == false)      //Check for errors in initialization.
+        return libInit.getInitError();   //If there was an error set the code.
 
     DURING
 
@@ -192,7 +192,7 @@ int main(int argc, char** argv)
         return errCode;
 }
 
-//Functor that goes through the tree and extracts and saves attachements from the document's nametree
+//Function that goes through the tree and extracts and saves attachements from the document's nametree
 ACCB1 ASBool ACCB2 extractor(CosObj obj, CosObj value, void *clientData)
 {
 
@@ -214,14 +214,14 @@ ACCB1 ASBool ACCB2 extractor(CosObj obj, CosObj value, void *clientData)
     //Text object 
     ASText outPathText = NULL;
 
-    //Coonstruct the text for the path name based on the right Unicode format
+    //Construct the text for the path name based on the right Unicode format
     if (sizeof(wchar_t) == 2)
         outPathText = ASTextFromUnicode((ASUTF16Val*)outPathWideString, kUTF16HostEndian);
     else
         outPathText = ASTextFromUnicode((ASUTF16Val*)outPathWideString, kUTF32HostEndian);
 
     //Delete the wideString since it is no longer used
-    delete outPathWideString;
+    delete[] outPathWideString;
 
     //The output file path name
     ASPathName outPathName = ASFileSysCreatePathFromDIPathText(NULL, outPathText, NULL);
@@ -229,7 +229,7 @@ ACCB1 ASBool ACCB2 extractor(CosObj obj, CosObj value, void *clientData)
     //Declare an output file for an attachment
     ASFile outFile = NULL;
 
-    //Open a new created ASFile, using the path name 
+    //Open a new created ASFile under 2GB, using the path name 
     ASFileSysOpenFile(ASGetDefaultFileSys(), outPathName, ASFILE_CREATE, &outFile);
 
     //Save the file attach out to outFile
