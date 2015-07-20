@@ -76,7 +76,7 @@ int main(int argc, char** argv)
 //Step 1) Open the PDF Document
 //==========================================================================================================================================
       
-        wchar_t* inputFilePath = L"../Input/AddDocumentInformation.pdf";   //File path used to open the PDF Document.
+        wchar_t* inputFilePath = L"../_Input/AddDocumentInformation.pdf";   //File path used to open the PDF Document.
  
         ASUnicodeFormat unicodeFormat;                                      //Argument passed to function ASTextFromUnicode.
 

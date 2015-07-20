@@ -87,7 +87,7 @@ int main(int argc, char** argv)
 
     DURING
 
-        wchar_t  pathToOrig[] = L"../Input/addElementsTo.pdf";  // WideString filename used by PDDocOpen() 
+        wchar_t  pathToOrig[] = L"../_Input/addElementsTo.pdf";  // WideString filename used by PDDocOpen() 
         wchar_t  pathToOut[] = L"out.pdf";                      // The text for the pathname
         ASUnicodeFormat uniFormat = NULL;                       // Format object to be used to hold the Unicode format for path access
 
