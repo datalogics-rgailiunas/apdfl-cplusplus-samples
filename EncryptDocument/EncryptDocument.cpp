@@ -64,11 +64,11 @@
 int main(int argv, char** argc)
 {
 
-    APDFLib libInit;                        //Initialize the APDFL.
-    ASErrorCode errCode = 0;                //Error code initially is 0.
+    APDFLib libInit;                      //Initialize the APDFL.
+    ASErrorCode errCode = 0;              //Error code initially is 0.
 
-    if (libInit.isValid() == false)         //Check for errors in initialization.
-        errCode = libInit.getInitError();   //If there was an error set the code.
+    if (libInit.isValid() == false)       //Check for errors in initialization.
+        return libInit.getInitError();    //If there was an error return the code.
 
     DURING
                         
@@ -144,8 +144,6 @@ int main(int argv, char** argc)
 
         //Check if the document has an encryption set. 
         if (PDDocGetCryptHandler(inDoc))    std::wcout << L"encrypted.pdf saved with encryption." << std::endl << std::endl;
-
-        PDDocRelease(inDoc);
     
     HANDLER
 
