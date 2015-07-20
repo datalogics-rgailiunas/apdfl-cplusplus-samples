@@ -11,7 +11,6 @@ REM *** Pass in "release" as an argument to use the release configuration.
 REM *** It is important to note that this program assumes: 
 REM ***    1. A sample was built successfully <-> Its exe is located in <samplefolder>/<arch>/<stage>/<samplename>.exe
 REM ***    2. In assumption 1, <samplename> is equal to <samplefolder>.
-REM *** This program should tell you if a sample was not built in the expected directory.
 REM ***
 REM *** Steps:
 REM *** 1) Initialize
@@ -77,12 +76,10 @@ SET ALL_SLN=All.sln
 
 
 REM ************* Initialize variables which track our progress ******************
-REM *** The number of samples that failed to build, according to devenv
+REM *** The number of samples that failed to build
 SET /A "NUM_FAIL_BUILD=0"
 REM *** A list of the failed builds.
 SET DESC_FAIL_BUILD=
-REM *** The number of samples whose builds we can't find.
-SET /A "NUM_CANT_FIND_BUILD=0"
 REM *** The number of samples that successfully ran.
 SET /A "NUM_SUCCEED_RUN=0"
 REM *** A list of the successful runs.
@@ -92,13 +89,30 @@ SET /A "NUM_FAIL_RUN=0"
 REM *** A list of the failed runs.
 SET DESC_FAIL_RUN=
 
+REM *** Configure self based on arguments.
 REM *** Setting ARCH and STAGE portions of the pathname to build and run in.
 REM *** (<arch> and <stage> in the description at the top)
+
+
+REM *** Assume default settings.
+SET STAGE=Debug
+SET ONLY_BUILD=N
+
+:AcceptCommands
+REM *** Iterate through arguments, changing settings when needed.
 IF /i "%1"=="release" (
     SET STAGE=Release
-) ELSE ( 
-    SET STAGE=Debug
+) 
+IF /i "%1"=="-n" (
+	SET ONLY_BUILD=Y
 )
+IF /i "%1"=="" (
+	GOTO ArgumentsEnd
+)
+SHIFT
+GOTO AcceptCommands
+
+:ArgumentsEnd
 SET ARCH=x64
 
 REM *** Set up the visual studio environment
@@ -111,7 +125,6 @@ REM *** 2) Build each sample
 REM *************************************************
 
 devenv %ALL_SLN% /rebuild "%STAGE%|%ARCH%"
-SET /A "NUM_FAIL_BUILD=%ERRORLEVEL%"
 
 REM *************************************************
 REM *** 3) Run each sample
@@ -139,34 +152,39 @@ SET CURRENT_SAMPLE=
 REM ************************************************************
 REM ******************** MAIN LOOP *****************************
 REM ************************************************************
-:SampleLoop_START
+:RunSampleLoop_START
 REM *** If we've run all the samples, end
-IF %i% GEQ %NUM_SAMPLES% GOTO SampleLoop_END
+IF %i% GEQ %NUM_SAMPLES% GOTO RunSampleLoop_END
+ECHO.
 
 REM *** Retrieve the ith sample.
 GOTO GetIthSample
 :GotIthSample
 
-ECHO #Calling %CURRENT_SAMPLE%.exe...
 CD %SAMPLEDIR%\%CURRENT_SAMPLE%\%ARCH%\%STAGE%
 
 REM *** If the directory could not be found.
-IF %ERRORLEVEL% NEQ 0 (GOTO CantFindExeDirectory)
+IF %ERRORLEVEL% NEQ 0 (GOTO CantFindExe)
 REM *** If the exe file could not be found.
 IF NOT EXIST %CURRENT_SAMPLE%.exe (GOTO CantFindExe)
 
+
+If %ONLY_BUILD% == Y GOTO RunSampleLoop_Call_End 
+
+:RunSampleLoop_Call
+ECHO #%CURRENT_SAMPLE%.exe is running...
 CALL %CURRENT_SAMPLE%.exe
 
 REM *** If it failed to run
 IF %ERRORLEVEL% NEQ 0 (GOTO FailedRun)
 REM *** Otherwise, it succeeded!
 GOTO SuccessfulRun
+:RunSampleLoop_Call_End
 
-:SampleLoop_NEXT_ITER
+:RunSampleLoop_NEXT_ITER
 REM *** Prepare for next iteration
 SET /A "i+=1"
-ECHO.
-GOTO SampleLoop_START
+GOTO RunSampleLoop_START
 
 REM ************************************************************
 REM ************************************************************
@@ -189,37 +207,29 @@ REM ********************************
 
 SET /A "NUM_SUCCEED_RUN+=1"
 ECHO #Ran successfully.
-SET "DESC_SUCCEED_RUN=%DESC_SUCCEED_RUN%^*%CURRENT_SAMPLE%^& ECHO."
+SET "DESC_SUCCEED_RUN=!DESC_SUCCEED_RUN!^*!CURRENT_SAMPLE! ^& ECHO."
 
-GOTO SampleLoop_NEXT_ITER
+GOTO RunSampleLoop_NEXT_ITER
 REM ********************************
 :FailedRun
 
 SET /A "NUM_FAIL_RUN+=1"
 ECHO #Failed ^(%ERRORLEVEL%^)
-SET "DESC_FAIL_RUN=%DESC_FAIL_RUN%^*%CURRENT_SAMPLE% !ERRORLEVEL! ^& ECHO."
+SET "DESC_FAIL_RUN=!DESC_FAIL_RUN!^*!CURRENT_SAMPLE! !ERRORLEVEL! ^& ECHO."
 
-GOTO SampleLoop_NEXT_ITER
-REM ********************************
-:CantFindExeDirectory
-
-ECHO #^!Error^!^: %CURRENT_SAMPLE%.exe directory not found.
-SET "DESC_FAIL_BUILD=%DESC_FAIL_BUILD%^*%CURRENT_SAMPLE% ^(%EXEDIR% directory does not exist^) ^& ECHO."
-SET /A "NUM_CANT_FIND_BUILD+=1"
-
-GOTO SampleLoop_NEXT_ITER
+GOTO RunSampleLoop_NEXT_ITER
 REM ********************************
 :CantFindExe
 
-ECHO #^!Error^!^: This sample failed to build, or was not built in the correct directory.
-SET /A "NUM_CANT_FIND_BUILD+=1"
-SET "DESC_FAIL_BUILD=%DESC_FAIL_BUILD%^*%CURRENT_SAMPLE% ^& ECHO."
+ECHO #%CURRENT_SAMPLE% failed to build.
+SET /A "NUM_FAIL_BUILD+=1"
+SET "DESC_FAIL_BUILD=!DESC_FAIL_BUILD!^*!CURRENT_SAMPLE! ^& ECHO."
 
-GOTO SampleLoop_NEXT_ITER
+GOTO RunSampleLoop_NEXT_ITER
 REM ********************************
 REM ********************************
 REM ********************************
-:SampleLoop_END
+:RunSampleLoop_END
 
 
 
@@ -228,7 +238,11 @@ REM *** 3) Print the results
 REM *************************************************
 
 ECHO =====================================
+IF %ONLY_BUILD% == N (
 ECHO =========Build/Run complete.
+) ELSE (
+ECHO =========Build complete.
+)
 ECHO =========Total samples^: %NUM_SAMPLES%
 ECHO =====================================
 
@@ -239,10 +253,8 @@ IF %NUM_SUCCEED_RUN% EQU %NUM_SAMPLES% (
     IF %NUM_FAIL_BUILD% GTR 0 (
         ECHO Failed builds^: %NUM_FAIL_BUILD% 
         ECHO %DESC_FAIL_BUILD%
-    )
-    IF %NUM_FAIL_BUILD% NEQ %NUM_CANT_FIND_BUILD% (
-        SET /A "NUM_INCORRECT=%NUM_CANT_FIND_BUILD%-%NUM_FAIL_BUILD%"
-        ECHO %NUM_INCORRECT% samples appear to have been built in an incorrect directory.
+    ) ELSE (
+		ECHO All samples built successfuly.
 	)
     IF %NUM_FAIL_RUN% GTR 0 (
         ECHO Failed runs^: %NUM_FAIL_RUN%
