@@ -78,7 +78,7 @@ int main(int argc, char** argv)
 
     DURING
 
-        APDFLDoc document(L"../Input/toBeSplit.pdf", true);    //Open a document from the and repair if damaged
+        APDFLDoc document(L"../_Input/toBeSplit.pdf", true);    //Open a document from the and repair if damaged
 
         //A vector of the PDDoc type that will hold the individual pages of a document
         std::vector<PDDoc> splitDocs(PDDocGetNumPages(document.getPDDoc()));
