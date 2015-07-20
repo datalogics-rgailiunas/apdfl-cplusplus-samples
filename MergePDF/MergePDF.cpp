@@ -87,7 +87,5 @@ int main()
 
                                         //APDFLDoc destructor called after DURING/HANDLER blocks.
 
-    return errCode;
-
-                                        //APDFLib destructor called at program end.
+    return errCode;                     //APDFLib destructor called at program end.                                  
 }
