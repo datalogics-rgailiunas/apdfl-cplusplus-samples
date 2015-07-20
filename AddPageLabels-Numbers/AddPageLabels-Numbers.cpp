@@ -104,17 +104,13 @@ int main(int argc, char** argv)
         PDDocSetPageLabel(inDoc, 5, pageLabel);
 
         std::wcout << L"Normal Page Number Labels Added" << std::endl;
-
-        
-
+       
 //******************************************************************************************************************
 // Step 3) Save and exit
 //******************************************************************************************************************
 
         //Save the document, with output path, and save flags
         document.saveDoc(L"labelled.pdf", PDSaveFull | PDSaveLinearized);
-
-        PDDocRelease(inDoc);
 
         HANDLER
 
