@@ -67,7 +67,7 @@ int main(int argc, char** argv)
         return lib.getInitError();                     //Will display the error, if any.
  
     ASErrorCode errCode = 0;                           //Tracks runtime errors in the application
-    wchar_t* inPath  = L"../Input/AddPassword.pdf";    //Input document path
+    wchar_t* inPath  = L"../_Input/AddPassword.pdf";    //Input document path
     wchar_t* outPath = L"AddPassword_Out.pdf";         //Output document path
     char*   password = "Datalogics";                   //Password to open document (cannot be wide char)
 
