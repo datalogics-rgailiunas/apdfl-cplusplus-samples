@@ -115,7 +115,7 @@ int main(int argc, char* argv)
     std::wcout << L"Searching for bolded text..." << std::endl;
     for (auto page = 0; page < PDDocGetNumPages(mydoc); ++page)   //For each page...
     {
-        PDPage nextPage = APDoc.getPageNumber(page);
+        PDPage nextPage = APDoc.getPage(page);
         PDEContent nextContent = PDPageAcquirePDEContent(nextPage, 0);
         ASInt32 numElem = PDEContentGetNumElems(nextContent);
 
@@ -220,7 +220,7 @@ int main(int argc, char* argv)
     //Create a bookmark for each bold text
     for (int btext = 0; btext < numBold; ++btext)
     {
-        PDPage nextDPage = APDoc.getPageNumber(btextPages[btext]);    //Get the associated page
+        PDPage nextDPage = APDoc.getPage(btextPages[btext]);    //Get the associated page
         nextbmTitle << (btext + 1) << L" " << btextCopy[btext];    //Construct the title
         ASText nextbmName = toASText(nextbmTitle.str().c_str());
         nextbm = PDBookmarkAddNewChildASText(                      //Create the bookmark before setting its action
@@ -271,7 +271,7 @@ int main(int argc, char* argv)
     PDViewDestGetAttr(    //Copy the attributes of the parent bookmark
         PDActionGetDest(PDBookmarkGetAction(parentBm)), 
             &pageNumber, &fitType, &locationRect, &zoomFactor);
-    PDPage parentPage = APDoc.getPageNumber(pageNumber);
+    PDPage parentPage = APDoc.getPage(pageNumber);
 
     //Set each bookmark's zoom factor per the above array
     for (auto i = 0; i < num_bookmarks; ++i)
