@@ -125,9 +125,9 @@ int main()
     ASErrorCode  errCode = 0;                                  //Tracks errors.
 
     //Sample variables
-    wchar_t* path_attachment1 = L"../Input/attachment1.xlsx";  //Path to attachment name tree
-    wchar_t* path_attachment2 = L"../Input/attachment2.docx";  //Path to attachment for annotation
-    wchar_t* path_inputpdf = L"../Input/noattachment.pdf";     //Path to input pdf
+    wchar_t* path_attachment1 = L"../_Input/attachment1.xlsx";  //Path to attachment name tree
+    wchar_t* path_attachment2 = L"../_Input/attachment2.docx";  //Path to attachment for annotation
+    wchar_t* path_inputpdf = L"../_Input/noattachment.pdf";     //Path to input pdf
     wchar_t* path_attached = L"attached.pdf";                  //Path to output pdf
 
     DURING
