@@ -58,20 +58,20 @@
 #include "ASExtraCalls.h"
 #include "InitializeLibrary.h"
 
-int main(int argc, char**argv)
+int main(int argc, char** argv)
 {
     APDFLib libInit;                        //Initialize the APDFL
     ASErrorCode errCode = 0;                //Set return value to 0        
 
     if (libInit.isValid() == false)         //Test to see if initialization succeeded
-        errCode = libInit.getInitError();   //Set the error code if there was an error/exception
+       return libInit.getInitError();   //Set the error code if there was an error/exception
 
     DURING
 
         PDDoc pdDoc = NULL;                                             //Declare pdDoc used for opening and saving the non web optimized PDF as web optimized
 
-        wchar_t * inputPathName = L"../_Input/nonweboptimizedpdf.pdf";   //Variables holding the input/output file names
-        wchar_t * outputPathName = L"weboptimized.pdf";
+        wchar_t * inputPathName = L"../_Input/NonLinearized.pdf";   //Variables holding the input/output file names
+        wchar_t * outputPathName = L"WebOptimized.pdf";
 
         ASPathName asPathNameInputFile = NULL;                          //ASPathNames used by PDDocOpen()
         ASPathName asPathNameOutputFile = NULL;
@@ -121,6 +121,8 @@ int main(int argc, char**argv)
         pdDoc = NULL;
 
     HANDLER
+
+        errCode = ERRORCODE;           //Get the error code for any exceptions that happened.
 
         libInit.displayError(errCode); //Display any exceptions that may have occured.
 
