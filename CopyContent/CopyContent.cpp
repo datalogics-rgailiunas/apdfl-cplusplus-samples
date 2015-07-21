@@ -88,7 +88,7 @@ int main(int argc, char** argv)
 
     ASErrorCode errCode = 0;       //Tracks APDFL errors
     //Paths to in/out documents.
-    wchar_t* inPath = L"../Input/CopyContent.pdf";
+    wchar_t* inPath = L"../_Input/CopyContent.pdf";
     wchar_t* outPath = L"CopiedContent.pdf";
 
 //=============================================================================
