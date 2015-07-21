@@ -136,8 +136,13 @@ REM *** It is imperative that All.sln builds all and only these samples.
 REM *** To add a sample to this script's functionality, include its name here,
 REM *** and add the project to All.sln.
 REM *** And don't forget to update NUM_SAMPLES!
-SET "SAMPLE_LIST=(AddDocumentInformation addElements placeText SplitPDF WebOptimizedPDF)"
+SET "SAMPLE_LIST=("
+SET "SAMPLE_LIST=%SAMPLE_LIST% AddDocumentInformation addElements placeText"
+SET "SAMPLE_LIST=%SAMPLE_LIST% SplitPDF WebOptimizedPDF"
+SET "SAMPLE_LIST=%SAMPLE_LIST%)"
+
 SET /A "NUM_SAMPLES=5"
+
 REM *** i iterates over each sample.
 SET /A "i=0"
 
