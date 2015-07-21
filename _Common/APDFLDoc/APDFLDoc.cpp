@@ -251,7 +251,7 @@ ASErrorCode APDFLDoc::insertPage(const ASFixed & width, const ASFixed & height, 
 // Important note: Caller is responsible for calling PDPageRelease on page.
 //************************************************************************
 
-PDPage APDFLDoc::getPageNumber(ASInt32 pageNumber)
+PDPage APDFLDoc::getPage(ASInt32 pageNumber)
 {
 
     PDPage pdPage = NULL;

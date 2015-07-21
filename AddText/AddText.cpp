@@ -85,7 +85,7 @@ int main(int argc, char** argv)
         doc.insertPage(Int16ToFixed((4 * 72)), Int16ToFixed((4 * 72)), PDBeforeFirstPage);
         
         //Initialize page from source document, where to place, and bound rectangle
-        PDPage page = doc.getPageNumber(0);
+        PDPage page = doc.getPage(0);
 
         //Grab contenet from the page
         PDEContent content = PDPageAcquirePDEContent(page, NULL);
