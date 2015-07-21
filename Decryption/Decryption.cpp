@@ -80,33 +80,9 @@ static char* password = "";     //The document's password is stored statically
 
 //Called by PDDocOpenEx to obtain permission to open the document by supplying the password.
 static ACCB1 ASBool ACCB2 openAuthorizationProcedure(PDDoc encrypted, void *clientData);
-
-//=====================================================
 //Creates an ASPathName from a wchar string.
-//=====================================================
-ASPathName makeASPathName(wchar_t* pathname){
+ASPathName makeASPathName(wchar_t* pathname);
 
-    ASText pathText = NULL;         //Text of pathname
-    ASPathName pathASPath = NULL;   //ASPathName for path
-
-    ASUnicodeFormat hostUniFormat;
-    if (sizeof(wchar_t) == 2)
-        hostUniFormat = kUTF16HostEndian;
-    else
-        hostUniFormat = kUTF32HostEndian;
-
-    DURING
-        pathText = ASTextFromUnicode((ASUTF16Val *)pathname, hostUniFormat);
-        pathASPath = ASFileSysCreatePathFromDIPathText(NULL, pathText, NULL);
-    HANDLER
-        RERAISE();
-    END_HANDLER
-
-    //Release resources
-    ASTextDestroy(pathText);
-
-    return pathASPath;
-}
 int main()
 {
     //Initialize the APDF Library.
@@ -241,4 +217,32 @@ static ACCB1 ASBool ACCB2 openAuthorizationProcedure(PDDoc encrypted, void *clie
     }
 
     return (permReqStatus == PDPermReqGranted);
+};
+
+
+//=====================================================
+//Creates an ASPathName from a wchar string.
+//=====================================================
+ASPathName makeASPathName(wchar_t* pathname){
+
+    ASText pathText = NULL;         //Text of pathname
+    ASPathName pathASPath = NULL;   //ASPathName for path
+
+    ASUnicodeFormat hostUniFormat;
+    if (sizeof(wchar_t) == 2)
+        hostUniFormat = kUTF16HostEndian;
+    else
+        hostUniFormat = kUTF32HostEndian;
+
+    DURING
+        pathText = ASTextFromUnicode((ASUTF16Val *)pathname, hostUniFormat);
+    pathASPath = ASFileSysCreatePathFromDIPathText(NULL, pathText, NULL);
+    HANDLER
+        RERAISE();
+    END_HANDLER
+
+        //Release resources
+        ASTextDestroy(pathText);
+
+    return pathASPath;
 };
