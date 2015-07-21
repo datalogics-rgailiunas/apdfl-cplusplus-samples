@@ -143,13 +143,13 @@ int main(int argc, char** argv)
         if (i < numPages)    //Make sure the page number is valid
         {
             //Give the output document a new page with input page i's dimensions
-            PDPage inPage = inAPDoc.getPageNumber(i);
+            PDPage inPage = inAPDoc.getPage(i);
             ASFixedRect inPageSize;                                                //Stores the size of page i
 
             PDPageGetSize(inPage, &(inPageSize.right), &(inPageSize.top));
 
             outAPDoc.insertPage(inPageSize.right, inPageSize.top, PDDocGetNumPages(outDoc) - 1);
-            PDPage copyPage = outAPDoc.getPageNumber(PDDocGetNumPages(outDoc) - 1);
+            PDPage copyPage = outAPDoc.getPage(PDDocGetNumPages(outDoc) - 1);
 
             //Now copy the content
             PDEContent inContent = PDPageAcquirePDEContent(inPage, 0);
