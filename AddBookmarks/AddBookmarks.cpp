@@ -117,7 +117,7 @@ int main(int argc, char* argv)
         return lib.getInitError();    //Will display the error, if any.
 
     ASErrorCode errCode = 0;        //Tracks runtime errors in the application
-    wchar_t* inputDir  = L"../Input/Ulysses.pdf";
+    wchar_t* inputDir  = L"../_Input/Ulysses.pdf";
     wchar_t* outputDir = L"Bookmarked.pdf";
 
     DURING
