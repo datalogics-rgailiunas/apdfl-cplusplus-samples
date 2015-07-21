@@ -58,13 +58,13 @@
 #include "ASExtraCalls.h"
 #include "InitializeLibrary.h"
 
-int main(int argc, char**argv)
+int main(int argc, char** argv)
 {
     APDFLib libInit;                        //Initialize the APDFL
     ASErrorCode errCode = 0;                //Set return value to 0        
 
     if (libInit.isValid() == false)         //Test to see if initialization succeeded
-        errCode = libInit.getInitError();   //Set the error code if there was an error/exception
+       return libInit.getInitError();   //Set the error code if there was an error/exception
 
     DURING
 
@@ -121,6 +121,8 @@ int main(int argc, char**argv)
         pdDoc = NULL;
 
     HANDLER
+
+        errCode = ERRORCODE;           //Get the error code for any exceptions that happened.
 
         libInit.displayError(errCode); //Display any exceptions that may have occured.
 
