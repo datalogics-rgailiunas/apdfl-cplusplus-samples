@@ -124,7 +124,7 @@ int main()
 //Step 1) Open the document with the password
 //========================================================================================
 
-    ASPathName in_path = makeASPathName(L"../Input/encrypted.pdf");
+    ASPathName in_path = makeASPathName(L"../_Input/encrypted.pdf");
     ASPathName out_path = makeASPathName(L"unencrypted.pdf");
     PDDoc document = PDDocOpenEx(in_path, ASGetDefaultFileSys(),       //Calls openAuthorizationProcedure to supply the password
                            ASCallbackCreateProto(PDAuthProcEx, 
@@ -148,7 +148,6 @@ int main()
 
     PDDocSave(document, PDDocNeedsSave | PDDocIsOpen,
         out_path, ASGetDefaultFileSys(), NULL, NULL);
-    ASFileSysReleasePath(ASGetDefaultFileSys(), out_path);
 
     std::wcout << L"The document was saved..." << std::endl;
 
