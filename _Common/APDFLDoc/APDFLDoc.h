@@ -87,7 +87,7 @@ public:
 
     ASErrorCode insertPage(const ASFixed & width, const ASFixed & height, ASInt32);  //Inserts a page into the document.
     ASErrorCode insertPage(const ASInt16 & width, const ASInt16 & height, ASInt32);  //Inserts a page into the document.
-    PDPage getPageNumber(ASInt32);                                                   //Returns page specified first page is 0.
+    PDPage getPage(ASInt32);                                                         //Returns page specified first page is 0.
 
     volatile PDDoc& getPDDoc(){ return pdDoc; };                           //Returns a reference to the PDDoc that was created or opened.
 
