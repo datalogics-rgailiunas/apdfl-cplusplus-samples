@@ -10,13 +10,22 @@ REM *** By default, this occurs with the debug configuration.
 REM *** Pass in "release" as an argument to use the release configuration.
 REM *** It is important to note that this program assumes: 
 REM ***    1. A sample was built successfully <-> Its exe is located in <samplefolder>/<arch>/<stage>/<samplename>.exe
-REM ***    2. In assumption 1, <samplename> is equal to <samplefolder>.
+REM ***    2. Above, <samplename> is equal to <samplefolder>.
+REM ***
+REM *** USAGE:
+REM ***   See the documentation for maintenance (adding or removing samples from its build/run directives).
+REM ***
+REM ***   ARGUMENT      EFFECT
+REM ***   -noRun        Don't run the samples, just build them.
+REM ***   -noAD         Don't process the Adobe samples. (They will still be built.)
+REM ***   -noDL         Don't process the Datalogics samples. (They will still be built.)
 REM ***
 REM *** Steps:
 REM *** 1) Initialize
 REM *** 2) Build each sample
-REM *** 3) Run each sample
-REM *** 4) Output the results
+REM *** 3) Decide which samples to run.
+REM *** 4) Run the samples.
+REM *** 4) Output the results.
 REM **********************************************************************************************************************
 
 REM ***  This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
@@ -89,31 +98,42 @@ SET /A "NUM_FAIL_RUN=0"
 REM *** A list of the failed runs.
 SET DESC_FAIL_RUN=
 
-REM *** Configure self based on arguments.
-REM *** Setting ARCH and STAGE portions of the pathname to build and run in.
-REM *** (<arch> and <stage> in the description at the top)
-
-
 REM *** Assume default settings.
+
+REM *** The configuration to use.
 SET STAGE=Debug
+REM *** Only build the samples, don't run them.
 SET ONLY_BUILD=N
+REM *** Process the Datalogics samples.
+SET DO_DL=Y
+REM *** Process the Adobe samples.
+SET DO_AD=Y
+REM *** Build for x64. No arguments can change this.
+SET ARCH=x64
 
 :AcceptCommands
 REM *** Iterate through arguments, changing settings when needed.
+IF /i "%1"=="" (
+	GOTO ArgumentsEnd
+)
 IF /i "%1"=="release" (
     SET STAGE=Release
 ) 
-IF /i "%1"=="-n" (
+IF /i "%1"=="-noRun" (
 	SET ONLY_BUILD=Y
 )
-IF /i "%1"=="" (
-	GOTO ArgumentsEnd
+IF /i "%1"=="-noDL" (
+	SET DO_DL=N
+)
+IF /i "%1"=="-noAD" (
+	SET DO_AD=N
 )
 SHIFT
 GOTO AcceptCommands
 
 :ArgumentsEnd
-SET ARCH=x64
+
+IF %DO_DL% == N IF %DO_AD% == N GOTO MustIncludeFiles
 
 REM *** Set up the visual studio environment
 IF "%VS120COMNTOOLS%" == "" GOTO Usage
@@ -127,24 +147,44 @@ REM *************************************************
 devenv %ALL_SLN% /rebuild "%STAGE%|%ARCH%"
 
 REM *************************************************
-REM *** 3) Run each sample
+REM *** 3) Decide which samples to run.
 REM *************************************************
 
-REM *** A list of sample names (<samplename> in the description at the top)
-REM *** This program will run each of the samples listed here.
-REM *** It is imperative that All.sln builds all and only these samples.
-REM *** To add a sample to this script's functionality, include its name here,
-REM *** and add the project to All.sln.
-REM *** And don't forget to update NUM_SAMPLES!
-SET "SAMPLE_LIST=("
-SET "SAMPLE_LIST=%SAMPLE_LIST% AddDocumentInformation addElements placeText"
-SET "SAMPLE_LIST=%SAMPLE_LIST% SplitPDF WebOptimizedPDF"
-SET "SAMPLE_LIST=%SAMPLE_LIST%)"
-
+REM *** This needs to be accurate, of course.
 SET /A "NUM_SAMPLES=5"
 
-REM *** i iterates over each sample.
-SET /A "i=0"
+REM *** The lists of samples to process (<samplename> in the description at the top)
+
+REM *** Datalogics Samples.
+SET "DL_SAMPLE_LIST=("
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddDocumentInformation addElements placeText"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% SplitPDF WebOptimizedPDF"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
+REM *** This needs to be accurate, of course.
+SET /A "NUM_DL_SAMPLES=5"
+REM *** Di iterates over Datalogics samples.
+SET /A "Di=0"
+
+REM *** Adobe Samples.
+SET "AD_SAMPLE_LIST=()"
+REM *** This needs to be accurate, of course.
+SET /A "NUM_AD_SAMPLES=0"
+REM *** Ai iterates over Adobe samples.
+REM (None yet.)
+SET /A "Ai=0"
+
+REM *** Arguments for all samples. The variable name before "_args"
+REM *** is the name of the sample which requires the arguments.
+rem (devnote: These samples are not currently included. These variables
+rem are examples of what argument-passing is like.)
+SET "MTInMemFS_args=..\_Data\input.txt outPath"
+SET "MTSerialNums_args=..\_Data\addelem.pdf outDir outBase 2 3"
+SET "SnippetRunner_args=DLautoInput.txt"
+
+
+REM *************************************************
+REM *** 4) Run the samples.
+REM *************************************************
 
 REM ** Prepare to go through all the samples.
 CD ..
@@ -159,12 +199,16 @@ REM ******************** MAIN LOOP *****************************
 REM ************************************************************
 :RunSampleLoop_START
 REM *** If we've run all the samples, end
-IF %i% GEQ %NUM_SAMPLES% GOTO RunSampleLoop_END
+REM *** (AD samples are always done last.)
+IF %DO_DL% == Y IF %DO_AD% == Y IF %Di% GEQ %NUM_DL_SAMPLES% IF %Ai% GEQ %NUM_AD_SAMPLES% GOTO RunSampleLoop_END
+IF %DO_DL% == N IF %DO_AD% == Y IF %Ai% GEQ %NUM_AD_SAMPLES% GOTO RunSampleLoop_END
+IF %DO_DL% == Y IF %DO_AD% == N IF %Di% GEQ %NUM_DL_SAMPLES% GOTO RunSampleLoop_END
+
 ECHO.
 
-REM *** Retrieve the ith sample.
-GOTO GetIthSample
-:GotIthSample
+REM *** Retrieve the next sample.
+GOTO GetNextSample
+:GotNextSample
 
 CD %SAMPLEDIR%\%CURRENT_SAMPLE%\%ARCH%\%STAGE%
 
@@ -173,22 +217,21 @@ IF %ERRORLEVEL% NEQ 0 (GOTO CantFindExe)
 REM *** If the exe file could not be found.
 IF NOT EXIST %CURRENT_SAMPLE%.exe (GOTO CantFindExe)
 
-
 If %ONLY_BUILD% == Y GOTO RunSampleLoop_Call_End 
 
 :RunSampleLoop_Call
-ECHO #%CURRENT_SAMPLE%.exe is running...
-CALL %CURRENT_SAMPLE%.exe
+	ECHO #%CURRENT_SAMPLE%.exe is running...
+	REM *** Call the sample with its arguments, if any.
+	REM *** (undefined variables expand to nothing.)
+	CALL %CURRENT_SAMPLE%.exe %!CURRENT_SAMPLE!_args%
 
-REM *** If it failed to run
-IF %ERRORLEVEL% NEQ 0 (GOTO FailedRun)
-REM *** Otherwise, it succeeded!
-GOTO SuccessfulRun
+	REM *** If it failed to run
+	IF %ERRORLEVEL% NEQ 0 (GOTO FailedRun)
+	REM *** Otherwise, it succeeded!
+	GOTO SuccessfulRun
 :RunSampleLoop_Call_End
 
 :RunSampleLoop_NEXT_ITER
-REM *** Prepare for next iteration
-SET /A "i+=1"
 GOTO RunSampleLoop_START
 
 REM ************************************************************
@@ -198,15 +241,28 @@ REM ************************************************************
 REM ********************************
 REM ******* SUBROUTINES ************
 REM ********************************
-:GetIthSample
-
+:GetNextSample
 SET /A "n=0"
-FOR %%S IN %SAMPLE_LIST% DO (
-	IF !n! EQU !i! SET CURRENT_SAMPLE=%%S
+
+IF %DO_DL% == Y IF %Di% LSS %NUM_DL_SAMPLES% GOTO NextDLSample
+IF %DO_AD% == Y IF %Ai% LSS %NUM_AD_SAMPLES% GOTO NextAdobeSample
+
+:NextDLSample
+FOR %%S IN %DL_SAMPLE_LIST% DO (
+	IF !n! EQU !Di! SET CURRENT_SAMPLE=%%S
 	SET /A "n+=1"
 )
+SET /A "Di+=1"
+GOTO GotNextSample
 
-GOTO GotIthSample
+:NextAdobeSample
+FOR %%S IN %AD_SAMPLE_LIST% DO (
+	IF !n! EQU !Ai! SET CURRENT_SAMPLE=%%S
+	SET /A "n+=1"
+)
+SET /A "Ai+=1"
+GOTO GotNextSample
+
 REM ********************************
 :SuccessfulRun
 
@@ -239,8 +295,13 @@ REM ********************************
 
 
 REM *************************************************
-REM *** 3) Print the results
+REM *** 5) Print the results
 REM *************************************************
+
+
+SET /A "NUM_SAMPLES=0"
+IF %DO_DL% == Y SET /A "NUM_SAMPLES+=%NUM_DL_SAMPLES%"
+IF %DO_AD% == Y SET /A "NUM_SAMPLES+=%NUM_AD_SAMPLES%"
 
 ECHO =====================================
 IF %ONLY_BUILD% == N (
@@ -275,7 +336,12 @@ ECHO =====================================
 GOTO End
 
 :Usage
-ECHO "You must have Visual Studio 2013 installed to use this executable."
+ECHO You must have Visual Studio 2013 installed to use this executable.
+GOTO End
+
+:MustIncludeFiles
+ECHO You must choose to run the DL or the Adobe samples^!
+GOTO End
 
 :End
 PAUSE
