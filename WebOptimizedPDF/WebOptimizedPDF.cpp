@@ -70,8 +70,8 @@ int main(int argc, char** argv)
 
         PDDoc pdDoc = NULL;                                             //Declare pdDoc used for opening and saving the non web optimized PDF as web optimized
 
-        wchar_t * inputPathName = L"../_Input/nonweboptimizedpdf.pdf";   //Variables holding the input/output file names
-        wchar_t * outputPathName = L"weboptimized.pdf";
+        wchar_t * inputPathName = L"../_Input/NonLinearized.pdf";   //Variables holding the input/output file names
+        wchar_t * outputPathName = L"WebOptimized.pdf";
 
         ASPathName asPathNameInputFile = NULL;                          //ASPathNames used by PDDocOpen()
         ASPathName asPathNameOutputFile = NULL;
