@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{82006940-7ECC-454B-A571-B3854C407D25}</ProjectGuid>
-    <ProjectName>PlaceText</ProjectName>
+    <ProjectName>AddText</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -128,7 +128,7 @@
     <ClCompile Include="..\..\Include\Source\PDFLInitHFT.c" />
     <ClCompile Include="..\_Common\APDFLDoc\APDFLDoc.cpp" />
     <ClCompile Include="..\_Common\Init\InitializeLibrary.cpp" />
-    <ClCompile Include="PlaceText.cpp" />
+    <ClCompile Include="AddText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\_Common\APDFLDoc\APDFLDoc.h" />
