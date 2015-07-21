@@ -76,38 +76,10 @@
 #include <string>
 #include <vector>
 
-//================================================
 //Converts a char string to a wchar string.
-//================================================
-wchar_t* toWide(const char* str){
-
-    const size_t strlen = (std::strlen(str)) + 1;
-    wchar_t* wstr = new wchar_t[strlen];
-    mbstowcs(wstr, str, strlen);
-    return wstr;
-};
-
-//==================================================================
+wchar_t* toWide(const char* str);
 //Convert a wide string to an ASText object.
-//==================================================================
-ASText toASText(const wchar_t* string){
-    ASUnicodeFormat hostUniFormat;
-
-    DURING
-
-    if (sizeof(wchar_t) == 2)
-        hostUniFormat = kUTF16HostEndian;
-    else
-        hostUniFormat = kUTF32HostEndian;
-
-    return ASTextFromUnicode((ASUTF16Val *)string, hostUniFormat);
-
-    HANDLER
-        RERAISE();
-    END_HANDLER
-
-    return NULL;
-};
+ASText toASText(const wchar_t* string);
 
 int main(int argc, char* argv)
 {
@@ -327,4 +299,37 @@ int main(int argc, char* argv)
 
     if (errCode) lib.displayError(errCode);    //If there was an error, display it
     return errCode;                            //End. lib's destructor terminates the library.
+};
+
+//================================================
+//Converts a char string to a wchar string.
+//================================================
+wchar_t* toWide(const char* str){
+
+    const size_t strlen = (std::strlen(str)) + 1;
+    wchar_t* wstr = new wchar_t[strlen];
+    mbstowcs(wstr, str, strlen);
+    return wstr;
+};
+
+//==================================================================
+//Convert a wide string to an ASText object.
+//==================================================================
+ASText toASText(const wchar_t* string){
+    ASUnicodeFormat hostUniFormat;
+
+    DURING
+
+    if (sizeof(wchar_t) == 2)
+        hostUniFormat = kUTF16HostEndian;
+    else
+        hostUniFormat = kUTF32HostEndian;
+
+    return ASTextFromUnicode((ASUTF16Val *)string, hostUniFormat);
+
+    HANDLER
+        RERAISE();
+    END_HANDLER
+
+        return NULL;
 };
