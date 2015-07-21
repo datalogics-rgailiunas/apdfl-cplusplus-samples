@@ -74,44 +74,8 @@
 #include "PERCalls.h"
 #include "PagePDECntCalls.h"
 
-//====================================================
 //Returns a pointer to a new ASFile give a wide path.
-//====================================================
-ASFile* openASFile(wchar_t* filepath){
-    ASErrorCode errCode = 0;          //Tracks errors
-    ASFile* file = new ASFile();              //The file we want to open
-    ASText pathText = NULL;
-    ASPathName aspfilepath = NULL;    //Filepath of the document
-
-    //Compute host's unicode format
-    ASUnicodeFormat hostUniFormat;
-    if (sizeof(wchar_t) == 2)
-        hostUniFormat = kUTF16HostEndian;
-    else
-        hostUniFormat = kUTF32HostEndian;
-
-    DURING
-
-        pathText = ASTextFromUnicode((ASUTF16Val *)filepath, hostUniFormat);
-        aspfilepath = ASFileSysCreatePathFromDIPathText(NULL, pathText, NULL);
-        errCode = ASFileSysOpenFile(
-                    ASGetDefaultFileSys(),    //ASFileSys
-                    aspfilepath,              //ASPathName
-                    ASFILE_READ,              //ASFileMode
-                    file);                    //ASFile*, filled by ASFileSysOpenFile
-
-        ASTextDestroy(pathText);
-        ASFileSysReleasePath(ASGetDefaultFileSys(), aspfilepath);
-
-    HANDLER
-        RERAISE();
-    END_HANDLER
-
-    if (errCode)
-        ASRaise(errCode);
-
-    return file;
-};
+ASFile* openASFile(wchar_t* filepath);
 
 int main()
 {
@@ -224,4 +188,43 @@ int main()
 
     if (errCode) lib.displayError(errCode);    //If there was an error, display it
     return errCode;                            //End. lib's destructor terminates the library.
+};
+
+//====================================================
+//Returns a pointer to a new ASFile give a wide path.
+//====================================================
+ASFile* openASFile(wchar_t* filepath){
+    ASErrorCode errCode = 0;          //Tracks errors
+    ASFile* file = new ASFile();              //The file we want to open
+    ASText pathText = NULL;
+    ASPathName aspfilepath = NULL;    //Filepath of the document
+
+    //Compute host's unicode format
+    ASUnicodeFormat hostUniFormat;
+    if (sizeof(wchar_t) == 2)
+        hostUniFormat = kUTF16HostEndian;
+    else
+        hostUniFormat = kUTF32HostEndian;
+
+    DURING
+
+        pathText = ASTextFromUnicode((ASUTF16Val *)filepath, hostUniFormat);
+    aspfilepath = ASFileSysCreatePathFromDIPathText(NULL, pathText, NULL);
+    errCode = ASFileSysOpenFile(
+        ASGetDefaultFileSys(),    //ASFileSys
+        aspfilepath,              //ASPathName
+        ASFILE_READ,              //ASFileMode
+        file);                    //ASFile*, filled by ASFileSysOpenFile
+
+    ASTextDestroy(pathText);
+    ASFileSysReleasePath(ASGetDefaultFileSys(), aspfilepath);
+
+    HANDLER
+        RERAISE();
+    END_HANDLER
+
+    if (errCode)
+        ASRaise(errCode);
+
+    return file;
 };
