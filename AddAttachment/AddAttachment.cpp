@@ -77,7 +77,7 @@
 //Returns a pointer to a new ASFile give a wide path.
 ASFile* openASFile(wchar_t* filepath);
 
-int main()
+int main(int argc, char** argv)
 {
     //Initialize the APDF Library.
     APDFLib lib;
@@ -86,13 +86,13 @@ int main()
 
 
     //APDFL variables
-    ASErrorCode  errCode = 0;                                  //Tracks errors.
+    ASErrorCode  errCode = 0;                                   //Tracks errors.
 
     //Sample variables
     wchar_t* path_attachment1 = L"../_Input/attachment1.xlsx";  //Path to attachment name tree
     wchar_t* path_attachment2 = L"../_Input/attachment2.docx";  //Path to attachment for annotation
     wchar_t* path_inputpdf = L"../_Input/noattachment.pdf";     //Path to input pdf
-    wchar_t* path_attached = L"attached.pdf";                  //Path to output pdf
+    wchar_t* path_attached = L"attached.pdf";                   //Path to output pdf
 
     DURING
 
@@ -109,7 +109,7 @@ int main()
         ASFile* attach1_as = openASFile(path_attachment1);
         PDFileAttachment attach1_pfa = PDFileAttachmentNewFromFile(
                                         PDDocGetCosDoc(inputpdf),              //The relevant pdf
-                                        *attach1_as,                            //The relevant ASFile
+                                        *attach1_as,                           //The relevant ASFile
                                         NULL, (ASUns32) 0,                     //No filters for the file attachment stream
                                         CosNewNull(),                          //No filter parameters
                                         NULL, NULL, NULL);                     //No ASProgressMonitor
@@ -126,7 +126,7 @@ int main()
         PDNameTreePut(
             files_tree,                                        //The tree to put it in
             CosNewString(PDDocGetCosDoc(inputpdf),             //The KEY (totally arbitrary)
-                true,"TheSpreadsheet",14),
+                         true,"TheSpreadsheet",14),
             PDFileAttachmentGetCosObj(attach1_pfa));           //The VALUE: the attachment's file specification
 
 
@@ -139,7 +139,7 @@ int main()
         ASFile* attach2_as = openASFile(path_attachment2);
         PDFileAttachment attach2_pfa = PDFileAttachmentNewFromFile(
                                         PDDocGetCosDoc(inputpdf),              //The relevant pdf
-                                        *attach2_as,                            //The relevant ASFile
+                                        *attach2_as,                           //The relevant ASFile
                                         NULL, (ASUns32)0,                      //No filters for the file attachment stream
                                         CosNewNull(),                          //No filter parameters
                                         NULL, NULL, NULL);                     //No ASProgressMonitor
@@ -158,8 +158,7 @@ int main()
         annot_location.bottom = Int16ToFixed(8.90 * 72);
 
         PDPage page1 = PDDocAcquirePage(inputpdf, (ASInt32)0);
-        PDAnnot attachment_annot = PDPageCreateAnnot(page1, 
-                            ASAtomFromString("FileAttachment"), &annot_location);
+        PDAnnot attachment_annot = PDPageCreateAnnot(page1,ASAtomFromString("FileAttachment"), &annot_location);
         CosDictPutKeyString(                                   //Embed the file specification into the annotation's cos dictionary.
             PDAnnotGetCosObj(attachment_annot),                //The dictionary we want to edit
             "FS",                                              //The KEY for the dictionary: we're editing the File Specification
@@ -195,7 +194,7 @@ int main()
 //====================================================
 ASFile* openASFile(wchar_t* filepath){
     ASErrorCode errCode = 0;          //Tracks errors
-    ASFile* file = new ASFile();              //The file we want to open
+    ASFile* file = new ASFile();      //The file we want to open
     ASText pathText = NULL;
     ASPathName aspfilepath = NULL;    //Filepath of the document
 
@@ -209,12 +208,11 @@ ASFile* openASFile(wchar_t* filepath){
     DURING
 
         pathText = ASTextFromUnicode((ASUTF16Val *)filepath, hostUniFormat);
-    aspfilepath = ASFileSysCreatePathFromDIPathText(NULL, pathText, NULL);
-    errCode = ASFileSysOpenFile(
-        ASGetDefaultFileSys(),    //ASFileSys
-        aspfilepath,              //ASPathName
-        ASFILE_READ,              //ASFileMode
-        file);                    //ASFile*, filled by ASFileSysOpenFile
+        aspfilepath = ASFileSysCreatePathFromDIPathText(NULL, pathText, NULL);
+        errCode = ASFileSysOpenFile(ASGetDefaultFileSys(),    //ASFileSys
+                                    aspfilepath,              //ASPathName
+                                    ASFILE_READ,              //ASFileMode
+                                    file);                    //ASFile*, filled by ASFileSysOpenFile
 
     ASTextDestroy(pathText);
     ASFileSysReleasePath(ASGetDefaultFileSys(), aspfilepath);
