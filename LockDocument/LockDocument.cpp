@@ -67,7 +67,7 @@ int main(int argc, char** argv)
 
     //Sample variables
     ASErrorCode errCode = 0;                                //Tracks runtime errors in the application
-    wchar_t* inPath  = L"../Input/LockDocument.pdf";        //Input document path
+    wchar_t* inPath  = L"../_Input/LockDocument.pdf";        //Input document path
     wchar_t* outPath = L"LockDocument_Out.pdf";             //Output document path
     char*   password = "Datalogics";                        //Password to change permissions
 
