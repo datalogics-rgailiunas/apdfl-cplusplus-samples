@@ -69,7 +69,7 @@ int main(int argc, char** argv)
     ASErrorCode errCode = 0;                //Error code initially is 0.
 
     if (libInit.isValid() == false)         //Check for errors in initialization.
-        errCode = libInit.getInitError();   //If there was an error set the code.
+        return libInit.getInitError();      //If there was an error return the code.
 
     DURING
 
