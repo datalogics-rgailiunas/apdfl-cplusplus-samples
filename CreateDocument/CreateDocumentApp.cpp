@@ -68,11 +68,11 @@
 
 int main(int argc, char** argv)
 {
-    APDFLib libInit;                             //Initialize the APDFL
-    ASErrorCode errCode = 0;                     //Error code is 0 if there were no issues 
+    APDFLib libInit;                             //Initialize the APDFL.
+    ASErrorCode errCode = 0;                     //Error code is 0 if there were no issues. 
 
-    if (libInit.isValid() == false)              //If there was a problem in initializing the APDFL
-        return libInit.getInitError(); //Return the error code.
+    if (libInit.isValid() == false)              //If there was a problem in initializing the APDFL.
+        return libInit.getInitError();           //Return the error code.
         
     DURING
 
@@ -87,7 +87,7 @@ int main(int argc, char** argv)
         mediaBox.left = fixedZero;
         mediaBox.right = FloatToASFixed(72.0 * 8.5);
         mediaBox.bottom = fixedZero;
-        mediaBox.top = FloatToASFixed(72.5 * 11.0);
+        mediaBox.top = FloatToASFixed(72.0 * 11.0);
 
         std::wcout << L"Inserting pages into Document..." << std::endl;
 
@@ -101,7 +101,7 @@ int main(int argc, char** argv)
 
         std::wcout << L"Creating path to output file..." << std::endl;
         
-        wchar_t * nameOfOutputFile = L"out.pdf\0";  //Name of file being created
+        wchar_t * nameOfOutputFile = L"out.pdf";  //Name of file being created
 
         ASText textToCreatePath = NULL; //Text object used to create ASPathName
 
