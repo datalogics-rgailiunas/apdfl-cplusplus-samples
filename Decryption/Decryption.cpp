@@ -85,7 +85,7 @@ ASPathName makeASPathName(wchar_t* pathname);
 
 int main()
 {
-    //Initialize the APDF Library.
+    //Initialize the Adobe PDF Library.
     APDFLib lib;
     if (!lib.isValid())
         return lib.getInitError();    //Will display the error, if any.
