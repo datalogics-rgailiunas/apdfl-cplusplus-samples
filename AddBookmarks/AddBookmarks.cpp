@@ -83,7 +83,7 @@ ASText toASText(const wchar_t* string);
 
 int main(int argc, char* argv)
 {
-    //Initialize the APDF Library.
+    //Initialize the Adobe PDF Library.
     APDFLib lib;
     if (!lib.isValid())
         return lib.getInitError();    //Will display the error, if any.
