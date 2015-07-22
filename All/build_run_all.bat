@@ -17,8 +17,8 @@ REM ***   See the documentation for maintenance (adding or removing samples from
 REM ***
 REM ***   ARGUMENT      EFFECT
 REM ***   -noRun        Don't run the samples, just build them.
-REM ***   -noAD         Don't process the Adobe samples. (They will still be built.)
-REM ***   -noDL         Don't process the Datalogics samples. (They will still be built.)
+REM ***   -noAD         Don't process the Adobe samples.
+REM ***   -noDL         Don't process the Datalogics samples.
 REM ***
 REM *** Steps:
 REM *** 1) Initialize
@@ -81,7 +81,8 @@ REM *************************************************
 REM *** Initialize environment variables, enable delayed expansion.
 SETLOCAL EnableDelayedExpansion  
 REM *** Filename of All project.
-SET ALL_SLN=All.sln
+SET ALL_AD_SLN=All_Adobe.sln
+SET ALL_DL_SLN=All_Datalogics.sln
 
 
 REM ************* Initialize variables which track our progress ******************
@@ -144,8 +145,16 @@ REM *************************************************
 REM *** 2) Build each sample
 REM *************************************************
 
-devenv %ALL_SLN% /rebuild "%STAGE%|%ARCH%"
-
+IF %DO_DL% == Y (
+	ECHO #Building Datalogics samples...
+	devenv %ALL_DL_SLN% /rebuild "%STAGE%|%ARCH%"
+)
+ECHO.
+IF %DO_AD% == Y (
+	ECHO #Building Adobe samples...
+	devenv %ALL_AD_SLN% /rebuild "%STAGE%|%ARCH%"
+)
+ 
 REM *************************************************
 REM *** 3) Decide which samples to run.
 REM *************************************************
