@@ -1,14 +1,16 @@
 // Copyright (c) 2015, Datalogics, Inc. All rights reserved.
-//
-//===============================================================
-// Sample: PlaceText, places text on a newly created pdf document
+
+//==================================================================
+// Sample: PlaceText - places text on a newly created pdf document
 //       
 // Steps: 
-//  1) Create new pdf document with core attributes
-//  2) Setup and add text
-//  3) Save result as textPlaced.pdf     
-//===============================================================
-//
+//  1) Create a document with one page.
+//  2) Locate a system font and create a PDEFont object.
+//  3) Set the graphics state, size and location for the text.
+//  4) Create the PDEText object and add it to the PDEContent object.
+//  5) Release resources and save the output document.
+//===================================================================
+
 // This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
 // source code examples for integrating to the Adobe PDF Library
@@ -54,101 +56,110 @@
 // NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
+#include <iostream>
+
 #include "PSFCalls.h"
 #include "PERCalls.h"
 #include "PEWCalls.h"
 #include "PagePDECntCalls.h"
 #include "ASExtraCalls.h"
+
 #include "APDFLDoc.h"
 #include "InitializeLibrary.h"
-#include <iostream>
 
 int main(int argc, char** argv)
 {
 
-    APDFLib libInit;            //Initialize the APDFL.
-    ASErrorCode errCode = 0;    //Variable that represents errors
+    APDFLib libInit;                   //Initialize the Adobe PDF Library.
+    ASErrorCode errCode = 0;           //Error code is set to 0 for success.
 
-    if (libInit.isValid() == false)         //Check for errors in initialization.
-        return libInit.getInitError();   //If there was an error set the code.
+    if (libInit.isValid() == false)    //Check for errors in initialization.
+        return libInit.getInitError(); //If there was an error set the code.
     
     DURING
 
 //============================================================================================================
-// Step 1) Create new pdf document with core attributes
+// Step 1) Create a new document and insert a page.
 //============================================================================================================
 
-        //Create a new document
+        //Create a new empty document.
         APDFLDoc doc;
 
-        //Set up the 4" by 4" bounds for the page
+        //Insert a 4 inch x 4 inch page into the document, 0 is the first in the document.
         doc.insertPage(Int16ToFixed((4 * 72)), Int16ToFixed((4 * 72)), PDBeforeFirstPage);
         
-        //Initialize page from source document, where to place, and bound rectangle
+        //Get the first page from the document. Note: caller is responsible for releasing the PDPage acquired.
         PDPage page = doc.getPage(0);
 
-        //Grab contenet from the page
+        //Acquire PDEContent, PDE objects can be added to the acquired content.
         PDEContent content = PDPageAcquirePDEContent(page, NULL);
 
 //============================================================================================================
-// Step 2) Setup up and add text
+// Step 2) Create a PDEFont object containing information necessary to create a complete PDEText object.
 //============================================================================================================
 
-        PDEFontAttrs fontAttrs;    //Font attributes object
+        PDEFontAttrs fontAttrs;                          //Struct that will contain font name and type.
+ 
+        memset(&fontAttrs, 0, sizeof(fontAttrs));        //Ensure any "garbage" data is cleared out.
 
-        //Initialize font Attributes
-        memset(&fontAttrs, 0, sizeof(fontAttrs));
+        fontAttrs.name = ASAtomFromString("CourierStd"); //Set the font name and type. 
+        fontAttrs.type = ASAtomFromString("Type1");          
 
-        fontAttrs.name = ASAtomFromString("CourierStd");    //Font style
-        fontAttrs.type = ASAtomFromString("Type1");         //Font type
-
-        //Create system font using font attributes, its size, and flags
+        //Locate the system font that corresponds to the PDEFontAttrs struct we just set.
         PDSysFont sysFont = PDFindSysFont(&fontAttrs, sizeof(fontAttrs), 0);
 
-        //Create the pdeFont with the sysFont and PDEFontCreateFlags      
+        //Create the CourierStd Type1 font with embed flag set.       
         PDEFont pdeFont = PDEFontCreateFromSysFont(sysFont, kPDEFontCreateEmbedded);
 
-        PDEGraphicState gState;    //State of graphics used for rendering
+//============================================================================================================
+// Step 3) Set the graphic state and the position of the text that will be placed on the page. 
+//============================================================================================================
 
-        //Set the grahpics state to its default values 
-        PDEDefaultGState(&gState,0);
+        PDEGraphicState gState;      //Graphics state must be set for all PDE objects. This object is used to set information about colors,
+                                     //colorspace, linewidth etc. Default values will be used in the case of simple text placement.
+        PDEDefaultGState(&gState,0); 
 
-        ASDoubleMatrix textMatrix;    //Matrix for sizing and setting location of text
+        ASDoubleMatrix textMatrix;   //Struct that determines size and location of text on page.
 
-        //Setting up the matrix for setting text size and placement location
-        memset(&textMatrix, 0, sizeof(textMatrix));
+        memset(&textMatrix, 0, sizeof(textMatrix)); //Clear out any "garbage" the struct may contain.
 
-        textMatrix.a = 12;          //Character width (matrix element size)
-        textMatrix.d = 12;          //Character width (matrix element size)
-        textMatrix.h = 1 * 72.0;    //Place at a x-val of 1 inch
-        textMatrix.v = 2 * 72.0;    //Place at a y-val of 2 inches
+        textMatrix.a = 12.0;                        //Character width.
+        textMatrix.d = 12.0;                        //Character height.
+        textMatrix.h = 1 * 72.0;                    //Place at a x-val of 1 inch from the left side of the page.
+        textMatrix.v = 2 * 72.0;                    //Place at a y-val of 2 inches from the bottom of the page.
           
-        PDEText textObj = PDETextCreate();    //Create object for holding text 
+        char* placeStr = "This text was placed!";    //Text that be added to the PDEText object.
+        PDETextState tState;                         //Text state may be adjusted for character spacing, etc. Using default values in this sample.
 
-        char* placeStr = "This text was placed!";    //String for text object
-        PDETextState tState;                         //State of text used for rendering
+//============================================================================================================
+// Step 4) Create the PDEText object and give it the information we set in steps 2 and 3. Then add the PDEText
+// object to the PDEContent
+//============================================================================================================
 
-        //Adding the features of text run to the PDE text object
-        PDETextAddEx(textObj,    //The text object
-            kPDETextRun,         //kPDETextRun/kPDETextChar
-            0,                   //The index after where to add the character or text run
-            (Uns8*)placeStr,     //String converter to Unsigned 8-bit form
-            strlen(placeStr),    //String length
-            pdeFont,             //The used font
-            &gState,0,           //PDEGraphicState and its size. Holds graphical attributes of the text object
-            &tState,0,           //Text state and its size, Holds textual attributes of the text object
-            &textMatrix,         //Matrix for the text object
-            NULL);               //the matrix for the line width when stroking text
+        PDEText textObj = PDETextCreate(); //PDEText will be set, and then added into the PDEContent.
+                                           
+        PDETextAddEx(textObj,              //The PDEText object we just created.
+            kPDETextRun,                   //kPDETextRun and kPDETextChar specify whether a string or character will be inserted.
+            0,                             //The index after which to add the character or text run.
+            (Uns8*)placeStr,               //The string that will be added should be type-cast as a pointer to Uns8.
+            strlen(placeStr),              //Length of the string.
+            pdeFont,                       //The PDEFont we created holding information such as font name, type and whether it's embedded or not.
+            &gState,0,                     //PDEGraphicState and its size. Contains graphical attributes of the text object.
+            &tState,0,                     //Text state and its size. Contains textual attributes of the text object.
+            &textMatrix,                   //Matrix containing size and location for the text.
+            NULL);                         //The matrix for the line width when stroking text.
 
         std::wcout << L"Text element created and set." << std::endl;
 
-        //Add the text element to the page's content
-        PDEContentAddElem(content, kPDEAfterLast, reinterpret_cast<PDEElement>(textObj));
+        PDEContentAddElem(content, kPDEAfterLast, reinterpret_cast<PDEElement>(textObj)); //Add the text element to the page's content.
 
-        //Set the content back into the page
-        PDPageSetPDEContentCanRaise(page, NULL);
+        PDPageSetPDEContentCanRaise(page, NULL); //Set the content back into the page.
 
-        //Release objects no longer in use
+//============================================================================================================
+// Step 5) Release resources, save the output document and exit the program.
+//============================================================================================================
+
+        //Release objects that are no longer in use.
         PDERelease(reinterpret_cast<PDEObject>(gState.strokeColorSpec.space));
         PDERelease(reinterpret_cast<PDEObject>(gState.fillColorSpec.space));
         PDERelease(reinterpret_cast<PDEObject>(pdeFont));
@@ -156,25 +167,18 @@ int main(int argc, char** argv)
         PDPageReleasePDEContent(page, NULL);
         PDPageRelease(page);
     
-//============================================================================================================
-// Step 3) Save result as textPlaced.pdf 
-//============================================================================================================
-     
-        //Save document with the given output path, and proper saving flags
-        doc.saveDoc(L"textPlaced.pdf", PDSaveFull | PDSaveLinearized);
+        doc.saveDoc(L"textPlaced.pdf", PDSaveFull | PDSaveLinearized); //Save the PDF document in the working directory.
 
         std::wcout << L"textPlaced.pdf saved with text to be placed." << std::endl << std::endl;
 
     HANDLER
 
-            //If an exception was raised generate error code
             errCode = ERRORCODE;           
 
-            //If there was an error code, display
-            libInit.displayError(errCode);
+            libInit.displayError(errCode); //If there was an error, display the error that occured.
 
     END_HANDLER
 
-    return errCode;
+    return errCode; //APDFLib's destructor terminates the library.
 
 }
