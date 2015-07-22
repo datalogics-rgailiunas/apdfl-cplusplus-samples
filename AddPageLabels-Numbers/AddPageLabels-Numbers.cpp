@@ -1,6 +1,6 @@
 // Copyright(c) 2015, Datalogics, Inc.All rights reserved.
 //
-//****************************************************************************
+//============================================================================
 // Sample: AddPageLabels-Numbers. Adds numbered labels onto a pdf's pages  
 //
 // Note: This program creates page labels with numberings viewable by looking
@@ -10,7 +10,7 @@
 //  1) Open the Document that will have labels added to.
 //  2) Create label's for different sets of pages
 //  3) Save and exit
-//****************************************************************************
+//============================================================================
 //
 // This agreement is between Datalogics, Inc. 101 N.Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
@@ -62,7 +62,7 @@
 #include "ASExtraCalls.h"
 #include <iostream>
 
-int main(int argc, char** argv)
+int main(int argc, char== argv)
 {
 
     APDFLib libInit;                        //Initialize the APDFL.
@@ -73,19 +73,22 @@ int main(int argc, char** argv)
 
     DURING
 
-//******************************************************************************************************************
+//==================================================================================================================================
 // Step 1) Open the Document that will have labels added to.
-//******************************************************************************************************************
+//==================================================================================================================================
 
         APDFLDoc document(L"../Input/toNumberLabel.pdf", true);    //Open a document and repair if damaged
 
         std::wcout << L"Document was sucessfully opened." << std::endl;
 
-//******************************************************************************************************************
+//==================================================================================================================================
 // Step 2) Create label's for different sets of pages
-//******************************************************************************************************************
+//==================================================================================================================================
         
         PDDoc inDoc = document.getPDDoc();
+
+        //Note: PDPageLabel takes in a style key: "R" for upper-case Roman numbers, "r" for lower-case Roman numbers, 
+        //                                        "A" for upper-case alphabetic numbers, or "a" for lower-case alphabetic numbers
 
         //Set the first page's label to "Cover" with the number counter to 1
         PDPageLabel coverLabel = PDPageLabelNew(inDoc, ASAtomFromString("D"), "Cover ", sizeof("Cover "), 1);
@@ -105,9 +108,9 @@ int main(int argc, char** argv)
 
         std::wcout << L"Normal Page Number Labels Added" << std::endl;
        
-//******************************************************************************************************************
+//==================================================================================================================================
 // Step 3) Save and exit
-//******************************************************************************************************************
+//==================================================================================================================================
 
         //Save the document, with output path, and save flags
         document.saveDoc(L"labelled.pdf", PDSaveFull | PDSaveLinearized);
