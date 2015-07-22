@@ -81,7 +81,7 @@ void copyElements(PDEContent* to, PDEContent* from, const std::map<ASInt32, bool
 
 int main(int argc, char** argv)
 {
-    //Initialize the APDF Library.
+    //Initialize the Adobe PDF Library.
     APDFLib lib;
     if (!lib.isValid())
         return lib.getInitError();    //Will display the error, if any.
