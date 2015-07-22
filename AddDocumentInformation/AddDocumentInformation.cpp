@@ -1,18 +1,18 @@
-//# Copyright(c) 2015, Datalogics, Inc.All rights reserved.
+// Copyright(c) 2015, Datalogics, Inc.All rights reserved.
 
-//==============================================================================
-// Sample: AddDocumentInformation opens a document, inserts document 
-// information and saves
+//=============================================================================
+// Sample AddDocumentInformation: Opens a document, inserts document 
+//                                information into it and saves it.
 //
 // Note: This program inserts standard document information contained in the
-// "Document Information Dictionary" see the PDF Reference section 10.2 for 
-// more information
+// "Document Information Dictionary." See the PDF Reference, section 10.2, for
+// more information.
 //
 //Steps:
-// 1) Open the Document that the document information will be inserted into
-// 2) Insert the document information 
-// 3) Save the document and release resources
-//==============================================================================
+// 1) Open the Document that the document information will be inserted into.
+// 2) Insert the document information.
+// 3) Save the document and release resources.
+//=============================================================================
 
 // This agreement is between Datalogics, Inc. 101 N.Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
@@ -23,7 +23,7 @@
 // LICENSE
 // -------
 // Datalogics hereby grants you a royalty - free, non - exclusive license to
-// download and use the Example Code for any lawful purpose.There is no charge
+// download and use the Example Code for any lawful purpose. There is no charge
 // for use of Example Code.
 //
 // OWNERSHIP
@@ -60,104 +60,102 @@
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE. 
 
 #include <iostream>
-#include "ASExtraCalls.h"
 #include "InitializeLibrary.h"
+#include "ASExtraCalls.h"
 
 int main(int argc, char** argv)
 {
-    APDFLib libInit;                               //Initialize the APDFL.
-    ASErrorCode errCode = 0;                       //Set error code to 0.
+    APDFLib lib;                               //Initialize the Adobe PDF Library.
+    ASErrorCode errCode = 0;                   //Tracks thrown APDFL errors.
 
-    if (libInit.isValid() == false)                  //Check to see if the APDFL initialized.
-        return errCode = libInit.getInitError();   //If it failed return the error code.
+    if (lib.isValid() == false)                //Check to see if the Adobe PDF Library initialized.
+        return errCode = lib.getInitError();   //If it failed, return the error code.
 
     DURING
-//==========================================================================================================================================
-//Step 1) Open the PDF Document
-//==========================================================================================================================================
-      
-        wchar_t* inputFilePath = L"../_Input/AddDocumentInformation.pdf";   //File path used to open the PDF Document.
- 
-        ASUnicodeFormat unicodeFormat;                                      //Argument passed to function ASTextFromUnicode.
 
-        //Determine host computers unicode format	
+//==================================================================================================================================================
+//Step 1) Open the Document that the document information will be inserted into.
+//==================================================================================================================================================
+
+        wchar_t* inputFilePath = L"../_Input/AddDocumentInformation.pdf";    //File path of the PDF Document.
+
+        //Determine host computer's unicode format.
+        ASUnicodeFormat hostUnicodeFormat;
         if (sizeof(wchar_t) == 2)
-            unicodeFormat = kUTF16HostEndian;
+            hostUnicodeFormat = kUTF16HostEndian;
         else
-            unicodeFormat = kUTF32HostEndian;
+            hostUnicodeFormat = kUTF32HostEndian;
 
-        //ASText is the unicode string used to create ASPathName for opening the PDDoc.
-        ASText asText = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(inputFilePath), unicodeFormat);
-
-        //Create the asPathName to open the input file.
+        //Create the ASPathName of the input file path.
+        ASText asText = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(inputFilePath), hostUnicodeFormat);
         ASPathName asPathName = ASFileSysCreatePathFromDIPathText(NULL, asText, NULL);
-  
-        ASTextDestroy(asText);  //Free up resources.
-        asText = NULL;
-     
-        PDDoc pdDoc = PDDocOpen(asPathName, NULL, NULL, true);  //Open the Document.
+
+        ASTextDestroy(asText);                                               //Free up resources.
+
+        PDDoc pdDoc = PDDocOpen(asPathName, NULL, NULL, true);               //Open the input Document.
 
         std::wcout << L"Document was sucessfully opened." << std::endl;
-  
-        ASFileSysReleasePath(NULL, asPathName); //Free up resources.
-        asPathName = NULL;
 
-//==========================================================================================================================================
-//Step 2) Insert document information into Document
-//        Title and Author are demonstrated here.
+        ASFileSysReleasePath(NULL, asPathName);                              //Free up resources.
+
+//==================================================================================================================================================
+//Step 2) Insert the document information.
+//
+//Inserting values for Title and Author are demonstrated here.
 //
 //Note:   Standard Key values contained in Document Information Dictionary: 
-//        {"Title, Author, Subject, Keywords, Creator, Producer, Trapped"}  
+//        {"Title", "Author", "Subject", "Keywords", "Creator", "Producer", "Trapped"}. 
+//        See the PDF Reference, section 10.2, for more information.
 //
 //Note:   "key" refers to the document information field will be inserted into
 //        "value" is the data being inserted
-//==========================================================================================================================================
+//==================================================================================================================================================
 
         //Create unicode strings for inserting the document's Title into the document.
-        ASText key = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Title"), unicodeFormat);
-        ASText value = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Sample Title"), unicodeFormat);
-   
-        PDDocSetInfoAsASText(pdDoc, key, value); //Insert the document information.
- 
-        ASTextDestroy(key); //Free up the resources.
-        ASTextDestroy(value);
+        ASText key = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Title"), hostUnicodeFormat);
+        ASText value = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Sample Title"), hostUnicodeFormat);
+
+        PDDocSetInfoAsASText(pdDoc, key, value);    //Insert the document information.
 
         std::wcout << L"The document's title was inserted." << std::endl;
 
         //Create unicode strings for inserting the document's Author into the document.
-        key = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Author"), unicodeFormat);
-        value = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Sample Author"), unicodeFormat);
+        key = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Author"), hostUnicodeFormat);
+        value = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Sample Author"), hostUnicodeFormat);
 
-        PDDocSetInfoAsASText(pdDoc, key, value); //Insert the document information.
+        PDDocSetInfoAsASText(pdDoc, key, value);    //Insert the document information.
 
-        ASTextDestroy(key);     //Free up resources.
+        //Free up resources.
+        ASTextDestroy(key);
         ASTextDestroy(value);
 
         std::wcout << L"The document's author was inserted." << std::endl;
 
-//==========================================================================================================================================
-//Step 3) Save the Document and release Resources
-//==========================================================================================================================================
-     
-        asText = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"out.pdf"), unicodeFormat); //Create unicode string for output file.
-     
-        asPathName = ASFileSysCreatePathFromDIPathText(NULL, asText, NULL);                   //Create the asPathName to open the input file.
+//==================================================================================================================================================
+//Step 3) Save the Document and release Resources.
+//==================================================================================================================================================
+
+        asText = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"out.pdf"), hostUnicodeFormat);    //Create unicode path for output file.
+
+        asPathName = ASFileSysCreatePathFromDIPathText(NULL, asText, NULL);                          //Create the ASPathName of the output file.
   
-        PDDocSave(pdDoc, PDSaveFull, asPathName, NULL, NULL, NULL);                           //Save the new document.
+        PDDocSave(pdDoc, PDSaveFull, asPathName, NULL, NULL, NULL);                                  //Save the new document.
 
-        std::wcout << L"The PDF Document has been saved and now contains Document Information." << std::endl;
+        std::wcout << L"The new PDF Document has been saved and now contains the new Document Information." << std::endl;
 
-        ASTextDestroy(asText); //Release remaining resources.
+        //Release remaining resources.
+        ASTextDestroy(asText); 
         ASFileSysReleasePath(NULL, asPathName);
         PDDocClose(pdDoc);
 
-        std::wcout << L"All remaining resources have been released" << std::endl;
+        std::wcout << L"All remaining resources have been released." << std::endl;
 
     HANDLER
 
-            libInit.displayError(errCode);  //Display any errors/exceptions that may have occured.
+        errCode = ERRORCODE;
+        lib.displayError(errCode);                                                                   //If there was an error, display it.
 
     END_HANDLER
 
-    return errCode;   
+    return errCode;                                                                                  //lib's destructor terminates the library.
 }
