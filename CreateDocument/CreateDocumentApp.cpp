@@ -85,9 +85,9 @@ int main(int argc, char** argv)
         //Set page dimensions for PDDoc (72 pixels in an inch)
         ASFixedRect mediaBox; 
         mediaBox.left = fixedZero;
-        mediaBox.right = Int16ToFixed(72 * 8.5);
+        mediaBox.right = FloatToASFixed(72.0 * 8.5);
         mediaBox.bottom = fixedZero;
-        mediaBox.top = Int16ToFixed(72 * 11);
+        mediaBox.top = FloatToASFixed(72.5 * 11.0);
 
         std::wcout << L"Inserting pages into Document..." << std::endl;
 
