@@ -1,17 +1,11 @@
 // Copyright(c) 2015, Datalogics, Inc.All rights reserved.
 
 //========================================================================
-// Sample: Create Document - Creates a document with page numbers
-//
-// Note: This program creates a new document and places page numbers
-// 	     on each of the created pages
+// Sample: Create Document - Creates a new document and inserts pages.
 //	
-//CreateDocument.h contains CreateDocument class definition
-//CreateDocumentApp.cpp contains the driver
-//CreateDocument contains method implementations
-//Steps:
-// 1) Create Document and add pages
-// 2) Save the document and release resources
+// Steps:
+// 1) Create the document and add pages.
+// 2) Save the document and release resources.
 //========================================================================
 
 // This agreement is between Datalogics, Inc. 101 N.Wacker Drive, Suite 1800,
@@ -68,21 +62,22 @@
 
 int main(int argc, char** argv)
 {
-    APDFLib libInit;                             //Initialize the APDFL.
-    ASErrorCode errCode = 0;                     //Error code is 0 if there were no issues. 
+    APDFLib libInit;                   //Initialize the Adobe PDF Library.
+    ASErrorCode errCode = 0;           //Variable used to report any exceptions/errors if they occured. 
 
-    if (libInit.isValid() == false)              //If there was a problem in initializing the APDFL.
-        return libInit.getInitError();           //Return the error code.
+    if (libInit.isValid() == false)    //If there was a problem in initialization, return the error code.
+        return libInit.getInitError();           
         
     DURING
 
-//==================================================================
-//Step 1) Create the document and add pages
-//==================================================================
+//=====================================================================================================================
+// Step 1: Create the document and add pages.) ASFixedRect will hold the page dimensions. 
+// Note: 72 pixels == 1 Inch
+//=====================================================================================================================
         
-        PDDoc pdDoc = PDDocCreate();  //Create the document
+        PDDoc pdDoc = PDDocCreate();    //Create a new PDF document.
 
-        //Set page dimensions for PDDoc (72 pixels in an inch)
+        //Set the dimensions for the page. In this case 8.5 x 11 inches.
         ASFixedRect mediaBox; 
         mediaBox.left = fixedZero;
         mediaBox.right = FloatToASFixed(72.0 * 8.5);
@@ -91,46 +86,46 @@ int main(int argc, char** argv)
 
         std::wcout << L"Inserting pages into Document..." << std::endl;
 
-        //Create and insert pages in newly created document
+        //Create and insert 5 pages into the PDF document.
         for (unsigned i = 0; i < PAGES_TO_INSERT; ++i)
             PDDocCreatePage(pdDoc, PDBeforeFirstPage, mediaBox);
   
-//==================================================================
-//Step 2) Save the document and release resources
-//==================================================================
+//=====================================================================================================================
+//Step 2: Save the document and release resources.) ASPathName must be created in order to call the PDDocSave method.
+//=====================================================================================================================
 
         std::wcout << L"Creating path to output file..." << std::endl;
         
-        wchar_t * nameOfOutputFile = L"out.pdf";  //Name of file being created
+        wchar_t * nameOfOutputFile = L"out.pdf";    
 
-        ASText textToCreatePath = NULL; //Text object used to create ASPathName
+        ASText textToCreatePath = NULL;    //ASText object is used to create the ASPathName object.
 
-        //Determine size of wchar_t on the system and set the ASTextObject to hold the path name for output
+        //Determine the size of wchar_t on the system, and set the ASTextObject to hold the path for the output document.
         if (sizeof(wchar_t) == 2)
             textToCreatePath = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*> (nameOfOutputFile), kUTF16HostEndian);
         else
             textToCreatePath = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(nameOfOutputFile), kUTF32HostEndian);
 
-        //Create the pathname used by PDDocSave()
+        //Create the ASPathName object from the ASText. This will be used to save the PDDoc.
         ASPathName asPathName = ASFileSysCreatePathFromDIPathText(NULL, textToCreatePath, NULL);
     
         std::wcout << L"Saving document and freeing resources..." << std::endl;
          
-        PDDocSave(pdDoc, PDSaveFull | PDSaveLinearized, asPathName, ASGetDefaultFileSys(), NULL, NULL); //Save the newly created document
+        PDDocSave(pdDoc, PDSaveFull, asPathName, ASGetDefaultFileSys(), NULL, NULL);    //Save the PDF document.
 
-        //Release text object, path and pddoc
+        //Release all objects that are still in use.
         ASTextDestroy(textToCreatePath);
         ASFileSysReleasePath(NULL, asPathName);
         PDDocClose(pdDoc);
 
     HANDLER
 
-        errCode = libInit.getInitError(); //Get the error code
+        errCode = libInit.getInitError();
 
-        libInit.displayError(errCode);    //Display any exceptions that may have occured.
+        libInit.displayError(errCode);    //If there was an error, display the error that occured.
 
     END_HANDLER
 
-    return errCode;
+    return errCode;                       //APDFLib's destructor terminates the library.
 
 }
