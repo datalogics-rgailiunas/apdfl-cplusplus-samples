@@ -66,11 +66,12 @@
 int main(int argc, char** argv)
 {
     APDFLib lib;                               //Initialize the Adobe PDF Library.
-    ASErrorCode errCode = 0;                   //Tracks thrown APDFL errors.
 
     if (lib.isValid() == false)                //Check to see if the Adobe PDF Library initialized.
         return errCode = lib.getInitError();   //If it failed, return the error code.
 
+    ASErrorCode errCode = 0;                   //Will catch error codes thrown during library usage.
+		
     DURING
 
 //==================================================================================================================================================
