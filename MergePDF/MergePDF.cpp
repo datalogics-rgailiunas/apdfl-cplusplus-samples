@@ -55,37 +55,35 @@
 
 int main()
 {
-    APDFLib libInit;                   //Initialize the APDFL
-    ASErrorCode errCode = 0;           //errCode for reporting exceptions
+    APDFLib libInit;                                               //Initialize the Adobe PDF Library.
+    ASErrorCode errCode = 0;                                       //Variable used to report any exceptions/errors if they occured.
 
-    if (libInit.isValid() == false)    //Check to see if library initialize.
-        return libInit.getInitError(); //Return error code if APDFL failed to initialize.
+    if (libInit.isValid() == false)                                //If there was a problem in initialization, return the error code.
+        return libInit.getInitError(); 
 
-    DURING  //DURING is ended by HANDLER, all APDFL calls must be made in a DURING block.
+    DURING  
 
         std::wcout << L"Opening input files..." << std::endl;
 
-        APDFLDoc doc1(L"../Input/merge1.pdf", true); //Open both of the documents that will be merged.
-        APDFLDoc doc2(L"../Input/merge2.pdf", true);
+        APDFLDoc doc1(L"../_Input/merge1.pdf", true);              //Open both of the documents that will be merged together.
+        APDFLDoc doc2(L"../_Input/merge2.pdf", true);
 
         std::wcout << L"Inserting doc2's pages into doc1..." << std::endl;
 
-        //Insert doc2's pages into doc1. If PDBeforeFirstPage is used doc2's pages will be inserted before doc1's.
+        //Insert doc2's pages into doc1. If PDBeforeFirstPage is used doc2's pages will be inserted into doc1's.
         PDDocInsertPages(doc1.getPDDoc(), PDLastPage, doc2.getPDDoc(), 0, PDAllPages, PDInsertAll, NULL, NULL, NULL, NULL);
 
         std::wcout << L"Saving the output file in the working directory..." << std::endl;
 
-        doc1.saveDoc(L"out.pdf", PDSaveFull | PDSaveLinearized); //Save the output file as out.pdf in the working directory.
+        doc1.saveDoc(L"out.pdf", PDSaveFull | PDSaveLinearized);    //Save the output file as out.pdf in the working directory.
 
-    HANDLER                             //HANDLER handles any exceptions that occur during APDFL calls.
+    HANDLER                             
 
-        errCode = ERRORCODE;            //If exception is raised set the error code.
+        errCode = ERRORCODE;
 
-        libInit.displayError(errCode);  //Print out the error that occured.
+        libInit.displayError(errCode);                              //If there was an error, display the error that occured.
 
-    END_HANDLER                         //Terminates HANDLER block.
+    END_HANDLER
 
-                                        //APDFLDoc destructor called after DURING/HANDLER blocks.
-
-    return errCode;                     //APDFLib destructor called at program end.                                  
+    return errCode;                                                 //APDFLib's destructor terminates the APDFL.                         
 }
