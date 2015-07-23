@@ -1,18 +1,22 @@
 // Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 
-//===============================================================
-// Sample: AddAttachment - Adds two attachments to a document.
+//====================================================================
+// Sample: AddAttachment - Adds two attachments to the input document.
 //
-// This sample adds to attachments to a document.
-// One by embedding it in the EmbeddedFiles name tree of
-// the document,
-// the other by embedded it into an annotation we add.
+// Note: 
+// The first attachment is embedded in the EmbeddedFiles name tree of
+// the document.
+// The second is embedded into the File Specification dictionary of
+// an annotation that will be added to the page.
 //
 //Steps:
-// 1) Create and embed an attachment to the name tree
-// 2) Create and embed an attachment to an annotation
-// 3) Save and close
-//===============================================================
+// 1) Create the first PDFileAttachment.
+// 2) Embed it to the document's name tree.
+// 3) Create the second PDFileAttachment.
+// 4) Create an annotation.
+// 5) Embed the second PDFileAttachment to the annotation.
+// 6) Save and close.
+//====================================================================
 
 // This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
@@ -59,170 +63,198 @@
 // NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
+#include <iostream>
+
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
-#include "ASExtraCalls.h"
-#include "CosCalls.h"
-#include <iostream>
-#include "PDFInit.h"
-#include "PDFLCalls.h"
-#include "PDExpT.h"
-#include "PDFInit.h"
-#include "PDFLCalls.h"
-#include "ASCalls.h"
-#include "PDCalls.h"
-#include "PERCalls.h"
-#include "PagePDECntCalls.h"
 
-//Returns a pointer to a new ASFile give a wide path.
-ASFile* openASFile(wchar_t* filepath);
+#include "CosCalls.h"
+
+//Returns a newly opened ASFile, given the file's path.
+ASFile openASFile(wchar_t* filepath);
 
 int main(int argc, char** argv)
 {
-    //Initialize the Adobe PDF Library.
-    APDFLib lib;
-    if (!lib.isValid())
-        return lib.getInitError();    //Will display the error, if any.
+    APDFLib lib;                                                 //Initialize the Adobe PDF Library.
 
+    if (lib.isValid() == false)                                  //If it failed to initialize, return the error code.
+        return lib.getInitError();
 
-    //APDFL variables
-    ASErrorCode  errCode = 0;                                   //Tracks errors.
+    wchar_t* pathAttachment1 = L"../_Input/attachment1.xlsx";    //Path to first attachment.
+    wchar_t* pathAttachment2 = L"../_Input/attachment2.docx";    //Path to second attachment.
+    wchar_t* pathInput       = L"../_Input/noattachment.pdf";    //Path to input pdf.
+    wchar_t* pathOutput      = L"attached.pdf";                  //Path to output pdf we'll create.
 
-    //Sample variables
-    wchar_t* path_attachment1 = L"../_Input/attachment1.xlsx";  //Path to attachment name tree
-    wchar_t* path_attachment2 = L"../_Input/attachment2.docx";  //Path to attachment for annotation
-    wchar_t* path_inputpdf = L"../_Input/noattachment.pdf";     //Path to input pdf
-    wchar_t* path_attached = L"attached.pdf";                   //Path to output pdf
+    ASErrorCode errCode = 0;                                     //This will catch error codes thrown during library usage.
 
     DURING
 
         std::wcout << L"Opening the input PDF." << std::endl;
-        APDFLDoc inputAPDoc(path_inputpdf,true);
-        PDDoc inputpdf = inputAPDoc.getPDDoc();
 
-//===========================================================================================
-//Step 1) Create and embed an attachment to the name tree.
-//===========================================================================================
+        APDFLDoc inputAPDoc(pathInput, true);                    //Opens the input PDF document.
+        PDDoc inputDoc = inputAPDoc.getPDDoc();                  //The input PDF's PDDoc reference.
+        CosDoc inputDocCD = PDDocGetCosDoc(inputDoc);            //The PDDoc's COS representation.
 
-        //Create PDFileAttachment 1
+//===============================================================================================================================================
+// 1) Create the first PDFileAttachment.
+//===============================================================================================================================================
+
         std::wcout << L"Opening attachment 1." << std::endl;
-        ASFile* attach1_as = openASFile(path_attachment1);
-        PDFileAttachment attach1_pfa = PDFileAttachmentNewFromFile(
-                                        PDDocGetCosDoc(inputpdf),              //The relevant pdf
-                                        *attach1_as,                           //The relevant ASFile
-                                        NULL, (ASUns32) 0,                     //No filters for the file attachment stream
-                                        CosNewNull(),                          //No filter parameters
-                                        NULL, NULL, NULL);                     //No ASProgressMonitor
 
-        ASFileClose(*attach1_as);
-        delete(attach1_as);
+        ASFile attach1ASFile = openASFile(pathAttachment1);           //Open the first file we want to attach.
 
-        //Retrieve the proper file embedding name tree
+        PDFileAttachment attach1PDFA =
+              PDFileAttachmentNewFromFile(inputDocCD,                 //The PDF the file attachment will be referenced from.
+                                          attach1ASFile,              //The file we want to attach.
+                                          NULL, 0,                    //No filters for the file attachment stream.
+                                          CosNewNull(),               //No filter parameters.
+                                          NULL, NULL, NULL);          //No progress monitoring.
+
+        CosObj attach1CO = PDFileAttachmentGetCosObj(attach1PDFA);    //Get the CosObj representation of the file attachment.
+
+        ASFileClose(attach1ASFile);                                   //Release the ASFile. We only need the PDFileAttachment object to embed.
+
+//===============================================================================================================================================
+// 2) Embed it to the document's name tree.
+//===============================================================================================================================================
+
+        std::wcout << L"Embedding it in the name tree." << std::endl;
+
+        //Retrieve the document's "EmbeddedFiles" name tree.
         //(This name tree has not yet been used, so we must "create" it)
-        PDNameTree files_tree = PDDocCreateNameTree(inputpdf,ASAtomFromString("EmbeddedFiles"));
+        PDNameTree filesTree = PDDocCreateNameTree(inputDoc, ASAtomFromString("EmbeddedFiles"));
 
-        //Embed the attachment in the name tree
-        std::wcout << L"Placing it in the name tree." << std::endl;
-        PDNameTreePut(
-            files_tree,                                        //The tree to put it in
-            CosNewString(PDDocGetCosDoc(inputpdf),             //The KEY (totally arbitrary)
-                         true,"TheSpreadsheet",14),
-            PDFileAttachmentGetCosObj(attach1_pfa));           //The VALUE: the attachment's file specification
+        //The KEY to add to the inputDocCD CosDoc. Totally arbitrary.
+        CosObj EmbedKey = CosNewString(inputDocCD, true, "TheSpreadsheet", 14);
 
+        //Adding a key/value pair to the EmbeddedFiles name tree, where the value is
+        //a CosObj of a PDFileAttachment, embeds the file in the PDDoc.
+        PDNameTreePut(filesTree,     //The tree to add the Key/Value pair to.
+                      EmbedKey,      //the KEY.
+                      attach1CO);    //The VALUE: the attachment's file specification
 
-//===========================================================================================
-//Step 2) Create and embed an attachment to an annotation
-//===========================================================================================
+        std::wcout << L"Success." << std::endl;
 
-        //Create PDFileAttachment 2
+//===============================================================================================================================================
+// 3) Create the second PDFileAttachment.
+//===============================================================================================================================================
+
         std::wcout << L"Opening attachment 2." << std::endl;
-        ASFile* attach2_as = openASFile(path_attachment2);
-        PDFileAttachment attach2_pfa = PDFileAttachmentNewFromFile(
-                                        PDDocGetCosDoc(inputpdf),              //The relevant pdf
-                                        *attach2_as,                           //The relevant ASFile
-                                        NULL, (ASUns32)0,                      //No filters for the file attachment stream
-                                        CosNewNull(),                          //No filter parameters
-                                        NULL, NULL, NULL);                     //No ASProgressMonitor
 
-        ASFileClose(*attach2_as);
-        delete(attach2_as);
+        ASFile attach2ASFile = openASFile(pathAttachment2);           //Open the second file we want to attach.
 
-        //Create the annotation
-        std::wcout << L"Embedding it through an annotation." << std::endl;
-
-        //This rect determines the annotation's placement on the page
-        ASFixedRect annot_location;
-        annot_location.left   = Int16ToFixed(2.50 * 72);
-        annot_location.right  = Int16ToFixed(3.00 * 72);
-        annot_location.top    = Int16ToFixed(8.40 * 72);
-        annot_location.bottom = Int16ToFixed(8.90 * 72);
-
-        PDPage page1 = PDDocAcquirePage(inputpdf, (ASInt32)0);
-        PDAnnot attachment_annot = PDPageCreateAnnot(page1,ASAtomFromString("FileAttachment"), &annot_location);
-        CosDictPutKeyString(                                   //Embed the file specification into the annotation's cos dictionary.
-            PDAnnotGetCosObj(attachment_annot),                //The dictionary we want to edit
-            "FS",                                              //The KEY for the dictionary: we're editing the File Specification
-            PDFileAttachmentGetCosObj(attach2_pfa));           //The VALUE for the dictionary: The file spec we want the annot to open
-
-        PDPageAddAnnot(page1,(ASInt32)-2,attachment_annot);    //Add the annotation as the first annotation on the page
+        PDFileAttachment attach2PDFA =
+            PDFileAttachmentNewFromFile(inputDocCD,                   //The PDDoc CosDict that the file attachment will be referenced from.
+                                        attach2ASFile,                //The file we want to attach.
+                                        NULL, 0,                      //No filters for the file attachment stream.
+                                        CosNewNull(),                 //No filter parameters.
+                                        NULL, NULL, NULL);            //No progress monitoring.
 
 
-//===========================================================================================
-//Step 3) Save and close
-//===========================================================================================
+        CosObj attach2CO = PDFileAttachmentGetCosObj(attach2PDFA);    //Get the CosObject representation of the file attachment.
 
-        std::wcout << L"All embeddings successful. Saving the output document." << std::endl;
+        ASFileClose(attach2ASFile);                                   //Release the ASFile. We only need the PDFileAttachment CosObject to embed.
 
-        PDPageRelease(page1);
+//===============================================================================================================================================
+// 4) Create an annotation.
+//===============================================================================================================================================
 
-        inputAPDoc.saveDoc(path_attached, PDDocNeedsSave | PDDocIsOpen | PDSaveCopy);
+        std::wcout << L"Creating an annotation for it." << std::endl;
 
-        std::wcout << L"The document was saved." << std::endl;
+        //This rectangle determines the annotation's placement on the page.
+        ASFixedRect annotLocation;
+        annotLocation.left   = ASFloatToFixed(2.50 * 72);                           //There are 72 pixels per inch.
+        annotLocation.right  = ASFloatToFixed(3.00 * 72);
+        annotLocation.top    = ASFloatToFixed(8.40 * 72);
+        annotLocation.bottom = ASFloatToFixed(8.90 * 72);
+
+        PDPage page1 = PDDocAcquirePage(inputDoc, 0);                               //The annotation will go on page 1.
+
+        //This method just creates an annotation.
+        PDAnnot newAnnot = PDPageCreateAnnot(page1,                                 //The page the annotation will go on.
+                                             ASAtomFromString("FileAttachment"),    //The type of annotation we're creating.
+                                             &annotLocation);                       //The annotation's location on the page.
+
+        //This method actually adds the annotation to the page.
+        PDPageAddAnnot(page1, -2, newAnnot);                                        //Add the annotation as the first annotation on the page.
+
+        CosObj newAnnotCO = PDAnnotGetCosObj(newAnnot);                             //The annotation's CosObject representation.
+
+//===============================================================================================================================================
+// 5) Embed the second PDFileAttachment to the annotation.
+//===============================================================================================================================================
+
+        std::wcout << L"Embedding the attachment in the annotation." << std::endl;
+
+        //Like embedding to a PDDoc's name tree, adding a key/Value pair to
+        //the annotation's CosDict, where the key is "FS" (the File Specification key)
+        //and the value is the a PDFileAttachment cos object, will embed the file to
+        //the annotation.
+        CosDictPutKeyString(newAnnotCO,                    //The dictionary we want to add to.
+                            "FS",                          //The KEY: we're changing the File Specification.
+                            attach2CO);                    //The VALUE: The file spec we want the annot to open
+
+//===============================================================================================================================================
+// 6) Save and close.
+//===============================================================================================================================================
+
+        std::wcout << L"Success." << std::endl; 
+        std::wcout << L"Saving the output document." << std::endl;
+
+        PDPageRelease(page1);                              //PDPages must be released before closing the document.
+        inputAPDoc.saveDoc(pathOutput);                    //inputAPDoc's destructor will close the document.
+
+        std::wcout << L"Success." << std::endl;
 
     HANDLER
 
         errCode = ERRORCODE;
+        lib.displayError(errCode);                         //If there was an error, display it.
 
     END_HANDLER
 
-    if (errCode) lib.displayError(errCode);    //If there was an error, display it
-    return errCode;                            //End. lib's destructor terminates the library.
+    return errCode;                                        //lib's destructor terminates the library.
 };
 
-//====================================================
-//Returns a pointer to a new ASFile give a wide path.
-//====================================================
-ASFile* openASFile(wchar_t* filepath){
-    ASErrorCode errCode = 0;          //Tracks errors
-    ASFile* file = new ASFile();      //The file we want to open
-    ASText pathText = NULL;
-    ASPathName aspfilepath = NULL;    //Filepath of the document
-
-    //Compute host's unicode format
-    ASUnicodeFormat hostUniFormat;
-    if (sizeof(wchar_t) == 2)
-        hostUniFormat = kUTF16HostEndian;
-    else
-        hostUniFormat = kUTF32HostEndian;
+//===============================================================================================================================================
+//ASFile function: Returns a newly opened ASFile, given the file's path.
+//===============================================================================================================================================
+ASFile openASFile(wchar_t* filepath)
+{
+    ASFile file = NULL;            //The file we want to open.
+    ASText pathText = NULL;        //ASText object of its filepath.
+    ASPathName pathName = NULL;    //ASPathName of its filepath.
 
     DURING
 
-        pathText = ASTextFromUnicode((ASUTF16Val *)filepath, hostUniFormat);
-        aspfilepath = ASFileSysCreatePathFromDIPathText(NULL, pathText, NULL);
-        errCode = ASFileSysOpenFile(ASGetDefaultFileSys(),    //ASFileSys
-                                    aspfilepath,              //ASPathName
-                                    ASFILE_READ,              //ASFileMode
-                                    file);                    //ASFile*, filled by ASFileSysOpenFile
+        //Compute the host's unicode format.
+        ASUnicodeFormat hostUniFormat;
+        if (sizeof(wchar_t) == 2)
+            hostUniFormat = kUTF16HostEndian;
+        else
+            hostUniFormat = kUTF32HostEndian;
 
-    ASTextDestroy(pathText);
-    ASFileSysReleasePath(ASGetDefaultFileSys(), aspfilepath);
+        //Create the file path name to open the file.
+        pathText = ASTextFromUnicode((ASUTF16Val *)filepath, hostUniFormat);
+        pathName = ASFileSysCreatePathFromDIPathText(NULL, pathText, NULL);
+
+        //Open the file.
+        ASErrorCode openErr = ASFileSysOpenFile(ASGetDefaultFileSys(),    //The file system from which the pathname was obtained.
+                                                pathName,                 //The ASPathName of the file's path.
+                                                ASFILE_READ,              //The mode we want to process the file with.
+                                                &file);                   //File will be opened to this object.
+
+        //Release resources.
+        ASTextDestroy(pathText);
+        ASFileSysReleasePath(ASGetDefaultFileSys(), pathName);
+
+        if (openErr) ASRaise(openErr);                                    //If there was an error opening the file, throw it.
 
     HANDLER
-        RERAISE();
-    END_HANDLER
 
-    if (errCode)
-        ASRaise(errCode);
+        ASRaise(ERRORCODE);                                               //If there was some other error, throw it.
+
+    END_HANDLER
 
     return file;
 };
