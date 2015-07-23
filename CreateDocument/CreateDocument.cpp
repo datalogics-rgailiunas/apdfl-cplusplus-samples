@@ -71,7 +71,7 @@ int main(int argc, char** argv)
     DURING
 
 //=====================================================================================================================
-// Step 1: Create the document and add pages.) ASFixedRect will hold the page dimensions. 
+// Step 1: Create the document and add pages. ASFixedRect will hold the page dimensions. 
 // Note: 72 pixels == 1 Inch
 //=====================================================================================================================
         
@@ -91,7 +91,7 @@ int main(int argc, char** argv)
             PDDocCreatePage(pdDoc, PDBeforeFirstPage, mediaBox);
   
 //=====================================================================================================================
-//Step 2: Save the document and release resources.) ASPathName must be created in order to call the PDDocSave method.
+//Step 2: Save the document and release resources. ASPathName must be created in order to call the PDDocSave method.
 //=====================================================================================================================
 
         std::wcout << L"Creating path to output file..." << std::endl;
