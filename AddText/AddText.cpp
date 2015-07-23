@@ -79,7 +79,7 @@ int main(int argc, char** argv)
     DURING
 
 //============================================================================================================
-// Step 1: Create a document.) Insert and acquire a page from the document. PDEContent is then acquired from
+// Step 1: Create a document. Insert and acquire a page from the document. PDEContent is then acquired from
 // the page. A PDEText object will later be added to this content.
 //============================================================================================================
 
@@ -95,7 +95,7 @@ int main(int argc, char** argv)
         PDEContent content = PDPageAcquirePDEContent(page, NULL);
 
 //============================================================================================================
-// Step 2: Create a PDEFont object.) The PDEFont object is created from a PDSysFont object which contains
+// Step 2: Create a PDEFont object. The PDEFont object is created from a PDSysFont object which contains
 // attributes such as font name and type.
 //============================================================================================================
 
@@ -113,7 +113,7 @@ int main(int argc, char** argv)
         PDEFont pdeFont = PDEFontCreateFromSysFont(sysFont, kPDEFontCreateEmbedded);
 
 //============================================================================================================
-// Step 3: Set the graphic state.) The graphics state must be set for all PDE objects that will be displayed
+// Step 3: Set the graphic state. The graphics state must be set for all PDE objects that will be displayed
 // on a PDPage. This object is used to set information about colors, colorspace, linewidth, etc. In this sample
 // we set the values to default because it is simple text placement.
 //============================================================================================================
@@ -135,7 +135,7 @@ int main(int argc, char** argv)
         PDETextState tState;                           //Text state may be adjusted for character spacing, etc. Using default values in this sample.
 
 //============================================================================================================
-// Step 4: Create the PDEText object and add it to the PDEContent object.) The information we set in steps 2
+// Step 4: Create the PDEText object and add it to the PDEContent object. The information we set in steps 2
 // and 3 are added to the PDEText and then the PDEText is added to the PDEContent.
 //============================================================================================================
 
@@ -159,7 +159,7 @@ int main(int argc, char** argv)
         PDPageSetPDEContentCanRaise(page, NULL);                                             //Set the content back into the page.
 
 //============================================================================================================
-// Step 5: Save the output document.) Release any resources that are still in use, save the document and exit
+// Step 5: Save the output document. Release any resources that are still in use, save the document and exit
 // the program.
 //============================================================================================================
 
