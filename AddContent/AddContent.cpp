@@ -1,7 +1,7 @@
-﻿//# Copyright (c) 2015, Datalogics, Inc. All rights reserved.
+﻿// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
 //====================================================================================
-// Sample: AddContent - This samples opens a file called AddContent.pdf in the source 
+// Sample: AddContent - This samples opens a file called AddContent.pdf in the input 
 //                      directory. It adds several different elements to the page and 
 //                      saves it as AddedContent.pdf.
 //      
@@ -88,23 +88,17 @@ int main(int argc, char** argv)
 //================================================================================================================================================
 
         PDEFontAttrs attrs;                                                                   //Structure holding the attributes of a PDEFont.
-
         PDEFont verdanaFont = NULL;                                                           //Font element that will represent the font Verdana.
-
-        //Clear out PDEFontAttrs struct.
-        memset(&attrs, 0, sizeof(attrs));                                                     
-           
-        //Set font attribute's name.
-        attrs.name = ASAtomFromString("Verdana");                                             
        
-        //Set font attribute's type.
-        attrs.type = ASAtomFromString("TrueType");                                            
+        memset(&attrs, 0, sizeof(attrs));                                                     //Clear out PDEFontAttrs struct.                                                                     
+        attrs.name = ASAtomFromString("Verdana");                                             //Set font attribute's name.                                                          
+        attrs.type = ASAtomFromString("TrueType");                                            //Set font attribute's type.                                         
        
         PDSysFont sysFont = PDFindSysFont(&attrs, sizeof(attrs), kPDSysFontMatchFontType);    //Get the corresponding system font.
           
         PDSysFontGetAttrs(sysFont, &attrs, sizeof(PDEFontAttrs));                             //Get font embedding policy. 
 
-        //Check if font is embeddable 
+                                                                                              //Check if font is embeddable. 
         if (attrs.cantEmbed != 0)
             std::wcerr << L"Font " << ASAtomGetString(attrs.name) << L" can not be embedded";
         else
@@ -153,8 +147,8 @@ int main(int argc, char** argv)
 
         std::wcout << L"Created text object for display. " << std::endl;
 
-        //Call to PathRect() function to designa blue rectangle, passing in xPosition, yPosition, width, height, lineWidth, RGB color values.
-        PDEPath rect = PathRect(3 * ASFloatToFixed(72), 4 * ASFloatToFixed(72), ASFloatToFixed(72 * 2), ASFloatToFixed(72 * 2), 46, 0, 0, 1);
+        //Call to PathRect() function to design a blue rectangle, passing in xPosition, yPosition, width, height, lineWidth, RGB color values.
+        PDEPath rect = PathRect(ASFloatToFixed(72 * 3.25), ASInt32ToFixed(72 * 4), ASInt32ToFixed(72 * 2), ASInt32ToFixed(72 * 2), 46, 0, 0, 1);
 
         std::wcout << L"Created PDEPath in the form of a rectangle. " << std::endl;
 
@@ -162,23 +156,23 @@ int main(int argc, char** argv)
 //Step 3) Acquire PDEContent and add elements to the page.           
 //================================================================================================================================================
 
-        PDPage pdPage = PDDocAcquirePage(document.pdDoc, 0);           //Get the page.
+        PDPage pdPage = PDDocAcquirePage(document.pdDoc, 0);                      //Get the page.
 
-        PDEContent pdeContent = PDPageAcquirePDEContent(pdPage, 0);    //Get the page's content.
+        PDEContent pdeContent = PDPageAcquirePDEContent(pdPage, 0);               //Get the page's content.
     
-        //Add the rectangle to the page content. 
+                                                                                  //Add the rectangle to the page content. 
         PDEContentAddElem(pdeContent, kPDEAfterLast, (PDEElement)rect);                          
-  
-        //Add the text into page content.
+   
+                                                                                  //Add the text into page content.
         PDEContentAddElem(pdeContent, kPDEAfterLast, (PDEElement)pdeText);
 
         std::wcout << L"Added all Elements" << std::endl;
   
-        //Set the content ack into the page
-        PDPageSetPDEContentCanRaise(pdPage, NULL);                                               
+                                                                                 
+        PDPageSetPDEContentCanRaise(pdPage, NULL);                                //Set the content ack into the page              
 
-        //Save the document with proper save flags.
-        document.saveDoc(L"AddedContent.pdf", PDSaveFull | PDSaveLinearized);  
+                                                                                  
+        document.saveDoc(L"AddedContent.pdf", PDSaveFull | PDSaveLinearized);     //Save the document with proper save flags.
 
         //Release all objects
         PDPageReleasePDEContent(pdPage, NULL);
@@ -186,18 +180,18 @@ int main(int argc, char** argv)
         PDERelease((PDEObject)pdeText);
         PDERelease((PDEObject)rect);
         PDERelease((PDEObject)verdanaFont);
-        PDERelease(reinterpret_cast<PDEObject>(gState.strokeColorSpec.space));
+        PDERelease(reinterpret_cast<PDEObject>(gState.strokeColorSpec.space));    
         PDERelease(reinterpret_cast<PDEObject>(gState.fillColorSpec.space));
     
     HANDLER
         
         errCode = ERRORCODE;   
 
-        libInit.displayError(errCode);    //If there was an error, display it.
+        libInit.displayError(errCode);                                            //If there was an error, display it.
         
     END_HANDLER
 
-    //Return program status.
+                                                                                  //Return program status.
     return errCode;         
 
 }
@@ -207,15 +201,16 @@ int main(int argc, char** argv)
 //================================================================================================================================================
 PDEPath PathRect(ASFixed  x, ASFixed  y, ASFixed  width, ASFixed  height, int  lineWidth, int  r, int  g, int  b)
 {
-    PDEPath rectangle = PDEPathCreate();         //Create the PDEPath object that will be used to draw a rectangle.
 
-    //Set the paint operation to Stroke for the path.
-    PDEPathSetPaintOp(rectangle, kPDEStroke);    
+    //Create the PDEPath object that will be used to draw a rectangle.
+    PDEPath rectangle = PDEPathCreate();                                        
+                                                                       
+    PDEPathSetPaintOp(rectangle, kPDEStroke);                                           //Set the paint operation to Stroke for the path.
 
-    PDEGraphicState gState;                      //Graphics state holding the vewiable attributes of the rectangle.
-    PDEColorSpec strokeClrSpec;                  //Structure describing stroke specifications
-    PDEColorSpace clrSpace;                      //The used color scheme.
-    PDEColorValue strokeClrValue;                //Structure describing stroke color values
+    PDEGraphicState gState;                                                             //Holds the vewiable attributes of the rectangle.
+    PDEColorSpec strokeClrSpec;                                                         //Structure describing stroke specifications.
+    PDEColorSpace clrSpace;                                                             //The used color scheme.
+    PDEColorValue strokeClrValue;                                                       //Structure describing stroke color values
 
     memset(&strokeClrValue, 0, sizeof (PDEColorValue));
 
@@ -249,12 +244,10 @@ PDEPath PathRect(ASFixed  x, ASFixed  y, ASFixed  width, ASFixed  height, int  l
     pathData[3] = width;
     pathData[4] = height;
  
-    //Assign the pathData to the path to form rectangle.
-    PDEPathSetData(rectangle, pathData, sizeof (pathData));
-  
-    //Released objects.
-    PDERelease((PDEObject)clrSpace); 
-
-    //Return the rectangle.
-    return rectangle;
+                                                                                      
+    PDEPathSetData(rectangle, pathData, sizeof (pathData));                             //Assign the pathData to the path to form rectangle.
+                                                                                       
+    PDERelease((PDEObject)clrSpace);                                                    //Released objects.
+                                                                                     
+    return rectangle;                                                                   //Return the rectangle.
 }
