@@ -1,7 +1,7 @@
 ﻿// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 
 //===============================================================================
-//Sample: APDFLDoc -This class is intended to assist with opeations common to 
+//Sample: APDFLDoc -This class is intended to assist with operations common to 
 //most samples. The class is capable of opening/creating and saving a document.
 //It can also insert and retrieve pages.
 //
@@ -9,7 +9,6 @@
 //APDFLDoc.h: Contains class definition.
 //===============================================================================
 
-// Sample placeText/ Places text onto a pdf
 // This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
 // source code examples for integrating to the Adobe PDF Library

@@ -1,7 +1,7 @@
 ﻿// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 
 //===============================================================================
-//Sample: APDFLDoc -This class is intended to assist with opeations common to 
+//Sample: APDFLDoc -This class is intended to assist with operations common to 
 //most samples. The class is capable of opening/creating and saving a document.
 //It can also insert and retrieve pages.
 //
