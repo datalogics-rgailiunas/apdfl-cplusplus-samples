@@ -1,5 +1,5 @@
 ﻿// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
-//
+
 //====================================================================================
 // Sample: AddContent - This samples opens a file called AddContent.pdf in the input 
 //                      directory. It adds several different elements to the page and 
@@ -10,7 +10,7 @@
 //  2) Set up the content to be added to the document.
 //  3) Acquire PDEContent and add elements to the page.       
 //====================================================================================
-//
+
 // This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
 // source code examples for integrating to the Adobe PDF Library
