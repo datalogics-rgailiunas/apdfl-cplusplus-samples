@@ -1,13 +1,16 @@
-//# Copyright(c) 2015, Datalogics, Inc.All rights reserved.
+// Copyright(c) 2015, Datalogics, Inc.All rights reserved.
 
-//************************************************************************
+//=================================================================================
 // Sample: WebOptimizedPDF - Takes a non web optimized document as input and
 // converts it into a web optimized document.
 //
-// Note: This program opens one file nonweboptimized.pdf in the ../Input directory
-// it optimizes the document and saves it in the working directory
+// Note: This program opens the file "nonweboptimized.pdf" in the ../Input directory,
+// optimizes the document, and saves it in the working directory.
 //
-//************************************************************************
+//Steps:
+// 1) Open the input document.
+// 2) Save it as a web-optimized document.
+//=================================================================================
 
 // This agreement is between Datalogics, Inc. 101 N.Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
@@ -18,7 +21,7 @@
 // LICENSE
 // -------
 // Datalogics hereby grants you a royalty - free, non - exclusive license to
-// download and use the Example Code for any lawful purpose.There is no charge
+// download and use the Example Code for any lawful purpose. There is no charge
 // for use of Example Code.
 //
 // OWNERSHIP
@@ -60,17 +63,18 @@
 
 int main(int argc, char** argv)
 {
-    APDFLib libInit;                        //Initialize the APDFL
-    ASErrorCode errCode = 0;                //Set return value to 0        
+    APDFLib lib;                               //Initialize the Adobe PDF Library.
 
-    if (libInit.isValid() == false)         //Test to see if initialization succeeded
-       return libInit.getInitError();   //Set the error code if there was an error/exception
+    if (lib.isValid() == false)                //Check to see if the Adobe PDF Library initialized.
+        lib.getInitError();   //If it failed, return the error code.
+
+    ASErrorCode errCode = 0;                   //Will catch error codes thrown during library usage.
 
     DURING
 
         PDDoc pdDoc = NULL;                                             //Declare pdDoc used for opening and saving the non web optimized PDF as web optimized
 
-        wchar_t * inputPathName = L"../_Input/NonLinearized.pdf";   //Variables holding the input/output file names
+        wchar_t * inputPathName  = L"../_Input/NonLinearized.pdf";   //Variables holding the input/output file names
         wchar_t * outputPathName = L"WebOptimized.pdf";
 
         ASPathName asPathNameInputFile = NULL;                          //ASPathNames used by PDDocOpen()
@@ -122,13 +126,12 @@ int main(int argc, char** argv)
 
     HANDLER
 
-        errCode = ERRORCODE;           //Get the error code for any exceptions that happened.
-
-        libInit.displayError(errCode); //Display any exceptions that may have occured.
+        errCode = ERRORCODE;
+        lib.displayError(errCode);                                                                   //If there was an error, display it.
 
     END_HANDLER
 
     std::wcout << L"Document has been closed. " << std::endl;
 
-    return (errCode);
+    return (errCode);                                                                           //lib's destructor terminates the library.
 }
