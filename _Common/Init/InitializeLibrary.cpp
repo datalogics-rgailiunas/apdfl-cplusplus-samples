@@ -1,8 +1,13 @@
 // Copyright(c) 2015, Datalogics, Inc.All rights reserved.
 
-//=========================================================================
-// Sample: Initialize - Initializes the APDFLibrary.
-//=========================================================================
+//========================================================================
+// Sample - Initialize: This class defines an object used for the
+// initialization and termination of the Adobe PDF Library. It will also
+// report initialization errors.
+//
+// InitializeLibrary.cpp: Contains the method implementations.
+// InitializeLibrary.h: Contains the class definition.
+//========================================================================
 
 // This agreement is between Datalogics, Inc. 101 N.Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
@@ -51,30 +56,31 @@
 
 #include "InitializeLibrary.h"
 
-//====================================================
-//Sets the PDFLDataRec and initializes the library 
-//with that data.
-//====================================================
+//========================================================================================================
+//Constructor:
+//Sets the PDFLDataRec and initializes the library with that data.
+//========================================================================================================
 APDFLib::APDFLib()
 {
-    initValid = false;
+    initValid = false;                            //Whether the initialization succeeded.
 
-    memset(&pdflData, 0, sizeof(PDFLDataRec));
+    memset(&pdflData, 0, sizeof(PDFLDataRec));    //Clear the data struct so we can set its data.
 
-    pdflData.size = sizeof(PDFLDataRec);
-    pdflData.allocator = NULL;          //Use default memory allocation procedures.
-    fillDirectories();                  //Sets the PDFLData datamember prior to calling PDFLInitHFT()
+	//Set PDFLDataRec's data.
+    pdflData.size = sizeof(PDFLDataRec);          //Give it its size.
+    pdflData.allocator = NULL;                    //Use default memory allocation procedures.
+    fillDirectories();                            //Set the directory inclusion data.
 
-    initError = PDFLInitHFT(&pdflData); //Initialize the library
+    initError = PDFLInitHFT(&pdflData);           //Initialize the library.
 
-    if (initError == 0)                 //If initError is 0, initialization success
+    if (initError == 0)                           //If initError is 0, initialization succeeded.
         initValid = true;              
 }
 
-//====================================================
-//Reports whether an error happened and returns that 
-//error.
-//====================================================
+//========================================================================================================
+//ASInt32 function:
+//Reports whether an error happened during initialization and returns that error.
+//========================================================================================================
 ASInt32 APDFLib::getInitError()
 {
     if (initValid == false)
@@ -88,34 +94,37 @@ ASInt32 APDFLib::getInitError()
     return initError;
 }
 
-//====================================================
+//========================================================================================================
+//Void function:
 //Sets directory information for our PDFLDataRec.
-//====================================================
+//========================================================================================================
 void APDFLib::fillDirectories()
 {
+	//Set the font directory list and its length.
     fontDirList[0] = (ASUTF16Val*)L"..\\..\\..\\APDFL\\Resource\\Font";
     fontDirList[1] = (ASUTF16Val*)L"..\\..\\..\\APDFL\\Resource\\CMap";
     pdflData.dirList = fontDirList;
     pdflData.listLen = NUM_FONTS;
 
-
+	//Set the color profile directory list and its length.
     colorProfDirList[0] = (ASUTF16Val*)L"..\\..\\..\\APDFL\\Resource\\Color\\Profiles";
     pdflData.colorProfileDirList = colorProfDirList;
     pdflData.colorProfileDirListLen = NUM_COLOR_PROFS;
 
-
+	//Set the Unicode directory.
     pdflData.cMapDirectory = fontDirList[1];
     pdflData.unicodeDirectory = (ASUTF16Val*)L"..\\..\\..\\APDFL\\Resource\\Unicode";
 
-
+	//Set the plugin directory and its length.
     pluginDirList[0] = (ASUTF16Val*)L"..\\..\\..\\APDFL\\Libs";
     pdflData.pluginDirList = pluginDirList;
     pdflData.pluginDirListLen = NUM_PLUGIN_DIRS;
 }
 
-//====================================================
-//Utility method, may be used to report errors.
-//====================================================
+//========================================================================================================
+//Void function:
+//Utility method, may be used to print APDFL errors to the terminal.
+//========================================================================================================
 void APDFLib::displayError(ASErrorCode errCode)
 {
     if (errCode == 0) return;
@@ -124,9 +133,10 @@ void APDFLib::displayError(ASErrorCode errCode)
     std::fprintf(stderr, "[Error %ld] %s\n", errCode, ASGetErrorString(errCode, errStr, sizeof(errStr)));
 }
 
-//====================================================
-//Destructor terminates the library when program ends.
-//====================================================
+//========================================================================================================
+//Destructor:
+//Terminates the library when program ends.
+//========================================================================================================
 APDFLib::~APDFLib()
 {
     PDFLTermHFT();
