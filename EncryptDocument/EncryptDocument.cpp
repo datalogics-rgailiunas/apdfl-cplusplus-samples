@@ -1,15 +1,14 @@
 // Copyright (c) 2015, Datalogics, Inc. All rights reserved.
-//
-//******************************************************************************
+
+//==============================================================================
 // Sample: EncryptDocument - Encrypting and saving an existing document
 //
 // Steps: 
-//  1) Set up input path and open input document 
-//  2) Create new security data, set with a user password for
-//        encryption using the RC4 algorithm 
-//  3) Save and close the document
-//******************************************************************************
-//
+//  1) Create new security data, set with a user password for encryption using 
+//     the RC4 algorithm.
+//  2) Set the encrptyion method to the document, save and exit   
+//==============================================================================
+
 // This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
 // source code examples for integrating to the Adobe PDF Library
@@ -55,105 +54,86 @@
 // NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
-
+#include <iostream>
 #include "ASExtraCalls.h"
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
-#include <iostream>
 
 int main(int argv, char** argc)
 {
 
-    APDFLib libInit;                      //Initialize the APDFL.
-    ASErrorCode errCode = 0;              //Error code initially is 0.
+    APDFLib libInit;                      //Initialize the Adobe PDF Library.
+    ASErrorCode errCode = 0;              //Variable used to report any exceptions/errors if they occured.
 
-    if (libInit.isValid() == false)       //Check for errors in initialization.
-        return libInit.getInitError();    //If there was an error return the code.
+    if (libInit.isValid() == false)       //Check for errors upon initialization.
+        return libInit.getInitError();    //If initialization failed, return the error code.
 
-    DURING
-                        
-//=================================================================================================================
-// Step 1) Set up input path and open input document              
-//=================================================================================================================
+    DURING                        
 
-        APDFLDoc document(L"../Input/toBeEncrypted.pdf", true);    //Open a document and repair if damaged
+        //Open input document with path and repair if damaged.
+        APDFLDoc document(L"../Input/toBeEncrypted.pdf", true);    
 
         std::wcout << L"Input document successfully opened. " << std::endl;
 
-//=================================================================================================================
-// Step 2) Create new security data, set with a user password for encryption using the RC4 algorithm              
-//=================================================================================================================
-
-        PDDoc inDoc = document.getPDDoc();
+//=======================================================================================================================================
+// Step 1) Create new security data, set with a user password for encryption using the RC4 algorithm.
+//
+// Note: Encrytpion can be set from among 4 different types.
+//       2 = CF_METHOD_RC4_V2 - RC4 algorithm.
+//       5 = CF_METHOD_AES_V1 - AES algorithm with a zero initialization vector.
+//       6 = CF_METHOD_AES_V2 - AES algorithm with a 16 byte random initialization vector.
+//       7 = CF_METHOD_AES_V3 - AES algorithm with a 4 byte random initialization vector.
+//=======================================================================================================================================
 
         //Sets specified document’s new security handler
-        PDDocSetNewCryptHandler(inDoc, ASAtomFromString("Standard"));
+        PDDocSetNewCryptHandler(document.pdDoc, ASAtomFromString("Standard"));
         
         //Declare a structure describing the data for the standard security handler
-        StdSecurityData securityData = (StdSecurityData)PDDocNewSecurityData(inDoc);
-       
-        //Set the size
-        securityData->size = sizeof(StdSecurityDataRec);
+        StdSecurityData securityData = (StdSecurityData)PDDocNewSecurityData(document.pdDoc);
+              
+        securityData->size = sizeof(StdSecurityDataRec);    //Set the size of the structure       
+                                                            
+        securityData->hasUserPW = true;                     //If there is a user password
+                                                            
+        securityData->newUserPW = true;                     //If the user password should be changed
+                                                           
+        strcpy(securityData->userPW, "myPass");             //Set the user password
+                                                            
+        securityData->hasOwnerPW = false;                   //If there is a owner password
+                                                           
+        securityData->newOwnerPW = false;                   //If the owner password should be changed        
+                                                            
+        strcpy(securityData->ownerPW, "");                  //Set the password
+                                                           
+        securityData->perms = pdPermUser;                   //Permissions flags to allow
+                                            
+        securityData->keyLength = 16;                       //Password key's length
         
-        //If there is a user password
-        securityData->hasUserPW = true;
+        securityData->encryptMethod = 2;                    //Set the encryption method to the RC4 algorithm
 
-        //If the user password should be changed
-        securityData->newUserPW = true;
-
-        //Set the user password
-        strcpy(securityData->userPW, "myPass");
-
-        //If there is a owner password
-        securityData->hasOwnerPW = false;
-
-        //If the owner password should be changed
-        securityData->newOwnerPW = false;
+//=======================================================================================================================================
+// Step 2) Set the encrptyion method to the document, save and exit                      
+//=======================================================================================================================================
+              
+        PDDocSetNewSecurityData(document.pdDoc, securityData);                     //Set the security data to the document. 
         
-        //Set the password
-        strcpy(securityData->ownerPW, "");   
+        PDDocSetFlags(document.pdDoc, PDDocRequiresFullSave);                      //Changing the document security requires a full save.
+      
+        ASfree(securityData);                                                      //Release object no longer in use
+        
+        document.saveDoc(L"encrypted.pdf", PDSaveFull | PDSaveLinearized);         //Save the document.
 
-        //Permissions flags to allow
-        securityData->perms = pdPermUser;
-
-        //Password key's length
-        securityData->keyLength = 16;
-
-        //Set the encryption method
-        //2 = CF_METHOD_RC4_V2 - RC4 algorithm
-        //5 = CF_METHOD_AES_V1 - AES algorithm with a zero initialization vector
-        //6 = CF_METHOD_AES_V2 - AES algorithm with a 16 byte random initialization vector
-        //7 = CF_METHOD_AES_V3 - AES algorithm with a 4 byte random initialization vector
-        securityData->encryptMethod = 2;
-
-        //Set this security data to the document 
-        PDDocSetNewSecurityData(inDoc, (void*)securityData);
-
-        //Changing the document security requires a full save.
-        PDDocSetFlags(inDoc, PDDocRequiresFullSave);
-
-        //Release object no longer in use
-        ASfree(securityData);     
-
-//=================================================================================================================
-// Step 3) Save and close the document                       
-//=================================================================================================================
-
-        //Save the document
-        document.saveDoc(L"encrypted.pdf", PDSaveFull | PDSaveLinearized); 
-
-        //Check if the document has an encryption set. 
-        if (PDDocGetCryptHandler(inDoc))    std::wcout << L"encrypted.pdf saved with encryption." << std::endl << std::endl;
+        //Check if the document has an encryption set.                                                                            
+        if (PDDocGetCryptHandler(document.pdDoc))                                  
+            std::wcout << L"encrypted.pdf saved with encryption." << std::endl;
     
     HANDLER
 
-        //If an exception was raised generate error code
         errCode = ERRORCODE;
-
-        //Display the error code
-        libInit.displayError(errCode); 
+        
+        libInit.displayError(errCode);                                             //If there was an error, display it.
 
     END_HANDLER
 
-    return errCode;
+    return errCode;                                                                //Return program status.
 }
