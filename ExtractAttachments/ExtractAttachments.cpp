@@ -1,17 +1,16 @@
 // Copyright (c) 2015, Datalogics, Inc. All rights reserved.
-//
+
 //=============================================================================================
 // Sample: ExtractAttachments - Opens a file called extractFrom.pdf in the
-//         Input folder. It adds an looks at the nametree and annotations to extract
-//         and save the attachments as their own files
+//         Input folder. It looks at the nametree and annotations to extract
+//         and save the attachments out as individual files
 //
 // Steps:
-//  1) Set up path and open input document.
-//  2) Iterate through the annotations in a page to extract and save embedded files within it.
-//  3) Iterate through the nametree to extract and save embedded files within it.
-//  4) Display errors and exit
+//  1) Iterate through the annotations in a page to extract and save embedded files within it.
+//  2) Iterate through the nametree to extract and save embedded files within it.
+//  3) Display errors and exit
 //=============================================================================================
-//
+
 // This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
 // source code examples for integrating to the Adobe PDF Library
@@ -64,7 +63,7 @@
 #include "APDFLDoc.h"
 #include <iostream>
 
-//Function that goes through the nametree and extracts and saves them
+//Function that goes through the nametree and extracts and saves nametree attachments
 ACCB1 ASBool ACCB2 extractor(CosObj obj, CosObj value, void *clientData);
 
 int main(int argc, char** argv)
@@ -74,51 +73,42 @@ int main(int argc, char** argv)
     ASErrorCode errCode = 0;             //Error code initially is 0.
 
     if (libInit.isValid() == false)      //Check for errors in initialization.
-        return libInit.getInitError();   //If there was an error set the code.
+        return libInit.getInitError();   //If there was an error return the code.
 
     DURING
 
-//====================================================================================================
-// Step 1) Set up path and open input document                                      
-//====================================================================================================
+        APDFLDoc document(L"../_Input/extractFrom.pdf", true);    //Open a document and repair if damaged
 
-        APDFLDoc document(L"../Input/extractFrom.pdf", true);    //Open a document and repair if damaged
-
-//====================================================================================================
-// Step 2) Iterate through the annotations in a page to extract and save embedded files within it.                                 
-//====================================================================================================
-
-        //Get the PDPage 
-        PDPage pdPage = document.getPageNumber(0);
-
-        //Find the total number of annotations so the loop can index thorugh them
-        int annotTotal = PDPageGetNumAnnots(pdPage);
+//=========================================================================================================================================================
+// Step 1) Iterate through the annotations in a page to extract and save embedded files within it.                                 
+//=========================================================================================================================================================
+        
+        PDPage pdPage = document.getPageNumber(0);                                                     //Get the PDPage 
+       
+        int annotTotal = PDPageGetNumAnnots(pdPage);                                                   //Find the total number of annotations 
 
         //Loop that goes through annotations and extracts and saves them
         for (int i = 0; i < annotTotal; i++)
         {
-            //Access the annotations based on index on page
-            PDAnnot annot = PDPageGetAnnot(pdPage, i);
+             
+            PDAnnot annot = PDPageGetAnnot(pdPage, i);                                                 //Access the annotations based on index on page
+            
+            CosObj obj = PDAnnotGetCosObj(annot);                                                      //Get CosObj from annotation
 
-            //Get CosObj from annotation
-            CosObj obj = PDAnnotGetCosObj(annot);
-
-            //Get the cos dictionary object from the CosObj
+            //Get the cos dictionary object from the CosObj, using the File Specification key
             CosObj dictObj = CosDictGet(obj, ASAtomFromString("FS"));
 
             //Construct the accessed attachemnt using the dictionary
             PDFileAttachment fileAttachment = PDFileAttachmentFromCosObj(dictObj);
-
-            //String length variable that will be auto filled
-            ASTCount temp = 0;
+           
+            ASTCount temp = 0;                                                                         //String length variable that will be auto filled
 
             //Grab the file's name using the cos object dictionary 
-            char* fileName = CosStringValue(CosDictGet(dictObj, ASAtomFromString("F")), &temp);
+            char* fileName = CosStringValue(CosDictGet(dictObj, ASAtomFromString("F")), &temp);    
 
             std::wcout << L"Accessed File: " << fileName << std::endl;
-
-            //Declare an output file for an attachment
-            ASFile outFile = NULL;
+           
+            ASFile outFile = NULL;                                                                     //Declare an output file for an attachment
 
             //Convert to wideString format
             const size_t cSize = strlen(fileName) + 1;
@@ -132,18 +122,16 @@ int main(int argc, char** argv)
                 outPathText = ASTextFromUnicode((ASUTF16Val*)outPathWideString, kUTF16HostEndian);
             else
                 outPathText = ASTextFromUnicode((ASUTF16Val*)outPathWideString, kUTF32HostEndian);
+            
+            delete outPathWideString;                                                                 //Delete the wideString since it is no longer used
 
-            //Delete the wideString since it is no longer used
-            delete outPathWideString;
-
-            //The output file path name
+            //Create the output file path name
             ASPathName outPathName = ASFileSysCreatePathFromDIPathText(NULL, outPathText, NULL);
 
             //Open a new created ASFile, using the path name 
             ASFileSysOpenFile(ASGetDefaultFileSys(), outPathName, ASFILE_CREATE, &outFile);
-
-            //Save the file attach out to outFile
-            PDFileAttachmentSaveToFile(fileAttachment, outFile);
+            
+            PDFileAttachmentSaveToFile(fileAttachment, outFile);                                      //Save the file attach out to outFile
 
             //Safely close outFile
             ASFileFlush(outFile);
@@ -154,55 +142,52 @@ int main(int argc, char** argv)
             if (outPathName)    ASFileSysReleasePath(NULL, outPathName);
 
         }
-
-        //Release the page since it is no longer in use
-        PDPageRelease(pdPage);
+        
+        PDPageRelease(pdPage);                                                                       //Release the page since it is no longer in use
 
         std::wcout << L"Finished annotation attachment extractions" << std::endl << std::endl;
 
-    //====================================================================================================
-    // Step 3) Iterate through the nametree to extract and save embedded files within it.                                    
-    //====================================================================================================
+//=========================================================================================================================================================
+// Step 2) Iterate through the nametree to extract and save embedded files within it.                                    
+//=========================================================================================================================================================
 
-        //Declare name to to access it
+        //Create the nametree
         PDNameTree nameTree = PDDocCreateNameTree(document.getPDDoc(), ASAtomFromString("EmbeddedFiles"));
 
-        //Define an enum functor to go through the tree and apply a function to each member
+        //Define an enum function to go through the tree and apply a function to each member.
         CosObjEnumProc cosEnumProcCB = ASCallbackCreateProto(CosObjEnumProc, &extractor);
 
-        //Apply the functor to the nametree so it can iterate through
+        //Apply the enum function to the nametree so it can iterate through, extracting the attachments.
         PDNameTreeEnum(nameTree, cosEnumProcCB, NULL);
 
         std::wcout << L"Finished nametree attachment extractions" << std::endl << std::endl;
 
-//====================================================================================================
-// Step 4) Displays errors and exit
-//====================================================================================================
+//=========================================================================================================================================================
+// Step 3) Displays errors and exit
+//=========================================================================================================================================================
 
     HANDLER
 
-        //If an exception was raised generate error code
         errCode = ERRORCODE;
 
-        //Display the error code
-        libInit.displayError(errCode);
+        libInit.displayError(errCode);    //If there was an error, display it.
 
     END_HANDLER
 
-        return errCode;
+        return errCode;                   //Return program status.
 }
 
-//Function that goes through the tree and extracts and saves attachements from the document's nametree
+//=========================================================================================================================================================
+// Enum Function: Goes through the nametree to extracts and saves attachements
+//=========================================================================================================================================================
 ACCB1 ASBool ACCB2 extractor(CosObj obj, CosObj value, void *clientData)
 {
+   
+    PDFileAttachment fileAttachment = PDFileAttachmentFromCosObj(value);                            //Convert the CosObj to a file attachment.
+  
+    ASTCount temp = 0;                                                                              //String length variable that will be auto filled.
 
-    //Convert the CosObj to a file attachment
-    PDFileAttachment fileAttachment = PDFileAttachmentFromCosObj(value);
-
-    //String length variable that will be auto filled
-    ASTCount temp = 0;
-
-    //Grab the file's name using the cos object dictionary 
+    //Grab the file's name using the cos object dictionary and the File Specifcation String key. 
     char* fileName = CosStringValue(CosDictGet(value, ASAtomFromString("F")), &temp);
     std::wcout << L"Accessed file: " << fileName << std::endl;
 
@@ -211,29 +196,24 @@ ACCB1 ASBool ACCB2 extractor(CosObj obj, CosObj value, void *clientData)
     wchar_t* outPathWideString = new wchar_t[cSize];
     mbstowcs(outPathWideString, fileName, cSize);
 
-    //Text object 
-    ASText outPathText = NULL;
-
     //Construct the text for the path name based on the right Unicode format
+    ASText outPathText = NULL;
     if (sizeof(wchar_t) == 2)
         outPathText = ASTextFromUnicode((ASUTF16Val*)outPathWideString, kUTF16HostEndian);
     else
         outPathText = ASTextFromUnicode((ASUTF16Val*)outPathWideString, kUTF32HostEndian);
-
-    //Delete the wideString since it is no longer used
-    delete[] outPathWideString;
-
-    //The output file path name
-    ASPathName outPathName = ASFileSysCreatePathFromDIPathText(NULL, outPathText, NULL);
-
-    //Declare an output file for an attachment
-    ASFile outFile = NULL;
+   
+    delete[] outPathWideString;                                                                    //Delete the wideString since it is no longer used
+   
+    ASPathName outPathName = ASFileSysCreatePathFromDIPathText(NULL, outPathText, NULL);           //The output file path name
+   
+    ASFile outFile = NULL;                                                                         //Declare an output file for an attachment
 
     //Open a new created ASFile under 2GB, using the path name 
     ASFileSysOpenFile(ASGetDefaultFileSys(), outPathName, ASFILE_CREATE, &outFile);
 
-    //Save the file attach out to outFile
-    PDFileAttachmentSaveToFile(fileAttachment, outFile);
+    
+    PDFileAttachmentSaveToFile(fileAttachment, outFile);                                           //Save the file attachment out to outFile
 
     //Close outFile
     ASFileFlush(outFile);

@@ -86,7 +86,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CONSOLE;_DEBUG;DEBUG;_WIN32;WIN32;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";PI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6;_CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\Common\Init;..\Common\APDFLDoc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\_Common\Init;..\_Common\APDFLDoc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -102,7 +102,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CONSOLE;_DEBUG;DEBUG;_WIN32;WIN32;_WIN64;WIN64;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";PI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\Common\Init;..\Common\APDFLDoc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\_Common\Init;..\_Common\APDFLDoc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -149,14 +149,14 @@
     <ClCompile Include="..\..\Include\Source\PDFLInitCommon.c" />
     <ClCompile Include="..\..\Include\Source\PDFLInitHFT.c" />
     <ClCompile Include="..\..\Samples\utils\MyPDFLibUtils.cpp" />
-    <ClCompile Include="..\Common\APDFLDoc\APDFLDoc.cpp" />
-    <ClCompile Include="..\Common\Init\InitializeLibrary.cpp" />
+    <ClCompile Include="..\_Common\APDFLDoc\APDFLDoc.cpp" />
+    <ClCompile Include="..\_Common\Init\InitializeLibrary.cpp" />
     <ClCompile Include="ExtractAttachments.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Samples\utils\MyPDFLibUtils.h" />
-    <ClInclude Include="..\Common\APDFLDoc\APDFLDoc.h" />
-    <ClInclude Include="..\Common\Init\InitializeLibrary.h" />
+    <ClInclude Include="..\_Common\APDFLDoc\APDFLDoc.h" />
+    <ClInclude Include="..\_Common\Init\InitializeLibrary.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
