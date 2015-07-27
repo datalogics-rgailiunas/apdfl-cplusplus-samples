@@ -87,20 +87,20 @@ int main(int argc, char** argv)
 //==================================================================================================================================
 
         //Set the first page's label to "Cover" with the number counter to 1
-        PDPageLabel coverLabel = PDPageLabelNew(document., ASAtomFromString("D"), "Cover ", sizeof("Cover "), 1);
-        PDDocSetPageLabel(inDoc, 0, coverLabel);
+        PDPageLabel coverLabel = PDPageLabelNew(document.pdDoc, ASAtomFromString("D"), "Cover ", sizeof("Cover "), 1);
+        PDDocSetPageLabel(document.pdDoc, 0, coverLabel);
 
         std::wcout << L"Cover Label Added" << std::endl;
 
         //Set the label of second page and up to "preface" with the number counter starting at 2
-        PDPageLabel prefaceLabel = PDPageLabelNew(inDoc, ASAtomFromString("r"), "preface ", sizeof("preface "), 2);
-        PDDocSetPageLabel(inDoc, 1, prefaceLabel);
+        PDPageLabel prefaceLabel = PDPageLabelNew(document.pdDoc, ASAtomFromString("r"), "preface ", sizeof("preface "), 2);
+        PDDocSetPageLabel(document.pdDoc, 1, prefaceLabel);
 
         std::wcout << L"Preface Labels Added" << std::endl;
 
         //Starting from the 5th page onwards, display pages numbers starting with 1 and upwards
-        PDPageLabel pageLabel = PDPageLabelNew(inDoc, ASAtomFromString("D"), "", 0, 1);
-        PDDocSetPageLabel(inDoc, 5, pageLabel);
+        PDPageLabel pageLabel = PDPageLabelNew(document.pdDoc, ASAtomFromString("D"), "", 0, 1);
+        PDDocSetPageLabel(document.pdDoc, 5, pageLabel);
 
         std::wcout << L"Normal Page Number Labels Added" << std::endl;
        
