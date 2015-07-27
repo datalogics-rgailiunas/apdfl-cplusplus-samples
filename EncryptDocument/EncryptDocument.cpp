@@ -85,31 +85,31 @@ int main(int argv, char** argc)
 //       7 = CF_METHOD_AES_V3 - AES algorithm with a 4 byte random initialization vector.
 //=======================================================================================================================================
 
-        //Sets specified document’s new security handler
+        //Sets specified document’s new security handler.
         PDDocSetNewCryptHandler(document.pdDoc, ASAtomFromString("Standard"));
         
-        //Declare a structure describing the data for the standard security handler
+        //Declare a structure describing the data for the standard security handler.
         StdSecurityData securityData = (StdSecurityData)PDDocNewSecurityData(document.pdDoc);
               
         securityData->size = sizeof(StdSecurityDataRec);    //Set the size of the structure       
                                                             
-        securityData->hasUserPW = true;                     //If there is a user password
+        securityData->hasUserPW = true;                     //If there is a user password.
                                                             
-        securityData->newUserPW = true;                     //If the user password should be changed
+        securityData->newUserPW = true;                     //If the user password should be changed.
                                                            
-        strcpy(securityData->userPW, "myPass");             //Set the user password
+        strcpy(securityData->userPW, "myPass");             //Set the user password.
                                                             
-        securityData->hasOwnerPW = false;                   //If there is a owner password
+        securityData->hasOwnerPW = false;                   //If there is a owner password.
                                                            
-        securityData->newOwnerPW = false;                   //If the owner password should be changed        
+        securityData->newOwnerPW = false;                   //If the owner password should be changed.       
                                                             
-        strcpy(securityData->ownerPW, "");                  //Set the password
+        strcpy(securityData->ownerPW, "");                  //Set the password.
                                                            
-        securityData->perms = pdPermUser;                   //Permissions flags to allow
+        securityData->perms = pdPermUser;                   //Permissions flags to allow.
                                             
-        securityData->keyLength = 16;                       //Password key's length
+        securityData->keyLength = 16;                       //Password key's length.
         
-        securityData->encryptMethod = 2;                    //Set the encryption method to the RC4 algorithm
+        securityData->encryptMethod = 2;                    //Set the encryption method to the RC4 algorithm.
 
 //=======================================================================================================================================
 // Step 2) Set the encrptyion method to the document, save and exit                      
@@ -119,7 +119,7 @@ int main(int argv, char** argc)
         
         PDDocSetFlags(document.pdDoc, PDDocRequiresFullSave);                      //Changing the document security requires a full save.
       
-        ASfree(securityData);                                                      //Release object no longer in use
+        ASfree(securityData);                                                      //Release object no longer in use.
         
         document.saveDoc(L"encrypted.pdf", PDSaveFull | PDSaveLinearized);         //Save the document.
 
