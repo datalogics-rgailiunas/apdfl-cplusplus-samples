@@ -21,8 +21,8 @@ REM ***   -noAD         Don't process the Adobe samples.
 REM ***   -noDL         Don't process the Datalogics samples.
 REM ***
 REM *** Steps:
-REM *** 1) Initialize
-REM *** 2) Build each sample
+REM *** 1) Initialize.
+REM *** 2) Build each sample.
 REM *** 3) Decide which samples to run.
 REM *** 4) Run the samples.
 REM *** 4) Output the results.
@@ -75,7 +75,7 @@ REM ***  DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 REM ***  
 
 REM *************************************************
-REM *** 1) Initialize
+REM *** 1) Initialize.
 REM *************************************************
 
 REM *** Initialize environment variables, enable delayed expansion.
@@ -86,7 +86,7 @@ SET ALL_DL_SLN=All_Datalogics.sln
 
 
 REM ************* Initialize variables which track our progress ******************
-REM *** The number of samples that failed to build
+REM *** The number of samples that failed to build.
 SET /A "NUM_FAIL_BUILD=0"
 REM *** A list of the failed builds.
 SET DESC_FAIL_BUILD=
@@ -136,13 +136,13 @@ GOTO AcceptCommands
 
 IF %DO_DL% == N IF %DO_AD% == N GOTO MustIncludeFiles
 
-REM *** Set up the visual studio environment
+REM *** Set up the visual studio environment.
 IF "%VS120COMNTOOLS%" == "" GOTO Usage
 CALL "%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat" x64
 IF "%VSINSTALLDIR%" == "" GOTO Usage
 
 REM *************************************************
-REM *** 2) Build each sample
+REM *** 2) Build each sample.
 REM *************************************************
 
 IF %DO_DL% == Y (
@@ -162,7 +162,7 @@ REM *************************************************
 REM *** This needs to be accurate, of course.
 SET /A "NUM_SAMPLES=5"
 
-REM *** The lists of samples to process (<samplename> in the description at the top)
+REM *** The lists of samples to process (<samplename> in the description at the top).
 
 REM *** Datalogics Samples.
 SET "DL_SAMPLE_LIST=("
@@ -207,7 +207,7 @@ REM ************************************************************
 REM ******************** MAIN LOOP *****************************
 REM ************************************************************
 :RunSampleLoop_START
-REM *** If we've run all the samples, end
+REM *** If we've run all the samples, end.
 REM *** (AD samples are always done last.)
 IF %DO_DL% == Y IF %DO_AD% == Y IF %Di% GEQ %NUM_DL_SAMPLES% IF %Ai% GEQ %NUM_AD_SAMPLES% GOTO RunSampleLoop_END
 IF %DO_DL% == N IF %DO_AD% == Y IF %Ai% GEQ %NUM_AD_SAMPLES% GOTO RunSampleLoop_END
@@ -234,7 +234,7 @@ If %ONLY_BUILD% == Y GOTO RunSampleLoop_Call_End
 	REM *** (undefined variables expand to nothing.)
 	CALL %CURRENT_SAMPLE%.exe %!CURRENT_SAMPLE!_args%
 
-	REM *** If it failed to run
+	REM *** If it failed to run.
 	IF %ERRORLEVEL% NEQ 0 (GOTO FailedRun)
 	REM *** Otherwise, it succeeded!
 	GOTO SuccessfulRun
@@ -304,7 +304,7 @@ REM ********************************
 
 
 REM *************************************************
-REM *** 5) Print the results
+REM *** 5) Print the results.
 REM *************************************************
 
 
