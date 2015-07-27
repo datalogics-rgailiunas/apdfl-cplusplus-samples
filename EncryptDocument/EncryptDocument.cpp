@@ -71,7 +71,7 @@ int main(int argv, char** argc)
     DURING                        
 
         //Open input document with path and repair if damaged.
-        APDFLDoc document(L"../Input/toBeEncrypted.pdf", true);    
+        APDFLDoc document(L"../_Input/toBeEncrypted.pdf", true);    
 
         std::wcout << L"Input document successfully opened. " << std::endl;
 
