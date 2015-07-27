@@ -1,17 +1,16 @@
 // Copyright(c) 2015, Datalogics, Inc.All rights reserved.
-//
+
 //============================================================================
-// Sample: AddPageLabels-Numbers. Adds numbered labels onto a pdf's pages  
-//
-// Note: This program creates page labels with numberings viewable by looking
-//         at a documents thumbnails.
+// Sample: AddPageLabels-Numbers. This program creates page labels and adds 
+//         them to a PDF with numberings. They are viewable by looking at a 
+//         documents thumbnails.
 //
 // Steps:
 //  1) Open the Document that will have labels added to.
-//  2) Create label's for different sets of pages
+//  2) Create labels for different sets of pages
 //  3) Save and exit
 //============================================================================
-//
+
 // This agreement is between Datalogics, Inc. 101 N.Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
 // source code examples for integrating to the Adobe PDF Library
@@ -62,7 +61,7 @@
 #include "ASExtraCalls.h"
 #include <iostream>
 
-int main(int argc, char== argv)
+int main(int argc, char** argv)
 {
 
     APDFLib libInit;                        //Initialize the APDFL.
@@ -77,21 +76,18 @@ int main(int argc, char== argv)
 // Step 1) Open the Document that will have labels added to.
 //==================================================================================================================================
 
-        APDFLDoc document(L"../Input/toNumberLabel.pdf", true);    //Open a document and repair if damaged
+        APDFLDoc document(L"../_Input/toNumberLabel.pdf", true);            //Open a document and repair if damaged
 
         std::wcout << L"Document was sucessfully opened." << std::endl;
 
 //==================================================================================================================================
 // Step 2) Create label's for different sets of pages
+// Note: PDPageLabel takes in a style key : "R" for upper - case Roman numbers, "r" for lower - case Roman numbers,
+//                                          "A" for upper-case alphabetic numbers, or "a" for lower-case alphabetic numbers
 //==================================================================================================================================
-        
-        PDDoc inDoc = document.getPDDoc();
-
-        //Note: PDPageLabel takes in a style key: "R" for upper-case Roman numbers, "r" for lower-case Roman numbers, 
-        //                                        "A" for upper-case alphabetic numbers, or "a" for lower-case alphabetic numbers
 
         //Set the first page's label to "Cover" with the number counter to 1
-        PDPageLabel coverLabel = PDPageLabelNew(inDoc, ASAtomFromString("D"), "Cover ", sizeof("Cover "), 1);
+        PDPageLabel coverLabel = PDPageLabelNew(document., ASAtomFromString("D"), "Cover ", sizeof("Cover "), 1);
         PDDocSetPageLabel(inDoc, 0, coverLabel);
 
         std::wcout << L"Cover Label Added" << std::endl;
@@ -102,7 +98,7 @@ int main(int argc, char== argv)
 
         std::wcout << L"Preface Labels Added" << std::endl;
 
-        //Starting from the 5th page onwards, display pages numbers starting with 1 and up
+        //Starting from the 5th page onwards, display pages numbers starting with 1 and upwards
         PDPageLabel pageLabel = PDPageLabelNew(inDoc, ASAtomFromString("D"), "", 0, 1);
         PDDocSetPageLabel(inDoc, 5, pageLabel);
 
@@ -111,17 +107,14 @@ int main(int argc, char== argv)
 //==================================================================================================================================
 // Step 3) Save and exit
 //==================================================================================================================================
-
-        //Save the document, with output path, and save flags
-        document.saveDoc(L"labelled.pdf", PDSaveFull | PDSaveLinearized);
+      
+        document.saveDoc(L"labelled.pdf", PDSaveFull | PDSaveLinearized);    //Save the document, with output path, and save flags
 
         HANDLER
 
-            //If there was an exception generate an error code 
             errCode = ERRORCODE;
 
-            //Display the error code
-            libInit.displayError(errCode); 
+            libInit.displayError(errCode);                                   //If there was an error, display it.
 
         END_HANDLER
 

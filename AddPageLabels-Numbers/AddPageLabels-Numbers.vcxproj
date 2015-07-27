@@ -85,7 +85,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\Common\Init;..\Common\APDFLDoc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\_Common\Init;..\_Common\APDFLDoc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -99,7 +99,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CONSOLE;_DEBUG;DEBUG;_WIN32;WIN32;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";PI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6;_CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\Common\Init;..\Common\APDFLDoc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\_Common\Init;..\_Common\APDFLDoc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,13 +145,13 @@
   <ItemGroup>
     <ClCompile Include="..\..\Include\Source\PDFLInitCommon.c" />
     <ClCompile Include="..\..\Include\Source\PDFLInitHFT.c" />
-    <ClCompile Include="..\Common\APDFLDoc\APDFLDoc.cpp" />
-    <ClCompile Include="..\Common\Init\InitializeLibrary.cpp" />
+    <ClCompile Include="..\_Common\APDFLDoc\APDFLDoc.cpp" />
+    <ClCompile Include="..\_Common\Init\InitializeLibrary.cpp" />
     <ClCompile Include="AddPageLabels-Numbers.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Common\APDFLDoc\APDFLDoc.h" />
-    <ClInclude Include="..\Common\Init\InitializeLibrary.h" />
+    <ClInclude Include="..\_Common\APDFLDoc\APDFLDoc.h" />
+    <ClInclude Include="..\_Common\Init\InitializeLibrary.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
