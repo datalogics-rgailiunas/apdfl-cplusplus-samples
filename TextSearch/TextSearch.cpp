@@ -55,16 +55,16 @@
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
 #include <iostream>
+#include <algorithm>
 #include <vector>
 
 #include "CorCalls.h"
 #include "PDCalls.h"
 #include "PDExpT.h"
 
+
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
-
-static ACCB1 ASBool ACCB2 wordCounter(PDWordFinder, PDWord, ASInt32, void *);
 
 int main()
 {
@@ -87,16 +87,16 @@ int main()
 
         wfConfig.recSize = sizeof(PDWordFinderConfigRec);    //Always set to sizeof PDWordFinderConfigRec.
         wfConfig.disableTaggedPDF = true;                    //Setting to true will treat this as a non-tagged PDF document.
-        wfConfig.noXYSort = false;                           //Generate an XY-ordered word list.
-        wfConfig.preserveSpaces = false;                     //Don't preserve spaces during word breaking.
+        wfConfig.noXYSort = true;                            //Don't generate an XY-ordered word list.
+        wfConfig.preserveSpaces = false;                     //Don't preserve spaces during word breaking. [HERE]
         wfConfig.noLigatureExp = false;                      //Enable expansion of ligatures using the default ligatures.
         wfConfig.noEncodingGuess = true;                     //Disable guessing encoding of fonts with unknown or custom encoding.
-        wfConfig.unknownToStdEnc = false;                    //Don't assume all fonts are Standard Roman. Setting to true overrides noEncodingGuess.
-        wfConfig.ignoreCharGaps = true;                      //Disable converting large character gaps to spaces.
+        wfConfig.unknownToStdEnc = true;                    //Don't assume all fonts are Standard Roman. Setting to true overrides noEncodingGuess. [HERE]
+        wfConfig.ignoreCharGaps = false;                      //Disable converting large character gaps to spaces. [HERE]
         wfConfig.ignoreLineGaps = false;                     //Treat vertical movements as line breaks.
         wfConfig.noAnnots = true;                            //Don't extract from annotations.
         wfConfig.noHyphenDetection = false;                  //Don't differentiate between hard and soft hyphens.
-        wfConfig.trustNBSpace = false;                       //Don't differentiate between breaking and non-breaking spaces.
+        wfConfig.trustNBSpace = true;                       //Don't differentiate between breaking and non-breaking spaces. [HERE]
         wfConfig.noExtCharOffset = false;                    //If client doesn't have a need for detailed character offset information set to true for improvement in efficiency.
         wfConfig.noStyleInfo = false;                        //Set to true if client doesn't have a need for style information for improvement in efficiency.
         wfConfig.decomposeTbl = NULL;                        //Table may be used to expand unicode ligatures not in the default list.
@@ -107,32 +107,71 @@ int main()
         wfConfig.disableCharReordering = false;              //Used in cases where the PDF page has heavily overlapped character bounding boxes.
 
 //===================================================================================================================================================================================
-// Step 2) DO SOME STUFF HERE OKAY
+// Step 2) Acquire the quad 
 //===================================================================================================================================================================================
-   
-        ASBool useHostEncoding = true;
 
         //Create the PDWordFinder object used to extract and enumerate the words on pages in a PDF document.
-        PDWordFinder wordFinder = PDDocCreateWordFinderEx(document.getPDDoc(), WF_LATEST_VERSION, useHostEncoding, &wfConfig);    
+        PDWordFinder wordFinder = PDDocCreateWordFinderEx(document.getPDDoc(), WF_LATEST_VERSION, true, &wfConfig);    
 
-        PDWord pdWord;
-        PDWord * wordList;
-        ASInt32 numberOfWords = 0;
-        ASInt32 pageNum = 0;
+        PDWord pdfWordArray;          //This will point at an array of PDWord objects. Do not try to access this directly, acquire the list through PDWordFinderGetNthWord().
+        PDWord * xySortedWordTable;   //Table containing PDWords sorted by their (x, y) coordinates in the document.
+        ASInt32 numberOfWords = 0;    //Number of words on the page.
 
-        //Acquire the sorted list of words on the page.
-        PDWordFinderAcquireWordList(wordFinder, pageNum, &pdWord, &wordList, 0, &numberOfWords);
+        std::vector<ASFixedQuad> quadVector;
 
-        for (int i = 0; i < numberOfWords; ++i)
+        for (ASInt32 pageNum = 0; pageNum < (PDDocGetNumPages(document.getPDDoc()) - 1); ++pageNum)                       //Iterate through each page in the PDDoc.
         {
-            std::vector<ASFixedQuad> quadTable;
-            std::vector<ASFixedQuad> charQuadTable;
+            PDWordFinderAcquireWordList(wordFinder, pageNum, &pdfWordArray, &xySortedWordTable, NULL, &numberOfWords);    //Get all words in the PDF document.
 
-            PDWord tempWord = PDWordFinderGetNthWord(wordFinder, i);
+            for (ASInt32 index = 0; index < numberOfWords; ++index)                                                       //Iterate through the words on the page.
+            {
+                PDWord pdWord = PDWordFinderGetNthWord(wordFinder, index);                                                //Acquire the PDWord from the word finder.
 
-            while (PDWordGetNthQuad(tempWord, quadCount))
+                ASText asTextWord = ASTextNew();                                                                          //Create a new empty ASText object.
+                PDWordGetASText(pdWord, 0, asTextWord);                                                                   //Get the ASText object from the PDWord.
 
+                std::wstring testString;                                                                                  //String used to match values.
+                testString = (wchar_t *)ASTextGetUnicodeCopy(asTextWord, kUTF16HostEndian);                               //Set string equal to the word being examined.
+                std::transform(testString.begin(), testString.end(), testString.begin(), ::tolower);                      //Convert the test string to all lowercase letters.
+
+                if (wcsstr(testString.c_str(), L"pirate") != NULL)                                                        //Check for any occurences of the string "pirate".
+                {
+                    ASFixedQuad tempQuad;
+                    PDWordGetNthQuad(pdWord, index, &tempQuad);
+                    quadVector.push_back(tempQuad);
+                }
+    
+                ASTextDestroy(asTextWord);                                                                                //Destroy the ASText object before creating a new one.
+            }
+
+            PDWordFinderReleaseWordList(wordFinder, pageNum);                                                             //Release the PDWordFinder object before acquiring the next one.
         }
+
+        std::cout << "Found " << quadVector.size() << " occurences of the word pirate.";
+//===================================================================================================================================================================================
+// Step 3)
+//===================================================================================================================================================================================
+        PDPage pdPage = document.getPage(0);
+
+        //Convert to a rectangle.
+        ASFixedRect annotationRect;                             
+        annotationRect.left = quadVector[0].bl.h;
+        annotationRect.top = quadVector[0].tr.v;
+        annotationRect.right = quadVector[0].tr.h;
+        annotationRect.bottom = quadVector[0].bl.v;
+
+
+        //Stuck here for now.
+        AVPage pageView;
+        PDAnnot highlight = PDPageAddNewAnnot(pdPage, -2, ASAtomFromString("Highlight"), &annotationRect);  //Create the annotation.
+        AVPageViewRectToDevice(pageView, &bbox, &viewRect);
+        AVPageViewInvalidateRect(pageView, &viewRect);
+
+
+
+        document.saveDoc(L"out.pdf");
+
+        PDPageRelease(pdPage);
 
     HANDLER
 
@@ -140,17 +179,7 @@ int main()
 
         libInit.displayError(errCode);    //If there was an error, display it.
 
-        END_HANDLER
+    END_HANDLER
             system("pause");
     return errCode;                       //APDFLib's destructor terminates the APDFL.                            
-}
-
-//===================================================================================================================================================================================
-// Function wordCounter() - Callback function used by PDWordFinderEnumWords to count the number of times a particular word is found.
-// This callback is called once for each word.
-//===================================================================================================================================================================================
-
-static ACCB1 ASBool ACCB2 wordCounter(PDWordFinder wordFinder, PDWord pdWord, ASInt32 pageNum, void * fileNum)
-{
-    return true;
 }
