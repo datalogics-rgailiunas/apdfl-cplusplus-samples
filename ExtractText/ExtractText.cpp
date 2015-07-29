@@ -167,7 +167,6 @@ int main(int argc, char** argv)
             nextWordLocation.h = newLocation->right;                                                 //The h coordinate of our next word will be (at least) the very end of the last word.
             delete(newLocation);
 
-
             //If the last word we printed is followed by a space, add a little to the starting h coordinate of the next word to account for that.
             nextWordAttrs = PDWordGetAttr(nextWord);
             if (WXE_ADJACENT_TO_SPACE&nextWordAttrs)
