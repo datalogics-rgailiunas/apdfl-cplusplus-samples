@@ -191,9 +191,12 @@ int main(int argc, char** argv)
         nextWordLocation.v -= Int16ToFixed(fontSize);                                                //Drop down the v coordinate just enough to draw new, non-overlapping text.
         PDERelease(reinterpret_cast<PDEObject>(nextLine));                                           //We'll make a new PDEText object for the next line come next iteration.
     }
-
     PDPageSetPDEContentCanRaise(outPage, NULL);                                                      //We've now captured every line of text. This sets all the content we've just added into the page.
 
+    //We're done with these, so we release them.
+    PDERelease(reinterpret_cast<PDEObject>(font));
+    PDWordFinderReleaseWordList(wordFinder, 0);                                                      //0 is the page index we used.
+    
     std::wcout << std::endl << L"(Unicode text will not have displayed correctly.)";
     std::wcout << std::endl << L"(But unicode text is printed in the output correctly.)" << std::endl;
     std::wcout << std::endl << L"The text has been added to the output document." << std::endl;
@@ -202,12 +205,8 @@ int main(int argc, char** argv)
 // Step 3) Save and close the input and output documents.
 //=======================================================================================================================================================================================================================================================================
 
-    //Release acquired/created resources.
-    PDPageReleasePDEContent(outPage, NULL);
-    PDPageRelease(outPage);
-    PDERelease(reinterpret_cast<PDEObject>(font));
-    PDWordFinderReleaseWordList(wordFinder, 0);       //0 is the page index we used.
-
+    PDPageReleasePDEContent(outPage, NULL);           //The content must be released before we can release the page.
+    PDPageRelease(outPage);                           //The page must be released before we can save the document.
     outAPDoc.saveDoc(outPath);                        //Save the new document. APDFLDoc's saveDoc method defaults to use the PDSaveFull flag.
 
     //APDFLDoc's destructor takes care of closing the input and output documents.
