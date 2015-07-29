@@ -80,17 +80,17 @@ wchar_t* toWide(const char* str);
 //Convert a wide string to an ASText object.
 ASText toASText(const wchar_t* string);
 
-int main(int argc, char* argv)
+int main(int argc, char** argv)
 {
-    APDFLib lib;                                       //Initialize the Adobe PDF Library.
+    APDFLib lib;                                                  //Initialize the Adobe PDF Library.
 
-    if (lib.isValid() == false)                        //If it failed to initialize, return the error code.
+    if (lib.isValid() == false)                                   //If it failed to initialize, return the error code.
         return lib.getInitError();
 
-    wchar_t* inputPath  = L"../_Input/Ulysses.pdf";    //Input PDF path.
-    wchar_t* outputPath = L"Bookmarked.pdf";           //Output path we'll save to.
+    wchar_t* inputPath  = L"../_Input/Ulysses.pdf";               //Input PDF path.
+    wchar_t* outputPath = L"Bookmarked.pdf";                      //Output path we'll save to.
 
-    ASErrorCode errCode = 0;                           //Tracks runtime errors in the application
+    ASErrorCode errCode = 0;                                      //Tracks runtime errors in the application
 
     DURING
 
@@ -98,10 +98,10 @@ int main(int argc, char* argv)
     APDFLDoc APDoc(inputPath, true);
     PDDoc mydoc = APDoc.getPDDoc();
 
-//===========================================================================================
+//=====================================================================================================================================================================================
 //Step 1) Find each bolded subheading in the document and record their
 //        location and text.
-//===========================================================================================
+//=====================================================================================================================================================================================
 
     //These vectors store the needed information about the bolded subheadings we will search for.
     //These will all be the same size, and for each, the index n will indicate information for the
@@ -118,7 +118,7 @@ int main(int argc, char* argv)
     for (int page = 0; page < PDDocGetNumPages(mydoc); ++page)                                   //For each page...
     {
         PDPage nextPage = APDoc.getPage(page);
-        PDEContent nextContent = PDPageAcquirePDEContent(APDoc.getPage(page), 0);                //We need the content of the page. That's where the text is!
+        PDEContent nextContent = PDPageAcquirePDEContent(APDoc.getPage(page), 0);          //We need the content of the page. That's where the text is!
 
         for (int elemCount = 0; elemCount < PDEContentGetNumElems(nextContent); ++elemCount)     //For each element in that page...
         {
@@ -209,9 +209,9 @@ int main(int argc, char* argv)
     for (std::wstring subheadingText : bsTexts)
         std::wcout << subheadingText << std::endl;
 
-//===========================================================================================
+//=====================================================================================================================================================================================
 //Step 2) Create a bookmark for each bolded section with this information.
-//===========================================================================================
+//=====================================================================================================================================================================================
 
     std::wcout << L"Creating a bookmark for each subheading..." << std::endl;
 
@@ -225,7 +225,7 @@ int main(int argc, char* argv)
     for (int nextBM = 0; nextBM < bsTexts.size(); ++nextBM)
     {
         //Get the necessary information.
-        PDPage nextPage = APDoc.getPage(bsPages[nextBM]);                                //Get the associated page.
+        PDPage nextPage = APDoc.getPage(bsPages[nextBM]);                          //Get the associated page.
 
         std::wstringstream nextTitleWSTR;                                                //Get the associated title.
         nextTitleWSTR << (nextBM + 1) << L" " << bsTexts[nextBM];
@@ -252,16 +252,16 @@ int main(int argc, char* argv)
     }
     std::wcout << L"Done." << std::endl;
 
-//===========================================================================================
+//=====================================================================================================================================================================================
 //Step 3) Demonstrate different zoom levels.
-//===========================================================================================
+//=====================================================================================================================================================================================
 
     std::wcout << L"Adding zoom demonstration bookmarks." << std::endl;
 
     //This steps adds a few children bookmarks to the first bookmark of the
     //document, which all copy that bookmark at different zoom levels.
 
-    PDBookmark parentBm = PDBookmarkGetFirstChild(PDDocGetBookmarkRoot(mydoc));                  //The bookmark we'll add children to. (The first bookmark.)
+    PDBookmark parentBm = PDBookmarkGetFirstChild(PDDocGetBookmarkRoot(mydoc));                     //The bookmark we'll add children to. (The first bookmark.)
     PDBookmark zoom100  = PDBookmarkAddNewChild(parentBm, "100% Zoom");
     PDBookmark zoom200  = PDBookmarkAddNewChild(parentBm, "200% Zoom");
     PDBookmark zoom800  = PDBookmarkAddNewChild(parentBm, "800% Zoom");
@@ -272,20 +272,16 @@ int main(int argc, char* argv)
     ASFloat zoomfactors[]  {(ASFloat)1.0, (ASFloat)2.0, (ASFloat)8.0, (ASFloat)0.40};
 
     //Copy the attributes of the parent bookmark.
-    ASInt32 pageNumber;                                                                          //The page index of the first bookmark.
-    ASAtom fitType;                                                                              //The first bookmark's view destination fit type.
-    ASFixedRect locationRect;                                                                    //The location rectangle of the first bookmark.
-    ASFixed zoomFactor;                                                                          //The first bookmark's zoom factor (we won't be using this).
+    ASInt32 pageNumber;                                                                             //The page index of the first bookmark.
+    ASAtom fitType;                                                                                 //The first bookmark's view destination fit type.
+    ASFixedRect locationRect;                                                                       //The location rectangle of the first bookmark.
+    ASFixed zoomFactor;                                                                             //The first bookmark's zoom factor (we won't be using this).
     PDViewDestination parentViewDestination = PDActionGetDest(PDBookmarkGetAction(parentBm));
 
-    PDViewDestGetAttr(parentViewDestination,
-                      &pageNumber, 
-                      &fitType, 
-                      &locationRect, 
-                      &zoomFactor); 
+    PDViewDestGetAttr(parentViewDestination, &pageNumber, &fitType, &locationRect, &zoomFactor);
 
     //Set each bookmark's view destination per the above array.
-    PDPage parentPage = APDoc.getPage(pageNumber);                                               //The page of the parent bookmark.
+    PDPage parentPage = APDoc.getPage(pageNumber);                                            //The page of the parent bookmark.
     for (int i = 0; i < numBookmarks; ++i)
     {
         PDViewDestination nextView = PDViewDestCreate(mydoc, parentPage, fitType,&locationRect, ASFloatToFixed(zoomfactors[i]), 0);
@@ -297,9 +293,9 @@ int main(int argc, char* argv)
 
     std::wcout << L"Done. Saving and closing the document." << std::endl;
 
-//===========================================================================================
+//=====================================================================================================================================================================================
 //Step 5) Save and close the document.
-//===========================================================================================
+//=====================================================================================================================================================================================
 
     APDoc.saveDoc(outputPath);
 
@@ -315,9 +311,9 @@ int main(int argc, char* argv)
     return errCode;
 };
 
-//===================================================================
+//=====================================================================================================================================================================================
 //wchar_t* function: Converts a char string to a wchar_t string.
-//=======================================================================================
+//=====================================================================================================================================================================================
 wchar_t* toWide(const char* str)
 {
     const size_t strlen = (std::strlen(str)) + 1;
@@ -326,9 +322,9 @@ wchar_t* toWide(const char* str)
     return wstr;
 };
 
-//==================================================================
+//=====================================================================================================================================================================================
 //ASText function: Convert a wide string to an ASText object.
-//==================================================================
+//=====================================================================================================================================================================================
 ASText toASText(const wchar_t* string)
 {
     ASUnicodeFormat hostUniFormat;
