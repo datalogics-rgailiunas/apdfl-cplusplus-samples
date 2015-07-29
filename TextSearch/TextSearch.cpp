@@ -58,13 +58,12 @@
 #include <algorithm>
 #include <vector>
 
-#include "CorCalls.h"
-#include "PDCalls.h"
-#include "PDExpT.h"
-
+#include "CosCalls.h"
 
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
+
+void PDAnnotSetQuads(PDAnnot, ASFixedQuad *, ASArraySize);
 
 int main()
 {
@@ -107,7 +106,23 @@ int main()
         wfConfig.disableCharReordering = false;              //Used in cases where the PDF page has heavily overlapped character bounding boxes.
 
 //===================================================================================================================================================================================
-// Step 2) Acquire the quad 
+// Step 2) Fill in color information.
+//===================================================================================================================================================================================
+
+        ASFixed red = ASFloatToFixed(1.0);          //Set the colors to be used for highlighting.
+        ASFixed green = ASFloatToFixed(0.65);
+        ASFixed blue = ASFloatToFixed(0.0);         
+
+        PDColorValueRec colorValRec;
+        PDColorValue pdColorValue;                  //struct holding color values
+        pdColorValue = &colorValRec;
+
+        pdColorValue->value[0] = red;               //assign the values
+        pdColorValue->value[1] = green;
+        pdColorValue->value[2] = blue;
+        pdColorValue->space = PDDeviceRGB;
+//===================================================================================================================================================================================
+// Step 2) Fill in color information.
 //===================================================================================================================================================================================
 
         //Create the PDWordFinder object used to extract and enumerate the words on pages in a PDF document.
@@ -116,8 +131,6 @@ int main()
         PDWord pdfWordArray;          //This will point at an array of PDWord objects. Do not try to access this directly, acquire the list through PDWordFinderGetNthWord().
         PDWord * xySortedWordTable;   //Table containing PDWords sorted by their (x, y) coordinates in the document.
         ASInt32 numberOfWords = 0;    //Number of words on the page.
-
-        std::vector<ASFixedQuad> quadVector;
 
         for (ASInt32 pageNum = 0; pageNum < (PDDocGetNumPages(document.getPDDoc()) - 1); ++pageNum)                       //Iterate through each page in the PDDoc.
         {
@@ -136,42 +149,38 @@ int main()
 
                 if (wcsstr(testString.c_str(), L"pirate") != NULL)                                                        //Check for any occurences of the string "pirate".
                 {
+                    PDPage pdPage = document.getPage(pageNum);
                     ASFixedQuad tempQuad;
-                    PDWordGetNthQuad(pdWord, index, &tempQuad);
-                    quadVector.push_back(tempQuad);
+
+                    PDWordGetNthQuad(pdWord, 0, &tempQuad);
+                    ASFixedRect annotationRect;
+                    annotationRect.left = tempQuad.bl.h;
+                    annotationRect.top = tempQuad.tr.v;
+                    annotationRect.right = tempQuad.tr.h;
+                    annotationRect.bottom = tempQuad.bl.v;
+
+                    PDAnnot highlight = PDPageCreateAnnot(pdPage, ASAtomFromString("Highlight"), &annotationRect); //adding the annotation
+                    PDAnnotSetQuads(highlight, &tempQuad, 1);
+                    PDAnnotSetColor(highlight, pdColorValue);   
+                    PDPageAddAnnot(pdPage, -2, highlight);
+                    PDPageRelease(pdPage);
                 }
-    
+ 
                 ASTextDestroy(asTextWord);                                                                                //Destroy the ASText object before creating a new one.
             }
 
             PDWordFinderReleaseWordList(wordFinder, pageNum);                                                             //Release the PDWordFinder object before acquiring the next one.
         }
 
-        std::cout << "Found " << quadVector.size() << " occurences of the word pirate.";
 //===================================================================================================================================================================================
 // Step 3)
 //===================================================================================================================================================================================
-        PDPage pdPage = document.getPage(0);
 
-        //Convert to a rectangle.
-        ASFixedRect annotationRect;                             
-        annotationRect.left = quadVector[0].bl.h;
-        annotationRect.top = quadVector[0].tr.v;
-        annotationRect.right = quadVector[0].tr.h;
-        annotationRect.bottom = quadVector[0].bl.v;
-
-
-        //Stuck here for now.
-        AVPage pageView;
-        PDAnnot highlight = PDPageAddNewAnnot(pdPage, -2, ASAtomFromString("Highlight"), &annotationRect);  //Create the annotation.
-        AVPageViewRectToDevice(pageView, &bbox, &viewRect);
-        AVPageViewInvalidateRect(pageView, &viewRect);
-
-
+        //PDPageNotifyContentsDidChangeEx(pdPage, true);
 
         document.saveDoc(L"out.pdf");
 
-        PDPageRelease(pdPage);
+
 
     HANDLER
 
@@ -182,4 +191,28 @@ int main()
     END_HANDLER
             system("pause");
     return errCode;                       //APDFLib's destructor terminates the APDFL.                            
+}
+
+//===================================================================================================================================================================================
+// Function: PDAnnotSetQuads() - Function that needs to be called in order to 
+//===================================================================================================================================================================================
+void PDAnnotSetQuads(PDAnnot annot, ASFixedQuad *quads, ASArraySize numQuads) {
+
+    CosObj coAnnot = PDAnnotGetCosObj(annot);
+    CosDoc coDoc = CosObjGetDoc(coAnnot);
+    CosObj coQuads = CosNewArray(coDoc, false, numQuads * 8);
+
+    for (ASUns32 i = 0, n = 0; i < numQuads; ++i)
+    {
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].bl.h));
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].bl.v));
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].br.h));
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].br.v));
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tl.h));
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tr.v));
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tr.h));
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tl.v));
+    }
+
+    CosDictPut(coAnnot, ASAtomFromString("QuadPoints"), coQuads);
 }
