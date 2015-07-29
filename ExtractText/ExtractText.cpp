@@ -175,6 +175,7 @@ int main(int argc, char** argv)
                 nextWordLocation.h += ASFloatToFixed(0.5*fontSize);
             }
 
+            PDERelease(reinterpret_cast<PDEObject>(nextWordASText));                                 //We created this ASText, and now we're done with it, so we release it.
             ++nextLineIndex;
             ++i;
 
