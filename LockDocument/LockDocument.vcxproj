@@ -103,7 +103,7 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CONSOLE;_DEBUG;DEBUG;_WIN64;WIN64;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";PI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS_DEBUG;DEBUG;_CONSOLE;_WIN64;WIN64;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";PI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\_Common\Init;..\_Common\APDFLDoc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -135,7 +135,7 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CONSOLE;_DEBUG;DEBUG;_WIN64;WIN64;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";PI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CONSOLE;_WIN64;WIN64;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";PI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\_Common\Init;..\_Common\APDFLDoc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
