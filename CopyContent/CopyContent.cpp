@@ -72,9 +72,8 @@
 #include "PERCalls.h"
 #include "PEWCalls.h"
 
-//Some defines to reduce verbosity.
+//To reduce verbosity.
 #define WC_PAIR std::make_pair<ASInt32, bool>
-#define RELEASE_PDEOBJ(o) PDERelease(reinterpret_cast<PDEObject>(o))
 
 //Copies all elements in "from" into "to".
 void copyElements(PDEContent* to, PDEContent* from, const std::map<ASInt32, bool>* willCopyList);
@@ -238,7 +237,7 @@ void copyElements(PDEContent* to, PDEContent* from, const std::map<ASInt32, bool
 
                     PDEContentAddElem(*to, kPDEAfterLast, reinterpret_cast<PDEElement>(toContainer));    //Now copy the new container into "to".
 
-                    RELEASE_PDEOBJ(toContainer);                                                         //Now release the output container, since we're done with it.
+                    PDERelease(reinterpret_cast<PDEObject>(toContainer));                                                         //Now release the output container, since we're done with it.
 
                 }
                 else if (type == kPDEGroup)
@@ -260,7 +259,7 @@ void copyElements(PDEContent* to, PDEContent* from, const std::map<ASInt32, bool
 
                     PDEContentAddElem(*to, kPDEAfterLast, reinterpret_cast<PDEElement>(toGroup));        //Now copy the new group  into "to".
 
-                    RELEASE_PDEOBJ(toGroup);                                                             //Now release the output container, since we're done with it.
+                    PDERelease(reinterpret_cast<PDEObject>(toGroup));                                                             //Now release the output container, since we're done with it.
 
                 }
                 else if (type == kPDEForm)
@@ -284,8 +283,8 @@ void copyElements(PDEContent* to, PDEContent* from, const std::map<ASInt32, bool
                     PDEContentAddElem(*to, kPDEAfterLast, reinterpret_cast<PDEElement>(toForm));         //Now copy the new form  into "to".
 
                     //Release the containers, since we're done with them.
-                    RELEASE_PDEOBJ(fromFormContent); 
-                    RELEASE_PDEOBJ(toForm);
+                    PDERelease(reinterpret_cast<PDEObject>(fromFormContent));
+                    PDERelease(reinterpret_cast<PDEObject>(toForm));
 
                 }
                 else
@@ -298,7 +297,7 @@ void copyElements(PDEContent* to, PDEContent* from, const std::map<ASInt32, bool
                     PDEElement copyNextElem = PDEElementCopy(nextElem, kPDEElementCopyClipping);
                     PDEContentAddElem(*to, kPDEAfterLast, reinterpret_cast<PDEElement>(copyNextElem));
 
-                    RELEASE_PDEOBJ(copyNextElem);
+                    PDERelease(reinterpret_cast<PDEObject>(copyNextElem));
 
                 }
             }
