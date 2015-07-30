@@ -160,24 +160,35 @@ REM *** 3) Decide which samples to run.
 REM *************************************************
 
 REM *** This needs to be accurate, of course.
-SET /A "NUM_SAMPLES=5"
+SET /A "NUM_SAMPLES=32"
 
 REM *** The lists of samples to process (<samplename> in the description at the top).
 
 REM *** Datalogics Samples.
 SET "DL_SAMPLE_LIST=("
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddDocumentInformation addElements placeText"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% SplitPDF WebOptimizedPDF"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddAttachment AddContent AddDocumentInformation"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddPageLabels-Numbers AddPassword AddText"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% CopyContent CreateDocument LockDocument"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% MergePDF SetUniquePermissions SplitPDF"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% WebOptimizedPDF"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
 REM *** This needs to be accurate, of course.
-SET /A "NUM_DL_SAMPLES=5"
+SET /A "NUM_DL_SAMPLES=13"
 REM *** Di iterates over Datalogics samples.
 SET /A "Di=0"
 
 REM *** Adobe Samples.
-SET "AD_SAMPLE_LIST=()"
+SET "AD_SAMPLE_LIST=("
+SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% addelem CreatePattern Decryption"
+SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% drawtomemory FlattenPDF fontembd"
+SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% helowrld JPXEncode mergepdf"
+SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% MTInMemFS MTSerialNums MTTextExtract"
+SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% PDFAConverter PDFLSnippetRunner PDFViewer"
+SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% Peddler printpdf unicode"
+SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% XPS2PDFConverter"
+SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST%)"
 REM *** This needs to be accurate, of course.
-SET /A "NUM_AD_SAMPLES=0"
+SET /A "NUM_AD_SAMPLES=19"
 REM *** Ai iterates over Adobe samples.
 REM (None yet.)
 SET /A "Ai=0"
