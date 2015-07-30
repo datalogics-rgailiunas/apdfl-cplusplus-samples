@@ -208,9 +208,9 @@ void PDAnnotSetQuads(PDAnnot annot, ASFixedQuad *quads, ASArraySize numQuads) {
         CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].bl.v));
         CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].br.h));
         CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].br.v));
-        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tl.h));
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tl.h)); 
         CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tr.v));
-        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tr.h));
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tr.h)); 
         CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tl.v));
     }
 
