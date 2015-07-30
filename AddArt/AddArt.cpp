@@ -98,38 +98,32 @@ int main(int argc, char** argv)
 // Step 2: Set the graphics state for the first shape. This PDEGraphicsState object contains attributes about how a PDEElement will be displayed.
 //============================================================================================================================================================= 
 
-        PDEPathSetPaintOp(pdePath, kPDEStroke);                 //PDEPath will be stroked, but not filled.
+        PDEPathSetPaintOp(pdePath, kPDEStroke);                                   //PDEPath will be stroked, but not filled.
 
-        PDEGraphicState gState;                                 //Struct that will hold display attributes.
-        memset(&gState, 0, sizeof(gState));                     //Clear out any "garbage data" in the struct.
+        PDEGraphicState gState;                                                   //Struct that will hold display attributes.
+        PDEDefaultGState(&gState, sizeof(PDEGraphicState));                       //Set graphics state to default values.
 
-        ASFixed red = ASFloatToFixed(.6);                       //Red Intensity ranges is [0.0 - 1.0].                             
-        ASFixed green = ASFloatToFixed(.2);                     //Green Intensity ranges is [0.0 - 1.0].
-        ASFixed blue = ASFloatToFixed(1.0);                     //Blue Intensity ranges is [0.0 - 1.0].
+        PDERelease(reinterpret_cast<PDEObject>(gState.strokeColorSpec.space));    //Release the stroke color space before modifiying it.
 
-        PDEColorValue strokeColorValue;                         //Will be assigned to PDEGraphicState.strokeColorSpec.
+        ASFixed red = ASFloatToFixed(.6);                                         //Red Intensity range is [0.0 - 1.0].                             
+        ASFixed green = ASFloatToFixed(.2);                                       //Green Intensity range is [0.0 - 1.0].
+        ASFixed blue = ASFloatToFixed(1.0);                                       //Blue Intensity range is [0.0 - 1.0].
 
-        memset(&strokeColorValue, 0, sizeof(PDEColorValue));    //Initially value = 0 (Black.)
-        strokeColorValue.color[0] = red;                        //Assign the color values we just set to the struct.
-        strokeColorValue.color[1] = green;                      //In this case the object will be painted purple.
-        strokeColorValue.color[2] = blue;
+        //We are using the RGB color space in this case. Default value is "DeviceGray".     
+        gState.strokeColorSpec.space = PDEColorSpaceCreateFromName(ASAtomFromString("DeviceRGB"));
 
-        //We are using the RGB color space in this case. Default value is "DeviceGray".
-        PDEColorSpace colorSpace = PDEColorSpaceCreateFromName(ASAtomFromString("DeviceRGB"));   
+        gState.strokeColorSpec.value.color[0] = red;                              //Initially value = 0 (Black.)
+        gState.strokeColorSpec.value.color[1] = green;                            //In this case the object will be painted purple.
+        gState.strokeColorSpec.value.color[2] = blue;
+        gState.lineWidth = Int32ToFixed(3);                                       //Line width is set to a thickness of 3.
+        gState.lineCap = 1;                                                       //Using rounded line caps.
+        gState.lineJoin = 1;                                                      //Using rounded line joins.
 
-        //Set the PDEColorSpec struct with the colorSpace and strokeColorValues we just set.
-        PDEColorSpec strokeColorSpec = {colorSpace, strokeColorValue};    
-
-        gState.strokeColorSpec = strokeColorSpec;               //Set to "DeviceRBG" and purple.
-        gState.lineWidth = Int32ToFixed(3);                     //Line width is set to a thickness of 3.
-        gState.lineCap = 1;                                     //Using rounded line caps.
-        gState.lineJoin = 1;                                    //Using rounded line joins.
-        gState.miterLimit = fixedTen;                           //Set this to it's default value.
-        gState.flatness = fixedZero;                            //Set this to it's default value.
-
-        //Set the PDEPath's graphic state with the structure that was just filled out.
+        //Set the PDEPath's graphic state.
         PDEElementSetGState(reinterpret_cast<PDEElement>(pdePath), &gState, sizeof(PDEGraphicState));
 
+        PDERelease(reinterpret_cast<PDEObject>(gState.strokeColorSpec.space));    //Release the PDEColorSpace objects.
+        PDERelease(reinterpret_cast<PDEObject>(gState.fillColorSpec.space));
 //=============================================================================================================================================================
 //Step 3: Draw the arrow. This shape is drawn using a list of coordinates and calling PDEPathAddSegment to join the (x, y) coordinates with straight lines.
 //=============================================================================================================================================================
@@ -177,19 +171,19 @@ int main(int argc, char** argv)
         red = ASFloatToFixed(1.0);                                //Fill color is yellow.
         blue = ASFloatToFixed(0.0);
         green = ASFloatToFixed(1.0);
-    
-        //Clear out PDEColorValue struct and fill using the RBG values we just set.
-        PDEColorValue fillColorValue;                               
-        memset(&fillColorValue, 0, sizeof(PDEColorValue));
-        fillColorValue.color[0] = red;
-        fillColorValue.color[1] = green;
-        fillColorValue.color[2] = blue;
         
-        PDEColorSpec fillColorSpec{ colorSpace, fillColorValue };   //Fill color will also use the RGB colorspace.
+        //Set the Graphics state color space to RGB.     
+        gState.fillColorSpec.space = PDEColorSpaceCreateFromName(ASAtomFromString("DeviceRGB"));
+        gState.strokeColorSpec.space = PDEColorSpaceCreateFromName(ASAtomFromString("DeviceRGB"));
 
-        gState.fillColorSpec = fillColorSpec;                       //Graphics state now contains a fill color.
+        gState.fillColorSpec.value.color[0] = red;                //Assign RGB color values.
+        gState.fillColorSpec.value.color[1] = green;
+        gState.fillColorSpec.value.color[2] = blue;
 
         PDEElementSetGState(reinterpret_cast<PDEElement>(pdePath2), &gState, sizeof(gState));
+
+        PDERelease(reinterpret_cast<PDEObject>(gState.strokeColorSpec.space));
+        PDERelease(reinterpret_cast<PDEObject>(gState.fillColorSpec.space));
 
         //Redraw the exact same arrow we created in step 3.
         pointToInsert.h = ASInt32ToFixed(72 * 5);
@@ -224,8 +218,6 @@ int main(int argc, char** argv)
 //Step 5) Release resources and save the PDF document.
 //=============================================================================================================================================================
 
-        //Release the remaining resources.
-        PDERelease(reinterpret_cast<PDEObject>(colorSpace));
         PDERelease(reinterpret_cast<PDEObject>(pdePath2));
         PDPageReleasePDEContent(pdPage, 0);
         PDPageRelease(pdPage);
