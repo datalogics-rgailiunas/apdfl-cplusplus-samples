@@ -1,14 +1,14 @@
 ﻿// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 
 //===============================================================================
-//Helper App. for Samples: APDFLDoc is intended to assist with common PDDoc
-//operations. This class contains methods that open and create documents and 
-//performs other common operations.
+//Sample: APDFLDoc -This class is intended to assist with operations common to 
+//most samples. The class is capable of opening/creating and saving a document.
+//It can also insert and retrieve pages.
+//
 //APDFLDoc.cpp: Contains implementations of methods.
 //APDFLDoc.h: Contains class definition.
 //===============================================================================
 
-// Sample placeText/ Places text onto a pdf
 // This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
 // Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
 // source code examples for integrating to the Adobe PDF Library
@@ -57,7 +57,6 @@
 #ifndef APDFLDOC_H
 #define APDFLDOC_H
 
-
 #include "PDCalls.h"
 #include "ASCalls.h"
 #include "ASExtraCalls.h"
@@ -66,32 +65,33 @@
 #include <vector>
 
 class APDFLDoc {
+
 private:
 
-    static const unsigned MAX_PATH_LENGTH = 1024;                          //Private data members assosciated with document.
+    static const unsigned MAX_PATH_LENGTH = 1024;                          //Private data members assosciated with the document.
     wchar_t nameOfDocument[MAX_PATH_LENGTH];
 
     volatile ASPathName asPathName;
     ASErrorCode errorCode;
 
-    void initialize();                                                     //Initializes data members in constructors.
-    ASErrorCode printErrorHandlerMessage();                                //Prints and returns the error message within the handler block
-    ASErrorCode setASPathName(wchar_t* );                                  //Used to set ASPathNameObjects.
+    void initialize();                                                     //Called in constructor to initialize some data members.
+    ASErrorCode printErrorHandlerMessage();                                //Prints an error message and returns the appropriate error code.
+    ASErrorCode setASPathName(wchar_t* );                                  //Helper method used to create ASPathName objects for operations.
 
 public:
-    volatile PDDoc pdDoc;                                                  //Made public so it can be used directly if more convienent 
-                                                                           //than returning a reference to the same object.
+
+    volatile PDDoc pdDoc;                                                  //Made public so it can be accessed directly.
 
     APDFLDoc(wchar_t*, bool doRepairDamagedFile);                          //Constructor used to open a document.
     APDFLDoc();                                                            //Constructor used to create a document.
 
     ASErrorCode insertPage(const ASFixed & width, const ASFixed & height, ASInt32);  //Inserts a page into the document.
     ASErrorCode insertPage(const ASInt16 & width, const ASInt16 & height, ASInt32);  //Inserts a page into the document.
-    PDPage getPage(ASInt32);                                                         //Returns page specified first page is 0.
+    PDPage getPage(ASInt32);                                                         //Returns the specified PDPage, the first page is 0.
 
     volatile PDDoc& getPDDoc(){ return pdDoc; };                           //Returns a reference to the PDDoc that was created or opened.
 
-    ASErrorCode saveDoc(wchar_t* = NULL, PDSaveFlags = PDSaveFull);        //fully saves by default.
+    ASErrorCode saveDoc(wchar_t* = NULL, PDSaveFlags = PDSaveFull);        //Used to save the document, may be provided a path and PDSaveFlags.
     
     ~APDFLDoc();                                                           //Destructor frees up resources.
 

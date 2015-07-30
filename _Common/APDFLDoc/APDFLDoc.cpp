@@ -1,11 +1,12 @@
 ﻿// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 
 //===============================================================================
-//Helper App. for Samples: APDFLDoc is intended to assist with common PDDoc
-//operations. This class contains methods that open and create documents and 
-//performs other common operations.
-//APDFLDoc.cpp: Contains implementations of methods.
-//APDFLDoc.h: Contains class definition.
+//Sample: APDFLDoc -This class is intended to assist with operations common to 
+//most samples. The class is capable of opening/creating and saving a document.
+//It can also insert and retrieve pages.
+//
+//APDFLDoc.cpp: Contains the method implementations.
+//APDFLDoc.h: Contains the class definition.
 //===============================================================================
 
 // This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
@@ -55,80 +56,82 @@
 
 #include "APDFLDoc.h"
 
-//************************************************************************
-// Constructor opens an APDFL document when supplied a file name and
-// bool to determine whether to repair (true) or not (false) a damaged file.
-//************************************************************************
-
-APDFLDoc::APDFLDoc(wchar_t * nameOfDocument, bool repairDamagedFile)
-{
-
-    initialize();
-
-    //Copy name of document into data member
-    wcscpy(this->nameOfDocument, nameOfDocument);
-
-    DURING
-    
-        //Set the path name data member
-        setASPathName(this->nameOfDocument);
-
-        //Open the document
-        pdDoc = PDDocOpen(asPathName, NULL, NULL, repairDamagedFile);
-
-        //Release path name that was just created.
-        ASFileSysReleasePath(NULL, asPathName);
-        asPathName = NULL;
-
-        HANDLER
-
-        printErrorHandlerMessage();
-
-        //Pass exception to the next handler on the stack.
-        RERAISE();
-
-    END_HANDLER
-}
-
-//************************************************************************
-//This constructor creates a new PDF Document. 
-//************************************************************************
+//==============================================================================================================================
+// Default Constructor - This creates a new PDDoc object. This object will be automatically freed in the APDFLDoc's destructor.
+//==============================================================================================================================
 
 APDFLDoc::APDFLDoc()
 {
 
-    initialize();
+    initialize();                 //Helper method sets some of the data members to NULL values.
 
     DURING
-
-        //Create the pdDoc
-        pdDoc = PDDocCreate();       
+  
+        pdDoc = PDDocCreate();    //Initialize the PDDoc data member.
 
     HANDLER
 
         printErrorHandlerMessage();
 
-        //Pass exception to the next handler on the stack.
-        RERAISE();
+        RERAISE();                //Pass exception to the next HANDLER on the stack.
 
     END_HANDLER
 }
 
-//************************************************************************
-//saveDoc() Saves a PDDoc. 
-//If pathToSaveDoc is supplied it will save to the location specified. If 
-//it is not supplied it will overwrite the documents original location.
-//The document will do a FullSave by default, but other flags may be specified.
-//
-//  EX: saveDoc(L"out.pdf", PDSaveFull | PDSaveLinearized);
-//************************************************************************
+//==============================================================================================================================
+// Constructor - This constructor opens an existing PDF document. nameOfDocument is the relative path for the PDF document 
+// and the bool repairDamagedFile determines whether to repair (true) or not (false) a damaged file.
+//==============================================================================================================================
+
+APDFLDoc::APDFLDoc(wchar_t * nameOfDocument, bool repairDamagedFile)
+{
+
+    initialize();                                                        
+
+    wcscpy(this->nameOfDocument, nameOfDocument);                        //Set the nameOfDocument data member.
+
+    DURING
+        
+        setASPathName(this->nameOfDocument);                             //Set the ASPathName data member.
+
+        pdDoc = PDDocOpen(asPathName, NULL, NULL, repairDamagedFile);    //Open the PDF document.
+
+        ASFileSysReleasePath(NULL, asPathName);                          //Release the ASPathName that was just created.
+        asPathName = NULL;
+
+   HANDLER
+
+       printErrorHandlerMessage();                                       //Report any exceptions that occured.
+   
+       RERAISE();                                                        //Pass the exception to the next handler on the stack.
+
+   END_HANDLER
+}
+
+//==============================================================================================================================
+// initialize() - Helper method used to initialize data members to NULL values.
+//==============================================================================================================================
+
+void APDFLDoc::initialize()
+{
+    pdDoc = NULL;
+    asPathName = NULL;
+    errorCode = 0;
+    nameOfDocument[0] = L'\0';
+}
+
+//==============================================================================================================================
+// saveDoc() - This method saves the PDDoc. If pathToSaveDoc is supplied it will save to the location specified. If it is 
+// not supplied it will overwrite the documents original location. The document will do a complete save by default, but other 
+// flags may be specified.
+//==============================================================================================================================
 
 ASErrorCode APDFLDoc::saveDoc(wchar_t * pathToSaveDoc, PDSaveFlags saveFlags)
 {
 
     DURING
 
-        //Ensure a name has been set for the document before saving.
+        //Error checking: Ensure a name has been set before saving the document.
         if (pathToSaveDoc == NULL && nameOfDocument[0] == L'\0')
         {
             std::wcerr << L"Failed to save document ensure PDDoc has a valid name before saving. " << std::endl;
@@ -136,37 +139,36 @@ ASErrorCode APDFLDoc::saveDoc(wchar_t * pathToSaveDoc, PDSaveFlags saveFlags)
             return errorCode;
         }
 
-        //Set the path name of the document.
+        //Error checking: Ensure that the ASPathName has been set before saving the document.
         if (pathToSaveDoc != NULL)
-            setASPathName(pathToSaveDoc);   //Use the path specified in saveDoc if it's been set.
+            setASPathName(pathToSaveDoc);           //Use the path specified in saveDoc if it's been set.
         else
-            setASPathName(nameOfDocument);  //Overwrite the original document if it hasn't been set.
+            setASPathName(nameOfDocument);          //Overwrite the original document if it hasn't been set.
         
-        //Check to see if document has a page before saving
+        //Error Checking: Ensure document has a page before saving.
         if (PDDocGetNumPages(pdDoc) > 0)
             PDDocSave(pdDoc, saveFlags, asPathName, NULL, NULL, NULL);
         else
         {
             std::wcerr << L"Failed to save document ensure PDDoc has pages. " << std::endl;
-            errorCode = -1;
+            errorCode = -2;
         }
 
-        //Release path name
-        ASFileSysReleasePath(NULL, asPathName);
+        ASFileSysReleasePath(NULL, asPathName);    //Release ASPathName object and set to NULL.
         asPathName = NULL;
 
     HANDLER
 
-        return printErrorHandlerMessage();  //Return error code that was generated by exception
+        return printErrorHandlerMessage();         //Return the error code that was generated by the exception.
     
     END_HANDLER
  
-        return errorCode;   //errorcode = 0 if no exceptions raised
+        return errorCode;                          
 }
 
-//************************************************************************
-//Sets the ASPathName data member, used when opening or saving a file.
-//************************************************************************
+//==============================================================================================================================
+// setASPAthName() - Helper method used to create an ASPathName. This is called by the saveDoc and open document constructor.
+//==============================================================================================================================
 
 ASErrorCode APDFLDoc::setASPathName(wchar_t * pathToCreate)
 {
@@ -179,8 +181,7 @@ ASErrorCode APDFLDoc::setASPathName(wchar_t * pathToCreate)
         return -1;
     }
 
-    //Text object to create ASPathName
-    ASText textToCreatePath = NULL;
+    ASText textToCreatePath = NULL;         //Text object to create ASPathName
 
     DURING
 
@@ -191,30 +192,23 @@ ASErrorCode APDFLDoc::setASPathName(wchar_t * pathToCreate)
             textToCreatePath = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(nameOfDocument), kUTF32HostEndian);
 
         //Create the path for output file
-        asPathName = ASFileSysCreatePathFromDIPathText(NULL, textToCreatePath, NULL);
+        asPathName = ASFileSysCreatePathFromDIPathText(NULL, textToCreatePath, NULL);    
 
     HANDLER
-        
-       //Return error code that was generated by exception 
-       return printErrorHandlerMessage();
+         
+       return printErrorHandlerMessage();   //Return error code that was generated by exception 
     
     END_HANDLER
 
-    //Release text object
-    ASTextDestroy(textToCreatePath);
+    ASTextDestroy(textToCreatePath);        //Release text object
     
     return errorCode;
 }
 
-//************************************************************************
-// Inserts a page into the PDDoc given a width, height and page number.
-//************************************************************************
-
-ASErrorCode APDFLDoc::insertPage(const ASInt16 & width, const ASInt16 & height, ASInt32 afterPageNum)
-{
-    return insertPage(Int16ToFixed(width), Int16ToFixed(height), afterPageNum);
-}
-
+//==============================================================================================================================
+// insertPage() - Inserts a page into the PDDoc when provided ASFixed values for width, height and the location where the
+// page will be inserted. The PDPage created is deallocated at the end of this method.
+//==============================================================================================================================
 
 ASErrorCode APDFLDoc::insertPage(const ASFixed & width, const ASFixed & height, ASInt32 afterPageNum)
 {
@@ -223,33 +217,39 @@ ASErrorCode APDFLDoc::insertPage(const ASFixed & width, const ASFixed & height, 
 
         PDPage pdPage;
 
-        //Create page dimensions
+        //Set the page dimensions before creating the PDPage.
         ASFixedRect mediaBox;
         mediaBox.left = fixedZero;
         mediaBox.right = width;
         mediaBox.bottom = fixedZero;
         mediaBox.top = height;
 
-        //Create and insert a page into the PDDoc
-        pdPage = PDDocCreatePage(pdDoc, afterPageNum, mediaBox);
+        pdPage = PDDocCreatePage(pdDoc, afterPageNum, mediaBox);    //Create and insert a page into the PDDoc.
 
-        PDPageRelease(pdPage);
+        PDPageRelease(pdPage);                                      //Release the PDPage object.
         pdPage = NULL;
 
     HANDLER
 
-        //Return error code that was generated by exception
-        return printErrorHandlerMessage();
+        return printErrorHandlerMessage();                          //Return the error code that was generated by the exception.
 
     END_HANDLER
 
         return errorCode;
 }
 
-//************************************************************************
-// Returns specified page, first page is 0
-// Important note: Caller is responsible for calling PDPageRelease on page.
-//************************************************************************
+//==============================================================================================================================
+// insertPage() - This is the overloaded method that takes integer arguments instead of ASFixed values.
+//==============================================================================================================================
+
+ASErrorCode APDFLDoc::insertPage(const ASInt16 & width, const ASInt16 & height, ASInt32 afterPageNum)
+{
+    return insertPage(Int16ToFixed(width), Int16ToFixed(height), afterPageNum);
+}
+
+//==============================================================================================================================
+// getPage() - Accessor method for pages in the PDDoc. The argument is the page index with 0 being the first page.
+//==============================================================================================================================
 
 PDPage APDFLDoc::getPage(ASInt32 pageNumber)
 {
@@ -258,53 +258,37 @@ PDPage APDFLDoc::getPage(ASInt32 pageNumber)
 
     DURING
   
-        pdPage = PDDocAcquirePage(pdDoc, pageNumber); //Get the page number
+        pdPage = PDDocAcquirePage(pdDoc, pageNumber);    //Get the page from the PDDoc object.
 
     HANDLER
 
-        printErrorHandlerMessage();                   //if exception occurs print the error.
+        printErrorHandlerMessage();                      //If an exception occured print the error.
 
     END_HANDLER
 
         return pdPage;
 }
 
-//************************************************************************
-// Initializes data members to NULL values, called in constructors.
-//************************************************************************
-
-void APDFLDoc::initialize()
-{
-    //Initially should be NULL
-    pdDoc = NULL;
-    asPathName = NULL;
-    errorCode = 0;
-    nameOfDocument[0] = L'\0';
-}
-
-//************************************************************************
-// printErrorHandlerMessage prints out errors in the handler blocks and
-// returns an error code based on the exception raised.
-//************************************************************************
-
+//==============================================================================================================================
+// printErrorHandlerMessage() - Helper method that reports errors and returns an error code.
+//==============================================================================================================================
 ASErrorCode APDFLDoc::printErrorHandlerMessage()
 {
-    //If there was an exception generate an error code
-    errorCode = ERRORCODE;
+   
+    errorCode = ERRORCODE;                            //Get the error code that caused the exception.
 
-    char buf[256];
+    char buf[256];             
 
-    ASGetErrorString(ERRORCODE, buf, sizeof(buf));
+    ASGetErrorString(ERRORCODE, buf, sizeof(buf));    //Get the error message that coreesponds to the error code.
 
-    //Print out error code
     std::cerr << "Error Code: " << errorCode << "Error Message: " << buf << std::endl;
 
     return errorCode;
 }
 
-//************************************************************************
-// Destructor for APDFLDoc class, releases any remaining resources
-//************************************************************************
+//==============================================================================================================================
+// ~APDFLDoc() - Releases resources if they haven't already been freed.
+//==============================================================================================================================
 
 APDFLDoc::~APDFLDoc()
 {
@@ -320,8 +304,7 @@ APDFLDoc::~APDFLDoc()
 
         printErrorHandlerMessage();
 
-        //Pass exception to the next handler on the stack.
-        RERAISE();
+        RERAISE();                                  //Pass exception to the next handler on the stack.
 
     END_HANDLER
 }
