@@ -104,14 +104,14 @@ int main(int argc, char** argv)
     //Prepare the font we'll draw the text with.
     PDEFontAttrs fontAttrs;
     memset(&fontAttrs, 0, sizeof(fontAttrs));
-    fontAttrs.name = ASAtomFromString("Arial");
+    fontAttrs.name = ASAtomFromString("CourierStd");
     fontAttrs.type = ASAtomFromString("Type0");
     PDEFont font = PDEFontCreateFromSysFont(PDFindSysFont(&fontAttrs, sizeof(fontAttrs), 0), kPDEFontDoNotEmbed);
 
     //This FixedMatrix will point to where each next word will be drawn.
     ASFixedMatrix nextWordLocation;
     memset(&nextWordLocation, 0, sizeof(nextWordLocation));
-    ASInt16 fontSize = 11;                                                                                           //We'll use an 11-point font size.
+    ASInt16 fontSize = 9;                                                                                           //We'll use an 11-point font size.
     nextWordLocation.a = Int16ToFixed(fontSize);                                                                     //Set the character width.
     nextWordLocation.d = Int16ToFixed(fontSize);                                                                     //Set the character height.
     ASFixed leftMargin = ASFloatToFixed(0.5 * 72);                                                                   //(We save this value to reset nextWordLocation for each new line.)
@@ -152,7 +152,7 @@ int main(int argc, char** argv)
             PDWordGetASText(nextWord, 0, nextWordASText);
 
             ASInt32 wordLen = 0;                                                                     //Unused. Only needed to call ASTextGetPDTextCopy.
-            std::wcout << ASTextGetPDTextCopy(nextWordASText, &wordLen);                             //This will output the text in UTF-16, which will not display correctly in the terminal. Rest assured that it will be drawn to the output correctly.
+            std::wcout << ASTextGetPDTextCopy(nextWordASText, &wordLen);                             //This will output the text in UTF-16BE or in PDFDocEncoding, neither of which may display correctly in the terminal. Rest assured it will look fine in the output document.
 
             //Append the word to the line.
             PDETextAddASText(nextLine, kPDETextRun, nextLineIndex, nextWordASText,                   //Add the word to the next index in the text object. It's a text run because it's (usually) multiple characters.
