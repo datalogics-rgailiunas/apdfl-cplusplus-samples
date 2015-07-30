@@ -154,7 +154,7 @@
     <ClCompile Include="..\..\Include\Source\PDFLInitHFT.c" />
     <ClCompile Include="..\_Common\APDFLDoc\APDFLDoc.cpp" />
     <ClCompile Include="..\_Common\Init\InitializeLibrary.cpp" />
-    <ClCompile Include="CreateDocumentApp.cpp" />
+    <ClCompile Include="CreateDocument.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\_Common\APDFLDoc\APDFLDoc.h" />
