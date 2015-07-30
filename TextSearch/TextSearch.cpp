@@ -81,21 +81,21 @@ int main()
 // Step 1) Set the word finder configurations.
 //===================================================================================================================================================================================
 
-        PDWordFinderConfigRec wfConfig;
+        PDWordFinderConfigRec wfConfig;                      //This structure determines how the PDWordFinder will behave.
         memset(&wfConfig, 0, sizeof(wfConfig));
 
         wfConfig.recSize = sizeof(PDWordFinderConfigRec);    //Always set to sizeof PDWordFinderConfigRec.
         wfConfig.disableTaggedPDF = true;                    //Setting to true will treat this as a non-tagged PDF document.
         wfConfig.noXYSort = true;                            //Don't generate an XY-ordered word list.
-        wfConfig.preserveSpaces = false;                     //Don't preserve spaces during word breaking. [HERE]
+        wfConfig.preserveSpaces = false;                     //Don't preserve spaces during word breaking.
         wfConfig.noLigatureExp = false;                      //Enable expansion of ligatures using the default ligatures.
         wfConfig.noEncodingGuess = true;                     //Disable guessing encoding of fonts with unknown or custom encoding.
-        wfConfig.unknownToStdEnc = true;                     //Don't assume all fonts are Standard Roman. Setting to true overrides noEncodingGuess. [HERE]
-        wfConfig.ignoreCharGaps = false;                     //Disable converting large character gaps to spaces. [HERE]
+        wfConfig.unknownToStdEnc = false;                    //Don't assume all fonts are Standard Roman. Setting to true overrides noEncodingGuess.
+        wfConfig.ignoreCharGaps = true;                      //Disable converting large character gaps to spaces.
         wfConfig.ignoreLineGaps = false;                     //Treat vertical movements as line breaks.
         wfConfig.noAnnots = true;                            //Don't extract from annotations.
         wfConfig.noHyphenDetection = false;                  //Don't differentiate between hard and soft hyphens.
-        wfConfig.trustNBSpace = true;                        //Don't differentiate between breaking and non-breaking spaces. [HERE]
+        wfConfig.trustNBSpace = false;                       //Don't differentiate between breaking and non-breaking spaces.
         wfConfig.noExtCharOffset = false;                    //If client doesn't have a need for detailed character offset information set to true for improvement in efficiency.
         wfConfig.noStyleInfo = false;                        //Set to true if client doesn't have a need for style information for improvement in efficiency.
         wfConfig.decomposeTbl = NULL;                        //Table may be used to expand unicode ligatures not in the default list.
@@ -106,23 +106,26 @@ int main()
         wfConfig.disableCharReordering = false;              //Used in cases where the PDF page has heavily overlapped character bounding boxes.
 
 //===================================================================================================================================================================================
-// Step 2) Fill in color information. In this case our highlighting color will be set to orange.
+// Step 2) Fill in color information for highlighting text. In this case our color will be set to orange.
 //===================================================================================================================================================================================
 
-        ASFixed red = ASFloatToFixed(1.0);          //Set the colors to be used for highlighting.
-        ASFixed green = ASFloatToFixed(0.65);
+        ASFixed red = ASFloatToFixed(1.0);       //Set the colors to be used for highlighting.
+        ASFixed green = ASFloatToFixed(0.65);    //These values may range from 0.0 to 1.0.
         ASFixed blue = ASFloatToFixed(0.0);         
 
         PDColorValueRec colorValRec;
-        PDColorValue pdColorValue;                  //Variable passed to PDAnnotSetColor, in order to set the annotations color.
-        pdColorValue = &colorValRec;
+        PDColorValue pdColorValue;               //This variable is passed to PDAnnotSetColor, in order to set the annotations color.
+        pdColorValue = &colorValRec;             //PDColorValueRec must be assigned to PDColorValue before attempting to access the values.
 
-        pdColorValue->value[0] = red;               //Assign the RGB color values to the structure.
+        pdColorValue->value[0] = red;            //Assign the RGB color values to the PDColorValue structure.
         pdColorValue->value[1] = green;
         pdColorValue->value[2] = blue;
-        pdColorValue->space = PDDeviceRGB;          //Colors are set using the RGB color space.
+        pdColorValue->space = PDDeviceRGB;       //Colors are set using the RGB color space.
+
 //===================================================================================================================================================================================
-// Step 2) Fill in color information.
+// Step 3) Check pages for words matching the search string. In this case it is done by acquiring an ASText object from the PDWord being examined and then converting it to a
+// std::wstring for making the comparisons.
+// Note: This will match exact values and any strings containing the text. For example searching for the word "as" will match the entire word "Thomas." 
 //===================================================================================================================================================================================
 
         //Create the PDWordFinder object used to extract and enumerate the words on pages in a PDF document.
@@ -134,36 +137,43 @@ int main()
 
         for (ASInt32 pageNum = 0; pageNum < (PDDocGetNumPages(document.getPDDoc()) - 1); ++pageNum)                       //Iterate through each page in the PDDoc.
         {
-            PDWordFinderAcquireWordList(wordFinder, pageNum, &pdfWordArray, &xySortedWordTable, NULL, &numberOfWords);    //Get all words in the PDF document.
+            PDWordFinderAcquireWordList(wordFinder, pageNum, &pdfWordArray, &xySortedWordTable, NULL, &numberOfWords);    //Get all words in the PDPage specified.
 
-            for (ASInt32 index = 0; index < numberOfWords; ++index)                                                       //Iterate through the words on the page.
+            for (ASInt32 index = 0; index < numberOfWords; ++index)                                                       //Iterate through the words in the wordlist.
             {
                 PDWord pdWord = PDWordFinderGetNthWord(wordFinder, index);                                                //Acquire the PDWord from the word finder.
 
                 ASText asTextWord = ASTextNew();                                                                          //Create a new empty ASText object.
                 PDWordGetASText(pdWord, 0, asTextWord);                                                                   //Get the ASText object from the PDWord.
-
-                std::wstring testString;                                                                                  //String used to match values.
-                testString = (wchar_t *)ASTextGetUnicodeCopy(asTextWord, kUTF16HostEndian);                               //Set string equal to the word being examined.
+                                                                               
+                std::wstring testString = (wchar_t *)ASTextGetUnicodeCopy(asTextWord, kUTF16HostEndian);                  //Set string equal to the word being examined.
                 std::transform(testString.begin(), testString.end(), testString.begin(), ::tolower);                      //Convert the test string to all lowercase letters.
 
-                if (wcsstr(testString.c_str(), L"pirate") != NULL)                                                        //Check for any occurences of the string "pirate".
+//===================================================================================================================================================================================
+// Step 4) Add a highlight annotation when the word is found. The Annotation's Subtype, QuadPoints and rectangle must be set in order to render the highlight annotation to the page.
+// tempQuad contains the (x,y) coordinates of the annotation where each point represents one of the corners of the quadrilateral. 
+// Note:bl stands for bottom left and tr for top right
+//===================================================================================================================================================================================
+
+                if (wcsstr(testString.c_str(), L"pirate") != nullptr)                                                     //Check for any occurences of the string "pirate".
                 {
-                    PDPage pdPage = document.getPage(pageNum);
                     ASFixedQuad tempQuad;
+                    PDWordGetNthQuad(pdWord, 0, &tempQuad);                                                               //Obtain the PDWords quad. 
 
-                    PDWordGetNthQuad(pdWord, 0, &tempQuad);
-                    ASFixedRect annotationRect;
-                    annotationRect.left = tempQuad.bl.h;
-                    annotationRect.top = tempQuad.tr.v;
-                    annotationRect.right = tempQuad.tr.h;
-                    annotationRect.bottom = tempQuad.bl.v;
+                    ASFixedRect annotationRect;                                                                           //The rectangle that must be set to render the annotation.
+                    annotationRect.left = tempQuad.bl.h;                                                                  //Assigning these works because both shapes are rectangles.
+                    annotationRect.top = tempQuad.tr.v;                                                                   
+                    annotationRect.right = tempQuad.tr.h;                                                                 
+                    annotationRect.bottom = tempQuad.bl.v;                                          
 
-                    PDAnnot highlight = PDPageCreateAnnot(pdPage, ASAtomFromString("Highlight"), &annotationRect); //adding the annotation
-                    PDAnnotSetQuads(highlight, &tempQuad, 1);
-                    PDAnnotSetColor(highlight, pdColorValue);   
-                    PDPageAddAnnot(pdPage, -2, highlight);
-                    PDPageRelease(pdPage);
+                    PDPage pdPage = document.getPage(pageNum);                                                            //Get the PDPage object for adding the highlight annotation.
+                    PDAnnot highlight = PDPageCreateAnnot(pdPage, ASAtomFromString("Highlight"), &annotationRect);        //Create the annotation.
+
+                    PDAnnotSetQuads(highlight, &tempQuad, 1);                                                             //Set the newly created annotation's coordinates.
+                    PDAnnotSetColor(highlight, pdColorValue);                                                             //Set the annotation's color (orange.)
+
+                    PDPageAddAnnot(pdPage, -2, highlight);                                                                //Render the annotation to the page.
+                    PDPageRelease(pdPage);                                                                                //Release the acquired page.
                 }
  
                 ASTextDestroy(asTextWord);                                                                                //Destroy the ASText object before creating a new one.
@@ -172,29 +182,21 @@ int main()
             PDWordFinderReleaseWordList(wordFinder, pageNum);                                                             //Release the PDWordFinder object before acquiring the next one.
         }
 
-//===================================================================================================================================================================================
-// Step 3)
-//===================================================================================================================================================================================
-
-        //PDPageNotifyContentsDidChangeEx(pdPage, true);
-
-        document.saveDoc(L"out.pdf");
-
-
+        document.saveDoc(L"out.pdf");                                                                                     //Save the output document in the working directory.
 
     HANDLER
 
         errCode = ERRORCODE;
 
-        libInit.displayError(errCode);    //If there was an error, display it.
+        libInit.displayError(errCode);                                                                                    //If there was an error, display it.
 
     END_HANDLER
-            system("pause");
-    return errCode;                       //APDFLib's destructor terminates the APDFL.                            
+            
+    return errCode;                                                                                                       //APDFLib's destructor terminates the APDFL.                            
 }
 
 //===================================================================================================================================================================================
-// Function: PDAnnotSetQuads() - Function that needs to be called in order to 
+// Function: PDAnnotSetQuads() - Function that needs to be called in order to add the quadrilaterals.
 //===================================================================================================================================================================================
 void PDAnnotSetQuads(PDAnnot annot, ASFixedQuad *quads, ASArraySize numQuads) {
 
