@@ -90,12 +90,12 @@ int main()
         wfConfig.preserveSpaces = false;                     //Don't preserve spaces during word breaking. [HERE]
         wfConfig.noLigatureExp = false;                      //Enable expansion of ligatures using the default ligatures.
         wfConfig.noEncodingGuess = true;                     //Disable guessing encoding of fonts with unknown or custom encoding.
-        wfConfig.unknownToStdEnc = true;                    //Don't assume all fonts are Standard Roman. Setting to true overrides noEncodingGuess. [HERE]
-        wfConfig.ignoreCharGaps = false;                      //Disable converting large character gaps to spaces. [HERE]
+        wfConfig.unknownToStdEnc = true;                     //Don't assume all fonts are Standard Roman. Setting to true overrides noEncodingGuess. [HERE]
+        wfConfig.ignoreCharGaps = false;                     //Disable converting large character gaps to spaces. [HERE]
         wfConfig.ignoreLineGaps = false;                     //Treat vertical movements as line breaks.
         wfConfig.noAnnots = true;                            //Don't extract from annotations.
         wfConfig.noHyphenDetection = false;                  //Don't differentiate between hard and soft hyphens.
-        wfConfig.trustNBSpace = true;                       //Don't differentiate between breaking and non-breaking spaces. [HERE]
+        wfConfig.trustNBSpace = true;                        //Don't differentiate between breaking and non-breaking spaces. [HERE]
         wfConfig.noExtCharOffset = false;                    //If client doesn't have a need for detailed character offset information set to true for improvement in efficiency.
         wfConfig.noStyleInfo = false;                        //Set to true if client doesn't have a need for style information for improvement in efficiency.
         wfConfig.decomposeTbl = NULL;                        //Table may be used to expand unicode ligatures not in the default list.
@@ -106,7 +106,7 @@ int main()
         wfConfig.disableCharReordering = false;              //Used in cases where the PDF page has heavily overlapped character bounding boxes.
 
 //===================================================================================================================================================================================
-// Step 2) Fill in color information.
+// Step 2) Fill in color information. In this case our highlighting color will be set to orange.
 //===================================================================================================================================================================================
 
         ASFixed red = ASFloatToFixed(1.0);          //Set the colors to be used for highlighting.
@@ -114,13 +114,13 @@ int main()
         ASFixed blue = ASFloatToFixed(0.0);         
 
         PDColorValueRec colorValRec;
-        PDColorValue pdColorValue;                  //struct holding color values
+        PDColorValue pdColorValue;                  //Variable passed to PDAnnotSetColor, in order to set the annotations color.
         pdColorValue = &colorValRec;
 
-        pdColorValue->value[0] = red;               //assign the values
+        pdColorValue->value[0] = red;               //Assign the RGB color values to the structure.
         pdColorValue->value[1] = green;
         pdColorValue->value[2] = blue;
-        pdColorValue->space = PDDeviceRGB;
+        pdColorValue->space = PDDeviceRGB;          //Colors are set using the RGB color space.
 //===================================================================================================================================================================================
 // Step 2) Fill in color information.
 //===================================================================================================================================================================================
