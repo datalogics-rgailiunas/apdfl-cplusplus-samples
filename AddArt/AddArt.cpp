@@ -152,8 +152,6 @@ int main(int argc, char** argv)
         //Insert the PDEPath into the PDEContent that was acquired.
         PDEContentAddElem(pdeContent, kPDEAfterLast, reinterpret_cast<PDEElement>(pdePath));
 
-        PDPageNotifyContentsDidChange(pdPage);               //Notify the page that the PDEContent has been changed.
-
         PDPageSetPDEContentCanRaise(pdPage, 0);              //Set the PDEContent back into the PDPage's Cos object.
 
         PDERelease(reinterpret_cast<PDEObject>(pdePath));    //Release the path object.
@@ -209,9 +207,7 @@ int main(int argc, char** argv)
         PDEElementSetMatrixEx(reinterpret_cast<PDEElement>(pdePath2), &translateAndScale);       //Apply the transformation matrix.
 
         PDEContentAddElem(pdeContent, kPDEAfterLast, reinterpret_cast<PDEElement>(pdePath2));    //Insert the PDEPath into the PDEContent that was acquired.
-
-        PDPageNotifyContentsDidChange(pdPage);                                                   //Notify the page that the PDEContent has been changed.                                                 
-
+                                                
         PDPageSetPDEContentCanRaise(pdPage, 0);                                                  //Set the PDEContent back into the PDPage's Cos object.
 
 //=============================================================================================================================================================
