@@ -1,12 +1,15 @@
 // Copyright(c) 2015, Datalogics, Inc.All rights reserved.
 
 //=============================================================================
-// Sample: TextSearch - PUT A DESCRIPTION HERE <------------------------------------------------------------------DONT FORGET ME
+// Sample: TextSearch - This sample demonstrates searching a document for text
+// using the PDWordFinder. When text is found it marks it with a highlight 
+// annotation and saves the output document in the working directory.
 //
 //Steps:
-// 1) 
-// 2) 
-// 3) 
+// 1) Set the word finder configurations.
+// 2) Fill in color information for highlighting text.
+// 3) Check pages for words matching the search string.
+// 4) Add a highlight annotation when the word is found.
 //=============================================================================
 
 // This agreement is between Datalogics, Inc. 101 N.Wacker Drive, Suite 1800,
@@ -78,7 +81,8 @@ int main()
         APDFLDoc document(L"../_Input/TextSearch.pdf", true);
 
 //===================================================================================================================================================================================
-// Step 1) Set the word finder configurations.
+// Step 1) Set the word finder configurations. In this case memset() will take care of initializing most of them of the variables, but they are all display here with a short
+// description in order to show what types of settings are available.
 //===================================================================================================================================================================================
 
         PDWordFinderConfigRec wfConfig;                      //This structure determines how the PDWordFinder will behave.
@@ -98,9 +102,9 @@ int main()
         wfConfig.trustNBSpace = false;                       //Don't differentiate between breaking and non-breaking spaces.
         wfConfig.noExtCharOffset = false;                    //If client doesn't have a need for detailed character offset information set to true for improvement in efficiency.
         wfConfig.noStyleInfo = false;                        //Set to true if client doesn't have a need for style information for improvement in efficiency.
-        wfConfig.decomposeTbl = NULL;                        //Table may be used to expand unicode ligatures not in the default list.
-        wfConfig.decomposeTblSize = 0;                       //Not using decomposeTbl so the size is 0.
-        wfConfig.charTypeTbl = NULL;                         //Custom table to enhance word breaking quality.
+        wfConfig.decomposeTbl = nullptr;                     //Table may be used to expand unicode ligatures not in the default list.
+        wfConfig.decomposeTblSize = 0;                       //Not using decomposeTbl, so the size is 0.
+        wfConfig.charTypeTbl = nullptr;                      //Custom table to enhance word breaking quality.
         wfConfig.charTypeTblSize = 0;                        //Unused, so the size will be 0.
         wfConfig.preserveRedundantChars = false;             //May be used to preserve overlapping redundant characters in some PDF documents.
         wfConfig.disableCharReordering = false;              //Used in cases where the PDF page has heavily overlapped character bounding boxes.
@@ -132,22 +136,22 @@ int main()
         PDWordFinder wordFinder = PDDocCreateWordFinderEx(document.getPDDoc(), WF_LATEST_VERSION, true, &wfConfig);    
 
         PDWord pdfWordArray;          //This will point at an array of PDWord objects. Do not try to access this directly, acquire the list through PDWordFinderGetNthWord().
-        PDWord * xySortedWordTable;   //Table containing PDWords sorted by their (x, y) coordinates in the document.
         ASInt32 numberOfWords = 0;    //Number of words on the page.
 
-        for (ASInt32 pageNum = 0; pageNum < (PDDocGetNumPages(document.getPDDoc()) - 1); ++pageNum)                       //Iterate through each page in the PDDoc.
+        for (ASInt32 pageNum = 0; pageNum < (PDDocGetNumPages(document.getPDDoc()) - 1); ++pageNum)                           //Iterate through each page in the PDDoc.
         {
-            PDWordFinderAcquireWordList(wordFinder, pageNum, &pdfWordArray, &xySortedWordTable, NULL, &numberOfWords);    //Get all words in the PDPage specified.
+            PDWordFinderAcquireWordList(wordFinder, pageNum, &pdfWordArray, nullptr, nullptr, &numberOfWords);                //Get all words in the PDPage specified.
 
-            for (ASInt32 index = 0; index < numberOfWords; ++index)                                                       //Iterate through the words in the wordlist.
+            for (ASInt32 index = 0; index < numberOfWords; ++index)                                                           //Iterate through the words in the wordlist.
             {
-                PDWord pdWord = PDWordFinderGetNthWord(wordFinder, index);                                                //Acquire the PDWord from the word finder.
+                PDWord pdWord = PDWordFinderGetNthWord(wordFinder, index);                                                    //Acquire the PDWord from the word finder.
 
-                ASText asTextWord = ASTextNew();                                                                          //Create a new empty ASText object.
-                PDWordGetASText(pdWord, 0, asTextWord);                                                                   //Get the ASText object from the PDWord.
+                ASText asTextWord = ASTextNew();                                                                              //Create a new empty ASText object.
+                PDWordGetASText(pdWord, 0, asTextWord);                                                                       //Get the ASText object from the PDWord.
                                                                                
-                std::wstring testString = (wchar_t *)ASTextGetUnicodeCopy(asTextWord, kUTF16HostEndian);                  //Set string equal to the word being examined.
-                std::transform(testString.begin(), testString.end(), testString.begin(), ::tolower);                      //Convert the test string to all lowercase letters.
+                std::wstring testString = reinterpret_cast<wchar_t *>(ASTextGetUnicodeCopy(asTextWord, kUTF16HostEndian));    //Set string equal to the word being examined.
+
+                std::transform(testString.begin(), testString.end(), testString.begin(), ::tolower);                          //Convert the test string to all lowercase letters.
 
 //===================================================================================================================================================================================
 // Step 4) Add a highlight annotation when the word is found. The Annotation's Subtype, QuadPoints and rectangle must be set in order to render the highlight annotation to the page.
@@ -196,25 +200,27 @@ int main()
 }
 
 //===================================================================================================================================================================================
-// Function: PDAnnotSetQuads() - Function that needs to be called in order to add the quadrilaterals.
+// Function: PDAnnotSetQuads() - Function that needs to be called in order to add quads to the annotation's CosObj.
+// Note: Adobe specifies quads be added in this order - Bottom Left, Bottom Right, Top Right, Top left. They currently need to be added in as BL, BR, TL, TR to get correct output. 
 //===================================================================================================================================================================================
+
 void PDAnnotSetQuads(PDAnnot annot, ASFixedQuad *quads, ASArraySize numQuads) {
 
-    CosObj coAnnot = PDAnnotGetCosObj(annot);
-    CosDoc coDoc = CosObjGetDoc(coAnnot);
-    CosObj coQuads = CosNewArray(coDoc, false, numQuads * 8);
+    CosObj coAnnot = PDAnnotGetCosObj(annot);                                   //Acquire the annotation's cos object.
+    CosDoc coDoc = CosObjGetDoc(coAnnot);                                       //Get the CosDoc containing the annotation.
+    CosObj coQuads = CosNewArray(coDoc, false, numQuads * 8);                   //Create a cos array to hold the quadpoints.
 
     for (ASUns32 i = 0, n = 0; i < numQuads; ++i)
     {
-        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].bl.h));
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].bl.h));    //Add the quad points to the cos array, this will grow and shrink as needed.
         CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].bl.v));
         CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].br.h));
         CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].br.v));
-        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tl.h)); 
-        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tr.v));
-        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tr.h)); 
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tl.h));    //These two points currently do not conform to the specification.
         CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tl.v));
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tr.h));    //These two points currently do not conform to the specification.
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tr.v));
     }
 
-    CosDictPut(coAnnot, ASAtomFromString("QuadPoints"), coQuads);
+    CosDictPut(coAnnot, ASAtomFromString("QuadPoints"), coQuads);               
 }
