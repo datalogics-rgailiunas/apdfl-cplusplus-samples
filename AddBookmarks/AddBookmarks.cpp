@@ -77,141 +77,179 @@
 //Converts a char string to a wchar_t string.
 wchar_t* toWide(const char* str);
 
-//Convert a wide string to an ASText object.
+//Converts a wide string to an ASText object.
 ASText toASText(const wchar_t* string);
+
+//Checks to see if a PDWord is bolded.
+bool isBold(PDWord word, PDWordFinder finder);
 
 int main(int argc, char** argv)
 {
     APDFLib lib;                                                  //Initialize the Adobe PDF Library.
-
     if (lib.isValid() == false)                                   //If it failed to initialize, return the error code.
         return lib.getInitError();
 
     wchar_t* inputPath  = L"../_Input/Ulysses.pdf";               //Input PDF path.
     wchar_t* outputPath = L"Bookmarked.pdf";                      //Output path we'll save to.
 
-    ASErrorCode errCode = 0;                                      //Tracks runtime errors in the application
+    ASErrorCode errCode = 0;                                      //Tracks runtime errors in the application.
 
     DURING
 
     std::wcout << L"Opening the input document." << std::endl;
+
     APDFLDoc APDoc(inputPath, true);
     PDDoc mydoc = APDoc.getPDDoc();
 
-//=====================================================================================================================================================================================
-//Step 1) Find each bolded subheading in the document and record their
-//        location and text.
-//=====================================================================================================================================================================================
+//======================================================================================================================================================================================================================================================
+//Step 1) Find each bolded subheading in the document and record their location and text.
+//======================================================================================================================================================================================================================================================
 
-    //These vectors store the needed information about the bolded subheadings we will search for.
-    //These will all be the same size, and for each, the index n will indicate information for the
-    //nth bookmark, in order of appearance.
-    std::vector<ASFixedRect> bsLocts;            //bsLocts[n] = The location of the nth subheading on its page.
-    std::vector<ASInt16> bsPages;                //bsPages[n] = The page number the nth subheading appeared on.
-    std::vector<std::wstring> bsTexts;           //bsTexts[n] = The text of the nth subheading.
+    ASInt32 numBookmarks = 0;
+    std::vector<ASFixedRect> bsLocts;                                                               //bsLocts[n] is the bounding rectangle (relative to its page) of the nth subheading.
+    std::vector<ASInt32> bsPages;                                                                   //bsPages[n] is the page number the nth subheading appeared on.
+    std::vector<ASText> bsTexts;                                                                    //bsTexts[n] is the text of the nth subheading.
 
-    //Search iteration variables.
-    const ASInt8 bufferSize = 100;               //For a buffer which will copy the bolded text.
+    //We'll use the PDWordFinder class to iterate through our document's words, looking for sequences of bold words.
+    PDWordFinder wordFinder = PDDocCreateWordFinderUCS(mydoc, WF_LATEST_VERSION, 0, NULL);
 
-    std::wcout << L"Searching for bolded text..." << std::endl;
+    PDWord* wordList = new PDWord();                                                                //Our PDWordFinder will iterate through the words with this. We will not directly access it.
+    ASInt32 numWordsFound;
 
-    for (int page = 0; page < PDDocGetNumPages(mydoc); ++page)                                   //For each page...
+    //This algorithm finds sequences of words which satisfy a boolean function. Here, we use a boolean function
+    //which checks to see if the word is bold.
+    //We assume that no sequence will span more than one page. Or, if a sequence does span more than one page,
+    //it is treated as more than one sequence.
+    for (int nextPage = 0; nextPage < PDDocGetNumPages(mydoc); ++nextPage)
     {
-        PDPage nextPage = APDoc.getPage(page);
-        PDEContent nextContent = PDPageAcquirePDEContent(APDoc.getPage(page), 0);          //We need the content of the page. That's where the text is!
+        PDWordFinderAcquireWordList(wordFinder, nextPage, wordList, NULL, NULL, &numWordsFound);    //Must be called before we call PDWordFinderGetNthWord. This sets up how we want to traverse the words on page 0. (I'm using the default settings.)
 
-        for (int elemCount = 0; elemCount < PDEContentGetNumElems(nextContent); ++elemCount)     //For each element in that page...
+        bool foundSubheading = false;                                                               //False when we haven't yet found a new bolded text, true when we're currently traversing through bold text.
+
+        for (int nextWordIndex = 0; nextWordIndex < numWordsFound; ++nextWordIndex)
         {
-            PDEElement nextElem = PDEContentGetElem(nextContent, elemCount);
+            PDWord nextWord = PDWordFinderGetNthWord(wordFinder, nextWordIndex);
 
-            if (PDEObjectGetType((PDEObject)nextElem) == kPDEText)                               //For each text element among those elements...
+            bool wordCondition = isBold(nextWord,wordFinder);                                       //I've abstracted this out to demonstrate the generality of this algorithm. You could use any boolean function of a PDWord here.
+
+            if (foundSubheading)
             {
-                //Determine where the bolded text is by iterating
-                //through the text runs of our text object. The
-                //bolded text may be made of several text runs and
-                //bounded by non-bolded text runs, making iteration
-                //necessary.
-                PDEText nextText = reinterpret_cast<PDEText>(nextElem);
-
-                bool previousBold = false;                                                       //Whether the previous text run was bold.
-                std::wstring nextBCopy = L"";                                                    //Will store the full text of the subheading, once we've located it.
-
-                for (int runCount = 0; runCount < PDETextGetNumRuns(nextText); ++runCount)       //For each text run in that text element...
+                if (!wordCondition)
                 {
-                    //Is this text run bold? If so, "Bold" is appended to the font's name.
-                    PDEFont nextFont = PDETextGetFont(nextText, kPDETextRun, runCount);          //The font of the next text run.
-                    PDEFontAttrs nextFontAttrs;                                                  //Will store the font's attributes.
-                    PDEFontGetAttrs(nextFont, &nextFontAttrs, sizeof(nextFontAttrs));            //Get the font attributes!
-                    std::string fontstr = ASAtomGetString(nextFontAttrs.name);                   //This is the name of the font.
+                    //We've found the end of the subheading: the new word is not bold.
+                    //We'll record only the right-hand quads of the previous word.
+                    PDWord previousWord = PDWordFinderGetNthWord(wordFinder, nextWordIndex - 1);
+                    ASInt16 nQuads = PDWordGetNumQuads(previousWord);                               //The word might be split up into several quads (e.g., if it's hyphenated), and we want the last set.
+                    ASFixedQuad quad;
+                    PDWordGetNthQuad(previousWord, nQuads - 1, &quad);
+                    (*(bsLocts.end() - 1)).right = quad.tr.h;                                       //The right end of the location box lines up with the horizontal coordinate of the top-right point.
+                    (*(bsLocts.end() - 1)).bottom = quad.tr.v;                                      //The bottom end of the location box lines up with the vertical of the top-right point.
 
-                    if ((fontstr.find("Bold") != std::string::npos))                             //If the font's bold...
+
+                    foundSubheading = false;
+                }
+                else if (wordCondition && (nextWordIndex == numWordsFound - 1))
+                {
+                    //We've found the end of the subheading: The new word is bold, and we're at the end of the page.
+                    //We'll record this word's right-hand quads, and the word's text.
+                    
+                    //The quads.
+                    ASInt16 nQuads = PDWordGetNumQuads(nextWord);                                   //The word might be split up into several quads (e.g., if it's hyphenated), and we want the last set.
+                    ASFixedQuad quad;
+                    PDWordGetNthQuad(nextWord, nQuads - 1, &quad);
+                    (*(bsLocts.end() - 1)).right = quad.tr.h;                                       //The right end of the location box lines up with the horizontal coordinate of the top-right point.
+                    (*(bsLocts.end() - 1)).bottom = quad.tr.v;                                      //The bottom end of the location box lines up with the vertical of the top-right point.
+
+                    //The text.
+                    ASText nextWordASText = ASTextNew();
+                    PDWordGetASText(nextWord, 0, nextWordASText);
+
+                    if (PDWordGetAttr(nextWord)&WXE_ADJACENT_TO_SPACE)
                     {
-                        if (!previousBold)                                                       //This is the first text run of a bolded subheading.
-                        {                                                                        //All the next bolded text runs comprise the text of the subheading.
-                            //Store the location of the beginning of
-                            //the subheading.
-                            ASFixedRect* nextBSLoc = new ASFixedRect;
-                            PDETextGetBBox(nextText, kPDETextRun, runCount, nextBSLoc);
-                            bsLocts.push_back(*nextBSLoc);
-
-                            bsPages.push_back((ASInt16)page);                                    //Store the page index this subheading was found on.
-
-                            //Store the first part of the text of the
-                            //subheading.
-                            char buffer[bufferSize];                                             //This buffer will be set to the first part of the text of the subheading.
-                            memset(buffer, '\0', bufferSize);
-                            PDETextGetText(nextText, kPDETextRun, runCount, (ASUns8*)buffer);
-                            wchar_t* nextTextFragment = toWide(buffer);
-                            nextBCopy += nextTextFragment;                                       //nextBCopy is now one step closer to storing the full text of the subheading.
-                            delete[] nextTextFragment;
-
-                            previousBold = true;                                                 //For the next iteration, the previous text run will have been bold.
-                        }
-                        else
-                        {
-                            //This text run is NOT the first of a
-                            //subheading. So just continue storing
-                            //the text.
-                            char buffer[bufferSize];
-                            memset(buffer, L'\0', bufferSize);
-                            PDETextGetText(nextText, kPDETextRun, runCount, (ASUns8*)buffer);
-                            wchar_t* nextFragment = toWide(buffer);
-                            nextBCopy += nextFragment;                                           //nextBCopy is now one step closer to storing the full text of the subheading.
-                            delete[] nextFragment;
-                        }
+                        ASText space = toASText(L" ");
+                        ASTextCatMany((*(bsTexts.end() - 1)), space, nextWordASText);
+                        ASTextDestroy(space);
                     }
                     else
                     {
-                        //We've found an unbolded text run...
-                        if (previousBold)
-                        {
-                            //...Which ended the subheading. Now 
-                            //we've captured the full bolded text,
-                            //So we record it and prepare to 
-                            //capture the next one.
-                            bsTexts.push_back(nextBCopy.substr(0, nextBCopy.size() - 2));
-
-                            nextBCopy = L"";                                                     //We don't know anything about the text of the next subheading!
-                            previousBold = false;                                                //For the next iteration, the previous text run will not have been bold.
-                        }
-                        //An unbolded text run is irrelevant otherwise.
+                        ASTextCat((*(bsTexts.end() - 1)), nextWordASText);
                     }
+                    ASTextDestroy(nextWordASText);
+
+                    foundSubheading = false;
+                }
+                else
+                {
+                    //We've found the next word of our subheading.
+                    //We must record the text of this word.
+                    ASText nextWordASText = ASTextNew();
+                    PDWordGetASText(nextWord, 0, nextWordASText);
+
+                    if (PDWordGetAttr(nextWord)&WXE_ADJACENT_TO_SPACE)
+                    {
+                        ASText space = toASText(L" ");
+                        ASTextCat((*(bsTexts.end() - 1)), space);
+                        ASTextCat((*(bsTexts.end() - 1)), nextWordASText);
+                        ASTextDestroy(space);
+                    }
+                    else
+                    {
+                        ASTextCat((*(bsTexts.end() - 1)), nextWordASText);
+                    }
+                    ASTextDestroy(nextWordASText);
                 }
             }
+            else
+            {
+                if (wordCondition)
+                {
+                    //We haven't found a subheading yet, but this word is bold. So it's the start of a new subheading.
+                    //We must record the page number, the left-hand quads of this word, and its text.
+
+                    //The page number.
+                    bsPages.push_back(nextPage);
+
+                    //The text of the word.
+                    ASText nextSubhText = ASTextNew();
+                    PDWordGetASText(nextWord, 0, nextSubhText);
+                    bsTexts.push_back(nextSubhText);
+                    
+                    //Its quads.
+                    ASInt16 nQuads = PDWordGetNumQuads(nextWord);                                   //The word might be split up into several quads (e.g., if it's hyphenated), and we want the last set.
+                    ASFixedQuad quad;
+                    PDWordGetNthQuad(nextWord, nQuads - 1, &quad);
+                    ASFixedRect nextSubhRect;
+                    nextSubhRect.left = quad.tl.h;                                                  //The left location of the box lines up with the horizontal coordinate of the top-left point.
+                    nextSubhRect.top = quad.tl.v;                                                   //The top location of the box lines up with the vertical coordinate of the top-left pont.
+                    bsLocts.push_back(nextSubhRect);
+                    foundSubheading = true;
+
+                    ++numBookmarks;                                                                 //Update the number of bookmarks.
+                }
+                else
+                {
+                    //We haven't found a subheading, nor is this word bold. So we'll just continue traversing.
+                }
+            }
+            //One condition this does NOT account for is if the subheading spans more than one line. Then the matter of constructing the quads
+            //is somewhat more complicated. You need the top-left quad of the first word, the top-right quad of the last word on the first line,
+            //the bottom-left quad of the first word on the last line, and the bottom-right quad of the last word. Otherwise it would be the same algorithm.
         }
-        //Release the page and its contents. We acquire new ones in the next iteration.
-        PDPageReleasePDEContent(nextPage, 0);
-        PDPageRelease(nextPage);
+        PDWordFinderReleaseWordList(wordFinder, nextPage);                                          //Prepare to iterate over the word list for the next page.
     }
 
-    std::wcout << L"I found " << bsLocts.size() << L" subheading:" << std::endl;                 //We could have used any of the vectors, not just bsLocts.
 
-    for (std::wstring subheadingText : bsTexts)
-        std::wcout << subheadingText << std::endl;
+    std::wcout << L"I found " << numBookmarks << L" subheadings:" << std::endl;                     //We could have used any of the vectors, not just bsLocts.
 
-//=====================================================================================================================================================================================
+    for (ASText subheadingText : bsTexts)
+    {
+        ASInt32 wordLen = 0;                                                                        //Unused. Only for calling ASTextGetPDTextCopy.
+        std::wcout << ASTextGetPDTextCopy(subheadingText,&wordLen) << std::endl;                    //Unicode text will probably not display correctly. Rest assured it will look fine in the document.
+    }
+
+//======================================================================================================================================================================================================================================================
 //Step 2) Create a bookmark for each bolded section with this information.
-//=====================================================================================================================================================================================
+//======================================================================================================================================================================================================================================================
 
     std::wcout << L"Creating a bookmark for each subheading..." << std::endl;
 
@@ -220,82 +258,80 @@ int main(int argc, char** argv)
     //And the bookmark's action will be to bring the reader to
     //the location of that subheading.
 
-    PDBookmark bookMarkRoot = PDDocGetBookmarkRoot(mydoc);                               //Bookmarks are added to a document's bookmark root.
+    PDBookmark bookMarkRoot = PDDocGetBookmarkRoot(mydoc);                                 //Bookmarks are added to a document's bookmark root.
 
-    for (int nextBM = 0; nextBM < bsTexts.size(); ++nextBM)
+    for (int nextBM = 0; nextBM < numBookmarks; ++nextBM)
     {
         //Get the necessary information.
-        PDPage nextPage = APDoc.getPage(bsPages[nextBM]);                          //Get the associated page.
+        PDPage nextPage = APDoc.getPage(bsPages[nextBM]);                                  //Get the associated page.
 
-        std::wstringstream nextTitleWSTR;                                                //Get the associated title.
-        nextTitleWSTR << (nextBM + 1) << L" " << bsTexts[nextBM];
-        ASText nextTitle = toASText(nextTitleWSTR.str().c_str());
-
-        ASFixedRect* nextLocation = bsLocts.begin()._Ptr + nextBM;                       //Get the associated page location (the method we use requires a pointer).
+        ASFixedRect* nextLocation = bsLocts.begin()._Ptr + nextBM;                         //Get the associated page location (the method we use requires a pointer).
 
         //Make the bookmark and set its action.
-        PDBookmark nextbm = PDBookmarkAddNewChildASText(bookMarkRoot, nextTitle);        //Bookmarks must be created before their action is set.
-        ASTextDestroy(nextTitle);                                                        //We don't need this anymore, the bookmark has its title.
+        PDBookmark nextbm = PDBookmarkAddNewChildASText(bookMarkRoot, bsTexts[nextBM]);    //Bookmarks must be created before their action is set.
 
         //We create a View Destination pointing to the location of the subheading, and then create an action
         //which will take the reader to that destination.
         PDViewDestination nextDestination = PDViewDestCreate(mydoc, nextPage,
-                                                             ASAtomFromString("XYZ"),    //View Destination Fit Type
-                                                             nextLocation,               //Pointer to the location rectangle we want.
-                                                             Int16ToFixed(0),            //Zoom factor. 0 means to inherit the current zoom factor
-                                                             0);                         //Unused argument
+                                                             ASAtomFromString("XYZ"),      //View Destination Fit Type
+                                                             nextLocation,                 //Pointer to the location rectangle we want.
+                                                             Int16ToFixed(0),              //Zoom factor. 0 means to inherit the current zoom factor
+                                                             0);                           //Unused argument
 
-        PDAction nextDestAct = PDActionNewFromDest(mydoc,nextDestination,mydoc);         //The first and third arguments are the source PDDoc and the destination PDDoc, respectively.
-                                                                                         //They must the the same.
-        PDBookmarkSetAction(nextbm, nextDestAct);                                        //Give the bookmark its action!
-        PDPageRelease(nextPage);                                                         //Prepare to get the next bookmark's page. (It may end up being the same page.)
+        PDAction nextDestAct = PDActionNewFromDest(mydoc,nextDestination,mydoc);           //The first and third arguments are the source PDDoc and the destination PDDoc, respectively.
+                                                                                           //They must the the same.
+        PDBookmarkSetAction(nextbm, nextDestAct);                                          //Give the bookmark its action!
+        PDPageRelease(nextPage);                                                           //Prepare to get the next bookmark's page. (It may end up being the same page.)
     }
     std::wcout << L"Done." << std::endl;
 
-//=====================================================================================================================================================================================
+//======================================================================================================================================================================================================================================================
 //Step 3) Demonstrate different zoom levels.
-//=====================================================================================================================================================================================
+//======================================================================================================================================================================================================================================================
 
     std::wcout << L"Adding zoom demonstration bookmarks." << std::endl;
 
     //This steps adds a few children bookmarks to the first bookmark of the
     //document, which all copy that bookmark at different zoom levels.
 
-    PDBookmark parentBm = PDBookmarkGetFirstChild(PDDocGetBookmarkRoot(mydoc));                     //The bookmark we'll add children to. (The first bookmark.)
+    PDBookmark parentBm = PDBookmarkGetFirstChild(PDDocGetBookmarkRoot(mydoc));                                                        //The bookmark we'll add children to. (The first bookmark.)
     PDBookmark zoom100  = PDBookmarkAddNewChild(parentBm, "100% Zoom");
     PDBookmark zoom200  = PDBookmarkAddNewChild(parentBm, "200% Zoom");
     PDBookmark zoom800  = PDBookmarkAddNewChild(parentBm, "800% Zoom");
     PDBookmark zoom40   = PDBookmarkAddNewChild(parentBm, "40% Zoom");
 
-    ASInt8 numBookmarks = 4;
-    PDBookmark bookmarks[] {zoom100,      zoom200,      zoom800,      zoom40};
-    ASFloat zoomfactors[]  {(ASFloat)1.0, (ASFloat)2.0, (ASFloat)8.0, (ASFloat)0.40};
+    ASInt8 numZoomBookmarks = 4;
+    PDBookmark zoomBookmarks[] = {zoom100,      zoom200,      zoom800,      zoom40};
+    ASFloat zoomFactors[] = {1.0, 2.0, 8.0, 0.40};
 
     //Copy the attributes of the parent bookmark.
-    ASInt32 pageNumber;                                                                             //The page index of the first bookmark.
-    ASAtom fitType;                                                                                 //The first bookmark's view destination fit type.
-    ASFixedRect locationRect;                                                                       //The location rectangle of the first bookmark.
-    ASFixed zoomFactor;                                                                             //The first bookmark's zoom factor (we won't be using this).
+    ASInt32 pageNumber;                                                                                                                //The page index of the first bookmark.
+    ASAtom fitType;                                                                                                                    //The first bookmark's view destination fit type.
+    ASFixedRect locationRect;                                                                                                          //The location rectangle of the first bookmark.
+    ASFixed zoomFactor;                                                                                                                //The first bookmark's zoom factor (we won't be using this).
     PDViewDestination parentViewDestination = PDActionGetDest(PDBookmarkGetAction(parentBm));
 
     PDViewDestGetAttr(parentViewDestination, &pageNumber, &fitType, &locationRect, &zoomFactor);
 
     //Set each bookmark's view destination per the above array.
-    PDPage parentPage = APDoc.getPage(pageNumber);                                            //The page of the parent bookmark.
-    for (int i = 0; i < numBookmarks; ++i)
+    PDPage parentPage = APDoc.getPage(pageNumber);                                                                                     //The page of the parent bookmark.
+    for (int i = 0; i < numZoomBookmarks; ++i)
     {
-        PDViewDestination nextView = PDViewDestCreate(mydoc, parentPage, fitType,&locationRect, ASFloatToFixed(zoomfactors[i]), 0);
+        PDViewDestination nextView = PDViewDestCreate(mydoc, parentPage, fitType,&locationRect, ASFloatToFixed(zoomFactors[i]), 0);
         PDAction nextAction = PDActionNewFromDest(mydoc, nextView, mydoc);
-        PDBookmarkSetAction(bookmarks[i],nextAction);
+        PDBookmarkSetAction(zoomBookmarks[i],nextAction);
     }
 
     PDPageRelease(parentPage);
 
     std::wcout << L"Done. Saving and closing the document." << std::endl;
 
-//=====================================================================================================================================================================================
+//======================================================================================================================================================================================================================================================
 //Step 5) Save and close the document.
-//=====================================================================================================================================================================================
+//======================================================================================================================================================================================================================================================
+
+    for (auto x : bsTexts)
+        ASTextDestroy(x);
 
     APDoc.saveDoc(outputPath);
 
@@ -311,9 +347,9 @@ int main(int argc, char** argv)
     return errCode;
 };
 
-//=====================================================================================================================================================================================
+//======================================================================================================================================================================================================================================================
 //wchar_t* function: Converts a char string to a wchar_t string.
-//=====================================================================================================================================================================================
+//======================================================================================================================================================================================================================================================
 wchar_t* toWide(const char* str)
 {
     const size_t strlen = (std::strlen(str)) + 1;
@@ -322,9 +358,9 @@ wchar_t* toWide(const char* str)
     return wstr;
 };
 
-//=====================================================================================================================================================================================
+//======================================================================================================================================================================================================================================================
 //ASText function: Convert a wide string to an ASText object.
-//=====================================================================================================================================================================================
+//======================================================================================================================================================================================================================================================
 ASText toASText(const wchar_t* string)
 {
     ASUnicodeFormat hostUniFormat;
@@ -336,13 +372,29 @@ ASText toASText(const wchar_t* string)
     else
         hostUniFormat = kUTF32HostEndian;
 
-    return ASTextFromUnicode((ASUTF16Val *)string, hostUniFormat);
+    E_RETURN( ASTextFromUnicode((ASUTF16Val *)string, hostUniFormat));
 
     HANDLER
 
-        ASRaise(ERRORCODE);  //If there was an exception, let the caller handle it.
+        RERAISE();                                                        //If there was an exception, let the caller handle it.
 
     END_HANDLER
 
     return NULL;
 };
+
+//======================================================================================================================================================================================================================================================
+//bool function: Checks to see if a PDWord is bolded. (Assumes that if the first letter is bolded, the whole word is.)
+//======================================================================================================================================================================================================================================================
+bool isBold(PDWord word, PDWordFinder finder)
+{
+    PDStyle firstCharStyle = PDWordGetNthCharStyle(finder,word, 0);
+    PDFont firstCharFont = PDStyleGetFont(firstCharStyle);
+ 
+    //We know we have a bolded font if "Bold" is in the font's name. This is a crude way of determining of the font is bold.
+    char* fontName = new char[100];
+    PDFontGetName(firstCharFont, fontName,100);
+    std::string fontNs(fontName);
+    delete[](fontName);
+    return fontNs.find("Bold") != fontNs.npos;
+}
