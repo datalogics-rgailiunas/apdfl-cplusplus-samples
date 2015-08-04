@@ -93,54 +93,60 @@ int main(int argc, char** argv)
              
             PDAnnot annot = PDPageGetAnnot(pdPage, i);                                                 //Access the annotations based on index on page.
             
-            CosObj obj = PDAnnotGetCosObj(annot);                                                      //Get CosObj from annotation.
+            ASAtom typeName = PDAnnotGetSubtype(annot);
 
-            //Get the cos dictionary object from the CosObj, using the File Specification key
-            CosObj dictObj = CosDictGet(obj, ASAtomFromString("FS"));
+            //If an annotation is a FileAttachment perform extraction, and if not ignore
+            if (!strcmp(ASAtomGetString(PDAnnotGetSubtype(annot)), "FileAttachment"))
+            {
 
-            //Construct the accessed attachemnt using the dictionary
-            PDFileAttachment fileAttachment = PDFileAttachmentFromCosObj(dictObj);
-           
-            ASTCount temp = 0;                                                                         //String length variable that will be auto filled.
+                CosObj obj = PDAnnotGetCosObj(annot);                                                      //Get CosObj from annotation.
 
-            //Grab the file's name using the cos object dictionary 
-            char* fileName = CosStringValue(CosDictGet(dictObj, ASAtomFromString("F")), &temp);    
+                //Get the cos dictionary object from the CosObj, using the File Specification key
+                CosObj dictObj = CosDictGet(obj, ASAtomFromString("FS"));
 
-            std::wcout << L"Accessed File: " << fileName << std::endl;
-           
-            ASFile outFile = NULL;                                                                     //Declare an output file for an attachment.
+                //Construct the accessed attachemnt using the dictionary
+                PDFileAttachment fileAttachment = PDFileAttachmentFromCosObj(dictObj);
 
-            //Convert to wideString format
-            const size_t cSize = strlen(fileName) + 1;
-            wchar_t* outPathWideString = new wchar_t[cSize];
-            mbstowcs(outPathWideString, fileName, cSize);
+                ASTCount temp = 0;                                                                         //String length variable that will be auto filled.
 
-            //The output file path text object, made with the output file path and uniCode format
-            ASText outPathText;
+                //Grab the file's name using the cos object dictionary 
+                char* fileName = CosStringValue(CosDictGet(dictObj, ASAtomFromString("F")), &temp);
 
-            if (sizeof(wchar_t) == 2)
-                outPathText = ASTextFromUnicode((ASUTF16Val*)outPathWideString, kUTF16HostEndian);
-            else
-                outPathText = ASTextFromUnicode((ASUTF16Val*)outPathWideString, kUTF32HostEndian);
-            
-            delete outPathWideString;                                                                 //Delete the wideString since it is no longer used.
+                std::wcout << L"Accessed File: " << fileName << std::endl;
 
-            //Create the output file path name
-            ASPathName outPathName = ASFileSysCreatePathFromDIPathText(NULL, outPathText, NULL);
+                ASFile outFile = NULL;                                                                     //Declare an output file for an attachment.
 
-            //Open a new created ASFile, using the path name 
-            ASFileSysOpenFile(ASGetDefaultFileSys(), outPathName, ASFILE_CREATE, &outFile);
-            
-            PDFileAttachmentSaveToFile(fileAttachment, outFile);                                      //Save the file attach out to outFile.
+                //Convert to wideString format
+                const size_t cSize = strlen(fileName) + 1;
+                wchar_t* outPathWideString = new wchar_t[cSize];
+                mbstowcs(outPathWideString, fileName, cSize);
 
-            //Safely close outFile
-            ASFileFlush(outFile);
-            ASFileClose(outFile);
+                //The output file path text object, made with the output file path and uniCode format
+                ASText outPathText;
 
-            //Release used objects no longer needed
-            if (outPathText)    ASTextDestroy(outPathText);
-            if (outPathName)    ASFileSysReleasePath(NULL, outPathName);
+                if (sizeof(wchar_t) == 2)
+                    outPathText = ASTextFromUnicode((ASUTF16Val*)outPathWideString, kUTF16HostEndian);
+                else
+                    outPathText = ASTextFromUnicode((ASUTF16Val*)outPathWideString, kUTF32HostEndian);
 
+                delete outPathWideString;                                                                 //Delete the wideString since it is no longer used.
+
+                //Create the output file path name
+                ASPathName outPathName = ASFileSysCreatePathFromDIPathText(NULL, outPathText, NULL);
+
+                //Open a new created ASFile, using the path name 
+                ASFileSysOpenFile(ASGetDefaultFileSys(), outPathName, ASFILE_CREATE, &outFile);
+
+                PDFileAttachmentSaveToFile(fileAttachment, outFile);                                      //Save the file attach out to outFile.
+
+                //Safely close outFile
+                ASFileFlush(outFile);
+                ASFileClose(outFile);
+
+                //Release used objects no longer needed
+                if (outPathText)    ASTextDestroy(outPathText);
+                if (outPathName)    ASFileSysReleasePath(NULL, outPathName);
+            }
         }
         
         PDPageRelease(pdPage);                                                                       //Release the page since it is no longer in use.
@@ -154,11 +160,8 @@ int main(int argc, char** argv)
         //Create the nametree
         PDNameTree nameTree = PDDocCreateNameTree(document.getPDDoc(), ASAtomFromString("EmbeddedFiles"));
 
-        //Define an enum function to go through the tree and apply a function to each member.
-        CosObjEnumProc cosEnumProcCB = ASCallbackCreateProto(CosObjEnumProc, &extractor);
-
         //Apply the enum function to the nametree so it can iterate through, extracting the attachments.
-        PDNameTreeEnum(nameTree, cosEnumProcCB, NULL);
+        PDNameTreeEnum(nameTree, &extractor, NULL);
 
         std::wcout << L"Finished nametree attachment extractions" << std::endl << std::endl;
 
@@ -172,7 +175,7 @@ int main(int argc, char** argv)
 
         libInit.displayError(errCode);    //If there was an error, display it.
 
-    END_HANDLER
+        END_HANDLER
 
         return errCode;                   //Return program status.
 }
