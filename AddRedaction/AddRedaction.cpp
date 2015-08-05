@@ -4,7 +4,7 @@
 // Sample: AddRedaction - 
 //      
 // Steps:
-//  1) <------------------------------------------------------------------------------------------------------DONT FORGET TO FILL ME IN
+//  1) Open the input PDF document.
 //  2) 
 //  3)   
 //====================================================================================
@@ -55,6 +55,9 @@
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
 #include <iostream>
+#include <string>
+#include <algorithm>
+
 #include "APDFLDoc.h"
 #include "InitializeLibrary.h"
 
@@ -68,18 +71,82 @@ int main(int argc, char** argv)
         return libInit.getInitError();
 
     DURING
+//=============================================================================================================================================================
+// Step 1) Open the input PDF document.
+//=============================================================================================================================================================
 
-        APDFLDoc document(L"../_Input/AddRedaction.pdf", true);
+        std::wstring pathName = L"../_Input/AddRedaction.pdf";    
+        PDDoc pdDoc;                                              
+        
+        //Determine the unicode format for opening the input file.
+        ASUnicodeFormat unicodeFormat;
+        if (sizeof(wchar_t) == 2)
+            unicodeFormat = kUTF16HostEndian;
+        else
+            unicodeFormat = kUTF32HostEndian;
 
-        PDPage pdPage = document.getPage(0);
+        ASText asText = ASTextFromUnicode(reinterpret_cast<const ASUTF16Val*>(pathName.c_str()), unicodeFormat);    //ASText object will be used to create an ASPathName object.
 
+        ASPathName asPathName = ASFileSysCreatePathFromDIPathText(nullptr, asText, nullptr);                        //ASPathName will be used to open the PDF document.
 
-        PDWordFinderConfigRec wordFinderConfigRec;                         //Create a word finder, and call memset to set default configurations.
-        memset(&wordFinderConfigRec, 0, sizeof(PDWordFinderConfigRec));
+        pdDoc = PDDocOpen(asPathName, nullptr, nullptr, true);                                                      //Open the input document.
 
+        ASTextDestroy(asText);                                                                                      //Release resources that are no longer in use.
+        ASFileSysReleasePath(NULL, asPathName);
 
-        PDPageRelease(pdPage);        
-        document.saveDoc(L"out.pdf");
+//=============================================================================================================================================================
+// Step 2) Use the PDWordFinder to locate words that will be redacted.
+//=============================================================================================================================================================
+        
+        PDWordFinderConfigRec wfConfig;                                                                               //Set the default word finder settings.
+        memset(&wfConfig, 0, sizeof(PDWordFinderConfigRec));
+
+        PDWordFinder wordFinder = PDDocCreateWordFinderEx(pdDoc, WF_LATEST_VERSION, true, &wfConfig);                 //Create the word finder object.    
+        PDWord pdWordArray;                                                                                           //Create a PDWord object used to hold individual words.
+
+        ASInt32 numberOfWords = 0;
+
+        PDWordFinderAcquireWordList(wordFinder, 0, &pdWordArray, NULL, NULL, &numberOfWords);                   //Acquire the word list from the page.
+        std::cout << numberOfWords;
+
+        for (ASInt32 index = 0; 0 < numberOfWords; ++index)
+        {
+            
+            PDWord pdWord = PDWordFinderGetNthWord(wordFinder, index);                                                //Get the PDWord at the given index.
+
+                ASText asTextWord = ASTextNew();                                                                          //Convert word to an ASText object.
+
+                PDWordGetASText(pdWord, 0, asTextWord);
+
+                std::wstring testString = reinterpret_cast<wchar_t*>(ASTextGetUnicodeCopy(asTextWord, unicodeFormat));    //Convert ASText object to a wstring.
+
+                std::transform(testString.begin(), testString.end(), testString.begin(), ::tolower);
+
+                if (wcsstr(testString.c_str(), L"navigation") != NULL)                                                 //If the strings match
+                    std::wcout << L"Found";
+
+                ASTextDestroy(asTextWord);
+                std::cout << index << " ";
+        }
+
+        std::cout << "here";
+        PDWordFinderReleaseWordList(wordFinder, 0);
+
+//=============================================================================================================================================================
+// Step 2) Use the PDWordFinder to locate words that will be redacted.
+//=============================================================================================================================================================
+        pathName = L"out.pdf";
+
+        asText = ASTextFromUnicode(reinterpret_cast<const ASUTF16Val*>(pathName.c_str()), unicodeFormat);
+
+        asPathName = ASFileSysCreatePathFromDIPathText(nullptr, asText, nullptr);
+
+        PDDocSave(pdDoc, PDSaveFull, asPathName, nullptr, nullptr, nullptr);
+
+        //Release any remaining resources.
+        ASTextDestroy(asText);
+        ASFileSysReleasePath(NULL, asPathName);
+        PDDocClose(pdDoc);
 
     HANDLER
 
