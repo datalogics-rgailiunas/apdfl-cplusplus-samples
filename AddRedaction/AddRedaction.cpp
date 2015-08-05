@@ -69,6 +69,18 @@ int main(int argc, char** argv)
 
     DURING
 
+        APDFLDoc document(L"../_Input/AddRedaction.pdf", true);
+
+        PDPage pdPage = document.getPage(0);
+
+
+        PDWordFinderConfigRec wordFinderConfigRec;                         //Create a word finder, and call memset to set default configurations.
+        memset(&wordFinderConfigRec, 0, sizeof(PDWordFinderConfigRec));
+
+
+        PDPageRelease(pdPage);        
+        document.saveDoc(L"out.pdf");
+
     HANDLER
 
     errCode = ERRORCODE;
@@ -77,5 +89,6 @@ int main(int argc, char** argv)
 
     END_HANDLER
 
+    system("pause");
     return errCode;                                                   //APDFLib's destructor terminates the library.
 }
