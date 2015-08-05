@@ -183,8 +183,10 @@ int main()
                 ASTextDestroy(asTextWord);                                                                                //Destroy the ASText object before creating a new one.
             }
 
-            PDWordFinderReleaseWordList(wordFinder, pageNum);                                                             //Release the PDWordFinder object before acquiring the next one.
+            PDWordFinderReleaseWordList(wordFinder, pageNum);                                                             //Release the word list before acquiring the next one.
         }
+
+        PDWordFinderDestroy(wordFinder);                                                                                  //Destroy the word finder object.
 
         document.saveDoc(L"out.pdf");                                                                                     //Save the output document in the working directory.
 
