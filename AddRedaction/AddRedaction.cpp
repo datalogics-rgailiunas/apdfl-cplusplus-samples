@@ -106,31 +106,28 @@ int main(int argc, char** argv)
 
         ASInt32 numberOfWords = 0;
 
-        PDWordFinderAcquireWordList(wordFinder, 0, &pdWordArray, NULL, NULL, &numberOfWords);                   //Acquire the word list from the page.
+        PDWordFinderAcquireWordList(wordFinder, 0, &pdWordArray, NULL, NULL, &numberOfWords);                         //Acquire the word list from the page.
         std::cout << numberOfWords;
 
-        for (ASInt32 index = 0; 0 < numberOfWords; ++index)
+        for (ASInt32 index = 0; index < numberOfWords; ++index)                                                       //Iterate through the word list.
         {
-            
             PDWord pdWord = PDWordFinderGetNthWord(wordFinder, index);                                                //Get the PDWord at the given index.
 
-                ASText asTextWord = ASTextNew();                                                                          //Convert word to an ASText object.
+            ASText asTextWord = ASTextNew();                                                                          //Convert word to an ASText object.
 
-                PDWordGetASText(pdWord, 0, asTextWord);
+            PDWordGetASText(pdWord, 0, asTextWord);
 
-                std::wstring testString = reinterpret_cast<wchar_t*>(ASTextGetUnicodeCopy(asTextWord, unicodeFormat));    //Convert ASText object to a wstring.
+            std::wstring testString = reinterpret_cast<wchar_t*>(ASTextGetUnicodeCopy(asTextWord, unicodeFormat));    //Convert ASText object to a wstring.
 
-                std::transform(testString.begin(), testString.end(), testString.begin(), ::tolower);
+            std::transform(testString.begin(), testString.end(), testString.begin(), ::tolower);
 
-                if (wcsstr(testString.c_str(), L"navigation") != NULL)                                                 //If the strings match
-                    std::wcout << L"Found";
+            if (wcsstr(testString.c_str(), L"navigation") != NULL)                                                    //If the strings match DO WORK <----------HERE HERE HERE
+                std::wcout << L"Found";
 
-                ASTextDestroy(asTextWord);
-                std::cout << index << " ";
+            ASTextDestroy(asTextWord);                                                                                //Destroy the ASText object.
         }
 
-        std::cout << "here";
-        PDWordFinderReleaseWordList(wordFinder, 0);
+        PDWordFinderReleaseWordList(wordFinder, 0);                                                                   //Release the word list.
 
 //=============================================================================================================================================================
 // Step 2) Use the PDWordFinder to locate words that will be redacted.
