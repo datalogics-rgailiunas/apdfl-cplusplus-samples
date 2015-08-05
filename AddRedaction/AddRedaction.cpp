@@ -95,9 +95,10 @@ int main(int argc, char** argv)
         ASFileSysReleasePath(NULL, asPathName);
 
 //=============================================================================================================================================================
-// Step 2) Use the PDWordFinder to locate words that will be redacted.
+// Step 2) Use the PDWordFinder to locate words that will be redacted. We will save their location in a vector of ASFixedQuads. 
 //=============================================================================================================================================================
-        
+        std::vector<ASFixedQuad> quadVector;
+
         PDWordFinderConfigRec wfConfig;                                                                               //Set the default word finder settings.
         memset(&wfConfig, 0, sizeof(PDWordFinderConfigRec));
 
@@ -106,7 +107,7 @@ int main(int argc, char** argv)
 
         ASInt32 numberOfWords = 0;
 
-        PDWordFinderAcquireWordList(wordFinder, 0, &pdWordArray, NULL, NULL, &numberOfWords);                         //Acquire the word list from the page.
+        PDWordFinderAcquireWordList(wordFinder, 0, &pdWordArray, nullptr, nullptr, &numberOfWords);                   //Acquire the word list from the page.
         std::cout << numberOfWords;
 
         for (ASInt32 index = 0; index < numberOfWords; ++index)                                                       //Iterate through the word list.
@@ -121,13 +122,47 @@ int main(int argc, char** argv)
 
             std::transform(testString.begin(), testString.end(), testString.begin(), ::tolower);
 
-            if (wcsstr(testString.c_str(), L"navigation") != NULL)                                                    //If the strings match DO WORK <----------HERE HERE HERE
-                std::wcout << L"Found";
+            if (wcsstr(testString.c_str(), L"navigation") != nullptr)
+            {
+                ASFixedQuad quad;
+                PDWordGetNthQuad(pdWord, 0, &quad);
+                quadVector.push_back(quad);
+            }
 
             ASTextDestroy(asTextWord);                                                                                //Destroy the ASText object.
         }
 
         PDWordFinderReleaseWordList(wordFinder, 0);                                                                   //Release the word list.
+
+//=============================================================================================================================================================
+// Step 2) Create and apply the redactions.
+//=============================================================================================================================================================
+        
+        //Set color for redactions to black.
+        PDColorValueRec redactColor;
+        redactColor.space = PDDeviceRGB;
+        redactColor.value[0] = FloatToASFixed(0.0);
+        redactColor.value[1] = FloatToASFixed(0.0);
+        redactColor.value[2] = FloatToASFixed(0.0);
+
+        PDRedactParams redactParams;
+        PDRedactParamsRec rpRec;
+        redactParams = &rpRec;
+
+        //ASFixedQuad allQuads[1];
+        //allQuads[0] = quadVector[0];
+
+        redactParams->size = sizeof(PDRedactParamsRec);
+        redactParams->pageNum = 0;
+        redactParams->redactQuads = quadVector.data();
+        redactParams->numQuads = quadVector.size();
+        redactParams->colorVal = &redactColor;
+        redactParams->horizAlign = kPDHorizLeft;
+        redactParams->overlayText = NULL;
+
+        PDAnnot redactAnnot = PDDocCreateRedaction(pdDoc, redactParams);
+
+        PDDocApplyRedactions(pdDoc, NULL);
 
 //=============================================================================================================================================================
 // Step 2) Use the PDWordFinder to locate words that will be redacted.
