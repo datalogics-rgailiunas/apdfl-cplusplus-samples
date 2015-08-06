@@ -1,12 +1,15 @@
 // Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 
 //====================================================================================
-// Sample: AddRedaction - 
+// Sample: AddRedaction - This sample locates text to be redacted using the
+// PDWordFinder and permanently removes it from the document, replacing the word with 
+// a black redaction box.
 //      
 // Steps:
 //  1) Open the input PDF document.
-//  2) 
-//  3)   
+//  2) Use the PDWordFinder to locate words that will be redacted.
+//  3) Create and apply the redactions.  
+//  4) Save the output document and release resources.
 //====================================================================================
 
 // This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
@@ -71,9 +74,9 @@ int main(int argc, char** argv)
 
     DURING
 
-//=============================================================================================================================================================
+//===================================================================================================================================================================================
 // Step 1) Open the input PDF document.
-//=============================================================================================================================================================
+//===================================================================================================================================================================================
 
         std::wstring pathName = L"../_Input/AddRedaction.pdf";    
         PDDoc pdDoc;                                              
@@ -89,17 +92,16 @@ int main(int argc, char** argv)
 
         ASPathName asPathName = ASFileSysCreatePathFromDIPathText(nullptr, asText, nullptr);                        //ASPathName will be used to open the PDF document.
 
-
-
         pdDoc = PDDocOpen(asPathName, nullptr, nullptr, true);                                                      //Open the input document.
 
         ASTextDestroy(asText);                                                                                      //Release resources that are no longer in use.
-        ASFileSysReleasePath(NULL, asPathName);
+        ASFileSysReleasePath(nullptr, asPathName);
 
-//=============================================================================================================================================================
+//===================================================================================================================================================================================
 // Step 2) Use the PDWordFinder to locate words that will be redacted. We will save their location in a vector of ASFixedQuads. 
-//=============================================================================================================================================================
-        std::vector<ASFixedQuad> quadVector;
+//===================================================================================================================================================================================
+
+        std::vector<ASFixedQuad> quadVector;                                                                          //This vector will hold quad points for located words.
 
         PDWordFinderConfigRec wfConfig;                                                                               //Set the default word finder settings.
         memset(&wfConfig, 0, sizeof(PDWordFinderConfigRec));
@@ -124,7 +126,8 @@ int main(int argc, char** argv)
 
             std::transform(testString.begin(), testString.end(), testString.begin(), ::tolower);
 
-            if (wcsstr(testString.c_str(), L"navigation") != nullptr)                                                 
+            //If either string is matched, push the words quad points into a vector.
+            if ((wcsstr(testString.c_str(), L"navigation") != nullptr) || (wcsstr(testString.c_str(), L"screen") != nullptr))
             {
                 ASFixedQuad quad;
                 PDWordGetNthQuad(pdWord, 0, &quad);
@@ -136,21 +139,12 @@ int main(int argc, char** argv)
 
         PDWordFinderReleaseWordList(wordFinder, 0);                                                                   //Release the word list.
 
-//=============================================================================================================================================================
-// Step 2) Create and apply the redactions.
-//=============================================================================================================================================================
-        
-        //Set color for redactions to black.
-        PDColorValue redactColor;
-        PDColorValueRec redactColorRec;
-        redactColor = &redactColorRec;
+//===================================================================================================================================================================================
+// Step 3) Create and apply the redactions. The redaction configurations are set, the redaction is created and finally applied. If PDDocApplyRedactions is not called the words will
+// be marked for redaction, but not removed.
+//===================================================================================================================================================================================
 
-        redactColor->space = PDDeviceRGB;
-        redactColor->value[0] = FloatToASFixed(1.0);
-        redactColor->value[1] = FloatToASFixed(0.0);
-        redactColor->value[2] = FloatToASFixed(0.0);
-
-        PDRedactParams redactParams;
+        PDRedactParams redactParams;                                        //Parameters controlling settings for the redaction annotation.
         PDRedactParamsRec rpRec;
         redactParams = &rpRec;
 
@@ -158,37 +152,30 @@ int main(int argc, char** argv)
         redactParams->pageNum = 0;                                          //The page number that the redaction will be applied to.
         redactParams->redactQuads = quadVector.data();                      //The vector or array holding the quads.
         redactParams->numQuads = quadVector.size();                         //The number of entries in the vector or array.
-        redactParams->colorVal = redactColor;                               //The color of the redaction that will be applied.
+        redactParams->colorVal->value[0] = fixedZero;                       //The redaction box will be set to black.
+        redactParams->colorVal->value[1] = fixedZero;
+        redactParams->colorVal->value[2] = fixedZero;
+        redactParams->colorVal->space = PDDeviceRGB;                        //Set device color space to RGB
         redactParams->horizAlign = kPDHorizLeft;                            //Horizontal alignment of the text when generating the redaction mark.
         redactParams->overlayText = nullptr;                                //Overlay text may be used to replace the underlying content.
 
-        PDAnnot redactAnnot = PDDocCreateRedaction(pdDoc, redactParams);    //Create the redaction annotation.
+        PDAnnot redactAnnot = PDDocCreateRedaction(pdDoc, redactParams);    //Create the redaction annotation. At this point the text HAS NOT been redacted.
 
-        //PDApplyRedactionParams applyParams;
-        //PDApplyRedactionParamsRec arpRec;
-        //applyParams = &arpRec;
+        PDDocApplyRedactions(pdDoc, nullptr);                               //Apply the redactions, the text is now redacted.
 
-        //applyParams->size = sizeof(PDApplyRedactionParams);
-        //applyParams->redactionAnnots = &redactAnnot;
-        //applyParams->keepMarks = true;
-        //applyParams->statusProcs = nullptr;
+//===================================================================================================================================================================================
+// Step 4) Save the output document and release resources.
+//===================================================================================================================================================================================
 
-        PDDocApplyRedactions(pdDoc, nullptr);
+        pathName = L"RedactedDoc.pdf";                                                                      //Path name for saving the output document.
 
-//=============================================================================================================================================================
-// Step 2) Use the PDWordFinder to locate words that will be redacted.
-//=============================================================================================================================================================
+        asText = ASTextFromUnicode(reinterpret_cast<const ASUTF16Val*>(pathName.c_str()), unicodeFormat);   //Create the ASText object used to create the ASPathName.
 
-        pathName = L"outMarked.pdf";
+        asPathName = ASFileSysCreatePathFromDIPathText(nullptr, asText, nullptr);                           //ASPathName used to save the document.
 
-        asText = ASTextFromUnicode(reinterpret_cast<const ASUTF16Val*>(pathName.c_str()), unicodeFormat);
-
-        asPathName = ASFileSysCreatePathFromDIPathText(nullptr, asText, nullptr);
-
-        PDDocSave(pdDoc, PDSaveFull, asPathName, nullptr, nullptr, nullptr);
-
-        //Release any remaining resources.
-        ASTextDestroy(asText);
+        PDDocSave(pdDoc, PDSaveFull, asPathName, nullptr, nullptr, nullptr);                                //Save the document with redacted text.
+        
+        ASTextDestroy(asText);                                                                              //Release any remaining resources.
         ASFileSysReleasePath(nullptr, asPathName);
         PDDocClose(pdDoc);
 
@@ -196,10 +183,9 @@ int main(int argc, char** argv)
 
         errCode = ERRORCODE;
 
-        libInit.displayError(errCode);                                //If there was an error, display the error that occured.
+        libInit.displayError(errCode);                                                                      //If there was an error, display the error that occured.
 
     END_HANDLER
 
-    system("pause");
-    return errCode;                                                   //APDFLib's destructor terminates the library.
+    return errCode;                                                                                         //APDFLib's destructor terminates the library.
 }
