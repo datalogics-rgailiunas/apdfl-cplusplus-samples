@@ -111,8 +111,11 @@ int main(int argc, char** argv)
 
         ASInt32 numberOfWords = 0;
 
+        std::wcout << L"Acquiring word list..." << std::endl;
+
         PDWordFinderAcquireWordList(wordFinder, 0, &pdWordArray, nullptr, nullptr, &numberOfWords);                   //Acquire the word list from the page.
-        std::cout << numberOfWords;
+
+        std::wcout << L"Found " <<  numberOfWords << L"searching for matches..." << std::endl;
 
         for (ASInt32 index = 0; index < numberOfWords; ++index)                                                       //Iterate through the word list.
         {
@@ -139,6 +142,8 @@ int main(int argc, char** argv)
 
         PDWordFinderReleaseWordList(wordFinder, 0);                                                                   //Release the word list.
 
+        std::wcout << L"Found " << quadVector.size() << L" matches..." << std::endl;
+
 //===================================================================================================================================================================================
 // Step 3) Create and apply the redactions. The redaction configurations are set, the redaction is created and finally applied. If PDDocApplyRedactions is not called the words will
 // be marked for redaction, but not removed.
@@ -161,7 +166,11 @@ int main(int argc, char** argv)
 
         PDAnnot redactAnnot = PDDocCreateRedaction(pdDoc, redactParams);    //Create the redaction annotation. At this point the text HAS NOT been redacted.
 
+        std::wcout << L"Marked words for redaction." << std::endl;
+
         PDDocApplyRedactions(pdDoc, nullptr);                               //Apply the redactions, the text is now redacted.
+
+        std::wcout << L"Words have been permanently removed." << std::endl;
 
 //===================================================================================================================================================================================
 // Step 4) Save the output document and release resources.
