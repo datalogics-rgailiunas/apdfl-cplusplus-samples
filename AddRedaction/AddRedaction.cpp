@@ -57,10 +57,9 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-
+#include "CosCalls.h"
 #include "APDFLDoc.h"
 #include "InitializeLibrary.h"
-
 
 int main(int argc, char** argv)
 {
@@ -71,6 +70,7 @@ int main(int argc, char** argv)
         return libInit.getInitError();
 
     DURING
+
 //=============================================================================================================================================================
 // Step 1) Open the input PDF document.
 //=============================================================================================================================================================
@@ -88,6 +88,8 @@ int main(int argc, char** argv)
         ASText asText = ASTextFromUnicode(reinterpret_cast<const ASUTF16Val*>(pathName.c_str()), unicodeFormat);    //ASText object will be used to create an ASPathName object.
 
         ASPathName asPathName = ASFileSysCreatePathFromDIPathText(nullptr, asText, nullptr);                        //ASPathName will be used to open the PDF document.
+
+
 
         pdDoc = PDDocOpen(asPathName, nullptr, nullptr, true);                                                      //Open the input document.
 
@@ -122,7 +124,7 @@ int main(int argc, char** argv)
 
             std::transform(testString.begin(), testString.end(), testString.begin(), ::tolower);
 
-            if (wcsstr(testString.c_str(), L"navigation") != nullptr)
+            if (wcsstr(testString.c_str(), L"navigation") != nullptr)                                                 
             {
                 ASFixedQuad quad;
                 PDWordGetNthQuad(pdWord, 0, &quad);
@@ -139,35 +141,45 @@ int main(int argc, char** argv)
 //=============================================================================================================================================================
         
         //Set color for redactions to black.
-        PDColorValueRec redactColor;
-        redactColor.space = PDDeviceRGB;
-        redactColor.value[0] = FloatToASFixed(0.0);
-        redactColor.value[1] = FloatToASFixed(0.0);
-        redactColor.value[2] = FloatToASFixed(0.0);
+        PDColorValue redactColor;
+        PDColorValueRec redactColorRec;
+        redactColor = &redactColorRec;
+
+        redactColor->space = PDDeviceRGB;
+        redactColor->value[0] = FloatToASFixed(1.0);
+        redactColor->value[1] = FloatToASFixed(0.0);
+        redactColor->value[2] = FloatToASFixed(0.0);
 
         PDRedactParams redactParams;
         PDRedactParamsRec rpRec;
         redactParams = &rpRec;
 
-        //ASFixedQuad allQuads[1];
-        //allQuads[0] = quadVector[0];
+        redactParams->size = sizeof(PDRedactParamsRec);                     //Size is always set to the size of the PDRedactParamsRec struct.
+        redactParams->pageNum = 0;                                          //The page number that the redaction will be applied to.
+        redactParams->redactQuads = quadVector.data();                      //The vector or array holding the quads.
+        redactParams->numQuads = quadVector.size();                         //The number of entries in the vector or array.
+        redactParams->colorVal = redactColor;                               //The color of the redaction that will be applied.
+        redactParams->horizAlign = kPDHorizLeft;                            //Horizontal alignment of the text when generating the redaction mark.
+        redactParams->overlayText = nullptr;                                //Overlay text may be used to replace the underlying content.
 
-        redactParams->size = sizeof(PDRedactParamsRec);
-        redactParams->pageNum = 0;
-        redactParams->redactQuads = quadVector.data();
-        redactParams->numQuads = quadVector.size();
-        redactParams->colorVal = &redactColor;
-        redactParams->horizAlign = kPDHorizLeft;
-        redactParams->overlayText = NULL;
+        PDAnnot redactAnnot = PDDocCreateRedaction(pdDoc, redactParams);    //Create the redaction annotation.
 
-        PDAnnot redactAnnot = PDDocCreateRedaction(pdDoc, redactParams);
+        //PDApplyRedactionParams applyParams;
+        //PDApplyRedactionParamsRec arpRec;
+        //applyParams = &arpRec;
 
-        PDDocApplyRedactions(pdDoc, NULL);
+        //applyParams->size = sizeof(PDApplyRedactionParams);
+        //applyParams->redactionAnnots = &redactAnnot;
+        //applyParams->keepMarks = true;
+        //applyParams->statusProcs = nullptr;
+
+        PDDocApplyRedactions(pdDoc, nullptr);
 
 //=============================================================================================================================================================
 // Step 2) Use the PDWordFinder to locate words that will be redacted.
 //=============================================================================================================================================================
-        pathName = L"out.pdf";
+
+        pathName = L"outMarked.pdf";
 
         asText = ASTextFromUnicode(reinterpret_cast<const ASUTF16Val*>(pathName.c_str()), unicodeFormat);
 
@@ -177,14 +189,14 @@ int main(int argc, char** argv)
 
         //Release any remaining resources.
         ASTextDestroy(asText);
-        ASFileSysReleasePath(NULL, asPathName);
+        ASFileSysReleasePath(nullptr, asPathName);
         PDDocClose(pdDoc);
 
     HANDLER
 
-    errCode = ERRORCODE;
+        errCode = ERRORCODE;
 
-    libInit.displayError(errCode);                                    //If there was an error, display the error that occured.
+        libInit.displayError(errCode);                                //If there was an error, display the error that occured.
 
     END_HANDLER
 
