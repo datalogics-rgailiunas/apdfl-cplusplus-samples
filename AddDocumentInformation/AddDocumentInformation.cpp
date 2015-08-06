@@ -106,7 +106,9 @@ int main(int argc, char** argv)
 //
 //Note:   Standard Key values contained in Document Information Dictionary: 
 //        {"Title", "Author", "Subject", "Keywords", "Creator", "Producer", "Trapped"}. 
-//        See the PDF Reference, section 10.2, for more information.
+//
+//        See :"ISO 32000-1:2008, Document Management-Portable Document Format-Part 1: PDF 1.7, page 549" at
+//        http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/PDF32000_2008.pdf#page=557 for more information.
 //
 //Note:   "key" refers to the document information field will be inserted into
 //        "value" is the data being inserted
