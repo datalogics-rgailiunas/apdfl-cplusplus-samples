@@ -68,7 +68,7 @@
 #include "APDFLDoc.h"
 #include "CosCalls.h"
 
-//Function that creates and displays the text "Click Me" onto a pdf page given the x and y position
+//Function that creates and displays the text "Click Me" onto a pdf page given the x and y position.
 PDEText clickMeTextMaker(double xPos, double yPos);
 
 int main(int argc, char** argv)
@@ -185,7 +185,7 @@ int main(int argc, char** argv)
 
         PDPageRelease(destPage);                                                                                //Release reference to page.
 
-        PDAction nextDestAct = PDActionNewFromDest(inDoc.pdDoc, nextDestination, inDoc.pdDoc);                  //Create an action representing the destination .   
+        PDAction nextDestAct = PDActionNewFromDest(inDoc.pdDoc, nextDestination, inDoc.pdDoc);                  //Create an action representing the destination.   
 
         PDLinkAnnotSetAction(newDestLink, nextDestAct);                                                         //Set the action to the link.
 
