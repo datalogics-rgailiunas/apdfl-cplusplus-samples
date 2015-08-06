@@ -84,185 +84,185 @@ int main(int argc, char** argv)
 
         std::wcout << L"Opening the input PDF." << std::endl;
 
-    APDFLDoc inDoc(L"../_Input/AddLinks.pdf", true);                           //Opens the input PDF document.
+        APDFLDoc inDoc(L"../_Input/AddLinks.pdf", true);                           //Opens the input PDF document.
 
-    CosDoc inputDocCosDoc = PDDocGetCosDoc(inDoc.pdDoc);                       //The PDDoc's COS representation.
+        CosDoc inputDocCosDoc = PDDocGetCosDoc(inDoc.pdDoc);                       //The PDDoc's COS representation.
 
-    PDPage page1 = PDDocAcquirePage(inDoc.pdDoc, 0);                           //The annotation will go on page 1.
+        PDPage page1 = PDDocAcquirePage(inDoc.pdDoc, 0);                           //The annotation will go on page 1.
 
-    //Acquire PDEContent, PDE objects can be added to the acquired content.
-    PDEContent pageContent = PDPageAcquirePDEContent(page1, NULL);
+        //Acquire PDEContent, PDE objects can be added to the acquired content.
+        PDEContent pageContent = PDPageAcquirePDEContent(page1, NULL);
 
-    //====================================================================================================================================================================================
-    // Step 1) Create, set up, and place a link that will open a file
-    //====================================================================================================================================================================================
+//====================================================================================================================================================================================
+// Step 1) Create, set up, and place a link that will open a file.
+//====================================================================================================================================================================================
 
-    //Create a text object which displays "Click Me" at the given location with the clickMeTextMaker() function call
-    PDEText clickMeText1 = clickMeTextMaker(72 * 6.48, 72 * 7.1);
+        //Create a text object which displays "Click Me" at the given location with the clickMeTextMaker() function call
+        PDEText clickMeText1 = clickMeTextMaker(72 * 6.48, 72 * 7.1);
 
-    //Add this text object to the page's content
-    PDEContentAddElem(pageContent, kPDEAfterLast, (PDEElement)clickMeText1);                             //Add the text element to the page's content.
+        //Add this text object to the page's content
+        PDEContentAddElem(pageContent, kPDEAfterLast, (PDEElement)clickMeText1);                             //Add the text element to the page's content.
 
-    PDERelease(reinterpret_cast<PDEObject>(clickMeText1));
+        PDERelease(reinterpret_cast<PDEObject>(clickMeText1));
 
-    //Set up the annotation's bounds
-    //Note: 72 represent an inch
-    ASFixedRect annotLocation;
-    annotLocation.left = ASFloatToFixed(6.5 * 72);
-    annotLocation.right = ASFloatToFixed(7.3 * 72);
-    annotLocation.top = ASFloatToFixed(7.25 * 72);
-    annotLocation.bottom = ASFloatToFixed(7.05 * 72);
+        //Set up the annotation's bounds
+        //Note: 72 represent an inch
+        ASFixedRect annotLocation;
+        annotLocation.left = ASFloatToFixed(6.5 * 72);
+        annotLocation.right = ASFloatToFixed(7.3 * 72);
+        annotLocation.top = ASFloatToFixed(7.25 * 72);
+        annotLocation.bottom = ASFloatToFixed(7.05 * 72);
 
-    //Create a file attachment annotation with the input page and bounds
-    PDAnnot fileAnnot = PDPageCreateAnnot(page1, ASAtomFromString("FileAttachment"), &annotLocation);
+        //Create a file attachment annotation with the input page and bounds
+        PDAnnot fileAnnot = PDPageCreateAnnot(page1, ASAtomFromString("FileAttachment"), &annotLocation);
 
-    PDPageAddAnnot(page1, 0, fileAnnot);                                                                 //Add the annotation as the first annotation on the page.
+        PDPageAddAnnot(page1, 0, fileAnnot);                                                                 //Add the annotation as the first annotation on the page.
 
-    PDLinkAnnot fileLink = CastToPDLinkAnnot(fileAnnot);                                                 //Cast the file attachment annotation as a link
+        PDLinkAnnot fileLink = CastToPDLinkAnnot(fileAnnot);                                                 //Cast the file attachment annotation as a link.
 
-    //Make the link's border unable to see
-    PDLinkAnnotBorder linkBorder;
-    linkBorder.width = 0;
-    linkBorder.dashArrayLen = 0;
-    PDLinkAnnotSetBorder(fileLink, &linkBorder);
+        //Make the link's border unable to see
+        PDLinkAnnotBorder linkBorder;
+        linkBorder.width = 0;
+        linkBorder.dashArrayLen = 0;
+        PDLinkAnnotSetBorder(fileLink, &linkBorder);
 
-    CosObj fileLinkDict = CosNewDict(inputDocCosDoc, false, 2);                                          //Create a cos dictionary object to hold attributes of the link
+        CosObj fileLinkDict = CosNewDict(inputDocCosDoc, false, 2);                                          //Create a cos dictionary object to hold attributes of the link.
 
-    //Using the file specification key "F" set up the file input path
-    CosDictPut(fileLinkDict, ASAtomFromString("F"), CosNewString(inputDocCosDoc, false, "../_Input/DOCXLink.docx", strlen("../_Input/DOCXLink.docx")));
+        //Using the file specification key "F" set up the file input path
+        CosDictPut(fileLinkDict, ASAtomFromString("F"), CosNewString(inputDocCosDoc, false, "../_Input/DOCXLink.docx", strlen("../_Input/DOCXLink.docx")));
 
-    //Using the name key "S" set the type to a Launch for opening the file
-    CosDictPut(fileLinkDict, ASAtomFromString("S"), CosNewName(inputDocCosDoc, false, ASAtomFromString("Launch")));
+        //Using the name key "S" set the type to a Launch for opening the file
+        CosDictPut(fileLinkDict, ASAtomFromString("S"), CosNewName(inputDocCosDoc, false, ASAtomFromString("Launch")));
 
-    PDAction fileLinkAction = PDActionFromCosObj(fileLinkDict);                                          //Set up an action object with the given attributes from the dictionary
+        PDAction fileLinkAction = PDActionFromCosObj(fileLinkDict);                                          //Set up an action object with the given attributes from the dictionary.
 
-    PDLinkAnnotSetAction(fileLink, fileLinkAction);                                                      //Set the action to the link
+        PDLinkAnnotSetAction(fileLink, fileLinkAction);                                                      //Set the action to the link.
 
-    CosObj fileLinkObj = PDAnnotGetCosObj(fileLink);                                                     //Get the cos object from the link                       
+        CosObj fileLinkObj = PDAnnotGetCosObj(fileLink);                                                     //Get the cos object from the link.                       
 
-    CosDictPutKeyString(fileLinkObj, "Subtype", CosNewNameFromString(inputDocCosDoc, false, "Link"));    //Set the cos object type to the subtype, link
+        CosDictPutKeyString(fileLinkObj, "Subtype", CosNewNameFromString(inputDocCosDoc, false, "Link"));    //Set the cos object type to the subtype, link.
 
-    std::wcout << L"Added file link." << std::endl;
+        std::wcout << L"Added file link." << std::endl;
 
-    //====================================================================================================================================================================================
-    // Step 2) Create, set up, and place a link that will move to a new location
-    //====================================================================================================================================================================================
+//====================================================================================================================================================================================
+// Step 2) Create, set up, and place a link that will move to a new location.
+//====================================================================================================================================================================================
 
-    //Create a text object which displays "Click Me" at the given location with the clickMeTextMaker() function call
-    PDEText clickMeText2 = clickMeTextMaker(72 * 6.48, 72 * 6.3);
+        //Create a text object which displays "Click Me" at the given location with the clickMeTextMaker() function call.
+        PDEText clickMeText2 = clickMeTextMaker(72 * 6.48, 72 * 6.3);
 
-    PDEContentAddElem(pageContent, kPDEAfterLast, (PDEElement)clickMeText2);                                //Add the text element to the page's content.
+        PDEContentAddElem(pageContent, kPDEAfterLast, (PDEElement)clickMeText2);                                //Add the text element to the page's content.
 
-    PDERelease(reinterpret_cast<PDEObject>(clickMeText2));
+        PDERelease(reinterpret_cast<PDEObject>(clickMeText2));
 
-    //Set up the annotation's bounds
-    annotLocation.left = ASFloatToFixed(6.5 * 72);
-    annotLocation.right = ASFloatToFixed(7.3 * 72);
-    annotLocation.top = ASFloatToFixed(6.45 * 72);
-    annotLocation.bottom = ASFloatToFixed(6.25 * 72);
+        //Set up the annotation's bounds
+        annotLocation.left = ASFloatToFixed(6.5 * 72);
+        annotLocation.right = ASFloatToFixed(7.3 * 72);
+        annotLocation.top = ASFloatToFixed(6.45 * 72);
+        annotLocation.bottom = ASFloatToFixed(6.25 * 72);
 
-    //Create a new destination annotation with the input page and bounds
-    PDAnnot newDestAnnot = PDPageCreateAnnot(page1, ASAtomFromString("Text"), &annotLocation);
+        //Create a new destination annotation with the input page and bounds
+        PDAnnot newDestAnnot = PDPageCreateAnnot(page1, ASAtomFromString("Text"), &annotLocation);
 
-    PDPageAddAnnot(page1, 1, newDestAnnot);                                                                 //Add the annotation as the second annotation on the page.
+        PDPageAddAnnot(page1, 1, newDestAnnot);                                                                 //Add the annotation as the second annotation on the page.
 
-    PDLinkAnnot newDestLink = CastToPDLinkAnnot(newDestAnnot);                                              //Cast the file attachment annotation as a link
+        PDLinkAnnot newDestLink = CastToPDLinkAnnot(newDestAnnot);                                              //Cast the file attachment annotation as a link.
 
-    PDLinkAnnotSetBorder(newDestLink, &linkBorder);                                                         //Set the link's border to the previously made unseeable border
+        PDLinkAnnotSetBorder(newDestLink, &linkBorder);                                                         //Set the link's border to the previously made unseeable border.
 
-    PDPage destPage = PDDocAcquirePage(inDoc.pdDoc, 2);                                                     //Create an instance of the page to jump to.
+        PDPage destPage = PDDocAcquirePage(inDoc.pdDoc, 2);                                                     //Create an instance of the page to jump to.
 
-    //Get the bounds of that page
-    ASFixedRect* bounds = new ASFixedRect;
-    PDPageGetBBox(destPage, bounds);
+        //Get the bounds of that page
+        ASFixedRect* bounds = new ASFixedRect;
+        PDPageGetBBox(destPage, bounds);
 
-    //Create a View Destination pointing to the location desired along with different settings
-    PDViewDestination nextDestination = PDViewDestCreate(inDoc.pdDoc, destPage,                             //The source document and destination page
-        ASAtomFromString("XYZ"),                           //Fit Type, set to the upper-left corner
-        bounds,                                            //Pointer to the location rectangle we want.
-        PDViewDestNULL,                                    //Zoom factor. 0 means to inherit the current zoom factor
-        0);                                                //Unused argument
+        //Create a View Destination pointing to the location desired along with different settings
+        PDViewDestination nextDestination = PDViewDestCreate(inDoc.pdDoc, destPage,                             //The source document and destination page.
+            ASAtomFromString("XYZ"),                                                                            //Fit Type, set to the upper-left corner.
+            bounds,                                                                                             //Pointer to the location rectangle we want.
+            PDViewDestNULL,                                                                                     //Zoom factor. 0 means to inherit the current zoom factor.
+            0);                                                                                                 //Unused argument.
 
-    PDPageRelease(destPage);                                                                                //Release reference to page
+        PDPageRelease(destPage);                                                                                //Release reference to page.
 
-    PDAction nextDestAct = PDActionNewFromDest(inDoc.pdDoc, nextDestination, inDoc.pdDoc);                  //Create an action representing the destination    
+        PDAction nextDestAct = PDActionNewFromDest(inDoc.pdDoc, nextDestination, inDoc.pdDoc);                  //Create an action representing the destination .   
 
-    PDLinkAnnotSetAction(newDestLink, nextDestAct);                                                         //Set the action to the link
+        PDLinkAnnotSetAction(newDestLink, nextDestAct);                                                         //Set the action to the link.
 
-    CosObj newDestLinkObj = PDAnnotGetCosObj(newDestLink);                                                  //Get the cos object from the link                         
+        CosObj newDestLinkObj = PDAnnotGetCosObj(newDestLink);                                                  //Get the cos object from the link.                         
 
-    CosDictPutKeyString(newDestLinkObj, "Subtype", CosNewNameFromString(inputDocCosDoc, false, "Link"));    //Set the cos object type to the subtype, link
+        CosDictPutKeyString(newDestLinkObj, "Subtype", CosNewNameFromString(inputDocCosDoc, false, "Link"));    //Set the cos object type to the subtype, link.
 
-    std::wcout << L"Added destination link." << std::endl;
+        std::wcout << L"Added destination link." << std::endl;
 
-    //====================================================================================================================================================================================
-    // Step 3) Create, set up, and place a link the will open a webpage
-    //====================================================================================================================================================================================
+//====================================================================================================================================================================================
+// Step 3) Create, set up, and place a link the will open a webpage.
+//====================================================================================================================================================================================
 
-    //Create a text object which displays "Click Me" at the given location with the clickMeTextMaker() function call
-    PDEText clickMeText3 = clickMeTextMaker(72 * 6.48, 72 * 5.5);
+        //Create a text object which displays "Click Me" at the given location with the clickMeTextMaker() function call.
+        PDEText clickMeText3 = clickMeTextMaker(72 * 6.48, 72 * 5.5);
 
-    PDEContentAddElem(pageContent, kPDEAfterLast, (PDEElement)clickMeText3);                            //Add the text element to the page's content.
+        PDEContentAddElem(pageContent, kPDEAfterLast, (PDEElement)clickMeText3);                            //Add the text element to the page's content.
 
-    PDERelease(reinterpret_cast<PDEObject>(clickMeText3));
+        PDERelease(reinterpret_cast<PDEObject>(clickMeText3));
 
-    //Set up the annotation's bounds
-    annotLocation.left = ASFloatToFixed(6.5 * 72);
-    annotLocation.right = ASFloatToFixed(7.3 * 72);
-    annotLocation.top = ASFloatToFixed(5.65 * 72);
-    annotLocation.bottom = ASFloatToFixed(5.45 * 72);
+        //Set up the annotation's bounds
+        annotLocation.left = ASFloatToFixed(6.5 * 72);
+        annotLocation.right = ASFloatToFixed(7.3 * 72);
+        annotLocation.top = ASFloatToFixed(5.65 * 72);
+        annotLocation.bottom = ASFloatToFixed(5.45 * 72);
 
-    PDAnnot URIAnnot = PDPageCreateAnnot(page1, ASAtomFromString("Text"), &annotLocation);              //Set up a new annotation
+        PDAnnot URIAnnot = PDPageCreateAnnot(page1, ASAtomFromString("Text"), &annotLocation);              //Set up a new annotation.
 
-    PDPageAddAnnot(page1, 1, URIAnnot);                                                                 //Add the annotation as the second annotation on the page.
+        PDPageAddAnnot(page1, 1, URIAnnot);                                                                 //Add the annotation as the second annotation on the page.
 
-    PDLinkAnnot URILink = CastToPDLinkAnnot(URIAnnot);                                                  //Cast the file attachment annotation as a link
+        PDLinkAnnot URILink = CastToPDLinkAnnot(URIAnnot);                                                  //Cast the file attachment annotation as a link.
 
-    PDLinkAnnotSetBorder(URILink, &linkBorder);                                                         //Set the link's border to the previously made unseeable border
+        PDLinkAnnotSetBorder(URILink, &linkBorder);                                                         //Set the link's border to the previously made unseeable border.
 
-    CosObj URIDict = CosNewDict(inputDocCosDoc, false, 2);                                              //Create a cos dictionary object to hold attributes of the link
+        CosObj URIDict = CosNewDict(inputDocCosDoc, false, 2);                                              //Create a cos dictionary object to hold attributes of the link.
+        
+        //Using the name key "S" set up the URI type
+        CosDictPut(URIDict, ASAtomFromString("S"), CosNewName(inputDocCosDoc, false, ASAtomFromString("URI")));
 
-    //Using the name key "S" set up the URI type
-    CosDictPut(URIDict, ASAtomFromString("S"), CosNewName(inputDocCosDoc, false, ASAtomFromString("URI")));
+        //Using the URI key "URI" set up the desired path
+        CosDictPut(URIDict, ASAtomFromString("URI"), CosNewString(inputDocCosDoc, false, "http://www.datalogics.com", strlen("http://www.datalogics.com")));
 
-    //Using the URI key "URI" set up the desired path
-    CosDictPut(URIDict, ASAtomFromString("URI"), CosNewString(inputDocCosDoc, false, "http://www.datalogics.com", strlen("http://www.datalogics.com")));
+        PDAction newPdAction = PDActionFromCosObj(URIDict);                                                 //Set up an action object with the given attributes from the dictionary.
 
-    PDAction newPdAction = PDActionFromCosObj(URIDict);                                                 //Set up an action object with the given attributes from the dictionary
+        PDLinkAnnotSetAction(URILink, newPdAction);                                                         //Set the action to the link.
 
-    PDLinkAnnotSetAction(URILink, newPdAction);                                                         //Set the action to the link
+        CosObj URILinkObj = PDAnnotGetCosObj(URILink);                                                      //Get the cos object from the link.                    
 
-    CosObj URILinkObj = PDAnnotGetCosObj(URILink);                                                      //Get the cos object from the link                    
+        CosDictPutKeyString(URILinkObj, "Subtype", CosNewNameFromString(inputDocCosDoc, false, "Link"));    //Set the cos object type to the subtype, link.
 
-    CosDictPutKeyString(URILinkObj, "Subtype", CosNewNameFromString(inputDocCosDoc, false, "Link"));    //Set the cos object type to the subtype, link
+        std::wcout << L"Added webpage link." << std::endl;
 
-    std::wcout << L"Added webpage link." << std::endl;
+//====================================================================================================================================================================================
+// Step 4) Save and close.
+//====================================================================================================================================================================================
 
-    //====================================================================================================================================================================================
-    // Step 4) Save and close.
-    //====================================================================================================================================================================================
+        PDPageSetPDEContentCanRaise(page1, NULL);                     //Set the content back into the page.
 
-    PDPageSetPDEContentCanRaise(page1, NULL);                     //Set the content back into the page.
+        std::wcout << L"Saving the output document." << std::endl;
 
-    std::wcout << L"Saving the output document." << std::endl;
+        //Page and content released before closing the document.
+        PDPageReleasePDEContent(page1, NULL);
+        PDPageRelease(page1);
 
-    //Page and content released before closing the document.
-    PDPageReleasePDEContent(page1, NULL);
-    PDPageRelease(page1);
+        inDoc.saveDoc(L"AddedLinks.pdf");                             //Save the pdf to the output save path.
 
-    inDoc.saveDoc(L"AddedLinks.pdf");                             //Save the pdf to the output save path
-
-    std::wcout << L"AddedLinks.pdf saved." << std::endl;
+        std::wcout << L"AddedLinks.pdf saved." << std::endl;
 
     HANDLER
 
         errCode = ERRORCODE;
-    lib.displayError(errCode);                                    //If there was an error, display it.
+        lib.displayError(errCode);                                    //If there was an error, display it.
 
     END_HANDLER
 
-        return errCode;                                               //Returns program status
-};
+    return errCode;                                                   //Returns program status.
+}
 
 //====================================================================================================================================================================================
 // PDEText Function: Creates and displays the text "Click Me" onto a pdf page given the x and y position
@@ -282,7 +282,7 @@ PDEText clickMeTextMaker(double xPos, double yPos)
     //Create the CourierStd Type1 font with embed flag set.       
     PDEFont courierFont = PDEFontCreateFromSysFont(sysFont, kPDEFontCreateEmbedded);
 
-    std::string textToDisplay = " Click Me ";                                 //Text that will be displayed on page
+    std::string textToDisplay = " Click Me ";                                 //Text that will be displayed on page.
 
     PDETextState tState;                                                      //Structure holding the attributes of a PDEText.
 
@@ -299,27 +299,27 @@ PDEText clickMeTextMaker(double xPos, double yPos)
 
     PDERelease(reinterpret_cast<PDEObject>(gState.fillColorSpec.space));      //Release the stroke color space before modifying it.
 
-    //Set color to blue
+    //Set color to blue.
     ASFixed red = ASFloatToFixed(0);
     ASFixed green = ASFloatToFixed(0);
     ASFixed blue = ASFloatToFixed(1);
 
-    //Set the RGB color space
+    //Set the RGB color space.
     gState.fillColorSpec.space = PDEColorSpaceCreateFromName(ASAtomFromString("DeviceRGB"));
 
-    //Set up the color space values to form the wanted color
+    //Set up the color space values to form the wanted color.
     gState.fillColorSpec.value.color[0] = red;
     gState.fillColorSpec.value.color[1] = green;
     gState.fillColorSpec.value.color[2] = blue;
 
     PDEText textObj = PDETextCreate();                                        //Create a new text run.
 
-    //Adding the text run to the PDE text object
+    //Adding the text run to the PDE text object.
     PDETextAddEx(textObj,                                                     //Text container to add to. 
         kPDETextRun,                                                          //kPDETextRun or kPDETextChar for text runs or text characters. 
         0,                                                                    //The index after which to add the text run.
         (Uns8 *)textToDisplay.c_str(),                                        //Text to add.    
-        textToDisplay.length(),                                               //Length of text 
+        textToDisplay.length(),                                               //Length of text. 
         courierFont,                                                          //Font to apply to text. 
         &gState, sizeof(gState),                                              //PDEGraphicState and its size. Contains graphical attributes of the text object.
         &tState, 0,                                                           //Text state and its size .Contains textual attributes of the text object.
@@ -331,6 +331,6 @@ PDEText clickMeTextMaker(double xPos, double yPos)
     PDERelease(reinterpret_cast<PDEObject>(gState.strokeColorSpec.space));
     PDERelease(reinterpret_cast<PDEObject>(gState.fillColorSpec.space));
 
-    return textObj;                                                           //Return the text object
+    return textObj;                                                           //Return the text object.
 
 }
