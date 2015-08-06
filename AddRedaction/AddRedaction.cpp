@@ -153,14 +153,17 @@ int main(int argc, char** argv)
         PDRedactParamsRec rpRec;
         redactParams = &rpRec;
 
+        PDColorValueRec cvRec;
+
         redactParams->size = sizeof(PDRedactParamsRec);                     //Size is always set to the size of the PDRedactParamsRec struct.
         redactParams->pageNum = 0;                                          //The page number that the redaction will be applied to.
         redactParams->redactQuads = quadVector.data();                      //The vector or array holding the quads.
         redactParams->numQuads = quadVector.size();                         //The number of entries in the vector or array.
-        redactParams->colorVal->value[0] = fixedZero;                       //The redaction box will be set to black.
-        redactParams->colorVal->value[1] = fixedZero;
-        redactParams->colorVal->value[2] = fixedZero;
+        redactParams->colorVal = &cvRec;
         redactParams->colorVal->space = PDDeviceRGB;                        //Set device color space to RGB
+        redactParams->colorVal->value[0] = FloatToASFixed(0.0);             //The redaction box will be set to black.
+        redactParams->colorVal->value[1] = FloatToASFixed(0.0);
+        redactParams->colorVal->value[2] = FloatToASFixed(0.0);
         redactParams->horizAlign = kPDHorizLeft;                            //Horizontal alignment of the text when generating the redaction mark.
         redactParams->overlayText = nullptr;                                //Overlay text may be used to replace the underlying content.
 
