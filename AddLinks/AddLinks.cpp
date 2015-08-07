@@ -103,15 +103,12 @@ int main(int argc, char** argv)
         //Add this text object to the page's content
         PDEContentAddElem(pageContent, kPDEAfterLast, (PDEElement)clickMeText1);                             //Add the text element to the page's content.
 
-        PDERelease(reinterpret_cast<PDEObject>(clickMeText1));
-
         //Set up the annotation's bounds
         //Note: 72 represent an inch
         ASFixedRect annotLocation;
-        annotLocation.left = ASFloatToFixed(6.5 * 72);
-        annotLocation.right = ASFloatToFixed(7.3 * 72);
-        annotLocation.top = ASFloatToFixed(7.25 * 72);
-        annotLocation.bottom = ASFloatToFixed(7.05 * 72);
+        PDETextGetBBox(clickMeText1, kPDETextRun, 0, &annotLocation);
+
+        PDERelease(reinterpret_cast<PDEObject>(clickMeText1));
 
         //Create a file attachment annotation with the input page and bounds
         PDAnnot fileAnnot = PDPageCreateAnnot(page1, ASAtomFromString("FileAttachment"), &annotLocation);
@@ -156,10 +153,7 @@ int main(int argc, char** argv)
         PDERelease(reinterpret_cast<PDEObject>(clickMeText2));
 
         //Set up the annotation's bounds
-        annotLocation.left = ASFloatToFixed(6.5 * 72);
-        annotLocation.right = ASFloatToFixed(7.3 * 72);
-        annotLocation.top = ASFloatToFixed(6.45 * 72);
-        annotLocation.bottom = ASFloatToFixed(6.25 * 72);
+        PDETextGetBBox(clickMeText2, kPDETextRun, 0, &annotLocation);
 
         //Create a new destination annotation with the input page and bounds
         PDAnnot newDestAnnot = PDPageCreateAnnot(page1, ASAtomFromString("Text"), &annotLocation);
@@ -173,13 +167,13 @@ int main(int argc, char** argv)
         PDPage destPage = PDDocAcquirePage(inDoc.pdDoc, 2);                                                     //Create an instance of the page to jump to.
 
         //Get the bounds of that page
-        ASFixedRect* bounds = new ASFixedRect;
-        PDPageGetBBox(destPage, bounds);
+        ASFixedRect bounds;
+        PDPageGetBBox(destPage, &bounds);
 
         //Create a View Destination pointing to the location desired along with different settings
         PDViewDestination nextDestination = PDViewDestCreate(inDoc.pdDoc, destPage,                             //The source document and destination page.
             ASAtomFromString("XYZ"),                                                                            //Fit Type, set to the upper-left corner.
-            bounds,                                                                                             //Pointer to the location rectangle we want.
+            &bounds,                                                                                             //Pointer to the location rectangle we want.
             PDViewDestNULL,                                                                                     //Zoom factor. 0 means to inherit the current zoom factor.
             0);                                                                                                 //Unused argument.
 
@@ -207,10 +201,7 @@ int main(int argc, char** argv)
         PDERelease(reinterpret_cast<PDEObject>(clickMeText3));
 
         //Set up the annotation's bounds
-        annotLocation.left = ASFloatToFixed(6.5 * 72);
-        annotLocation.right = ASFloatToFixed(7.3 * 72);
-        annotLocation.top = ASFloatToFixed(5.65 * 72);
-        annotLocation.bottom = ASFloatToFixed(5.45 * 72);
+        PDETextGetBBox(clickMeText3, kPDETextRun, 0, &annotLocation);
 
         PDAnnot URIAnnot = PDPageCreateAnnot(page1, ASAtomFromString("Text"), &annotLocation);              //Set up a new annotation.
 
