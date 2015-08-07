@@ -60,9 +60,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
-
 #include "CosCalls.h"
-
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
 
@@ -81,8 +79,8 @@ int main()
         APDFLDoc document(L"../_Input/TextSearch.pdf", true);
 
 //===================================================================================================================================================================================
-// Step 1) Set the word finder configurations. In this case memset() will take care of initializing most of them of the variables, but they are all display here with a short
-// description in order to show what types of settings are available.
+// Step 1) Set the word finder configurations. In this case memset() will take care of initializing most of the variables, but they are all display here with a short
+// description in order to show what types of settings are available. Ensure that wfConfig.recSize is ALWAYS set.
 //===================================================================================================================================================================================
 
         PDWordFinderConfigRec wfConfig;                      //This structure determines how the PDWordFinder will behave.
@@ -142,6 +140,8 @@ int main()
         {
             PDWordFinderAcquireWordList(wordFinder, pageNum, &pdfWordArray, nullptr, nullptr, &numberOfWords);                //Get all words in the PDPage specified.
 
+            PDPage pdPage = document.getPage(pageNum);                                                                        //Get the PDPage object for adding the highlight annotation.
+
             for (ASInt32 index = 0; index < numberOfWords; ++index)                                                           //Iterate through the words in the wordlist.
             {
                 PDWord pdWord = PDWordFinderGetNthWord(wordFinder, index);                                                    //Acquire the PDWord from the word finder.
@@ -169,19 +169,19 @@ int main()
                     annotationRect.top = tempQuad.tr.v;                                                                   
                     annotationRect.right = tempQuad.tr.h;                                                                 
                     annotationRect.bottom = tempQuad.bl.v;                                          
-
-                    PDPage pdPage = document.getPage(pageNum);                                                            //Get the PDPage object for adding the highlight annotation.
+ 
                     PDAnnot highlight = PDPageCreateAnnot(pdPage, ASAtomFromString("Highlight"), &annotationRect);        //Create the annotation.
 
                     PDAnnotSetQuads(highlight, &tempQuad, 1);                                                             //Set the newly created annotation's coordinates.
                     PDAnnotSetColor(highlight, pdColorValue);                                                             //Set the annotation's color (orange.)
 
                     PDPageAddAnnot(pdPage, -2, highlight);                                                                //Render the annotation to the page.
-                    PDPageRelease(pdPage);                                                                                //Release the acquired page.
                 }
- 
+
                 ASTextDestroy(asTextWord);                                                                                //Destroy the ASText object before creating a new one.
             }
+
+            PDPageRelease(pdPage);                                                                                        //Release the acquired page.
 
             PDWordFinderReleaseWordList(wordFinder, pageNum);                                                             //Release the word list before acquiring the next one.
         }
@@ -197,7 +197,7 @@ int main()
         libInit.displayError(errCode);                                                                                    //If there was an error, display it.
 
     END_HANDLER
-            
+
     return errCode;                                                                                                       //APDFLib's destructor terminates the APDFL.                            
 }
 
@@ -218,9 +218,9 @@ void PDAnnotSetQuads(PDAnnot annot, ASFixedQuad *quads, ASArraySize numQuads) {
         CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].bl.v));
         CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].br.h));
         CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].br.v));
-        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tl.h));    //These two points currently do not conform to the specification.
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tl.h));    //These two points currently do not conform to the PDF specification.
         CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tl.v));
-        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tr.h));    //These two points currently do not conform to the specification.
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tr.h));    //These two points currently do not conform to the PDF specification.
         CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tr.v));
     }
 
