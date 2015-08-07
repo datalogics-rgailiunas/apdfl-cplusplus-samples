@@ -134,32 +134,36 @@ int main(int argc, char** argv)
 // Step 2) Create and apply the redactions. The redaction configurations are set, the redaction is created and finally applied. If PDDocApplyRedactions is not called the words will
 // be marked for redaction, but not removed.
 //===================================================================================================================================================================================
+        if (quadVector.size() > 0)                                                            //Perform check on size to prevent quadVector.front() from having undefined behavior.
+        {
+            PDRedactParams redactParams;                                                      //Parameters controlling settings for the redaction annotation.
+            PDRedactParamsRec rpRec;
+            redactParams = &rpRec;
 
-        PDRedactParams redactParams;                                                      //Parameters controlling settings for the redaction annotation.
-        PDRedactParamsRec rpRec;
-        redactParams = &rpRec;
+            PDColorValueRec cvRec;
 
-        PDColorValueRec cvRec;
+            redactParams->size = sizeof(PDRedactParamsRec);                                   //Size is always set to the size of the PDRedactParamsRec struct.
+            redactParams->pageNum = 0;                                                        //The page number that the redaction will be applied to.
+            redactParams->redactQuads = &quadVector.front();                                  //The vector or array holding the quads.
+            redactParams->numQuads = quadVector.size();                                       //The number of entries in the vector or array.
+            redactParams->colorVal = &cvRec;
+            redactParams->colorVal->space = PDDeviceRGB;                                      //Set device color space to RGB
+            redactParams->colorVal->value[0] = FloatToASFixed(0.0);                           //The redaction box will be set to black.
+            redactParams->colorVal->value[1] = FloatToASFixed(0.0);
+            redactParams->colorVal->value[2] = FloatToASFixed(0.0);
+            redactParams->horizAlign = kPDHorizLeft;                                          //Horizontal alignment of the text when generating the redaction mark.
+            redactParams->overlayText = nullptr;                                              //Overlay text may be used to replace the underlying content.
 
-        redactParams->size = sizeof(PDRedactParamsRec);                                   //Size is always set to the size of the PDRedactParamsRec struct.
-        redactParams->pageNum = 0;                                                        //The page number that the redaction will be applied to.
-        redactParams->redactQuads = quadVector.data();                                    //The vector or array holding the quads.
-        redactParams->numQuads = quadVector.size();                                       //The number of entries in the vector or array.
-        redactParams->colorVal = &cvRec;
-        redactParams->colorVal->space = PDDeviceRGB;                                      //Set device color space to RGB
-        redactParams->colorVal->value[0] = FloatToASFixed(0.0);                           //The redaction box will be set to black.
-        redactParams->colorVal->value[1] = FloatToASFixed(0.0);
-        redactParams->colorVal->value[2] = FloatToASFixed(0.0);
-        redactParams->horizAlign = kPDHorizLeft;                                          //Horizontal alignment of the text when generating the redaction mark.
-        redactParams->overlayText = nullptr;                                              //Overlay text may be used to replace the underlying content.
+            PDAnnot redactAnnot = PDDocCreateRedaction(document.getPDDoc(), redactParams);    //Create the redaction annotation. At this point the text HAS NOT been redacted.
 
-        PDAnnot redactAnnot = PDDocCreateRedaction(document.getPDDoc(), redactParams);    //Create the redaction annotation. At this point the text HAS NOT been redacted.
+            std::wcout << L"Marked words for redaction." << std::endl;
 
-        std::wcout << L"Marked words for redaction." << std::endl;
+            PDDocApplyRedactions(document.getPDDoc(), nullptr);                               //Apply the redactions, the text is now redacted.
 
-        PDDocApplyRedactions(document.getPDDoc(), nullptr);                               //Apply the redactions, the text is now redacted.
-
-        std::wcout << L"Words have been permanently removed." << std::endl;
+            std::wcout << L"Words have been permanently removed." << std::endl;
+        }
+        else
+            std::wcout << L"No words were matched, no redactions will be made." << std::endl;
 
 //===================================================================================================================================================================================
 // Step 3) Verify that the words were permanently removed. This is an optional step to demonstrate that our words have been completely removed.
