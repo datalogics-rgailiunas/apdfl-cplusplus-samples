@@ -8,7 +8,7 @@
 // Steps:
 //  1) Use the PDWordFinder to locate words that will be redacted.
 //  2) Create and apply the redactions.  
-//  3)
+//  3) Verify that the words were permanently removed.
 //====================================================================================
 
 // This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
@@ -165,7 +165,7 @@ int main(int argc, char** argv)
 // Step 3) Verify that the words were permanently removed. This is an optional step to demonstrate that our words have been completely removed.
 //===================================================================================================================================================================================
 
-        wordFinder = PDDocCreateWordFinderEx(document.getPDDoc(), WF_LATEST_VERSION, true, &wfConfig);   //Create the word finder object.
+        wordFinder = PDDocCreateWordFinderEx(document.getPDDoc(), WF_LATEST_VERSION, true, &wfConfig);                //Create the word finder object.
 
         numberOfWords = 0;                                                                               
         memset(&pdWordArray, 0, sizeof(pdWordArray));
@@ -201,18 +201,16 @@ int main(int argc, char** argv)
         PDWordFinderReleaseWordList(wordFinder, 0);                                                                   //Release the word list.
 
         std::wcout << L"Found " << cnt << L" matches..." << std::endl;
-//===================================================================================================================================================================================
-// Step 3) Verify that the words were permanently removed. This is an optional step to demonstrate that our words have been completely removed.
-//===================================================================================================================================================================================
-        document.saveDoc(L"RedactedDoc.pdf", true);                                                         //Save the document with redacted text.
+
+        document.saveDoc(L"RedactedDoc.pdf", true);                                                                   //Save the document with redacted text.
         
     HANDLER
 
         errCode = ERRORCODE;
 
-        libInit.displayError(errCode);                                                                      //If there was an error, display the error that occured.
+        libInit.displayError(errCode);                                                                                //If there was an error, display the error that occured.
 
     END_HANDLER
 
-    return errCode;                                                                                         //APDFLib's destructor terminates the library.
+    return errCode;                                                                                                   //APDFLib's destructor terminates the library.
 }
