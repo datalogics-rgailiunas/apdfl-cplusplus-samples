@@ -124,17 +124,21 @@ int main(int agc, char** argv)
         bitsPerComp = 8;                                            //Only 8 is valid for DeviceRGB.
         backgroundColor = 0xFF;                                     //All components are set to FF to represent white in RGB.
     }
-    if (colorSpace == "DeviceGray")
+    else if (colorSpace == "DeviceGray")
     {
         nComps = 1;
         bitsPerComp = 1;                                            //PDFL supports both 1-bit monochrome grayscale and 8-bit Grayscale. So you could also set this to 1; the image will be dithered automatically.
-        backgroundColor = 0x00;                                     //All components are set to 00 to represent white in Grayscale.
+        backgroundColor = 0xFF;                                     //All components are set to 00 to represent white in Grayscale.
     }
-    if (colorSpace == "DeviceCMYK")
+    else if (colorSpace == "DeviceCMYK")
     {
         nComps = 4;
         bitsPerComp = 8;                                            //Only 8 is valid for DeviceCMYK.
-        backgroundColor = 0xFF;                                     //All components are set to FF to represent white in CMYK.
+        backgroundColor = 0x00;                                     //All components are set to FF to represent white in CMYK.
+    }
+    else
+    {
+        std::wcout << L"Undefined color space specifier: ''" << colorSpace.c_str() << L"''." << std::endl;
     }
 
 //==================================================================================================================================================================================================================
@@ -163,7 +167,7 @@ int main(int agc, char** argv)
     ASCabPutBool(drawFlags, kPDPageDrawSmoothLineArtStr, true);      //Anti-alias the line art.
     ASCabPutBool(drawFlags, kPDPageDrawSmoothImageStr, true);        //Anti-alias the images.
 
-    std::cout << "Allocating memory." << std::endl;
+    std::wcout << L"Allocating memory." << std::endl;
 
     //Calling this method with a null buffer will calculate how much memory we need to store the page's contents.
     ASInt32 bufferSize = PDPageDrawContentsToMemoryEx(inPage, drawFlags, &userMatrixD, NULL, colorSpaceAtom, bitsPerComp, &destRectD, NULL, 0, NULL, NULL);
@@ -171,7 +175,7 @@ int main(int agc, char** argv)
     memset(buffer, backgroundColor, bufferSize);                     //In effect, this makes the background color of the image equal to whatever color
                                                                      //    results from setting each component equal to backgroundColor.
 
-    std::cout << "Drawing the page's contents to memory." << std::endl;
+    std::wcout << L"Drawing the page's contents to memory." << std::endl;
 
     //Finally, the page's contents are rendered to the buffer.
     PDPageDrawContentsToMemoryEx(inPage, drawFlags, &userMatrixD, NULL, colorSpaceAtom, bitsPerComp, &destRectD, buffer, bufferSize, NULL, NULL); 
@@ -241,7 +245,7 @@ int main(int agc, char** argv)
     memset(&filterArray, 0, sizeof(PDEFilterArray));
     filterArray.spec[0].name = ASAtomFromString(filterName);    //PDEFilterArrays use one spec by default.
 
-    std::cout << "Rendering the image from memory." << std::endl;
+    std::wcout << L"Rendering the image from memory." << std::endl;
 
     PDEImage img = PDEImageCreateEx(&imageAttrs, sizeof(imageAttrs), &imageMatrix, 0, outColorSpace, NULL, &filterArray, 0, (unsigned char*)buffer, bufferSize);
 
@@ -253,7 +257,7 @@ int main(int agc, char** argv)
 //Step 5) Draw the image to an output document.
 //==================================================================================================================================================================================================================
 
-    std::cout << "Drawing the image onto a new document." << std::endl;
+    std::wcout << L"Drawing the image onto a new document." << std::endl;
 
     APDFLDoc outDoc;                                                                                            //Create our output document.
     outDoc.insertPage(inPageRect.right-inPageRect.left, inPageRect.top-inPageRect.bottom,PDBeforeFirstPage);    //Give it a page big enough to hold the image.
@@ -270,13 +274,13 @@ int main(int agc, char** argv)
 //Step 6) Save and close.
 //==================================================================================================================================================================================================================
 
-    std::cout << "Saving..." << std::endl;
+    std::wcout << L"Saving..." << std::endl;
 
     PDPageReleasePDEContent(outPage, 0);                       //Must be released before the page can be released.
     PDPageRelease(outPage);                                    //Must be released before the document can be saved.
     outDoc.saveDoc(outPath);                                   //APDFLDoc's destructor will handle closing both documents.
 
-    std::cout << "Success!" << std::endl;
+    std::wcout << L"Success!" << std::endl;
 
     HANDLER
 
