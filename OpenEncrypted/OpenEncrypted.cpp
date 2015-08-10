@@ -1,7 +1,7 @@
 // Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 
 //=================================================================
-// Sample: Decryption - Removes security from a document.
+// Sample: OpenEncrypted - Removes security from a document.
 //
 // Note: This sample completely removes the security from a 
 // password-protected document.
@@ -59,6 +59,7 @@
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
 #include <iostream>
+
 #include "InitializeLibrary.h"
 #include "ASExtraCalls.h"
 
@@ -91,7 +92,7 @@ int main(int argc, char** argv)
 
     std::wcout << L"Attempting to open the document." << std::endl;
 
-    ASPathName inputPathName  = makeASPathName(L"../_Input/encrypted.pdf");
+    ASPathName inputPathName  = makeASPathName(L"../_Input/OpenEncrypted.pdf");
 
     //PDDocOpenEx openAuthorizationProcedure to supply the password.
     PDDoc document = PDDocOpenEx(inputPathName, ASGetDefaultFileSys(), ASCallbackCreateProto(PDAuthProcEx, &openAuthorizationProcedure), 0, true);
