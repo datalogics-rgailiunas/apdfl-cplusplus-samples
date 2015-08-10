@@ -63,8 +63,10 @@
 
 #include "PERCalls.h"
 #include "PEWCalls.h"
+#include "AcroColorCalls.h"
 #include "PDFLExpT.h"
 #include "PagePDECntCalls.h"
+#include "DLExtrasCalls.h"
 
 int main(int agc, char** argv)
 {
@@ -103,7 +105,7 @@ int main(int agc, char** argv)
 
     //Create the destination rectangle and source rectangle with correct scaling and positioning.
     ASFixedMatrixConcat(&userMatrix, &scaleMatrix, &userMatrix);          //Multipliy the user matrix by the scale, and store the result in userMatrix.
-    ASFixedMatrixTransformRect(&destRect, &scaleMatrix, &inPageRect);     //The inPageRect rectangle is transformed through scaleMatrix, and its smallest bounding box is stored in destRect. 
+    ASFixedMatrixTransformRect(&destRect, &scaleMatrix, &inPageRect);     //The inPageRect rectangle is transformed through scaleMatrix, and its smallest bounding box is stored in destRect.
 
 //==================================================================================================================================================================================================================
 //Step 2) Determine the color space for the output image.
@@ -114,6 +116,7 @@ int main(int agc, char** argv)
     ASInt32 nComps;                                                 //The number of components each color has in this color space.
     ASInt32 bitsPerComp;                                            //The number of bits per component in this color space.
     unsigned char backgroundColor;                                  //In this color space, set all components to this value to achieve the desired background color.
+    AC_Profile acProfile;                                           //PDPageDrawContentsToMemoryWithParams requires this to match up with the color space.
 
     colorSpaceAtom = ASAtomFromString(colorSpace.c_str());
     outColorSpace = PDEColorSpaceCreateFromName(colorSpaceAtom);
@@ -123,65 +126,83 @@ int main(int agc, char** argv)
         nComps = 3;
         bitsPerComp = 8;                                            //Only 8 is valid for DeviceRGB.
         backgroundColor = 0xFF;                                     //All components are set to FF to represent white in RGB.
+         ACProfileFromCode(&acProfile, AC_Profile_sRGB);
     }
     else if (colorSpace == "DeviceGray")
     {
         nComps = 1;
-        bitsPerComp = 1;                                            //PDFL supports both 1-bit monochrome grayscale and 8-bit Grayscale. So you could also set this to 1; the image will be dithered automatically.
+        bitsPerComp = 1;                                            //PDFL supports both 1-bit monochrome grayscale, 8, and 24-bit Grayscale. If you choose 1-bit, the image will be dithered automatically.
         backgroundColor = 0xFF;                                     //All components are set to 00 to represent white in Grayscale.
+         ACProfileFromCode(&acProfile, AC_Profile_SystemGray);
     }
     else if (colorSpace == "DeviceCMYK")
     {
         nComps = 4;
         bitsPerComp = 8;                                            //Only 8 is valid for DeviceCMYK.
         backgroundColor = 0x00;                                     //All components are set to FF to represent white in CMYK.
+         ACProfileFromCode(&acProfile, AC_Profile_SystemCMYK);
     }
     else
     {
         std::wcout << L"Undefined color space specifier: ''" << colorSpace.c_str() << L"''." << std::endl;
+        return -1;
     }
 
 //==================================================================================================================================================================================================================
 //Step 3) Render the page's contents to a buffer in memory.
 //==================================================================================================================================================================================================================
 
-    //For these methods, we'll need ASDouble matrices. So we translate.
-    ASDoubleMatrix userMatrixD;
-    userMatrixD.a = (ASDouble)ASFixedToFloat(userMatrix.a);
-    userMatrixD.b = (ASDouble)ASFixedToFloat(userMatrix.b);
-    userMatrixD.c = (ASDouble)ASFixedToFloat(userMatrix.c);
-    userMatrixD.d = (ASDouble)ASFixedToFloat(userMatrix.d);
-    userMatrixD.h = (ASDouble)ASFixedToFloat(userMatrix.h);
-    userMatrixD.v = (ASDouble)ASFixedToFloat(userMatrix.v);
-
-    ASDoubleRect destRectD;
-    destRectD.bottom = (ASDouble)ASFixedToFloat(destRect.bottom);
-    destRectD.top    = (ASDouble)ASFixedToFloat(destRect.top);
-    destRectD.left   = (ASDouble)ASFixedToFloat(destRect.left);
-    destRectD.right  = (ASDouble)ASFixedToFloat(destRect.right);
-
-    ASCab drawFlags = ASCabNew();                                    //This cabinet holds the flags which define how we want the page drawn.
-    ASCabPutBool(drawFlags, kPDPageDoLazyEraseStr, true);            //Erase the page while rendering only as needed.
-    ASCabPutBool(drawFlags, kPDPageUseAnnotFacesStr, true);          //Draw annotation appearances.
-    ASCabPutBool(drawFlags, kPDPageDrawSmoothTextStr, true);         //Anti-alias the text.
-    ASCabPutBool(drawFlags, kPDPageDrawSmoothLineArtStr, true);      //Anti-alias the line art.
-    ASCabPutBool(drawFlags, kPDPageDrawSmoothImageStr, true);        //Anti-alias the images.
-
     std::wcout << L"Allocating memory." << std::endl;
 
-    //Calling this method with a null buffer will calculate how much memory we need to store the page's contents.
-    ASInt32 bufferSize = PDPageDrawContentsToMemoryEx(inPage, drawFlags, &userMatrixD, NULL, colorSpaceAtom, bitsPerComp, &destRectD, NULL, 0, NULL, NULL);
-    char* buffer = new char[bufferSize];                             //This is the memory we're drawing the page contents to.
-    memset(buffer, backgroundColor, bufferSize);                     //In effect, this makes the background color of the image equal to whatever color
-                                                                     //    results from setting each component equal to backgroundColor.
+    //These parameters specify all the details of how we want the page rendered.
+    PDPageDrawMParamsRec drawParams;
+
+    //The destination, source, and transformation rectangles, respectively.
+    drawParams.destRect = &destRect;
+    drawParams.updateRect = NULL;                                                      //Null means we'll render all objects, inside or outside the page boundaries.
+    drawParams.matrix = &userMatrix;
+
+    //The DrawMParamsRec allows the use of ASReal structs instead of ASFixed structs, but all our variables are ASFixed structs.
+    drawParams.asRealDestRect = NULL;
+    drawParams.asRealUpdateRect = NULL;
+    drawParams.asRealMatrix = NULL;
+
+    drawParams.buffer = NULL;                                                          //Calling PDPageDrawContentsToMemoryWithParams with a null buffer calculates the required bufferSize.
+    drawParams.bufferSize =NULL;                                                       //The size of the buffer we'll render the page to.
+
+    drawParams.cancelProc = NULL;                                                      //Would be called to check whether the rendering should be halted.
+    drawParams.cancelProcData = NULL;                                                  //The data that would be passed to that method.
+
+    drawParams.csAtom = colorSpaceAtom;                                                //The atom which defines the color space.
+    drawParams.bpc = bitsPerComp;                                                      //The bits each component requires in this color space.
+
+    drawParams.iccProfile = acProfile;                                                 //Specifies the characteristics of the supplied color space.
+    drawParams.renderIntent = AC_Perceptual;                                           //Try to preserve the visual relationship between colors while rendering.
+    drawParams.clientOCContext = NULL;                                                 //Determines what contents are visible. NULL uses the PDDoc's own context.
+
+    //Bitfields specifying how we want the page rendered.
+    drawParams.smoothFlags = kPDPageDrawSmoothText                                     //Anti-alias text.
+                             | kPDPageDrawSmoothLineArt                                //Anti-alias line art.
+                             | kPDPageDrawSmoothImage;                                 //Anti alias images.
+    drawParams.flags = kPDPageDoLazyErase;                                             //Erase while rendering only when needed.
+
+    drawParams.bypassCopyPerm = false;                                                 //Whether we'll bypass the copy permissions of the input document.
+
+    drawParams.size = sizeof(drawParams);
+
+    ASInt32 bufferSize = PDPageDrawContentsToMemoryWithParams(inPage, &drawParams);    //Since the buffer is null, this method only calculates the required buffersize for the specified rendering.
+    char* buffer = new char[bufferSize];                                               //Now that we know how much memory we need to render the page, we allocate it.
+    memset(buffer, backgroundColor, bufferSize);                                       //In effect, this makes the background color of the image {backgroundColor,backgroundColor,...}.
+
+    drawParams.buffer = buffer;
+    drawParams.bufferSize = bufferSize;
+    drawParams.size = sizeof(drawParams);
 
     std::wcout << L"Drawing the page's contents to memory." << std::endl;
 
-    //Finally, the page's contents are rendered to the buffer.
-    PDPageDrawContentsToMemoryEx(inPage, drawFlags, &userMatrixD, NULL, colorSpaceAtom, bitsPerComp, &destRectD, buffer, bufferSize, NULL, NULL); 
+    PDPageDrawContentsToMemoryWithParams(inPage, &drawParams);                         //Now that the buffer is set, the method renders the page to the buffer.
 
     //Free used resources.
-    ASCabDestroy(drawFlags);
     PDPageRelease(inPage);
 
 //==================================================================================================================================================================================================================
@@ -200,21 +221,15 @@ int main(int agc, char** argv)
     //however, 8-bit aligned image data. To resolve this difference, we check to see if the 32-bit aligned width
     //is different from the 8-bit aligned width. If so, we fix the image data by stripping off the padding at the end.
     //PDF consumer applications ignore the padding bits.
-    if (((((imageAttrs.width * bitsPerComp * nComps) + 31) / 32) * 4) != ((imageAttrs.width * bitsPerComp * nComps) / 8))
+    ASUns32 unpaddedRowLength = (((imageAttrs.width * bitsPerComp * nComps) + 31) / 32) * 4;
+    ASUns32 paddedRowLength = (imageAttrs.width * bitsPerComp * nComps) / 8;
+    if ( unpaddedRowLength != paddedRowLength)
     {
         char *src, *dest;    //Temporary pointers to the bitmap data buffer created by PDPageDrawContentsToMemory.
         int sw, dw;
         sw = ((((imageAttrs.width * bitsPerComp * nComps) + 31) / 32) * 4);
 
-        if (bitsPerComp == 1)
-        {
-            if (imageAttrs.width / 8 + ((imageAttrs.width % 8)))
-                dw = 1;
-            else
-                dw = 0;
-        }
-        else
-            dw = (imageAttrs.width * bitsPerComp * nComps) / 8;
+        dw = ((imageAttrs.width * bitsPerComp * nComps) + 7) / 8;
 
         //Copy the source bytes to the destination.
         src = dest = buffer;
@@ -226,10 +241,6 @@ int main(int agc, char** argv)
         }
         //Recalculate buffer size.
         bufferSize = dw * imageAttrs.height;
-    }
-    else
-    {
-        imageAttrs.width = (((( imageAttrs.width* bitsPerComp * nComps) + 31) / 32) * 4) * 8 / (bitsPerComp * nComps);
     }
     //The image data is now 8-bit aligned.
 
