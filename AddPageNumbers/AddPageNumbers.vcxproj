@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4184B1FF-6865-439F-89B3-7FAAC161E0DF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>AddPageLabelsNumbers</RootNamespace>
+    <RootNamespace>AddPageNumbers</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -147,7 +147,7 @@
     <ClCompile Include="..\..\Include\Source\PDFLInitHFT.c" />
     <ClCompile Include="..\_Common\APDFLDoc\APDFLDoc.cpp" />
     <ClCompile Include="..\_Common\Init\InitializeLibrary.cpp" />
-    <ClCompile Include="AddPageLabels-Numbers.cpp" />
+    <ClCompile Include="AddPageNumbers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\_Common\APDFLDoc\APDFLDoc.h" />

@@ -76,7 +76,7 @@ int main(int argc, char** argv)
 // Step 1) Open the Document that will have labels added to.
 //==================================================================================================================================
 
-        APDFLDoc document(L"../_Input/toNumberLabel.pdf", true);            //Open a document and repair if damaged
+        APDFLDoc document(L"../_Input/toNumber.pdf", true);            //Open a document and repair if damaged
 
         std::wcout << L"Document was sucessfully opened." << std::endl;
 
