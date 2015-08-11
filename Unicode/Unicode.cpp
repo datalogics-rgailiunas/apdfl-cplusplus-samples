@@ -142,39 +142,31 @@ int main(int argc, char** argv)
     DURING
 
 ///////////////
-//// PREPARE TEXTS
-//////////////
-
-
-
-
-
-///////////////
 //// RETRIEVE FONTS 
 //////////////
+
         PDEFontAttrs euFontAttrs;
-        PDEFont euVFont;
-        PDEFont euHFont;
+        PDEFont euVFont, euHFont;
 
         PDEFontAttrs jnFontAttrs;
-        PDEFont jnVFont;
-        PDEFont jnHFont;
+        PDEFont jnVFont, jnHFont;
 
         PDEFontAttrs krFontAttrs;
-        PDEFont krVFont;
-        PDEFont krHFont;
-
-        PDSysEncoding iHEnc = PDSysEncodingCreateFromCMapName(ASAtomFromString("Identity-H"));
-        PDSysEncoding iVEnc = PDSysEncodingCreateFromCMapName(ASAtomFromString("Identity-V"));
-        PDEFontCreateFlags fontFlags = (PDEFontCreateFlags) (kPDEFontCreateEmbedded | kPDEFontWillSubset | kPDEFontCreateToUnicode | kPDEFontEncodeByGID);
+        PDEFont krVFont, krHFont;
 
 #define NUM_FONTS 3
+        //These arrays are used to initialize the fonts.
         PDEFontAttrs *fontAttrs[] { &euFontAttrs, &jnFontAttrs,       &krFontAttrs             };
         PDEFont         *fontsV[] { &euVFont,     &jnVFont,           &krVFont                 };
         PDEFont         *fontsH[] { &euHFont,     &jnHFont,           &krHFont                 };
         const char   *fontNames[] { "CourierStd", "KozGoPr6N-Medium", "AdobeMyungjoStd-Medium" };
 
-        //Create all the fonts.
+        //These properties are common to all fonts.
+        PDSysEncoding iHEnc = PDSysEncodingCreateFromCMapName(ASAtomFromString("Identity-H"));
+        PDSysEncoding iVEnc = PDSysEncodingCreateFromCMapName(ASAtomFromString("Identity-V"));
+        PDEFontCreateFlags fontFlags = (PDEFontCreateFlags) (kPDEFontCreateEmbedded | kPDEFontWillSubset | kPDEFontCreateToUnicode | kPDEFontEncodeByGID);
+
+        //Initialize all the fonts.
         PDSysFont nextSysFont;
         for (int i = 0; i < NUM_FONTS; ++i)
         {
@@ -191,7 +183,6 @@ int main(int argc, char** argv)
 //// PREPARE THE TEXT OBJETS!
 //////////////
 
-
 #define NUM_TEXTS 4
         ASText enAST = ASTextFromUnicode((ASUTF16Val*)englishStr_U8, kUTF8);
         ASText frAST = ASTextFromUnicode((ASUTF16Val*)frenchStr_U16B, kUTF16BigEndian);
@@ -200,31 +191,26 @@ int main(int argc, char** argv)
 
         //We'll iterate through an array of these to draw the text.
         typedef struct textAndFont {
-            ASText* text;
+            ASText*  text;
             PDEFont* fontV;
             PDEFont* fontH;
         };
 
-        typedef struct textAndIndex {
-            ASText* text;
-            int dex;
-        };
         //TODO: texfs is not exactly a good name (nor is is easy to type....)
         textAndFont texfs[] {
-            { &enAST, fontsV[0], fontsH[0]}, //The English ASText and associated fonts.
-            { &frAST, fontsV[0], fontsH[0] }, //French...
-            { &jnAST, fontsV[1], fontsH[1]  }, //Japanese...
-            { &krAST, fontsV[2], fontsH[2]  }  //Korean...
+            { &enAST,  &euVFont, &euHFont}, //The English ASText and associated fonts.
+            { &frAST,  &euVFont, &euHFont}, //French...
+            { &jnAST,  &jnVFont, &jnHFont}, //Japanese...
+            { &krAST,  &krVFont, &krHFont}, //Korean...
         };
 
         ASUns32 firstBadGlyph = 0;
-
         for (int i = 0; i < NUM_TEXTS; ++i)
         {
             if (!PDEFontCheckASTextIsRepresentable(*texfs[i].fontV, *texfs[i].text, &firstBadGlyph)) //The H and V fonts are the same by design, so we only need to check one.
             {
                 PDEFontAttrs badFontAttrs;
-                PDEFontGetAttrs(*texfs[i].fontH, & badFontAttrs, sizeof(PDEFontAttrs));
+                PDEFontGetAttrs(*texfs[i].fontH, &badFontAttrs, sizeof(PDEFontAttrs));
                 std::wcout << L"Error: could not place " << i << "th text: " << ASAtomGetString(badFontAttrs.name)
                            << " is missing the glyph at position " << firstBadGlyph << "." << std::endl;
                 return -1;
@@ -237,24 +223,27 @@ int main(int argc, char** argv)
 
         //Create the output document
         APDFLDoc outDoc;
+
         outDoc.insertPage(FloatToASFixed(8.5 * 72),FloatToASFixed(11 * 72),kPDEBeforeFirst); //Insert an 8.5" by 7.5" page.
+
         PDPage outPage = outDoc.getPage(0);
+
         PDEContent outPageCont = PDPageAcquirePDEContent(outPage, 0);
-        PDEText pageText = PDETextCreate(); //We'll fill this with the texts.
 
         //PREPARE FOR GENERAL TEXT PLACMENT
+        PDEText pageText = PDETextCreate(); //We'll fill this with the texts.
         //Prepare matrices
         ASFixedRect pageRect;
         PDPageGetCropBox(outPage, &pageRect);
         ASFixedMatrix strPlaceMatrix;
         memset(&strPlaceMatrix, 0, sizeof(strPlaceMatrix));
         strPlaceMatrix.a = Int16ToFixed(20); //Font width, in points.
-        strPlaceMatrix.d = Int16ToFixed(14); //Font height, in points.
+        strPlaceMatrix.d = Int16ToFixed(20); //Font height, in points.
         strPlaceMatrix.h = Int16ToFixed(2 * 72); //X coord on page. Two inches from left side.
         strPlaceMatrix.v = pageRect.top - Int16ToFixed(1 * 72); //Y coord on page.One inch from the top.
 
         //Prepare graphics state
-        PDEColorSpace colorSpace = PDEColorSpaceCreateFromName(ASAtomFromString("DeviceGray"));
+        PDEColorSpace colorSpace = PDEColorSpaceCreateFromName(ASAtomFromString("DeviceGray")); //No need for anything fancy, it's just black and white text.
         PDEGraphicState gS;
         memset(&gS, 0, sizeof(PDEGraphicState));
         gS.strokeColorSpec.space = gS.fillColorSpec.space = colorSpace;
@@ -270,7 +259,6 @@ int main(int argc, char** argv)
                 strPlaceMatrix.h += strPlaceMatrix.a + Int16ToFixed(10); //Advance the x value by the width of the font, plus 10 points padding for ease of readability.
             else
                 strPlaceMatrix.v += strPlaceMatrix.d + Int16ToFixed(10); //Advance the y value by the height of the font, plus padding.
-
         }
         PDEContentAddElem(outPageCont, kPDEBeforeFirst, (PDEElement) pageText);
         PDPageSetPDEContentCanRaise(outPage, 0);
