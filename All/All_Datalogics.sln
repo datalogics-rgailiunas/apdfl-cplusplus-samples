@@ -45,6 +45,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractAttachments", "..\Ex
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TextSearch", "..\TextSearch\TextSearch.vcxproj", "{CA4E530D-DAC1-4CAB-8C14-4B1B7EB4FFC6}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddContent", "..\ExtractText\ExtractText.vcxproj", "{846D5A08-9512-40E3-974F-EF5B993E1828}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -221,6 +223,14 @@ Global
 		{CA4E530D-DAC1-4CAB-8C14-4B1B7EB4FFC6}.Release|Win32.Build.0 = Release|Win32
 		{CA4E530D-DAC1-4CAB-8C14-4B1B7EB4FFC6}.Release|x64.ActiveCfg = Release|x64
 		{CA4E530D-DAC1-4CAB-8C14-4B1B7EB4FFC6}.Release|x64.Build.0 = Release|x64
+		{846D5A08-9512-40E3-974F-EF5B993E1828}.Debug|Win32.ActiveCfg = Debug|Win32
+		{846D5A08-9512-40E3-974F-EF5B993E1828}.Debug|Win32.Build.0 = Debug|Win32
+		{846D5A08-9512-40E3-974F-EF5B993E1828}.Debug|x64.ActiveCfg = Debug|x64
+		{846D5A08-9512-40E3-974F-EF5B993E1828}.Debug|x64.Build.0 = Debug|x64
+		{846D5A08-9512-40E3-974F-EF5B993E1828}.Release|Win32.ActiveCfg = Release|Win32
+		{846D5A08-9512-40E3-974F-EF5B993E1828}.Release|Win32.Build.0 = Release|Win32
+		{846D5A08-9512-40E3-974F-EF5B993E1828}.Release|x64.ActiveCfg = Release|x64
+		{846D5A08-9512-40E3-974F-EF5B993E1828}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
