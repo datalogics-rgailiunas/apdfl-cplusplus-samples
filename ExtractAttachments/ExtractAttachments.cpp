@@ -83,7 +83,7 @@ int main(int argc, char** argv)
 // Step 1) Iterate through the annotations in a page to extract and save embedded files within it.                                 
 //=========================================================================================================================================================
         
-        PDPage pdPage = document.getPageNumber(0);                                                     //Get the PDPage .
+        PDPage pdPage = document.getPage(0);                                                           //Get the PDPage .
        
         int annotTotal = PDPageGetNumAnnots(pdPage);                                                   //Find the total number of annotations. 
 
