@@ -142,96 +142,98 @@ int main(int argc, char** argv)
     DURING
 
 ///////////////
-//// RETRIEVE FONTS 
+//// PREPARE TEXTS
 //////////////
 
-        char* vertEnc  = "Identity-V";           //The encoding we'll use for vertical text.
-        char* horzEnc= "Identity-H";           //The encoding we'll use for vertical text.
 
+
+
+
+///////////////
+//// RETRIEVE FONTS 
+//////////////
         PDEFontAttrs euFontAttrs;
-        char* euFontName = "CourierStd";             //this font will be used for English, French, and Cyrillic text.
-        memset(&euFontAttrs, 0, sizeof(euFontAttrs));
         PDEFont euVFont;
         PDEFont euHFont;
 
         PDEFontAttrs jnFontAttrs;
-        char* jnFontName = "KozGoPr6N-Medium";       //This font will be used for Japanese text.
-        memset(&jnFontAttrs, 0, sizeof(jnFontAttrs));
         PDEFont jnVFont;
         PDEFont jnHFont;
 
         PDEFontAttrs krFontAttrs;
-        char* krFontName = "AdobeMyungjoStd-Medium"; //This font will be used for Korean text.
-        memset(&krFontAttrs, 0, sizeof(krFontAttrs));
         PDEFont krVFont;
         PDEFont krHFont;
 
-        euFontAttrs.type = jnFontAttrs.type = krFontAttrs.type = ASAtomFromString("Type0");
+        PDSysEncoding iHEnc = PDSysEncodingCreateFromCMapName(ASAtomFromString("Identity-H"));
+        PDSysEncoding iVEnc = PDSysEncodingCreateFromCMapName(ASAtomFromString("Identity-V"));
+        PDEFontCreateFlags fontFlags = (PDEFontCreateFlags) (kPDEFontCreateEmbedded | kPDEFontWillSubset | kPDEFontCreateToUnicode | kPDEFontEncodeByGID);
 
-        euFontAttrs.name = ASAtomFromString(euFontName);
-        jnFontAttrs.name = ASAtomFromString(jnFontName);
-        krFontAttrs.name = ASAtomFromString(krFontName);
+#define NUM_FONTS 3
+        PDEFontAttrs *fontAttrs[] { &euFontAttrs, &jnFontAttrs,       &krFontAttrs             };
+        PDEFont         *fontsV[] { &euVFont,     &jnVFont,           &krVFont                 };
+        PDEFont         *fontsH[] { &euHFont,     &jnHFont,           &krHFont                 };
+        const char   *fontNames[] { "CourierStd", "KozGoPr6N-Medium", "AdobeMyungjoStd-Medium" };
 
-        PDSysEncoding identityHEnc = PDSysEncodingCreateFromCMapName(ASAtomFromString(horzEnc));
-        PDSysEncoding identityVEnc = PDSysEncodingCreateFromCMapName(ASAtomFromString(vertEnc));
-
-        PDEFontCreateFlags fontFlags = (PDEFontCreateFlags)
-            (kPDEFontCreateEmbedded | kPDEFontWillSubset | kPDEFontCreateToUnicode | kPDEFontEncodeByGID);
-
+        //Create all the fonts.
         PDSysFont nextSysFont;
+        for (int i = 0; i < NUM_FONTS; ++i)
+        {
+            memset(fontAttrs[i], 0, sizeof(*fontAttrs[i]));
+            fontAttrs[i]->name = ASAtomFromString(fontNames[i]);
+            fontAttrs[i]->type = ASAtomFromString("Type0");
 
-        //these arrays are for looping that later, maybe.
-        PDEFontAttrs *reqFontAt[] { &euFontAttrs, &euFontAttrs, &jnFontAttrs, &krFontAttrs};
-        PDEFont *requiredFontsV[] { &euVFont,     &euVFont,     &jnVFont,     &krVFont};
-        PDEFont *requiredFontsH[] { &euHFont,     &euHFont,     &jnHFont,     &krHFont};
-
-
-        //Todo: loop this?
-        nextSysFont = PDFindSysFont(&euFontAttrs, sizeof(PDEFontAttrs), 0);
-        euVFont = PDEFontCreateFromSysFontAndEncoding(nextSysFont, identityVEnc, euFontAttrs.name, fontFlags);
-        euHFont = PDEFontCreateFromSysFontAndEncoding(nextSysFont, identityHEnc, euFontAttrs.name, fontFlags);
-      
-        nextSysFont = PDFindSysFont(&jnFontAttrs, sizeof(PDEFontAttrs), 0);
-        jnVFont = PDEFontCreateFromSysFontAndEncoding(nextSysFont, identityVEnc, jnFontAttrs.name, fontFlags);
-        jnHFont = PDEFontCreateFromSysFontAndEncoding(nextSysFont, identityHEnc, jnFontAttrs.name, fontFlags);
-
-        nextSysFont = PDFindSysFont(&krFontAttrs, sizeof(PDEFontAttrs), 0);
-        krVFont = PDEFontCreateFromSysFontAndEncoding(nextSysFont, identityVEnc, krFontAttrs.name, fontFlags);
-        krHFont = PDEFontCreateFromSysFontAndEncoding(nextSysFont, identityHEnc, krFontAttrs.name, fontFlags);
+            nextSysFont = PDFindSysFont(fontAttrs[i], sizeof(PDEFontAttrs), 0);
+            *fontsV[i] = PDEFontCreateFromSysFontAndEncoding(nextSysFont, iVEnc, fontAttrs[i]->name, fontFlags);
+            *fontsH[i] = PDEFontCreateFromSysFontAndEncoding(nextSysFont, iHEnc, fontAttrs[i]->name, fontFlags);
+        }
 
 ///////////////
 //// PREPARE THE TEXT OBJETS!
 //////////////
 
-        //Looping this would be overkill.
+
+#define NUM_TEXTS 4
         ASText enAST = ASTextFromUnicode((ASUTF16Val*)englishStr_U8, kUTF8);
-        ASText frAST  = ASTextFromUnicode((ASUTF16Val*)frenchStr_U16B, kUTF16BigEndian);
+        ASText frAST = ASTextFromUnicode((ASUTF16Val*)frenchStr_U16B, kUTF16BigEndian);
         ASText jnAST = ASTextFromUnicode((ASUTF16Val*)japaneseStr_U32B, kUTF32BigEndian);
         ASText krAST = ASTextFromUnicode((ASUTF16Val*)koreanStr_U32B, kUTF32BigEndian);
 
-#define NUM_TEXTS 4
+        //We'll iterate through an array of these to draw the text.
+        typedef struct textAndFont {
+            ASText* text;
+            PDEFont* fontV;
+            PDEFont* fontH;
+        };
 
-        ASText *texts[] { &enAST,   &frAST,   &jnAST,   &krAST }; //todo: make it more obvious this corresponds to the arrays above.
+        typedef struct textAndIndex {
+            ASText* text;
+            int dex;
+        };
+        //TODO: texfs is not exactly a good name (nor is is easy to type....)
+        textAndFont texfs[] {
+            { &enAST, fontsV[0], fontsH[0]}, //The English ASText and associated fonts.
+            { &frAST, fontsV[0], fontsH[0] }, //French...
+            { &jnAST, fontsV[1], fontsH[1]  }, //Japanese...
+            { &krAST, fontsV[2], fontsH[2]  }  //Korean...
+        };
 
         ASUns32 firstBadGlyph = 0;
 
         for (int i = 0; i < NUM_TEXTS; ++i)
         {
-            if (!PDEFontCheckASTextIsRepresentable(*requiredFontsV[i], *texts[i], &firstBadGlyph)) //RequiredFontsV[i] and requiredFontsH[i] are just encoded differently, so should have the same glyphs.
+            if (!PDEFontCheckASTextIsRepresentable(*texfs[i].fontV, *texfs[i].text, &firstBadGlyph)) //The H and V fonts are the same by design, so we only need to check one.
             {
-                PDEFontAttrs fontAtt;
-                PDEFontGetAttrs(*requiredFontsV[i], &fontAtt, sizeof(PDEFontAttrs));
-                std::wcout << L"Error: could not place " << i << "th text: " << ASAtomGetString(fontAtt.name)
+                PDEFontAttrs badFontAttrs;
+                PDEFontGetAttrs(*texfs[i].fontH, & badFontAttrs, sizeof(PDEFontAttrs));
+                std::wcout << L"Error: could not place " << i << "th text: " << ASAtomGetString(badFontAttrs.name)
                            << " is missing the glyph at position " << firstBadGlyph << "." << std::endl;
                 return -1;
             }
         }
 
-
 ///////////////
 //// PREPARE TO DRAW!
 //////////////
-
 
         //Create the output document
         APDFLDoc outDoc;
@@ -260,8 +262,9 @@ int main(int argc, char** argv)
 
         for (int i = 0; i < NUM_TEXTS; ++i)
         {
-            PDEFont** nextFont = (isV ? requiredFontsV : requiredFontsH);
-            PDETextAddASText(pageText, kPDETextRun, i, *texts[i], *nextFont[i],&gS, sizeof(gS), NULL, 0, &strPlaceMatrix);
+            PDEFont *nextFont = (isV ? texfs[i].fontV : texfs[i].fontH);
+
+            PDETextAddASText(pageText, kPDETextRun, i, *texfs[i].text, *nextFont, &gS, sizeof(gS), NULL, 0, &strPlaceMatrix);
 
             if (isV)
                 strPlaceMatrix.h += strPlaceMatrix.a + Int16ToFixed(10); //Advance the x value by the width of the font, plus 10 points padding for ease of readability.
@@ -276,7 +279,7 @@ int main(int argc, char** argv)
         CosDoc cosDoc = PDDocGetCosDoc(outDoc.getPDDoc());
         for (int i = 0; i < NUM_TEXTS; ++i)
         {
-            PDEFontSubsetNow(*requiredFontsV[i], cosDoc);
+            PDEFontSubsetNow(*texfs[i].fontV, cosDoc);
             //TODO: add to subset the H fonts whenn you use them.
         }
         
