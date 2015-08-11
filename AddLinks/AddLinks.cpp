@@ -58,13 +58,16 @@
 // DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
 #include <iostream>
+#include "InitializeLibrary.h"
+#include "ASExtraCalls.h"
+#include "PDCalls.h"
+#include "APDFLDoc.h"
 #include "PERCalls.h"
 #include "PEWCalls.h"
 #include "PagePDECntCalls.h"
 #include "PSFCalls.h"
 #include "ASCalls.h"
 #include "ASExtraCalls.h"
-#include "InitializeLibrary.h"
 #include "APDFLDoc.h"
 #include "CosCalls.h"
 

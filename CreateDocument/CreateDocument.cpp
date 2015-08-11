@@ -57,6 +57,7 @@
 
 #include "InitializeLibrary.h"
 #include "ASExtraCalls.h"
+#include "PDCalls.h"
 
 #define PAGES_TO_INSERT 5
 
