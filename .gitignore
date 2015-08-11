@@ -4,7 +4,7 @@
 *.suo
 *.user
 *.filters
-
+*.exe
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
