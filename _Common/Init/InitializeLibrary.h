@@ -63,6 +63,7 @@
 
 #include <iostream>
 #include "PDFLCalls.h"
+#include "ASCalls.h"
 
 class APDFLib
 {
