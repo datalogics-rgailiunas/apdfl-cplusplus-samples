@@ -14,11 +14,14 @@ REM ***    2. Above, <samplename> is equal to <samplefolder>.
 REM ***
 REM *** USAGE:
 REM ***   See the documentation for maintenance (adding or removing samples from its build/run directives).
+REM ***   All arguments are case-insensitive.
 REM ***
 REM ***   ARGUMENT      EFFECT
 REM ***   -noRun        Don't run the samples, just build them.
 REM ***   -noAD         Don't process the Adobe samples.
 REM ***   -noDL         Don't process the Datalogics samples.
+REM ***   -rel          Build for Release configuration instead of Debug configuration.
+REM ***   -32           Build 32-bit version instead of 64-bit version (make sure you're in the correct directory.)
 REM ***
 REM *** Steps:
 REM *** 1) Initialize.
@@ -109,7 +112,7 @@ REM *** Process the Datalogics samples.
 SET DO_DL=Y
 REM *** Process the Adobe samples.
 SET DO_AD=Y
-REM *** Build for x64. No arguments can change this.
+REM *** Build for x64.
 SET ARCH=x64
 
 :AcceptCommands
@@ -117,7 +120,7 @@ REM *** Iterate through arguments, changing settings when needed.
 IF /i "%1"=="" (
 	GOTO ArgumentsEnd
 )
-IF /i "%1"=="release" (
+IF /i "%1"=="rel" (
     SET STAGE=Release
 ) 
 IF /i "%1"=="-noRun" (
@@ -128,6 +131,9 @@ IF /i "%1"=="-noDL" (
 )
 IF /i "%1"=="-noAD" (
 	SET DO_AD=N
+)
+IF /i "%1"=="-32" (
+	SET ARCH=win32
 )
 SHIFT
 GOTO AcceptCommands
@@ -160,20 +166,22 @@ REM *** 3) Decide which samples to run.
 REM *************************************************
 
 REM *** This needs to be accurate, of course.
-SET /A "NUM_SAMPLES=33"
+SET /A "NUM_SAMPLES=41"
 
 REM *** The lists of samples to process (<samplename> in the description at the top).
 
 REM *** Datalogics Samples.
 SET "DL_SAMPLE_LIST=("
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddAttachment AddContent AddDocumentInformation"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddPageLabels-Numbers AddPassword AddText"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% CopyContent CreateDocument LockDocument"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% MergePDF SetUniquePermissions SplitPDF"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% WebOptimizedPDF OpenEncrypted"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddArt AddAttachment AddBookmarks
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddContent AddDocumentInformation AddLinks
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddPageNumbers AddPassword AddRedaction
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddText CopyContent CreateDocument
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% EncryptDocument ExtractAttachments ExtractText LockDocument
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% MergePDF OpenEncrypted SetUniquePermissions
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% SplitPDF TextSearch WebOptimizedPDF
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
 REM *** This needs to be accurate, of course.
-SET /A "NUM_DL_SAMPLES=14"
+SET /A "NUM_DL_SAMPLES=22"
 REM *** Di iterates over Datalogics samples.
 SET /A "Di=0"
 
@@ -243,8 +251,16 @@ If %ONLY_BUILD% == Y GOTO RunSampleLoop_Call_End
 	ECHO #%CURRENT_SAMPLE%.exe is running...
 	REM *** Call the sample with its arguments, if any.
 	REM *** (undefined variables expand to nothing.)
+	
+	
+	REM ----->>>>>DEBUG!!!
+	mv %CURRENT_SAMPLE%.exe ../../
+	cd ../../
 	CALL %CURRENT_SAMPLE%.exe %!CURRENT_SAMPLE!_args%
-
+	mv %CURRENT_SAMPLE%.exe %ARCH%\%STAGE%
+	
+	REM <<<<<<-----DEBUG!!!
+	
 	REM *** If it failed to run.
 	IF %ERRORLEVEL% NEQ 0 (GOTO FailedRun)
 	REM *** Otherwise, it succeeded!
