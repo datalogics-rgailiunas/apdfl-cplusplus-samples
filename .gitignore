@@ -8,6 +8,8 @@
 *.lnk
 *.pdf
 !_Input/*.pdf
+*.bat
+!All/*.bat
 
 # Build results
 [Dd]ebug/
