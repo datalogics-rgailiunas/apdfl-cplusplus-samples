@@ -4,11 +4,7 @@
 //
 //=============================================================================
 // Sample AddDocumentInformation: Opens a document, inserts document 
-//                                information into it and saves it.
-//
-// Note: This program inserts standard document information contained in the
-// "Document Information Dictionary." See the PDF Reference, section 10.2, for
-// more information.
+// information into it and saves it.
 //
 //Steps:
 // 1) Open the Document that the document information will be inserted into.
@@ -62,12 +58,11 @@ int main(int argc, char** argv)
 //
 //Inserting values for Title and Author are demonstrated here.
 //
-//Note:   Standard Key values contained in Document Information Dictionary: 
-//        {"Title", "Author", "Subject", "Keywords", "Creator", "Producer", "Trapped"}. 
-//
-//        See :"ISO 32000-1:2008, Document Management-Portable Document Format-Part 1: PDF 1.7, page 549" at
-//        http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/PDF32000_2008.pdf#page=557 for more information.
-//
+// Note: This program inserts standard document information contained in the
+// "Document Information Dictionary." See “Document Information Dictionary” (section 14.3.3)in "ISO 32000-1:2008, Document   
+// Management-Portable Document Format-Part 1: PDF 1.7, page 549" at:
+// http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/PDF32000_2008.pdf#page=557.
+
 //Note:   "key" refers to the document information field will be inserted into
 //        "value" is the data being inserted
 //==================================================================================================================================================
