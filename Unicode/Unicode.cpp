@@ -234,11 +234,9 @@ int main(int argc, char** argv)
         vertPlaceMatrix.h = horzPlaceMatrix.h = Int16ToFixed(1 * 72);                            //Starting X coordinate on page. One inch from left side.
         vertPlaceMatrix.v = horzPlaceMatrix.v = pageRect.top - Int16ToFixed(1 * 72);             //Starting Y coordinate on page.One inch from the top.
 
-        //We'll draw the text with a plain, black-and-white graphics state.
-        PDEColorSpace colorSpace = PDEColorSpaceCreateFromName(ASAtomFromString("DeviceGray"));
+        //We'll draw the text with whatever the default graphics state is.
         PDEGraphicState graphics;
-        memset(&graphics, 0, sizeof(PDEGraphicState));
-        graphics.strokeColorSpec.space = graphics.fillColorSpec.space = colorSpace;
+        PDEDefaultGState(&graphics, sizeof(PDEGraphicState));
 
 //================================================================================================================================================================================================================
 //Step 5) Draw the texts, and subset the fonts we used.
@@ -316,8 +314,9 @@ int main(int argc, char** argv)
             PDERelease((PDEObject)*fontsV[i]);
         }
 
-        //And the color space we used.
-        PDERelease((PDEObject)colorSpace);
+        //And graphics we used.
+        PDERelease((PDEObject)graphics.fillColorSpec.space);
+        PDERelease((PDEObject)graphics.strokeColorSpec.space);
 
         outDoc.saveDoc(L"Unicode.pdf");                        //APDFLDoc's destructor will take care of closing the document.
 
