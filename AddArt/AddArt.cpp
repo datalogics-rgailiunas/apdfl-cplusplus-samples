@@ -116,7 +116,9 @@ int main(int argc, char** argv)
 //=============================================================================================================================================================
 // Step 4: Draw a second arrow and apply transformations. Create a new PDEPath object and apply some transformations to it using a transformation matrix. We 
 // will add a fill color of yellow to this object to differentiate between the objects.
-// Note: See Section 4.1 (Page 205) of the PDF reference for more detailed information on translations/rotations/scaling and skews.
+// Note: See “Coordinate Systems” (section 8.3)in "ISO 32000-1:2008, Document Management-Portable Document Format-Part 1: PDF 1.7, page 114" at
+// http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/PDF32000_2008.pdf#page=122 for more detailed information on translations/rotations/scaling
+// and skews.
 //=============================================================================================================================================================
 
         PDEPath pdePath2 = PDEPathCreate();                       //Second path object that will be drawn to the page.
