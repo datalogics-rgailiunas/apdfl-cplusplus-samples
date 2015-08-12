@@ -305,6 +305,10 @@ int main(int argc, char** argv)
             ASTextDestroy(*textsAndFonts[i].title);
         }
 
+        //Release the PDSysEncodings
+        PDERelease((PDEObject)iHEnc);
+        PDERelease((PDEObject)iVEnc);
+
         //Release all the fonts.
         for (int i = 0; i < NUM_FONTS_SAMPLE; ++i)
         {
