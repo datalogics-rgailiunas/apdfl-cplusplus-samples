@@ -252,14 +252,8 @@ If %ONLY_BUILD% == Y GOTO RunSampleLoop_Call_End
 	REM *** Call the sample with its arguments, if any.
 	REM *** (undefined variables expand to nothing.)
 	
-	
-	REM ----->>>>>DEBUG!!!
-	mv %CURRENT_SAMPLE%.exe ../../
-	cd ../../
-	CALL %CURRENT_SAMPLE%.exe %!CURRENT_SAMPLE!_args%
-	mv %CURRENT_SAMPLE%.exe %ARCH%\%STAGE%
-	
-	REM <<<<<<-----DEBUG!!!
+	CD ../../
+	%ARCH%\%STAGE%\!CURRENT_SAMPLE!.exe %!CURRENT_SAMPLE!_args%
 	
 	REM *** If it failed to run.
 	IF %ERRORLEVEL% NEQ 0 (GOTO FailedRun)
