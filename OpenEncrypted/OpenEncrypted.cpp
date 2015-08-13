@@ -78,7 +78,6 @@ int main(int argc, char** argv)
     std::wcout << L"The document was saved..." << std::endl;
 
     //Release resources.
-    ASFileSysReleasePath(ASGetDefaultFileSys(), pathOutput);
     PDDocClose(document);
 
 //===================================================================================================================================================
