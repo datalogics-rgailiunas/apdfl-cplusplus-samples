@@ -18,7 +18,6 @@
 #include "PERCalls.h"
 #include "PEWCalls.h"
 #include "PagePDECntCalls.h"
-#include "ASExtraCalls.h"
 #include "CosCalls.h"
 #include "APDFLDoc.h"
 #include "InitializeLibrary.h"
