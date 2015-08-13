@@ -217,7 +217,7 @@ PDEText textMaker(std::string displayText, double xPos, double yPos)
         &textMatrix,                                                          //Matrix containing size and location for the text.
         NULL);                                                                //Stroke matrix for the line width when stroking text.  
 
-    //Release used objects
+    //Release used objects.
     PDERelease(reinterpret_cast<PDEObject>(courierFont));
     PDERelease(reinterpret_cast<PDEObject>(gState.strokeColorSpec.space));
     PDERelease(reinterpret_cast<PDEObject>(gState.fillColorSpec.space));
