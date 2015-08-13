@@ -43,7 +43,7 @@ int main(int argc, char** argv)
 
         APDFLDoc doc;													 //Create a new empty document.
 
-        //Insert a standard 8.5 inch x 11 inch page into the document;
+        //Insert a standard 8.5 inch x 11 inch page into the document.
         doc.insertPage(Int16ToFixed((8.5 * 72)), Int16ToFixed((11 * 72)), PDBeforeFirstPage);
 
         PDPage page = doc.getPage(0);									 //Get the first page from the document. 
@@ -135,7 +135,7 @@ int main(int argc, char** argv)
 
         PDAnnot newAnnot = PDPageCreateAnnot(page, ASAtomFromString("FileAttachment"), &annotLocation);    //Create the annotation at the location.
 
-        //Add the annotation to the page, where -2 means to add to the end of the array
+        //Add the annotation to the page, where -2 means to add to the end of the array.
         PDPageAddAnnot(page, -2, newAnnot);
 
         PDAnnotSetOCMD(newAnnot, optionalGroupMDAnnot);		                                               //Set the annotation to the annotation layer.
@@ -153,7 +153,7 @@ int main(int argc, char** argv)
         PDPageAddAnnot(page, -2, newAnnot2);			                                                   //Add the annotation to the page.
 
 //==============================================================================================================================================================
-// Step 5) Save the output document and exit
+// Step 5) Save the output document and exit.
 //==============================================================================================================================================================
 
         doc.saveDoc(L"LayersCreated.pdf", PDSaveFull | PDSaveLinearized);    //Save the PDF document with the given name.
