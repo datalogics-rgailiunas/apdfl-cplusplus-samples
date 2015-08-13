@@ -18,7 +18,6 @@
 // 2) Iterate through each word of the input document and draw
 //    each new line of text to the output document.
 // 3) Extract Unicode from a second PDF document.
-// 4) Save and close the input and output documents.
 //=====================================================================
 
 #include <iostream>
@@ -85,7 +84,7 @@ int main(int argc, char** argv)
     wfConfig->recSize = sizeof(PDWordFinderConfig);
 
     //We'll use the PDWordfinder class to iterate through all the words in our input document.
-    PDWordFinder wordFinder = PDDocCreateWordFinderEx(inAPDoc.getPDDoc(), WF_LATEST_VERSION, true, wfConfig);        //Boolean value set to true extracts text in unicode.
+    PDWordFinder wordFinder = PDDocCreateWordFinderEx(inAPDoc.getPDDoc(), WF_LATEST_VERSION, false, wfConfig);      //If boolean value is set to true, the word finder extracts text in unicode.
 
     PDWord wordList;
     ASInt32 numWordsFound;
@@ -170,57 +169,63 @@ int main(int argc, char** argv)
     std::wcout << std::endl << L"(But unicode text is printed in the output correctly.)" << std::endl;
     std::wcout << std::endl << L"The text has been added to the output document." << std::endl;
 
+    PDPageReleasePDEContent(outPage, NULL);                                                          //The content must be released before we can release the page.
+    PDPageRelease(outPage);                                                                          //The page must be released before we can save the document.
+    outAPDoc.saveDoc(outPath);                                                                       //Save the new document. APDFLDoc's saveDoc method defaults to use the PDSaveFull flag.
+
 //=====================================================================================================================================================================================================================
 //Step 3) Extract unicode from a second PDF document. Open the document and extract the unicode chracters to a text file in the working directory.
 //=====================================================================================================================================================================================================================
 
-    APDFLDoc document(L"../_Input/ExtractUnicodeText.pdf", true);                              //Open the input document.
-    std::ofstream outputFile(L"ExtractedUnicodeText.txt");                                     //Create a .txt output file for text extraction.
-
-    PDPage pdPage = document.getPage(0);                                                       //Get the first page.
-    PDEContent pdeContent = PDPageAcquirePDEContent(pdPage, 0);                                //Acquire the PDEContent from the page.
-
-    PDEText pdeText = reinterpret_cast<PDEText>(PDEContentGetElem(pdeContent, 0));             //Get the PDEText element from the PDEContent.
-    ASInt32 numberOfRuns = PDETextGetNumRuns(pdeText);                                         //Get the number of text runs in the PDEText object.
-
-    ASUTF8Val * utf8String = nullptr;                                                          //Unicode string used to write to output file.
-
-    if (outputFile.is_open())                                                                  //Ensure the .txt file opened correctly.
+    APDFLDoc document(L"../_Input/ExtractUnicodeText.pdf", true);                                                   //Open the input document.
+    std::ofstream outputFile(L"ExtractedUnicodeText.txt");                                                          //Create a .txt output file for text extraction.
+    if (outputFile.is_open())
     {
-        for (ASInt32 i = 0; i < numberOfRuns; ++i)                                             //For each text run.
+        PDWordFinder pdWordFinder = PDDocCreateWordFinderEx(document.getPDDoc(), WF_LATEST_VERSION, true, wfConfig);    //If boolean value is set to true, the word finder extracts text in unicode.
+
+        ASInt32 numWords;
+        PDWord wordArray;
+        PDWordFinderAcquireWordList(pdWordFinder, 0, &wordArray, NULL, NULL, &numWords);                                //This acquires the list of words from the first page (0).
+
+        std::wcout << L"There are " << numWords << L" words on the first page:" << std::endl << std::endl;
+
+        PDPage pdPage = document.getPage(0);                                                                            //We must acquire the page and it's content to add text to it.
+        PDEContent pdeContent = PDPageAcquirePDEContent(pdPage, 0);                                                     
+
+        for (ASInt32 index = 0; index < numWords; ++index)                                                              //Iterate through the acquired word list and extract the words to a text file.
         {
-            ASText asText = ASTextNew();                                                       //Create a new empty ASText object.              
+            ASUTF8Val* utf8String;
+            PDWord pdWord = PDWordFinderGetNthWord(pdWordFinder, index);
 
-            PDETextGetASText(pdeText, kPDETextRun, i, asText);                                 //Get the ASText from the PDEText object.              
+            ASText asText = ASTextNew();
+            PDWordGetASText(pdWord, 0, asText);
 
-            utf8String = reinterpret_cast<ASUTF8Val*>(ASTextGetUnicodeCopy(asText, kUTF8));    //Acquire the UTF8 string from the ASText object.
+            utf8String = reinterpret_cast<ASUTF8Val*>(ASTextGetUnicodeCopy(asText, kUTF8));                             //Get the endian neutral utf8 string.
+        
+            ASUns16 wordAttrs = PDWordGetAttr(pdWord);
 
-            outputFile << utf8String << std::endl;                                             //Write the string and a newline to the output file.
+            if ((WXE_LAST_WORD_ON_LINE & wordAttrs) == WXE_LAST_WORD_ON_LINE)                                           //Some formatting, more checks can be used for more complex documents.
+                outputFile << utf8String << std::endl;                                                                  //Insert the text into the output file.
+            else
+                outputFile << utf8String << " ";
 
-            ASfree(utf8String);                                                                //Free up resources.
             ASTextDestroy(asText);
         }
+
+        //Close any remaining resources. APDFLDoc's destructor will take care of closing the documents.
+        outputFile.close();
+        PDPageReleasePDEContent(pdPage, 0);
+        PDPageRelease(pdPage);
+        PDWordFinderReleaseWordList(pdWordFinder, 0);                                                      
+        PDWordFinderDestroy(pdWordFinder);
+
+        std::wcout << L"Success." << std::endl;
     }
     else
     {
-        std::wcerr << L"Failed to create or open ExtractedUnicodeText.txt" << std::endl;
+        std::wcout << L"Failed to create or open the output file." << std::endl;
     }
-
-    outputFile.close();                                                                        
-
-    PDPageReleasePDEContent(pdPage, nullptr);                                                  
-
-    PDPageRelease(pdPage);                                                                     
-
-//=====================================================================================================================================================================================================================
-// Step 4) Save and close the input and output documents.
-//=====================================================================================================================================================================================================================
-
-    PDPageReleasePDEContent(outPage, NULL);           //The content must be released before we can release the page.
-    PDPageRelease(outPage);                           //The page must be released before we can save the document.
-    outAPDoc.saveDoc(outPath);                        //Save the new document. APDFLDoc's saveDoc method defaults to use the PDSaveFull flag.
-
-    std::cout << "Success." << std::endl;
+    
 
     HANDLER
 
@@ -228,6 +233,6 @@ int main(int argc, char** argv)
         lib.displayError(errCode);                    //If there was an error, display it.
 
     END_HANDLER
-                                                      //APDFLDoc's destructor takes care of closing the input and output documents.
+
     return errCode;                                   //APDFLib's destructor terminates the library.
 };
