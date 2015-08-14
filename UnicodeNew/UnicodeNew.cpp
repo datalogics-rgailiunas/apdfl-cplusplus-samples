@@ -187,25 +187,32 @@ int main(int argc, char** argv)
         ASUns32 firstBadGlyph = 0;                                                                                      //If the text is not representable, this will be set to the index in the
         for (int i = 0; i < NUM_TEXTS; ++i)                                                                             //     string of the first unrepresentable character.
         {
-            if (!PDEFontCheckASTextIsRepresentable(*textsAndFonts[i].fontH, *textsAndFonts[i].text, &firstBadGlyph))
+            for (int f = 0; f < 2; f++)                                                                                 //To iterate through each font
             {
-                PDEFontAttrs badFontAttrs;
-                PDEFontGetAttrs(*textsAndFonts[i].fontH, &badFontAttrs, sizeof(PDEFontAttrs));
+                wchar_t* errString; PDEFont* nextFont;
+                
+                switch (f)
+                {
+                case (0):
+                    errString = L"horizontal";
+                    nextFont = textsAndFonts[i].fontH;
+                    break;
+                case (1) :
+                    errString = L"vertical";
+                    nextFont = textsAndFonts[i].fontV;
+                    break;
+                }
 
-                std::wcout << L"Error: The horizontal font associated with the" << i << L"th text " << ASAtomGetString(badFontAttrs.name)
-                           << L" has no glyph for the text's " << firstBadGlyph << L"th character." << std::endl;
+                if (!PDEFontCheckASTextIsRepresentable(*nextFont, *textsAndFonts[i].text, &firstBadGlyph))
+                {
+                    PDEFontAttrs badFontAttrs;
+                    PDEFontGetAttrs(*nextFont, &badFontAttrs, sizeof(PDEFontAttrs));
 
-                return -1;
-            }
-            if (!PDEFontCheckASTextIsRepresentable(*textsAndFonts[i].fontV, *textsAndFonts[i].text, &firstBadGlyph))
-            {
-                PDEFontAttrs badFontAttrs;                                                                              //For retrieving the name of the font that failed.
-                PDEFontGetAttrs(*textsAndFonts[i].fontV, &badFontAttrs, sizeof(PDEFontAttrs));
+                    std::wcout << L"Error: The " << errString << "font associated with the" << i << L"th text " << ASAtomGetString(badFontAttrs.name)
+                        << L" has no glyph for the text's " << firstBadGlyph << L"th character." << std::endl;
 
-                std::wcout << L"Error: The vertical font associated with the" << i << L"th text " << ASAtomGetString(badFontAttrs.name)
-                           << L" is has no glyph for the text's " << firstBadGlyph << L"th character." << std::endl;
-
-                return -1;
+                    return -1;
+                }
             }
         }
 
