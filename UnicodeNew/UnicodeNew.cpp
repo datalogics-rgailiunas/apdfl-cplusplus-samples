@@ -187,13 +187,23 @@ int main(int argc, char** argv)
         ASUns32 firstBadGlyph = 0;                                                                                      //If the text is not representable, this will be set to the index in the
         for (int i = 0; i < NUM_TEXTS; ++i)                                                                             //     string of the first unrepresentable character.
         {
-            if (!PDEFontCheckASTextIsRepresentable(*textsAndFonts[i].fontV, *textsAndFonts[i].text, &firstBadGlyph))    //The H and V fonts are the same by design, so we only check the H font.
+            if (!PDEFontCheckASTextIsRepresentable(*textsAndFonts[i].fontH, *textsAndFonts[i].text, &firstBadGlyph))
+            {
+                PDEFontAttrs badFontAttrs;
+                PDEFontGetAttrs(*textsAndFonts[i].fontH, &badFontAttrs, sizeof(PDEFontAttrs));
+
+                std::wcout << L"Error: The horizontal font associated with the" << i << L"th text " << ASAtomGetString(badFontAttrs.name)
+                           << L" has no glyph for the text's " << firstBadGlyph << L"th character." << std::endl;
+
+                return -1;
+            }
+            if (!PDEFontCheckASTextIsRepresentable(*textsAndFonts[i].fontV, *textsAndFonts[i].text, &firstBadGlyph))
             {
                 PDEFontAttrs badFontAttrs;                                                                              //For retrieving the name of the font that failed.
                 PDEFontGetAttrs(*textsAndFonts[i].fontV, &badFontAttrs, sizeof(PDEFontAttrs));
 
-                std::wcout << L"Error: could not place " << i << "th text: " << ASAtomGetString(badFontAttrs.name)
-                           << " is missing the glyph at position " << firstBadGlyph << "." << std::endl;
+                std::wcout << L"Error: The vertical font associated with the" << i << L"th text " << ASAtomGetString(badFontAttrs.name)
+                           << L" is has no glyph for the text's " << firstBadGlyph << L"th character." << std::endl;
 
                 return -1;
             }
@@ -318,7 +328,7 @@ int main(int argc, char** argv)
         PDERelease((PDEObject)graphics.fillColorSpec.space);
         PDERelease((PDEObject)graphics.strokeColorSpec.space);
 
-        outDoc.saveDoc(L"Unicode.pdf");                        //APDFLDoc's destructor will take care of closing the document.
+        outDoc.saveDoc(L"UnicodeNew.pdf");                        //APDFLDoc's destructor will take care of closing the document.
 
         std::wcout << L"Success." << std::endl;
 
