@@ -124,6 +124,7 @@ int main(int argc, char** argv)
         PDERelease(reinterpret_cast<PDEObject>(displayText2));
         PDERelease(reinterpret_cast<PDEObject>(displayText3));
         PDERelease(reinterpret_cast<PDEObject>(displayText4));
+        PDERelease(reinterpret_cast<PDEObject>(textContainer));
 
 //==============================================================================================================================================================
 // Step 4) Add annotations to the page and set the layer they belong to. 
@@ -158,6 +159,10 @@ int main(int argc, char** argv)
 //==============================================================================================================================================================
 // Step 5) Save the output document and exit.
 //==============================================================================================================================================================
+
+        //Release objects no longer in use
+        PDPageReleasePDEContent(page, NULL);
+        PDPageRelease(page);
 
         doc.saveDoc(L"LayersCreated.pdf", PDSaveFull | PDSaveLinearized);                //Save the PDF document with the given name.
 
