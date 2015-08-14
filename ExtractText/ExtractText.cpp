@@ -134,7 +134,7 @@ int main(int argc, char** argv)
 
             //If the last word we printed is followed by a space, add a little to the starting h coordinate of the next word to account for that.
             nextWordAttrs = PDWordGetAttr(nextWord);
-            if (WXE_ADJACENT_TO_SPACE&nextWordAttrs)
+            if (WXE_ADJACENT_TO_SPACE & nextWordAttrs)
             {
                 std::wcout << L" ";
                 nextWordLocation.h += ASFloatToFixed(0.5*fontSize);
@@ -145,7 +145,7 @@ int main(int argc, char** argv)
             ++nextLineIndex;
             ++i;
 
-        } while ((!(WXE_LAST_WORD_ON_LINE&nextWordAttrs)));                                          //Note that this procedure works only if the last word in the page is the last word in its line (which is true).
+        } while ((!(WXE_LAST_WORD_ON_LINE & nextWordAttrs)));                                        //Note that this procedure works only if the last word in the page is the last word in its line (which is true).
         --i;                                                                                         //i is overstepped at the end of the do-while loop.
 
         PDEContentAddElem(outPageContent, kPDEAfterLast, reinterpret_cast<PDEElement>(nextLine));    //We've captured the line, so add it to our output page's content.
@@ -177,8 +177,9 @@ int main(int argc, char** argv)
 //Step 3) Extract unicode from a second PDF document. Open the document and extract the unicode chracters to a text file in the working directory.
 //=====================================================================================================================================================================================================================
 
-    APDFLDoc document(L"../_Input/ExtractUnicodeText.pdf", true);                                                   //Open the input document.
-    std::ofstream outputFile(L"ExtractedUnicodeText.txt");                                                          //Create a .txt output file for text extraction.
+    APDFLDoc document(L"../_Input/ExtractUnicodeText.pdf", true);                                                       //Open the input document.
+    std::ofstream outputFile(L"ExtractedUnicodeText.txt");                                                              //Create a .txt output file for text extraction.
+
     if (outputFile.is_open())
     {
         PDWordFinder pdWordFinder = PDDocCreateWordFinderEx(document.getPDDoc(), WF_LATEST_VERSION, true, wfConfig);    //If boolean value is set to true, the word finder extracts text in unicode.
