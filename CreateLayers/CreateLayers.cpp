@@ -5,7 +5,7 @@
 //===========================================================================
 // Sample: CreateLayers - Creates two layers in a pdf that will each contain  
 //                        and display text and annotations.
-//					  
+//                      
 // Steps:
 //  1) Create a pdf document and extract its content.
 //  2) Add text to the page and set what layer they belong to.
@@ -36,142 +36,142 @@ int main(int argc, char** argv)
 
     DURING
 
-        //==============================================================================================================================================================
-        // Step 1) Create a pdf document and extract its content.
-        //==============================================================================================================================================================
+//==============================================================================================================================================================
+// Step 1) Create a pdf document and extract its content.
+//==============================================================================================================================================================
 
-        APDFLDoc doc;													 //Create a new empty document.
+        APDFLDoc doc;                                                     //Create a new empty document.
 
-    //Insert a standard 8.5 inch x 11 inch page into the document.
-    doc.insertPage(ASFloatToFixed((8.5 * 72)), ASFloatToFixed((11 * 72)), PDBeforeFirstPage);
+        //Insert a standard 8.5 inch x 11 inch page into the document.
+        doc.insertPage(ASFloatToFixed((8.5 * 72)), ASFloatToFixed((11 * 72)), PDBeforeFirstPage);
 
-    PDPage page = doc.getPage(0);									 //Get the first page from the document. 
+        PDPage page = doc.getPage(0);                                     //Get the first page from the document. 
 
-    PDEContent pageContent = PDPageAcquirePDEContent(page, NULL);    //Acquire the content of the page.
+        PDEContent pageContent = PDPageAcquirePDEContent(page, NULL);     //Acquire the content of the page.
 
-    //==============================================================================================================================================================
-    // Step 2) Set up the optional content groups, commonly referred to as layers.
-    //==============================================================================================================================================================
+//==============================================================================================================================================================
+// Step 2) Set up the optional content groups, commonly referred to as layers.
+//==============================================================================================================================================================
 
-    //Create optional content groups (Layers) for texts and annotations.
-    PDOCG optionalGroupText = PDOCGCreate(doc.pdDoc, ASTextFromPDText("TextLayer"));
-    PDOCG optionalGroupAnnot = PDOCGCreate(doc.pdDoc, ASTextFromPDText("AnnotationLayer"));
+        //Create optional content groups (Layers) for texts and annotations.
+        PDOCG optionalGroupText = PDOCGCreate(doc.pdDoc, ASTextFromPDText("TextLayer"));
+        PDOCG optionalGroupAnnot = PDOCGCreate(doc.pdDoc, ASTextFromPDText("AnnotationLayer"));
 
-    //Set the layers initial state to visible.
-    PDOCConfig  ocConfig = PDDocGetOCConfig(doc.pdDoc);
-    PDOCGSetInitialState(optionalGroupText, ocConfig, true);
-    PDOCGSetInitialState(optionalGroupAnnot, ocConfig, true);
+        //Set the layers initial state to visible.
+        PDOCConfig  ocConfig = PDDocGetOCConfig(doc.pdDoc);
+        PDOCGSetInitialState(optionalGroupText, ocConfig, true);
+        PDOCGSetInitialState(optionalGroupAnnot, ocConfig, true);
 
-    CosObj order;                               //The order of the optional content.
-    ASInt32 cosObjectTotal;                     //Keeps track of the total cosObjects.
+        CosObj order;                               //The order of the optional content.
+        ASInt32 cosObjectTotal;                     //Keeps track of the total cosObjects.
 
-    PDOCConfigGetOCGOrder(ocConfig, &order);    //Find the order.
-    cosObjectTotal = CosArrayLength(order);     //Find the total cosObjects.
+        PDOCConfigGetOCGOrder(ocConfig, &order);    //Find the order.
+        cosObjectTotal = CosArrayLength(order);     //Find the total cosObjects.
 
-    //Insert the layers as a cosObject in the pdf. 
-    CosArrayInsert(order, cosObjectTotal, PDOCGGetCosObj(optionalGroupText));
-    CosArrayInsert(order, cosObjectTotal + 1, PDOCGGetCosObj(optionalGroupAnnot));
+        //Insert the layers as a cosObject in the pdf. 
+        CosArrayInsert(order, cosObjectTotal, PDOCGGetCosObj(optionalGroupText));
+        CosArrayInsert(order, cosObjectTotal + 1, PDOCGGetCosObj(optionalGroupAnnot));
 
-    //Put the new order back as a part of the pdf's configuration.
-    PDOCConfigSetOCGOrder(ocConfig, order);
+        //Put the new order back as a part of the pdf's configuration.
+        PDOCConfigSetOCGOrder(ocConfig, order);
 
-    //Create a layer array in order to properly pass the layer into the membership dictionary creation function.
-    PDOCG pdDocArrayText[2];
-    pdDocArrayText[0] = optionalGroupText;
-    pdDocArrayText[1] = NULL;
+        //Create a layer array in order to properly pass the layer into the membership dictionary creation function.
+        PDOCG pdDocArrayText[2];
+        pdDocArrayText[0] = optionalGroupText;
+        pdDocArrayText[1] = NULL;
 
-    //Obtain the membership dictionary of the text layer.
-    PDOCMD optionalGroupMDText = PDOCMDCreate(doc.pdDoc, pdDocArrayText, kOCMDVisibility_AllOn);
+        //Obtain the membership dictionary of the text layer.
+        PDOCMD optionalGroupMDText = PDOCMDCreate(doc.pdDoc, pdDocArrayText, kOCMDVisibility_AllOn);
 
-    //Create a layer array in order to properly pass the layer into the membership dictionary creation function.
-    PDOCG  pdDocArrayAnnot[2];
-    pdDocArrayAnnot[0] = optionalGroupAnnot;
-    pdDocArrayAnnot[1] = NULL;
+        //Create a layer array in order to properly pass the layer into the membership dictionary creation function.
+        PDOCG  pdDocArrayAnnot[2];
+        pdDocArrayAnnot[0] = optionalGroupAnnot;
+        pdDocArrayAnnot[1] = NULL;
 
-    //Obtain the membership dictionary of the annotation layer.
-    PDOCMD optionalGroupMDAnnot = PDOCMDCreate(doc.pdDoc, pdDocArrayAnnot, kOCMDVisibility_AllOn);
+        //Obtain the membership dictionary of the annotation layer.
+        PDOCMD optionalGroupMDAnnot = PDOCMDCreate(doc.pdDoc, pdDocArrayAnnot, kOCMDVisibility_AllOn);
 
-    //==============================================================================================================================================================
-    // Step 3) Add text to the page and set what layer they belong to.
-    //==============================================================================================================================================================
+//==============================================================================================================================================================
+// Step 3) Add text to the page and set what layer they belong to.
+//==============================================================================================================================================================
 
-    //By calling the textMaker function, place the following text at the given location.
-    PDEText displayText1 = textMaker("All the text on this page will be placed in it's own layer", 72 * 1, 72 * 10);
-    PDEText displayText2 = textMaker("Whereas the attachments will appear in a separate layer", 72 * 1, 72 * 9.75);
-    PDEText displayText3 = textMaker("There will be a .xlsx file attachment to the right", 72 * 1, 72 * 8);
-    PDEText displayText4 = textMaker("There will be a .docx file attachment to the right", 72 * 1, 72 * 7);
+        //By calling the textMaker function, place the following text at the given location.
+        PDEText displayText1 = textMaker("All the text on this page will be placed in it's own layer", 72 * 1, 72 * 10);
+        PDEText displayText2 = textMaker("Whereas the attachments will appear in a separate layer", 72 * 1, 72 * 9.75);
+        PDEText displayText3 = textMaker("There will be a .xlsx file attachment to the right", 72 * 1, 72 * 8);
+        PDEText displayText4 = textMaker("There will be a .docx file attachment to the right", 72 * 1, 72 * 7);
 
-    PDEContent texts = PDEContentCreate();
+        PDEContent texts = PDEContentCreate();
 
-    //Add the created text objects to the page's content.
-    PDEContentAddElem(texts, kPDEAfterLast, (PDEElement)displayText1);
-    PDEContentAddElem(texts, kPDEAfterLast, (PDEElement)displayText2);
-    PDEContentAddElem(texts, kPDEAfterLast, (PDEElement)displayText3);
-    PDEContentAddElem(texts, kPDEAfterLast, (PDEElement)displayText4);
+        //Add the created text objects to the page's content.
+        PDEContentAddElem(texts, kPDEAfterLast, (PDEElement)displayText1);
+        PDEContentAddElem(texts, kPDEAfterLast, (PDEElement)displayText2);
+        PDEContentAddElem(texts, kPDEAfterLast, (PDEElement)displayText3);
+        PDEContentAddElem(texts, kPDEAfterLast, (PDEElement)displayText4);
 
-    PDEContainer textContainer = PDEContainerCreate(ASAtomFromString("Texts"), NULL, false);    //Create an empty container for the text.
+        PDEContainer textContainer = PDEContainerCreate(ASAtomFromString("Texts"), NULL, false);    //Create an empty container for the text.
 
-    PDEContainerSetContent(textContainer, texts);					                            //Create a container for all the text objects.
+        PDEContainerSetContent(textContainer, texts);                                               //Create a container for all the text objects.
 
-    PDEContentAddElem(pageContent, kPDEAfterLast, (PDEElement)textContainer);                   //Add the text to the page's content
+        PDEContentAddElem(pageContent, kPDEAfterLast, (PDEElement)textContainer);                   //Add the text to the page's content
 
-    PDEElementSetOCMD((PDEElement)textContainer, optionalGroupMDText);                          //Set the container's membership dictionary to the text layer.
+        PDEElementSetOCMD((PDEElement)textContainer, optionalGroupMDText);                          //Set the container's membership dictionary to the text layer.
 
-    PDPageSetPDEContentCanRaise(page, NULL);							                        //Set the content back into the page.
+        PDPageSetPDEContentCanRaise(page, NULL);                                                    //Set the content back into the page.
 
-    //Release used objects
-    PDERelease(reinterpret_cast<PDEObject>(displayText1));
-    PDERelease(reinterpret_cast<PDEObject>(displayText2));
-    PDERelease(reinterpret_cast<PDEObject>(displayText3));
-    PDERelease(reinterpret_cast<PDEObject>(displayText4));
+        //Release used objects
+        PDERelease(reinterpret_cast<PDEObject>(displayText1));
+        PDERelease(reinterpret_cast<PDEObject>(displayText2));
+        PDERelease(reinterpret_cast<PDEObject>(displayText3));
+        PDERelease(reinterpret_cast<PDEObject>(displayText4));
 
-    //==============================================================================================================================================================
-    // Step 4) Add annotations to the page and set the layer they belong to. 
-    //==============================================================================================================================================================
+//==============================================================================================================================================================
+// Step 4) Add annotations to the page and set the layer they belong to. 
+//==============================================================================================================================================================
 
-    //Set up the bounds for the first annotation, where 72 represents an inch.
-    ASFixedRect annotLocation;
-    annotLocation.left = ASFloatToFixed(5.50 * 72);
-    annotLocation.right = ASFloatToFixed(6.00 * 72);
-    annotLocation.top = ASFloatToFixed(8.20 * 72);
-    annotLocation.bottom = ASFloatToFixed(7.70 * 72);
+        //Set up the bounds for the first annotation, where 72 represents an inch.
+        ASFixedRect annotLocation;
+        annotLocation.left = ASFloatToFixed(5.50 * 72);
+        annotLocation.right = ASFloatToFixed(6.00 * 72);
+        annotLocation.top = ASFloatToFixed(8.20 * 72);
+        annotLocation.bottom = ASFloatToFixed(7.70 * 72);
 
-    PDAnnot newAnnot = PDPageCreateAnnot(page, ASAtomFromString("FileAttachment"), &annotLocation);    //Create the annotation at the location.
+        PDAnnot newAnnot = PDPageCreateAnnot(page, ASAtomFromString("FileAttachment"), &annotLocation);     //Create the annotation at the location.
 
-    //Add the annotation to the page, where -2 means to add to the end of the array.
-    PDPageAddAnnot(page, -2, newAnnot);
+        //Add the annotation to the page, where -2 means to add to the end of the array.
+        PDPageAddAnnot(page, -2, newAnnot);
 
-    PDAnnotSetOCMD(newAnnot, optionalGroupMDAnnot);		                                               //Set the annotation to the annotation layer.
+        PDAnnotSetOCMD(newAnnot, optionalGroupMDAnnot);                                                     //Set the annotation to the annotation layer.
 
-    //Move the bounds for the second annotation.
-    annotLocation.left = ASFloatToFixed(5.50 * 72);
-    annotLocation.right = ASFloatToFixed(6.00 * 72);
-    annotLocation.top = ASFloatToFixed(7.20 * 72);
-    annotLocation.bottom = ASFloatToFixed(6.70 * 72);
+        //Move the bounds for the second annotation.
+        annotLocation.left = ASFloatToFixed(5.50 * 72);
+        annotLocation.right = ASFloatToFixed(6.00 * 72);
+        annotLocation.top = ASFloatToFixed(7.20 * 72);
+        annotLocation.bottom = ASFloatToFixed(6.70 * 72);
 
-    PDAnnot newAnnot2 = PDPageCreateAnnot(page, ASAtomFromString("FileAttachment"), &annotLocation);   //Create the second annotation.
+        PDAnnot newAnnot2 = PDPageCreateAnnot(page, ASAtomFromString("FileAttachment"), &annotLocation);    //Create the second annotation.
 
-    PDAnnotSetOCMD(newAnnot2, optionalGroupMDAnnot);                                                   //Set the annotation to the annotation layer.
+        PDAnnotSetOCMD(newAnnot2, optionalGroupMDAnnot);                                                    //Set the annotation to the annotation layer.
 
-    PDPageAddAnnot(page, -2, newAnnot2);			                                                   //Add the annotation to the page.
+        PDPageAddAnnot(page, -2, newAnnot2);                                                                //Add the annotation to the page.
 
-    //==============================================================================================================================================================
-    // Step 5) Save the output document and exit.
-    //==============================================================================================================================================================
+//==============================================================================================================================================================
+// Step 5) Save the output document and exit.
+//==============================================================================================================================================================
 
-    doc.saveDoc(L"LayersCreated.pdf", PDSaveFull | PDSaveLinearized);    //Save the PDF document with the given name.
+        doc.saveDoc(L"LayersCreated.pdf", PDSaveFull | PDSaveLinearized);                //Save the PDF document with the given name.
 
-    std::wcout << L"LayersCreated.pdf saved with text to be placed." << std::endl;
+        std::wcout << L"LayersCreated.pdf saved with text to be placed." << std::endl;
 
     HANDLER
 
         errCode = ERRORCODE;
 
-    libInit.displayError(errCode);								  	     //If there was an error, display the error that occurred.
+    libInit.displayError(errCode);                                                       //If there was an error, display the error that occurred.
 
     END_HANDLER
 
-        return errCode;															 //Returns the program status.
+        return errCode;                                                                  //Returns the program status.
 
 }
 
