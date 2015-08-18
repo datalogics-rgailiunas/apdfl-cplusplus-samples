@@ -40,7 +40,8 @@ int main(int argc, char** argv)
 //==================================================================================================================================
 // Step 2) Create label's for different sets of pages
 // Note: PDPageLabel takes in a style key : "R" for upper - case Roman numbers, "r" for lower - case Roman numbers,
-//                                          "A" for upper-case alphabetic numbers, or "a" for lower-case alphabetic numbers
+//                                          "A" for upper-case alphabetic numbers, "a" for lower-case alphabetic numbers,
+//                                          or "D" for decimal Arabic numerals.
 //==================================================================================================================================
 
         //Set the first page's label to "Cover" with the number counter to 1
