@@ -92,7 +92,7 @@ int main(int argc, char** argv)
     ////////////////////////////////
     //The user can change the document's security settings.
     permList.push_back(PERM_PAIR(false, pdPermSecure));
-    //The OR of all operations that can be set by the user in the security restrictions (pdPermPrint + pdPermEdit + pdPermCopy + pdPermEditNotes).
+    //Sets these four permissions to true: pdPermPrint, pdPermEdit, pdPermCopy, pdPermEditNotes.
     permList.push_back(PERM_PAIR(false, pdPermSettable));
 
     ////////////////////////////////
