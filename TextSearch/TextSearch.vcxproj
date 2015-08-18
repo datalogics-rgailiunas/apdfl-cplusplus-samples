@@ -146,8 +146,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Samples\utils\MyPDFLibApp.cpp" />
-    <ClCompile Include="..\..\Samples\utils\MyPDFLibUtils.cpp" />
     <ClCompile Include="TextSearch.cpp" />
     <ClCompile Include="..\_Common\APDFLDoc\APDFLDoc.cpp" />
     <ClCompile Include="..\_Common\Init\InitializeLibrary.cpp" />
@@ -155,7 +153,6 @@
     <ClCompile Include="..\..\Include\Source\PDFLInitHFT.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Samples\utils\MyPDFLibUtils.h" />
     <ClInclude Include="..\_Common\APDFLDoc\APDFLDoc.h" />
     <ClInclude Include="..\_Common\Init\InitializeLibrary.h" />
   </ItemGroup>

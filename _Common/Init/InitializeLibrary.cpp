@@ -87,7 +87,7 @@ void APDFLib::displayError(ASErrorCode errCode)
     if (errCode == 0) return;
 
     char errStr[250];
-    std::fprintf(stderr, "[Error %ld] %s\n", errCode, ASGetErrorString(errCode, errStr, sizeof(errStr)));
+    std::fprintf(stderr, "[Error %lx] %s\n", errCode, ASGetErrorString(errCode, errStr, sizeof(errStr)));
 }
 
 //========================================================================================================
