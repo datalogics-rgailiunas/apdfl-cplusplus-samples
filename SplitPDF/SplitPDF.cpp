@@ -82,7 +82,7 @@ int main(int argc, char** argv)
             outPathName = ASFileSysCreatePathFromDIPathText(NULL, outPathText, NULL); 
 
             //Save file using the ASPathName.
-            PDDocSave(*iter, PDSaveFull | PDSaveLinearized, outPathName, ASGetDefaultFileSys(), NULL, NULL); 
+            PDDocSave(*iter, PDSaveFull, outPathName, ASGetDefaultFileSys(), NULL, NULL); 
 
             std::wcout << pageNameString << " was created and saved";
 
