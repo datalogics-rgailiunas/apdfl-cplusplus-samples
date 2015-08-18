@@ -37,7 +37,7 @@ int main(int argc, char** argv)
 //Step 1) Select which permissions you want to allow/deny.
 //====================================================================================================================================================================================================================================================================
 
-    std::vector<std::pair<bool, PDPerms>> permList(17);          //There are 17 permissions listed here.
+    std::vector<std::pair<bool, PDPerms>> permList(16);          //There are 16 permissions listed here.
 
     ////////////////////////////////
     ////All permissions           //
@@ -50,7 +50,7 @@ int main(int argc, char** argv)
     ////////////////////////////////
     ////User Editing Permissions  //
     ////////////////////////////////
-    //The OR of all operations that can be set by the user in the security restrictions (pdPermEdit + pdPermEditNotes + pdPermPrint + pdPermCopy).
+    //Sets these four permissions true: pdPermEdit, pdPermEditNotes, pdPermPrint, pdPermCopy.
     permList.push_back(PERM_PAIR(false, pdPermSettable));
     //The user can edit the document more than adding or modifying text notes (see also pdPermEditNotes). In the Document Security dialog, this corresponds to the Changing the Document entry.
     permList.push_back(PERM_PAIR(true, pdPermEdit));
@@ -92,8 +92,6 @@ int main(int argc, char** argv)
     ////////////////////////////////
     //The user can change the document's security settings.
     permList.push_back(PERM_PAIR(false, pdPermSecure));
-    //Sets these four permissions to true: pdPermPrint, pdPermEdit, pdPermCopy, pdPermEditNotes.
-    permList.push_back(PERM_PAIR(false, pdPermSettable));
 
     ////////////////////////////////
     ////Templates                 //
