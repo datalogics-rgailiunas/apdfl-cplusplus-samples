@@ -2,7 +2,7 @@
 //
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-//========================================================================================
+//============================================================================================
 // Sample: CreateTransparency - This sample demonstrates transparency and blending modes
 //             in APDFL for CMYK and RGB color spaces. It creates 2 color blending
 //             triads, one for APDFL and one for CMYK, once for each of the 12
@@ -11,10 +11,10 @@
 //
 //Steps:
 // 1) Create and title a page for each color blending mode.
-// 2) Define and create a prototype for the basic shape of each triad.
-// 3) Create a prototype for the CMYK and RGB triads by triplicating the basic shape.
+// 2) Define and create a PDEForm prototype for the basic shape of each triad.
+// 3) Create a PDEForm prototype for the CMYK and RGB triads by triplicating the basic shape.
 // 4) Copy the triads to each page, with different blending modes each time.
-//========================================================================================
+//============================================================================================
 
 #include <iostream>
 #include <sstream>
