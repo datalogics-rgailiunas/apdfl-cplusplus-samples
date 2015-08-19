@@ -238,8 +238,8 @@ int main(int argc, char** argv)
 
             //The PDEExtGState determines the transparency and blending mode of whatever PDEGraphicsState object it is set to.
             PDEExtGState shapeExtGState = PDEExtGStateCreateNew(PDDocGetCosDoc(pdoc));
-            PDEExtGStateSetOpacityFill(shapeExtGState, fixedThreeQuarters);                       //Each shape will have 3/4 transparency.
-            PDEExtGStateSetBlendMode(shapeExtGState, ASAtomFromString(blendModes[i]));            //This will correspond to the title on the page.
+            PDEExtGStateSetOpacityFill(shapeExtGState, fixedThreeQuarters);                             //Each shape will have 3/4 transparency.
+            PDEExtGStateSetBlendMode(shapeExtGState, ASAtomFromString(blendModes[i]));                  //This will correspond to the title on the page.
 
             shapeGState.extGState = shapeExtGState;
             shapeGState.wasSetFlags |= kPDEExtGStateWasSet;
@@ -282,7 +282,7 @@ int main(int argc, char** argv)
     HANDLER
 
         errCode = ERRORCODE;
-        lib.displayError(errCode);                                                                //If there was an error, display it.
+        lib.displayError(errCode);                                                                      //If there was an error, display it.
 
     END_HANDLER
 
