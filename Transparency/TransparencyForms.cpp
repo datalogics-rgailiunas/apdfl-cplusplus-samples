@@ -27,6 +27,9 @@
 #include "ASExtraCalls.h"
 #include "CosCalls.h"
 
+
+PDEForm contentToForm(PDEContent content, ASInt32 formType, PDDoc document);
+
 int main(int argc, char** argv)
 {
     APDFLib lib;                                                  //Initialize the Adobe PDF Library.
@@ -48,13 +51,66 @@ int main(int argc, char** argv)
         APDFLDoc doc;                                                                              //Creates a new, blank page.
         PDDoc pdoc = doc.getPDDoc();
 
-        ASFixed pageLength   = ASFloatToFixed(12.0 * 72.0);    //12 inches wide.
-        ASFixed pageHeight   = ASFloatToFixed(6.0  * 72.0);    //6 inches high.
+        ASFixed pageLength   = ASFloatToFixed(10.0 * 72.0);    //12 inches wide.
+        ASFixed pageHeight   = ASFloatToFixed(4.25  * 72.0);    //5 inches high.
 
         int NUM_PAGES = blendModes.size();
         for (int i = 0; i < NUM_PAGES; ++i){
             doc.insertPage(pageLength, pageHeight, PDBeforeFirstPage);      //Give it a page of 7.5 inches square dimensions.
         }
+
+        //Add the titles now, why not.
+        ///Titles.
+        PDEFontAttrs fontAttrs;                             //Struct that will contain font name and type.
+        memset(&fontAttrs, 0, sizeof(fontAttrs));           //Ensure any "garbage" data is cleared out.
+        fontAttrs.name = ASAtomFromString("CourierStd");    //Set the font name and type. 
+        fontAttrs.type = ASAtomFromString("Type1");          
+        //Locate the system font that corresponds to the PDEFontAttrs struct we just set.
+        PDSysFont sysFont = PDFindSysFont(&fontAttrs, sizeof(fontAttrs), 0);
+        //Create the CourierStd Type1 font with embed flag set.       
+        PDEFont pdeFont = PDEFontCreateFromSysFont(sysFont, kPDEFontCreateEmbedded);
+        ASDoubleMatrix textMatrix;                     //Struct that determines the size and location of text on page.
+        memset(&textMatrix, 0, sizeof(textMatrix));    //Clear out any "garbage" the struct may contain.
+        textMatrix.a = 24.0;                           //Character width.
+        textMatrix.d = 24.0;                           //Character height.
+        textMatrix.h = 0.25*72.0;                                  //Place at a x-val of a quarter of an inch from the left side of the page.
+        textMatrix.v = ASFixedToFloat(pageHeight) - (0.20 *  72.00) - 24.0;    //Place a fifth of an inch from the top of the page, adjusting for font size.
+        
+        for (int i = 0; i < NUM_PAGES; i++)
+        {
+            PDEText textObj = PDETextCreate();    //PDEText will be set, and then added into the PDEContent.
+            PDPage outPage = doc.getPage(i);
+            PDEContent pagecontent = PDPageAcquirePDEContent(outPage, 0);
+
+            std::stringstream title;
+            title << "Blend Mode: " << blendModes[i];
+
+            PDETextAddEx(textObj,                 //The PDEText object we just created.
+                kPDETextRun,                      //kPDETextRun and kPDETextChar specify whether a string or character will be inserted.
+                0,                                //The index after which to add the character or text run.
+                (Uns8*)title.str().c_str(),                  //The string that will be added should be type-cast as a pointer to Uns8.
+                strlen(title.str().c_str()),                 //Length of the string.
+                pdeFont,                          //The PDEFont we created holding information such as font name, type and whether it's embedded or not.
+                NULL,0,           //We use the gState that's supposed to be for the colors, because it makes no difference.
+                NULL,0,                        //Default the text state.
+                &textMatrix,                      //Matrix containing size and location for the text.
+                NULL);                            //The matrix for the line width when stroking text.
+
+            PDEContentAddElem(pagecontent,kPDEBeforeFirst, reinterpret_cast<PDEElement>(textObj));    //Add the text element to the page's content.
+            PDPageSetPDEContentCanRaise(outPage, NULL);                                             //Set the content back into the page.
+
+            PDERelease(reinterpret_cast<PDEObject>(textObj));
+            PDPageReleasePDEContent(outPage, 0);
+            PDPageRelease(outPage);
+        }
+            PDERelease(reinterpret_cast<PDEObject>(pdeFont));
+
+
+
+
+
+
+
 
         //The origin of a rectangle is at its bottom-left corner, thus the adjustment by squareLength.
         ASFixed pageCenter_X = (pageLength / 2);
@@ -81,13 +137,6 @@ int main(int argc, char** argv)
         ASFixed delta_y[NUM_SHAPES] { 0.25 * delta, -1.25 * delta, -0.25 * delta };
         //     (Color can be determined via modular arithmetic.)
 
-        /*                   */
-
-        // Code re: shapes begins below              V
-        //
-        //"ss" stands for "single shape"
-
-
         //STEP 1: DEFINE A SINGLE SQUARE AS A PDEFORM.
 
         //The content containing just our first square.
@@ -108,94 +157,86 @@ int main(int argc, char** argv)
         //Done, add the elem.
         PDEContentAddElem(singleShapeContent, kPDEBeforeFirst, (PDEElement)shapePath);
 
-        //Turn the content into a cosobj?
-        CosObj singleShapeCosContent, singleShapeCosResources; 
-        PDEContentAttrs contentAttrs;   //This objet will be re-used.
-        memset((char *)&contentAttrs, 0, sizeof (PDEContentAttrs));
-        contentAttrs.formType = 1;      //Set because the content contains a form XObject, our square.
-        PDEElementGetBBox((PDEElement)singleShapeContent, &contentAttrs.bbox); //The bounding box of our form is the same as the bounding box of the PDEContents for the square.
-        contentAttrs.matrix.a = contentAttrs.matrix.d = fixedOne;
-        //b,c,h, and v were set to 0 by memset.
-
-        PDEContentToCosObj(singleShapeContent, kPDEContentToForm, &contentAttrs, sizeof(PDEContentAttrs), PDDocGetCosDoc(pdoc), NULL, &singleShapeCosContent, &singleShapeCosResources);
-        PDERelease((PDEObject)singleShapeContent);
-        //Turn the cosobj into a form
-        ASFixedMatrix unity = { fixedOne, 0, 0, fixedOne, 0, 0 };
-
-        PDEForm singleShape = PDEFormCreateFromCosObj(&singleShapeCosContent, &singleShapeCosResources, &unity);
+        PDEForm singleShape = contentToForm(singleShapeContent, 1, pdoc);
 
         //STEP 2: DEFINE TWO TRI-SQUARES MADE UP OF SINGLESHAPES.
         //ONE FOR CMYK, ONE FOR RGB.
-        //
-        //We'll start with just rgb....
-
-        PDEForm rgbBlendingCircles;
-        //PDEForm cmykBlendingCircles;
-
-        //although cmyk has four components and not three, we can ignore the fourth as we don't want to add any black to our blending squares.
-        //            the components default to 0, which is what we want.
 
         ///The container which holds the final prototypical form, with all three shapes.
+        PDEContent cmykContent = PDEContentCreate();
         PDEContent rgbContent = PDEContentCreate();
 
-        shapeGState.fillColorSpec.space = PDEColorSpaceCreateFromName(ASAtomFromString(("DeviceRGB")));
-        shapeGState.wasSetFlags = kPDEFillCSpaceWasSet | kPDEFillCValueWasSet;
-
-        for (int i = 0; i < NUM_SHAPES; ++i)
+        for (PDEContent* nextContent : { &cmykContent, &rgbContent })
         {
-            PDEForm nextShape = PDEFormCreateClone(singleShape);
+            char* colorSpace = (nextContent == &cmykContent ? "DeviceCMYK" : "DeviceRGB");
+            int symmetry = (nextContent == &cmykContent ? -1 : 1);    //This is used to achieve symmetry between the two triads on the page.
 
-            //Set the position for this shape.
-            ASFixedMatrix shapePosition = { fixedOne, 0, 0, fixedOne, 0, 0 };
-            shapePosition.h = delta_x[i];
-            shapePosition.v = delta_y[i];
+            for (int i = 0; i < NUM_SHAPES; ++i)
+            {
+                PDEForm nextShape = PDEFormCreateClone(singleShape);
 
-            //Set the graphics state of this shape.
-            shapeGState.fillColorSpec.value.color[0] = (i == 0 ? fixedOne : fixedZero); //Red value.
-            shapeGState.fillColorSpec.value.color[1] = (i == 1 ? fixedOne : fixedZero); //Green value.
-            shapeGState.fillColorSpec.value.color[2] = (i == 2 ? fixedOne : fixedZero); //Blue value.
+                //Set the position for this shape.
+                ASFixedMatrix shapePosition = { fixedOne, 0, 0, fixedOne, 0, 0 };
+                shapePosition.h = symmetry*delta_x[i];
+                shapePosition.v = delta_y[i];
 
-            PDEElementSetMatrix((PDEElement)nextShape, &shapePosition);
-            PDEElementSetGState((PDEElement)nextShape, &shapeGState, sizeof(shapeGState));
-            PDEContentAddElem(rgbContent, kPDEBeforeFirst, (PDEElement)nextShape);
+                //Set the graphics state of this shape.
+                //This conditional branching makes three shapes of each color.
+                shapeGState.fillColorSpec.space = PDEColorSpaceCreateFromName(ASAtomFromString((colorSpace)));
+                shapeGState.fillColorSpec.value.color[0] = (i == 0 ? fixedOne : fixedZero); //Red/Cyan value.
+                shapeGState.fillColorSpec.value.color[1] = (i == 1 ? fixedOne : fixedZero); //Green/Magenta value.
+                shapeGState.fillColorSpec.value.color[2] = (i == 2 ? fixedOne : fixedZero); //Blue/Yellow value.
+                //CMYK has a fourth component, Key (Black). But we don't need to use it.
 
-            PDERelease((PDEObject)nextShape);
+                shapeGState.wasSetFlags = kPDEFillCSpaceWasSet | kPDEFillCValueWasSet;
+
+                PDEElementSetMatrix((PDEElement)nextShape, &shapePosition);
+                PDEElementSetGState((PDEElement)nextShape, &shapeGState, sizeof(shapeGState));
+                PDEContentAddElem(*nextContent, kPDEBeforeFirst, (PDEElement)nextShape);
+
+                PDERelease((PDEObject)nextShape);
+            }
         }
         PDERelease((PDEObject)singleShape);
 
-        CosObj rgb_cos_cont, rgb_cos_res;
-        memset((char *)&contentAttrs, 0, sizeof (PDEContentAttrs));
-        contentAttrs.formType = 1;
-        PDEElementGetBBox((PDEElement)rgbContent, &contentAttrs.bbox);
-        contentAttrs.matrix.a = contentAttrs.matrix.d = fixedOne;
-        //b,c,h, and v were set to 0 by memset.
+        PDEForm rgbTriad = contentToForm(rgbContent,1,pdoc);
+        PDEForm cmykTriad = contentToForm(cmykContent,1,pdoc);
 
-        PDEContentToCosObj(rgbContent, kPDEContentToForm, &contentAttrs, sizeof(PDEContentAttrs), PDDocGetCosDoc(pdoc), NULL, &rgb_cos_cont, &rgb_cos_res);
         PDERelease((PDEObject)rgbContent);
-
-        ///The final PDEForm!
-        PDEForm rgbf = PDEFormCreateFromCosObj(&rgb_cos_cont, &rgb_cos_res, &unity);
+        PDERelease((PDEObject)cmykContent);
 
         for (int i = 0; i < NUM_PAGES; ++i) {
-            PDEForm triad = PDEFormCreateClone(rgbf);
-
             PDPage outPage = doc.getPage(i);
             PDEContent pagecontent = PDPageAcquirePDEContent(outPage, 0);
-            ASFixedMatrix finalposition = { fixedOne, 0, 0, fixedOne, 0, 0 };
-            finalposition.h = rightHalfCenter_X - squareLength/2;
-            finalposition.v = rightHalfCenter_Y - squareLength/2;
 
+            //The position of the triad.
+            ASFixedMatrix finalposition = { fixedOne, 0, 0, fixedOne, 0, 0 };
+            
+            //The PDEExtGState determines the blending of the triads.
             PDEExtGState shapeExtGState = PDEExtGStateCreateNew(PDDocGetCosDoc(pdoc));
             PDEExtGStateSetOpacityFill(shapeExtGState, fixedThreeQuarters);
             PDEExtGStateSetBlendMode(shapeExtGState, ASAtomFromString(blendModes[i]));
+
             shapeGState.extGState = shapeExtGState;
             shapeGState.wasSetFlags |= kPDEExtGStateWasSet;
 
-            PDEElementSetGState((PDEElement)rgbf, &shapeGState, sizeof(PDEGraphicState));
+            //Set the RGB triad.
+            finalposition.h = rightHalfCenter_X - squareLength/2;
+            finalposition.v = rightHalfCenter_Y - squareLength/2;
 
-            PDEElementSetMatrix((PDEElement)rgbf, &finalposition);
-            PDEContentAddElem(pagecontent, kPDEBeforeFirst, (PDEElement)rgbf);
+            PDEElementSetGState((PDEElement)rgbTriad, &shapeGState, sizeof(PDEGraphicState));
+            PDEElementSetMatrix((PDEElement)rgbTriad, &finalposition);
+            PDEContentAddElem(pagecontent, kPDEBeforeFirst, (PDEElement)rgbTriad);
 
+            //Set the CMYK triad.
+            finalposition.h = leftHalfCenter_X - squareLength/2;
+            finalposition.v = leftHalfCenter_Y - squareLength / 2;
+
+            PDEElementSetGState((PDEElement)cmykTriad, &shapeGState, sizeof(PDEGraphicState));
+            PDEElementSetMatrix((PDEElement)cmykTriad, &finalposition);
+            PDEContentAddElem(pagecontent, kPDEBeforeFirst, (PDEElement)cmykTriad);
+
+            //Set the content into the page and release the page.
             PDPageSetPDEContentCanRaise(outPage, 0);
             PDPageReleasePDEContent(outPage, 0);
             PDPageRelease(outPage);
@@ -214,3 +255,19 @@ int main(int argc, char** argv)
 
     return errCode;
 };
+
+PDEForm contentToForm(PDEContent content, ASInt32 formType, PDDoc document)
+{
+    PDEContentAttrs contentAttrs;
+    memset((char *)&contentAttrs, 0, sizeof (PDEContentAttrs));
+    
+    contentAttrs.formType = formType;
+    PDEElementGetBBox((PDEElement)content, &contentAttrs.bbox);
+    contentAttrs.matrix.a = contentAttrs.matrix.d = fixedOne; //b,c,h, and v were set to 0 by memset.
+
+    CosObj cosContent, cosResources;
+    PDEContentToCosObj(content, kPDEContentToForm, &contentAttrs, sizeof(PDEContentAttrs), PDDocGetCosDoc(document), NULL, &cosContent, &cosResources);
+
+    ASFixedMatrix unity = { fixedOne, 0, 0, fixedOne, 0, 0 };
+    return PDEFormCreateFromCosObj(&cosContent, &cosResources, &unity);
+}
