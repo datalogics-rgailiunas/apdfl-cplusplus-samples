@@ -69,7 +69,7 @@ int main(int argc, char** argv)
     ////////////////////////////////
     //Enables content copying (i.e., to the clipboard) and content copying for accessibility.
     permList.push_back(PERM_PAIR(false, pdPermCopy));
-    //Enables content copying for accessibility.
+    //Enables copying of content related to Acrobat's accessibility features. 
     permList.push_back(PERM_PAIR(false, pdPrivPermAccessible));
 
     ////////////////////////////////
