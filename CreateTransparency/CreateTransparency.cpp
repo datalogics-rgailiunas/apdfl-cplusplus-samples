@@ -75,10 +75,12 @@ int main(int argc, char** argv)
             "Lighten",    "Multiply",   "Normal",
             "Overlay",    "Screen",     "SoftLight",
         };
+        
         int NUM_PAGES = blendModes.size();                                            //A page to demonstrate each blend mode!
 
         //Make a page for each blend mode.
-        for (int i = 0; i < NUM_PAGES; ++i){
+        for (int i = 0; i < NUM_PAGES; ++i)
+        {
             doc.insertPage(pageLength, pageHeight, PDBeforeFirstPage);
         }
 
@@ -232,7 +234,8 @@ int main(int argc, char** argv)
 
         std::wcout << L"Placing the triads on each page." << std::endl;
 
-        for (int i = 0; i < NUM_PAGES; ++i) {
+        for (int i = 0; i < NUM_PAGES; ++i)
+        {
             PDPage outPage = doc.getPage(i);
             PDEContent pagecontent = PDPageAcquirePDEContent(outPage, 0);
 
