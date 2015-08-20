@@ -37,7 +37,7 @@ int main(int argc, char** argv)
 //Step 1) Select which permissions you want to allow/deny.
 //====================================================================================================================================================================================================================================================================
 
-    std::vector<std::pair<bool, PDPerms>> permList(16);          //There are 16 permissions listed here.
+    std::vector<std::pair<bool, PDPerms>> permList(15);          //There are 15 permissions listed here.
 
     ////////////////////////////////
     //Most Permissions            //
@@ -46,7 +46,6 @@ int main(int argc, char** argv)
     permList.push_back(PERM_PAIR(false, pdPermAll));
     //All permissions, except page extraction.
     permList.push_back(PERM_PAIR(false, pdPermUser));
-
 
     ////////////////////////////////
     ////User Editing Permissions  //
@@ -93,12 +92,6 @@ int main(int argc, char** argv)
     ////////////////////////////////
     //The user can change the document's security settings. This will have no effect unless an owner password is set.
     permList.push_back(PERM_PAIR(false, pdPermSecure));
-
-    ////////////////////////////////
-    ////Templates                 //
-    ////////////////////////////////
-    //Enables template page spawning, unless otherwise forbidden.
-    permList.push_back(PERM_PAIR(false, pdPrivPermFormSpawnTempl));
 
     DURING
 
