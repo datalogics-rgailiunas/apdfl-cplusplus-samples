@@ -37,69 +37,61 @@ int main(int argc, char** argv)
 //Step 1) Select which permissions you want to allow/deny.
 //====================================================================================================================================================================================================================================================================
 
-    std::vector<std::pair<bool, PDPerms>> permList(17);          //There are 17 permissions listed here.
+    std::vector<std::pair<bool, PDPerms>> permList(15);          //There are 15 permissions listed here.
 
     ////////////////////////////////
-    ////All permissions           //
+    //Most Permissions            //
     ////////////////////////////////
-    //All permissions.
+    //All permissions, except page extraction.
+    permList.push_back(PERM_PAIR(false, pdPermAll));
+    //All permissions, except page extraction.
     permList.push_back(PERM_PAIR(false, pdPermUser));
-    //The user is permitted to perform all operations, regardless of the permissions specified by the document. Unless this permission is set, the document's permissions will be reset to those in the document after a full save.
-    permList.push_back(PERM_PAIR(false, pdPermOwner));
 
     ////////////////////////////////
     ////User Editing Permissions  //
     ////////////////////////////////
-    //The OR of all operations that can be set by the user in the security restrictions (pdPermEdit + pdPermEditNotes + pdPermPrint + pdPermCopy).
+    //Sets these four permissions true: pdPermEdit, pdPermEditNotes, pdPermPrint, pdPermCopy.
     permList.push_back(PERM_PAIR(false, pdPermSettable));
-    //The user can edit the document more than adding or modifying text notes (see also pdPermEditNotes). In the Document Security dialog, this corresponds to the Changing the Document entry.
-    permList.push_back(PERM_PAIR(true, pdPermEdit));
-    //The user can add, modify, and delete text notes (see also pdPermEdit). In the document restrictions, this corresponds to the Authoring Comments and Form Fields entry.
+    //Enables changing the document, document assembly, form field filling, signing, and template page spawning.
+    permList.push_back(PERM_PAIR(false, pdPermEdit));
+    //Enables commenting, form field filling, and signing.
     permList.push_back(PERM_PAIR(false, pdPermEditNotes));
-    //Overrides various pdPermEdit bits and allows the following operations: page insert/delete/rotate and create bookmark and thumbnail.
+    //Enables page insertion/deletion/rotation, as well as bookmark creation.
     permList.push_back(PERM_PAIR(false, pdPrivPermDocAssembly));
-    //Overrides other PDPerm bits. It allows the user to fill in or sign existing form or signature fields.
+    //Enables form field filling, signing, and spawning template pages.
     permList.push_back(PERM_PAIR(false, pdPrivPermFillandSign));
-    //This should be set if the user can submit forms outside of the browser. This bit is a supplement to pdPrivPermFillandSign.
+    //Whether the form can be submitted outside of a browser. Be sure you enable form field filling and signing.
     permList.push_back(PERM_PAIR(false, pdPrivPermFormSubmit));
 
     ////////////////////////////////
     ////Copying                   //
     ////////////////////////////////
-    //The user can copy information from the document to the clipboard. In the document restrictions, this corresponds to the Content Copying or Extraction entry.
+    //Enables content copying (i.e., to the clipboard) and content copying for accessibility.
     permList.push_back(PERM_PAIR(false, pdPermCopy));
-    //Overrides pdPermCopy to enable the Accessibility API. If a document is saved in Rev2 format (Acrobat 4.0 compatible), only the pdPermCopy bit is checked to determine the Accessibility API state.
+    //Enables copying of content related to Acrobat's accessibility features for people with disabilities. 
     permList.push_back(PERM_PAIR(false, pdPrivPermAccessible));
 
     ////////////////////////////////
     ////Printing                  //
     ////////////////////////////////
-    //The user can print the document. Page Setup access is unaffected by this permission, since that affects Acrobat's preferences - not the document's. In the Document Security dialog, this corresponds to the Printing entry.
-    permList.push_back(PERM_PAIR(true, pdPermPrint));
-    //This bit is a supplement to pdPermPrint. If it is clear (disabled) only low quality printing (Print As Image) is allowed. On UNIX platforms where Print As Image doesn't exist, printing is disabled.
-    permList.push_back(PERM_PAIR(true, pdPrivPermHighPrint));
+    //Enables printing.
+    permList.push_back(PERM_PAIR(false, pdPermPrint));
+    //If pdPermPrint is true and this is false, only low quality printing (Print As Image) is allowed. On UNIX platforms where Print As Image doesn't exist, printing will be disabled.
+    permList.push_back(PERM_PAIR(false, pdPrivPermHighPrint));
 
     ////////////////////////////////
     ////Open/Save                 //
     ////////////////////////////////
-    //The user can open and decrypt the document.
+    //The user can open and decrypt the document. This will have no effect if a user password is not set.
     permList.push_back(PERM_PAIR(false, pdPermOpen));
-    //The user can perform a Save As.... If both pdPermEdit and pdPermEditNotes are disallowed, Save will be disabled but Save As... will be enabled. The Save As... menu item is not necessarily disabled even if the user is not permitted to perform a Save As....
+    //Enables Save As..., with the followng caveats: if both pdPermEdit and pdPermEditNotes are disallowed, Save will be disabled but Save As... will be enabled. The Save As... menu item is not necessarily disabled even if this is set to false!
     permList.push_back(PERM_PAIR(false, pdPermSaveAs));
 
     ////////////////////////////////
     ////Security                  //
     ////////////////////////////////
-    //The user can change the document's security settings.
+    //The user can change the document's security settings. This will have no effect unless an owner password is set.
     permList.push_back(PERM_PAIR(false, pdPermSecure));
-    //Sets these four permissions to true: pdPermPrint, pdPermEdit, pdPermCopy, pdPermEditNotes.
-    permList.push_back(PERM_PAIR(false, pdPermSettable));
-
-    ////////////////////////////////
-    ////Templates                 //
-    ////////////////////////////////
-    //This should be set if the user can spawn template pages. This bit will allow page template spawning even if pdPermEdit and pdPermEditNotes are clear.
-    permList.push_back(PERM_PAIR(false, pdPrivPermFormSpawnTempl));
 
     DURING
 
@@ -119,7 +111,7 @@ int main(int argc, char** argv)
         StdSecurityData securityData = (StdSecurityData)PDDocNewSecurityData(document);    //...and create it.
         securityData->size = sizeof(StdSecurityDataRec);
 
-        //Our output will have no password to open it. See Samples "AddPassword" and "LockDocument" for password demonstration.
+        //See the sample Encryption for a demonstration of user passwords.
         securityData->hasUserPW = false;
 
         //The permissions of the document will not be able to be changed back unless the user supplies this password.
