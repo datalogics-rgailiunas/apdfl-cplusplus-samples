@@ -50,9 +50,9 @@ int main(int argc, char** argv)
     memset(&watermarkOptions, 0, sizeof(PDDocAddWatermarkParamsRec));
     watermarkOptions.size = sizeof(PDDocAddWatermarkParamsRec);
 
-    /////////////////////
-    //Display options. //
-    /////////////////////
+    ////////////////////////////
+    //Display options.        //
+    ////////////////////////////
     watermarkOptions.targetRange  = {0,1,PDAllPages};                    //A list-initialized PDPageRange. The first page to watermark is 0, the last page is 1, and we'll add a watermark to every page in the range.
     watermarkOptions.zOrderTop    = false;                               //Watermarks will be added to the background of the page, not on top.
     
@@ -60,9 +60,9 @@ int main(int argc, char** argv)
     watermarkOptions.showOnPrint  = false;                               //..but will not show up if the PDF is printed.
     watermarkOptions.fixedPrint   = false;                               //Watermarks will not be a fixed print watermark, meaning it changes its size and position based on the target media's dimensions, if necessary.
 
-    ///////////////////////
-    //Placement options. //
-    ///////////////////////
+    ////////////////////////////
+    //Placement options.      //
+    ////////////////////////////
     watermarkOptions.horizAlign = kPDHorizCenter;                        //Watermarks will be horizontally aligned at the center of the page.
     watermarkOptions.horizValue = 0.0f;                                  //No horizontal offset.
 
@@ -91,23 +91,25 @@ int main(int argc, char** argv)
 //Step 2) Set the text watermark parameters struct.
 //
 // Note: This struct is only used by the text watermark. This will be a little more involved, as we have resource creation to do. We must:
-//     1) Create an ASText object for our watermark text.
-//     2) Load a font for it.
-//     3) Create a PDColorValueRec which specifies the color of the text.
+//     a) Create an ASText object for our watermark text.
+//     b) Load a font for it.
+//     c) Create a PDColorValueRec which specifies the color of the text.
 //=======================================================================================================================================================================================================================
 
     PDDocWatermarkTextParamsRec textWatermarkOptions;
     memset(&textWatermarkOptions, 0, sizeof(PDDocWatermarkTextParamsRec));
     textWatermarkOptions.size = sizeof(PDDocWatermarkTextParamsRec);
 
-    //1) The text.
-
+    ////////////////
+    //The text.   //
+    ////////////////
     ASText text = ASTextFromUnicode((ASUTF16Val*)"Copyright (c) 2015, Datalogics, Inc.", kUTF8);    //This is possible because ASCII is equivalent to UTF-8.
     textWatermarkOptions.srcText = text;
     textWatermarkOptions.textAlign = kPDHorizCenter;                                                //The text will be horizontally aligned with the page.
 
-    //2) The font.
-
+    ////////////////
+    //The font.   //
+    ////////////////
     PDEFontAttrs fontAttrs;
     memset(&fontAttrs, 0, sizeof(fontAttrs));
 
@@ -121,8 +123,9 @@ int main(int argc, char** argv)
     textWatermarkOptions.sysFontName = fontAttrs.name;
     textWatermarkOptions.fontSize = 14.0f;
 
-    //3) The color.
-
+    ////////////////
+    //The color.  //
+    ////////////////
     PDColorValueRec color;
     color.space = PDDeviceRGB;
     color.value[0] = fixedZero;  //Red value.
