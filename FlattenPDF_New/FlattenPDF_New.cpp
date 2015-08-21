@@ -115,8 +115,8 @@ int main(int argc, char** argv)
         flattener.tilingMode  = 1;                                                             //See the definition; 1 is constant tiling, 2 is adaptive tiling.
         flattener.tileSizePts = 20;                                                            //Target tile size, in points.
 
-        flattener.internalDPI = 10.0f;                                                         //Resolution for flattening the interior of an atomic region.
-        flattener.externalDPI = 10.0f;                                                         //Resolution for flattening edges of atomic regions.
+        flattener.internalDPI = 800.0f;                                                        //Resolution for flattening the interior of an atomic region.
+        flattener.externalDPI = 200.0f;                                                        //Resolution for flattening edges of atomic regions.
 
         flattener.clipComplexRegions = false;                                                  //If complex regions should be clipped.
         flattener.strokeToFill       = true;                                                   //If we convert stroked elements to filled elements.
@@ -146,7 +146,7 @@ int main(int argc, char** argv)
                                        &flattenParams);                           //Flattener options.
 
         if(result)
-            std::wcout << L"I flattened " << result << " pages." << std::endl;
+            std::wcout << L"I flattened " << numFlattened << " pages." << std::endl;
         else
         {
             std::wcout << L"Flattening failed." << std::endl;
