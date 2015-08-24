@@ -5,7 +5,7 @@
 //===========================================================================
 // Sample: CreateLayers - Creates two layers in a pdf that will each contain  
 //                        and display text and annotations.
-//                      
+//
 // Steps:
 //  1) Create a pdf document and extract its content.
 //  2) Add text to the page and set what layer they belong to.
@@ -14,13 +14,15 @@
 //===========================================================================
 
 #include <iostream>
+
+#include "InitializeLibrary.h"
+#include "APDFLDoc.h"
+
 #include "PSFCalls.h"
 #include "PERCalls.h"
 #include "PEWCalls.h"
 #include "PagePDECntCalls.h"
 #include "CosCalls.h"
-#include "APDFLDoc.h"
-#include "InitializeLibrary.h"
 
 //A function that places text onto a given position in a PDF.
 PDEText textMaker(std::string displayText, double xPos, double yPos);
@@ -98,8 +100,8 @@ int main(int argc, char** argv)
         //By calling the textMaker function, place the following text at the given location.
         PDEText displayText1 = textMaker("All the text on this page will be placed in it's own layer", 72 * 1, 72 * 10);
         PDEText displayText2 = textMaker("Whereas the attachments will appear in a separate layer", 72 * 1, 72 * 9.75);
-        PDEText displayText3 = textMaker("There will be a .xlsx file attachment to the right", 72 * 1, 72 * 8);
-        PDEText displayText4 = textMaker("There will be a .docx file attachment to the right", 72 * 1, 72 * 7);
+        PDEText displayText3 = textMaker("There will be an annotation to the right.", 72 * 1, 72 * 8);
+        PDEText displayText4 = textMaker("There will be an annotation to the right.", 72 * 1, 72 * 7);
 
         PDEContent texts = PDEContentCreate();
 
@@ -133,7 +135,7 @@ int main(int argc, char** argv)
         //Set up the bounds for the first annotation, where 72 represents an inch.
         ASFixedRect annotLocation;
         annotLocation.left = ASFloatToFixed(5.50 * 72);
-        annotLocation.right = ASFloatToFixed(6.00 * 72);
+        annotLocation.right = ASFloatToFixed(5.00 * 72);
         annotLocation.top = ASFloatToFixed(8.20 * 72);
         annotLocation.bottom = ASFloatToFixed(7.70 * 72);
 
@@ -146,7 +148,7 @@ int main(int argc, char** argv)
 
         //Move the bounds for the second annotation.
         annotLocation.left = ASFloatToFixed(5.50 * 72);
-        annotLocation.right = ASFloatToFixed(6.00 * 72);
+        annotLocation.right = ASFloatToFixed(5.00 * 72);
         annotLocation.top = ASFloatToFixed(7.20 * 72);
         annotLocation.bottom = ASFloatToFixed(6.70 * 72);
 
