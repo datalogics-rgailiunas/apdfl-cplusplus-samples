@@ -20,10 +20,7 @@
 #include "InitializeLibrary.h"
 #include "ASExtraCalls.h"
 #include "PDFInit.h"
-#include "PDFLCalls.h"
-#include "PDExpT.h"
 #include "PDCalls.h"
-
 
 //The password we will try is stored statically because openAuthorizationProcedure is static. Note that the password cannot be a wchar_t*.
 static char* password = "";
