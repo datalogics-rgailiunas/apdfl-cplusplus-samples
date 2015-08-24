@@ -38,10 +38,10 @@ ASBool destroyOptionalContentGroups(PDOCG ocg, void *clientData);
 
 int main(int argc, char** argv)
 {
-    APDFLib libInit;                                     //Initialize the Adobe PDF Library.
-    ASErrorCode errCode = 0;                             //Variable used to report any exceptions/errors if they occured.
+    APDFLib libInit;                                            //Initialize the Adobe PDF Library.
+    ASErrorCode errCode = 0;                                    //Variable used to report any exceptions/errors if they occured.
 
-    if (libInit.isValid() == false)                      //If there was a problem in initialization, return the error code.
+    if (libInit.isValid() == false)                             //If there was a problem in initialization, return the error code.
         return libInit.getInitError();
 
     DURING
@@ -72,7 +72,7 @@ int main(int argc, char** argv)
 // Step 2) Initialize the PDFLattener plugin.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        gPDFlattenerHFT = InitPDFlattenerHFT;    //Sets the correct location for the PDFlattener function table.
+        gPDFlattenerHFT = InitPDFlattenerHFT;                                              //Sets the correct location for the PDFlattener function table.
 
         if (!PDFlattenerInitialize())
         {
@@ -213,7 +213,8 @@ ASBool destroyOptionalContentGroups(PDOCG ocg, void *clientData)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ASBool flattenerProgMon(ASInt32 pageNum, ASInt32 totalPages, float current, ASInt32 reserved, void *clientData)
 {
-    ASInt32* prevPage = (ASInt32*)clientData; //The previous page we were working on.
+    //The previous page we were working on.
+    ASInt32* prevPage = (ASInt32*)clientData;
 
     //If we've begun a new page, or if we've finished.
     if (pageNum != (*prevPage) || current == 100.0f)
