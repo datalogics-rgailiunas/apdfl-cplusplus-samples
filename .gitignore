@@ -10,6 +10,9 @@
 !_Input/*.pdf
 *.bat
 !All/*.bat
+ExtractAttachments/*.docx
+ExtractAttachments/*.jpg
+ExtractAttachments/*.png
 
 # Build results
 [Dd]ebug/
