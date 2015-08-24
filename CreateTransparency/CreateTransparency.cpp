@@ -70,19 +70,14 @@ int main(int argc, char** argv)
         //All twelve blend modes available in APDFL. See the Adobe PDF Reference, sixth edition, section 7.2.4, table 7.2 for a description of each.
         //The reference is available here: http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/pdf_reference_1-7.pdf
         std::vector<char*> blendModes {
-            "ColorBurn",  "ColorDodge", "Darken",
-            "Difference", "Exclusion",  "HardLight",
-            "Lighten",    "Multiply",   "Normal",
-            "Overlay",    "Screen",     "SoftLight",
+            "Opaque (None)",                                                          //Not a blend mode; we'll use the first page for no transparencies.
+            "Normal", "Multiply", "Screen",
+            "Overlay", "Darken", "Lighten",
+            "ColorDodge", "ColorBurn", "HardLight",
+            "SoftLight", "Difference", "Exclusion"
         };
-        
-        int NUM_PAGES = blendModes.size();                                            //A page to demonstrate each blend mode!
 
-        //Make a page for each blend mode.
-        for (int i = 0; i < NUM_PAGES; ++i)
-        {
-            doc.insertPage(pageLength, pageHeight, PDBeforeFirstPage);
-        }
+        int NUM_PAGES = blendModes.size();                                            //A page to demonstrate each blend mode!
 
         std::wcout << L"Titling each page." << std::endl;
 
@@ -103,9 +98,11 @@ int main(int argc, char** argv)
         textMatrix.h = (0.25 * 72.0);                                                 //This will place the text 1/4 of an inch from the left margin.
         textMatrix.v = (ASFixedToFloat(pageHeight) - (0.20 *  72.00) - fontSize);     //This will place the text 1/5 of an inch from the top margin, adjusting for font size.
 
-        //Now place each page title.
+        //Now create each page, and place each page title.
         for (int i = 0; i < NUM_PAGES; i++)
         {
+            doc.insertPage(pageLength, pageHeight, PDDocGetNumPages(doc.getPDDoc())-1);
+
             PDEText textObj = PDETextCreate();                                        //Title text will be added to this object, which will be set into the page's content.
 
             std::stringstream title;
@@ -120,7 +117,7 @@ int main(int argc, char** argv)
                 &textMatrix,                                                          //The size and location of the text.
                 NULL);                                                                //Default the stroke matrix.
 
-            PDPage outPage = doc.getPage(i);
+            PDPage outPage = doc.getPage(PDDocGetNumPages(doc.getPDDoc())-1);
             PDEContent pagecontent = PDPageAcquirePDEContent(outPage, 0);
 
             PDEContentAddElem(pagecontent,kPDEBeforeFirst, (PDEElement)(textObj));    //Add the text element to the page's content.
@@ -141,39 +138,42 @@ int main(int argc, char** argv)
 
         std::wcout << L"Creating the basic shape prototype." << std::endl;
 
-        //First we define the shape we'll use as a base. We'll make squares.
+        //First we define the shape we'll use as a base. We'll make circles.
 
-        ASFixed squareLength = FloatToASFixed(2.0  * 72.0);                                         //The length of each square, in inches. Here, two inches.
+        ASFixed diameter = FloatToASFixed(2.0  * 72.0);                                         //The diameter of each circle, in inches. Here, two inches.
 
         //Now we want to define how the shapes will be positioned relative to each other, by making position deltas (or vectors, if you prefer) for each.
-        ASFixed delta = (squareLength / 4);                                                         //We'll scale the deltas/vectors to the size of the actual shape.
+        ASFixed delta = (diameter / 4);                                                         //We'll scale the deltas/vectors to the size of the actual shape.
         //                                     shape 1       shape 2        shape 3
         ASFixed delta_x[NUM_BLENDING_SHAPES] { 1.25 * delta,  0.00 * delta, -1.25 * delta };
         ASFixed delta_y[NUM_BLENDING_SHAPES] { 0.25 * delta, -1.25 * delta, -0.25 * delta };
 
         //Now we can create the basic shape's prototype.
 
-        PDEContent singleShapeContent = PDEContentCreate();                                         //We'll put our square into this content object, which will be converted into a PDEForm object.
+        PDEContent singleShapeContent = PDEContentCreate();                                     //We'll put our circle into this content object, which will be converted into a PDEForm object.
 
-        //Make a rectangle shape.
+        //Make a circle shape.
         PDEPath shapePath = PDEPathCreate();
+        ASFixed radius = diameter / 2;
+        ASFixed handleLength = FloatToASFixed (ASFixedToFloat (diameter) * 0.66666);
         PDEPathSetPaintOp(shapePath, kPDEFill);
-        PDEPathAddSegment(shapePath, kPDERect, fixedZero, fixedZero, squareLength, squareLength,    //The rectangle's x1, y1, width, and height.
-            0, 0);                                                                                  //unused for kPDERect.
+        PDEPathAddSegment(shapePath, kPDEMoveTo, -radius, 0, 0, 0, 0, 0);
+        PDEPathAddSegment(shapePath, kPDECurveTo, -radius, handleLength, radius, handleLength, radius, 0);
+        PDEPathAddSegment(shapePath, kPDECurveTo, radius, -handleLength, -radius, -handleLength, -radius, 0);
 
-        //Give the rectangle its graphics state. This graphics state will be re-used for the triads.
+        //Give the circle its graphics state. This graphics state will be re-used for the triads.
         PDEGraphicState shapeGState;
         PDEDefaultGState(&shapeGState, sizeof(PDEGraphicState));
-        shapeGState.wasSetFlags = 0;                                                                //We haven't added anything special to this graphics state yet.
+        shapeGState.wasSetFlags = 0;                                                            //We haven't added anything special to this graphics state yet.
         PDEElementSetGState((PDEElement)shapePath, &shapeGState, sizeof(shapeGState));
 
-        //The square's complete. Add it to our content object.
+        //The circle's complete. Add it to our content object.
         PDEContentAddElem(singleShapeContent, kPDEBeforeFirst, (PDEElement)shapePath);
         PDERelease((PDEObject)shapePath);
 
-        //Convert the content containing our square into a PDEForm.
+        //Convert the content containing our circle into a PDEForm.
         PDDoc pdoc = doc.getPDDoc();
-        PDEForm singleShape = contentToForm(singleShapeContent, 1, pdoc);                           //This is the basic shape prototype.
+        PDEForm singleShape = contentToForm(singleShapeContent, 1, pdoc);                      //This is the basic shape prototype.
         PDERelease((PDEObject)singleShapeContent);
 
 //=================================================================================================================================================================================================
@@ -208,7 +208,8 @@ int main(int argc, char** argv)
                 shapeGState.fillColorSpec.value.color[0] = (i == 0 ? fixedOne : fixedZero);       //Red/Cyan value.
                 shapeGState.fillColorSpec.value.color[1] = (i == 1 ? fixedOne : fixedZero);       //Green/Magenta value.
                 shapeGState.fillColorSpec.value.color[2] = (i == 2 ? fixedOne : fixedZero);       //Blue/Yellow value.
-                shapeGState.wasSetFlags |= kPDEFillCValueWasSet;                                  //CMYK also has a fourth component, Key (Black). But we will not use it.
+                shapeGState.fillColorSpec.value.color[3] = fixedZero;                             //CMYK also has a fourth component, Key (Black). But we will not use it.
+                shapeGState.wasSetFlags |= kPDEFillCValueWasSet;
 
                 //Set the position and graphics state of this triad.
                 PDEElementSetMatrix((PDEElement)nextShape, &shapePosition);
@@ -239,29 +240,33 @@ int main(int argc, char** argv)
             PDPage outPage = doc.getPage(i);
             PDEContent pagecontent = PDPageAcquirePDEContent(outPage, 0);
 
-            //The PDEExtGState determines the transparency and blending mode of whatever PDEGraphicsState object it is set to.
-            PDEExtGState shapeExtGState = PDEExtGStateCreateNew(PDDocGetCosDoc(pdoc));
-            PDEExtGStateSetOpacityFill(shapeExtGState, fixedThreeQuarters);                             //Each shape will have 3/4 transparency.
-            PDEExtGStateSetBlendMode(shapeExtGState, ASAtomFromString(blendModes[i]));                  //This will correspond to the title on the page.
+            //The first blend mode, "Opaque", is not actually a blend mode, but is used to demonstrate the absence of blend modes.
+            if (i != 0)
+            {
+                //The PDEExtGState determines the transparency and blending mode of whatever PDEGraphicsState object it is set to.
+                PDEExtGState shapeExtGState = PDEExtGStateCreateNew(PDDocGetCosDoc(pdoc));
+                PDEExtGStateSetOpacityFill(shapeExtGState, fixedThreeQuarters);                         //Each shape will have 3/4 transparency.
+                PDEExtGStateSetBlendMode(shapeExtGState, ASAtomFromString(blendModes[i]));              //This will correspond to the title on the page.
 
-            shapeGState.extGState = shapeExtGState;
-            shapeGState.wasSetFlags |= kPDEExtGStateWasSet;
+                shapeGState.extGState = shapeExtGState;
+                shapeGState.wasSetFlags |= kPDEExtGStateWasSet;
+            }
 
             PDEElementSetGState((PDEElement)rgbTriad,  &shapeGState, sizeof(PDEGraphicState));
             PDEElementSetGState((PDEElement)cmykTriad, &shapeGState, sizeof(PDEGraphicState));
 
             //Position and set the RGB triad.
             ASFixedMatrix rgbPosition  = { fixedOne, 0, 0, fixedOne, 0, 0 };
-            rgbPosition.h = rightHalfCenter_X - squareLength / 2;
-            rgbPosition.v = rightHalfCenter_Y - squareLength / 2;
+            rgbPosition.h = rightHalfCenter_X;
+            rgbPosition.v = rightHalfCenter_Y;
 
             PDEElementSetMatrix((PDEElement)rgbTriad, &rgbPosition);
             PDEContentAddElem(pagecontent, kPDEBeforeFirst, (PDEElement)rgbTriad);
 
             //Position and set the CMYK triad.
             ASFixedMatrix cmykPosition = { fixedOne, 0, 0, fixedOne, 0, 0 };
-            cmykPosition.h = leftHalfCenter_X - squareLength / 2;
-            cmykPosition.v = leftHalfCenter_Y - squareLength / 2;
+            cmykPosition.h = leftHalfCenter_X;
+            cmykPosition.v = leftHalfCenter_Y;
 
             PDEElementSetMatrix((PDEElement)cmykTriad, &cmykPosition);
             PDEContentAddElem(pagecontent, kPDEBeforeFirst, (PDEElement)cmykTriad);
