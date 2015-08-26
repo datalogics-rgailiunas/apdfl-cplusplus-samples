@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{EC3EF969-ABF4-435D-A96F-31CF25F34307}</ProjectGuid>
+    <ProjectGuid>{A2575B7E-CCA9-42E4-8449-330BB89437AA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>AddBookmarks</RootNamespace>
   </PropertyGroup>

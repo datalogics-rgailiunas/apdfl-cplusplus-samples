@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{EC3EF969-ABF4-435D-A96F-31CF25F34307}</ProjectGuid>
+    <ProjectGuid>{82006940-7ECC-454B-A571-B3854C407D25}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>AddText</RootNamespace>
   </PropertyGroup>

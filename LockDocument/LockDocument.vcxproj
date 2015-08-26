@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{EC3EF969-ABF4-435D-A96F-31CF25F34307}</ProjectGuid>
+    <ProjectGuid>{60609083-04E5-4635-99F5-25C8C5B818A0}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>LockDocument</RootNamespace>
   </PropertyGroup>

@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{EC3EF969-ABF4-435D-A96F-31CF25F34307}</ProjectGuid>
+    <ProjectGuid>{4184B1FF-6865-439F-89B3-7FAAC161E0DF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>AddPageNumbers</RootNamespace>
   </PropertyGroup>
