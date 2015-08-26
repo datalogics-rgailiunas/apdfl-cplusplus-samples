@@ -64,17 +64,17 @@ int main(int argc, char** argv)
         // Appearance options.      //
         //////////////////////////////
 
-        flattenParams.profileDesc      = ASTextFromUnicode((ASUTF16Val*)"DeviceRGB",kUTF8);    //This color space will be used for transparent objects. This translation works because ASCII is equivalent to UTF-8.
-        flattenParams.colorCompression = kPDFlattenerJpegCompression;                          //The ZIP compression scheme (Flate encoding) for images.
-        flattenParams.transQuality     = 000.0f;                                               //Raster/Vector balance. Use 0.00f for no vectors.
+        flattenParams.profileDesc = ASTextFromUnicode((ASUTF16Val*)"sRGB IEC61966-2.1", kUTF8);    //A profiled color space to use for transparent objects. For CMYK, use "U.S. Web Coated (SWOP)v2".
+        flattenParams.colorCompression = kPDFlattenerZipCompression;                               //The ZIP compression scheme (Flate encoding) for images.
+        flattenParams.transQuality     = 100.0f;                                                   //Raster/Vector balance. Use 0.00f for no vectors.
 
         //////////////////////////////
         // Callback options.        //
         //////////////////////////////
 
         ASInt32 currentPage = -1;
-        flattenParams.progressClientData = (void*)&currentPage;                                //progmon callback data. I'm using this data to store the previous page the Flattener was working on, using -1 as "hasn't begun yet".
-        flattenParams.flattenProgress    = flattenerProgMon;                                   //The progress monitor callback function.
+        flattenParams.progressClientData = (void*)&currentPage;                                    //Progress monitor callback data. I'm using this data to store the previous page the Flattener was working on, using -1 as "hasn't begun yet".
+        flattenParams.flattenProgress    = flattenerProgMon;                                       //The progress monitor callback function.
 
 
         //////////////////////////////
@@ -84,22 +84,22 @@ int main(int argc, char** argv)
         memset(&flattener,0,sizeof (PDFlattenRec));
         flattener.size = sizeof(PDFlattenRec);
 
-        flattener.tilingMode  = 1;                                                             //See the definition; 1 is constant tiling, 2 is adaptive tiling.
-        flattener.tileSizePts = 20;                                                            //Target tile size, in points.
+        flattener.tilingMode  = kPDNoTiling;                                                       //The tiling mode.
+        flattener.tileSizePts = 0;                                                                 //Target tile size, in points.
 
-        flattener.internalDPI = 800.0f;                                                        //Resolution for flattening the interior of an atomic region.
-        flattener.externalDPI = 200.0f;                                                        //Resolution for flattening edges of atomic regions.
+        flattener.internalDPI = 800.0f;                                                            //Resolution for flattening the interior of an atomic region.
+        flattener.externalDPI = 200.0f;                                                            //Resolution for flattening edges of atomic regions.
 
-        flattener.clipComplexRegions = false;                                                  //If complex regions should be clipped.
-        flattener.strokeToFill       = true;                                                   //If we convert stroked elements to filled elements.
-        flattener.useTextOutlines    = true;                                                   //If we use rastered text instead of native text.
-        flattener.preserveOverprint  = true;                                                   //If we attempt to preserve overprint
+        flattener.clipComplexRegions = false;                                                      //If complex regions should be clipped.
+        flattener.strokeToFill       = true;                                                       //If we convert stroked elements to filled elements.
+        flattener.useTextOutlines    = false;                                                      //If we use rastered text instead of native text.
+        flattener.preserveOverprint  = true;                                                       //If we attempt to preserve overprint
 
-        flattener.allowShadingOutput       = false;                                            //Allow shading output.
-        flattener.allowLevel3ShadingOutput = false;                                            //Allow level 3 shading output.
+        flattener.allowShadingOutput       = true;                                                //Allow shading output.
+        flattener.allowLevel3ShadingOutput = true;                                                //Allow level 3 shading output.
 
-        flattener.maxFltnrImageSize = 0;                                                       //Maximum image size while flattening. 0 is default.
-        flattener.adaptiveThreshold = 0;                                                       //Adaptive flattening threshold. Doesn't matter, since we're not doing adaptive tiling. See tilingMode.
+        flattener.maxFltnrImageSize = 0;                                                           //Maximum image size while flattening. 0 is default.
+        flattener.adaptiveThreshold = 0;                                                           //Adaptive flattening threshold. Doesn't matter, since we're not doing adaptive tiling. See tilingMode.
 
         flattenParams.flattenParams = &flattener;
 
