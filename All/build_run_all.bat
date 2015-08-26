@@ -166,7 +166,7 @@ REM *** 3) Decide which samples to run.
 REM *************************************************
 
 REM *** This needs to be accurate, of course.
-SET /A "NUM_SAMPLES=41"
+SET /A "NUM_SAMPLES=45"
 
 REM *** The lists of samples to process (<samplename> in the description at the top).
 
@@ -175,13 +175,15 @@ SET "DL_SAMPLE_LIST=("
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddArt AddAttachment AddBookmarks
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddContent AddDocumentInformation AddLinks
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddPageNumbers AddPassword AddRedaction
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddWatermark ExtractDocumentInfo  RasterizeCopy
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddText CopyContent CreateDocument
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% EncryptDocument ExtractAttachments ExtractText LockDocument
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% MergePDF OpenEncrypted SetUniquePermissions
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% SplitPDF TextSearch WebOptimizedPDF
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% UnicodeNew
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
 REM *** This needs to be accurate, of course.
-SET /A "NUM_DL_SAMPLES=22"
+SET /A "NUM_DL_SAMPLES=26"
 REM *** Di iterates over Datalogics samples.
 SET /A "Di=0"
 
