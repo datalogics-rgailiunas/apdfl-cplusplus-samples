@@ -53,7 +53,7 @@ int main(int argc, char** argv)
         APDFLDoc doc;                                                                 //APDFLDoc's constructor creates a new, pageless document.
 
         ASFixed pageLength   = ASFloatToFixed(10.0 * 72.0);                           //Each page will be 10 inches wide.
-        ASFixed pageHeight   = ASFloatToFixed(4.25  * 72.0);                          //Each page will be 4.25 inches high.
+        ASFixed pageHeight   = ASFloatToFixed(4.25 * 72.0);                          //Each page will be 4.25 inches high.
 
         //As long as we're on the page dimensions, we're going to need these calculations to place the triads later on.
         ASFixed pageCenter_X = (pageLength / 2);
@@ -141,12 +141,13 @@ int main(int argc, char** argv)
         //First we define the shape we'll use as a base. We'll make circles.
 
         ASFixed diameter = FloatToASFixed(2.0  * 72.0);                                         //The diameter of each circle, in inches. Here, two inches.
+        ASFixed radius = diameter / 2;
+        ASFixed threeFourthsRadius = (ASFloatToFixed(3.0f)*radius) / ASFloatToFixed(4.0f);
 
         //Now we want to define how the shapes will be positioned relative to each other, by making position deltas (or vectors, if you prefer) for each.
-        ASFixed delta = (diameter / 4);                                                         //We'll scale the deltas/vectors to the size of the actual shape.
-        //                                     shape 1       shape 2        shape 3
-        ASFixed delta_x[NUM_BLENDING_SHAPES] { 1.25 * delta,  0.00 * delta, -1.25 * delta };
-        ASFixed delta_y[NUM_BLENDING_SHAPES] { 0.25 * delta, -1.25 * delta, -0.25 * delta };
+        //                                     shape 1                      shape 2  shape 3
+        ASFixed delta_x[NUM_BLENDING_SHAPES] { radius - threeFourthsRadius, 0.00,    (radius/2) - threeFourthsRadius};
+        ASFixed delta_y[NUM_BLENDING_SHAPES] { 0.00,                        0.00,    -radius };
 
         //Now we can create the basic shape's prototype.
 
@@ -154,7 +155,6 @@ int main(int argc, char** argv)
 
         //Make a circle shape.
         PDEPath shapePath = PDEPathCreate();
-        ASFixed radius = diameter / 2;
         ASFixed handleLength = FloatToASFixed (ASFixedToFloat (diameter) * 0.66666);
         PDEPathSetPaintOp(shapePath, kPDEFill);
         PDEPathAddSegment(shapePath, kPDEMoveTo, -radius, 0, 0, 0, 0, 0);
@@ -200,8 +200,7 @@ int main(int argc, char** argv)
 
                 //Set the position for this shape.
                 ASFixedMatrix shapePosition = { fixedOne, 0, 0, fixedOne, 0, 0 };
-                int symmetry    = ((nextContent == &cmykContent) ? -1 : 1);                       //This is used to achieve symmetry between the two triads on the page.
-                shapePosition.h = symmetry * delta_x[i];
+                shapePosition.h = delta_x[i];
                 shapePosition.v = delta_y[i];
 
                 //Set the graphics state of this shape. The conditional values are used to easily create three shapes of different colors.
