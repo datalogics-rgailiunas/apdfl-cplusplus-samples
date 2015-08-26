@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{5D04558C-183A-4ECC-80C8-542A9FDD72D2}</ProjectGuid>
+    <ProjectGuid>{EC3EF969-ABF4-435D-A96F-31CF25F34307}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>AddWatermark</RootNamespace>
   </PropertyGroup>
