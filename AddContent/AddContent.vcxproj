@@ -85,14 +85,21 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
+<<<<<<< HEAD
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+=======
+      <PrecompiledHeader />
+>>>>>>> 9db01319ccae8dc7ace973a84edd37ae07e2f97b
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CONSOLE;_DEBUG;DEBUG;_WIN32;WIN32;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";PI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\_Common\Init;..\_Common\APDFLDoc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+<<<<<<< HEAD
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
+=======
+>>>>>>> 9db01319ccae8dc7ace973a84edd37ae07e2f97b
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -103,14 +110,21 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
+<<<<<<< HEAD
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+=======
+      <PrecompiledHeader />
+>>>>>>> 9db01319ccae8dc7ace973a84edd37ae07e2f97b
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CONSOLE;_DEBUG;DEBUG;_WIN64;WIN64;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";PI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\_Common\Init;..\_Common\APDFLDoc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+<<<<<<< HEAD
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
+=======
+>>>>>>> 9db01319ccae8dc7ace973a84edd37ae07e2f97b
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,14 +135,21 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
+<<<<<<< HEAD
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+=======
+      <PrecompiledHeader />
+>>>>>>> 9db01319ccae8dc7ace973a84edd37ae07e2f97b
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CONSOLE;WIN32;WIN32;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";PI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\_Common\Init;..\_Common\APDFLDoc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+<<<<<<< HEAD
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
+=======
+>>>>>>> 9db01319ccae8dc7ace973a84edd37ae07e2f97b
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,14 +160,21 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
+<<<<<<< HEAD
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+=======
+      <PrecompiledHeader />
+>>>>>>> 9db01319ccae8dc7ace973a84edd37ae07e2f97b
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CONSOLE;WIN64;WIN64;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";PI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\_Common\Init;..\_Common\APDFLDoc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+<<<<<<< HEAD
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
+=======
+>>>>>>> 9db01319ccae8dc7ace973a84edd37ae07e2f97b
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
