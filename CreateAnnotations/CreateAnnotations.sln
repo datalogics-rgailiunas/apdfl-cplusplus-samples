@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Annotations", "Annotations.vcxproj", "{09AA9892-256F-49FD-8C8A-8B35685E6B94}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreateAnnotations", "CreateAnnotations.vcxproj", "{09AA9892-256F-49FD-8C8A-8B35685E6B94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

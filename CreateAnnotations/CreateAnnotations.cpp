@@ -3,25 +3,24 @@
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 //==============================================================================
-// Sample: Annotations - Demonstrates adding annotations, flattening them, and
-//             extracting their content.
+// Sample: Annotations - Demonstrates adding annotations and extracting their
+//             content.
 //
 // Note:
 // This sample annotates all the PDEElements of the input document (it
 // highlights the text and adds a text annotation to everything else),
-// flattens half of those annotations, and then extracts the text of
-// the annotations into a new PDF document.
+// and then extracts the text of the annotations into a new PDF document.
 //
 // Steps:
 // 1) Create a layer for the annotations.
 // 2) Create an annotation for each PDEElement on the page.
-// 3) Flatten half of them.
-// 4) Save the document and close it.
-// 5) Extract the annotations' text content into a new document.
+// 3) Save the document and close it.
+// 4) Extract the annotations' text content into a new document.
 //==============================================================================
 
 #include <vector>
 #include <sstream>
+#include <map>
 
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
@@ -32,6 +31,7 @@
 #include "PagePDECntCalls.h"
 #include "DLExtrasCalls.h"
 #include "CosCalls.h"
+#include "ASExtraVers.h"
 
 //void function: Searches through a PDEContent object, and the PDEContents of its PDEContainer, PDEgroup, and PDEForm objects, adding all PDEElements to a list.
 void extractPDEElements(PDEContent* c, std::vector<PDEElement>* list);
@@ -49,7 +49,7 @@ int main(int argc, char** argv)
 
     DURING
 
-        APDFLDoc doc(L"../_Input/Annotations.pdf", true);    //Open the input document, repairing it if necessary.
+        APDFLDoc doc(L"../_Input/CreateAnnotations.pdf", true);    //Open the input document, repairing it if necessary.
 
     //We will add text annotations.
 
@@ -225,20 +225,7 @@ int main(int argc, char** argv)
 
 
 //===================================================================================================================================================================================
-// 3) Flatten half of them.
-//===================================================================================================================================================================================
-
-    std::wcout << L"Flattening half of them." << std::endl;
-
-    //Now that we've added the annots, we will flatten HALF of them.
-    //Instead of adding it flat to begin with. To demonstrate the iteration of it with an already annotated doc.
-    ASInt32 numAnnots = PDPageGetNumAnnots(inPage);
-    for (int i = 0; i < numAnnots; ++i)
-        if (i % 2)                                           //We'll only flatten half the annotations, so that a difference is demonstrated.
-            PDAnnotRemoveOCMD(PDPageGetAnnot(inPage, i));
-
-//===================================================================================================================================================================================
-// 4) Save the document and close it.
+// 3) Save the document and close it.
 //
 // Note: We want it closed so we can re-open it for annotation content extraction.
 //===================================================================================================================================================================================
@@ -251,7 +238,7 @@ int main(int argc, char** argv)
     //APDFLDoc's destructor takes care of closing the document and releasing the rest of the resources.
 
 //===================================================================================================================================================================================
-// 5) Extract the annotations' text content into a new document.
+// 4) Extract the annotations' text content into a new document.
 //===================================================================================================================================================================================
 
     std::wcout << L"Extracting the annotations to a new document." << std::endl;
@@ -279,11 +266,11 @@ int main(int argc, char** argv)
     PDEGraphicState graphics;
     PDEDefaultGState(&graphics, sizeof(PDEGraphicState));
 
-    int maxDigits = log10((double)numAnnots) + 1;                            //The maximum number of digits of n that the nth text annotation can have. Used to pad the text string.
+    int maxDigits = log10((double)PDPageGetNumAnnots(annotPage)) + 1;                            //The maximum number of digits of n that the nth text annotation can have. Used to pad the text string.
     int numTextAnnots = 0;                                                   //The number of annotations actually containing textual content, updated as we go along.
 
     //Extract each annotation's text content (if any) into our text object.
-    for (int i = 0; i < numAnnots; ++i)
+    for (int i = 0; i < PDPageGetNumAnnots(annotPage); ++i)
     {
         PDAnnot next = PDPageGetAnnot(annotPage, i);
 
