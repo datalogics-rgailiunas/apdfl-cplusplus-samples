@@ -12,10 +12,9 @@
 // and then extracts the text of the annotations into a new PDF document.
 //
 // Steps:
-// 1) Create a layer for the annotations.
-// 2) Create an annotation for each PDEElement on the page.
-// 3) Save the document and close it.
-// 4) Extract the annotations' text content into a new document.
+// 1) Create an annotation for each PDEElement on the page.
+// 2) Save the document and close it.
+// 3) Extract the annotations' text content into a new document.
 //==============================================================================
 
 #include <vector>
@@ -57,32 +56,7 @@ int main(int argc, char** argv)
     PDPage inPage = doc.getPage(0);
 
 //===================================================================================================================================================================================
-// 1) Create a layer for the annotations.
-//===================================================================================================================================================================================
-
-    //To create layers, we must supply a null-terminated array of PDOCGs to PDOCMDCreate.
-    ASText layerName = ASTextFromUnicode((ASUTF16Val*)"Annotations", kUTF8);
-    PDOCG layerray[] {
-        PDOCGCreate(doc.getPDDoc(), layerName),
-        NULL
-    };
-
-    //Set the layer's initial state to visible.
-    PDOCConfig conf = PDDocGetOCConfig(doc.getPDDoc());
-    PDOCGSetInitialState(layerray[0], conf, true);
-
-    CosObj order;                                                                         //The order of the optional content.
-    PDOCConfigGetOCGOrder(conf, &order);
-
-    CosArrayInsert(order, CosArrayLength(order), PDOCGGetCosObj(layerray[0]));            //Inserts each layer in our array as a cos object.
-    PDOCMD annotLayer = PDOCMDCreate(doc.getPDDoc(), layerray, kOCMDVisibility_AllOn);
-
-    PDERelease((PDEObject)layerray[0]);
-    ASTextDestroy(layerName);
-    PDERelease((PDEObject)annotLayer);                                                    //We actually don't need to keep this PDEObject around if we only want to set elements to the layer.
-
-//===================================================================================================================================================================================
-// 2) Create an annotation for each PDEElement on the page.
+// 1) Create an annotation for each PDEElement on the page.
 //===================================================================================================================================================================================
 
     //Retrieve all the PDEElements on the page.
@@ -219,13 +193,11 @@ int main(int argc, char** argv)
         //Add the annot to the page.
         PDPageAddAnnot(inPage, kPDEAfterLast, annot);
 
-        //Set the annot's layer.
-        PDAnnotSetOCMD(annot, annotLayer);
     }
 
 
 //===================================================================================================================================================================================
-// 3) Save the document and close it.
+// 2) Save the document and close it.
 //
 // Note: We want it closed so we can re-open it for annotation content extraction.
 //===================================================================================================================================================================================
@@ -238,7 +210,7 @@ int main(int argc, char** argv)
     //APDFLDoc's destructor takes care of closing the document and releasing the rest of the resources.
 
 //===================================================================================================================================================================================
-// 4) Extract the annotations' text content into a new document.
+// 3) Extract the annotations' text content into a new document.
 //===================================================================================================================================================================================
 
     std::wcout << L"Extracting the annotations to a new document." << std::endl;
