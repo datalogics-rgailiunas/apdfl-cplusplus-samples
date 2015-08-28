@@ -45,29 +45,29 @@ int main(int argc, char** argv)
     std::wcout << L"This page has " << PDPageGetNumAnnots(page) << L" annotations." << std::endl;
     std::wcout << L"Flattening them..." << std::endl;
 
-    for (int i = PDPageGetNumAnnots(page) - 1; i >= 0; --i)                                              //Must be done in reverse order, because the annotation array is updated with each removal. See the documentation for PDPageRemoveAnnot.
+    for (int i = PDPageGetNumAnnots(page) - 1; i >= 0; --i)                                                //Must be done in reverse order, because the annotation array is updated with each removal. See the documentation for PDPageRemoveAnnot.
     {
         //Get the next annotation and its data.
-        PDAnnot next = PDPageGetAnnot(page, i);                                                          //The annotation itself.
-        ASFixedRect nextLoc;                                                                             //Its location on the page.
+        PDAnnot next = PDPageGetAnnot(page, i);                                                            //The annotation itself.
+        ASFixedRect nextLoc;                                                                               //Its location on the page.
         PDAnnotGetRect(next, &nextLoc);
-        CosObj  appearanceDict = CosDictGetKeyString(PDAnnotGetCosObj(next), "AP");                      //The annotation's appearance dictionary.
+        CosObj  appearanceDict = CosDictGetKeyString(PDAnnotGetCosObj(next), "AP");                        //The annotation's appearance dictionary.
 
         //Not all Annotations have Appearance dictionaries. Indeed, Links do not, and annotations created with APDFL will not until the PDF is opened in Acrobat.
         if (CosObjGetType(appearanceDict) != CosNull)
         {
-            CosObj NormalAppearanceDict = CosDictGetKeyString(appearanceDict, "N");                      //Appearance streams for annotations have three types: N for normal appearance, R for rollover appearance, and D for down appearance. Including N is required.
-            CosObj resources = CosDictGetKeyString(NormalAppearanceDict, "Resources");                   //The resources stream of that type.
+            CosObj NormalAppearanceDict = CosDictGetKeyString(appearanceDict, "N");                        //Appearance streams for annotations have three types: N for normal appearance, R for rollover appearance, and D for down appearance. Including N is required.
+            CosObj resources = CosDictGetKeyString(NormalAppearanceDict, "Resources");                     //The resources stream of that type.
 
-            ASFixedMatrix unity;                                                                         //The transformation matrix for placing the PDEForm. We'll place it exactly where the annotation was.
-            unity.a = unity.d = fixedOne;
-            unity.b = unity.c = 0;
-            unity.h = nextLoc.left;
-            unity.v = nextLoc.bottom;
+            ASDoubleMatrix unity;                                                                          //The transformation matrix for placing the PDEForm. We'll place it exactly where the annotation was.
+            unity.a = unity.d = 1.0;
+            unity.b = unity.c = 0.0;
+            unity.h = (ASDouble)ASFixedToFloat(nextLoc.left);
+            unity.v = (ASDouble)ASFixedToFloat(nextLoc.bottom);
 
-            PDEForm formXObject = PDEFormCreateFromCosObj(&NormalAppearanceDict, &resources, &unity);    //Create the Form XObject to match the annotation's normal appearance.
+            PDEForm formXObject = PDEFormCreateFromCosObjEx(&NormalAppearanceDict, &resources, &unity);    //Create the Form XObject to match the annotation's normal appearance.
 
-            PDEContentAddElem(pageContent, kPDEAfterLast, (PDEElement)formXObject);                      //Add it to the page.
+            PDEContentAddElem(pageContent, kPDEAfterLast, (PDEElement)formXObject);                        //Add it to the page.
 
             PDERelease((PDEObject)formXObject);
         }
@@ -79,9 +79,9 @@ int main(int argc, char** argv)
 
         PDPageRemoveAnnot(page, i);
 
-    }                                                                                                    //See the documentation for PDPageRemoveAnnot.
+    }
 
-    PDPageSetPDEContentCanRaise(page, 0);                                                                //Set all this new content into the page.
+    PDPageSetPDEContentCanRaise(page, 0);                                                                  //Set all this new content into the page.
 
 //======================================================================================================================================================================================================================================================================
 // 2) Save and close.
