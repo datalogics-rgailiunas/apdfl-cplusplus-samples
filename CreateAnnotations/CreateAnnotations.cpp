@@ -326,7 +326,7 @@ int main(int argc, char** argv)
     PDPageSetPDEContentCanRaise(extractPage, 0);
     PDPageReleasePDEContent(extractPage, 0);
     PDPageRelease(extractPage);
-    extractDoc.saveDoc(L"AnnotTexts.pdf",PDSaveFull);
+    extractDoc.saveDoc(L"AnnotationTexts.pdf",PDSaveFull);
 
     HANDLER
 
