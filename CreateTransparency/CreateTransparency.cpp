@@ -216,8 +216,11 @@ int main(int argc, char** argv)
 
                 //Add the triad to its content.
                 PDEContentAddElem(*nextContent, kPDEBeforeFirst, (PDEElement)nextShape);
+                
                 PDERelease((PDEObject)nextShape);
             }
+            PDERelease((PDEObject)shapeGState.fillColorSpec.space);
+            PDERelease((PDEObject)shapeGState.extGState);
         }
 
         PDERelease((PDEObject)singleShape);                                                       //We're now done with the basic shape prototype.
@@ -274,6 +277,7 @@ int main(int argc, char** argv)
             PDPageSetPDEContentCanRaise(outPage, 0);
             PDPageReleasePDEContent(outPage, 0);
             PDPageRelease(outPage);
+            PDERelease((PDEObject)shapeGState.extGState);
         }
 
         //Now we're done with everything except for the document itself.
@@ -319,6 +323,6 @@ PDEForm contentToForm(PDEContent content, ASInt32 formType, PDDoc document)
     PDEContentToCosObj(content, kPDEContentToForm, &contentAttrs, sizeof(PDEContentAttrs), PDDocGetCosDoc(document), NULL, &cosContent, &cosResources);
 
     //Convert the CosObjects into a PDEForm.
-    ASFixedMatrix unity = { fixedOne, 0, 0, fixedOne, 0, 0 };
-    return PDEFormCreateFromCosObj(&cosContent, &cosResources, &unity);
+    ASDoubleMatrix unity = { 1.0, 0, 0, 1.0, 0, 0 };
+    return PDEFormCreateFromCosObjEx(&cosContent, &cosResources, &unity);
 }
