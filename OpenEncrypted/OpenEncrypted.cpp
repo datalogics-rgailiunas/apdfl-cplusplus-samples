@@ -19,7 +19,6 @@
 
 #include "InitializeLibrary.h"
 #include "ASExtraCalls.h"
-#include "PDFInit.h"
 #include "PDCalls.h"
 
 //The password we will try is stored statically because openAuthorizationProcedure is static. Note that the password cannot be a wchar_t*.
@@ -129,6 +128,7 @@ int main(int argc, char** argv)
 //ASBool function: Callback function called by PDDocOpenEx to obtain permission to open 
 //the document by supplying the password.
 //===================================================================================================================================================
+ExtensionID gExtensionID = 0; 
 static ACCB1 ASBool ACCB2 openAuthorizationProcedure(PDDoc encrypted, void *clientData){
 
     PDPermReqStatus permReqStatus;                                       //Stores the result of the permission request.
