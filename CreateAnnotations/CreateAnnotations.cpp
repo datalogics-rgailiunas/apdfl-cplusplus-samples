@@ -18,7 +18,6 @@
 
 #include <vector>
 #include <sstream>
-#include <map>
 
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
@@ -139,10 +138,9 @@ int main(int argc, char** argv)
         annotContent << L"right: "  << ASFixedToFloat(elementLoc.right);
 
         //We're done preparing the content string. Now make its ASText to add it to the annotation.
-        const int bufferSize = 1000;
-        wchar_t annotContentStr[bufferSize];
-        memcpy(annotContentStr, annotContent.str().c_str(), bufferSize);
-        ASText annotContentAST = ASTextFromUnicode((ASUTF16Val*)annotContentStr, kUTF16HostEndian);
+        std::wstring annotContentStr;
+        annotContentStr = annotContent.str();
+        ASText annotContentAST = ASTextFromUnicode((ASUTF16Val*)annotContentStr.c_str(), kUTF16HostEndian);
 
         //The annotation must be cast to a TextAnnot to set its text content.
         PDTextAnnot textAnnot = CastToPDTextAnnot(annot);
