@@ -180,7 +180,7 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddText CopyContent CreateDocument
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% EncryptDocument ExtractAttachments ExtractText LockDocument
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% MergePDF OpenEncrypted SetUniquePermissions
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% SplitPDF TextSearch WebOptimizedPDF
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% UnicodeNew
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Unicode_New
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
 REM *** This needs to be accurate, of course.
 SET /A "NUM_DL_SAMPLES=26"
