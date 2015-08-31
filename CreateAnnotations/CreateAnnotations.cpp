@@ -233,6 +233,8 @@ int main(int argc, char** argv)
     std::wcout << L"The input page has " << numAnnots << L" annotations." << std::endl;
 
     //Extract each annotation's text content (if any) into our text object.
+    ASFixed neededWidth  = fixedZero;                                                              //The required width of a page that can hold all the text objects.
+    ASFixed neededHeight = fixedZero;                                                              //The required height.
     for (int i = 0; i < numAnnots; ++i)
     {
         PDAnnot next = PDPageGetAnnot(annotPage, i);
@@ -265,6 +267,17 @@ int main(int argc, char** argv)
             PDETextAddASText(annotationsText, kPDETextRun, numTextAnnots - 1, extractedAST, font, &graphics, sizeof(PDEGraphicState), NULL, 0, &textLoc);
             ASTextDestroy(extractedAST);
 
+            //Adjust our page dimension requirements.
+            ASFixedRect thisBox;
+            PDETextGetBBox(annotationsText, kPDETextRun, numTextAnnots-1, &thisBox);
+            ASFixed thisWidth  = (thisBox.right - thisBox.left);                                       //The width of this text object.
+            ASFixed thisHeight = (thisBox.top - thisBox.bottom);                                       //The height of this text object.
+
+            if (thisWidth > neededWidth)
+                neededWidth = thisWidth;
+
+            neededHeight += thisHeight + fontSize;
+
             //Position the next text.
             textLoc.v -= fontSize*2;
         }
@@ -278,24 +291,6 @@ int main(int argc, char** argv)
     PDERelease((PDEObject)graphics.fillColorSpec.space);
 
     std::wcout << numBlankAnnots << L" annotations on the page did not have text content." << std::endl;
-
-    //Now we need a page to place all this text on. Determine the size of the page required for this text object.
-    ASFixed neededWidth  = fixedZero;
-    ASFixed neededHeight = fixedZero;
-
-    for (int i = 0; i < numTextAnnots; ++i)
-    {
-        ASFixedRect thisBox;
-        PDETextGetBBox(annotationsText, kPDETextRun, i, &thisBox);
-
-        ASFixed thisWidth  = (thisBox.right - thisBox.left);                                       //The width of this text object.
-        ASFixed thisHeight = (thisBox.top - thisBox.bottom);                                       //The height of this text object.
-
-        if (thisWidth > neededWidth)
-            neededWidth = thisWidth;
-
-        neededHeight += thisHeight + fontSize;
-    }
 
     //We have to adjust the location of each text object up so it fits on the page. Otherwise it'd be added to the bottom-left corner, and be invisible.
     for (int i = 0; i < numTextAnnots; ++i)
