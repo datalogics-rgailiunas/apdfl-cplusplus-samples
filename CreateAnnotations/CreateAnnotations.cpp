@@ -344,7 +344,7 @@ int main(int argc, char** argv)
 //===================================================================================================================================================================================
 //void function: Searches through a PDEContent object, and the PDEContents of its PDEContainer, PDEgroup, and PDEForm objects, adding all PDEElements to a list.
 //===================================================================================================================================================================================
-void extractPDEElements(PDEContent* c, std::vector<PDEElement>* list)
+void extractPDEElements(PDEContent* c, std::vector<PDEElement>* elements)
 {
     //These will represent nonatomic elements inside the input PDEContent.
     //They must be initialized outside the switch statement.
@@ -356,24 +356,24 @@ void extractPDEElements(PDEContent* c, std::vector<PDEElement>* list)
     for (int i = 0; i < PDEContentGetNumElems(*c); ++i)
     {
         PDEElement next = PDEContentGetElem(*c, i);
-        list->push_back(next);
+        elements->push_back(next);
 
         switch (PDEObjectGetType((PDEObject)next))
         {
         case kPDEContainer:
             deepContainer = (PDEContainer)next;
             deepContent = PDEContainerGetContent(deepContainer);
-            extractPDEElements(&deepContent, list);
+            extractPDEElements(&deepContent, elements);
             break;
         case kPDEForm:
             deepForm = (PDEForm)next;
             deepContent = PDEFormGetContent(deepForm);
-            extractPDEElements(&deepContent, list);
+            extractPDEElements(&deepContent, elements);
             break;
         case kPDEGroup:
             deepGroup = (PDEGroup)next;
             deepContent = PDEGroupGetContent(deepGroup);
-            extractPDEElements(&deepContent, list);
+            extractPDEElements(&deepContent, elements);
             break;
         }
     }
