@@ -1,5 +1,7 @@
-// Copyright(c) 2015, Datalogics, Inc.All rights reserved.
-
+// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
+//
+// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
+//
 //=======================================================================
 // Sample: SetUniquePermissions - Changes the user security permissions
 //              of the input document to allow or deny any permission
@@ -11,51 +13,6 @@
 //3) Set the new security data into the document.
 //4) Save and close the document.
 //=======================================================================
-
-// This agreement is between Datalogics, Inc. 101 N.Wacker Drive, Suite 1800,
-// Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
-// source code examples for integrating to the Adobe PDF Library
-// ("the Example Code"). By accepting this agreement you agree to be bound
-// by the following terms of use for the Example Code.
-//
-// LICENSE
-// -------
-// Datalogics hereby grants you a royalty - free, non - exclusive license to
-// download and use the Example Code for any lawful purpose.There is no charge
-// for use of Example Code.
-//
-// OWNERSHIP
-// ---------
-// The Example Code and any related documentation and trademarks are and shall
-// remain the sole and exclusive property of Datalogics and are protected by
-// the laws of copyright in the U.S.and other countries.
-//
-// Datalogics is a trademark of Datalogics, Inc.
-//
-// TERM
-// ----
-// This license is effective until terminated.You may terminate it at any
-// other time by destroying the Example Code.
-//
-// WARRANTY DISCLAIMER
-// -------------------
-// THE EXAMPLE CODE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER
-// EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES
-// OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-//
-// DATALOGICS DISCLAIM ALL OTHER WARRANTIES, CONDITIONS, UNDERTAKINGS OR
-// TERMS OF ANY KIND, EXPRESS OR IMPLIED, WRITTEN OR ORAL, BY OPERATION OF
-// LAW, ARISING BY STATUTE, COURSE OF DEALING, USAGE OF TRADE OR OTHERWISE,
-// INCLUDING, WARRANTIES OR CONDITIONS OF MERCHANTABILITY, FITNESS FOR A
-// PARTICULAR PURPOSE, SATISFACTORY QUALITY, LACK OF VIRUSES, TITLE,
-// NON - INFRINGEMENT, ACCURACY OR COMPLETENESS OF RESPONSES, RESULTS, AND / OR
-// LACK OF WORKMANLIKE EFFORT.THE PROVISIONS OF THIS SECTION SET FORTH
-// SUBLICENSEE'S SOLE REMEDY AND DATALOGICS'S SOLE LIABILITY WITH RESPECT
-// TO THE WARRANTY SET FORTH HEREIN.NO REPRESENTATION OR OTHER AFFIRMATION
-// OF FACT, INCLUDING STATEMENTS REGARDING PERFORMANCE OF THE EXAMPLE CODE,
-// WHICH IS NOT CONTAINED IN THIS AGREEMENT, SHALL BE BINDING ON DATALOGICS.
-// NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
-// DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 
 #include "APDFLDoc.h"
 #include "InitializeLibrary.h"
@@ -80,69 +37,61 @@ int main(int argc, char** argv)
 //Step 1) Select which permissions you want to allow/deny.
 //====================================================================================================================================================================================================================================================================
 
-    std::vector<std::pair<bool, PDPerms>> permList(17);          //There are 17 permissions listed here.
+    std::vector<std::pair<bool, PDPerms>> permList(15);          //There are 15 permissions listed here.
 
     ////////////////////////////////
-    ////All permissions           //
+    //Most Permissions            //
     ////////////////////////////////
-    //All permissions.
+    //All permissions, except page extraction.
+    permList.push_back(PERM_PAIR(false, pdPermAll));
+    //All permissions, except page extraction.
     permList.push_back(PERM_PAIR(false, pdPermUser));
-    //The user is permitted to perform all operations, regardless of the permissions specified by the document. Unless this permission is set, the document's permissions will be reset to those in the document after a full save.
-    permList.push_back(PERM_PAIR(false, pdPermOwner));
 
     ////////////////////////////////
     ////User Editing Permissions  //
     ////////////////////////////////
-    //The OR of all operations that can be set by the user in the security restrictions (pdPermEdit + pdPermEditNotes + pdPermPrint + pdPermCopy).
+    //Sets these four permissions true: pdPermEdit, pdPermEditNotes, pdPermPrint, pdPermCopy.
     permList.push_back(PERM_PAIR(false, pdPermSettable));
-    //The user can edit the document more than adding or modifying text notes (see also pdPermEditNotes). In the Document Security dialog, this corresponds to the Changing the Document entry.
-    permList.push_back(PERM_PAIR(true, pdPermEdit));
-    //The user can add, modify, and delete text notes (see also pdPermEdit). In the document restrictions, this corresponds to the Authoring Comments and Form Fields entry.
+    //Enables changing the document, document assembly, form field filling, signing, and template page spawning.
+    permList.push_back(PERM_PAIR(false, pdPermEdit));
+    //Enables commenting, form field filling, and signing.
     permList.push_back(PERM_PAIR(false, pdPermEditNotes));
-    //Overrides various pdPermEdit bits and allows the following operations: page insert/delete/rotate and create bookmark and thumbnail.
+    //Enables page insertion/deletion/rotation, as well as bookmark creation.
     permList.push_back(PERM_PAIR(false, pdPrivPermDocAssembly));
-    //Overrides other PDPerm bits. It allows the user to fill in or sign existing form or signature fields.
+    //Enables form field filling, signing, and spawning template pages.
     permList.push_back(PERM_PAIR(false, pdPrivPermFillandSign));
-    //This should be set if the user can submit forms outside of the browser. This bit is a supplement to pdPrivPermFillandSign.
+    //Whether the form can be submitted outside of a browser. Be sure you enable form field filling and signing.
     permList.push_back(PERM_PAIR(false, pdPrivPermFormSubmit));
 
     ////////////////////////////////
     ////Copying                   //
     ////////////////////////////////
-    //The user can copy information from the document to the clipboard. In the document restrictions, this corresponds to the Content Copying or Extraction entry.
+    //Enables content copying (i.e., to the clipboard) and content copying for accessibility.
     permList.push_back(PERM_PAIR(false, pdPermCopy));
-    //Overrides pdPermCopy to enable the Accessibility API. If a document is saved in Rev2 format (Acrobat 4.0 compatible), only the pdPermCopy bit is checked to determine the Accessibility API state.
+    //Enables copying of content related to Acrobat's accessibility features for people with disabilities. 
     permList.push_back(PERM_PAIR(false, pdPrivPermAccessible));
 
     ////////////////////////////////
     ////Printing                  //
     ////////////////////////////////
-    //The user can print the document. Page Setup access is unaffected by this permission, since that affects Acrobat's preferences - not the document's. In the Document Security dialog, this corresponds to the Printing entry.
-    permList.push_back(PERM_PAIR(true, pdPermPrint));
-    //This bit is a supplement to pdPermPrint. If it is clear (disabled) only low quality printing (Print As Image) is allowed. On UNIX platforms where Print As Image doesn't exist, printing is disabled.
-    permList.push_back(PERM_PAIR(true, pdPrivPermHighPrint));
+    //Enables printing.
+    permList.push_back(PERM_PAIR(false, pdPermPrint));
+    //If pdPermPrint is true and this is false, only low quality printing (Print As Image) is allowed. On UNIX platforms where Print As Image doesn't exist, printing will be disabled.
+    permList.push_back(PERM_PAIR(false, pdPrivPermHighPrint));
 
     ////////////////////////////////
     ////Open/Save                 //
     ////////////////////////////////
-    //The user can open and decrypt the document.
+    //The user can open and decrypt the document. This will have no effect if a user password is not set.
     permList.push_back(PERM_PAIR(false, pdPermOpen));
-    //The user can perform a Save As.... If both pdPermEdit and pdPermEditNotes are disallowed, Save will be disabled but Save As... will be enabled. The Save As... menu item is not necessarily disabled even if the user is not permitted to perform a Save As....
+    //Enables Save As..., with the followng caveats: if both pdPermEdit and pdPermEditNotes are disallowed, Save will be disabled but Save As... will be enabled. The Save As... menu item is not necessarily disabled even if this is set to false!
     permList.push_back(PERM_PAIR(false, pdPermSaveAs));
 
     ////////////////////////////////
     ////Security                  //
     ////////////////////////////////
-    //The user can change the document's security settings.
+    //The user can change the document's security settings. This will have no effect unless an owner password is set.
     permList.push_back(PERM_PAIR(false, pdPermSecure));
-    //The OR of all operations that can be set by the user in the security restrictions (pdPermPrint + pdPermEdit + pdPermCopy + pdPermEditNotes).
-    permList.push_back(PERM_PAIR(false, pdPermSettable));
-
-    ////////////////////////////////
-    ////Templates                 //
-    ////////////////////////////////
-    //This should be set if the user can spawn template pages. This bit will allow page template spawning even if pdPermEdit and pdPermEditNotes are clear.
-    permList.push_back(PERM_PAIR(false, pdPrivPermFormSpawnTempl));
 
     DURING
 
@@ -162,7 +111,7 @@ int main(int argc, char** argv)
         StdSecurityData securityData = (StdSecurityData)PDDocNewSecurityData(document);    //...and create it.
         securityData->size = sizeof(StdSecurityDataRec);
 
-        //Our output will have no password to open it. See Samples "AddPassword" and "LockDocument" for password demonstration.
+        //See the sample Encryption for a demonstration of user passwords.
         securityData->hasUserPW = false;
 
         //The permissions of the document will not be able to be changed back unless the user supplies this password.

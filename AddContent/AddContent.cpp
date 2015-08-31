@@ -1,5 +1,7 @@
 ﻿// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
-
+//
+// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
+//
 //====================================================================================
 // Sample: AddContent - This samples opens a file called AddContent.pdf in the input 
 //                      directory. It adds several different elements to the page and 
@@ -11,64 +13,20 @@
 //  3) Acquire PDEContent and add elements to the page.       
 //====================================================================================
 
-// This agreement is between Datalogics, Inc. 101 N. Wacker Drive, Suite 1800,
-// Chicago, IL 60606 ("Datalogics") and you, an end user who downloads
-// source code examples for integrating to the Adobe PDF Library
-// ("the Example Code"). By accepting this agreement you agree to be bound
-// by the following terms of use for the Example Code.
-//
-// LICENSE
-// -------
-// Datalogics hereby grants you a royalty-free, non-exclusive license to
-// download and use the Example Code for any lawful purpose. There is no charge
-// for use of Example Code.
-//
-// OWNERSHIP
-// ---------
-// The Example Code and any related documentation and trademarks are and shall
-// remain the sole and exclusive property of Datalogics and are protected by
-// the laws of copyright in the U.S. and other countries.
-//
-// Datalogics is a trademark of Datalogics, Inc.
-//
-// TERM
-// ----
-// This license is effective until terminated. You may terminate it at any
-// other time by destroying the Example Code.
-//
-// WARRANTY DISCLAIMER
-// -------------------
-// THE EXAMPLE CODE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER
-// EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES
-// OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-//
-// DATALOGICS DISCLAIM ALL OTHER WARRANTIES, CONDITIONS, UNDERTAKINGS OR
-// TERMS OF ANY KIND, EXPRESS OR IMPLIED, WRITTEN OR ORAL, BY OPERATION OF
-// LAW, ARISING BY STATUTE, COURSE OF DEALING, USAGE OF TRADE OR OTHERWISE,
-// INCLUDING, WARRANTIES OR CONDITIONS OF MERCHANTABILITY, FITNESS FOR A
-// PARTICULAR PURPOSE, SATISFACTORY QUALITY, LACK OF VIRUSES, TITLE,
-// NON-INFRINGEMENT, ACCURACY OR COMPLETENESS OF RESPONSES, RESULTS, AND/OR
-// LACK OF WORKMANLIKE EFFORT. THE PROVISIONS OF THIS SECTION SET FORTH
-// SUBLICENSEE'S SOLE REMEDY AND DATALOGICS'S SOLE LIABILITY WITH RESPECT
-// TO THE WARRANTY SET FORTH HEREIN. NO REPRESENTATION OR OTHER AFFIRMATION
-// OF FACT, INCLUDING STATEMENTS REGARDING PERFORMANCE OF THE EXAMPLE CODE,
-// WHICH IS NOT CONTAINED IN THIS AGREEMENT, SHALL BE BINDING ON DATALOGICS.
-// NEITHER DATALOGICS WARRANT AGAINST ANY BUG, ERROR, OMISSION, DEFECT,
-// DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
-
 #include <iostream>
+
+#include "InitializeLibrary.h"
+
 #include "PERCalls.h"
 #include "PEWCalls.h"
 #include "PagePDECntCalls.h"
-#include "MyPDFLibUtils.h"
 #include "PSFCalls.h"
 #include "ASCalls.h"
 #include "ASExtraCalls.h"
-#include "InitializeLibrary.h"
 #include "APDFLDoc.h"
 
 //Function used to create a rectangle, parameter description in function definition.
-PDEPath PathRect(ASFixed, ASFixed, ASFixed, ASFixed, int, int, int, int);
+PDEPath PathRect(ASFixed, ASFixed, ASFixed, ASFixed, int, ASFixed, ASFixed, ASFixed);
 
 int main(int argc, char** argv)
 {
@@ -148,7 +106,7 @@ int main(int argc, char** argv)
         std::wcout << L"Created text object for display. " << std::endl;
 
         //Call to PathRect() function to design a blue rectangle, passing in xPosition, yPosition, width, height, lineWidth, RGB color values.
-        PDEPath rect = PathRect(ASFloatToFixed(72 * 3.25), ASInt32ToFixed(72 * 4), ASInt32ToFixed(72 * 2), ASInt32ToFixed(72 * 2), 46, 0, 0, 1);
+        PDEPath rect = PathRect(ASFloatToFixed(72 * 3.25), ASInt32ToFixed(72 * 4), ASInt32ToFixed(72 * 2), ASInt32ToFixed(72 * 2), 46, fixedZero, fixedZero, fixedOne);
 
         std::wcout << L"Created PDEPath in the form of a rectangle. " << std::endl;
 
@@ -199,7 +157,7 @@ int main(int argc, char** argv)
 //================================================================================================================================================
 // PDEPath Function: Transforms PDEPath to rectangle of xPosition, yPosition, width, height, lineWidth, r, g, b (RGB color values).
 //================================================================================================================================================
-PDEPath PathRect(ASFixed  x, ASFixed  y, ASFixed  width, ASFixed  height, int  lineWidth, int  r, int  g, int  b)
+PDEPath PathRect(ASFixed  x, ASFixed  y, ASFixed  width, ASFixed  height, int  lineWidth, ASFixed r, ASFixed  g, ASFixed  b)
 {
 
     //Create the PDEPath object that will be used to draw a rectangle.

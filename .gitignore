@@ -5,6 +5,15 @@
 *.user
 *.filters
 *.exe
+*.lnk
+*.pdf
+!_Input/*.pdf
+*.bat
+!All/*.bat
+ExtractAttachments/*.docx
+ExtractAttachments/*.jpg
+ExtractAttachments/*.png
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
