@@ -102,6 +102,8 @@ int main(int argc, char** argv)
     PDEGraphicState gState;
     PDEDefaultGState(&gState, sizeof(PDEGraphicState));
 
+    PDETextState tState;
+
     for (int i = 0; i < numWordsFound; ++i)
     {
         PDEText nextLine = PDETextCreate();                                                          //Prepare to capture the next line.
@@ -126,8 +128,8 @@ int main(int argc, char** argv)
             //Append the word to the line.
             PDETextAddASText(nextLine, kPDETextRun, nextLineIndex, nextWordASText,                   //Add the word to the next index in the text object. It's a text run because it's (usually) multiple characters.
                              font,                                                                   //The font we'll use.
-                             &gState, sizeof(gState),                                                //Let the graphics state default.
-                             NULL, 0,                                                                //Let the text state default.
+                             &gState, sizeof(gState),                                                //A default graphics state.
+                             &tState, sizeof(tState),                                                //A default text state.
                              &nextWordLocation);                                                     //The starting location of the word on the page.
 
             //Now that the word's been added, get the new location of the end of the line to prepare to add text there.
@@ -160,6 +162,8 @@ int main(int argc, char** argv)
         nextWordLocation.v -= Int16ToFixed(fontSize);                                                //Drop down the v coordinate just enough to draw new, non-overlapping text.
         PDERelease(reinterpret_cast<PDEObject>(nextLine));                                           //We'll make a new PDEText object for the next line come next iteration.
     }
+    PDERelease(reinterpret_cast<PDEObject>(gState.strokeColorSpec.space));
+    PDERelease(reinterpret_cast<PDEObject>(gState.fillColorSpec.space));
 
     PDPageSetPDEContentCanRaise(outPage, NULL);                                                      //We've now captured every line of text. This sets all the content we've just added into the page.
 
