@@ -19,7 +19,6 @@
 
 #include "InitializeLibrary.h"
 #include "ASExtraCalls.h"
-#include "PDFInit.h"
 #include "PDCalls.h"
 
 //The password we will try is stored statically because openAuthorizationProcedure is static. Note that the password cannot be a wchar_t*.
@@ -53,6 +52,7 @@ int main(int argc, char** argv)
     ASPathName inputPathName  = makeASPathName(L"../_Input/OpenEncrypted.pdf");
 
     //PDDocOpenEx openAuthorizationProcedure to supply the password.
+    ExtensionID gExtensionID = 0;                                        //Required by ASCallbackCreateProto.
     PDDoc document = PDDocOpenEx(inputPathName, ASGetDefaultFileSys(), ASCallbackCreateProto(PDAuthProcEx, &openAuthorizationProcedure), 0, true);
 
     ASFileSysReleasePath(ASGetDefaultFileSys(), inputPathName);          //We only needed this to open the document. It will be saved to a new path.
