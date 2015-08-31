@@ -317,6 +317,7 @@ int main(int argc, char** argv)
 
     //Put the texts onto the output document.
     PDEContentAddElem(PDPageAcquirePDEContent(extractPage, 0), 0, (PDEElement)annotationsText);
+    PDERelease((PDEObject)annotationsText);
 
     std::wcout << L"I extracted " << numTextAnnots << L" text-containing annotations." << std::endl;
     std::wcout << L"Saving the extracted text document." << std::endl;
