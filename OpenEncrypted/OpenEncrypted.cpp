@@ -52,6 +52,7 @@ int main(int argc, char** argv)
     ASPathName inputPathName  = makeASPathName(L"../_Input/OpenEncrypted.pdf");
 
     //PDDocOpenEx openAuthorizationProcedure to supply the password.
+    ExtensionID gExtensionID = 0;                                        //Required by ASCallbackCreateProto.
     PDDoc document = PDDocOpenEx(inputPathName, ASGetDefaultFileSys(), ASCallbackCreateProto(PDAuthProcEx, &openAuthorizationProcedure), 0, true);
 
     ASFileSysReleasePath(ASGetDefaultFileSys(), inputPathName);          //We only needed this to open the document. It will be saved to a new path.
@@ -128,7 +129,6 @@ int main(int argc, char** argv)
 //ASBool function: Callback function called by PDDocOpenEx to obtain permission to open 
 //the document by supplying the password.
 //===================================================================================================================================================
-ExtensionID gExtensionID = 0; 
 static ACCB1 ASBool ACCB2 openAuthorizationProcedure(PDDoc encrypted, void *clientData){
 
     PDPermReqStatus permReqStatus;                                       //Stores the result of the permission request.
