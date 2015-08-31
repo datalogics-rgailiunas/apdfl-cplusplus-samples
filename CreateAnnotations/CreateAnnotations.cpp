@@ -274,8 +274,8 @@ int main(int argc, char** argv)
         }
     }
 
+    PDERelease((PDEObject)font);
     PDERelease((PDEObject)graphics.fillColorSpec.space);
-    PDERelease((PDEObject)graphics.extGState);
 
     std::wcout << numBlankAnnots << L" annotations on the page did not have text content." << std::endl;
 
