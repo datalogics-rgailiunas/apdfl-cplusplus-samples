@@ -99,6 +99,9 @@ int main(int argc, char** argv)
     PDPage outPage = outAPDoc.getPage(0);                                                            //We must acquire the page and it's content to add text to it.
     PDEContent outPageContent = PDPageAcquirePDEContent(outPage, 0);
 
+    PDEGraphicState gState;
+    PDEDefaultGState(&gState, sizeof(PDEGraphicState));
+
     for (int i = 0; i < numWordsFound; ++i)
     {
         PDEText nextLine = PDETextCreate();                                                          //Prepare to capture the next line.
@@ -123,7 +126,7 @@ int main(int argc, char** argv)
             //Append the word to the line.
             PDETextAddASText(nextLine, kPDETextRun, nextLineIndex, nextWordASText,                   //Add the word to the next index in the text object. It's a text run because it's (usually) multiple characters.
                              font,                                                                   //The font we'll use.
-                             NULL, 0,                                                                //Let the graphics state default.
+                             &gState, sizeof(gState),                                                //Let the graphics state default.
                              NULL, 0,                                                                //Let the text state default.
                              &nextWordLocation);                                                     //The starting location of the word on the page.
 
