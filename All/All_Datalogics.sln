@@ -53,7 +53,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractDocumentInfo", "..\E
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RasterizeCopy", "..\RasterizeCopy\RasterizeCopy.vcxproj", "{39C5AD9F-3294-45A9-B270-70AD80DFD324}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Unicode_New", "..\UnicodeNew\Unicode_New.vcxproj", "{6CA37959-A591-4442-8819-AB9F8A8DA43D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Unicode_New", "..\Unicode_New\Unicode_New.vcxproj", "{6CA37959-A591-4442-8819-AB9F8A8DA43D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
