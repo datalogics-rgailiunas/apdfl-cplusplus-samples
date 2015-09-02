@@ -3,6 +3,7 @@
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 //============================================================================================
+<<<<<<< HEAD
 // Sample: CreateTransparency - This sample demonstrates transparency and blend modes
 //             in APDFL for CMYK and RGB color spaces. It creates 13 sets of RGB and CMYK
 //             color blending circles, one for each of the 12 blend modes, and an
@@ -15,6 +16,14 @@
 // SoftLight, Difference, and Exclusion.
 // See ISO 32000, table 136, for more information. Available here:
 // http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/PDF32000_2008.pdf#page=332
+=======
+// Sample: CreateTransparency - This sample demonstrates transparency and blending modes
+//             in APDFL for CMYK and RGB color spaces. It creates 2 color blending
+//             cirles, one for APDFL and one for CMYK, once for each of the 12
+//             blending modes, and one additional set to demonstrate the absence of blending.
+//             A total of 24 color blending circles are drawn.
+//
+>>>>>>> CreateTranspar header comments incorrect and nonspecific.
 //
 //Steps:
 // 1) Create and title a page for each color blending mode.
@@ -74,7 +83,12 @@ int main(int argc, char** argv)
         ASFixed rightHalfCenter_X = pageCenter_X + leftHalfCenter_X;
         ASFixed rightHalfCenter_Y = pageCenter_Y;
 
+<<<<<<< HEAD
         //All twelve blend modes available in APDFL.
+=======
+        //All twelve blend modes available in APDFL. See the Adobe PDF Reference, sixth edition, section 7.2.4, table 7.2 for a description of each.
+        //The reference is available here: http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/pdf_reference_1-7.pdf
+>>>>>>> CreateTranspar header comments incorrect and nonspecific.
         std::vector<char*> blendModes {
             "Opaque (None)",                                                          //Not a blend mode; we'll use the first page for no transparencies.
             "Normal", "Multiply", "Screen",
