@@ -75,10 +75,7 @@ int main(int argc, char** argv)
                 {
                     if (CosDictKnownKeyString(annotCos, "AS"))
                     {
-                        CosObj appearanceState = CosDictGetKeyString(annotCos, "AS");
-
-                        ASTCount counter = 0; //Unused here.
-                        ASAtom appearanceName = ASAtomFromString(CosStringValue(CosDictGetKeyString(annotCos, "AS"), &counter));
+                        ASAtom appearanceName = CosNameValue(CosDictGetKeyString(annotCos, "AS"));
 
                         if (CosDictKnown(normal, appearanceName))
                             appearanceStrm = CosDictGet(normal, appearanceName);
@@ -145,6 +142,8 @@ int main(int argc, char** argv)
 //======================================================================================================================================================================================================================================================================
 // 2) Save and close.
 //======================================================================================================================================================================================================================================================================
+
+    std::wcout << L"Saving..." << std::endl;
 
     //Release resources.
     PDPageReleasePDEContent(page, 0);
