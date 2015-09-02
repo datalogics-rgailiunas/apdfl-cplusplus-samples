@@ -10,7 +10,7 @@
 // This sample will extract text from two separate PDF documents. It
 // will save output in the working directory as a .pdf and .txt file. 
 // This program demonstrates the APDFL's ability to handle ASCII and
-// unicode text extraction.
+// Unicode text extraction.
 //
 //Steps:
 // 1) Initialize the PDWordFinder class and the information we 
@@ -84,7 +84,7 @@ int main(int argc, char** argv)
     wfConfig->recSize = sizeof(PDWordFinderConfig);
 
     //We'll use the PDWordfinder class to iterate through all the words in our input document.
-    PDWordFinder wordFinder = PDDocCreateWordFinderEx(inAPDoc.getPDDoc(), WF_LATEST_VERSION, false, wfConfig);      //If boolean value is set to true, the word finder extracts text in unicode.
+    PDWordFinder wordFinder = PDDocCreateWordFinderEx(inAPDoc.getPDDoc(), WF_LATEST_VERSION, false, wfConfig);      //If boolean value is set to true, the word finder extracts text in Unicode.
 
     PDWord wordList;
     ASInt32 numWordsFound;
@@ -181,7 +181,7 @@ int main(int argc, char** argv)
     outAPDoc.saveDoc(outPath);                                                                       //Save the new document. APDFLDoc's saveDoc method defaults to use the PDSaveFull flag.
 
 //=====================================================================================================================================================================================================================
-//Step 3) Extract unicode from a second PDF document. Open the document and extract the unicode chracters to a text file in the working directory.
+//Step 3) Extract Unicode from a second PDF document. Open the document and extract the Unicode chracters to a text file in the working directory.
 //=====================================================================================================================================================================================================================
 
     APDFLDoc document(L"../_Input/ExtractUnicodeText.pdf", true);                                                       //Open the input document.
