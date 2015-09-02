@@ -133,8 +133,8 @@ int main(int argc, char** argv)
         else
         {
             //This annotation has no appearance.
-            std::wcout << L"Warning: The " << i << "th annotation, a " << ASAtomGetString(PDAnnotGetSubtype(next)) << 
-                ", has no contained or inherited resources entry, so has no appearance. It will still be removed." << std::endl;
+            std::wcout << L"Warning: The " << i << L"th annotation, a " << ASAtomGetString(PDAnnotGetSubtype(next)) << 
+                L", has no contained or inherited resources entry, so has no appearance. It will still be removed." << std::endl;
         }
 
         PDPageRemoveAnnot(page, i);
