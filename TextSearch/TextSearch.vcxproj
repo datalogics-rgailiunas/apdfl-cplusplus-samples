@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{CA4E530D-DAC1-4CAB-8C14-4B1B7EB4FFC6}</ProjectGuid>
+    <ProjectGuid>{846D5A08-9512-40E3-974F-EF5B993E1828}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>TextSearch</RootNamespace>
   </PropertyGroup>
