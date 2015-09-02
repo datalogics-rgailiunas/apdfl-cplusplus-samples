@@ -5,9 +5,9 @@
 //==============================================================================
 // Sample: AddWatermark - This sample adds two watermarks to the first two
 //             pages of the input PDF. There are two ways of adding a watermark
-//             to a document. One can add a text watermark, or a watermark
-//             that is the image of a page of a PDF document. This sample
-//             adds both kinds to both pages.
+//             to a document. One can add a text watermark, or a page watermark,
+//             which is the image of a specific page from any PDF document.
+//             This sample adds both kinds of watermarks.
 //
 // Steps:
 // 1) Set the watermark parameters struct.
