@@ -32,7 +32,7 @@ ASPathName makeASPathName(wchar_t* pathname);
 
 int main(int argc, char** argv)
 {
-    APDFLib lib;                                                         //Initialize the Adobe PDF Library.
+    APDFLib lib(argv[1]);                                                         //Initialize the Adobe PDF Library.
 
     if (!lib.isValid())                                                  //If it failed to initialize, return the error code.
         return lib.getInitError();

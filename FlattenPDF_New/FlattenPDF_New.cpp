@@ -30,7 +30,7 @@ ASBool flattenerProgMon(ASInt32 pageNum, ASInt32 totalPages, float current, ASIn
 
 int main(int argc, char** argv)
 {
-    APDFLib libInit;                                            //Initialize the Adobe PDF Library.
+    APDFLib libInit(argv[1]);                                            //Initialize the Adobe PDF Library.
     ASErrorCode errCode = 0;                                    //Variable used to report any exceptions/errors if they occured.
 
     if (libInit.isValid() == false)                             //If there was a problem in initialization, return the error code.

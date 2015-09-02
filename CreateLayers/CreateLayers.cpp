@@ -30,7 +30,7 @@ PDEText textMaker(std::string displayText, double xPos, double yPos);
 int main(int argc, char** argv)
 {
 
-    APDFLib libInit;                      //Initialize the Adobe PDF Library.
+    APDFLib libInit(argv[1]);                      //Initialize the Adobe PDF Library.
     ASErrorCode errCode = 0;              //Variable used to report any exceptions/errors if they occurred.
 
     if (libInit.isValid() == false)       //If there was a problem in initialization, return the error code.

@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{5D04558C-183A-4ECC-80C8-542A9FDD72D2}</ProjectGuid>
+    <ProjectGuid>{BF3F5105-EBCC-448A-8262-53DE2A125F54}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>SplitPDF</RootNamespace>
   </PropertyGroup>

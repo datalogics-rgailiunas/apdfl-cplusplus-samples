@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{5D04558C-183A-4ECC-80C8-542A9FDD72D2}</ProjectGuid>
+    <ProjectGuid>{CB9E6C09-C2F2-4639-A66A-A930B706980C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>AddRedaction</RootNamespace>
   </PropertyGroup>

@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{5D04558C-183A-4ECC-80C8-542A9FDD72D2}</ProjectGuid>
+    <ProjectGuid>{66787B39-4476-431F-B6D3-28E82C8D31EA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>ExtractDocumentInfo</RootNamespace>
   </PropertyGroup>

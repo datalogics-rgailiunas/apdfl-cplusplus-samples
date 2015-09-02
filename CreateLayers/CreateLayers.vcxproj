@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{5D04558C-183A-4ECC-80C8-542A9FDD72D2}</ProjectGuid>
+    <ProjectGuid>{01661AC6-E746-4412-B917-70041B74464A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>CreateLayers</RootNamespace>
   </PropertyGroup>

@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{5D04558C-183A-4ECC-80C8-542A9FDD72D2}</ProjectGuid>
+    <ProjectGuid>{C7F0D2BF-4259-4B2C-BD59-0B7DCD9A15D5}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>WebOptimizedPDF</RootNamespace>
   </PropertyGroup>
