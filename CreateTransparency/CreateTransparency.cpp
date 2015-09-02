@@ -5,8 +5,9 @@
 //============================================================================================
 // Sample: CreateTransparency - This sample demonstrates transparency and blending modes
 //             in APDFL for CMYK and RGB color spaces. It creates 2 color blending
-//             triads, one for APDFL and one for CMYK, once for each of the 12
-//             blending modes, for a total of 24 color blending triads.
+//             cirles, one for APDFL and one for CMYK, once for each of the 12
+//             blending modes, and one additional set to demonstrate the absence of blending.
+//             A total of 24 color blending circles are drawn.
 //
 //
 //Steps:
