@@ -8,9 +8,9 @@
 //
 // Note:
 // This sample will extract text from two separate PDF documents. It
-// will save output in the working directory as a .pdf and .txt file. 
-// This program demonstrates the APDFL's ability to handle ASCII and
-// Unicode text extraction.
+// will save the output in the working directory as two files, one PDF
+// and the other a text file. This program demonstrates how the Adobe
+// PDF Library handles ASCII and Unicode text extraction.
 //
 //Steps:
 // 1) Initialize the PDWordFinder class and the information we 
