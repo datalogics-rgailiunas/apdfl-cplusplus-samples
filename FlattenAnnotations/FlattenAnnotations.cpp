@@ -55,12 +55,12 @@ int main(int argc, char** argv)
     {
         //Get the next annotation.
         PDAnnot next = PDPageGetAnnot(page, i);
-
         CosObj annotCos = PDAnnotGetCosObj(next);
+
         CosObj appearanceStrm = CosNewNull();  //Will default to CosNull if we can't find an appearance stream for this annotation.
 
         //Try to find this annotation's appearance stream, which may contain the resources CosObj we need to create the PDEForm of its appearance.
-        if (CosDictKnownKeyString(next, "AP"))                        //The appearance dictionary of our annotation.
+        if (CosDictKnownKeyString(annotCos, "AP"))                        //The appearance dictionary of our annotation.
         {
             CosObj APDict = CosDictGetKeyString(annotCos, "AP");
             if (CosDictKnownKeyString(APDict, "N"))
