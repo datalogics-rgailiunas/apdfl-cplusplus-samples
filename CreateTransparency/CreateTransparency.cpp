@@ -9,6 +9,13 @@
 //             additional set demonstrating the absence of blending.
 //             A total of 24 color blending circles are drawn.
 //
+// Note:
+// These 12 blending modes are:
+// Normal, Multiply, Screen, Overlay, Darken, Lighten, ColorDodge, ColorBurn, HardLight, 
+// SoftLight, Difference, and Exclusion.
+// See ISO 32000, table 136, for more information. Available here:
+// http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/PDF32000_2008.pdf#page=332
+//
 //
 //Steps:
 // 1) Create and title a page for each color blending mode.
@@ -68,8 +75,7 @@ int main(int argc, char** argv)
         ASFixed rightHalfCenter_X = pageCenter_X + leftHalfCenter_X;
         ASFixed rightHalfCenter_Y = pageCenter_Y;
 
-        //All twelve blend modes available in APDFL. See the Adobe PDF Reference, sixth edition, section 7.2.4, table 7.2 for a description of each.
-        //The reference is available here: http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/pdf_reference_1-7.pdf
+        //All twelve blend modes available in APDFL.
         std::vector<char*> blendModes {
             "Opaque (None)",                                                          //Not a blend mode; we'll use the first page for no transparencies.
             "Normal", "Multiply", "Screen",
