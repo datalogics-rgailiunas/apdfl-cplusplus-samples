@@ -17,12 +17,12 @@
 // http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/PDF32000_2008.pdf#page=332
 // Sample: CreateTransparency - This sample demonstrates transparency and blending modes
 //             in APDFL for CMYK and RGB color spaces. It creates 13 sets of RGB and CMYK
-//             color blending circles, one for each of the 12 blending modes, and an
+//             color blending circles, one for each of the 12 blend modes, and an
 //             additional set demonstrating the absence of blending.
 //             A total of 24 color blending circles are drawn.
 //
 // Note:
-// These 12 blending modes are:
+// The 12 standard blend modes, all included with APDFL, are:
 // Normal, Multiply, Screen, Overlay, Darken, Lighten, ColorDodge, ColorBurn, HardLight, 
 // SoftLight, Difference, and Exclusion.
 // See ISO 32000, table 136, for more information. Available here:
