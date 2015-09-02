@@ -7,7 +7,7 @@
 //             and draws it to a new PDF document.
 //
 // Note:
-// This sample will extract text from two seperate PDF documents. It
+// This sample will extract text from two separate PDF documents. It
 // will save output in the working directory as a .pdf and .txt file. 
 // This program demonstrates the APDFL's ability to handle ASCII and
 // unicode text extraction.
