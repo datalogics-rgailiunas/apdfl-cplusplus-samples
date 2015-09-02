@@ -98,6 +98,10 @@ int main(int argc, char** argv)
         textMatrix.h = (0.25 * 72.0);                                                 //This will place the text 1/4 of an inch from the left margin.
         textMatrix.v = (ASFixedToFloat(pageHeight) - (0.20 *  72.00) - fontSize);     //This will place the text 1/5 of an inch from the top margin, adjusting for font size.
 
+        //We create a default graphics state to draw the text with.
+        PDEGraphicState gState;
+        PDEDefaultGState(&gState,sizeof(gState));
+
         //Now create each page, and place each page title.
         for (int i = 0; i < NUM_PAGES; i++)
         {
@@ -112,7 +116,7 @@ int main(int argc, char** argv)
                 (Uns8*)title.str().c_str(),                                           //The text,
                 strlen(title.str().c_str()),                                          //and its length.
                 pdeFont,                                                              //The font we want used.
-                NULL,0,                                                               //Default the graphics state.
+                &gState,sizeof(gState),                                               //Default the graphics state.
                 NULL,0,                                                               //Default the text state.
                 &textMatrix,                                                          //The size and location of the text.
                 NULL);                                                                //Default the stroke matrix.
@@ -128,7 +132,9 @@ int main(int argc, char** argv)
             PDPageReleasePDEContent(outPage, 0);
             PDPageRelease(outPage);
         }
-        PDERelease((PDEObject)pdeFont);                                               //We're done with the font too!
+        PDERelease((PDEObject)gState.strokeColorSpec.space);
+        PDERelease((PDEObject)gState.fillColorSpec.space);
+        PDERelease((PDEObject)pdeFont);
 
 //=================================================================================================================================================================================================
 // 2) Define and create a prototype for the basic shape of each triad.
