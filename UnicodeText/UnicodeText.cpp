@@ -37,8 +37,8 @@ int main(int argc, char** argv)
 //Step 1) Declare the Unicode strings.
 //========================================================================================================================================================================================================================================================================
 
-    //The following are all the unicode strings we intend to place. Note that every string lacks a BOM, lacks other identifiers, and is big endian.
-    //These are all required characteristics for creating an ASText object from a unicode string (minus the endianness - one could also use the host machine's endianness,
+    //The following are all the Unicode strings we intend to place. Note that every string lacks a BOM, lacks other identifiers, and is big endian.
+    //These are all required characteristics for creating an ASText object from a Unicode string (minus the endianness - one could also use the host machine's endianness,
     //but that is not guaranteed to be little-endian, so little endian is not demonstrated.)
 
     //Our English text is in UTF-8.
