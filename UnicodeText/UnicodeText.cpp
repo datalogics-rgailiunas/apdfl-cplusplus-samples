@@ -42,7 +42,7 @@ int main(int argc, char** argv)
     //but that is not garaunteed to be little-endian, so little endian is not demonstrated.)
 
     //Our English text is in UTF-8.
-    //This could have been a regular, double-quoted string, but what the hey.
+    //This could have been a string literal, but for the sake of consistency:
     ASUTF8Val englishStr_U8[] {
             0x55, 0x6E, 0x69, 0x76, 0x65, 0x72, 0x73, 0x61,
             0x6C, 0x20, 0x44, 0x65, 0x63, 0x6C, 0x61, 0x72,
