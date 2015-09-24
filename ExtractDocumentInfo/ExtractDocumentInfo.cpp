@@ -28,7 +28,7 @@
 
 int main(int argc, char** argv)
 {
-    APDFLib libInit(argv[1]);                     //Initialize the Adobe PDF library.
+    APDFLib libInit;                     //Initialize the Adobe PDF library.
     ASErrorCode errCode = 0;             //Variable used to report any exceptions/errors if they occured. 
 
     if (libInit.isValid() == false)      //Check for errors in initialization.

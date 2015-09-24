@@ -7,10 +7,10 @@
 //             and draws it to a new PDF document.
 //
 // Note:
-// This sample will extract text from two separate PDF documents. It
-// will save the output in the working directory as two files, one PDF
-// and the other a text file. This program demonstrates how the Adobe
-// PDF Library handles ASCII and Unicode text extraction.
+// This sample will extract text from two seperate PDF documents. It
+// will save output in the working directory as a .pdf and .txt file. 
+// This program demonstrates the APDFL's ability to handle ASCII and
+// unicode text extraction.
 //
 //Steps:
 // 1) Initialize the PDWordFinder class and the information we 
@@ -35,7 +35,7 @@
 
 int main(int argc, char** argv)
 {
-    APDFLib lib(argv[1]);                                                                                //Initialize the Adobe PDF Library.
+    APDFLib lib;                                                                                //Initialize the Adobe PDF Library.
 
     if (lib.isValid() == false)                                                                 //If it failed to initialize, return the error code.
         return lib.getInitError();
@@ -84,7 +84,7 @@ int main(int argc, char** argv)
     wfConfig->recSize = sizeof(PDWordFinderConfig);
 
     //We'll use the PDWordfinder class to iterate through all the words in our input document.
-    PDWordFinder wordFinder = PDDocCreateWordFinderEx(inAPDoc.getPDDoc(), WF_LATEST_VERSION, false, wfConfig);      //If boolean value is set to true, the word finder extracts text in Unicode.
+    PDWordFinder wordFinder = PDDocCreateWordFinderEx(inAPDoc.getPDDoc(), WF_LATEST_VERSION, false, wfConfig);      //If boolean value is set to true, the word finder extracts text in unicode.
 
     PDWord wordList;
     ASInt32 numWordsFound;
@@ -98,11 +98,6 @@ int main(int argc, char** argv)
 
     PDPage outPage = outAPDoc.getPage(0);                                                            //We must acquire the page and it's content to add text to it.
     PDEContent outPageContent = PDPageAcquirePDEContent(outPage, 0);
-
-    PDEGraphicState gState;
-    PDEDefaultGState(&gState, sizeof(PDEGraphicState));
-
-    PDETextState tState;
 
     for (int i = 0; i < numWordsFound; ++i)
     {
@@ -128,8 +123,8 @@ int main(int argc, char** argv)
             //Append the word to the line.
             PDETextAddASText(nextLine, kPDETextRun, nextLineIndex, nextWordASText,                   //Add the word to the next index in the text object. It's a text run because it's (usually) multiple characters.
                              font,                                                                   //The font we'll use.
-                             &gState, sizeof(gState),                                                //A default graphics state.
-                             &tState, sizeof(tState),                                                //A default text state.
+                             NULL, 0,                                                                //Let the graphics state default.
+                             NULL, 0,                                                                //Let the text state default.
                              &nextWordLocation);                                                     //The starting location of the word on the page.
 
             //Now that the word's been added, get the new location of the end of the line to prepare to add text there.
@@ -162,8 +157,6 @@ int main(int argc, char** argv)
         nextWordLocation.v -= Int16ToFixed(fontSize);                                                //Drop down the v coordinate just enough to draw new, non-overlapping text.
         PDERelease(reinterpret_cast<PDEObject>(nextLine));                                           //We'll make a new PDEText object for the next line come next iteration.
     }
-    PDERelease(reinterpret_cast<PDEObject>(gState.strokeColorSpec.space));
-    PDERelease(reinterpret_cast<PDEObject>(gState.fillColorSpec.space));
 
     PDPageSetPDEContentCanRaise(outPage, NULL);                                                      //We've now captured every line of text. This sets all the content we've just added into the page.
 
@@ -181,7 +174,7 @@ int main(int argc, char** argv)
     outAPDoc.saveDoc(outPath);                                                                       //Save the new document. APDFLDoc's saveDoc method defaults to use the PDSaveFull flag.
 
 //=====================================================================================================================================================================================================================
-//Step 3) Extract Unicode from a second PDF document. Open the document and extract the Unicode chracters to a text file in the working directory.
+//Step 3) Extract unicode from a second PDF document. Open the document and extract the unicode chracters to a text file in the working directory.
 //=====================================================================================================================================================================================================================
 
     APDFLDoc document(L"../_Input/ExtractUnicodeText.pdf", true);                                                       //Open the input document.

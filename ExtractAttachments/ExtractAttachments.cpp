@@ -26,7 +26,7 @@ ACCB1 ASBool ACCB2 extractor(CosObj obj, CosObj value, void *clientData);
 int main(int argc, char** argv)
 {
 
-    APDFLib libInit(argv[1]);                     //Initialize the APDFL.
+    APDFLib libInit;                     //Initialize the APDFL.
     ASErrorCode errCode = 0;             //Error code initially is 0.
 
     if (libInit.isValid() == false)      //Check for errors in initialization.
