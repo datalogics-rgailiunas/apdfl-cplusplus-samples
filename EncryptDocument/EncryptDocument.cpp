@@ -16,10 +16,10 @@
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
 
-int main(int argc, char** argv)
+int main(int argv, char** argc)
 {
 
-    APDFLib libInit(argv[1]);                      //Initialize the Adobe PDF Library.
+    APDFLib libInit;                      //Initialize the Adobe PDF Library.
     ASErrorCode errCode = 0;              //Variable used to report any exceptions/errors if they occured.
 
     if (libInit.isValid() == false)       //Check for errors upon initialization.

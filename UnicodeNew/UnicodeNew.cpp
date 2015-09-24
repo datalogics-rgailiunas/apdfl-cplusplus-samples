@@ -3,7 +3,7 @@
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 //======================================================================================================================
-// Sample: Unicode_New - This sample demonstrates the use of Unicode text in APDFL. We place a variety of texts
+// Sample: UnicodeNew - This sample demonstrates the use of Unicode text in APDFL. We place a variety of texts
 //     in different languages and Unicode encodings, both vertically and horizontally placed, to the output document.
 //
 //Steps:
@@ -26,7 +26,7 @@
 
 int main(int argc, char** argv)
 {
-    APDFLib lib(argv[1]);                                         //Initialize the Adobe PDF Library.
+    APDFLib lib;                                         //Initialize the Adobe PDF Library.
 
     if (lib.isValid() == false)                          //If it failed to initialize, return the error code.
         return lib.getInitError();
@@ -335,7 +335,7 @@ int main(int argc, char** argv)
         PDERelease((PDEObject)graphics.fillColorSpec.space);
         PDERelease((PDEObject)graphics.strokeColorSpec.space);
 
-        outDoc.saveDoc(L"Unicode.pdf");                           //APDFLDoc's destructor will take care of closing the document.
+        outDoc.saveDoc(L"UnicodeNew.pdf");                        //APDFLDoc's destructor will take care of closing the document.
 
         std::wcout << L"Success." << std::endl;
 

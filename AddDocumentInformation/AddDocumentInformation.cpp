@@ -19,7 +19,7 @@
 
 int main(int argc, char** argv)
 {
-    APDFLib lib(argv[1]);                               //Initialize the Adobe PDF Library.
+    APDFLib lib;                               //Initialize the Adobe PDF Library.
 
     if (lib.isValid() == false)                //Check to see if the Adobe PDF Library initialized.
         return lib.getInitError();             //If it failed, return the error code.

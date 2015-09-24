@@ -13,8 +13,6 @@
 ExtractAttachments/*.docx
 ExtractAttachments/*.jpg
 ExtractAttachments/*.png
-*.txt
-!All/Readme.txt
 
 # Build results
 [Dd]ebug/

@@ -5,18 +5,26 @@ REM ***
 
 REM **********************************************************************************************************************
 REM *** Sample: All - Builds and runs each DataLogics APDFL sample, and outputs the results.
-REM ***             By default, this occurs with the Debug/x64 configuration, but arguments can be used to change which 
-REM ***             configuration is used.
 REM ***
-REM *** See Readme.txt in this directory for usage.
-REM *** 
+REM *** By default, this occurs with the debug configuration.
+REM *** Pass in "release" as an argument to use the release configuration.
 REM *** It is important to note that this program assumes: 
-REM ***    1. A sample was built successfully if and only if its exe is located in 
-REM ***           <samplefolder>/<arch>/<stage>/<samplename>.exe
-REM ***    2. <samplename> is the same as <samplefolder>.
-REM *** 
+REM ***    1. A sample was built successfully <-> Its exe is located in <samplefolder>/<arch>/<stage>/<samplename>.exe
+REM ***    2. Above, <samplename> is equal to <samplefolder>.
+REM ***
+REM *** USAGE:
+REM ***   See the documentation for maintenance (adding or removing samples from its build/run directives).
+REM ***   All arguments are case-insensitive.
+REM ***
+REM ***   ARGUMENT      EFFECT
+REM ***   -noRun        Don't run the samples, just build them.
+REM ***   -noAD         Don't process the Adobe samples.
+REM ***   -noDL         Don't process the Datalogics samples.
+REM ***   -rel          Build for Release configuration instead of Debug configuration.
+REM ***   -32           Build 32-bit version instead of 64-bit version (make sure you're in the correct directory.)
+REM ***
 REM *** Steps:
-REM *** 1) Initialize and accept arguments.
+REM *** 1) Initialize.
 REM *** 2) Build each sample.
 REM *** 3) Decide which samples to run.
 REM *** 4) Run the samples.
@@ -70,7 +78,7 @@ REM ***  DEFICIENCY, OR NONCONFORMITY IN ANY EXAMPLE CODE.
 REM ***  
 
 REM *************************************************
-REM *** 1) Initialize and accept arguments.
+REM *** 1) Initialize.
 REM *************************************************
 
 REM *** Initialize environment variables, enable delayed expansion.
@@ -114,29 +122,19 @@ IF /i "%1"=="" (
 )
 IF /i "%1"=="-rel" (
     SET STAGE=Release
-	GOTO GoodArgument
 ) 
 IF /i "%1"=="-noRun" (
 	SET ONLY_BUILD=Y
-	GOTO GoodArgument
 )
 IF /i "%1"=="-noDL" (
 	SET DO_DL=N
-	GOTO GoodArgument
 )
 IF /i "%1"=="-noAD" (
 	SET DO_AD=N
-	GOTO GoodArgument
 )
 IF /i "%1"=="-32" (
 	SET ARCH=win32
-	GOTO GoodArgument
 )
-:BadArgument
-ECHO Error: %1% is not an acceptable argument.
-SET ERRORLEVEL=1
-GOTO End
-:GoodArgument
 SHIFT
 GOTO AcceptCommands
 
@@ -168,7 +166,7 @@ REM *** 3) Decide which samples to run.
 REM *************************************************
 
 REM *** This needs to be accurate, of course.
-SET /A "NUM_SAMPLES=48"
+SET /A "NUM_SAMPLES=41"
 
 REM *** The lists of samples to process (<samplename> in the description at the top).
 
@@ -177,16 +175,13 @@ SET "DL_SAMPLE_LIST=("
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddArt AddAttachment AddBookmarks
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddContent AddDocumentInformation AddLinks
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddPageNumbers AddPassword AddRedaction
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddWatermark ExtractDocumentInfo  RasterizeCopy
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddText CopyContent CreateDocument
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% EncryptDocument ExtractAttachments ExtractText LockDocument
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% MergePDF_New OpenEncrypted SetUniquePermissions
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% MergePDF OpenEncrypted SetUniquePermissions
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% SplitPDF TextSearch WebOptimizedPDF
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% CreateLayers CreateTransparency FlattenPDF_New
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Unicode_New
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
 REM *** This needs to be accurate, of course.
-SET /A "NUM_DL_SAMPLES=29"
+SET /A "NUM_DL_SAMPLES=22"
 REM *** Di iterates over Datalogics samples.
 SET /A "Di=0"
 

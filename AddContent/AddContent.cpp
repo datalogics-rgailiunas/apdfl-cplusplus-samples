@@ -20,6 +20,7 @@
 #include "PERCalls.h"
 #include "PEWCalls.h"
 #include "PagePDECntCalls.h"
+#include "MyPDFLibUtils.h"
 #include "PSFCalls.h"
 #include "ASCalls.h"
 #include "ASExtraCalls.h"
@@ -31,7 +32,7 @@ PDEPath PathRect(ASFixed, ASFixed, ASFixed, ASFixed, int, ASFixed, ASFixed, ASFi
 int main(int argc, char** argv)
 {
    
-    APDFLib libInit(argv[1]);                                             //Initialize the Adobe PDF Library.
+    APDFLib libInit;                                             //Initialize the Adobe PDF Library.
     ASErrorCode errCode = 0;                                     //Variable used to report any exceptions/errors if they occured. 
 
     if (libInit.isValid() == false)                              //Check for errors upon initialization.
