@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{BF3F5105-EBCC-448A-8262-53DE2A125F54}</ProjectGuid>
+    <ProjectGuid>{01661AC6-E746-4412-B917-70041B74464A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>SplitPDF</RootNamespace>
+    <RootNamespace>CreateLayers</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -160,7 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="SplitPDF.cpp" />
+    <ClCompile Include="CreateLayers.cpp" />
     <ClCompile Include="..\_Common\APDFLDoc\APDFLDoc.cpp" />
     <ClCompile Include="..\_Common\Init\InitializeLibrary.cpp" />
     <ClCompile Include="..\..\Include\Source\PDFLInitCommon.c" />

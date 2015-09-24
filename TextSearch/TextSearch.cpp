@@ -23,9 +23,9 @@
 
 void PDAnnotSetQuads(PDAnnot, ASFixedQuad *, ASArraySize);
 
-int main()
+int main(int argc, char** argv)
 {
-    APDFLib libInit;                      //Initialize the Adobe PDF Library.
+    APDFLib libInit(argv[1]);                      //Initialize the Adobe PDF Library.
     ASErrorCode errCode = 0;              //Variable used to report any exceptions/errors if they occured. 
 
     if (libInit.isValid() == false)       //Check for errors upon initialization.
@@ -93,7 +93,7 @@ int main()
         PDWord pdfWordArray;          //This will point at an array of PDWord objects. Do not try to access this directly, acquire the list through PDWordFinderGetNthWord().
         ASInt32 numberOfWords = 0;    //Number of words on the page.
 
-        for (ASInt32 pageNum = 0; pageNum < (PDDocGetNumPages(document.getPDDoc()) - 1); ++pageNum)                           //Iterate through each page in the PDDoc.
+        for (ASInt32 pageNum = 0; pageNum < (PDDocGetNumPages(document.getPDDoc())); ++pageNum)                               //Iterate through each page in the PDDoc.
         {
             PDWordFinderAcquireWordList(wordFinder, pageNum, &pdfWordArray, nullptr, nullptr, &numberOfWords);                //Get all words in the PDPage specified.
 

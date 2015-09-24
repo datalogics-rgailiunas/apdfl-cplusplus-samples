@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{BF3F5105-EBCC-448A-8262-53DE2A125F54}</ProjectGuid>
+    <ProjectGuid>{40245DB9-3D04-45F8-ABE7-AF36AA15A8E1}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>SplitPDF</RootNamespace>
+    <RootNamespace>FlattenPDF_New</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -160,7 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="SplitPDF.cpp" />
+    <ClCompile Include="FlattenPDF_New.cpp" />
     <ClCompile Include="..\_Common\APDFLDoc\APDFLDoc.cpp" />
     <ClCompile Include="..\_Common\Init\InitializeLibrary.cpp" />
     <ClCompile Include="..\..\Include\Source\PDFLInitCommon.c" />
