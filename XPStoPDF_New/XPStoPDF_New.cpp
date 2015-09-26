@@ -3,10 +3,13 @@
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 //==============================================================================
-// Sample: ? - ?
+// Sample: XPStoPDF_New - Demonstrates the XPS2PDF plugin, which converts a
+//             PDF document into an XPS document.
 //
 // Steps:
-// 1) ?
+// 1) Load and configure settings for the plugin.
+// 2) Convert the input XPS document.
+// 3) Save the new PDF document and release resources.
 //==============================================================================
 
 #include "InitializeLibrary.h"
@@ -17,53 +20,69 @@
 
 #include "XPS2PDFCalls.h"
 
-ExtensionID gExtensionID = 0; 
-
 int main(int argc, char** argv)
 {
-    APDFLib libInit;                      //Initialize the Adobe PDF Library.
-    ASErrorCode errCode = 0;              //Variable used to report any exceptions/errors if they occured.
+    APDFLib lib;                      //Initialize the Adobe PDF Library.
+    ASErrorCode errCode = 0;          //Variable used to report any exceptions/errors if they occured.
 
-    if (libInit.isValid() == false)       //If there was a problem in initialization, return the error code.
-        return libInit.getInitError();
+    if (lib.isValid() == false)       //If there was a problem in initialization, return the error code.
+        return lib.getInitError();
 
     DURING
 
-    gXPS2PDFHFT = InitXPS2PDFHFT;         //Sets the function called during XPS2PDFInitialize().
+//=========================================================================================================================
+// 1) Load and configure settings for the plugin.
+//=========================================================================================================================
 
-//Load the plugin.
+    gXPS2PDFHFT = InitXPS2PDFHFT;         //Sets the function called by XPS2PDFInitialize().
 
     //Load the XPS2PDF plugin.
     if (!XPS2PDFInitialize()) {
-        std::wcout << L"XPS2PDF Could not initialize." << std::endl;
-        ASRaise(ERRORCODE);    //The handler will display the error code.
+        std::wcout << L"XPS2PDF Could not initialize:" << std::endl;
+        ASRaise(ERRORCODE);              //The handler will display the error code.
     }
 
-//Prepare the settings for the converter..
     ASCab settings = ASCabNew();
 
-    ASText language = ASTextFromUnicode((ASUTF16Val*)"ENU", kUTF8);
-    ASCabPutText(settings, "PDFSettingsLang", language);
+    //The .joboptions file specifies a great number of settings which determine exactly how the PDF document
+    //is created by the converter.
     ASText jobNameText = ASTextFromUnicode((ASUTF16Val*)"../../Resource/joboptions/Standard.joboptions", kUTF8);
     ASCabPutText(settings, "PDFSettings", jobNameText);
 
+    //Specify which description in the .joboptions file we will use.
+    //There are many others, for different langauges. See the file.
+    ASText language = ASTextFromUnicode((ASUTF16Val*)"ENU", kUTF8);
+    ASCabPutText(settings, "PDFSettingsLang", language);
+
+//=========================================================================================================================
+// 2) Convert the input XPS document.
+//=========================================================================================================================
+
+    //The path of the input XPS.
     ASPathName asInPathName = ASFileSysCreatePathName(NULL, ASAtomFromString("Cstring"), "../_Input/XPStoPDF_New.xps", 0);
 
-    PDDoc odoc = NULL;
+    //We supply an empty PDDoc to convert the XPS into.
+    PDDoc outputDoc = NULL;
+    int ret_val = XPS2PDFConvert(settings,0,asInPathName,NULL,&outputDoc,NULL);
 
-    int ret_val = XPS2PDFConvert(settings,0,asInPathName,NULL,&odoc,NULL);
-    if (ret_val)
+    //If we succeeded, XPS2PDFConvert returns 1.
+    if (ret_val != 1)
     {
-        /* DLADD: kshahn 13Aug2009 - Fix printf wording. */
-        APDFLDoc doc;
-        doc.pdDoc = odoc;
-        doc.saveDoc(L"converted.pdf");
-        //APDFLDoc's destructor takes care of closing the document and releasing the rest of the resources.
+        std::wcout << L"Conversion failed." << std::endl;
+        E_RETURN(-2);
     }
-    else
-        ASRaise(ret_val);
 
-    //clean up args when done
+//=========================================================================================================================
+// 3) Save the new PDF document and release resources.
+//=========================================================================================================================
+
+    //We construct an APDFLDoc object for this PDF to ease saving it.
+    APDFLDoc outAPDoc;
+    outAPDoc.pdDoc = outputDoc;
+    outAPDoc.saveDoc(L"converted.pdf");
+
+    //Release the other resources we created.
+    //(APDFLDoc's destructor takes care of closing the document and releasing the rest of its resources.)
     ASCabDestroy(settings);
     ASFileSysReleasePath( NULL, asInPathName);
 
@@ -73,12 +92,12 @@ int main(int argc, char** argv)
     HANDLER
 
         errCode = ERRORCODE;
-        libInit.displayError(errCode);                                //If there was an error, display it.
+        lib.displayError(errCode);                 //If there was an error, display it.
 
     END_HANDLER
 
     if (!errCode)
         std::wcout << L"Success!" << std::endl;
 
-    return errCode;                                                   //APDFLib's destructor terminates the library.
+    return errCode;                               //APDFLib's destructor terminates the library.
 }
