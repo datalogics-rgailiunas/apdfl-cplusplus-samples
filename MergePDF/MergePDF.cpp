@@ -2,10 +2,10 @@
 //
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-//======================================================================
-// Sample: MergePDF_New: Opens two documents, merges them and saves the
-//             resulting document in the working directory.
-//======================================================================
+//************************************************************************
+// Sample: MergePDF: Opens two documents, merges them and saves the
+// resulting document in the working directory.
+//************************************************************************
 
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"

@@ -20,6 +20,7 @@
 #include "PERCalls.h"
 #include "PEWCalls.h"
 #include "PagePDECntCalls.h"
+#include "MyPDFLibUtils.h"
 #include "PSFCalls.h"
 #include "ASCalls.h"
 #include "ASExtraCalls.h"
