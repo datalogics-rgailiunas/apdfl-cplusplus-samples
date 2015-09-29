@@ -3,7 +3,7 @@
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 //==============================================================================
-// Sample: XPStoPDF_New - Demonstrates the XPS2PDF plugin, which converts a
+// Sample: XPStoPDF - Demonstrates the XPS2PDF plugin, which converts a
 //             PDF document into an XPS document.
 //
 // Steps:
