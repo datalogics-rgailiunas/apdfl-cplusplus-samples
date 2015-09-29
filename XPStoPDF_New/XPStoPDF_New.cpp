@@ -69,24 +69,27 @@ int main(int argc, char** argv)
     if (ret_val != 1)
     {
         std::wcout << L"Conversion failed." << std::endl;
-        E_RETURN(-2);
     }
-
+    else
+    {
 //=========================================================================================================================
 // 3) Save the new PDF document and release resources.
 //=========================================================================================================================
 
-    //We construct an APDFLDoc object for this PDF to ease saving it.
-    APDFLDoc outAPDoc;
-    outAPDoc.pdDoc = outputDoc;
-    outAPDoc.saveDoc(L"converted.pdf");
+        //We construct an APDFLDoc object for this PDF to ease saving it.
+        APDFLDoc outAPDoc;
+        outAPDoc.pdDoc = outputDoc;
+        outAPDoc.saveDoc(L"converted.pdf");
 
-    //Release the other resources we created.
-    //(APDFLDoc's destructor takes care of closing the document and releasing the rest of its resources.)
-    ASCabDestroy(settings);
-    ASFileSysReleasePath( NULL, asInPathName);
+        //Release the other resources we created.
+        //(APDFLDoc's destructor takes care of closing the document and releasing the rest of its resources.)
+        ASCabDestroy(settings);
+        ASFileSysReleasePath(NULL, asInPathName);
 
-    //Close the XPS2PDF plugin.
+        std::wcout << L"Successfully converted the document." << std::endl;
+    }
+
+    //Close the plugin.
     XPS2PDFTerminate();
 
     HANDLER
@@ -95,9 +98,6 @@ int main(int argc, char** argv)
         lib.displayError(errCode);                 //If there was an error, display it.
 
     END_HANDLER
-
-    if (!errCode)
-        std::wcout << L"Success!" << std::endl;
 
     return errCode;                               //APDFLib's destructor terminates the library.
 }
