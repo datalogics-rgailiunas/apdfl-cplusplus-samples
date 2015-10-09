@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) 2015, Datalogics, Inc. All rights reserved.
+ *
+ * Please see http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
+ * for license information for this source file.
+ *
  * @file   ScopeGuard.h
  * @date   9/21/2009 17:20
  * 
