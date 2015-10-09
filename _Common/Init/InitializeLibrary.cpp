@@ -15,19 +15,29 @@
 
 //========================================================================================================
 //Constructor:
-//Sets the PDFLDataRec and initializes the library with that data.
+//initializes APDFL and does not default the DL100PDFL.dll directory. dl100Dir should be a relative path.
 //========================================================================================================
-APDFLib::APDFLib()
+APDFLib::APDFLib(char* dl100Dir)
 {
     initValid = false;                            //Whether the initialization succeeded.
 
+    if (dl100Dir == NULL)
+        dl100Dir = "..\\..\\Libs";                //The default DL100PDFL.lib directory.
+
+    HINSTANCE dllInst = loadDFL100PDFL (dl100Dir);
+    if (dllInst == 0)
+    {
+        initValid = false;
+        return;
+    }
+
     memset(&pdflData, 0, sizeof(PDFLDataRec));    //Clear the data struct so we can set its data.
 
-	//Set PDFLDataRec's data.
+    //Set PDFLDataRec's data.
     pdflData.size = sizeof(PDFLDataRec);          //Give it its size.
     pdflData.allocator = NULL;                    //Use default memory allocation procedures.
     fillDirectories();                            //Set the directory inclusion data.
-
+    pdflData.inst = dllInst;
     initError = PDFLInitHFT(&pdflData);           //Initialize the library.
 
     if (initError == 0)                           //If initError is 0, initialization succeeded.
@@ -52,6 +62,57 @@ ASInt32 APDFLib::getInitError()
 }
 
 //========================================================================================================
+//ASInt32 function:
+//Loads the DL100PDFL library dynamically.
+//========================================================================================================
+HINSTANCE APDFLib::loadDFL100PDFL (char* relativeDir)
+{
+    //relativeDir must be converted into a wchar_t*.
+    const size_t strln = strlen(relativeDir) + 1;
+    wchar_t* w_relativeDir = new wchar_t[strln];
+    mbstowcs(w_relativeDir, relativeDir, strln);
+
+    //Prepare to find the full path name.
+    DWORD fullDLLPath = 0;                        //The path to the DLL.
+    const int bufsize = 4096;                     //The size of the buffer we'll write the path to.
+    TCHAR pathBuffer[bufsize] = TEXT("");         //The buffer we'll write the path to.
+    TCHAR** lppPart = { NULL };                   //Recieves the address of the final name component.
+
+    TCHAR* DllRPath = w_relativeDir;                //The relative path we start with.
+
+    fullDLLPath = GetFullPathName(DllRPath,       //Turn the relative path into an absolute path.
+        bufsize,
+        pathBuffer,
+        lppPart);
+
+    SetDllDirectory(pathBuffer);                  //Add the path to the DLL directory.
+
+    //Ensure we have read and write access to it.
+    int access = _waccess(w_relativeDir, 06);
+    if (EACCES == access)
+    {
+        std::wcout << L"DL100PDFL.dll : ACCESS DENIED" << std::endl;
+        return 0;
+    }
+    if (ENOENT == access)
+    {
+        std::wcout << L"DL100PDFL.dll : COULD NOT LOCATE FILE" << std::endl;
+        return 0;
+    }
+
+    if (EINVAL == access)
+    {
+        std::wcout << L"DL100PDFL.dll : INVALID PARAMETER" << std::endl;
+        return 0;
+    }
+
+    return (LoadLibrary(L"DL100PDFL.dll"));
+}
+
+
+
+//========================================================================================================
+
 //Void function:
 //Sets directory information for our PDFLDataRec.
 //========================================================================================================
@@ -73,7 +134,9 @@ void APDFLib::fillDirectories()
     pdflData.unicodeDirectory = (ASUTF16Val*)L"..\\..\\..\\APDFL\\Resource\\Unicode";
 
 	//Set the plugin directory and its length.
-    pluginDirList[0] = (ASUTF16Val*)L"..\\..\\..\\APDFL\\Libs";
+    static TCHAR pluginPathBuffer[1024];
+    GetFullPathName (L"..\\..\\..\\APDFL\\Libs", 1024, pluginPathBuffer, 0);
+    pluginDirList[0] = (ASUTF16Val*)pluginPathBuffer;
     pdflData.pluginDirList = pluginDirList;
     pdflData.pluginDirListLen = NUM_PLUGIN_DIRS;
 }
@@ -96,5 +159,6 @@ void APDFLib::displayError(ASErrorCode errCode)
 //========================================================================================================
 APDFLib::~APDFLib()
 {
-    PDFLTermHFT();
+    if (initValid)
+        PDFLTermHFT();
 }

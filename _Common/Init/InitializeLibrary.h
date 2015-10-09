@@ -25,7 +25,7 @@
 class APDFLib
 {
 public:
-    APDFLib();                                        //Constructor initializes APDFL.
+    APDFLib(char* dl100Dir = NULL);                          //Constructor initializes APDFL and sets the path to DL100PDFL.dll to dl100Dir. If NULL is passed, defaults to ../../Libs. dl100Dir should be a relative path.
     ~APDFLib();                                       //Destructor terminates APDFL.
 
     ASInt32 getInitError();                           //Reports whether an error happened during initialization and returns that error.
@@ -38,6 +38,7 @@ private:
     ASBool initValid;                                 //Set to true if the library initializes successfully.
 
     void fillDirectories();                           //Sets directory information for our PDFLDataRec.
+    HINSTANCE loadDFL100PDFL(char* relativeDir);        //Loads the DL100PDFL library dynamically.
 
     ASUTF16Val* fontDirList[NUM_FONTS];               //List of font directories we'll include during initialization.              //TODO: platform divergences
     ASUTF16Val* colorProfDirList[NUM_COLOR_PROFS];    //List of color profile directories we'll include during initialization.     //TODO: platform divergences
