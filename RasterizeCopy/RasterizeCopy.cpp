@@ -113,7 +113,7 @@ int main(int agc, char** argv)
 
     //These parameters specify all the details of how we want the page rendered.
     PDPageDrawMParamsRec drawParams;
-    memset((char*) &drawParamsRec, 0, sizeof (PDPageDrawMParamsRec));                      //Initialize all elements of drawParams to 0.
+    memset((char*) &drawParams, 0, sizeof (PDPageDrawMParamsRec));                      //Initialize all elements of drawParams to 0.
     drawParams.size = sizeof(PDPageDrawMParamsRec);
 
     //The destination, source, and transformation rectangles, respectively.
