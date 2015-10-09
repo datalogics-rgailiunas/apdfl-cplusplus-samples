@@ -17,12 +17,12 @@
 //Constructor:
 //initializes APDFL and does not default the DL100PDFL.dll directory. dl100Dir should be a relative path.
 //========================================================================================================
-APDFLib::APDFLib(char* dl100Dir)
+APDFLib::APDFLib(wchar_t* dl100Dir)
 {
     initValid = false;                            //Whether the initialization succeeded.
 
     if (dl100Dir == NULL)
-        dl100Dir = "..\\..\\Libs";                //The default DL100PDFL.lib directory.
+        dl100Dir = L"..\\..\\Libs";               //The default DL100PDFL.lib directory.
 
     HINSTANCE dllInst = loadDFL100PDFL (dl100Dir);
     if (dllInst == 0)
@@ -65,22 +65,15 @@ ASInt32 APDFLib::getInitError()
 //ASInt32 function:
 //Loads the DL100PDFL library dynamically.
 //========================================================================================================
-HINSTANCE APDFLib::loadDFL100PDFL (char* relativeDir)
+HINSTANCE APDFLib::loadDFL100PDFL (wchar_t* relativeDir)
 {
-    //relativeDir must be converted into a wchar_t*.
-    const size_t strln = strlen(relativeDir) + 1;
-    wchar_t* w_relativeDir = new wchar_t[strln];
-    mbstowcs(w_relativeDir, relativeDir, strln);
-
     //Prepare to find the full path name.
     DWORD fullDLLPath = 0;                        //The path to the DLL.
     const int bufsize = 4096;                     //The size of the buffer we'll write the path to.
     TCHAR pathBuffer[bufsize] = TEXT("");         //The buffer we'll write the path to.
     TCHAR** lppPart = { NULL };                   //Recieves the address of the final name component.
 
-    TCHAR* DllRPath = w_relativeDir;                //The relative path we start with.
-
-    fullDLLPath = GetFullPathName(DllRPath,       //Turn the relative path into an absolute path.
+    fullDLLPath = GetFullPathName (relativeDir,   //Turn the relative path into an absolute path.
         bufsize,
         pathBuffer,
         lppPart);
@@ -88,7 +81,7 @@ HINSTANCE APDFLib::loadDFL100PDFL (char* relativeDir)
     SetDllDirectory(pathBuffer);                  //Add the path to the DLL directory.
 
     //Ensure we have read and write access to it.
-    int access = _waccess(w_relativeDir, 06);
+    int access = _waccess(pathBuffer, 06);
     if (EACCES == access)
     {
         std::wcout << L"DL100PDFL.dll : ACCESS DENIED" << std::endl;
