@@ -59,7 +59,7 @@ int main(int argc, char** argv)
 //=========================================================================================================================
 
     //The path of the input XPS.
-    ASPathName asInPathName = ASFileSysCreatePathName(NULL, ASAtomFromString("Cstring"), "../_Input/XPStoPDF_New.xps", 0);
+    ASPathName asInPathName = ASFileSysCreatePathName(NULL, ASAtomFromString("Cstring"), "../_Input/XPStoPDF.xps", 0);
 
     //We supply an empty PDDoc to convert the XPS into.
     PDDoc outputDoc = NULL;
