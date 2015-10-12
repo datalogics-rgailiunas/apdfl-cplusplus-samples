@@ -19,7 +19,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreateDocument", "..\Create
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LockDocument", "..\LockDocument\LockDocument.vcxproj", "{60609083-04E5-4635-99F5-25C8C5B818A0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MergePDF", "..\MergePDF\MergePDF.vcxproj", "{729F3CA8-F868-42B8-B061-446C423DA9A8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MergeDocuments", "..\MergeDocuments\MergeDocuments.vcxproj", "{729F3CA8-F868-42B8-B061-446C423DA9A8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SetUniquePermissions", "..\SetUniquePermissions\SetUniquePermissions.vcxproj", "{6A187553-5DE6-461E-9838-3A3765330451}"
 EndProject
@@ -45,7 +45,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractAttachments", "..\Ex
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TextSearch", "..\TextSearch\TextSearch.vcxproj", "{CA4E530D-DAC1-4CAB-8C14-4B1B7EB4FFC6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddContent", "..\ExtractText\ExtractText.vcxproj", "{846D5A08-9512-40E3-974F-EF5B993E1828}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractText", "..\ExtractText\ExtractText.vcxproj", "{2E8F147F-1CB9-4345-9CBE-EE28312F224D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -223,14 +223,14 @@ Global
 		{CA4E530D-DAC1-4CAB-8C14-4B1B7EB4FFC6}.Release|Win32.Build.0 = Release|Win32
 		{CA4E530D-DAC1-4CAB-8C14-4B1B7EB4FFC6}.Release|x64.ActiveCfg = Release|x64
 		{CA4E530D-DAC1-4CAB-8C14-4B1B7EB4FFC6}.Release|x64.Build.0 = Release|x64
-		{846D5A08-9512-40E3-974F-EF5B993E1828}.Debug|Win32.ActiveCfg = Debug|Win32
-		{846D5A08-9512-40E3-974F-EF5B993E1828}.Debug|Win32.Build.0 = Debug|Win32
-		{846D5A08-9512-40E3-974F-EF5B993E1828}.Debug|x64.ActiveCfg = Debug|x64
-		{846D5A08-9512-40E3-974F-EF5B993E1828}.Debug|x64.Build.0 = Debug|x64
-		{846D5A08-9512-40E3-974F-EF5B993E1828}.Release|Win32.ActiveCfg = Release|Win32
-		{846D5A08-9512-40E3-974F-EF5B993E1828}.Release|Win32.Build.0 = Release|Win32
-		{846D5A08-9512-40E3-974F-EF5B993E1828}.Release|x64.ActiveCfg = Release|x64
-		{846D5A08-9512-40E3-974F-EF5B993E1828}.Release|x64.Build.0 = Release|x64
+		{2E8F147F-1CB9-4345-9CBE-EE28312F224D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2E8F147F-1CB9-4345-9CBE-EE28312F224D}.Debug|Win32.Build.0 = Debug|Win32
+		{2E8F147F-1CB9-4345-9CBE-EE28312F224D}.Debug|x64.ActiveCfg = Debug|x64
+		{2E8F147F-1CB9-4345-9CBE-EE28312F224D}.Debug|x64.Build.0 = Debug|x64
+		{2E8F147F-1CB9-4345-9CBE-EE28312F224D}.Release|Win32.ActiveCfg = Release|Win32
+		{2E8F147F-1CB9-4345-9CBE-EE28312F224D}.Release|Win32.Build.0 = Release|Win32
+		{2E8F147F-1CB9-4345-9CBE-EE28312F224D}.Release|x64.ActiveCfg = Release|x64
+		{2E8F147F-1CB9-4345-9CBE-EE28312F224D}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

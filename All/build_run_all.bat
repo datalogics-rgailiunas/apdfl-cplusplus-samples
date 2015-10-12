@@ -12,8 +12,15 @@ REM *** It is important to note that this program assumes:
 REM ***    1. A sample was built successfully <-> Its exe is located in <samplefolder>/<arch>/<stage>/<samplename>.exe
 REM ***    2. Above, <samplename> is equal to <samplefolder>.
 REM ***
+REM *** MAINTENANCE:
+REM ***   Step 3 is where you want to be if you want to add or remove samples from this script.
+REM ***   Add or remove items from DL_SAMPLE_LIST or AD_SAMPLE_LIST, making sure to update NUM_SAMPLES,
+REM ***   NUM_AD_SAMPLES, and NUM_DL_SAMPLES accordingly. Bear in mind that each item in the list must
+REM ***   be, simultaneously, the name of the sample's folder in ../, the name of the sample's .sln,
+REM ***   and the name of the executable it builds...
+REM ***   If necessary, you can also specify arguments for samples. Follow the examples therein.
+REM ***
 REM *** USAGE:
-REM ***   See the documentation for maintenance (adding or removing samples from its build/run directives).
 REM ***   All arguments are case-insensitive.
 REM ***
 REM ***   ARGUMENT      EFFECT
@@ -165,10 +172,8 @@ REM *************************************************
 REM *** 3) Decide which samples to run.
 REM *************************************************
 
-REM *** This needs to be accurate, of course.
+REM *** The total number of samples. This must be accurate!
 SET /A "NUM_SAMPLES=41"
-
-REM *** The lists of samples to process (<samplename> in the description at the top).
 
 REM *** Datalogics Samples.
 SET "DL_SAMPLE_LIST=("
@@ -177,13 +182,11 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddContent AddDocumentInformation AddLinks
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddPageNumbers AddPassword AddRedaction
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddText CopyContent CreateDocument
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% EncryptDocument ExtractAttachments ExtractText LockDocument
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% MergePDF OpenEncrypted SetUniquePermissions
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% MergeDocuments OpenEncrypted SetUniquePermissions
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% SplitPDF TextSearch WebOptimizedPDF
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
-REM *** This needs to be accurate, of course.
+REM *** The total number of DL samples. This must be accurate!
 SET /A "NUM_DL_SAMPLES=22"
-REM *** Di iterates over Datalogics samples.
-SET /A "Di=0"
 
 REM *** Adobe Samples.
 SET "AD_SAMPLE_LIST=("
@@ -195,20 +198,19 @@ SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% PDFAConverter PDFLSnippetRunner PDFViewer"
 SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% Peddler printpdf unicode"
 SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% XPS2PDFConverter"
 SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST%)"
-REM *** This needs to be accurate, of course.
+REM *** The total number of AD samples. This must be accurate!
 SET /A "NUM_AD_SAMPLES=19"
-REM *** Ai iterates over Adobe samples.
-REM (None yet.)
-SET /A "Ai=0"
 
-REM *** Arguments for all samples. The variable name before "_args"
-REM *** is the name of the sample which requires the arguments.
-rem (devnote: These samples are not currently included. These variables
-rem are examples of what argument-passing is like.)
+REM *** Ai iterates over Adobe samples. Do not change this value.
+SET /A "Ai=0"
+REM *** Di iterates over Datalogics samples. Do not change this value.
+SET /A "Di=0"
+
+REM *** Some samples require arguments. The variable name before "_args"
+REM *** is the name of the sample.
 SET "MTInMemFS_args=..\_Data\input.txt outPath"
 SET "MTSerialNums_args=..\_Data\addelem.pdf outDir outBase 2 3"
 SET "SnippetRunner_args=DLautoInput.txt"
-
 
 REM *************************************************
 REM *** 4) Run the samples.

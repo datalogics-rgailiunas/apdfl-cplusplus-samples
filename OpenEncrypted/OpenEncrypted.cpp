@@ -56,7 +56,7 @@ int main(int argc, char** argv)
     ASPathName inputPathName  = makeASPathName(L"../_Input/OpenEncrypted.pdf");
 
     //PDDocOpenEx openAuthorizationProcedure to supply the password.
-    PDDoc document = PDDocOpenEx(inputPathName, ASGetDefaultFileSys(), ASCallbackCreateProto(PDAuthProcEx, &openAuthorizationProcedure), 0, true);
+    PDDoc document = PDDocOpenEx(inputPathName, ASGetDefaultFileSys(), &openAuthorizationProcedure, 0, true);
 
     ASFileSysReleasePath(ASGetDefaultFileSys(), inputPathName);          //We only needed this to open the document. It will be saved to a new path.
 
