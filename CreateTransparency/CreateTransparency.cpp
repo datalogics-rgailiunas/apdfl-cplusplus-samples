@@ -3,13 +3,25 @@
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 //============================================================================================
+// Sample: CreateTransparency - This sample demonstrates transparency and blend modes
+//             in APDFL for CMYK and RGB color spaces. It creates 13 sets of RGB and CMYK
+//             color blending circles, one for each of the 12 blend modes, and an
+//             additional set demonstrating the absence of blending.
+//             A total of 24 color blending circles are drawn.
+//
+// Note:
+// The 12 standard blend modes, all included with APDFL, are:
+// Normal, Multiply, Screen, Overlay, Darken, Lighten, ColorDodge, ColorBurn, HardLight, 
+// SoftLight, Difference, and Exclusion.
+// See ISO 32000, table 136, for more information. Available here:
+// http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/PDF32000_2008.pdf#page=332
 // Sample: CreateTransparency - This sample demonstrates transparency and blending modes
-//             in APDFL for CMYK and RGB color spaces. It creates 2 color blending
-//             triads, one for APDFL and one for CMYK, once for each of the 12
-//             blending modes, for a total of 24 color blending triads.
+//             in APDFL for CMYK and RGB color spaces. It creates 13 sets of RGB and CMYK
+//             color blending circles, one for each of the 12 blend modes, and an
+//             additional set demonstrating the absence of blending.
+//             A total of 24 color blending circles are drawn.
 //
-//
-//Steps:
+// Steps:
 // 1) Create and title a page for each color blending mode.
 // 2) Define and create a PDEForm prototype for the basic shape of each triad.
 // 3) Create a PDEForm prototype for the CMYK and RGB triads by triplicating the basic shape.
@@ -67,8 +79,7 @@ int main(int argc, char** argv)
         ASFixed rightHalfCenter_X = pageCenter_X + leftHalfCenter_X;
         ASFixed rightHalfCenter_Y = pageCenter_Y;
 
-        //All twelve blend modes available in APDFL. See the Adobe PDF Reference, sixth edition, section 7.2.4, table 7.2 for a description of each.
-        //The reference is available here: http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/pdf_reference_1-7.pdf
+        //All twelve blend modes available in APDFL.
         std::vector<char*> blendModes {
             "Opaque (None)",                                                          //Not a blend mode; we'll use the first page for no transparencies.
             "Normal", "Multiply", "Screen",

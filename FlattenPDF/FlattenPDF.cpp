@@ -7,8 +7,6 @@
 //
 // Note:
 // PDFlattener will only flatten pages that include transparent elements.
-// Thus, the number of pages it reports to have flattened will not necessarily be
-// equal to the number of pages you've asked it to work through.
 //
 // Steps:
 // Step 1) Initialize the PDFLattener plugin.

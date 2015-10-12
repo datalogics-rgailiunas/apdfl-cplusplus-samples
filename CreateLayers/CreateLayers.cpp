@@ -3,8 +3,8 @@
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 //===========================================================================
-// Sample: CreateLayers - Creates two layers in a pdf that will each contain  
-//                        and display text and annotations.
+// Sample: CreateLayers - Creates two layers in a PDF, one which contains
+//             text and one which contains annotations.
 //
 // Steps:
 //  1) Create a pdf document and extract its content.

@@ -34,7 +34,7 @@ int main(int agc, char** argv)
 
     wchar_t* inPath  = L"../_Input/RasterizeCopy.pdf";   //The path to the input document.
     std::string colorSpace = "DeviceRGB";                //The color space we want the output image to be in. This sample supports DeviceRGB, DeviceCMYK, and DeviceGray.
-    const char* filterName = "FlateDecode";              //How we want the output image decoded. Typically FlateDecode, ASCIIHexDecode, LZEDecode, or DCTDecode.
+    const char* filterName = "FlateDecode";              //How we want the output image decoded. Typically FlateDecode, ASCIIHexDecode, LZWDecode, or DCTDecode.
     float resolution = 200.0;                            //The resolution of the image we'll render. Typically 72.0, 150.0, 200.0, 300.0, or 600.0.
     wchar_t* outPath = L"RasterizeCopied.pdf";           //The path to the output document we'll create.
 
