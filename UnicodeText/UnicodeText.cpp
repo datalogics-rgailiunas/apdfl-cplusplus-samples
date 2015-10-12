@@ -40,7 +40,6 @@ int main(int argc, char** argv)
     //The following are all the Unicode strings we intend to place. Note that every string lacks a BOM, lacks other identifiers, and is big endian.
     //These are all required characteristics for creating an ASText object from a Unicode string (minus the endianness - one could also use the host machine's endianness,
     //but that is not guaranteed to be little-endian, so little endian is not demonstrated.)
-
     //Our English text is in UTF-8.
     //This could have been a string literal, but for the sake of consistency:
     ASUTF8Val englishStr_U8[] {

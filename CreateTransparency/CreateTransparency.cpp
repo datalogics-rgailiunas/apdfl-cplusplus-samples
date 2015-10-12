@@ -21,14 +21,7 @@
 //             additional set demonstrating the absence of blending.
 //             A total of 24 color blending circles are drawn.
 //
-// Note:
-// The 12 standard blend modes, all included with APDFL, are:
-// Normal, Multiply, Screen, Overlay, Darken, Lighten, ColorDodge, ColorBurn, HardLight, 
-// SoftLight, Difference, and Exclusion.
-// See ISO 32000, table 136, for more information. Available here:
-// http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/PDF32000_2008.pdf#page=332
-//
-//Steps:
+// Steps:
 // 1) Create and title a page for each color blending mode.
 // 2) Define and create a PDEForm prototype for the basic shape of each triad.
 // 3) Create a PDEForm prototype for the CMYK and RGB triads by triplicating the basic shape.
