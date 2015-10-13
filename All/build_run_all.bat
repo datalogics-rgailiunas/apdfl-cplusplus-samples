@@ -173,7 +173,7 @@ REM *** 3) Decide which samples to run.
 REM *************************************************
 
 REM *** The total number of samples. This must be accurate!
-SET /A "NUM_SAMPLES=51"
+SET /A "NUM_SAMPLES=49"
 
 REM *** Datalogics Samples.
 SET "DL_SAMPLE_LIST=("
@@ -202,7 +202,7 @@ SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% Peddler printpdf unicode"
 SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% XPS2PDFConverter"
 SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST%)"
 REM *** The total number of AD samples. This must be accurate!
-SET /A "NUM_AD_SAMPLES=18"
+SET /A "NUM_AD_SAMPLES=16"
 
 REM *** Ai iterates over Adobe samples. Do not change this value.
 SET /A "Ai=0"
