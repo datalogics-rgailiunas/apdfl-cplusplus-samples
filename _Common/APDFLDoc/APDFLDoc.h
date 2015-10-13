@@ -42,6 +42,8 @@ public:
     APDFLDoc(wchar_t*, bool doRepairDamagedFile);                          //Constructor used to open a document.
     APDFLDoc();                                                            //Constructor used to create a document.
 
+    ASSize_t numPages () { return (PDDocGetNumPages (pdDoc)); }
+
     ASErrorCode insertPage(const ASFixed & width, const ASFixed & height, ASInt32);  //Inserts a page into the document.
     ASErrorCode insertPage(const ASInt16 & width, const ASInt16 & height, ASInt32);  //Inserts a page into the document.
     PDPage getPage(ASInt32);                                                         //Returns the specified PDPage, the first page is 0.
