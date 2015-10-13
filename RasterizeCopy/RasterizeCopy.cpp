@@ -34,7 +34,7 @@ int main(int agc, char** argv)
 
     wchar_t* inPath  = L"../_Input/RasterizeCopy.pdf";   //The path to the input document.
     std::string colorSpace = "DeviceRGB";                //The color space we want the output image to be in. This sample supports DeviceRGB, DeviceCMYK, and DeviceGray.
-    const char* filterName = "FlateDecode";              //How we want the output image decoded. Typically FlateDecode, ASCIIHexDecode, LZEDecode, or DCTDecode.
+    const char* filterName = "FlateDecode";              //How we want the output image decoded. Typically FlateDecode, ASCIIHexDecode, LZWDecode, or DCTDecode.
     float resolution = 200.0;                            //The resolution of the image we'll render. Typically 72.0, 150.0, 200.0, 300.0, or 600.0.
     wchar_t* outPath = L"RasterizeCopied.pdf";           //The path to the output document we'll create.
 
@@ -113,39 +113,24 @@ int main(int agc, char** argv)
 
     //These parameters specify all the details of how we want the page rendered.
     PDPageDrawMParamsRec drawParams;
+    memset((char*) &drawParams, 0, sizeof (PDPageDrawMParamsRec));                      //Initialize all elements of drawParams to 0.
+    drawParams.size = sizeof(PDPageDrawMParamsRec);
 
     //The destination, source, and transformation rectangles, respectively.
     drawParams.destRect = &destRect;
-    drawParams.updateRect = NULL;                                                      //Null means we'll render all objects, inside or outside the page boundaries.
     drawParams.matrix = &userMatrix;
-
-    //The DrawMParamsRec allows the use of ASReal structs instead of ASFixed structs, but all our variables are ASFixed structs.
-    drawParams.asRealDestRect = NULL;
-    drawParams.asRealUpdateRect = NULL;
-    drawParams.asRealMatrix = NULL;
-
-    drawParams.buffer = NULL;                                                          //Calling PDPageDrawContentsToMemoryWithParams with a null buffer calculates the required bufferSize.
-    drawParams.bufferSize =NULL;                                                       //The size of the buffer we'll render the page to.
-
-    drawParams.cancelProc = NULL;                                                      //Would be called to check whether the rendering should be halted.
-    drawParams.cancelProcData = NULL;                                                  //The data that would be passed to that method.
 
     drawParams.csAtom = colorSpaceAtom;                                                //The atom which defines the color space.
     drawParams.bpc = bitsPerComp;                                                      //The bits each component requires in this color space.
 
     drawParams.iccProfile = acProfile;                                                 //Specifies the characteristics of the supplied color space.
     drawParams.renderIntent = AC_Perceptual;                                           //Try to preserve the visual relationship between colors while rendering.
-    drawParams.clientOCContext = NULL;                                                 //Determines what contents are visible. NULL uses the PDDoc's own context.
 
     //Bitfields specifying how we want the page rendered.
     drawParams.smoothFlags = kPDPageDrawSmoothText                                     //Anti-alias text.
                              | kPDPageDrawSmoothLineArt                                //Anti-alias line art.
                              | kPDPageDrawSmoothImage;                                 //Anti alias images.
     drawParams.flags = kPDPageDoLazyErase;                                             //Erase while rendering only when needed.
-
-    drawParams.bypassCopyPerm = false;                                                 //Whether we'll bypass the copy permissions of the input document.
-
-    drawParams.size = sizeof(drawParams);
 
     ASInt32 bufferSize = PDPageDrawContentsToMemoryWithParams(inPage, &drawParams);    //Since the buffer is null, this method only calculates the required buffersize for the specified rendering.
     char* buffer = new char[bufferSize];                                               //Now that we know how much memory we need to render the page, we allocate it.
