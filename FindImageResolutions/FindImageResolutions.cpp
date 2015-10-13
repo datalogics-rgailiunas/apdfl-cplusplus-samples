@@ -60,6 +60,8 @@ typedef struct imagedef
     CosObj              imageObject;            //  The COS Object which defines this image
     ASUns32             imageWide, imageDeep;   //  The width and depth of the image in pixels
     ImageRefList       *references;             // A list of places where this image is referenced.
+    ASBool              isMask;                 // Image is a mask image, applied to another image
+    ASBool              isSMask;                // Image is a Soft Mask, applied to another image
 } ImageDef;
 
 // Define a list of such structures
@@ -72,7 +74,8 @@ void DisplayImageList (ImageList *list, size_t references, FILE *log)
     for (size_t count = 0; count < list->size (); count++)
     {
         ImageDef *current = list->at (count);
-        fprintf (log, "   Image %01d is an %s image %01d pixels wide, and %01d pixels deep. It is referenced %01d times.\n",
+        fprintf (log, "   Image %s%01d is an %s image %01d pixels wide, and %01d pixels deep. It is referenced %01d times.\n",
+            current->isSMask ? "(Soft Mask) " : current->isMask ? "(Mask) " : "",
             count + 1, current->inLine ? "InLine" : "XObject", current->imageWide, current->imageDeep, current->references->size ());
         for (size_t count2 = 0; count2 < current->references->size(); count2++)
         {
@@ -179,7 +182,7 @@ void CalculateResolution (ImageDef *image, ImageRef *reference)
 
 
 
-void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, ImageList *imageList)
+void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, ImageList *imageList, size_t *imageCount, ASBool mask, ASBool sMask)
 { 
     ImageDef *newImage = (ImageDef *)malloc (sizeof(ImageDef));
     ImageRef newImageRef;
@@ -190,6 +193,9 @@ void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, I
     newImageRef.page = pageNo;
 
     newImage->references = new ImageRefList;
+
+    newImage->isMask = mask;
+    newImage->isSMask = sMask;
 
     if (newImageRef.attrs.flags & kPDEImageExternal)
     {
@@ -208,6 +214,7 @@ void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, I
             if (CosObjEqual (imageList->at(count)->imageObject, newImage->imageObject))
             {
                 imageList->at(count)->references->push_back (newImageRef);
+                free (newImage->references);
                 free (newImage);
                 return;
             }
@@ -229,6 +236,36 @@ void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, I
         newImage->references->push_back (newImageRef);
         imageList->push_back (newImage);
     }
+
+
+    // Check if there is a "stencil mask" applied to this image
+    if (((CosObjGetType (newImage->imageObject)) != NULL) &&
+        (CosDictKnownKeyString (newImage->imageObject, "Mask")))
+    {
+        // There is a Mask applied to the image.
+        // It may be a "Stencil" mask, or a "Chroma" mask. The former
+        // is all we care about. It will be a stencil if the object is a stream
+        CosObj mask = CosDictGetKeyString (newImage->imageObject, "Mask");
+        if (CosObjGetType (mask) == CosStream)
+        {
+            ASFixedMatrix unity = { 1, 0, 0, 1, 0, 0 };
+            PDEImage imageMask = PDEImageCreateFromCosObj (&mask, &unity, NULL, NULL);
+            (*imageCount)++;
+            CreateImageEntry (pageNo, imageMask, matrix, imageList, imageCount, true, false);
+            PDERelease ((PDEObject)imageMask);
+        }
+    }
+
+    // Check to see if there is a soft mask image
+    PDEImage softMask = PDEImageGetSMask (image);
+    if (softMask)
+    {
+        // If there is a soft mask, then add it to the image list
+        (*imageCount)++;
+        CreateImageEntry (pageNo, softMask, matrix, imageList, imageCount, false, true);
+        PDERelease ((PDEObject)softMask);
+    }
+
 }
 
 
@@ -268,9 +305,6 @@ void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatri
         END_HANDLER
        
 
-
-
-
         switch (PDEObjectGetType ((PDEObject)elem))
         {
             // In the case of a PDEImage, we create an image entry
@@ -280,7 +314,7 @@ void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatri
                 ASDoubleMatrix imageMatrix;
                 PDEElementGetMatrixEx (elem, &imageMatrix);
                 ASDoubleMatrixConcat (&imageMatrix, &matrix, &imageMatrix);
-                CreateImageEntry (pageNumber, (PDEImage)elem, imageMatrix, imageList);
+                CreateImageEntry (pageNumber, (PDEImage)elem, imageMatrix, imageList, imageCount, false, false);
                 break;
             }
 
