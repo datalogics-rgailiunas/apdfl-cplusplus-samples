@@ -27,8 +27,8 @@ REM ***   ARGUMENT      EFFECT
 REM ***   -noRun        Don't run the samples, just build them.
 REM ***   -noAD         Don't process the Adobe samples.
 REM ***   -noDL         Don't process the Datalogics samples.
-REM ***   -rel          Build for Release configuration instead of Debug configuration.
-REM ***   -32           Build 32-bit version instead of 64-bit version (make sure you're in the correct directory.)
+REM ***   -release      Build Release configuration instead of Debug configuration.
+REM ***   -64-bit       Build the 64-bit version instead of 32-bit version.
 REM ***
 REM *** Steps:
 REM *** 1) Initialize.
@@ -119,15 +119,15 @@ REM *** Process the Datalogics samples.
 SET DO_DL=Y
 REM *** Process the Adobe samples.
 SET DO_AD=Y
-REM *** Build for x64.
-SET ARCH=x64
+REM *** Build 32-Bit by default.
+SET ARCH=Win32
 
 :AcceptCommands
 REM *** Iterate through arguments, changing settings when needed.
 IF /i "%1"=="" (
 	GOTO ArgumentsEnd
 )
-IF /i "%1"=="-rel" (
+IF /i "%1"=="-release" (
     SET STAGE=Release
 ) 
 IF /i "%1"=="-noRun" (
@@ -139,8 +139,8 @@ IF /i "%1"=="-noDL" (
 IF /i "%1"=="-noAD" (
 	SET DO_AD=N
 )
-IF /i "%1"=="-32" (
-	SET ARCH=win32
+IF /i "%1"=="-64-bit" (
+	SET ARCH=x64
 )
 SHIFT
 GOTO AcceptCommands
@@ -151,7 +151,7 @@ IF %DO_DL% == N IF %DO_AD% == N GOTO MustIncludeFiles
 
 REM *** Set up the visual studio environment.
 IF "%VS120COMNTOOLS%" == "" GOTO Usage
-CALL "%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat" x64
+CALL "%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat" x86
 IF "%VSINSTALLDIR%" == "" GOTO Usage
 
 REM *************************************************

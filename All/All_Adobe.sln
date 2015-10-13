@@ -2,39 +2,39 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "addelem", "..\..\dist\Win32\release\APDFL\Samples\addelem\Addelem.vcxproj", "{826BF32A-5414-4DF3-8AF4-C65583AA773D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "addelem", "..\addelem\Addelem.vcxproj", "{826BF32A-5414-4DF3-8AF4-C65583AA773D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreatePattern", "..\..\dist\Win32\release\APDFL\Samples\CreatePattern\CreatePattern.vcxproj", "{46EF5C91-60D5-4F1B-9FBE-BC806797E56E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreatePattern", "..\CreatePattern\CreatePattern.vcxproj", "{46EF5C91-60D5-4F1B-9FBE-BC806797E56E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Decryption", "..\..\dist\Win32\release\APDFL\Samples\Decryption\Decryption.vcxproj", "{4FED0265-8824-426E-A0A8-364493356829}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Decryption", "..\Decryption\Decryption.vcxproj", "{4FED0265-8824-426E-A0A8-364493356829}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drawtomemory", "..\..\dist\Win32\release\APDFL\Samples\drawtomemory\drawtomemory.vcxproj", "{65FB48A9-238C-4B34-ADCB-FF6E549F0B47}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drawtomemory", "..\drawtomemory\drawtomemory.vcxproj", "{65FB48A9-238C-4B34-ADCB-FF6E549F0B47}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fontembd", "..\..\dist\Win32\release\APDFL\Samples\fontembd\Fontembd.vcxproj", "{CAB9DD51-5D82-48BF-9AB0-4E7914F60F24}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fontembd", "..\fontembd\Fontembd.vcxproj", "{CAB9DD51-5D82-48BF-9AB0-4E7914F60F24}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JPXEncode", "..\..\dist\Win32\release\APDFL\Samples\JPXEncode\JPXEncode.vcxproj", "{19900B3A-5B33-48DC-BBD0-816F0DC7E0FF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JPXEncode", "..\JPXEncode\JPXEncode.vcxproj", "{19900B3A-5B33-48DC-BBD0-816F0DC7E0FF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "helowrld", "..\..\dist\Win32\release\APDFL\Samples\helowrld\helowrld.vcxproj", "{82006940-7ECC-454B-A571-B3854C407D25}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "helowrld", "..\helowrld\helowrld.vcxproj", "{82006940-7ECC-454B-A571-B3854C407D25}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mergepdf", "..\..\dist\Win32\release\APDFL\Samples\mergepdf\mergepdf.vcxproj", "{BF3F5105-EBCC-448A-8262-53DE2A125F54}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mergepdf", "..\mergepdf\mergepdf.vcxproj", "{BF3F5105-EBCC-448A-8262-53DE2A125F54}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MTInMemFS", "..\..\dist\Win32\release\APDFL\Samples\MTInMemFS\MTInMemFS.vcxproj", "{60D4AEB6-9DE8-4A39-A284-8932D2006D7F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MTInMemFS", "..\MTInMemFS\MTInMemFS.vcxproj", "{60D4AEB6-9DE8-4A39-A284-8932D2006D7F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MTSerialNums", "..\..\dist\Win32\release\APDFL\Samples\MTSerialNums\MTSerialNums.vcxproj", "{9EF1E749-645E-4CE6-B580-09016456FD60}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MTSerialNums", "..\MTSerialNums\MTSerialNums.vcxproj", "{9EF1E749-645E-4CE6-B580-09016456FD60}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MTTextExtract", "..\..\dist\Win32\release\APDFL\Samples\MTTextExtract\MTTextExtract.vcxproj", "{F3684309-62C2-469E-9E2A-CC61CF46B0D5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MTTextExtract", "..\MTTextExtract\MTTextExtract.vcxproj", "{F3684309-62C2-469E-9E2A-CC61CF46B0D5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SnippetRunner", "..\..\dist\Win32\release\APDFL\Samples\PDFLSnippetRunner\SnippetRunner.vcxproj", "{FD864119-0DAF-4E4A-B346-ABC4FF927982}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SnippetRunner", "..\PDFLSnippetRunner\SnippetRunner.vcxproj", "{FD864119-0DAF-4E4A-B346-ABC4FF927982}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Peddler", "..\..\dist\Win32\release\APDFL\Samples\Peddler\Peddler.vcxproj", "{B1715F9C-C532-40EB-8631-499CA961E0F1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Peddler", "..\Peddler\Peddler.vcxproj", "{B1715F9C-C532-40EB-8631-499CA961E0F1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "printpdf", "..\..\dist\Win32\release\APDFL\Samples\printpdf\printpdf.vcxproj", "{80B56AC3-FA76-4020-A2EE-90321444D72D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "printpdf", "..\printpdf\printpdf.vcxproj", "{80B56AC3-FA76-4020-A2EE-90321444D72D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PDFAConverter", "..\..\dist\Win32\release\APDFL\Samples\PDFAConverter\PDFAConverter.vcxproj", "{8F9CD3AC-93B2-42BC-AF28-AF4E6332A5AF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PDFAConverter", "..\PDFAConverter\PDFAConverter.vcxproj", "{8F9CD3AC-93B2-42BC-AF28-AF4E6332A5AF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XPS2PDFConverter", "..\..\dist\Win32\release\APDFL\Samples\XPS2PDFConverter\XPS2PDFConverter.vcxproj", "{E0E51599-4F58-44DB-9B15-F8964AE3A4C4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XPS2PDFConverter", "..\XPS2PDFConverter\XPS2PDFConverter.vcxproj", "{E0E51599-4F58-44DB-9B15-F8964AE3A4C4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "unicode", "..\..\dist\Win32\release\APDFL\Samples\unicode\unicode.vcxproj", "{7BDDCA41-F1E5-4542-B38E-7C7430B92EAD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "unicode", "..\unicode\unicode.vcxproj", "{7BDDCA41-F1E5-4542-B38E-7C7430B92EAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
