@@ -237,6 +237,40 @@ void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatri
     for (ASSize_t count = 0; count < PDEContentGetNumElems (content); count++)
     {
         PDEElement elem = PDEContentGetElem (content, count);
+
+        // Dome types of PDE Elements may have a GState
+        // associated with them, and that gState may specify a 
+        // soft mask. If there is one, we want to add it to the list.
+        //
+        // Not all elements have a gState, and those that do not will raise an
+        // error if I ask for one. The simplest way to obtain the gstate is to ask,
+        // and ignore any exceptions raised.
+        DURING
+        {
+            PDEGraphicState gState;
+            PDEElementGetGState (elem, &gState, sizeof (PDEGraphicState));
+            if ((gState.extGState) && (PDEExtGStateHasSoftMask (gState.extGState)))
+            {
+                PDESoftMask softMask = PDEExtGStateAcquireSoftMask (gState.extGState);
+                ASDoubleMatrix softMatrix, formMatrix;
+                PDEForm softForm = PDESoftMaskAcquireFormEx (softMask, &softMatrix);
+                PDEContent local = PDEFormGetContent (softForm);
+                PDEFormGetMatrixEx (softForm, &formMatrix);
+                ASDoubleMatrixConcat (&softMatrix, &formMatrix, &softMatrix);
+                ASDoubleMatrixConcat (&softMatrix, &matrix, &softMatrix);
+                FindImagesInContent (pageNumber, local, softMatrix, imageList, imageCount);
+                PDERelease ((PDEObject)local);
+                PDERelease ((PDEObject)softForm);
+                PDERelease ((PDEObject)softMask);
+            }
+        }
+        HANDLER
+        END_HANDLER
+       
+
+
+
+
         switch (PDEObjectGetType ((PDEObject)elem))
         {
             // In the case of a PDEImage, we create an image entry
