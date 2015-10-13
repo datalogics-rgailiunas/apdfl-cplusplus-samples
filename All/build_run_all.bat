@@ -173,33 +173,36 @@ REM *** 3) Decide which samples to run.
 REM *************************************************
 
 REM *** The total number of samples. This must be accurate!
-SET /A "NUM_SAMPLES=41"
+SET /A "NUM_SAMPLES=51"
 
 REM *** Datalogics Samples.
 SET "DL_SAMPLE_LIST=("
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddArt AddAttachment AddBookmarks
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddContent AddDocumentInformation AddLinks
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddPageNumbers AddPassword AddRedaction
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddText CopyContent CreateDocument
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% EncryptDocument ExtractAttachments ExtractText LockDocument
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% MergeDocuments OpenEncrypted SetUniquePermissions
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% SplitPDF TextSearch WebOptimizedPDF
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddArt AddAttachment AddBookmarks"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddContent AddDocumentInformation AddLinks"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddPageNumbers AddPassword AddRedaction"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddText AddWatermark CopyContent"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% CreateAnnotations CreateDocument CreateLayers"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% CreateTransparency EncryptDocument ExtractAttachments"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ExtractDocumentInfo ExtractText LockDocument"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FlattenAnnotations FlattenPDF LockDocument"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% MergeDocuments OpenEncrypted RasterizeCopy"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% SetUniquePermissions SplitPDF TextSearch"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% UnicodeText WebOptimizedPDF XPStoPDF"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
 REM *** The total number of DL samples. This must be accurate!
-SET /A "NUM_DL_SAMPLES=22"
+SET /A "NUM_DL_SAMPLES=33"
 
 REM *** Adobe Samples.
 SET "AD_SAMPLE_LIST=("
 SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% addelem CreatePattern Decryption"
-SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% drawtomemory FlattenPDF fontembd"
-SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% helowrld JPXEncode mergepdf"
-SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% MTInMemFS MTSerialNums MTTextExtract"
-SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% PDFAConverter PDFLSnippetRunner PDFViewer"
-SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% Peddler printpdf unicode"
-SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% XPS2PDFConverter"
+SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% drawtomemory fontembd helowrld"
+SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% JPXEncode mergepdf MTInMemFS"
+SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% MTSerialNums MTTextExtract PDFAConverter"
+SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% PDFLSnippetRunner PDFViewer Peddler"
+SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% printpdf unicode XPS2PDFConverter"
 SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST%)"
 REM *** The total number of AD samples. This must be accurate!
-SET /A "NUM_AD_SAMPLES=19"
+SET /A "NUM_AD_SAMPLES=18"
 
 REM *** Ai iterates over Adobe samples. Do not change this value.
 SET /A "Ai=0"
