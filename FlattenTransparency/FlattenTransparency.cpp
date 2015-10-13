@@ -93,8 +93,8 @@ int main(int argc, char** argv)
         flattener.useTextOutlines    = false;                                                      //If we use rastered text instead of native text.
         flattener.preserveOverprint  = true;                                                       //If we attempt to preserve overprint
 
-        flattener.allowShadingOutput       = true;                                                //Allow shading output.
-        flattener.allowLevel3ShadingOutput = true;                                                //Allow level 3 shading output.
+        flattener.allowShadingOutput       = true;                                                 //Allow shading output.
+        flattener.allowLevel3ShadingOutput = true;                                                 //Allow level 3 shading output.
 
         flattener.maxFltnrImageSize = 0;                                                           //Maximum image size while flattening. 0 is default.
         flattener.adaptiveThreshold = 0;                                                           //Adaptive flattening threshold. Doesn't matter, since we're not doing adaptive tiling. See tilingMode.
