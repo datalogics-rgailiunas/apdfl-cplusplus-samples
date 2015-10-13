@@ -27,8 +27,8 @@ REM ***   ARGUMENT      EFFECT
 REM ***   -noRun        Don't run the samples, just build them.
 REM ***   -noAD         Don't process the Adobe samples.
 REM ***   -noDL         Don't process the Datalogics samples.
-REM ***   -rel          Build for Release configuration instead of Debug configuration.
-REM ***   -32           Build 32-bit version instead of 64-bit version (make sure you're in the correct directory.)
+REM ***   -release      Build Release configuration instead of Debug configuration.
+REM ***   -64-bit       Build the 64-bit version instead of 32-bit version.
 REM ***
 REM *** Steps:
 REM *** 1) Initialize.
@@ -119,15 +119,15 @@ REM *** Process the Datalogics samples.
 SET DO_DL=Y
 REM *** Process the Adobe samples.
 SET DO_AD=Y
-REM *** Build for x64.
-SET ARCH=x64
+REM *** Build 32-Bit by default.
+SET ARCH=Win32
 
 :AcceptCommands
 REM *** Iterate through arguments, changing settings when needed.
 IF /i "%1"=="" (
 	GOTO ArgumentsEnd
 )
-IF /i "%1"=="-rel" (
+IF /i "%1"=="-release" (
     SET STAGE=Release
 ) 
 IF /i "%1"=="-noRun" (
@@ -139,8 +139,8 @@ IF /i "%1"=="-noDL" (
 IF /i "%1"=="-noAD" (
 	SET DO_AD=N
 )
-IF /i "%1"=="-32" (
-	SET ARCH=win32
+IF /i "%1"=="-64-bit" (
+	SET ARCH=x64
 )
 SHIFT
 GOTO AcceptCommands
@@ -151,7 +151,7 @@ IF %DO_DL% == N IF %DO_AD% == N GOTO MustIncludeFiles
 
 REM *** Set up the visual studio environment.
 IF "%VS120COMNTOOLS%" == "" GOTO Usage
-CALL "%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat" x64
+CALL "%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat" x86
 IF "%VSINSTALLDIR%" == "" GOTO Usage
 
 REM *************************************************
@@ -173,33 +173,36 @@ REM *** 3) Decide which samples to run.
 REM *************************************************
 
 REM *** The total number of samples. This must be accurate!
-SET /A "NUM_SAMPLES=41"
+SET /A "NUM_SAMPLES=49"
 
 REM *** Datalogics Samples.
 SET "DL_SAMPLE_LIST=("
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddArt AddAttachment AddBookmarks
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddContent AddDocumentInformation AddLinks
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddPageNumbers AddPassword AddRedaction
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddText CopyContent CreateDocument
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% EncryptDocument ExtractAttachments ExtractText LockDocument
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% MergeDocuments OpenEncrypted SetUniquePermissions
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% SplitPDF TextSearch WebOptimizedPDF
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddArt AddAttachment AddBookmarks"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddContent AddDocumentInformation AddLinks"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddPageNumbers AddPassword AddRedaction"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddText AddWatermark CopyContent"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% CreateAnnotations CreateDocument CreateLayers"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% CreateTransparency EncryptDocument ExtractAttachments"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ExtractDocumentInfo ExtractText LockDocument"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FlattenAnnotations FlattenPDF LockDocument"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% MergeDocuments OpenEncrypted RasterizeCopy"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% SetUniquePermissions SplitPDF TextSearch"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% UnicodeText WebOptimizedPDF XPStoPDF"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
 REM *** The total number of DL samples. This must be accurate!
-SET /A "NUM_DL_SAMPLES=22"
+SET /A "NUM_DL_SAMPLES=33"
 
 REM *** Adobe Samples.
 SET "AD_SAMPLE_LIST=("
 SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% addelem CreatePattern Decryption"
-SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% drawtomemory FlattenPDF fontembd"
-SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% helowrld JPXEncode mergepdf"
-SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% MTInMemFS MTSerialNums MTTextExtract"
-SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% PDFAConverter PDFLSnippetRunner PDFViewer"
+SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% drawtomemory fontembd helowrld"
+SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% JPXEncode mergepdf MTInMemFS"
+SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% MTSerialNums MTTextExtract PDFAConverter"
 SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% Peddler printpdf unicode"
 SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% XPS2PDFConverter"
 SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST%)"
 REM *** The total number of AD samples. This must be accurate!
-SET /A "NUM_AD_SAMPLES=19"
+SET /A "NUM_AD_SAMPLES=16"
 
 REM *** Ai iterates over Adobe samples. Do not change this value.
 SET /A "Ai=0"
