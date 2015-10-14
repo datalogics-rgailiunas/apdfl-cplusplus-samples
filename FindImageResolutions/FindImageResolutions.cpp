@@ -67,34 +67,76 @@ typedef struct imagedef
 // Define a list of such structures
 typedef vector<ImageDef *> ImageList;
 
+// This is a utility routine to roate a matrix N degrees counterclockwise
+void  	doubelmatrixrotate (ASDoubleMatrix *M, ASDouble Angle)
+{
+    double	Ad = Angle;
+    double	Sina, Cosa;
+    double	Ma, Mb, Mc, Md;
+
+    while (Ad < 0)
+        Ad += 360;
+
+    while (Ad > 360.0)
+        Ad = Ad - 360.0;
+
+    if (Ad < 0.0001)
+        return;
+
+    Ad *= degrees_to_radians;
+    Ma = M->a;
+    Mb = M->b;
+    Mc = M->c;
+    Md = M->d;
+    Sina = sin (Ad);
+    Cosa = cos (Ad);
+
+    M->a = (Cosa * Ma) + (Sina * Mc);
+    M->b = (Cosa * Mb) + (Sina * Md);
+    M->c = (Cosa * Mc) - (Sina * Ma);
+    M->d = (Cosa * Md) - (Sina * Mb);
+
+    return;
+}
+
+// This routine just displays the list of images that we created
 void DisplayImageList (ImageList *list, size_t references, FILE *log)
 {
+
+    // Display the total count of images and references
     fprintf (log, "We found a total of %01d image, referenced %01d times.\n\n", list->size (), references);
 
+    // Display each images information once
     for (size_t count = 0; count < list->size (); count++)
     {
         ImageDef *current = list->at (count);
         fprintf (log, "   Image %s%01d is an %s image %01d pixels wide, and %01d pixels deep. It is referenced %01d times.\n",
             current->isSMask ? "(Soft Mask) " : current->isMask ? "(Mask) " : "",
             count + 1, current->inLine ? "InLine" : "XObject", current->imageWide, current->imageDeep, current->references->size ());
+        
+        // Display all of the references to this image 
         for (size_t count2 = 0; count2 < current->references->size(); count2++)
         {
             ImageRef *currentRef = &current->references->at (count2);
             fprintf (log, "      Reference %01d is on page %01d and has a resolution of %01g Horiziontal, and %01g vertical. (Matrix [%01g %01g %01g, %01g %01g %01g]\n",
                 count2 + 1, currentRef->page, currentRef->hRes, currentRef->vRes, currentRef->matrix.a, currentRef->matrix.b,
-                currentRef->matrix.c, currentRef->matrix.d, currentRef->matrix.c, currentRef->matrix.d);
+                currentRef->matrix.c, currentRef->matrix.d, currentRef->matrix.h, currentRef->matrix.v);
             if (currentRef->Rotation)
                 fprintf (log, "         Image is rotated %01.15g degrees\n", currentRef->Rotation);
             if (currentRef->Shear)
                 fprintf (log, "         Image is sheared %01.15g degrees\n", currentRef->Shear);
         }
+
+        // Put a blank line between images
         fprintf (log, "\n");
     }
 
 
 }
 
-
+// This routine calculates the horiziontal and vertical resolution of 
+// each reference to each image. Note that different references may have
+// different effective resolutions
 void CalculateResolution (ImageDef *image, ImageRef *reference)
 {
     // There are four cases of resolution to handle
@@ -116,72 +158,86 @@ void CalculateResolution (ImageDef *image, ImageRef *reference)
         reference->vRes = fabs (image->imageDeep / reference->matrix.d) * 72.0;
         reference->Rotation = 0;
         reference->Shear = 0;
-        return;
-    }
 
-    // Case 2. The image is rotated 90 degrees
-    //   In this case, the matrix a and d values will be zero
-    if ((reference->matrix.a == 0) && (reference->matrix.d == 0))
-    {
-        // An image that is rotated 90 or 270 degrees is also simple. Divide the
-        //  size of the image in points (ImageWide or Image Deep) by it's size in 
-        //  pixels, and multiple by 72. But "swap" the horiziontal and vertical planes.
-        //  We do this using absolute values, and then we get the same value if the 
-        // image is upright, or inverted, or if it is "mirrored" in either or both planes
-        reference->hRes = fabs (image->imageDeep / reference->matrix.b) * 72.0;
-        reference->vRes = fabs (image->imageWide / reference->matrix.c) * 72.0;
-        reference->Rotation = 90;
-        reference->Shear = 0;
-        return;
-    }
-
-    // Case 3 We know already that we have a rotation or shear, if we reach here.
-    //   If the angle arctan (a,c) is not the same as the angle arctan (b, d), then 
-    //   the image is sheared, as well as rotate.
-    double theta1 = fabs(atan2 (reference->matrix.b, reference->matrix.a));
-    double theta2 = fabs (atan2 (reference->matrix.c, reference->matrix.d));
-
-    // Convert these to degrees, as an aid in understanding the actual angles used.
-    double degrees1 = fabs(theta1) / degrees_to_radians;
-    double degrees2 = fabs (theta2) / degrees_to_radians;
-
-
-    if (fabs (theta1) == fabs (theta2))
-    {
-        // If they both represent the same angle, then we are rotated, rather than sheared.
-        // The "hieght" and "width" will vary by degree of rotation
-        reference->Rotation = degrees1;
-        reference->Shear = 0;
     }
     else
     {
-        // If they both represent different angles, then we are sheared, And maybe also rotated.
-        // The "hieght" and "width" will vary by degree of rotation
-        reference->Rotation = min (degrees1, degrees2);
-        reference->Shear = fabs (degrees1 - degrees2);
+        // Case 2. The image is rotated 90 degrees
+        //   In this case, the matrix a and d values will be zero
+        if ((reference->matrix.a == 0) && (reference->matrix.d == 0))
+        {
+            // An image that is rotated 90 or 270 degrees is also simple. Divide the
+            //  size of the image in points (ImageWide or Image Deep) by it's size in 
+            //  pixels, and multiple by 72. But "swap" the horiziontal and vertical planes.
+            //  We do this using absolute values, and then we get the same value if the 
+            // image is upright, or inverted, or if it is "mirrored" in either or both planes
+            reference->hRes = fabs (image->imageDeep / reference->matrix.b) * 72.0;
+            reference->vRes = fabs (image->imageWide / reference->matrix.c) * 72.0;
+            reference->Rotation = 90;
+            reference->Shear = 0;
+
+        }
+        else
+        {
+
+            // Case 3 and 4 We know already that we have a rotation or shear, if we reach here.
+            //   If the angle arctan (a,b) is not the same as the angle arctan (c, d), then 
+            //   the image is sheared, as well as rotate.
+            double theta1 = atan2 (reference->matrix.a, -reference->matrix.b);
+            double theta2 = atan2 (reference->matrix.d, reference->matrix.c);
+
+            // Convert these to degrees, as an aid in understanding the actual angles used.
+            double degrees1 = fabs (theta1) / degrees_to_radians;
+            double degrees2 = fabs (theta2) / degrees_to_radians;
+
+            // When we check that they are the same angle, allow a little "slop"
+            if (fabs (fabs (theta1) - fabs (theta2)) < 0.001)
+            {
+                // If they both represent the same angle, then we are rotated, rather than sheared.
+                // The "hieght" and "width" will vary by degree of rotation
+                reference->Rotation = degrees1;
+                reference->Shear = 0;
+            }
+            else
+            {
+                // If they both represent different angles, then we are sheared, And maybe also rotated.
+                // The "hieght" and "width" will vary by degree of rotation
+                reference->Rotation = min (degrees1, degrees2);
+                reference->Shear = fabs (degrees1 - degrees2);
+            }
+
+            // Shearing does not really effect resolution. So we can treat both the same
+            //
+            // "derotate" the image matrix
+            ASDoubleMatrix derotating = { 1, 0, 0, 1, 0, 0 };
+            doubelmatrixrotate (&derotating, reference->Rotation);
+            ASDoubleMatrix erect;
+            ASDoubleMatrixConcat (&erect, &reference->matrix, &derotating);
+
+            // We use the absolute largest of of each of the horiziontal components to find
+            // horiziontal resolution, and of each fo the vertical components to find vertical
+            // resolution. In essence, we are finding the width of any horiziontal, 1 pixel, 
+            // "slice" of the image, as it intersects a row of the render media, and the same 
+            // for a vertical slice as it intersects a column. We use absolute values, as we 
+            // do not care which "direction" the lines are drawn in.
+            double  hScale = max (fabs (erect.a), fabs (erect.c));
+            double  vScale = max (fabs (erect.d), fabs (erect.b));
+            reference->hRes = fabs (image->imageDeep / hScale) * 72.0;
+            reference->vRes = fabs (image->imageWide / vScale) * 72.0;
+        }
     }
 
-
-
-    // Shearing does not really effect resolution. So we can trean both the same
-    //
-    // We use the absolute largest of of each of the horiziontal components to find
-    // horiziontal resolution, and of each fo the vertical components to find vertical
-    // resolution. In essence, we are finding the width of any horiziontal, 1 pixel, 
-    // "slice" of the image, as it intersects a row of the render media, and the same 
-    // for a vertical slice as it intersects a column. We use absolute values, as we 
-    // do not care which "direction" the lines are drawn in.
-    double  hScale = max (fabs(reference->matrix.a), fabs(reference->matrix.c));
-    double  vScale = max (fabs(reference->matrix.d), fabs(reference->matrix.b));
-    reference->hRes = fabs (image->imageDeep / hScale) * 72.0;
-    reference->vRes = fabs (image->imageWide / vScale) * 72.0;
+    // Round both resolutions to a whole number
+    reference->hRes = floor (reference->hRes + 0.5);
+    reference->vRes = floor (reference->vRes + 0.5);
 
     return;
 
 }
 
 
-
+// This routine creates an entry in the image list, and or an existingimages reference list.
+// This also checks for maks on an image, and calls itself recursively to process the mask, if there is one.
 void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, ImageList *imageList, size_t *imageCount, ASBool mask, ASBool sMask)
 { 
     ImageDef *newImage = (ImageDef *)malloc (sizeof(ImageDef));
@@ -196,6 +252,34 @@ void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, I
 
     newImage->isMask = mask;
     newImage->isSMask = sMask;
+
+    // Check if there is a "stencil mask" applied to this image
+    if (((CosObjGetType (newImage->imageObject)) != NULL) &&
+        (CosDictKnownKeyString (newImage->imageObject, "Mask")))
+    {
+        // There is a Mask applied to the image.
+        // It may be a "Stencil" mask, or a "Chroma" mask. The former
+        // is all we care about. It will be a stencil if the object is a stream
+        CosObj mask = CosDictGetKeyString (newImage->imageObject, "Mask");
+        if (CosObjGetType (mask) == CosStream)
+        {
+            ASFixedMatrix unity = { 1, 0, 0, 1, 0, 0 };
+            PDEImage imageMask = PDEImageCreateFromCosObj (&mask, &unity, NULL, NULL);
+            (*imageCount)++;
+            CreateImageEntry (pageNo, imageMask, matrix, imageList, imageCount, true, false);
+            PDERelease ((PDEObject)imageMask);
+        }
+    }
+
+    // Check to see if there is a soft mask image
+    PDEImage softMask = PDEImageGetSMask (image);
+    if (softMask)
+    {
+        // If there is a soft mask, then add it to the image list
+        (*imageCount)++;
+        CreateImageEntry (pageNo, softMask, matrix, imageList, imageCount, false, true);
+        PDERelease ((PDEObject)softMask);
+    }
 
     if (newImageRef.attrs.flags & kPDEImageExternal)
     {
@@ -237,75 +321,52 @@ void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, I
         imageList->push_back (newImage);
     }
 
-
-    // Check if there is a "stencil mask" applied to this image
-    if (((CosObjGetType (newImage->imageObject)) != NULL) &&
-        (CosDictKnownKeyString (newImage->imageObject, "Mask")))
-    {
-        // There is a Mask applied to the image.
-        // It may be a "Stencil" mask, or a "Chroma" mask. The former
-        // is all we care about. It will be a stencil if the object is a stream
-        CosObj mask = CosDictGetKeyString (newImage->imageObject, "Mask");
-        if (CosObjGetType (mask) == CosStream)
-        {
-            ASFixedMatrix unity = { 1, 0, 0, 1, 0, 0 };
-            PDEImage imageMask = PDEImageCreateFromCosObj (&mask, &unity, NULL, NULL);
-            (*imageCount)++;
-            CreateImageEntry (pageNo, imageMask, matrix, imageList, imageCount, true, false);
-            PDERelease ((PDEObject)imageMask);
-        }
-    }
-
-    // Check to see if there is a soft mask image
-    PDEImage softMask = PDEImageGetSMask (image);
-    if (softMask)
-    {
-        // If there is a soft mask, then add it to the image list
-        (*imageCount)++;
-        CreateImageEntry (pageNo, softMask, matrix, imageList, imageCount, false, true);
-        PDERelease ((PDEObject)softMask);
-    }
-
 }
 
-
-void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatrix matrix, ImageList *imageList, size_t *imageCount)
+// This is a PDE tree walk through a content block. It will alwyas be called with the page content,
+// and may recurse to include the contents of elements which are containers.
+void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatrix matrix, ImageList *imageList, size_t *imageCount, ASBool inSoftMask)
 { 
     for (ASSize_t count = 0; count < PDEContentGetNumElems (content); count++)
     {
         PDEElement elem = PDEContentGetElem (content, count);
+        PDEType elemType = (PDEType)PDEObjectGetType ((PDEObject)elem);
 
-        // Dome types of PDE Elements may have a GState
+        // Some types of PDE Elements may have a GState
         // associated with them, and that gState may specify a 
         // soft mask. If there is one, we want to add it to the list.
         //
-        // Not all elements have a gState, and those that do not will raise an
-        // error if I ask for one. The simplest way to obtain the gstate is to ask,
-        // and ignore any exceptions raised.
-        DURING
+        if ((elemType == kPDEForm) || (elemType == kPDEImage) || (elemType == kPDEPath))
         {
             PDEGraphicState gState;
             PDEElementGetGState (elem, &gState, sizeof (PDEGraphicState));
             if ((gState.extGState) && (PDEExtGStateHasSoftMask (gState.extGState)))
             {
                 PDESoftMask softMask = PDEExtGStateAcquireSoftMask (gState.extGState);
-                ASDoubleMatrix softMatrix, formMatrix;
-                PDEForm softForm = PDESoftMaskAcquireFormEx (softMask, &softMatrix);
-                PDEContent local = PDEFormGetContent (softForm);
-                PDEFormGetMatrixEx (softForm, &formMatrix);
-                ASDoubleMatrixConcat (&softMatrix, &formMatrix, &softMatrix);
-                ASDoubleMatrixConcat (&softMatrix, &matrix, &softMatrix);
-                FindImagesInContent (pageNumber, local, softMatrix, imageList, imageCount);
-                PDERelease ((PDEObject)local);
-                PDERelease ((PDEObject)softForm);
-                PDERelease ((PDEObject)softMask);
+                if (softMask != NULL)
+                {
+                    if (PDEObjectGetType ((PDEObject)softMask) == kPDESoftMask)
+                    {
+                        ASDoubleMatrix softMatrix, formMatrix;
+                        PDEForm softForm = PDESoftMaskAcquireFormEx (softMask, &softMatrix);
+                        if (softForm != NULL)
+                        {
+                            PDEContent local = PDEFormGetContent (softForm);
+                            PDEFormGetMatrixEx (softForm, &formMatrix);
+                            ASDoubleMatrixConcat (&softMatrix, &formMatrix, &softMatrix);
+                            ASDoubleMatrixConcat (&softMatrix, &matrix, &softMatrix);
+                            FindImagesInContent (pageNumber, local, softMatrix, imageList, imageCount, true);
+                            PDERelease ((PDEObject)local);
+                            PDERelease ((PDEObject)softForm);
+                        }
+                    }
+                    PDERelease ((PDEObject)softMask);
+                }
             }
         }
-        HANDLER
-        END_HANDLER
-       
 
-        switch (PDEObjectGetType ((PDEObject)elem))
+        // Locate images, and elements that contain contents.
+        switch (elemType)
         {
             // In the case of a PDEImage, we create an image entry
             case kPDEImage:
@@ -314,7 +375,7 @@ void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatri
                 ASDoubleMatrix imageMatrix;
                 PDEElementGetMatrixEx (elem, &imageMatrix);
                 ASDoubleMatrixConcat (&imageMatrix, &matrix, &imageMatrix);
-                CreateImageEntry (pageNumber, (PDEImage)elem, imageMatrix, imageList, imageCount, false, false);
+                CreateImageEntry (pageNumber, (PDEImage)elem, imageMatrix, imageList, imageCount, false, inSoftMask);
                 break;
             }
 
@@ -326,7 +387,10 @@ void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatri
                 ASDoubleMatrix localMatrix;
                 PDEFormGetMatrixEx ((PDEForm)elem, &localMatrix);
                 ASDoubleMatrixConcat (&localMatrix, &matrix, &localMatrix);
-                FindImagesInContent (pageNumber, local, localMatrix, imageList, imageCount);
+                FindImagesInContent (pageNumber, local, localMatrix, imageList, imageCount, inSoftMask);
+
+                // NOTE: PDEFormGetContent "acquires" the content, so it must be 
+                //  released. Other elements type that get content do not acquire them.
                 PDERelease ((PDEObject)local);
                 break;
             }
@@ -336,7 +400,7 @@ void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatri
             case kPDEContainer:
             {
                 PDEContent local = PDEContainerGetContent ((PDEContainer)elem);
-                FindImagesInContent (pageNumber, local, matrix, imageList, imageCount);
+                FindImagesInContent (pageNumber, local, matrix, imageList, imageCount, inSoftMask);
                 break;
             }
 
@@ -345,7 +409,7 @@ void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatri
             case kPDEGroup:
             {
                 PDEContent local = PDEGroupGetContent ((PDEGroup)elem);
-                FindImagesInContent (pageNumber, local, matrix, imageList, imageCount);
+                FindImagesInContent (pageNumber, local, matrix, imageList, imageCount, inSoftMask);
                 break;
             }
 
@@ -399,7 +463,7 @@ int wmain(int argc, wchar_t** argv)
             ASDoubleMatrix unity = { 1.0, 0, 0, 1.0, 0, 0 };            // Initial matrix is Unity
 
             // This call will find all images on the current page, and add them to the image list
-            FindImagesInContent (pageNo, content, unity, &imageList, &totalImageReferences);
+            FindImagesInContent (pageNo, content, unity, &imageList, &totalImageReferences, false);
 
             PDPageReleasePDEContent (page, 0);                          // Release the page content
             PDPageRelease (page);                                       // Release the page
