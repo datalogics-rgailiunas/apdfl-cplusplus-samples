@@ -13,6 +13,10 @@
 // 1) Walk the document, finding all images and all references
 // 2) Display the list
 //========================================================================
+#define MakeSampleFile 1
+#if MakeSampleFile
+void MakeSample ();
+#endif
 
 #include <iostream>
 #include <vector>
@@ -42,6 +46,8 @@ typedef struct imageReference
     PDEImageAttrs   attrs;              // The image attributes used at reference time.
     PDEImage        reference;          // The PDEImage Object which references this image
     ASDoubleMatrix  matrix;             // The matrix in effect at the time of reference
+    ASDoubleRect    bbox;               // Bounding box of the image
+    ASDoublePoint   center;             // center of image
     ASDouble        hRes, vRes;         // Effective Horiziontal and Vertical resolutions
     ASDouble        Rotation;           // Rotation angle of the image (In Degrees)
     ASDouble        Shear;              // Shear of horiz/vertical (In Degrees)
@@ -119,8 +125,11 @@ void DisplayImageList (ImageList *list, size_t references, FILE *log)
         {
             ImageRef *currentRef = &current->references->at (count2);
             fprintf (log, "      Reference %01d is on page %01d and has a resolution of %01g Horiziontal, and %01g vertical. (Matrix [%01g %01g %01g, %01g %01g %01g]\n",
-                count2 + 1, currentRef->page, currentRef->hRes, currentRef->vRes, currentRef->matrix.a, currentRef->matrix.b,
+                count2 + 1, currentRef->page+1, currentRef->hRes, currentRef->vRes, currentRef->matrix.a, currentRef->matrix.b,
                 currentRef->matrix.c, currentRef->matrix.d, currentRef->matrix.h, currentRef->matrix.v);
+            fprintf (log, "        Image is bounded by [%01g %01g %01g %01g], and centered at [%01g %01g].\n",
+                currentRef->bbox.left, currentRef->bbox.bottom, currentRef->bbox.right, currentRef->bbox.top, 
+                currentRef->center.h, currentRef->center.v);
             if (currentRef->Rotation)
                 fprintf (log, "         Image is rotated %01.15g degrees\n", currentRef->Rotation);
             if (currentRef->Shear)
@@ -247,6 +256,14 @@ void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, I
     newImageRef.matrix = matrix;
     newImageRef.reference = image;
     newImageRef.page = pageNo;
+    ASFixedRect bbox;
+    PDEElementGetBBox ((PDEElement)image, &bbox);
+    newImageRef.bbox.left = ASFixedToFloat (bbox.left);
+    newImageRef.bbox.right = ASFixedToFloat (bbox.right);
+    newImageRef.bbox.top = ASFixedToFloat (bbox.top);
+    newImageRef.bbox.bottom = ASFixedToFloat (bbox.bottom);
+    newImageRef.center.h = newImageRef.bbox.left + ((newImageRef.bbox.right - newImageRef.bbox.left) / 2.0);
+    newImageRef.center.v = newImageRef.bbox.bottom + ((newImageRef.bbox.top - newImageRef.bbox.bottom) / 2.0);
 
     newImage->references = new ImageRefList;
 
@@ -444,6 +461,11 @@ int wmain(int argc, wchar_t** argv)
     if (libInit.isValid() == false)    //If there was a problem in initialization, return the error code.
         return libInit.getInitError();           
         
+
+#if MakeSampleFile
+    MakeSample ();
+#endif
+
     DURING
 
 //=====================================================================================================================
