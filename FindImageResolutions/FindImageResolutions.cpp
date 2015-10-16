@@ -13,7 +13,7 @@
 // 1) Walk the document, finding all images and all references
 // 2) Display the list
 //========================================================================
-#define MakeSampleFile 0
+#define MakeSampleFile 1
 #if MakeSampleFile
 void MakeSample ();
 #endif
@@ -208,6 +208,7 @@ void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, I
 
     newImage->isMask = mask;
     newImage->isSMask = sMask;
+    PDEImageGetCosObj (image, &newImage->imageObject);
 
     // Check if there is a "stencil mask" applied to this image
     if (((CosObjGetType (newImage->imageObject)) != NULL) &&
@@ -242,7 +243,6 @@ void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, I
         // This is an XObject image. There may be multiple entries, and there MUST be a 
         // CosObj
         newImage->inLine = false;
-        PDEImageGetCosObj (image, &newImage->imageObject);
         newImage->imageWide = CosIntegerValue (CosDictGetKeyString (newImage->imageObject, "Width"));
         newImage->imageDeep = CosIntegerValue (CosDictGetKeyString (newImage->imageObject, "Height"));
 
@@ -283,7 +283,7 @@ void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, I
 // and may recurse to include the contents of elements which are containers.
 void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatrix matrix, ImageList *imageList, size_t *imageCount, ASBool inSoftMask)
 { 
-    for (ASSize_t count = 0; count < PDEContentGetNumElems (content); count++)
+    for (ASInt32 count = 0; count < PDEContentGetNumElems (content); count++)
     {
         PDEElement elem = PDEContentGetElem (content, count);
         PDEType elemType = (PDEType)PDEObjectGetType ((PDEObject)elem);
