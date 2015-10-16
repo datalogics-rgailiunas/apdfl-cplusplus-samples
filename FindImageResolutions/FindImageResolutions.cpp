@@ -13,7 +13,7 @@
 // 1) Walk the document, finding all images and all references
 // 2) Display the list
 //========================================================================
-#define MakeSampleFile 1
+#define MakeSampleFile 0
 #if MakeSampleFile
 void MakeSample ();
 #endif
@@ -46,8 +46,6 @@ typedef struct imageReference
     PDEImageAttrs   attrs;              // The image attributes used at reference time.
     PDEImage        reference;          // The PDEImage Object which references this image
     ASDoubleMatrix  matrix;             // The matrix in effect at the time of reference
-    ASDoubleRect    bbox;               // Bounding box of the image
-    ASDoublePoint   center;             // center of image
     ASDouble        hRes, vRes;         // Effective Horiziontal and Vertical resolutions
     ASDouble        Rotation;           // Rotation angle of the image (In Degrees)
     ASDouble        Shear;              // Shear of horiz/vertical (In Degrees)
@@ -124,12 +122,9 @@ void DisplayImageList (ImageList *list, size_t references, FILE *log)
         for (size_t count2 = 0; count2 < current->references->size(); count2++)
         {
             ImageRef *currentRef = &current->references->at (count2);
-            fprintf (log, "      Reference %01d is on page %01d and has a resolution of %01g Horiziontal, and %01g vertical. (Matrix [%01g %01g %01g, %01g %01g %01g]\n",
+            fprintf (log, "\n      Reference %01d is on page %01d and has a resolution of %01g Horiziontal, and %01g vertical. (Matrix [%01g %01g %01g, %01g %01g %01g]\n",
                 count2 + 1, currentRef->page+1, currentRef->hRes, currentRef->vRes, currentRef->matrix.a, currentRef->matrix.b,
                 currentRef->matrix.c, currentRef->matrix.d, currentRef->matrix.h, currentRef->matrix.v);
-            fprintf (log, "        Image is bounded by [%01g %01g %01g %01g], and centered at [%01g %01g].\n",
-                currentRef->bbox.left, currentRef->bbox.bottom, currentRef->bbox.right, currentRef->bbox.top, 
-                currentRef->center.h, currentRef->center.v);
             if (currentRef->Rotation)
                 fprintf (log, "         Image is rotated %01.15g degrees\n", currentRef->Rotation);
             if (currentRef->Shear)
@@ -148,93 +143,45 @@ void DisplayImageList (ImageList *list, size_t references, FILE *log)
 // different effective resolutions
 void CalculateResolution (ImageDef *image, ImageRef *reference)
 {
-    // There are four cases of resolution to handle
-    //    Case 1, the image is errect, or inverted
-    //    Case 2, the image is rotated 90 degrees colckwise or counterclockwise
-    //    Case 3, The image is rotated at some angle other than 90 degrees
-    //    Case 4, The image is sheared
+    // We want to find the resolution of the image as if it were not rotated.
+    // To that end, we need to discover if it IS rotated, and create a Matrix
+    // as it would be if the image were not rotated.
 
-    //  Case 1. The image is errect, or inverted
-    //     In this case, the b and c values of the matrix are zero
-    if ((reference->matrix.b == 0) && (reference->matrix.c == 0))
-    {
-        // An image that is rotated 0 or 180 degrees is simple. Divide the
-        //  size of the image in points (ImageWide or Image Deep) by it's size in 
-        //  pixels, and multiple by 72. We do this using absolute values, and then
-        //  we get the same value if the image is upright, or inverted, or if it is 
-        //  "mirrored" in either or both planes
-        reference->hRes = fabs (image->imageWide / reference->matrix.a) * 72.0;
-        reference->vRes = fabs (image->imageDeep / reference->matrix.d) * 72.0;
-        reference->Rotation = 0;
-        reference->Shear = 0;
+    // Discover the rotation and horiziontally, and vertically
+    double theta1 = atan2 (reference->matrix.a, -reference->matrix.c);
+    double theta2 = atan2 (reference->matrix.d, reference->matrix.b);
 
-    }
-    else
-    {
-        // Case 2. The image is rotated 90 degrees
-        //   In this case, the matrix a and d values will be zero
-        if ((reference->matrix.a == 0) && (reference->matrix.d == 0))
-        {
-            // An image that is rotated 90 or 270 degrees is also simple. Divide the
-            //  size of the image in points (ImageWide or Image Deep) by it's size in 
-            //  pixels, and multiple by 72. But "swap" the horiziontal and vertical planes.
-            //  We do this using absolute values, and then we get the same value if the 
-            // image is upright, or inverted, or if it is "mirrored" in either or both planes
-            reference->hRes = fabs (image->imageDeep / reference->matrix.b) * 72.0;
-            reference->vRes = fabs (image->imageWide / reference->matrix.c) * 72.0;
-            reference->Rotation = 90;
-            reference->Shear = 0;
+    // Convert these to degrees, as an aid in understanding the actual angles used.
+    // Note that a 90 degree angle from horiz to vertical is "erect".
+    double degrees1 = -floor((((theta1) / degrees_to_radians) - 90) + 0.5);
+    if (degrees1 < 0)
+        degrees1 = 360.0 + degrees1;
+    double degrees2 = -floor((((theta2) / degrees_to_radians) - 90) + 0.5);
+    if (degrees2 < 0)
+        degrees2 = 360.0 + degrees2;
 
-        }
-        else
-        {
+    double shear = fabs (fabs (degrees1) - fabs (degrees2));
 
-            // Case 3 and 4 We know already that we have a rotation or shear, if we reach here.
-            //   If the angle arctan (a,b) is not the same as the angle arctan (c, d), then 
-            //   the image is sheared, as well as rotate.
-            double theta1 = atan2 (reference->matrix.a, -reference->matrix.b);
-            double theta2 = atan2 (reference->matrix.d, reference->matrix.c);
+    reference->Rotation = max (degrees1, degrees2);
+    reference->Shear = shear;
 
-            // Convert these to degrees, as an aid in understanding the actual angles used.
-            double degrees1 = fabs (theta1) / degrees_to_radians;
-            double degrees2 = fabs (theta2) / degrees_to_radians;
+    // "derotate" the image matrix
+    ASDoubleMatrix derotating = { 1, 0, 0, 1, 0, 0 };
+    doubelmatrixrotate (&derotating, -reference->Rotation);
+    ASDoubleMatrix erect;
+    ASDoubleMatrixConcat (&erect, &reference->matrix, &derotating);
 
-            // When we check that they are the same angle, allow a little "slop"
-            if (fabs (fabs (theta1) - fabs (theta2)) < 0.001)
-            {
-                // If they both represent the same angle, then we are rotated, rather than sheared.
-                // The "hieght" and "width" will vary by degree of rotation
-                reference->Rotation = degrees1;
-                reference->Shear = 0;
-            }
-            else
-            {
-                // If they both represent different angles, then we are sheared, And maybe also rotated.
-                // The "hieght" and "width" will vary by degree of rotation
-                reference->Rotation = min (degrees1, degrees2);
-                reference->Shear = fabs (degrees1 - degrees2);
-            }
+    // We use the absolute largest of of each of the horiziontal components to find
+    // horiziontal resolution, and of each fo the vertical components to find vertical
+    // resolution. In essence, we are finding the width of any horiziontal, 1 pixel, 
+    // "slice" of the image, as it intersects a row of the render media, and the same 
+    // for a vertical slice as it intersects a column. We use absolute values, as we 
+    // do not care which "direction" the lines are drawn in.
+    double  hScale = max (fabs (erect.a), fabs (erect.c));
+    double  vScale = max (fabs (erect.d), fabs (erect.b));
+    reference->hRes = fabs (image->imageWide / hScale) * 72.0;
+    reference->vRes = fabs (image->imageDeep / vScale) * 72.0;
 
-            // Shearing does not really effect resolution. So we can treat both the same
-            //
-            // "derotate" the image matrix
-            ASDoubleMatrix derotating = { 1, 0, 0, 1, 0, 0 };
-            doubelmatrixrotate (&derotating, reference->Rotation);
-            ASDoubleMatrix erect;
-            ASDoubleMatrixConcat (&erect, &reference->matrix, &derotating);
-
-            // We use the absolute largest of of each of the horiziontal components to find
-            // horiziontal resolution, and of each fo the vertical components to find vertical
-            // resolution. In essence, we are finding the width of any horiziontal, 1 pixel, 
-            // "slice" of the image, as it intersects a row of the render media, and the same 
-            // for a vertical slice as it intersects a column. We use absolute values, as we 
-            // do not care which "direction" the lines are drawn in.
-            double  hScale = max (fabs (erect.a), fabs (erect.c));
-            double  vScale = max (fabs (erect.d), fabs (erect.b));
-            reference->hRes = fabs (image->imageDeep / hScale) * 72.0;
-            reference->vRes = fabs (image->imageWide / vScale) * 72.0;
-        }
-    }
 
     // Round both resolutions to a whole number
     reference->hRes = floor (reference->hRes + 0.5);
@@ -256,14 +203,6 @@ void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, I
     newImageRef.matrix = matrix;
     newImageRef.reference = image;
     newImageRef.page = pageNo;
-    ASFixedRect bbox;
-    PDEElementGetBBox ((PDEElement)image, &bbox);
-    newImageRef.bbox.left = ASFixedToFloat (bbox.left);
-    newImageRef.bbox.right = ASFixedToFloat (bbox.right);
-    newImageRef.bbox.top = ASFixedToFloat (bbox.top);
-    newImageRef.bbox.bottom = ASFixedToFloat (bbox.bottom);
-    newImageRef.center.h = newImageRef.bbox.left + ((newImageRef.bbox.right - newImageRef.bbox.left) / 2.0);
-    newImageRef.center.v = newImageRef.bbox.bottom + ((newImageRef.bbox.top - newImageRef.bbox.bottom) / 2.0);
 
     newImage->references = new ImageRefList;
 

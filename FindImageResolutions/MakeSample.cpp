@@ -98,8 +98,8 @@ void MakeSample ()
     /* Create a page with 6 images
     .. All images are Ducky, at various resolutions
        0.75 left and right bounds, 2 inch images, with 0.5 between
-       top row is 1 inch below page top, and 157.27 points deep (To retain aspect ratio
-       Second row is 4 inches below top and 157.27 points deep.
+       top row is 1 inch below page top, and 157.273 points deep (To retain aspect ratio
+       Second row is 4 inches below top and 157.273 points deep.
     */
     sample.insertPage (ASFloatToFixed (8.5 * 72), ASFloatToFixed (11.0 * 72), PDBeforeFirstPage);
     PDPage page = sample.getPage (0);
@@ -109,7 +109,7 @@ void MakeSample ()
     ASDouble Y = 7 * 72.0;
     for (int count = 0; count < 6; count++)
     {
-        InsertImage (content, count, X, Y, 144.0, 157.27, 0);
+        InsertImage (content, count, X, Y, 144.0, 157.273, 0);
         X += 2.5 * 72;
         if (count == 2)
         {
@@ -122,37 +122,33 @@ void MakeSample ()
     PDPageReleasePDEContent (page, 0);
     PDPageRelease (page);
 
-    // Pages 2 through 4 each contain 9 duckies. All using the 300 DPI
-    // image, all arranged as above. But each image is rotated 15 degrees more than the previous
-
+    // Page 2 contains 25 duckies. All using the 300 DPI
+    // image, each is 72 points by 78.6365. The first image is erect, 
+    // each successive image is rotated 15 degrees counter clockwise
+    // from the previous, through 360 derees.
+    sample.insertPage (ASFloatToFixed (8.5 * 72), ASFloatToFixed (11.0 * 72),
+        sample.numPages () - 1);
+    page = sample.getPage (sample.numPages () - 1);
+    content = PDPageAcquirePDEContent (page, 0);
+    X = 0.75 * 72.0;
+    Y = 9.5 * 72.0;
     for (double angle = 0; angle < 360;)
     {
-        for (int pages = 0; pages < 3; pages++)
+        for (int count = 0; count < 25; count++)
         {
-            sample.insertPage (ASFloatToFixed (8.5 * 72), ASFloatToFixed (11.0 * 72),
-                sample.numPages ()-1);
-            page = sample.getPage (sample.numPages () - 1);
-            content = PDPageAcquirePDEContent (page, 0);
-            X = 0.75 * 72.0;
-            Y = 7 * 72.0;
-            for (int count = 0; count < 9; count++)
+            InsertImage (content, 0, X, Y, 72.0, 78.6365, angle);
+            angle += 15;
+            X += 1.5 * 72;
+            if (X >= 8.25 * 72 )
             {
-                InsertImage (content, 0, X, Y, 144.0, 157.27, angle);
-                angle += 15;
-                X += 2.5 * 72;
-                if ((count == 2) || (count == 5))
-                {
-                    X = 0.75 * 72;
-                    Y -= 3.0 * 72.0;
-                }
-                if ((pages == 2) && (count == 6))
-                    break;
+                X = 0.75 * 72;
+                Y -= 2.0 * 72.0;
             }
-            PDPageSetPDEContent (page, 0);
-            PDPageReleasePDEContent (page, 0);
-            PDPageRelease (page);
         }
     }
+    PDPageSetPDEContent (page, 0);
+    PDPageReleasePDEContent (page, 0);
+    PDPageRelease (page);
 
 
     sample.saveDoc (L"FindImageResolutions.pdf", PDSaveFull | PDSaveCollectGarbage);
