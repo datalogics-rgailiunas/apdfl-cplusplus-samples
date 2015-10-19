@@ -165,6 +165,16 @@ void CalculateResolution (ImageDef *image, ImageRef *reference)
     reference->Rotation = max (degrees1, degrees2);
     reference->Shear = shear;
 
+    // Shear of 180% is most likely a mirroring, in H or V
+    // Subtract shear from angle, and zero shear
+    if (shear == 180.0)
+    {
+        reference->Shear = 0;
+        reference->Rotation -= 180.0;
+        if (reference->Rotation < 0)
+            reference->Rotation += 360.0;
+    }
+
     // "derotate" the image matrix
     ASDoubleMatrix derotating = { 1, 0, 0, 1, 0, 0 };
     doubelmatrixrotate (&derotating, -reference->Rotation);
@@ -309,8 +319,8 @@ void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatri
                         {
                             PDEContent local = PDEFormGetContent (softForm);
                             PDEFormGetMatrixEx (softForm, &formMatrix);
-                            ASDoubleMatrixConcat (&softMatrix, &formMatrix, &softMatrix);
-                            ASDoubleMatrixConcat (&softMatrix, &matrix, &softMatrix);
+                            ASDoubleMatrixConcat (&softMatrix, &softMatrix, &formMatrix);
+                            ASDoubleMatrixConcat (&softMatrix, &softMatrix, &matrix);
                             FindImagesInContent (pageNumber, local, softMatrix, imageList, imageCount, true);
                             PDERelease ((PDEObject)local);
                             PDERelease ((PDEObject)softForm);
@@ -330,7 +340,7 @@ void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatri
                 (*imageCount)++;
                 ASDoubleMatrix imageMatrix;
                 PDEElementGetMatrixEx (elem, &imageMatrix);
-                ASDoubleMatrixConcat (&imageMatrix, &matrix, &imageMatrix);
+                ASDoubleMatrixConcat (&imageMatrix, &imageMatrix, &matrix);
                 CreateImageEntry (pageNumber, (PDEImage)elem, imageMatrix, imageList, imageCount, false, inSoftMask);
                 break;
             }
@@ -342,7 +352,7 @@ void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatri
                 PDEContent local = PDEFormGetContent ((PDEForm)elem);
                 ASDoubleMatrix localMatrix;
                 PDEFormGetMatrixEx ((PDEForm)elem, &localMatrix);
-                ASDoubleMatrixConcat (&localMatrix, &matrix, &localMatrix);
+                ASDoubleMatrixConcat (&localMatrix, &localMatrix, &matrix);
                 FindImagesInContent (pageNumber, local, localMatrix, imageList, imageCount, inSoftMask);
 
                 // NOTE: PDEFormGetContent "acquires" the content, so it must be 

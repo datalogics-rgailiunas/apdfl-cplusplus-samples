@@ -221,18 +221,39 @@ void CompleteImageTable (CosDoc doc)
     return;
 }
 
-void InsertImage (PDEContent content, ASInt32 imageIndex, double X, double Y, double wide, double deep, double angle)
+void InsertImage (PDEContent content, ASInt32 imageIndex, double X, double Y, 
+                  double wide, double deep, double angle, 
+                  ASBool mirrorH, ASBool mirrorV)
 {
     PDEColorSpace rgbSpace = PDEColorSpaceCreateFromName (ASAtomFromString ("DeviceRGB"));
     ASDoubleMatrix imageMatrix = { wide, 0, 0, deep, X + (wide/2.0), Y + (deep/2.0)};
-    doubelmatrixrotate (&imageMatrix, angle);
-    ASDoubleMatrix trans = { 1, 0, 0, 1,0,0 };
-    doubelmatrixrotate (&trans, angle);
+    ASDoubleMatrix trans = { 1, 0, 0, 1, 0, 0 };
     ASDoublePoint place = { -wide / 2.0, -deep / 2.0 };
+    if (mirrorH)
+    {
+        imageMatrix.a = -wide;
+        imageMatrix.h = X + (wide / 2.0);
+        trans.a = 1;
+        place.h = -wide / 2.0;
+    }
+    if (mirrorV)
+    {
+        imageMatrix.d = -deep;
+        imageMatrix.v = Y + (deep / 2.0);
+        trans.v = -1;
+        place.v = -deep / 2.0;
+    }
+    doubelmatrixrotate (&imageMatrix, angle);
+    doubelmatrixrotate (&trans, angle);
     ASDoubleMatrixTransform (&place, &trans, &place);
-    imageMatrix.h += place.h;
-    imageMatrix.v += place.v;
-
+    if (mirrorH)
+        imageMatrix.h -= place.h;
+    else
+        imageMatrix.h += place.h;
+    if (mirrorV)
+        imageMatrix.v -= place.v;
+    else
+        imageMatrix.v += place.v;
 
     PDEImage newImage = PDEImageCreateFromCosObjEx (&ImageTable[imageIndex].cosImage,
                                                     &imageMatrix, rgbSpace, NULL);
@@ -338,10 +359,15 @@ void InsertImageInFormInForm (CosDoc doc, PDEContent content, ASInt32 imageIndex
     PDEFormCalcBBox (form);
     PDERelease ((PDEObject)content);
 
-    PDEContent form2Content = PDEFormGetContent (form);
     CosObj form2Cos, form2Resources;
-    PDEContentToCosObjEx (form2Content, kPDEContentToForm, NULL, sizeof (PDEContentAttrs),
-        doc, NULL, &form2Cos, &form2Resources);
+    PDEFormGetCosObj (form, &form2Cos);
+    CosDictGetKeyString (form2Cos, "Resources");
+
+
+//    PDEContent form2Content = PDEFormGetContent (form);
+//    CosObj form2Cos, form2Resources;
+//    PDEContentToCosObjEx (form2Content, kPDEContentToForm, NULL, sizeof (PDEContentAttrs),
+//        doc, NULL, &form2Cos, &form2Resources);
 
     ASDoubleMatrix form2Matrix = { 2, 0, 0, 2, X + wide / 2, Y + deep / 2 };
     doubelmatrixrotate (&formMatrix, angle * 2);
@@ -355,10 +381,9 @@ void InsertImageInFormInForm (CosDoc doc, PDEContent content, ASInt32 imageIndex
     PDEForm form2 = PDEFormCreateFromCosObjEx (&form2Cos, &form2Resources, &form2Matrix);
     PDEFormCalcBBox (form2);
 
-    PDERelease ((PDEObject)form2Content);
-
     PDEContentAddElem (content, kPDEAfterLast, (PDEElement)form2);
     PDERelease ((PDEObject)form);
+//    PDERelease ((PDEObject)form2Content);
     PDERelease ((PDEObject)form2);
 }
 void MakeSample ()
@@ -384,7 +409,7 @@ void MakeSample ()
     ASDouble Y = 7 * 72.0;
     for (int count = 0; count < 6; count++)
     {
-        InsertImage (content, count, X, Y, 144.0, 157.273, 0);
+        InsertImage (content, count, X, Y, 144.0, 157.273, 0, false, false);
         X += 2.5 * 72;
         if (count == 2)
         {
@@ -411,7 +436,7 @@ void MakeSample ()
     {
         for (int count = 0; count < 25; count++)
         {
-            InsertImage (content, DPI300, X, Y, 72.0, 78.6365, angle);
+            InsertImage (content, DPI300, X, Y, 72.0, 78.6365, angle, false, false);
             angle += 15;
             X += 1.5 * 72;
             if (X >= 8.25 * 72 )
@@ -440,7 +465,7 @@ void MakeSample ()
     {
         for (int count = 0; count < 25; count++)
         {
-            InsertImage (content, DPI300bgStencil, X, Y, 72.0, 78.6365, angle);
+            InsertImage (content, DPI300bgStencil, X, Y, 72.0, 78.6365, angle, false, false);
             angle += 15;
             X += 1.5 * 72;
             if (X >= 8.25 * 72)
@@ -469,7 +494,7 @@ void MakeSample ()
     {
         for (int count = 0; count < 25; count++)
         {
-            InsertImage (content, DPI300bgSmask, X, Y, 72.0, 78.6365, angle);
+            InsertImage (content, DPI300bgSmask, X, Y, 72.0, 78.6365, angle, false, false);
             angle += 15;
             X += 1.5 * 72;
             if (X >= 8.25 * 72)
@@ -514,7 +539,7 @@ void MakeSample ()
     PDPageReleasePDEContent (page, 0);
     PDPageRelease (page);
 
-    // Page 2 contains 25 duckies. All using the 300 DPI Ducky
+    // Page 6 contains 25 duckies. All using the 300 DPI Ducky
     // image, each is 72 points by 78.6365. The first image is erect, 
     // each successive image is rotated 15 degrees counter clockwise
     // from the previous, through 360 derees.
@@ -546,6 +571,82 @@ void MakeSample ()
     PDPageReleasePDEContent (page, 0);
     PDPageRelease (page);
 
+    // Page 7 contains 25 duckies. Identical to page 1, but mirrored
+    // vertically 
+    sample.insertPage (ASFloatToFixed (8.5 * 72), ASFloatToFixed (11.0 * 72),
+        sample.numPages () - 1);
+    page = sample.getPage (sample.numPages () - 1);
+    content = PDPageAcquirePDEContent (page, 0);
+    X = 0.75 * 72.0;
+    Y = 9.5 * 72.0;
+    for (double angle = 0; angle < 360;)
+    {
+        for (int count = 0; count < 25; count++)
+        {
+            InsertImage(content, DPI300, X, Y, 72.0, 78.6365, angle, true, false);
+            angle += 15;
+            X += 1.5 * 72;
+            if (X >= 8.25 * 72)
+            {
+                X = 0.75 * 72;
+                Y -= 2.0 * 72.0;
+            }
+        }
+    }
+    PDPageSetPDEContent (page, 0);
+    PDPageReleasePDEContent (page, 0);
+    PDPageRelease (page);
+
+    // Page 8 contains 25 duckies. Identical to page 2, but mirrored horiziontally
+    sample.insertPage (ASFloatToFixed (8.5 * 72), ASFloatToFixed (11.0 * 72),
+        sample.numPages () - 1);
+    page = sample.getPage (sample.numPages () - 1);
+    content = PDPageAcquirePDEContent (page, 0);
+    X = 0.75 * 72.0;
+    Y = 9.5 * 72.0;
+    for (double angle = 0; angle < 360;)
+    {
+        for (int count = 0; count < 25; count++)
+        {
+            InsertImage (content, DPI300, X, Y, 72.0, 78.6365, angle, false, true);
+            angle += 15;
+            X += 1.5 * 72;
+            if (X >= 8.25 * 72)
+            {
+                X = 0.75 * 72;
+                Y -= 2.0 * 72.0;
+            }
+        }
+    }
+    PDPageSetPDEContent (page, 0);
+    PDPageReleasePDEContent (page, 0);
+    PDPageRelease (page);
+
+    // Page 9 contains 25 duckies. Identical to page 2, 
+    // but mirrored horiziontally and vertically
+    sample.insertPage (ASFloatToFixed (8.5 * 72), ASFloatToFixed (11.0 * 72),
+        sample.numPages () - 1);
+    page = sample.getPage (sample.numPages () - 1);
+    content = PDPageAcquirePDEContent (page, 0);
+    X = 0.75 * 72.0;
+    Y = 9.5 * 72.0;
+    for (double angle = 0; angle < 360;)
+    {
+        for (int count = 0; count < 25; count++)
+        {
+            InsertImage (content, DPI300, X, Y, 72.0, 78.6365, angle, true, true);
+            angle += 15;
+            X += 1.5 * 72;
+            if (X >= 8.25 * 72)
+            {
+                X = 0.75 * 72;
+                Y -= 2.0 * 72.0;
+            }
+        }
+    }
+    PDPageSetPDEContent (page, 0);
+    PDPageReleasePDEContent (page, 0);
+    PDPageRelease (page);
 
     sample.saveDoc (L"FindImageResolutions.pdf", PDSaveFull | PDSaveCollectGarbage);
     return;
