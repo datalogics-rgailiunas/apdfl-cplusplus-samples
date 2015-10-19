@@ -11,12 +11,13 @@
 //
 // Steps:
 // 1) Walk the document, finding all images and all references
+//      This will locate all images, either in-line, or XObjects, referenced
+//      in the document. It will no tlocate images that are present in the 
+//      document, but never referenced. Nor will it locate images in the document
+//      that are used as GState implied Soft Masks.
+//
 // 2) Display the list
 //========================================================================
-#define MakeSampleFile 1
-#if MakeSampleFile
-void MakeSample ();
-#endif
 
 #include <iostream>
 #include <vector>
@@ -32,10 +33,10 @@ using namespace std;
 
 #include "APDFLDoc.h"
 
+// These are used in calculating the rotation specified in a Matrix
 #ifndef M_PI
 #define M_PI       3.1415926535897932385E0  /*Hex  2^ 1 * 1.921FB54442D18 */
 #endif
-
 #define degrees_to_radians (M_PI / 180.0)
 
 
@@ -54,7 +55,7 @@ typedef struct imageReference
 // Define a list of such references 
 typedef vector<ImageRef> ImageRefList;
 
-// Define a structure to desribe one image defintion, noting the 
+// Define a structure to describe one image defintion, noting the 
 // places the structure is referenced in
 typedef struct imagedef
 {
@@ -71,7 +72,7 @@ typedef struct imagedef
 // Define a list of such structures
 typedef vector<ImageDef *> ImageList;
 
-// This is a utility routine to roate a matrix N degrees counterclockwise
+// This is a utility routine to rotate a matrix N degrees counterclockwise
 void  	doubelmatrixrotate (ASDoubleMatrix *M, ASDouble Angle)
 {
     double	Ad = Angle;
@@ -108,7 +109,7 @@ void DisplayImageList (ImageList *list, size_t references, FILE *log)
 {
 
     // Display the total count of images and references
-    fprintf (log, "We found a total of %01d image, referenced %01d times.\n\n", list->size (), references);
+    fprintf (log, "We found a total of %01d images, referenced %01d times.\n\n", list->size (), references);
 
     // Display each images information once
     for (size_t count = 0; count < list->size (); count++)
@@ -122,9 +123,8 @@ void DisplayImageList (ImageList *list, size_t references, FILE *log)
         for (size_t count2 = 0; count2 < current->references->size(); count2++)
         {
             ImageRef *currentRef = &current->references->at (count2);
-            fprintf (log, "\n      Reference %01d is on page %01d and has a resolution of %01g Horiziontal, and %01g vertical. (Matrix [%01g %01g %01g, %01g %01g %01g]\n",
-                count2 + 1, currentRef->page+1, currentRef->hRes, currentRef->vRes, currentRef->matrix.a, currentRef->matrix.b,
-                currentRef->matrix.c, currentRef->matrix.d, currentRef->matrix.h, currentRef->matrix.v);
+            fprintf (log, "\n      Reference %01d is on page %01d and has a resolution of %01g Horiziontal, and %01g vertical.\n",
+                count2 + 1, currentRef->page+1, currentRef->hRes, currentRef->vRes);
             if (currentRef->Rotation)
                 fprintf (log, "         Image is rotated %01.15g degrees\n", currentRef->Rotation);
             if (currentRef->Shear)
@@ -203,7 +203,7 @@ void CalculateResolution (ImageDef *image, ImageRef *reference)
 
 
 // This routine creates an entry in the image list, and or an existingimages reference list.
-// This also checks for maks on an image, and calls itself recursively to process the mask, if there is one.
+// This also checks for masks on an image, and calls itself recursively to process the mask, if there is one.
 void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, ImageList *imageList, size_t *imageCount, ASBool mask, ASBool sMask)
 { 
     ImageDef *newImage = (ImageDef *)malloc (sizeof(ImageDef));
@@ -296,43 +296,9 @@ void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatri
     for (ASInt32 count = 0; count < PDEContentGetNumElems (content); count++)
     {
         PDEElement elem = PDEContentGetElem (content, count);
-        PDEType elemType = (PDEType)PDEObjectGetType ((PDEObject)elem);
-
-        // Some types of PDE Elements may have a GState
-        // associated with them, and that gState may specify a 
-        // soft mask. If there is one, we want to add it to the list.
-        //
-        if ((elemType == kPDEForm) || (elemType == kPDEImage) || (elemType == kPDEPath))
-        {
-            PDEGraphicState gState;
-            PDEElementGetGState (elem, &gState, sizeof (PDEGraphicState));
-            if ((gState.extGState) && (PDEExtGStateHasSoftMask (gState.extGState)))
-            {
-                PDESoftMask softMask = PDEExtGStateAcquireSoftMask (gState.extGState);
-                if (softMask != NULL)
-                {
-                    if (PDEObjectGetType ((PDEObject)softMask) == kPDESoftMask)
-                    {
-                        ASDoubleMatrix softMatrix, formMatrix;
-                        PDEForm softForm = PDESoftMaskAcquireFormEx (softMask, &softMatrix);
-                        if (softForm != NULL)
-                        {
-                            PDEContent local = PDEFormGetContent (softForm);
-                            PDEFormGetMatrixEx (softForm, &formMatrix);
-                            ASDoubleMatrixConcat (&softMatrix, &softMatrix, &formMatrix);
-                            ASDoubleMatrixConcat (&softMatrix, &softMatrix, &matrix);
-                            FindImagesInContent (pageNumber, local, softMatrix, imageList, imageCount, true);
-                            PDERelease ((PDEObject)local);
-                            PDERelease ((PDEObject)softForm);
-                        }
-                    }
-                    PDERelease ((PDEObject)softMask);
-                }
-            }
-        }
 
         // Locate images, and elements that contain contents.
-        switch (elemType)
+        switch (PDEObjectGetType ((PDEObject)elem))
         {
             // In the case of a PDEImage, we create an image entry
             case kPDEImage:
@@ -411,17 +377,14 @@ int wmain(int argc, wchar_t** argv)
         return libInit.getInitError();           
         
 
-#if MakeSampleFile
-    MakeSample ();
-#endif
-
     DURING
 
-//=====================================================================================================================
-// Step 1: Locate all of the images in the document, and all of the references too them.
-//=====================================================================================================================
-        
-        APDFLDoc document (argv[1], true);;             //Open the document to be analyzed
+        //=====================================================================================================================
+        // Step 1: Locate all of the images in the document, and all of the references too them.
+        //=====================================================================================================================
+        wchar_t Input_File[1024] = L"..\\_Input\\FindImageResolutions.pdf";
+
+        APDFLDoc document (Input_File, true);;             //Open the document to be analyzed
 
         // Loop through each page, findig the images on that page, and 
         // adding them to the image list

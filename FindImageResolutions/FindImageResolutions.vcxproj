@@ -148,7 +148,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CONSOLE;_WIN64;WIN64;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";PI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>../../Include/Headers;../_Common/Init;../_Common/APDFLDoc;</AdditionalIncludeDirectories>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -167,7 +167,6 @@
     <ClCompile Include="..\_Common\APDFLDoc\APDFLDoc.cpp" />
     <ClCompile Include="..\_Common\Init\InitializeLibrary.cpp" />
     <ClCompile Include="FindImageResolutions.cpp" />
-    <ClCompile Include="MakeSample.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\_Common\APDFLDoc\APDFLDoc.h" />
