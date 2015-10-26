@@ -36,23 +36,27 @@ PDDoc SelectPDFDocument()
     std::wstring pdfFilePath;
     SelectPDFPath(pdfFilePath);
     if (pdfFilePath.empty())
-    {   // user canceled or similar
+    {   // User canceled or similar
         return NULL;
     }
 
-    //
-    // Convert pdfFilePath to the correct composition for use with PDFL...
-    //
-
-    ASFileSys fileSys = ASGetDefaultFileSys();
-    ASAtom pathSpecType = ASAtomFromString("DIPathWithASText");
-    ASText pathSpec = ASTextFromUnicode(((ASUTF16Val*)pdfFilePath.c_str()), kUTF16HostEndian);
-    ASPathName path = ASFileSysCreatePathName(NULL, pathSpecType, pathSpec, NULL);
-    ON_BLOCK_EXIT(ASFileSysReleasePath, fileSys, path);
-
     PDDoc pDoc = NULL;
     DURING
-    {   // open the (pdf) document
+    {
+        //
+        // Attempt to convert pdfFilePath to the correct composition for use with PDFL...
+        //
+
+        ASFileSys fileSys = ASGetDefaultFileSys();
+        ASAtom pathSpecType = ASAtomFromString("DIPathWithASText");
+        ASText pathSpec = ASTextFromUnicode(((ASUTF16Val*)pdfFilePath.c_str()), kUTF16HostEndian);
+        ASPathName path = ASFileSysCreatePathName(NULL, pathSpecType, pathSpec, NULL);
+        ON_BLOCK_EXIT(ASFileSysReleasePath, fileSys, path);
+
+        //
+        // Attempt to open the (pdf) document...
+        //
+
         pDoc = PDDocOpen(path, fileSys, NULL, TRUE);
     }
     HANDLER
@@ -62,13 +66,13 @@ PDDoc SelectPDFDocument()
     END_HANDLER
 
     if (err)
-    {   // something wrong happened while trying to open the document (maybe the selected file *is not* a PDF?)
+    {   // Something bad happened while trying to open the document (maybe the selected file *is not actually a valid* PDF?)
         if (pDoc)
-        {   // close the pdf, when appropriate
+        {   // Open pdfs are *locked*. NEVER forget to close them!
             DURING
                 PDDocClose(pDoc);
             HANDLER
-                // ignore any error
+                // Ignore any error
             END_HANDLER
         }
 
@@ -114,7 +118,7 @@ void SelectPDFPath(std::wstring &pdfFilePath /* OUT */)
     {
         DWORD err = CommDlgExtendedError();
         if (err == 0)
-        {   // dialog canceled
+        {   // Dialog canceled
             return;
         }
 
@@ -128,7 +132,7 @@ void SelectPDFPath(std::wstring &pdfFilePath /* OUT */)
     }
 
     if (ofn.lpstrFile && ofn.lpstrFile[0] != 0 /* not empty */)
-    {   // now (and ONLY now) that we have a known good result, use it...
+    {   // Now (and ONLY now) that we have a known good result, use it...
         pdfFilePath = ofn.lpstrFile;
     }
 }
@@ -185,7 +189,7 @@ void GetSaveAsFilePath(std::wstring &pdfFilePath /* OUT */)
         newFilePath[len] = 0;
 
         if (ofn.nFileExtension > 0 && ofn.nFileExtension < len)
-        {   // remove the extension (we'll add one later when we know what type of file to make)
+        {   // Remove the extension (we'll add one later when we know what type of file to make)
             newFilePath[ofn.nFileExtension - 1 /* account for the '.' */] = 0;
         }
 
@@ -223,7 +227,7 @@ void SelectICCProfile(std::wstring &iccFilePath /* OUT */)
     {
         DWORD err = CommDlgExtendedError();
         if (err == 0)
-        {   // dialog canceled
+        {   // Dialog canceled
             return;
         }
 
@@ -237,7 +241,7 @@ void SelectICCProfile(std::wstring &iccFilePath /* OUT */)
     }
 
     if (ofn.lpstrFile && ofn.lpstrFile[0] != 0 /* not empty */)
-    {   // now (and ONLY now) that we have a known good result, use it...
+    {   // Now (and ONLY now) that we have a known good result, use it...
         iccFilePath = ofn.lpstrFile;
     }
 }
