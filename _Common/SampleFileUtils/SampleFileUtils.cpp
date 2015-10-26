@@ -21,10 +21,17 @@
 //
 // File Utility Functions
 //
+// A collection of simple, utility functions that present platform user interface
+// functionality in support of opening and saving file(s) and similar activities.
+//
 
 PDDoc SelectPDFDocument()
 {
     ASErrorCode err = 0;
+
+    //
+    // Populate pdfFilePath with a path collected from a user...
+    //
 
     std::wstring pdfFilePath;
     SelectPDFPath(pdfFilePath);
@@ -32,6 +39,10 @@ PDDoc SelectPDFDocument()
     {   // user canceled or similar
         return NULL;
     }
+
+    //
+    // Convert pdfFilePath to the correct composition for use with PDFL...
+    //
 
     ASFileSys fileSys = ASGetDefaultFileSys();
     ASAtom pathSpecType = ASAtomFromString("DIPathWithASText");
@@ -41,7 +52,7 @@ PDDoc SelectPDFDocument()
 
     PDDoc pDoc = NULL;
     DURING
-    {
+    {   // open the (pdf) document
         pDoc = PDDocOpen(path, fileSys, NULL, TRUE);
     }
     HANDLER
@@ -53,14 +64,18 @@ PDDoc SelectPDFDocument()
     if (err)
     {   // something wrong happened while trying to open the document (maybe the selected file *is not* a PDF?)
         if (pDoc)
-        {
+        {   // close the pdf, when appropriate
             DURING
                 PDDocClose(pDoc);
             HANDLER
-                // ignore it
+                // ignore any error
             END_HANDLER
         }
-        
+
+        //
+        // Convert the error to an easy to review and nest, custom exception exception and throw *that*
+        //
+
         char msg[64] = {0};
         sprintf_s(msg, sizeof(msg), "Error: %d\r\n", err);
         throw new InvalidFileException(msg);
@@ -69,6 +84,13 @@ PDDoc SelectPDFDocument()
     return pDoc;
 }
 
+//
+// This utility function presents Windows User Interface (i.e., Open File)
+// and prompts the user to select a PDF. Filtration restricts what the user
+// can select.
+//
+// See also: https://msdn.microsoft.com/en-us/library/windows/desktop/ms646927%28v=vs.85%29.aspx
+//
 void SelectPDFPath(std::wstring &pdfFilePath /* OUT */)
 {
     OPENFILENAMEW ofn;
@@ -96,17 +118,28 @@ void SelectPDFPath(std::wstring &pdfFilePath /* OUT */)
             return;
         }
 
-        char msg[64] = {0};
+        //
+        // Convert the error to an easy to review and nest, custom exception exception and throw *that*
+        //
+
+        char msg[64] = { 0 };
         sprintf_s(msg, sizeof(msg), "Error: %d\r\n", err);
         throw new GeneralException(msg);
     }
 
     if (ofn.lpstrFile && ofn.lpstrFile[0] != 0 /* not empty */)
-    {
+    {   // now (and ONLY now) that we have a known good result, use it...
         pdfFilePath = ofn.lpstrFile;
     }
 }
 
+//
+// This utility function presents Windows User Interface (i.e., Save As)
+// and prompts for a PDF path. Filtration restricts what the user
+// can specify.
+//
+// See also: https://msdn.microsoft.com/en-us/library/windows/desktop/ms646928%28v=vs.85%29.aspx
+//
 void GetSaveAsFilePath(std::wstring &pdfFilePath /* OUT */)
 {
     OPENFILENAMEW ofn;
@@ -134,6 +167,10 @@ void GetSaveAsFilePath(std::wstring &pdfFilePath /* OUT */)
             return;
         }
 
+        //
+        // Convert the error to an easy to review and nest, custom exception exception and throw *that*
+        //
+
         char msg[64] = { 0 };
         sprintf_s(msg, sizeof(msg), "Error: %d\r\n", err);
         throw new GeneralException(msg);
@@ -156,6 +193,13 @@ void GetSaveAsFilePath(std::wstring &pdfFilePath /* OUT */)
     }
 }
 
+//
+// This utility function presents Windows User Interface (i.e., Open File)
+// and prompts the user to select an ICC profile. Filtration restricts what the user
+// can select.
+//
+// See also: https://msdn.microsoft.com/en-us/library/windows/desktop/ms646927%28v=vs.85%29.aspx
+//
 void SelectICCProfile(std::wstring &iccFilePath /* OUT */)
 {
     OPENFILENAMEW ofn;
@@ -183,13 +227,17 @@ void SelectICCProfile(std::wstring &iccFilePath /* OUT */)
             return;
         }
 
+        //
+        // Convert the error to an easy to review and nest, custom exception exception and throw *that*
+        //
+
         char msg[64] = { 0 };
         sprintf_s(msg, sizeof(msg), "Error: %d\r\n", err);
         throw new GeneralException(msg);
     }
 
     if (ofn.lpstrFile && ofn.lpstrFile[0] != 0 /* not empty */)
-    {
+    {   // now (and ONLY now) that we have a known good result, use it...
         iccFilePath = ofn.lpstrFile;
     }
 }
