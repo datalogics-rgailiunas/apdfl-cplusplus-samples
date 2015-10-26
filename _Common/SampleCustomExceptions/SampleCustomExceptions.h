@@ -11,6 +11,12 @@
 
 /* Custom Exceptions thrown by Datalogics Samples */
 
+/* The nature of these exceptions is essentially identical to what one finds
+ * in Java and C# compositions. The exceptions tend to be self documenting
+ * (the typename of the exception being highly descriptive). They are also
+ * easy to collect into chains of exceptions (think: Matryoshka doll), further
+ * aiding the software engineer's analysis of what / where things went wrong */
+
 struct UnimplementedException : public std::exception {};
 struct OutOfMemoryException : public std::exception {};
 struct BadArgumentException : public std::exception
