@@ -42,7 +42,7 @@ PDDoc SelectPDFDocument()
     PDDoc pDoc = NULL;
     DURING
     {
-        pDoc = PDDocOpen(path, NULL, NULL, TRUE);
+        pDoc = PDDocOpen(path, fileSys, NULL, TRUE);
     }
     HANDLER
     {
