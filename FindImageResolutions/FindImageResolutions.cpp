@@ -24,8 +24,6 @@
 using namespace std;
 
 #include "InitializeLibrary.h"
-#include "ASExtraCalls.h"
-#include "PDCalls.h"
 #include "PERCalls.h"
 #include "PEWcalls.h"
 #include "PagePDECntCalls.h"
@@ -43,7 +41,7 @@ using namespace std;
 // Define a structure to describe one reference to an image
 typedef struct imageReference
 {
-    ASSize_t        page;               // Page n umber this reference occurs on.
+    ASSize_t        page;               // Page number this reference occurs on.
     PDEImageAttrs   attrs;              // The image attributes used at reference time.
     PDEImage        reference;          // The PDEImage Object which references this image
     ASDoubleMatrix  matrix;             // The matrix in effect at the time of reference
@@ -59,7 +57,7 @@ typedef vector<ImageRef> ImageRefList;
 // places the structure is referenced in
 typedef struct imagedef
 {
-    ASBool              inLine;                 // This will be true is this is an InLine image. 
+    ASBool              inLine;                 // This will be true if this is an InLine image. 
                                                 //  If this is the case, then there will be only one reference, 
                                                 //  and there will be no CosObj.
     CosObj              imageObject;            //  The COS Object which defines this image
@@ -139,13 +137,19 @@ void DisplayImageList (ImageList *list, size_t references, FILE *log)
 }
 
 // This routine calculates the horiziontal and vertical resolution of 
-// each reference to each image. Note that different references may have
-// different effective resolutions
+// each reference to each image. Note that different references to a given
+// image may have different effective resolutions
 void CalculateResolution (ImageDef *image, ImageRef *reference)
 {
-    // We want to find the resolution of the image as if it were not rotated.
-    // To that end, we need to discover if it IS rotated, and create a Matrix
-    // as it would be if the image were not rotated.
+    // The horitional resolution of the image is the width of the image
+    // in pixels horiziontal, divided by it's displayed width, which is the 
+    // display matrix.a value. Likewise, vertical resolution is pixels deep,
+    // divided by display depth (matrix.d). 
+    //
+    // When the image is displayed rotated, the actual display size is somewhat
+    // harder to determine. Here, we will locate any rotation of shear created
+    // when the image is rotated, and create a new matrix, with that rotation
+    // removed. They we can simply use the A and D values of the derotated matrix.
 
     // Discover the rotation and horiziontally, and vertically
     double theta1 = atan2 (reference->matrix.a, -reference->matrix.c);
@@ -384,7 +388,7 @@ int wmain(int argc, wchar_t** argv)
         //=====================================================================================================================
         wchar_t Input_File[1024] = L"..\\_Input\\FindImageResolutions.pdf";
 
-        APDFLDoc document (Input_File, true);;             //Open the document to be analyzed
+        APDFLDoc document (Input_File, true);             //Open the document to be analyzed
 
         // Loop through each page, findig the images on that page, and 
         // adding them to the image list
