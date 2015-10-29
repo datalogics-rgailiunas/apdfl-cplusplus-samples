@@ -31,17 +31,16 @@ using namespace std;
 
 #include "APDFLDoc.h"
 
-// These are used in calculating the rotation specified in a Matrix
-#ifndef M_PI
-#define M_PI       3.1415926535897932385E0  /*Hex  2^ 1 * 1.921FB54442D18 */
-#endif
-#define degrees_to_radians (M_PI / 180.0)
+// Input file to use for example
+wchar_t Input_File[1024] = L"..\\_Input\\FindImageResolutions.pdf";
 
+// These are used in calculating the rotation specified in a Matrix
+#define degrees_to_radians (3.1415926535897932385 / 180.0)
 
 // Define a structure to describe one reference to an image
 typedef struct imageReference
 {
-    ASSize_t        page;               // Page number this reference occurs on.
+    ASUns32         page;               // Page number this reference occurs on.
     PDEImageAttrs   attrs;              // The image attributes used at reference time.
     PDEImage        reference;          // The PDEImage Object which references this image
     ASDoubleMatrix  matrix;             // The matrix in effect at the time of reference
@@ -71,7 +70,7 @@ typedef struct imagedef
 typedef vector<ImageDef *> ImageList;
 
 // This is a utility routine to rotate a matrix N degrees counterclockwise
-void  	doubelmatrixrotate (ASDoubleMatrix *M, ASDouble Angle)
+void doublematrixrotate (ASDoubleMatrix *M, ASDouble Angle)
 {
     double	Ad = Angle;
     double	Sina, Cosa;
@@ -107,33 +106,31 @@ void DisplayImageList (ImageList *list, size_t references, FILE *log)
 {
 
     // Display the total count of images and references
-    fprintf (log, "We found a total of %01d images, referenced %01d times.\n\n", list->size (), references);
+    fprintf (log, "Found %01d image data streams, %01d total image references.\n\n", list->size(), references);
 
     // Display each images information once
     for (size_t count = 0; count < list->size (); count++)
     {
         ImageDef *current = list->at (count);
-        fprintf (log, "   Image %s%01d is an %s image %01d pixels wide, and %01d pixels deep. It is referenced %01d times.\n",
+        fprintf (log, "Image data stream %s%01d is an %s image %01d samples wide, and %01d samples deep. It is referenced %01d time%s.\n",
             current->isSMask ? "(Soft Mask) " : current->isMask ? "(Mask) " : "",
-            count + 1, current->inLine ? "InLine" : "XObject", current->imageWide, current->imageDeep, current->references->size ());
+            count + 1, current->inLine ? "InLine" : "XObject", current->imageWide, current->imageDeep,
+            current->references->size(), current->references->size() > 1 ? "s" : "");
         
         // Display all of the references to this image 
         for (size_t count2 = 0; count2 < current->references->size(); count2++)
         {
             ImageRef *currentRef = &current->references->at (count2);
-            fprintf (log, "\n      Reference %01d is on page %01d and has a resolution of %01g Horiziontal, and %01g vertical.\n",
+            fprintf (log, "-- Reference %01d is on page %01d and has a resolution of %01g horiziontal DPI, %01g vertical DPI.\n",
                 count2 + 1, currentRef->page+1, currentRef->hRes, currentRef->vRes);
             if (currentRef->Rotation)
-                fprintf (log, "         Image is rotated %01.15g degrees\n", currentRef->Rotation);
+                fprintf (log, "         Reference is rotated %01.15g degrees\n", currentRef->Rotation);
             if (currentRef->Shear)
-                fprintf (log, "         Image is sheared %01.15g degrees\n", currentRef->Shear);
+                fprintf (log, "         Reference is sheared %01.15g degrees\n", currentRef->Shear);
         }
-
         // Put a blank line between images
         fprintf (log, "\n");
     }
-
-
 }
 
 // This routine calculates the horiziontal and vertical resolution of 
@@ -181,7 +178,7 @@ void CalculateResolution (ImageDef *image, ImageRef *reference)
 
     // "derotate" the image matrix
     ASDoubleMatrix derotating = { 1, 0, 0, 1, 0, 0 };
-    doubelmatrixrotate (&derotating, -reference->Rotation);
+    doublematrixrotate (&derotating, -reference->Rotation);
     ASDoubleMatrix erect;
     ASDoubleMatrixConcat (&erect, &reference->matrix, &derotating);
 
@@ -196,19 +193,16 @@ void CalculateResolution (ImageDef *image, ImageRef *reference)
     reference->hRes = fabs (image->imageWide / hScale) * 72.0;
     reference->vRes = fabs (image->imageDeep / vScale) * 72.0;
 
-
     // Round both resolutions to a whole number
     reference->hRes = floor (reference->hRes + 0.5);
     reference->vRes = floor (reference->vRes + 0.5);
 
     return;
-
 }
-
 
 // This routine creates an entry in the image list, and or an existingimages reference list.
 // This also checks for masks on an image, and calls itself recursively to process the mask, if there is one.
-void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, ImageList *imageList, size_t *imageCount, ASBool mask, ASBool sMask)
+void CreateImageEntry (ASUns32 pageNo, PDEImage image, ASDoubleMatrix matrix, ImageList *imageList, ASUns32 *imageCount, ASBool mask, ASBool sMask)
 { 
     ImageDef *newImage = (ImageDef *)malloc (sizeof(ImageDef));
     ImageRef newImageRef;
@@ -254,8 +248,7 @@ void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, I
 
     if (newImageRef.attrs.flags & kPDEImageExternal)
     {
-        // This is an XObject image. There may be multiple entries, and there MUST be a 
-        // CosObj
+        // This is an XObject image. There may be multiple entries, and there MUST be a CosObj
         newImage->inLine = false;
         newImage->imageWide = CosIntegerValue (CosDictGetKeyString (newImage->imageObject, "Width"));
         newImage->imageDeep = CosIntegerValue (CosDictGetKeyString (newImage->imageObject, "Height"));
@@ -278,8 +271,7 @@ void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, I
     }
     else
     {
-        // This is an InLine image. There may be only a single reference too it, and there is no
-        // CosObj
+        // This is an InLine image. There may be only a single reference to it and there is no CosObj
         newImage->inLine = true;
         newImage->imageObject = CosNewNull ();
         newImage->imageWide = newImageRef.attrs.width;
@@ -295,7 +287,7 @@ void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, I
 
 // This is a PDE tree walk through a content block. It will alwyas be called with the page content,
 // and may recurse to include the contents of elements which are containers.
-void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatrix matrix, ImageList *imageList, size_t *imageCount, ASBool inSoftMask)
+void FindImagesInContent (ASUns32 pageNumber, PDEContent content, ASDoubleMatrix matrix, ImageList *imageList, ASUns32 *imageCount, ASBool inSoftMask)
 { 
     for (ASInt32 count = 0; count < PDEContentGetNumElems (content); count++)
     {
@@ -341,7 +333,7 @@ void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatri
             }
 
             // In the case of a Group, we parse the group content.
-            //   In this case, we do NOT concatenat the matrices
+            //   In this case, we do NOT concatenate the matrices
             case kPDEGroup:
             {
                 PDEContent local = PDEGroupGetContent ((PDEGroup)elem);
@@ -352,7 +344,6 @@ void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatri
             // All other objects, we simply ignore
             default:
                 break;
-
         }
     }
 }
@@ -367,34 +358,26 @@ void CleanupImageList (ImageList *list)
     }
 }
 
-
 int wmain(int argc, wchar_t** argv)
 {
     APDFLib libInit;                   //Initialize the Adobe PDF Library.
     ASErrorCode errCode = 0;           //Variable used to report any exceptions/errors if they occured. 
-
-
     ImageList imageList;                    // The list of all images in this document
-    ASSize_t  totalImageReferences = 0;     // A count of all references to image in this document
+    ASUns32  totalImageReferences = 0;     // A count of all references to image in this document
 
     if (libInit.isValid() == false)    //If there was a problem in initialization, return the error code.
         return libInit.getInitError();           
-        
 
     DURING
-
         //=====================================================================================================================
         // Step 1: Locate all of the images in the document, and all of the references too them.
         //=====================================================================================================================
-        wchar_t Input_File[1024] = L"..\\_Input\\FindImageResolutions.pdf";
-
         APDFLDoc document (Input_File, true);             //Open the document to be analyzed
 
         // Loop through each page, findig the images on that page, and 
         // adding them to the image list
-        for (ASSize_t pageNo = 0; pageNo < document.numPages(); pageNo++)
+        for (ASUns32 pageNo = 0; pageNo < document.numPages(); pageNo++)
         {
-            
             PDPage page = document.getPage (pageNo);                    // Acquire the page
             PDEContent content = PDPageAcquirePDEContent (page, 0);     // Acquire the page content
 
@@ -414,23 +397,16 @@ int wmain(int argc, wchar_t** argv)
         DisplayImageList (&imageList, totalImageReferences, log);
         fclose (log);
 
-
 //=====================================================================================================================
 // Step 3: Cleanup
 //=====================================================================================================================
-
         CleanupImageList (&imageList);
 
-        HANDLER
-
-            errCode = libInit.getInitError ();
-
-            libInit.displayError (errCode);    //If there was an error, display the error that occured.
-
-            return (errCode);
-
-        END_HANDLER
+    HANDLER
+        errCode = libInit.getInitError ();
+        libInit.displayError (errCode);    //If there was an error, display the error that occured.
+        return (errCode);
+    END_HANDLER
 
         return (0);                              //APDFLib's destructor terminates the library.
-
 }
