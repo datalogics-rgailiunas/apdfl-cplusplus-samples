@@ -36,7 +36,7 @@ int main(int argc, char** argv)
 
     DURING
 
-        APDFLDoc doc(L"../_Input/FlattenPDF_New.pdf", true);    //Open the input document, repairing it if it's damaged.
+        APDFLDoc doc(L"../_Input/FlattenTransparency.pdf", true);    //Open the input document, repairing it if it's damaged.
 
 //===================================================================================================================================================================================================================================
 // Step 1) Initialize the PDFLattener plugin.
@@ -127,7 +127,7 @@ int main(int argc, char** argv)
 // Step 4) Save the document, close it, and terminate the plugin.
 //===================================================================================================================================================================================================================================
 
-        doc.saveDoc(L"FlattenedPDF.pdf");            //Save the document. APDFLDoc defaults to using the "PDSaveFull" flag while saving.
+        doc.saveDoc(L"FlattenedTransparency.pdf");            //Save the document. APDFLDoc defaults to using the "PDSaveFull" flag while saving.
                                                      //APDFLDoc's destructor takes care of closing the document and releasing the rest of its resources.
 
         ASTextDestroy(flattenParams.profileDesc);    //Release resources. Hey, we only needed one creation!
