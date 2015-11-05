@@ -13,6 +13,7 @@
 ExtractAttachments/*.docx
 ExtractAttachments/*.jpg
 ExtractAttachments/*.png
+ExtractText/ExtractedUnicodeText.txt
 
 # Build results
 [Dd]ebug/

@@ -22,7 +22,7 @@
     <ProjectGuid>{5D04558C-183A-4ECC-80C8-542A9FDD72D2}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BlankSample</RootNamespace>
-    <ProjectName>LockDocument</ProjectName>
+    <ProjectName>FindImageResolutions</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -91,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CONSOLE;_DEBUG;DEBUG;_WIN32;WIN32;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";PI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\_Common;..\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\_Common\Init;..\_Common\APDFLDoc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
     </ClCompile>
     <Link>
@@ -109,7 +109,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CONSOLE;_DEBUG;DEBUG;_WIN64;WIN64;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";PI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\_Common;..\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\_Common\Init;..\_Common\APDFLDoc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
     </ClCompile>
     <Link>
@@ -127,7 +127,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CONSOLE;WIN32;WIN32;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";PI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\_Common;..\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\_Common\Init;..\_Common\APDFLDoc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
     </ClCompile>
     <Link>
@@ -145,7 +145,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CONSOLE;WIN64;WIN64;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";PI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\_Common;..\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\_Common\Init;..\_Common\APDFLDoc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
     </ClCompile>
     <Link>
@@ -157,7 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="LockDocument.cpp" />
+    <ClCompile Include="FindImageResolutions.cpp" />
     <ClCompile Include="..\_Common\APDFLDoc.cpp" />
     <ClCompile Include="..\_Common\InitializeLibrary.cpp" />
     <ClCompile Include="..\..\Include\Source\PDFLInitCommon.c" />
