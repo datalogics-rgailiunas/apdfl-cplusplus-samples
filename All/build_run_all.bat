@@ -379,5 +379,4 @@ ECHO You must choose to run the DL or the Adobe samples^!
 GOTO End
 
 :End
-PAUSE
 EXIT /b %ERRORLEVEL%
