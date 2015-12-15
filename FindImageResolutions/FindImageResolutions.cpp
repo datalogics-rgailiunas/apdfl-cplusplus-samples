@@ -3,17 +3,17 @@
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 //========================================================================
-// Sample: Create a list of all images in a document, and thier parameters, 
-//         With a sublist of instances where this images are displayed, and 
-//         thier effective resolutions.
+// Sample: Create a list of all images in a document, and their parameters, 
+//         With a sublist of instances where these images are displayed, and 
+//         their effective resolutions.
 //	
-//-> For this case, we are going to ignore images that are used in pattern color spaces!
+// This sample ignores mages that are used in pattern color spaces.
 //
 // Steps:
-// 1) Walk the document, finding all images and all references
-//      This will locate all images, either in-line, or XObjects, referenced
-//      in the document. It will no tlocate images that are present in the 
-//      document, but never referenced. Nor will it locate images in the document
+// 1)   Search through the document to find all images and all references.
+//      This will locate all images, either in-line or as XObjects, referenced
+//      in the document. The process will not find images that are present in the 
+//      document but never referenced. Nor will it locate images in the document
 //      that are used as GState implied Soft Masks.
 //
 // 2) Display the list
