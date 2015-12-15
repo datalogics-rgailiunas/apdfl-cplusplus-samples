@@ -8,9 +8,9 @@
 // Note:
 // This sample merges the appearance (AP) dictionaries of all annotations on the page 
 // (if they have AP dictionaries) into the page's content stream, by converting them 
-// into Form Xobjects.
-// See chapter 8.4.4 in the PDF Reference, version 1.7, for more information on
-// annotation appearances.
+// into Form XObjects.
+// See chapter 12.5.5 in the ISO 32000 document, “Appearance Streams,” on page 387, for
+// more information about annotation appearances.
 //
 // Steps:
 // 1) Convert each Annotation's appearance stream, if it has one, into a Form 
