@@ -3,8 +3,8 @@
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 //========================================================================
-// Sample: Create a list of all images in a document, and their parameters, 
-//         With a sublist of instances where these images are displayed, and 
+// Sample: Create a list of all images in a document and their parameters. 
+//         Provide a sublist of instances where these images are displayed and 
 //         their effective resolutions.
 //	
 // This sample ignores mages that are used in pattern color spaces.
@@ -34,19 +34,19 @@ using namespace std;
 // Input file to use for example
 wchar_t Input_File[1024] = L"..\\_Input\\FindImageResolutions.pdf";
 
-// These are used in calculating the rotation specified in a Matrix
+// These values are used to calculate the rotation specified in a Matrix
 #define degrees_to_radians (3.1415926535897932385 / 180.0)
 
 // Define a structure to describe one reference to an image
 typedef struct imageReference
 {
-    ASUns32         page;               // Page number this reference occurs on.
-    PDEImageAttrs   attrs;              // The image attributes used at reference time.
+    ASUns32         page;               // Page number this reference occurs on
+    PDEImageAttrs   attrs;              // The image attributes used at reference time
     PDEImage        reference;          // The PDEImage Object which references this image
     ASDoubleMatrix  matrix;             // The matrix in effect at the time of reference
-    ASDouble        hRes, vRes;         // Effective Horiziontal and Vertical resolutions
-    ASDouble        Rotation;           // Rotation angle of the image (In Degrees)
-    ASDouble        Shear;              // Shear of horiz/vertical (In Degrees)
+    ASDouble        hRes, vRes;         // Effective Horizontal and Vertical resolutions
+    ASDouble        Rotation;           // Rotation angle of the image (in degrees)
+    ASDouble        Shear;              // Shear of horizontal/vertical (in degrees)
 }ImageRef;
 
 // Define a list of such references 
@@ -55,18 +55,18 @@ typedef vector<ImageRef> ImageRefList;
 // Define a structure to describe one image defintion, noting the 
 // places the structure is referenced in
 typedef struct imagedef
-{
-    ASBool              inLine;                 // This will be true if this is an InLine image. 
-                                                //  If this is the case, then there will be only one reference, 
-                                                //  and there will be no CosObj.
-    CosObj              imageObject;            //  The COS Object which defines this image
-    ASUns32             imageWide, imageDeep;   //  The width and depth of the image in pixels
-    ImageRefList       *references;             // A list of places where this image is referenced.
+
+    ASBool              inLine;                 // This will be "True" if this is an InLine image.
+                                                // If this is True, there will be only one reference, 
+                                                // and there will be no CosObj.
+    CosObj              imageObject;            // The COS Object which defines this image
+    ASUns32             imageWide, imageDeep;   // The width and depth of the image in pixels
+    ImageRefList       *references;             // A list of places where this image is referenced
     ASBool              isMask;                 // Image is a mask image, applied to another image
     ASBool              isSMask;                // Image is a Soft Mask, applied to another image
 } ImageDef;
 
-// Define a list of such structures
+// Define a list of structures
 typedef vector<ImageDef *> ImageList;
 
 // This is a utility routine to rotate a matrix N degrees counterclockwise
@@ -101,14 +101,14 @@ void doublematrixrotate (ASDoubleMatrix *M, ASDouble Angle)
     return;
 }
 
-// This routine just displays the list of images that we created
+// This routine displays the list of images just created
 void DisplayImageList (ImageList *list, size_t references, FILE *log)
 {
 
     // Display the total count of images and references
     fprintf (log, "Found %01d image data streams, %01d total image references.\n\n", list->size(), references);
 
-    // Display each images information once
+    // Display the information for each image
     for (size_t count = 0; count < list->size (); count++)
     {
         ImageDef *current = list->at (count);
@@ -133,27 +133,27 @@ void DisplayImageList (ImageList *list, size_t references, FILE *log)
     }
 }
 
-// This routine calculates the horiziontal and vertical resolution of 
+// This routine calculates the horizontal and vertical resolution of 
 // each reference to each image. Note that different references to a given
-// image may have different effective resolutions
+// image may have different effective resolutions.
 void CalculateResolution (ImageDef *image, ImageRef *reference)
 {
-    // The horitional resolution of the image is the width of the image
-    // in pixels horiziontal, divided by it's displayed width, which is the 
-    // display matrix.a value. Likewise, vertical resolution is pixels deep,
-    // divided by display depth (matrix.d). 
+    // The horizontal resolution of the image is the width of the image
+    // in pixels divided by the displayed width of that image. The displayed 
+    // width is the "matrix.a" value. Likewise, the vertical resolution depth,
+    // the image in pixels divided by display depth (matrix.d). 
     //
-    // When the image is displayed rotated, the actual display size is somewhat
+    // When the image is shown rotated, the actual display size is somewhat
     // harder to determine. Here, we will locate any rotation of shear created
     // when the image is rotated, and create a new matrix, with that rotation
-    // removed. They we can simply use the A and D values of the derotated matrix.
+    // removed. They we can simply use the A and D values of the de-rotated matrix.
 
-    // Discover the rotation and horiziontally, and vertically
+    // Discover the rotation and horizontally and vertically
     double theta1 = atan2 (reference->matrix.a, -reference->matrix.c);
     double theta2 = atan2 (reference->matrix.d, reference->matrix.b);
 
     // Convert these to degrees, as an aid in understanding the actual angles used.
-    // Note that a 90 degree angle from horiz to vertical is "erect".
+    // Note that a 90 degree angle from horizontal to vertical is "erect".
     double degrees1 = -floor((((theta1) / degrees_to_radians) - 90) + 0.5);
     if (degrees1 < 0)
         degrees1 = 360.0 + degrees1;
@@ -182,9 +182,9 @@ void CalculateResolution (ImageDef *image, ImageRef *reference)
     ASDoubleMatrix erect;
     ASDoubleMatrixConcat (&erect, &reference->matrix, &derotating);
 
-    // We use the absolute largest of of each of the horiziontal components to find
-    // horiziontal resolution, and of each fo the vertical components to find vertical
-    // resolution. In essence, we are finding the width of any horiziontal, 1 pixel, 
+    // We use the absolute largest of of each of the horizontal components to find
+    // horizontal resolution, and of each fo the vertical components to find vertical
+    // resolution. In essence, we are finding the width of any horizontal 1 pixel 
     // "slice" of the image, as it intersects a row of the render media, and the same 
     // for a vertical slice as it intersects a column. We use absolute values, as we 
     // do not care which "direction" the lines are drawn in.
@@ -285,7 +285,7 @@ void CreateImageEntry (ASUns32 pageNo, PDEImage image, ASDoubleMatrix matrix, Im
 
 }
 
-// This is a PDE tree walk through a content block. It will alwyas be called with the page content,
+// This is a PDE tree walk through a content block. It will always be called with the page content,
 // and may recurse to include the contents of elements which are containers.
 void FindImagesInContent (ASUns32 pageNumber, PDEContent content, ASDoubleMatrix matrix, ImageList *imageList, ASUns32 *imageCount, ASBool inSoftMask)
 { 
@@ -307,7 +307,7 @@ void FindImagesInContent (ASUns32 pageNumber, PDEContent content, ASDoubleMatrix
                 break;
             }
 
-            //In the case of a PDEForm, we parse the forms content, 
+            // In the case of a PDEForm, we parse the forms content, 
             // concatenating the forms matrix to the current matrix
             case kPDEForm:
             {
@@ -323,8 +323,8 @@ void FindImagesInContent (ASUns32 pageNumber, PDEContent content, ASDoubleMatrix
                 break;
             }
 
-            //In the case of a container, we parse the container content.
-            //  In this case, we do NOT concatenate the matrices
+            // In the case of a container, we parse the container content.
+            // In this case, we do NOT concatenate the matrices
             case kPDEContainer:
             {
                 PDEContent local = PDEContainerGetContent ((PDEContainer)elem);
@@ -333,7 +333,7 @@ void FindImagesInContent (ASUns32 pageNumber, PDEContent content, ASDoubleMatrix
             }
 
             // In the case of a Group, we parse the group content.
-            //   In this case, we do NOT concatenate the matrices
+            // In this case, we do NOT concatenate the matrices
             case kPDEGroup:
             {
                 PDEContent local = PDEGroupGetContent ((PDEGroup)elem);
@@ -360,22 +360,22 @@ void CleanupImageList (ImageList *list)
 
 int wmain(int argc, wchar_t** argv)
 {
-    APDFLib libInit;                   //Initialize the Adobe PDF Library.
-    ASErrorCode errCode = 0;           //Variable used to report any exceptions/errors if they occured. 
-    ImageList imageList;                    // The list of all images in this document
+    APDFLib libInit;                   //Initialize the Adobe PDF Library
+    ASErrorCode errCode = 0;           //Variable used to report any exceptions/errors if they occur 
+    ImageList imageList;                   // The list of all images in this document
     ASUns32  totalImageReferences = 0;     // A count of all references to image in this document
 
-    if (libInit.isValid() == false)    //If there was a problem in initialization, return the error code.
+    if (libInit.isValid() == false)    //If a problem appears with APDFL initializing, return the error code
         return libInit.getInitError();           
 
     DURING
         //=====================================================================================================================
-        // Step 1: Locate all of the images in the document, and all of the references too them.
+        // Step 1: Locate all of the images in the document, and all of the references to them.
         //=====================================================================================================================
         APDFLDoc document (Input_File, true);             //Open the document to be analyzed
 
-        // Loop through each page, findig the images on that page, and 
-        // adding them to the image list
+        // Loop through each page. Find the images on that page 
+        // and add them to the image list.
         for (ASUns32 pageNo = 0; pageNo < document.numPages(); pageNo++)
         {
             PDPage page = document.getPage (pageNo);                    // Acquire the page
@@ -404,9 +404,9 @@ int wmain(int argc, wchar_t** argv)
 
     HANDLER
         errCode = libInit.getInitError ();
-        libInit.displayError (errCode);    //If there was an error, display the error that occured.
+        libInit.displayError (errCode);          //If an error occurs display the error message
         return (errCode);
     END_HANDLER
 
-        return (0);                              //APDFLib's destructor terminates the library.
+        return (0);                              //APDFLib's destructor terminates the Library
 }
