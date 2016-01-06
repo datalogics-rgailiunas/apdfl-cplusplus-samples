@@ -38,10 +38,10 @@ void PDAnnotSetQuads(PDAnnot annot, ASFixedQuad *quads, ASArraySize numQuads);
 
 int main(int argc, char** argv)
 {
-    APDFLib libInit;                                                  //Initialize the Adobe PDF Library.
-    ASErrorCode errCode = 0;                                          //Variable used to report any exceptions or errors, if they occured.
+    APDFLib libInit;                                                  //Initialize the Adobe PDF Library
+    ASErrorCode errCode = 0;                                          //Variable used to report any exceptions or errors, if they occur
 
-    if (libInit.isValid() == false)                                   //If there was a problem in initialization, return the error code.
+    if (libInit.isValid() == false)                                   //If there was a problem in initialization, return the error code
         return libInit.getInitError();
 
     DURING
@@ -69,11 +69,11 @@ int main(int argc, char** argv)
     int highlightColorNum = 0;                                                                                 //This will cycle between 0, 1, and 2 to cycle highlight colors.
     for (PDEElement next : pageElements)
     {
-        //The annotation's location. We'll place the annotation where the original page element was.
+        //The annotation's location. We will place the annotation where the original page element was found.
         ASFixedRect elementLoc;
         PDEElementGetBBox(next, &elementLoc);
 
-        //The annotation's type. We'll highlight text, and make a text annotation for everything else.
+        //The annotation's type. We will highlight text, and make a text annotation for everything else.
         char* annotType;
         bool isHighlight = (PDEObjectGetType((PDEObject)next) == kPDEText);
         if (isHighlight)
@@ -81,10 +81,10 @@ int main(int argc, char** argv)
         else
             annotType = "Text";
 
-        //Create the new annotation. Now we just have to set its appearance and content.
+        //Create the new annotation. Set the appearance and content.
         PDAnnot annot = PDPageAddNewAnnot(inPage, kPDEAfterLast, ASAtomFromString(annotType), &elementLoc);
 
-        //Will be filld with the annotation's text content.
+        //Will be filled with the annotation's text content.
         std::wstringstream annotContent;
 
         annotContent << L"This is a ";
@@ -99,7 +99,7 @@ int main(int argc, char** argv)
         case kPDEContainer:
             annotContent << L"container";
             container = (PDEContainer)next;
-            numContained = PDEContentGetNumElems(PDEContainerGetContent(container));                           //PDEContentGetNumElems will not count how many elements contained containers have.
+            numContained = PDEContentGetNumElems(PDEContainerGetContent(container));                           //PDEContentGetNumElems will not count how many elements containers have.
             break;
         case kPDEForm:
             annotContent << L"form";
@@ -137,7 +137,7 @@ int main(int argc, char** argv)
         annotContent << L"left: "   << ASFixedToFloat(elementLoc.left)   << L"\n";
         annotContent << L"right: "  << ASFixedToFloat(elementLoc.right);
 
-        //We're done preparing the content string. Now make its ASText to add it to the annotation.
+        //The content string is ready. Now make its ASText to add it to the annotation.
         std::wstring annotContentStr;
         annotContentStr = annotContent.str();
         ASText annotContentAST = ASTextFromUnicode((ASUTF16Val*)annotContentStr.c_str(), kUTF16HostEndian);
@@ -151,7 +151,7 @@ int main(int argc, char** argv)
         const char* annotTitleStr = "Page Element";
         PDAnnotSetTitle(annot, annotTitleStr, strlen(annotTitleStr));
 
-        //Set the annot's quads. This will properly position a highlight annotation, and have no effect on the text annotation.
+        //Set the annotation's quadrilateral values. This will properly position a highlight annotation, and have no effect on the text annotation.
         ASFixedQuad annotLocQuad;
         //                  horizontal        vertical
         annotLocQuad.bl = { elementLoc.left,  elementLoc.bottom };
@@ -160,7 +160,7 @@ int main(int argc, char** argv)
         annotLocQuad.tr = { elementLoc.right, elementLoc.top };
         PDAnnotSetQuads(annot, &annotLocQuad, 1);
 
-        //The annotation will not be able to be edited.
+        //The annotation will be locked so that it cannot be edited again later.
         PDAnnotSetFlags(annot, PDAnnotGetFlags(annot) | pdAnnotLock | pdAnnotLockContents);
 
         //Set the annotation's color.
@@ -177,7 +177,7 @@ int main(int argc, char** argv)
         }
         else
         {
-            //Text annotations will just be yellow.
+            //Text annotations will be yellow.
             color->value[0] = fixedOne;
             color->value[1] = fixedOne;
             color->value[2] = fixedZero;
@@ -192,7 +192,7 @@ int main(int argc, char** argv)
     std::wcout << L"Saving the annotated document..." << std::endl;
 
     PDPageRelease(inPage);
-    doc.saveDoc(L"Annotated.pdf");                                                                 //Save the document. APDFLDoc defaults to using the "PDSaveFull" flag while saving.
+    doc.saveDoc(L"Annotated.pdf");                                                                //Save the document. APDFLDoc defaults to using the "PDSaveFull" flag while saving.
 
     doc.~APDFLDoc();                                                                              //APDFLDoc's destructor takes care of closing the document and releasing the rest of the resources.
 
@@ -207,9 +207,9 @@ int main(int argc, char** argv)
 
     //Prepare the text object which will hold all the extracted text.
     PDEText annotationsText = PDETextCreate();                                                     //This will hold all the extracted text.
-    ASFixedMatrix textLoc;                                                                         //We'll use this to position the texts.
+    ASFixedMatrix textLoc;                                                                         //Use this value to position the texts.
     memset(&textLoc, 0, sizeof(textLoc));                                                          //Ensure there's no garbage in the matrix.
-    ASFixed fontSize = FloatToASFixed(12.0f);                                                      //12-point font.
+    ASFixed fontSize = FloatToASFixed(12.0f);                                                      //Set the font to 12 points.
     textLoc.a = textLoc.d = fontSize;                                                              //Character width and height, respectively.
     textLoc.v = textLoc.h = 0;                                                                     //The vertical and horizontal position of the text, respectively. We will set v as we place texts.
 
@@ -227,8 +227,8 @@ int main(int argc, char** argv)
 
     int maxDigits = (int)(log10((double)PDPageGetNumAnnots(annotPage)) + 1);                       //The maximum number of digits of n that the nth text annotation can have. Used to pad the text string.
     int numAnnots = PDPageGetNumAnnots(annotPage);                                                 //The number of annotations on the page.
-    int numTextAnnots = 0;                                                                         //The number of annotations actually containing textual content. Updated as we go along.
-    int numBlankAnnots = 0;                                                                        //We'll track the number of annotations that don't have text content.
+    int numTextAnnots = 0;                                                                         //The number of annotations actually containing textual content. Updated as the program progresses.
+    int numBlankAnnots = 0;                                                                        //Track the number of annotations that don't have text content.
 
     std::wcout << L"The input page has " << numAnnots << L" annotations." << std::endl;
 
@@ -262,7 +262,7 @@ int main(int argc, char** argv)
 
             extractedString << L" '" << contentBuffer << L"'";                                     //The content is placed in the output string here.
 
-            //Add the text!
+            //Add the text.
             ASText extractedAST = ASTextFromUnicode((ASUTF16Val*)extractedString.str().c_str(), kUTF16HostEndian);
             PDETextAddASText(annotationsText, kPDETextRun, numTextAnnots - 1, extractedAST, font, &graphics, sizeof(PDEGraphicState), NULL, 0, &textLoc);
             ASTextDestroy(extractedAST);
@@ -292,7 +292,7 @@ int main(int argc, char** argv)
 
     std::wcout << numBlankAnnots << L" annotations on the page did not have text content." << std::endl;
 
-    //We have to adjust the location of each text object up so it fits on the page. Otherwise it'd be added to the bottom-left corner, and be invisible.
+    //The program needs to move each text object up so that it fits on the page. Otherwise it will be added to the bottom-left corner, and be invisible.
     for (int i = 0; i < numTextAnnots; ++i)
     {
         PDETextItem textItem = PDETextGetItem(annotationsText, i);
@@ -376,7 +376,8 @@ void extractPDEElements(PDEContent* c, std::vector<PDEElement>* elements)
 //===================================================================================================================================================================================
 // void function: Sets the annotation's quads.
 //
-// Note: Adobe specifies quads be added in this order - Bottom Left, Bottom Right, Top Right, Top left. They currently need to be added in as BL, BR, TL, TR to get correct output. 
+// Note: Adobe specifies quadrilaterals be added in this order - Bottom Left, Bottom Right, Top Right, Top left. 
+// They currently need to be added in as BL, BR, TL, TR to get correct output. 
 //===================================================================================================================================================================================
 void PDAnnotSetQuads(PDAnnot annot, ASFixedQuad *quads, ASArraySize numQuads)
 {
@@ -386,7 +387,7 @@ void PDAnnotSetQuads(PDAnnot annot, ASFixedQuad *quads, ASArraySize numQuads)
 
     for (ASUns32 i = 0, n = 0; i < numQuads; ++i)
     {
-        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].bl.h));    //Add the quad points to the cos array, this will grow and shrink as needed.
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].bl.h));    //Add the quad points to the cos array. This will grow and shrink as needed.
         CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].bl.v));
         CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].br.h));
         CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].br.v));

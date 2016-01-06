@@ -14,7 +14,7 @@
 //
 // Steps:
 // 1) Convert each Annotation's appearance stream, if it has one, into a Form 
-//      XObject and remove the annotation.
+//    XObject and remove the annotation.
 // 2) Save and close.
 //=====================================================================================
 
@@ -26,15 +26,15 @@
 #include "PagePDECntCalls.h"
 #include "CosCalls.h"
 
-//A CosObjEnumProc which puts the first entry of the CosDict obj, val, into clientData, and stops.
+//A CosObjEnumProc puts the first entry of the CosDict obj, val, into clientData, and stops.
 ASBool getFirstElement(CosObj obj, CosObj val, void* clientData);
 
 int main(int argc, char** argv)
 {
     APDFLib libInit;                                               //Initialize the Adobe PDF Library.
-    ASErrorCode errCode = 0;                                       //Variable used to report any exceptions or errors, if they occur.
+    ASErrorCode errCode = 0;                                       //Variable used to report any exceptions or errors if they occur.
 
-    if (libInit.isValid() == false)                                //If there was a problem in initialization, return the error code.
+    if (libInit.isValid() == false)                                //If there was a problem with the initialization return the error code.
         return libInit.getInitError();
 
     DURING
@@ -67,8 +67,8 @@ int main(int argc, char** argv)
             {
                 CosObj normal = CosDictGetKeyString(APDict, "N");       //The normal appearance of our annotation.
 
-                //The normal appearance is either a stream, in which case it it what we want, or it is a dictionary, 
-                //in which case we'll have to get the appearance stream from the appearance state ("AS").
+                //The normal appearance is either a stream or a dictionary. If the appearance is a dictionary, 
+                //we will need to get the appearance stream from the appearance state ("AS").
                 if (CosObjGetType(normal) == CosStream)
                     appearanceStrm = normal;
                 else
