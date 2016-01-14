@@ -67,6 +67,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnicodeText", "..\UnicodeTe
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XPStoPDF", "..\XPStoPDF\XPStoPDF.vcxproj", "{463169C1-D201-4A98-AEB5-D51E666CAEAF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E606CC40-638C-466D-B7B0-851F3B1910A4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FindImageResolutions", "..\FindImageResolutions\FindImageResolutions.vcxproj", "{DA3822A3-6373-4701-A59E-5CE33509EA8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -331,6 +335,14 @@ Global
 		{463169C1-D201-4A98-AEB5-D51E666CAEAF}.Release|Win32.Build.0 = Release|Win32
 		{463169C1-D201-4A98-AEB5-D51E666CAEAF}.Release|x64.ActiveCfg = Release|x64
 		{463169C1-D201-4A98-AEB5-D51E666CAEAF}.Release|x64.Build.0 = Release|x64
+		{DA3822A3-6373-4701-A59E-5CE33509EA8B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DA3822A3-6373-4701-A59E-5CE33509EA8B}.Debug|Win32.Build.0 = Debug|Win32
+		{DA3822A3-6373-4701-A59E-5CE33509EA8B}.Debug|x64.ActiveCfg = Debug|x64
+		{DA3822A3-6373-4701-A59E-5CE33509EA8B}.Debug|x64.Build.0 = Debug|x64
+		{DA3822A3-6373-4701-A59E-5CE33509EA8B}.Release|Win32.ActiveCfg = Release|Win32
+		{DA3822A3-6373-4701-A59E-5CE33509EA8B}.Release|Win32.Build.0 = Release|Win32
+		{DA3822A3-6373-4701-A59E-5CE33509EA8B}.Release|x64.ActiveCfg = Release|x64
+		{DA3822A3-6373-4701-A59E-5CE33509EA8B}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
