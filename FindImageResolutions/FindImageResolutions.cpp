@@ -55,8 +55,8 @@ typedef vector<ImageRef> ImageRefList;
 // Define a structure to describe one image defintion, noting the 
 // places the structure is referenced in
 typedef struct imagedef
-
-    ASBool              inLine;                 // This will be "True" if this is an InLine image.
+{
+	ASBool              inLine;                 // This will be "True" if this is an InLine image.
                                                 // If this is True, there will be only one reference, 
                                                 // and there will be no CosObj.
     CosObj              imageObject;            // The COS Object which defines this image
@@ -228,7 +228,7 @@ void CreateImageEntry (ASUns32 pageNo, PDEImage image, ASDoubleMatrix matrix, Im
         CosObj mask = CosDictGetKeyString (newImage->imageObject, "Mask");
         if (CosObjGetType (mask) == CosStream)
         {
-            ASFixedMatrix unity = { 1, 0, 0, 1, 0, 0 };
+            ASFixedMatrix unity = { fixedOne, 0, 0, fixedOne, 0, 0 };
             PDEImage imageMask = PDEImageCreateFromCosObj (&mask, &unity, NULL, NULL);
             (*imageCount)++;
             CreateImageEntry (pageNo, imageMask, matrix, imageList, imageCount, true, false);
