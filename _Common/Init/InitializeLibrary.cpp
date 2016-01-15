@@ -15,16 +15,16 @@
 
 //========================================================================================================
 //Constructor:
-//initializes APDFL and does not default the DL100PDFL.dll directory. dl100Dir should be a relative path.
+//initializes APDFL and does not default the DL150PDFL.dll directory. dl150Dir should be a relative path.
 //========================================================================================================
-APDFLib::APDFLib(wchar_t* dl100Dir)
+APDFLib::APDFLib(wchar_t* dl150Dir)
 {
     initValid = false;                            //Whether the initialization succeeded.
 
-    if (dl100Dir == NULL)
-        dl100Dir = L"..\\..\\Libs";               //The default DL100PDFL.lib directory.
+    if (dl150Dir == NULL)
+        dl150Dir = L"..\\..\\Libs";               //The default DL150PDFL.lib directory.
 
-    HINSTANCE dllInst = loadDFL100PDFL (dl100Dir);
+    HINSTANCE dllInst = loadDFL150PDFL (dl150Dir);
     if (dllInst == 0)
     {
         initValid = false;
@@ -63,9 +63,9 @@ ASInt32 APDFLib::getInitError()
 
 //========================================================================================================
 //ASInt32 function:
-//Loads the DL100PDFL library dynamically.
+//Loads the DL150PDFL library dynamically.
 //========================================================================================================
-HINSTANCE APDFLib::loadDFL100PDFL (wchar_t* relativeDir)
+HINSTANCE APDFLib::loadDFL150PDFL (wchar_t* relativeDir)
 {
     //Prepare to find the full path name.
     DWORD fullDLLPath = 0;                        //The path to the DLL.
@@ -84,22 +84,22 @@ HINSTANCE APDFLib::loadDFL100PDFL (wchar_t* relativeDir)
     int access = _waccess(pathBuffer, 06);
     if (EACCES == access)
     {
-        std::wcout << L"DL100PDFL.dll : ACCESS DENIED" << std::endl;
+        std::wcout << L"DL150PDFL.dll : ACCESS DENIED" << std::endl;
         return 0;
     }
     if (ENOENT == access)
     {
-        std::wcout << L"DL100PDFL.dll : COULD NOT LOCATE FILE" << std::endl;
+        std::wcout << L"DL150PDFL.dll : COULD NOT LOCATE FILE" << std::endl;
         return 0;
     }
 
     if (EINVAL == access)
     {
-        std::wcout << L"DL100PDFL.dll : INVALID PARAMETER" << std::endl;
+        std::wcout << L"DL150PDFL.dll : INVALID PARAMETER" << std::endl;
         return 0;
     }
 
-    return (LoadLibrary(L"DL100PDFL.dll"));
+    return (LoadLibrary(L"DL150PDFL.dll"));
 }
 
 
