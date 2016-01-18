@@ -195,13 +195,15 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddText AddWatermark CopyContent"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% CreateAnnotations CreateDocument CreateLayers"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% CreateTransparency EncryptDocument ExtractAttachments"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ExtractDocumentInfo ExtractText FindImageResolutions"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FlattenAnnotations FlattenPDF LockDocument"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FlattenAnnotations FlattenTransparency LockDocument"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% MergeDocuments OpenEncrypted RasterizeCopy"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% SetUniquePermissions SplitPDF TextSearch"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% UnicodeText WebOptimizedPDF XPStoPDF"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
 REM *** The total number of DL samples. This must be accurate!
-SET /A "NUM_DL_SAMPLES=33"
+IF %DO_DL% == Y SET /A "NUM_DL_SAMPLES=33"
+REM *** If we don't want these, set to zero so that we don't try running them later.
+IF %DO_DL% == N SET /A "NUM_DL_SAMPLES=0"
 
 REM *** Adobe Samples.
 SET "AD_SAMPLE_LIST=("
@@ -212,14 +214,18 @@ SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% MTSerialNums MTTextExtract Peddler"
 SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% printpdf unicode"
 SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST%)"
 REM *** The total number of AD samples. This must be accurate!
-SET /A "NUM_AD_SAMPLES=14"
+IF %DO_AD% == Y SET /A "NUM_AD_SAMPLES=14"
+REM *** If we don't want these, set to zero so that we don't try running them later.
+IF %DO_AD% == N SET /A "NUM_AD_SAMPLES=0"
 
 REM *** Plugin Samples.
 SET "PL_SAMPLE_LIST=("
 SET "PL_SAMPLE_LIST=%PL_SAMPLE_LIST% FlattenPDF PDFAConverter XPS2PDFConverter"
 SET "PL_SAMPLE_LIST=%PL_SAMPLE_LIST%)"
 REM *** The total number of PL samples. This must be accurate!
-SET /A "NUM_PL_SAMPLES=3"
+IF %DO_PL% == Y SET /A "NUM_PL_SAMPLES=3"
+REM *** If we don't want these, set to zero so that we don't try running them later.
+IF %DO_PL% == N SET /A "NUM_PL_SAMPLES=0"
 
 REM *** Ai iterates over Adobe samples. Do not change this value.
 SET /A "Ai=0"
@@ -251,11 +257,8 @@ REM ******************** MAIN LOOP *****************************
 REM ************************************************************
 :RunSampleLoop_START
 REM *** If we've run all the samples, end.
-REM *** (AD samples are always done last.)
-IF %DO_DL% == Y IF %DO_AD% == Y IF %DO_PL% == Y IF %Di% GEQ %NUM_DL_SAMPLES% IF %Pi% GEQ %NUM_PL_SAMPLES% GOTO RunSampleLoop_END
-IF %DO_DL% == N IF %DO_AD% == Y IF %DO_PL% == N IF %Ai% GEQ %NUM_AD_SAMPLES% GOTO RunSampleLoop_END
-IF %DO_DL% == Y IF %DO_AD% == N IF %DO_PL% == N IF %Di% GEQ %NUM_DL_SAMPLES% GOTO RunSampleLoop_END
-IF %DO_DL% == N IF %DO_AD% == N IF %DO_PL% == Y IF %Pi% GEQ %NUM_PL_SAMPLES% GOTO RunSampleLoop_END
+REM *** PL samples are always done last.)
+IF %Di% GEQ %NUM_DL_SAMPLES% IF %Ai% GEQ %NUM_AD_SAMPLES% IF %Pi% GEQ %NUM_PL_SAMPLES% GOTO RunSampleLoop_END
 ECHO.
 
 REM *** Retrieve the next sample.
