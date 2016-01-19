@@ -66,6 +66,10 @@ int main(int argc, char** argv)
     fontAttrs.type = ASAtomFromString("Type0");
     PDEFont font = PDEFontCreateFromSysFont(PDFindSysFont(&fontAttrs, sizeof(fontAttrs), 0), kPDEFontDoNotEmbed);
 
+    //A default graphics state with which to draw the text.
+    PDEGraphicState graphics;
+    PDEDefaultGState(&graphics, sizeof(PDEGraphicState));
+
     //This FixedMatrix will point to where each next word will be drawn.
     ASFixedMatrix nextWordLocation;
     memset(&nextWordLocation, 0, sizeof(nextWordLocation));
@@ -123,7 +127,7 @@ int main(int argc, char** argv)
             //Append the word to the line.
             PDETextAddASText(nextLine, kPDETextRun, nextLineIndex, nextWordASText,                   //Add the word to the next index in the text object. It's a text run because it's (usually) multiple characters.
                              font,                                                                   //The font we'll use.
-                             NULL, 0,                                                                //Let the graphics state default.
+                             &graphics, sizeof(PDEGraphicState),                                     //Let the graphics state default.
                              NULL, 0,                                                                //Let the text state default.
                              &nextWordLocation);                                                     //The starting location of the word on the page.
 
@@ -219,6 +223,9 @@ int main(int argc, char** argv)
         PDPageRelease(pdPage);
         PDWordFinderReleaseWordList(pdWordFinder, 0);                                                      
         PDWordFinderDestroy(pdWordFinder);
+
+        PDERelease((PDEObject)graphics.fillColorSpec.space);
+        PDERelease((PDEObject)graphics.strokeColorSpec.space);
 
         std::wcout << L"Success." << std::endl;
     }
