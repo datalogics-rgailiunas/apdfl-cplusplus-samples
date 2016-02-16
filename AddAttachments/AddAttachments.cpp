@@ -3,7 +3,7 @@
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 //====================================================================
-// Sample: AddAttachment - Adds two attachments to the input document.
+// Sample: AddAttachments - Adds two attachments to the input document.
 //
 // Note: 
 // The first attachment is embedded in the EmbeddedFiles name tree of
