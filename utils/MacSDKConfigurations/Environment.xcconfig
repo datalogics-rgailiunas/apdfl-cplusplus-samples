@@ -1,0 +1,17 @@
+// Copyright (c) 2015-2016, Datalogics, Inc. All rights reserved.
+//
+// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
+//
+// *********************************************************************
+
+//Common environment variable used to tell all the .xcconfig files where the root
+//of our source tree is -- currently the same directory as the project file,
+//Samples/Project_Name/mac
+//You might want to update this to a common directory for all projects.
+
+PDFLSDK_SOURCE_TREE_ROOT = $(SRCROOT)
+
+
+
+
+
