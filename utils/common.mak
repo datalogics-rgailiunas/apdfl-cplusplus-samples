@@ -1,5 +1,8 @@
-# DLADD MattK 10June2014: these samples are not designed
-# to be built with a multi-process make invocation.
+# Copyright (c) 2015-2016, Datalogics, Inc. All rights reserved.
+#
+# http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
+#
+# *********************************************************************
 .NOTPARALLEL:	dummy
 
 ifeq ($(OS), )
@@ -7,7 +10,7 @@ $(error Need to set the OS environment variable)
 endif
 
 UTIL = ../utils
-# 26Aug2009 - Give each sample a copy of the common modules
+# Give each sample a copy of the common modules
 # since plugin samples compile these differently
 COMMON_OBJS = PDFLInitCommon.o PDFLInitHFT.o InitializeLibrary.o APDFLDoc.o
 

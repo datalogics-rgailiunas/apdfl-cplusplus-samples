@@ -1,0 +1,12 @@
+// Copyright (c) 2015-2016, Datalogics, Inc. All rights reserved.
+//
+// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
+//
+// *********************************************************************
+
+// Deployment location
+PRODUCT_DEPLOYMENT_LOCATION = bin/release
+
+#include "ProjectConfigurations/ProjectDefault.xcconfig"
+#include "../../utils/MacSDKConfigurations/Release.xcconfig"
+

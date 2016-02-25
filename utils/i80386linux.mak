@@ -1,3 +1,8 @@
+# Copyright (c) 2015-2016, Datalogics, Inc. All rights reserved.
+#
+# http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
+#
+# *********************************************************************
 CC = /opt/gcc-4.1.2/bin/gcc
 CXX = /opt/gcc-4.1.2/bin/g++
 
@@ -7,7 +12,7 @@ else
     DEBUG=-DNDEBUG
 endif
 
-# DLADD: YuriG 12Aug2009 APDFL9 - support for x86_64 Linux
+# support for x86_64 Linux and x86 Linux
 ifeq ($(BUILD_64_BIT), true)
     ARCH_FLAGS := -m64
 else
