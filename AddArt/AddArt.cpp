@@ -88,8 +88,8 @@ int main(int argc, char** argv)
         const short numberOfPoints = 7;    //Number of points required to draw an arrow
 
         //Arrays containing (x, y) coordinates representing points for the arrow that is being drawn. (72 pixels in one inch.)
-        ASInt32 arrowXCoordinates[numberOfPoints] {(72 * 7), (72 * 6), (72 * 6), (72 * 4), (72 * 4), (72 * 3), (72 * 5)};
-        ASInt32 arrowYCoordinates[numberOfPoints] {(72 * 7), (72 * 7), (72 * 3), (72 * 3), (72 * 7), (72 * 7), (72 * 9)};
+        ASInt32 arrowXCoordinates[numberOfPoints] = {(72 * 7), (72 * 6), (72 * 6), (72 * 4), (72 * 4), (72 * 3), (72 * 5)};
+        ASInt32 arrowYCoordinates[numberOfPoints] = {(72 * 7), (72 * 7), (72 * 3), (72 * 3), (72 * 7), (72 * 7), (72 * 9)};
         ASFixedPoint pointToInsert; 
 
         //Move to start point at the tip of the arrow before drawing lines.
@@ -155,8 +155,8 @@ int main(int argc, char** argv)
             PDEPathAddSegment(pdePath2, kPDELineTo, pointToInsert.h, pointToInsert.v, fixedZero, fixedZero, fixedZero, fixedZero);
         }
 
-        ASDoubleMatrix translationMatrix{ 1, 0.0, 0.0, 1, (72.0 * 4.0), (-72.0 * 2.0) };        //Move the arrow 4 inches right and 2 inches down.
-        ASDoubleMatrix scalingMatrix{ 0.75, 0.0, 0.0, 0.75, 0.0, 0.0 };                         //Scale it to 75% of its original size.
+        ASDoubleMatrix translationMatrix = { 1, 0.0, 0.0, 1, (72.0 * 4.0), (-72.0 * 2.0) };        //Move the arrow 4 inches right and 2 inches down.
+        ASDoubleMatrix scalingMatrix = { 0.75, 0.0, 0.0, 0.75, 0.0, 0.0 };                         //Scale it to 75% of its original size.
         ASDoubleMatrix translateAndScale;                                                       //Holds result of multiplying the last two matrices.
 
         //IMPORTANT NOTE! If applying multiple transformations to a matrix you must concatenate the matrices before applying transformations. 
