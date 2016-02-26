@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E58ABF51C888AE20049576A /* PDFLPrecompile.pch in Headers */ = {isa = PBXBuildFile; fileRef = 2E58ABF41C888AE20049576A /* PDFLPrecompile.pch */; };
+		2E58ABFA1C888CA40049576A /* PDFLInitCommon.c in Sources */ = {isa = PBXBuildFile; fileRef = 2E58ABF81C888CA40049576A /* PDFLInitCommon.c */; };
+		2E58ABFB1C888CA40049576A /* PDFLInitHFT.c in Sources */ = {isa = PBXBuildFile; fileRef = 2E58ABF91C888CA40049576A /* PDFLInitHFT.c */; };
 		2E6E51C11C76760200A18064 /* AddAttachments.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E6E51C01C76760200A18064 /* AddAttachments.cpp */; };
 		2E6E51D51C7B672F00A18064 /* InitializeLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E6E51D31C7B672F00A18064 /* InitializeLibrary.cpp */; };
 		2E6E51D61C7B672F00A18064 /* InitializeLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E6E51D41C7B672F00A18064 /* InitializeLibrary.h */; };
@@ -37,7 +40,6 @@
 		3E0AD2500F8D4FD200C8F266 /* DL100JP2KLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E0AD23D0F8D4FAA00C8F266 /* DL100JP2KLib.framework */; };
 		3E0AD2510F8D4FD700C8F266 /* DL100AdobeXMP.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E0AD2400F8D4FAF00C8F266 /* DL100AdobeXMP.framework */; };
 		8D0C4E920486CD37000505A6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Foundation.framework */; };
-		BA0654DB0AC34D340029CB3D /* PDFLInitCommon.c in Sources */ = {isa = PBXBuildFile; fileRef = BA0654DA0AC34D340029CB3D /* PDFLInitCommon.c */; };
 		BA2E45960888421A0081FD28 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2E45950888421A0081FD28 /* ApplicationServices.framework */; };
 		BA568C160A47467400825A50 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA568C150A47467400825A50 /* CoreServices.framework */; };
 		BAACDAA90B7A4C4800A6A6EC /* PDFXEASF.h in Headers */ = {isa = PBXBuildFile; fileRef = BAACDA390B7A4C4800A6A6EC /* PDFXEASF.h */; };
@@ -152,7 +154,6 @@
 		BAACDB160B7A4C4800A6A6EC /* CosCalls.h in Headers */ = {isa = PBXBuildFile; fileRef = BAACDAA60B7A4C4800A6A6EC /* CosCalls.h */; };
 		BAACDB170B7A4C4800A6A6EC /* CorProcs.h in Headers */ = {isa = PBXBuildFile; fileRef = BAACDAA70B7A4C4800A6A6EC /* CorProcs.h */; };
 		BAACDB180B7A4C4800A6A6EC /* CoreExpT.h in Headers */ = {isa = PBXBuildFile; fileRef = BAACDAA80B7A4C4800A6A6EC /* CoreExpT.h */; };
-		BAACDB8D0B7A4CB300A6A6EC /* PDFLInitHFT.c in Sources */ = {isa = PBXBuildFile; fileRef = BAACDB8C0B7A4CB300A6A6EC /* PDFLInitHFT.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -181,6 +182,14 @@
 
 /* Begin PBXFileReference section */
 		20286C33FDCF999611CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		2E58ABEB1C88899E0049576A /* Project_debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Project_debug.xcconfig; path = ../dlutils/MacSDKConfigurations/Project_debug.xcconfig; sourceTree = "<group>"; };
+		2E58ABEC1C88899E0049576A /* Project_release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Project_release.xcconfig; path = ../dlutils/MacSDKConfigurations/Project_release.xcconfig; sourceTree = "<group>"; };
+		2E58ABF41C888AE20049576A /* PDFLPrecompile.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDFLPrecompile.pch; path = ../dlutils/PDFLPrecompile.pch; sourceTree = "<group>"; };
+		2E58ABF81C888CA40049576A /* PDFLInitCommon.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = PDFLInitCommon.c; path = ../../Include/Source/PDFLInitCommon.c; sourceTree = "<group>"; };
+		2E58ABF91C888CA40049576A /* PDFLInitHFT.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = PDFLInitHFT.c; path = ../../Include/Source/PDFLInitHFT.c; sourceTree = "<group>"; };
+		2E58AC041C88B4870049576A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../dlutils/Info.plist; sourceTree = "<group>"; };
+		2E58AC051C88B4870049576A /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = ../dlutils/InfoPlist.strings; sourceTree = "<group>"; };
+		2E58AC061C88BA910049576A /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Common.xcconfig; path = ../dlutils/MacSDKConfigurations/Common.xcconfig; sourceTree = "<group>"; };
 		2E6E51C01C76760200A18064 /* AddAttachments.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AddAttachments.cpp; sourceTree = "<group>"; };
 		2E6E51D31C7B672F00A18064 /* InitializeLibrary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InitializeLibrary.cpp; path = ../_Common/InitializeLibrary.cpp; sourceTree = "<group>"; };
 		2E6E51D41C7B672F00A18064 /* InitializeLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InitializeLibrary.h; path = ../_Common/InitializeLibrary.h; sourceTree = "<group>"; };
@@ -198,20 +207,8 @@
 		3E0AD2400F8D4FAF00C8F266 /* DL100AdobeXMP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL100AdobeXMP.framework; path = ../../Libs/DL100AdobeXMP.framework; sourceTree = SOURCE_ROOT; };
 		3E0AD2430F8D4FC000C8F266 /* ICUData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ICUData.framework; path = ../../Libs/ICUData.framework; sourceTree = SOURCE_ROOT; };
 		3E0AD2440F8D4FC000C8F266 /* ICUConverter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ICUConverter.framework; path = ../../Libs/ICUConverter.framework; sourceTree = SOURCE_ROOT; };
-		9CA522550BD66CE20053AA61 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = ../utils/MacSDKConfigurations/Debug.xcconfig; sourceTree = SOURCE_ROOT; };
-		9CA522560BD66CE20053AA61 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = ../utils/MacSDKConfigurations/Release.xcconfig; sourceTree = SOURCE_ROOT; };
-		9CA522570BD66CE20053AA61 /* Resources.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; name = Resources.xcconfig; path = ../utils/MacSDKConfigurations/Resources.xcconfig; sourceTree = SOURCE_ROOT; };
-		BA0654DA0AC34D340029CB3D /* PDFLInitCommon.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = PDFLInitCommon.c; path = ../../Include/Source/PDFLInitCommon.c; sourceTree = SOURCE_ROOT; };
 		BA2E45950888421A0081FD28 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		BA568C150A47467400825A50 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
-		BA8B7C320AD70DD30022F654 /* PDFLPrecompile.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PDFLPrecompile.pch; path = ../utils/PDFLPrecompile.pch; sourceTree = SOURCE_ROOT; };
-		BA8BFB9A0AC2FB5500AF4E32 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../utils/Info.plist; sourceTree = SOURCE_ROOT; };
-		BA8BFCA50AC30A0700AF4E32 /* Default.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; name = Default.xcconfig; path = ../utils/MacSDKConfigurations/Default.xcconfig; sourceTree = SOURCE_ROOT; };
-		BA8BFCA90AC30A0700AF4E32 /* Environment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; name = Environment.xcconfig; path = ../utils/MacSDKConfigurations/Environment.xcconfig; sourceTree = SOURCE_ROOT; };
-		BA8BFD410AC30A6D00AF4E32 /* Project_debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; name = Project_debug.xcconfig; path = ../utils/MacSDKConfigurations/Project_debug.xcconfig; sourceTree = SOURCE_ROOT; };
-		BA8BFD420AC30A6D00AF4E32 /* Project_release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; name = Project_release.xcconfig; path = ../utils/MacSDKConfigurations/Project_release.xcconfig; sourceTree = SOURCE_ROOT; };
-		BA8BFD430AC30A6D00AF4E32 /* ProjectDefault.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; name = ProjectDefault.xcconfig; path = ../utils/MacSDKConfigurations/ProjectDefault.xcconfig; sourceTree = SOURCE_ROOT; };
-		BA8BFD440AC30A6D00AF4E32 /* ProjectResources.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; name = ProjectResources.xcconfig; path = ../utils/MacSDKConfigurations/ProjectResources.xcconfig; sourceTree = SOURCE_ROOT; };
 		BAACDA390B7A4C4800A6A6EC /* PDFXEASF.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PDFXEASF.h; path = ../../Include/Headers/PDFXEASF.h; sourceTree = SOURCE_ROOT; };
 		BAACDA3A0B7A4C4800A6A6EC /* PDFXE.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PDFXE.h; path = ../../Include/Headers/PDFXE.h; sourceTree = SOURCE_ROOT; };
 		BAACDA3B0B7A4C4800A6A6EC /* PDFLRequir.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PDFLRequir.h; path = ../../Include/Headers/PDFLRequir.h; sourceTree = SOURCE_ROOT; };
@@ -324,9 +321,7 @@
 		BAACDAA60B7A4C4800A6A6EC /* CosCalls.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CosCalls.h; path = ../../Include/Headers/CosCalls.h; sourceTree = SOURCE_ROOT; };
 		BAACDAA70B7A4C4800A6A6EC /* CorProcs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CorProcs.h; path = ../../Include/Headers/CorProcs.h; sourceTree = SOURCE_ROOT; };
 		BAACDAA80B7A4C4800A6A6EC /* CoreExpT.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CoreExpT.h; path = ../../Include/Headers/CoreExpT.h; sourceTree = SOURCE_ROOT; };
-		BAACDB8C0B7A4CB300A6A6EC /* PDFLInitHFT.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = PDFLInitHFT.c; path = ../../Include/Source/PDFLInitHFT.c; sourceTree = SOURCE_ROOT; };
 		BAAFDE0808980F3600470124 /* AddAttachments-Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AddAttachments-Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BAD193F7088F1A9900DCC249 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = InfoPlist.strings; path = ../utils/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -380,13 +375,13 @@
 		20286C2AFDCF999611CA2CEA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				2E58ABF81C888CA40049576A /* PDFLInitCommon.c */,
+				2E58ABF91C888CA40049576A /* PDFLInitHFT.c */,
 				2E6E51D71C7B674200A18064 /* APDFLDoc.cpp */,
 				2E6E51D81C7B674200A18064 /* APDFLDoc.h */,
 				2E6E51D31C7B672F00A18064 /* InitializeLibrary.cpp */,
 				2E6E51D41C7B672F00A18064 /* InitializeLibrary.h */,
 				2E6E51C01C76760200A18064 /* AddAttachments.cpp */,
-				BAACDB8C0B7A4CB300A6A6EC /* PDFLInitHFT.c */,
-				BA0654DA0AC34D340029CB3D /* PDFLInitCommon.c */,
 			);
 			name = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -394,8 +389,8 @@
 		20286C2CFDCF999611CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BA8BFB9A0AC2FB5500AF4E32 /* Info.plist */,
-				BAD193F7088F1A9900DCC249 /* InfoPlist.strings */,
+				2E58AC041C88B4870049576A /* Info.plist */,
+				2E58AC051C88B4870049576A /* InfoPlist.strings */,
 			);
 			name = Resources;
 			sourceTree = SOURCE_ROOT;
@@ -425,7 +420,7 @@
 		BA8B7C290AD70D920022F654 /* Precompiled Header */ = {
 			isa = PBXGroup;
 			children = (
-				BA8B7C320AD70DD30022F654 /* PDFLPrecompile.pch */,
+				2E58ABF41C888AE20049576A /* PDFLPrecompile.pch */,
 			);
 			name = "Precompiled Header";
 			sourceTree = "<group>";
@@ -552,25 +547,11 @@
 		BA8BFB7D0AC2F69500AF4E32 /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
-				9CA522550BD66CE20053AA61 /* Debug.xcconfig */,
-				9CA522560BD66CE20053AA61 /* Release.xcconfig */,
-				9CA522570BD66CE20053AA61 /* Resources.xcconfig */,
-				BA8BFD400AC30A6D00AF4E32 /* ProjectConfigurations */,
-				BA8BFCA50AC30A0700AF4E32 /* Default.xcconfig */,
-				BA8BFCA90AC30A0700AF4E32 /* Environment.xcconfig */,
+				2E58AC061C88BA910049576A /* Common.xcconfig */,
+				2E58ABEB1C88899E0049576A /* Project_debug.xcconfig */,
+				2E58ABEC1C88899E0049576A /* Project_release.xcconfig */,
 			);
 			name = Configurations;
-			sourceTree = "<group>";
-		};
-		BA8BFD400AC30A6D00AF4E32 /* ProjectConfigurations */ = {
-			isa = PBXGroup;
-			children = (
-				BA8BFD410AC30A6D00AF4E32 /* Project_debug.xcconfig */,
-				BA8BFD420AC30A6D00AF4E32 /* Project_release.xcconfig */,
-				BA8BFD430AC30A6D00AF4E32 /* ProjectDefault.xcconfig */,
-				BA8BFD440AC30A6D00AF4E32 /* ProjectResources.xcconfig */,
-			);
-			path = ProjectConfigurations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -632,6 +613,7 @@
 				BAACDAD90B7A4C4800A6A6EC /* PDSysFT.h in Headers */,
 				BAACDADA0B7A4C4800A6A6EC /* PDSysFontExpT.h in Headers */,
 				BAACDADB0B7A4C4800A6A6EC /* PDSysFont.h in Headers */,
+				2E58ABF51C888AE20049576A /* PDFLPrecompile.pch in Headers */,
 				BAACDADC0B7A4C4800A6A6EC /* PDSWriteProcs.h in Headers */,
 				BAACDADD0B7A4C4800A6A6EC /* PDSWriteHFTVers.h in Headers */,
 				BAACDADE0B7A4C4800A6A6EC /* PDSWriteCalls.h in Headers */,
@@ -748,11 +730,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA0654DB0AC34D340029CB3D /* PDFLInitCommon.c in Sources */,
+				2E58ABFA1C888CA40049576A /* PDFLInitCommon.c in Sources */,
+				2E58ABFB1C888CA40049576A /* PDFLInitHFT.c in Sources */,
 				2E6E51C11C76760200A18064 /* AddAttachments.cpp in Sources */,
 				2E6E51D91C7B674200A18064 /* APDFLDoc.cpp in Sources */,
 				2E6E51D51C7B672F00A18064 /* InitializeLibrary.cpp in Sources */,
-				BAACDB8D0B7A4CB300A6A6EC /* PDFLInitHFT.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -761,7 +743,7 @@
 /* Begin XCBuildConfiguration section */
 		9CA5221B0BD66C7D0053AA61 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BA8BFD420AC30A6D00AF4E32 /* Project_release.xcconfig */;
+			baseConfigurationReference = 2E58ABEC1C88899E0049576A /* Project_release.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -773,20 +755,35 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../Libs\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../Libs\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../Libs\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ../dlutils/PDFLPrecompile.pch;
+				INFOPLIST_FILE = ../dlutils/Info.plist;
+				PRODUCT_NAME = "$(TARGET_NAME)-$(CONFIGURATION)";
+				SHARED_PRECOMPS_DIR = "$(SRCROOT)/Build/pch";
 			};
 			name = Release;
 		};
 		9CA5221C0BD66C7D0053AA61 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BA8BFD420AC30A6D00AF4E32 /* Project_release.xcconfig */;
+			baseConfigurationReference = 2E58ABEC1C88899E0049576A /* Project_release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_LINK_OBJC_RUNTIME = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ../dlutils/PDFLPrecompile.pch;
+				HEADER_SEARCH_PATHS = (
+					../dlutils,
+					../../Include/Headers,
+				);
+				INFOPLIST_FILE = ../dlutils/Info.plist;
+				SDKROOT = macosx;
+				SHARED_PRECOMPS_DIR = "$(SRCROOT)/Build/pch";
 			};
 			name = Release;
 		};
 		BACCD187089AA4370006D315 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BA8BFD410AC30A6D00AF4E32 /* Project_debug.xcconfig */;
+			baseConfigurationReference = 2E58ABEB1C88899E0049576A /* Project_debug.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -798,14 +795,25 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../Libs\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../Libs\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../Libs\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ../dlutils/PDFLPrecompile.pch;
+				INFOPLIST_FILE = ../dlutils/Info.plist;
+				PRODUCT_NAME = "$(TARGET_NAME)-$(CONFIGURATION)";
+				SHARED_PRECOMPS_DIR = "$(SRCROOT)/Build/pch";
 			};
 			name = Debug;
 		};
 		BACCD18B089AA4370006D315 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BA8BFD410AC30A6D00AF4E32 /* Project_debug.xcconfig */;
+			baseConfigurationReference = 2E58ABEB1C88899E0049576A /* Project_debug.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_LINK_OBJC_RUNTIME = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ../dlutils/PDFLPrecompile.pch;
+				INFOPLIST_FILE = ../dlutils/Info.plist;
+				SDKROOT = macosx;
+				SHARED_PRECOMPS_DIR = "$(SRCROOT)/Build/pch";
 			};
 			name = Debug;
 		};

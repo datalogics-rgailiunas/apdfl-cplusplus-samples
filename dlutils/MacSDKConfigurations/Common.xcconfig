@@ -2,19 +2,6 @@
 //
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// *********************************************************************
-
-
-#include "../utils/MacSDKConfigurations/Environment.xcconfig"
-
-//Library search paths for all targets
-FRAMEWORK_SEARCH_PATHS = $(FRAMEWORK_SEARCH_PATHS) ../../Libs
-
-DL_FRAMEWORK_PREFIX = DL100
-DL_PDFL_FRAMEWORKS = -framework $(DL_FRAMEWORK_PREFIX)ACE -framework $(DL_FRAMEWORK_PREFIX)AGM -framework $(DL_FRAMEWORK_PREFIX)ARE -framework $(DL_FRAMEWORK_PREFIX)AXE8SharedExpat -framework $(DL_FRAMEWORK_PREFIX)BIB -framework $(DL_FRAMEWORK_PREFIX)BIBUtils -framework $(DL_FRAMEWORK_PREFIX)CoolType -framework $(DL_FRAMEWORK_PREFIX)JP2KLib -framework $(DL_FRAMEWORK_PREFIX)AdobeXMP -framework $(DL_FRAMEWORK_PREFIX)PDFL
-
-// Header Search Paths for all projects
-HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) ../utils ../../Include/Headers
 
 // Build for standard 32/64 bit arches
 ARCHS = $(ARCHS_STANDARD_32_64_BIT)
@@ -23,18 +10,32 @@ ARCHS = $(ARCHS_STANDARD_32_64_BIT)
 // This is the minimum required version for 64-bit support.
 MACOSX_DEPLOYMENT_TARGET = 10.5;
 
+// Library search paths for all targets
+FRAMEWORK_SEARCH_PATHS = ../../Libs
+
+// Define frameworks to link here, rather than by including references in the project.
+DL_PDFL_FRAMEWORKS = -framework DL100ACE -framework DL100AGM -framework DL100ARE -framework DL100AXE8SharedExpat -framework DL100BIB -framework DL100BIBUtils -framework DL100CoolType -framework DL100JP2KLib -framework DL100AdobeXMP -framework DL100PDFL
+
+// Common Header search paths for all targets
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) ../dlutils ../../Include/Headers
+
+// Compile everything as objective-c++
+GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp
+
 //
 // GENERAL - Build Locations
 //
 
+// Use the latest Mac SDK
 SDKROOT = macosx
 
 // Put our PCH's in our Build folder
-SHARED_PRECOMPS_DIR = $(PDFLSDK_SOURCE_TREE_ROOT)/Build/pch
+SHARED_PRECOMPS_DIR = $(SRCROOT)/Build/pch
 
 //
 // GENERAL - Linking
 //
+
 PREBINDING = NO
 
 // Always dead code strip
@@ -44,26 +45,28 @@ DEAD_CODE_STRIPPING = YES
 BASE_OTHER_LDFLAGS =
 OTHER_LDFLAGS = $(OTHER_LDFLAGS) $(BASE_OTHER_LDFLAGS) $(DL_PDFL_FRAMEWORKS)
 
-// Default the product name to the target name
-// add configuration to the product name to distinguish between
-// debug and release binaries.
-// Use hyphen instead of underscore for product name. Underscores
+//
+// GENERAL - Packaging
+//
+
+// Set product name to the target name with configuration in order to distinguish between
+// debug and release binaries. Use hyphen instead of underscore for product name. Underscores
 // are considered invalid characters for bundle identifiers in Xcode 4.3+
 PRODUCT_NAME = $(TARGET_NAME)-$(CONFIGURATION)
 
 // Plug-ins have the .acroplugin extension
 WRAPPER_EXTENSION = app
 
-// Info.plist file always has the same name and is in the Samples/utils folder
-INFOPLIST_FILE = ../utils/Info.plist
+// Info.plist file always has the same name and is in the Samples/dlutils folder
+INFOPLIST_FILE = ../dlutils/Info.plist
 
+//
+// GENERAL - Deployment
+//
 
-// this should not be the same as DSTROOT!  If it is, you will
-// sometimes get weird self-referential symlinks that cause the build to fail.
 // build the app bundles in the project dir, and do NOT use DSTROOT.
 // this way the relative paths for resources work out correctly.
 CONFIGURATION_BUILD_DIR = $(PROJECT_DIR)
-
 
 // Don't strip at copy
 COPY_PHASE_STRIP = NO
@@ -72,14 +75,11 @@ COPY_PHASE_STRIP = NO
 // GNU C/C++ - Language
 //
 
-//Prefix header is in utils
-GCC_PREFIX_HEADER = ../utils/PDFLPrecompile.pch
+//Prefix header is in dlutils
+GCC_PREFIX_HEADER = ../dlutils/PDFLPrecompile.pch
 
 // Precompile the prefix
 GCC_PRECOMPILE_PREFIX_HEADER = YES
-
-BASE_OTHER_CPLUSPLUSFLAGS =
-OTHER_CPLUSPLUSFLAGS = $(OTHER_CFLAGS) $(BASE_OTHER_CPLUSPLUSFLAGS)
 
 //
 // GNU C/C++ -  Code Generation
@@ -103,6 +103,3 @@ GCC_TREAT_NONCONFORMANT_CODE_ERRORS_AS_WARNINGS = YES
 
 // Warn about mismatched return types
 GCC_WARN_ABOUT_RETURN_TYPE = YES
-
-  
-
