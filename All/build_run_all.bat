@@ -188,7 +188,7 @@ SET /A "NUM_SAMPLES=50"
 
 REM *** Datalogics Samples.
 SET "DL_SAMPLE_LIST=("
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddArt AddAttachment AddBookmarks"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddArt AddAttachments AddBookmarks"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddContent AddDocumentInformation AddLinks"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddPageNumbers AddPassword AddRedaction"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddText AddWatermark CopyContent"
