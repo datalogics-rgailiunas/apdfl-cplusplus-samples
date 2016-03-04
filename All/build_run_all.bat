@@ -103,6 +103,8 @@ REM *** A list of the failed builds.
 SET DESC_FAIL_BUILD=
 REM *** The number of samples that successfully ran.
 SET /A "NUM_SUCCEED_RUN=0"
+REM *** The return code with failure information
+SET /A "RETURN_CODE=0"
 REM *** A list of the successful runs.
 SET DESC_SUCCEED_RUN=
 REM *** The number of samples that failed to run.
@@ -275,10 +277,19 @@ IF NOT EXIST %CURRENT_SAMPLE%.exe (GOTO CantFindExe)
 If %ONLY_BUILD% == Y GOTO RunSampleLoop_Call_End 
 
 :RunSampleLoop_Call
-	ECHO #%CURRENT_SAMPLE%.exe is running...
+	REM *** First DELETE %CURRENT_SAMPLE%.exe built before
+	DEL  %CURRENT_SAMPLE%.exe
+
+	REM *** Then rebuild %CURRENT_SAMPLE%.sln then to run %CURRENT_SAMPLE%.exe ...
 	REM *** Call the sample with its arguments, if any.
 	REM *** (undefined variables expand to nothing.)
 	
+	devenv ../../%CURRENT_SAMPLE%.sln /rebuild "%STAGE%|%ARCH%"
+	IF %ERRORLEVEL% NEQ 0 (GOTO CantFindExe)
+	REM *** NO ERROR Rebuild the #%CURRENT_SAMPLE%.sln file
+	REM *** If the exe file could not be found.
+	IF NOT EXIST %CURRENT_SAMPLE%.exe (GOTO CantFindExe)
+
 	CD ../../
 	%ARCH%\%STAGE%\!CURRENT_SAMPLE!.exe %!CURRENT_SAMPLE!_args%
 	
@@ -411,4 +422,9 @@ ECHO You must choose to run the DL or the Adobe samples^!
 GOTO End
 
 :End
-EXIT /b %ERRORLEVEL%
+
+REM  Return NUM_FAIL_BUILDx100 + NUM_FAIL_RUN
+REM  e.g. 203 means 2 failed build and 3 failed run
+SET /A "RETURN_CODE=NUM_FAIL_BUILD*100+NUM_FAIL_RUN"
+ECHO RETURN_CODE %RETURN_CODE%
+EXIT /b %RETURN_CODE%
