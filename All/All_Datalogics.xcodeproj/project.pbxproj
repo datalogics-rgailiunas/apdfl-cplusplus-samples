@@ -1,0 +1,174 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		BAAE8A360ADC6251005A7834 /* All_Datalogics */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = BAAE8A370ADC6255005A7834 /* Build configuration list for PBXAggregateTarget "All_Datalogics" */;
+			buildPhases = (
+			);
+			dependencies = (
+				2E5E09A31C8A1D5900098602 /* PBXTargetDependency */,
+			);
+			name = All_Datalogics;
+			productName = All_Datalogics_debug;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXContainerItemProxy section */
+		2E5E09A01C8A1D3F00098602 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddAttachments;
+		};
+		2E5E09A21C8A1D5900098602 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddAttachments;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddAttachments.xcodeproj; path = ../AddAttachments/AddAttachments.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		2E5E099D1C8A1D3F00098602 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E5E09A11C8A1D3F00098602 /* AddAttachments-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BAAE8A280ADC6237005A7834 = {
+			isa = PBXGroup;
+			children = (
+				2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		BAAE8A2A0ADC6237005A7834 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+			};
+			buildConfigurationList = BAAE8A2B0ADC6237005A7834 /* Build configuration list for PBXProject "All_Datalogics" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = BAAE8A280ADC6237005A7834;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 2E5E099D1C8A1D3F00098602 /* Products */;
+					ProjectRef = 2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				BAAE8A360ADC6251005A7834 /* All_Datalogics */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		2E5E09A11C8A1D3F00098602 /* AddAttachments-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddAttachments-Debug.app";
+			remoteRef = 2E5E09A01C8A1D3F00098602 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXTargetDependency section */
+		2E5E09A31C8A1D5900098602 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddAttachments;
+			targetProxy = 2E5E09A21C8A1D5900098602 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		9C164A3F0BDE66AF00FDC29A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = All_Datalogics_debug;
+			};
+			name = Release;
+		};
+		9C164A400BDE66AF00FDC29A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = /../../Libs;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		BAAE8A2C0ADC6237005A7834 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = /../../Libs;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		BAAE8A380ADC6255005A7834 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = All_Datalogics_debug;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BAAE8A2B0ADC6237005A7834 /* Build configuration list for PBXProject "All_Datalogics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BAAE8A2C0ADC6237005A7834 /* Debug */,
+				9C164A400BDE66AF00FDC29A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BAAE8A370ADC6255005A7834 /* Build configuration list for PBXAggregateTarget "All_Datalogics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BAAE8A380ADC6255005A7834 /* Debug */,
+				9C164A3F0BDE66AF00FDC29A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BAAE8A2A0ADC6237005A7834 /* Project object */;
+}
