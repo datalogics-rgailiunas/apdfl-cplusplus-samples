@@ -68,16 +68,16 @@ int main(int argc, char** argv)
 //==================================================================================================================================================
 
         //Create unicode strings for inserting the document's Title into the document.
-        ASText key = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Title"), hostUnicodeFormat);
-        ASText value = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Sample Title"), hostUnicodeFormat);
+        ASText key = ASTextFromUnicode(reinterpret_cast<const ASUTF16Val*>(L"Title"), hostUnicodeFormat);
+        ASText value = ASTextFromUnicode(reinterpret_cast<const ASUTF16Val*>(L"Sample Title"), hostUnicodeFormat);
 
         PDDocSetInfoAsASText(pdDoc, key, value);    //Insert the document information.
 
         std::wcout << L"The document's title was inserted." << std::endl;
 
         //Create unicode strings for inserting the document's Author into the document.
-        key = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Author"), hostUnicodeFormat);
-        value = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"Sample Author"), hostUnicodeFormat);
+        key = ASTextFromUnicode(reinterpret_cast<const ASUTF16Val*>(L"Author"), hostUnicodeFormat);
+        value = ASTextFromUnicode(reinterpret_cast<const ASUTF16Val*>(L"Sample Author"), hostUnicodeFormat);
 
         PDDocSetInfoAsASText(pdDoc, key, value);    //Insert the document information.
 
@@ -91,7 +91,7 @@ int main(int argc, char** argv)
 //Step 3) Save the Document and release Resources.
 //==================================================================================================================================================
 
-        asText = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(L"out.pdf"), hostUnicodeFormat);    //Create unicode path for output file.
+        asText = ASTextFromUnicode(reinterpret_cast<const ASUTF16Val*>(L"out.pdf"), hostUnicodeFormat);    //Create unicode path for output file.
 
         asPathName = ASFileSysCreatePathFromDIPathText(NULL, asText, NULL);                          //Create the ASPathName of the output file.
   
