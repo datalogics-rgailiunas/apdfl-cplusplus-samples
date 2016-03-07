@@ -49,7 +49,7 @@ int main(int argc, char** argv)
 
         std::wcout << L"Acquiring word list..." << std::endl;
 
-        PDWordFinderAcquireWordList(wordFinder, 0, &pdWordArray, nullptr, nullptr, &numberOfWords);                   //Acquire the word list from the page.
+        PDWordFinderAcquireWordList(wordFinder, 0, &pdWordArray, NULL, NULL, &numberOfWords);                   //Acquire the word list from the page.
 
         //Determine the unicode format before converting the ASText to a wstring.        
         ASUnicodeFormat unicodeFormat;                                                          
@@ -73,7 +73,7 @@ int main(int argc, char** argv)
             std::transform(testString.begin(), testString.end(), testString.begin(), ::tolower);
 
             //If either string is matched, push the words quad points into a vector.
-            if ((wcsstr(testString.c_str(), L"navigation") != nullptr) || (wcsstr(testString.c_str(), L"screen") != nullptr))
+            if ((wcsstr(testString.c_str(), L"navigation") != NULL) || (wcsstr(testString.c_str(), L"screen") != NULL))
             {
                 ASFixedQuad quad;
                 PDWordGetNthQuad(pdWord, 0, &quad);
@@ -109,13 +109,13 @@ int main(int argc, char** argv)
             redactParams->colorVal->value[1] = FloatToASFixed(0.0);
             redactParams->colorVal->value[2] = FloatToASFixed(0.0);
             redactParams->horizAlign = kPDHorizLeft;                                          //Horizontal alignment of the text when generating the redaction mark.
-            redactParams->overlayText = nullptr;                                              //Overlay text may be used to replace the underlying content.
+            redactParams->overlayText = NULL;                                              //Overlay text may be used to replace the underlying content.
 
             PDAnnot redactAnnot = PDDocCreateRedaction(document.getPDDoc(), redactParams);    //Create the redaction annotation. At this point the text HAS NOT been redacted.
 
             std::wcout << L"Marked words for redaction." << std::endl;
 
-            PDDocApplyRedactions(document.getPDDoc(), nullptr);                               //Apply the redactions, the text is now redacted.
+            PDDocApplyRedactions(document.getPDDoc(), NULL);                               //Apply the redactions, the text is now redacted.
 
             std::wcout << L"Words have been permanently removed." << std::endl;
         }
@@ -133,7 +133,7 @@ int main(int argc, char** argv)
 
         std::wcout << L"Acquiring word list after redactions..." << std::endl;
 
-        PDWordFinderAcquireWordList(wordFinder, 0, &pdWordArray, nullptr, nullptr, &numberOfWords);                   //Acquire the word list from the page.
+        PDWordFinderAcquireWordList(wordFinder, 0, &pdWordArray, NULL, NULL, &numberOfWords);                   //Acquire the word list from the page.
 
         std::wcout << L"Found " << numberOfWords << L" in document, searching for matches..." << std::endl;
 
@@ -153,7 +153,7 @@ int main(int argc, char** argv)
             std::transform(testString.begin(), testString.end(), testString.begin(), ::tolower);
 
             //If either string is matched, increment the count so we can report them.
-            if ((wcsstr(testString.c_str(), L"navigation") != nullptr) || (wcsstr(testString.c_str(), L"screen") != nullptr))
+            if ((wcsstr(testString.c_str(), L"navigation") != NULL) || (wcsstr(testString.c_str(), L"screen") != NULL))
                 ++cnt;
 
             ASTextDestroy(asTextWord);                                                                                //Destroy the ASText object.
