@@ -5,17 +5,16 @@
 //===========================================================================
 // Sample: AddBookmarks - Adds some bookmarks to the input PDF.
 //
-// Note: The input for this sample is a text-heavy PDF document with bolded 
-// subheadings and non-bolded body text. This sample searchs for each bolded 
-// subheading and adds a bookmark which will take the reader to that
-// subheading.
+// Note: The input for this sample is a text-heavy PDF document.
+// This sample searchs for target word and adds a bookmark which will
+// take the reader to that word.
 // This sample also adds a few children bookmarks to the first
 // bookmark, which copy that bookmark at different zoom levels.
 //
 //Steps:
-// 1) Find each bolded subheading in the document and record their
+// 1) Find each target word in the document and record their
 //    location and text.
-// 2) Create a bookmark for each bolded section with this information.
+// 2) Create a bookmark for each occurrence with this information.
 // 3) Demonstrate different zoom levels.
 // 4) Save and close the document.
 //===========================================================================
@@ -31,12 +30,7 @@
 #include "PagePDECntCalls.h"
 #include "ASCalls.h"
 
-//Converts a wide string to an ASText object.
-ASText toASText(const wchar_t* string);
-
-//Checks to see if a PDWord is bolded.
-bool isBold(PDWord word, PDWordFinder finder);
-
+bool searchWord(PDWord nextWord, const char* target);
 int main(int argc, char** argv)
 {
     APDFLib lib;                                                  //Initialize the Adobe PDF Library.
@@ -56,156 +50,68 @@ int main(int argc, char** argv)
     PDDoc mydoc = APDoc.getPDDoc();
 
 //======================================================================================================================================================================================================================================================
-//Step 1) Find each bolded subheading in the document and record their location and text.
+//Step 1) Find each occurrence of target word in the document and record their location and text.
 //======================================================================================================================================================================================================================================================
 
-    ASInt32 numBookmarks = 0;
-    std::vector<ASFixedRect> bsLocts;                                                               //bsLocts[n] is the bounding rectangle (relative to its page) of the nth subheading.
-    std::vector<ASInt32> bsPages;                                                                   //bsPages[n] is the page number the nth subheading appeared on.
-    std::vector<ASText> bsTexts;                                                                    //bsTexts[n] is the text of the nth subheading.
+	//We are using three vectors to keep track of what we are doing, they have to be updated synchronizely.
+    std::vector<ASFixedRect> bsLocts;                                                               //bsLocts[n] is the bounding rectangle (relative to its page) of the nth occurrence.
+    std::vector<ASInt32> bsPages;                                                                   //bsPages[n] is the page number the nth occurrence appeared on.
+    std::vector<ASText> bsTexts;                                                                    //bsTexts[n] is the text of the nth occurrence.
 
-    //We'll use the PDWordFinder class to iterate through our document's words, looking for sequences of bold words.
+    //We'll use the PDWordFinder class to iterate through our document's words, looking for target word.
     PDWordFinder wordFinder = PDDocCreateWordFinderUCS(mydoc, WF_LATEST_VERSION, 0, NULL);
 
     PDWord* wordList = new PDWord();                                                                //Our PDWordFinder will iterate through the words with this. We will not directly access it.
     ASInt32 numWordsFound;
 
-    //This algorithm finds sequences of words which satisfy a boolean function. Here, we use a boolean function
-    //which checks to see if the word is bold.
-    //We assume that no sequence will span more than one page. Or, if a sequence does span more than one page,
-    //it is treated as more than one sequence.
+    //This algorithm finds target word which satisfy a boolean function. Here, we use a boolean function
+    //which checks to see if the word is match.
+    //We assume that no word will span more than one page.
     for (int nextPage = 0; nextPage < PDDocGetNumPages(mydoc); ++nextPage)
     {
         PDWordFinderAcquireWordList(wordFinder, nextPage, wordList, NULL, NULL, &numWordsFound);    //Must be called before we call PDWordFinderGetNthWord. This sets up how we want to traverse the words on page 0. (I'm using the default settings.)
 
-        bool foundSubheading = false;                                                               //False when we haven't yet found a new bolded text, true when we're currently traversing through bold text.
-
         for (int nextWordIndex = 0; nextWordIndex < numWordsFound; ++nextWordIndex)
         {
             PDWord nextWord = PDWordFinderGetNthWord(wordFinder, nextWordIndex);
+			// target word is "before" in this sample code
+			char	myWord[20] = "before";
+			if (searchWord(nextWord, myWord)){
+				//After we found the word
+				//The page number.
+				bsPages.push_back(nextPage);
+				//The text of the word.
+				ASText nextWordText = ASTextNew();
+				PDWordGetASText(nextWord, 0, nextWordText);
+				bsTexts.push_back(nextWordText);
 
-            bool wordCondition = isBold(nextWord,wordFinder);                                       //I've abstracted this out to demonstrate the generality of this algorithm. You could use any boolean function of a PDWord here.
-
-            if (foundSubheading)
-            {
-                if (!wordCondition)
-                {
-                    //We've found the end of the subheading: the new word is not bold.
-                    //We'll record only the right-hand quads of the previous word.
-                    PDWord previousWord = PDWordFinderGetNthWord(wordFinder, nextWordIndex - 1);
-                    ASInt16 nQuads = PDWordGetNumQuads(previousWord);                               //The word might be split up into several quads (e.g., if it's hyphenated), and we want the last set.
-                    ASFixedQuad quad;
-                    PDWordGetNthQuad(previousWord, nQuads - 1, &quad);
-                    (*(bsLocts.end() - 1)).right = quad.tr.h;                                       //The right end of the location box lines up with the horizontal coordinate of the top-right point.
-                    (*(bsLocts.end() - 1)).bottom = quad.tr.v;                                      //The bottom end of the location box lines up with the vertical of the top-right point.
-
-
-                    foundSubheading = false;
-                }
-                else if (wordCondition && (nextWordIndex == numWordsFound - 1))
-                {
-                    //We've found the end of the subheading: The new word is bold, and we're at the end of the page.
-                    //We'll record this word's right-hand quads, and the word's text.
-                    
-                    //The quads.
-                    ASInt16 nQuads = PDWordGetNumQuads(nextWord);                                   //The word might be split up into several quads (e.g., if it's hyphenated), and we want the last set.
-                    ASFixedQuad quad;
-                    PDWordGetNthQuad(nextWord, nQuads - 1, &quad);
-                    (*(bsLocts.end() - 1)).right = quad.tr.h;                                       //The right end of the location box lines up with the horizontal coordinate of the top-right point.
-                    (*(bsLocts.end() - 1)).bottom = quad.tr.v;                                      //The bottom end of the location box lines up with the vertical of the top-right point.
-
-                    //The text.
-                    ASText nextWordASText = ASTextNew();
-                    PDWordGetASText(nextWord, 0, nextWordASText);
-
-                    if (PDWordGetAttr(nextWord)&WXE_ADJACENT_TO_SPACE)
-                    {
-                        ASText space = toASText(L" ");
-                        ASTextCatMany((*(bsTexts.end() - 1)), space, nextWordASText);
-                        ASTextDestroy(space);
-                    }
-                    else
-                    {
-                        ASTextCat((*(bsTexts.end() - 1)), nextWordASText);
-                    }
-                    ASTextDestroy(nextWordASText);
-
-                    foundSubheading = false;
-                }
-                else
-                {
-                    //We've found the next word of our subheading.
-                    //We must record the text of this word.
-                    ASText nextWordASText = ASTextNew();
-                    PDWordGetASText(nextWord, 0, nextWordASText);
-
-                    if (PDWordGetAttr(nextWord)&WXE_ADJACENT_TO_SPACE)
-                    {
-                        ASText space = toASText(L" ");
-                        ASTextCat((*(bsTexts.end() - 1)), space);
-                        ASTextCat((*(bsTexts.end() - 1)), nextWordASText);
-                        ASTextDestroy(space);
-                    }
-                    else
-                    {
-                        ASTextCat((*(bsTexts.end() - 1)), nextWordASText);
-                    }
-                    ASTextDestroy(nextWordASText);
-                }
-            }
-            else
-            {
-                if (wordCondition)
-                {
-                    //We haven't found a subheading yet, but this word is bold. So it's the start of a new subheading.
-                    //We must record the page number, the left-hand quads of this word, and its text.
-
-                    //The page number.
-                    bsPages.push_back(nextPage);
-
-                    //The text of the word.
-                    ASText nextSubhText = ASTextNew();
-                    PDWordGetASText(nextWord, 0, nextSubhText);
-                    bsTexts.push_back(nextSubhText);
-                    
-                    //Its quads.
-                    ASInt16 nQuads = PDWordGetNumQuads(nextWord);                                   //The word might be split up into several quads (e.g., if it's hyphenated), and we want the last set.
-                    ASFixedQuad quad;
-                    PDWordGetNthQuad(nextWord, nQuads - 1, &quad);
-                    ASFixedRect nextSubhRect;
-                    nextSubhRect.left = quad.tl.h;                                                  //The left location of the box lines up with the horizontal coordinate of the top-left point.
-                    nextSubhRect.top = quad.tl.v;                                                   //The top location of the box lines up with the vertical coordinate of the top-left pont.
-                    bsLocts.push_back(nextSubhRect);
-                    foundSubheading = true;
-
-                    ++numBookmarks;                                                                 //Update the number of bookmarks.
-                }
-                else
-                {
-                    //We haven't found a subheading, nor is this word bold. So we'll just continue traversing.
-                }
-            }
-            //One condition this does NOT account for is if the subheading spans more than one line. Then the matter of constructing the quads
-            //is somewhat more complicated. You need the top-left quad of the first word, the top-right quad of the last word on the first line,
-            //the bottom-left quad of the first word on the last line, and the bottom-right quad of the last word. Otherwise it would be the same algorithm.
-        }
+				//Its quads.
+				ASInt16 nQuads = PDWordGetNumQuads(nextWord);                                   //The word might be split up into several quads (e.g., if it's hyphenated), and we want the last set.
+				ASFixedQuad quad;
+				PDWordGetNthQuad(nextWord, nQuads - 1, &quad);
+				ASFixedRect partialWord;
+				partialWord.left = quad.tl.h;                                                  //The left location of the box lines up with the horizontal coordinate of the top-left point.
+				partialWord.top = quad.tl.v;                                                   //The top location of the box lines up with the vertical coordinate of the top-left pont.
+				bsLocts.push_back(partialWord);
+			}
+		}
         PDWordFinderReleaseWordList(wordFinder, nextPage);                                          //Prepare to iterate over the word list for the next page.
     }
 
 
-    std::wcout << L"I found " << numBookmarks << L" subheadings:" << std::endl;                     //We could have used any of the vectors, not just bsLocts.
+    std::wcout << L"I found " << bsPages.size() << L" search occurrence:" << std::endl;                     //We could have used any of the vectors, not just bsLocts.
 
-    for (ASText subheadingText : bsTexts)
+    for (ASText partialText : bsTexts)
     {
         ASInt32 wordLen = 0;                                                                        //Unused. Only for calling ASTextGetPDTextCopy.
-        std::wcout << ASTextGetPDTextCopy(subheadingText,&wordLen) << std::endl;                    //Unicode text will probably not display correctly. Rest assured it will look fine in the document.
+		std::wcout << ASTextGetPDTextCopy(partialText, &wordLen) << std::endl;                      //Unicode text will probably not display correctly. Rest assured it will look fine in the document.
     }
 
 //======================================================================================================================================================================================================================================================
-//Step 2) Create a bookmark for each bolded section with this information.
+//Step 2) Create a bookmark for each occurrence of target word with this information.
 //======================================================================================================================================================================================================================================================
 
-    std::wcout << L"Creating a bookmark for each subheading..." << std::endl;
+    std::wcout << L"Creating a bookmark for each search occurrence..." << std::endl;
 
     //We'll create each bookmark by iterating over the subheadings.
     //The bookmark's text will be the subheading's text,
@@ -214,12 +120,12 @@ int main(int argc, char** argv)
 
     PDBookmark bookMarkRoot = PDDocGetBookmarkRoot(mydoc);                                 //Bookmarks are added to a document's bookmark root.
 
-    for (int nextBM = 0; nextBM < numBookmarks; ++nextBM)
+    for (int nextBM = 0; nextBM < bsPages.size(); ++nextBM)
     {
         //Get the necessary information.
         PDPage nextPage = APDoc.getPage(bsPages[nextBM]);                                  //Get the associated page.
 
-        ASFixedRect* nextLocation = bsLocts.begin()._Ptr + nextBM;                         //Get the associated page location (the method we use requires a pointer).
+        ASFixedRect* nextLocation = &bsLocts[nextBM];						  //Get the associated page location (the method we use requires a pointer).
 
         //Make the bookmark and set its action.
         PDBookmark nextbm = PDBookmarkAddNewChildASText(bookMarkRoot, bsTexts[nextBM]);    //Bookmarks must be created before their action is set.
@@ -302,42 +208,21 @@ int main(int argc, char** argv)
 };
 
 //======================================================================================================================================================================================================================================================
-//ASText function: Convert a wide string to an ASText object.
+//bool function: Checks to see if a PDWord contains target word. (Assumes target occurance count only once in each word.)
 //======================================================================================================================================================================================================================================================
-ASText toASText(const wchar_t* string)
+bool searchWord(PDWord nextWord, const char* target)
 {
-    ASUnicodeFormat hostUniFormat;
 
-    DURING
+	ASText nextWordASText = ASTextNew();
+	PDWordGetASText(nextWord, 0, nextWordASText);
+	ASInt32 wordLen = 0;
+	char * nextWordChar = ASTextGetPDTextCopy(nextWordASText, &wordLen);
+	if (strlen(nextWordChar) < strlen(target))
+		return false;
+	for (unsigned int index = 0; index < strlen(target); index++)
+		if (nextWordChar[index] != target[index])
+			return false;
 
-    if (sizeof(wchar_t) == 2)
-        hostUniFormat = kUTF16HostEndian;
-    else
-        hostUniFormat = kUTF32HostEndian;
-
-    E_RETURN( ASTextFromUnicode((ASUTF16Val *)string, hostUniFormat));
-
-    HANDLER
-
-        RERAISE();                                                        //If there was an exception, let the caller handle it.
-
-    END_HANDLER
-
-    return NULL;
-};
-
-//======================================================================================================================================================================================================================================================
-//bool function: Checks to see if a PDWord is bolded. (Assumes that if the first letter is bolded, the whole word is.)
-//======================================================================================================================================================================================================================================================
-bool isBold(PDWord word, PDWordFinder finder)
-{
-    PDStyle firstCharStyle = PDWordGetNthCharStyle(finder,word, 0);
-    PDFont firstCharFont = PDStyleGetFont(firstCharStyle);
- 
-    //We know we have a bolded font if "Bold" is in the font's name. This is a crude way of determining of the font is bold.
-    char* fontName = new char[100];
-    PDFontGetName(firstCharFont, fontName,100);
-    std::string fontNs(fontName);
-    delete[](fontName);
-    return fontNs.find("Bold") != fontNs.npos;
+	ASfree(nextWordChar);
+	return true;
 }

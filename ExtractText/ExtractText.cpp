@@ -65,6 +65,10 @@ int main(int argc, char** argv)
     fontAttrs.name = ASAtomFromString("CourierStd");
     fontAttrs.type = ASAtomFromString("Type0");
     PDEFont font = PDEFontCreateFromSysFont(PDFindSysFont(&fontAttrs, sizeof(fontAttrs), 0), kPDEFontDoNotEmbed);
+ 
+    //A default graphics state with which to draw the text.
+    PDEGraphicState graphics;
+    PDEDefaultGState(&graphics, sizeof(PDEGraphicState));
 
     //A default graphics state with which to draw the text.
     PDEGraphicState graphics;
@@ -81,14 +85,12 @@ int main(int argc, char** argv)
     nextWordLocation.v = ASInt32ToFixed(10 * 72);                                                                    //We'll start drawing text 10 inches from the bottom.
 
     //Use default settings for the PDWordFinder. See the sample TextSearch, step 1, for an example of PDWordFinder settings.
-    PDWordFinderConfig wfConfig;
-    PDWordFinderConfigRec wfRec;
-    memset(&wfConfig, 0, sizeof(wfConfig));
-    wfConfig = &wfRec;
-    wfConfig->recSize = sizeof(PDWordFinderConfig);
+    PDWordFinderConfigRec wfConfig;
+    memset (&wfConfig, 0, sizeof(PDWordFinderConfigRec));
+    wfConfig.recSize = sizeof(PDWordFinderConfigRec);
 
     //We'll use the PDWordfinder class to iterate through all the words in our input document.
-    PDWordFinder wordFinder = PDDocCreateWordFinderEx(inAPDoc.getPDDoc(), WF_LATEST_VERSION, false, wfConfig);      //If boolean value is set to true, the word finder extracts text in unicode.
+    PDWordFinder wordFinder = PDDocCreateWordFinderEx(inAPDoc.getPDDoc(), WF_LATEST_VERSION, false, &wfConfig);      //If boolean value is set to true, the word finder extracts text in unicode.
 
     PDWord wordList;
     ASInt32 numWordsFound;
@@ -186,7 +188,7 @@ int main(int argc, char** argv)
 
     if (outputFile.is_open())
     {
-        PDWordFinder pdWordFinder = PDDocCreateWordFinderEx(document.getPDDoc(), WF_LATEST_VERSION, true, wfConfig);    //If boolean value is set to true, the word finder extracts text in unicode.
+        PDWordFinder pdWordFinder = PDDocCreateWordFinderEx(document.getPDDoc(), WF_LATEST_VERSION, true, &wfConfig);    //If boolean value is set to true, the word finder extracts text in unicode.
 
         ASInt32 numWords;
         PDWord wordArray;

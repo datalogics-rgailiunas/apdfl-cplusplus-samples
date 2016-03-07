@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2015-2016, Datalogics, Inc. All rights reserved.
 //
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
