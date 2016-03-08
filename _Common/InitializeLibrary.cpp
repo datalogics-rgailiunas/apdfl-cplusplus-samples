@@ -1,4 +1,4 @@
-// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2015-2016, Datalogics, Inc. All rights reserved.
 //
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
@@ -13,6 +13,11 @@
 
 #include "InitializeLibrary.h"
 
+#ifdef MAC_PLATFORM
+#include <limits.h> /* PATH_MAX */
+#include <stdio.h>
+#include <stdlib.h>
+#endif
 //========================================================================================================
 //Constructor:
 //initializes APDFL and does not default the DL150PDFL.dll directory. dl150Dir should be a relative path.
@@ -30,6 +35,7 @@ APDFLib::APDFLib(wchar_t* dl150Dir)
         initValid = false;
         return;
     }
+#endif
 
     memset(&pdflData, 0, sizeof(PDFLDataRec));    //Clear the data struct so we can set its data.
 
@@ -37,7 +43,10 @@ APDFLib::APDFLib(wchar_t* dl150Dir)
     pdflData.size = sizeof(PDFLDataRec);          //Give it its size.
     pdflData.allocator = NULL;                    //Use default memory allocation procedures.
     fillDirectories();                            //Set the directory inclusion data.
+#ifdef WIN_PLATFORM
     pdflData.inst = dllInst;
+#endif
+
     initError = PDFLInitHFT(&pdflData);           //Initialize the library.
 
     if (initError == 0)                           //If initError is 0, initialization succeeded.
@@ -65,6 +74,7 @@ ASInt32 APDFLib::getInitError()
 //ASInt32 function:
 //Loads the DL150PDFL library dynamically.
 //========================================================================================================
+#ifdef WIN_PLATFORM
 HINSTANCE APDFLib::loadDFL150PDFL (wchar_t* relativeDir)
 {
     //Prepare to find the full path name.
@@ -101,6 +111,31 @@ HINSTANCE APDFLib::loadDFL150PDFL (wchar_t* relativeDir)
 
     return (LoadLibrary(L"DL150PDFL.dll"));
 }
+#endif
+#ifndef WIN_PLATFORM
+size_t strnlen_safe (const char *str, size_t maxSize)
+{
+	if(!str)	return 0;
+	size_t n;
+	for (n = 0; n < maxSize && *str; n++, str++);
+	return n;
+}
+size_t strlen_safe (const char *str)
+{
+	if(!str)	return 0;
+	size_t n;
+	for (n = 0; *str != '\0'; n++, str++);
+	return n;
+}
+static void copyChars (char *dest, const char *src, size_t numChars)
+{
+	while(numChars-- > 0)
+		*(dest++) = *(src++);
+}
+int strncpy_safe (char *dest, size_t dest_size, const char *src, size_t n)
+{
+	if(!dest || !src || dest_size == 0)
+		return -1;
 
 
 
@@ -109,8 +144,10 @@ HINSTANCE APDFLib::loadDFL150PDFL (wchar_t* relativeDir)
 //Void function:
 //Sets directory information for our PDFLDataRec.
 //========================================================================================================
+
 void APDFLib::fillDirectories()
 {
+#ifdef WIN_PLATFORM
 	//Set the font directory list and its length.
     fontDirList[0] = (ASUTF16Val*)L"..\\..\\..\\APDFL\\Resource\\Font";
     fontDirList[1] = (ASUTF16Val*)L"..\\..\\..\\APDFL\\Resource\\CMap";
@@ -132,6 +169,59 @@ void APDFLib::fillDirectories()
     pluginDirList[0] = (ASUTF16Val*)pluginPathBuffer;
     pdflData.pluginDirList = pluginDirList;
     pdflData.pluginDirListLen = NUM_PLUGIN_DIRS;
+#endif
+#ifdef MAC_PLATFORM
+#define MAX_PATH 1000
+	const unsigned int NO_OF_RESOURCE_DIR = 2;
+	const char* SUB_RESOURCE_DIR[ NO_OF_RESOURCE_DIR ] = { "Font", "CMap" };
+
+	//Set the font directory list and its length.
+	fontDirList[0] = (ASUTF16Val*)"../../../APDFL/Resource/Font";
+	fontDirList[1] = (ASUTF16Val*)"../../../APDFL/Resource/CMap";
+	pdflData.dirList = (char**)fontDirList;
+	pdflData.listLen = NUM_FONTS;
+
+	//Set the color profile directory list and its length.
+	colorProfDirList[0] = (ASUTF16Val*)"../../../APDFL/Resource/Color/Profiles";
+	pdflData.colorProfileDirList = (char**)colorProfDirList;
+	pdflData.colorProfileDirListLen = NUM_COLOR_PROFS;
+
+	//Set the Unicode directory.
+	pdflData.cMapDirectory = (char*)fontDirList[1];
+	pdflData.unicodeDirectory = (char*)"../../../APDFL/Resource/Unicode";
+	char resourceDirectory[MAX_PATH];
+
+	CFBundleRef bundleRef = CFBundleGetMainBundle();
+	CFURLRef baseURL = CFBundleCopyBundleURL(bundleRef);
+	CFURLRef resourceURL = CFURLCreateWithFileSystemPathRelativeToBase (kCFAllocatorDefault,
+																		// DLADD: RickK 03Jan2008 - Changed all resource paths to go up one directory
+																		// DLADD: further and include APDFL in the path.
+																		CFSTR("../../../../APDFL/Resource/"),
+																		kCFURLPOSIXPathStyle, true, baseURL);
+	CFURLGetFileSystemRepresentation (resourceURL, true, (unsigned char*)resourceDirectory, MAX_PATH);
+
+	CFRelease(baseURL);
+	CFRelease(resourceURL);
+
+	char **tmpP = NULL;
+	tmpP = (char**)malloc(sizeof(char*)*NO_OF_RESOURCE_DIR);
+
+	char fontPath[ NO_OF_RESOURCE_DIR  ][ MAX_PATH ];
+	for( int i = 0; i < NO_OF_RESOURCE_DIR; i++ ) {
+		strncpy_safe(fontPath[ i ], sizeof(fontPath[ i ]), resourceDirectory, sizeof(resourceDirectory));
+		strcat_safe(fontPath[ i ], sizeof(fontPath[ i ]), "/");
+		strcat_safe(fontPath[ i ], sizeof(fontPath[ i ]), SUB_RESOURCE_DIR[ i ]);
+	}
+
+	for( int i = 0; i < NO_OF_RESOURCE_DIR; i++ ) {
+		tmpP[i] = (char*)malloc(sizeof(char)*MAX_PATH);
+		strncpy_safe(tmpP[ i ], MAX_PATH, fontPath[ i ], sizeof(fontPath[ i ]));
+	}
+	pluginDirList[0] = (ASUTF16Val*)tmpP;
+	pdflData.pluginDirList = (char**)pluginDirList;
+	pdflData.pluginDirListLen = NUM_PLUGIN_DIRS;
+#endif
+
 }
 
 //========================================================================================================
@@ -143,7 +233,7 @@ void APDFLib::displayError(ASErrorCode errCode)
     if (errCode == 0) return;
 
     char errStr[250];
-    std::fprintf(stderr, "[Error %lx] %s\n", errCode, ASGetErrorString(errCode, errStr, sizeof(errStr)));
+    std::fprintf(stderr, "[Error %x] %s\n", errCode, ASGetErrorString(errCode, errStr, sizeof(errStr)));
 }
 
 //========================================================================================================

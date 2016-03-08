@@ -1,4 +1,4 @@
-// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2015-2016, Datalogics, Inc. All rights reserved.
 //
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
@@ -38,7 +38,9 @@ private:
     ASBool initValid;                                 //Set to true if the library initializes successfully.
 
     void fillDirectories();                           //Sets directory information for our PDFLDataRec.
+#if WIN_PLATFORM
     HINSTANCE loadDFL150PDFL(wchar_t* relativeDir);   //Loads the DL150PDFL library dynamically.
+#endif
 
     ASUTF16Val* fontDirList[NUM_FONTS];               //List of font directories we'll include during initialization.              //TODO: platform divergences
     ASUTF16Val* colorProfDirList[NUM_COLOR_PROFS];    //List of color profile directories we'll include during initialization.     //TODO: platform divergences
