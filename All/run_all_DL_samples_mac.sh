@@ -76,5 +76,66 @@ echo Running sample CopyContent
 cd ../CopyContent
 ./CopyContent-${stage}.app/Contents/MacOS/CopyContent-${stage}
 echo ""
+
+echo Running sample CreateAnnotations
+cd ../CreateAnnotations
+./CreateAnnotations-${stage}.app/Contents/MacOS/CreateAnnotations-${stage}
+echo ""
+
+echo Running sample CreateDocument
+cd ../CreateDocument
+./CreateDocument-${stage}.app/Contents/MacOS/CreateDocument-${stage}
+echo ""
+
+echo Running sample CreateLayers
+cd ../CreateLayers
+./CreateLayers-${stage}.app/Contents/MacOS/CreateLayers-${stage}
+echo ""
+
+echo Running sample CreateTransparency
+cd ../CreateTransparency
+./CreateTransparency-${stage}.app/Contents/MacOS/CreateTransparency-${stage}
+echo ""
+
+echo Running sample EncryptDocument
+cd ../EncryptDocument
+./EncryptDocument-${stage}.app/Contents/MacOS/EncryptDocument-${stage}
+echo ""
+
+echo Running sample ExtractAttachments
+cd ../ExtractAttachments
+./ExtractAttachments-${stage}.app/Contents/MacOS/ExtractAttachments-${stage}
+echo ""
+
+echo Running sample ExtractDocumentInfo
+cd ../ExtractDocumentInfo
+./ExtractDocumentInfo-${stage}.app/Contents/MacOS/ExtractDocumentInfo-${stage}
+echo ""
+
+echo Running sample ExtractText
+cd ../ExtractText
+./ExtractText-${stage}.app/Contents/MacOS/ExtractText-${stage}
+echo ""
+
+echo Running sample FindImageResolutions
+cd ../FindImageResolutions
+./FindImageResolutions-${stage}.app/Contents/MacOS/FindImageResolutions-${stage}
+echo ""
+
+echo Running sample FlattenAnnotations
+cd ../FlattenAnnotations
+./FlattenAnnotations-${stage}.app/Contents/MacOS/FlattenAnnotations-${stage}
+echo ""
+
+echo Running sample FlattenTransparency
+cd ../FlattenTransparency
+./FlattenTransparency-${stage}.app/Contents/MacOS/FlattenTransparency-${stage}
+echo ""
+
+echo Running sample LockDocument
+cd ../LockDocument
+./LockDocument-${stage}.app/Contents/MacOS/LockDocument-${stage}
+echo ""
+
 echo All Datalogics samples are finished running.
 

@@ -44,12 +44,13 @@ APDFLib::APDFLib(wchar_t* dl100Dir)
     pdflData.size = sizeof(PDFLDataRec);          //Give it its size.
     pdflData.allocator = NULL;                    //Use default memory allocation procedures.
     fillDirectories();                            //Set the directory inclusion data.
+#ifdef LOAD_PLUGIN
+	pdflData.pluginDirList[0] = "../../../APDFL/Libs"; /* specify plugin path */
+#endif
 #ifdef WIN_PLATFORM
     pdflData.inst = dllInst;
 #endif
-
     initError = PDFLInitHFT(&pdflData);           //Initialize the library.
-
     if (initError == 0)                           //If initError is 0, initialization succeeded.
         initValid = true;              
 }
