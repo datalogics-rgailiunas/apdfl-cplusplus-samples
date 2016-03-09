@@ -37,7 +37,7 @@ int main(int argc, char** argv)
 //Step 1) Select which permissions you want to allow/deny.
 //====================================================================================================================================================================================================================================================================
 
-    std::vector<std::pair<bool, PDPerms>> permList(15);          //There are 15 permissions listed here.
+    std::vector<std::pair<bool, PDPerms> > permList(15);          //There are 15 permissions listed here. C++03 require a space between two righ angle brackets.
 
     ////////////////////////////////
     //Most Permissions            //

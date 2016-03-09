@@ -42,7 +42,7 @@ int main(int argc, char** argv)
     //but that is not guaranteed to be little-endian, so little endian is not demonstrated.)
     //Our English text is in UTF-8.
     //This could have been a string literal, but for the sake of consistency:
-    ASUTF8Val englishStr_U8[] {
+    ASUTF8Val englishStr_U8[] = {
             0x55, 0x6E, 0x69, 0x76, 0x65, 0x72, 0x73, 0x61,
             0x6C, 0x20, 0x44, 0x65, 0x63, 0x6C, 0x61, 0x72,
             0x61, 0x74, 0x69, 0x6F, 0x6E, 0x20, 0x6F, 0x66,
@@ -51,7 +51,7 @@ int main(int argc, char** argv)
     };
 
     //Our French text is in UTF-16B.
-    ASUTF8Val frenchStr_U16B[] {
+    ASUTF8Val frenchStr_U16B[] = {
             0x00, 0x44, 0x00, 0xE9, 0x00, 0x63, 0x00, 0x6C,
             0x00, 0x61, 0x00, 0x72, 0x00, 0x61, 0x00, 0x74,
             0x00, 0x69, 0x00, 0x6F, 0x00, 0x6E, 0x00, 0x20,
@@ -67,7 +67,7 @@ int main(int argc, char** argv)
     };
 
     //Our Russian (cyrillic script) text is in UTF-16B.
-    ASUTF8Val cyrillicStr_U16B[] {
+    ASUTF8Val cyrillicStr_U16B[] = {
             0x04, 0x12, 0x04, 0x41, 0x04, 0x35, 0x04, 0x3E,
             0x04, 0x31, 0x04, 0x49, 0x04, 0x30, 0x04, 0x4F,
             0x00, 0x20, 0x04, 0x34, 0x04, 0x35, 0x04, 0x3A,
@@ -80,7 +80,7 @@ int main(int argc, char** argv)
     };
 
     //Our Japanese text is in UTF-32B.
-    ASUTF8Val japaneseStr_U32B[] {
+    ASUTF8Val japaneseStr_U32B[] = {
             0x00, 0x00, 0x30, 0x0E, 0x00, 0x00, 0x4E, 0x16,
             0x00, 0x00, 0x75, 0x4C, 0x00, 0x00, 0x4E, 0xBA,
             0x00, 0x00, 0x6A, 0x29, 0x00, 0x00, 0x5B, 0xA3,
@@ -89,7 +89,7 @@ int main(int argc, char** argv)
     };
 
     //Our Korean text is in UTF-32B.
-    ASUTF8Val koreanStr_U32B[] {
+    ASUTF8Val koreanStr_U32B[] = {
             0x00, 0x00, 0xC1, 0x38, 0x00, 0x00, 0x00, 0x20,
             0x00, 0x00, 0xAC, 0xC4, 0x00, 0x00, 0x00, 0x20,
             0x00, 0x00, 0xC7, 0x78, 0x00, 0x00, 0x00, 0x20,
@@ -114,9 +114,9 @@ int main(int argc, char** argv)
         PDEFont myunVFont, myunHFont;                                                                               //For Myungjo, which we'll use for the Korean Text.
 
         //These arrays will be used to initialize our fonts. Each column here is for one font.
-        const char *fontNames[] {"CourierStd",   "KozGoPr6N-Medium",   "AdobeMyungjoStd-Medium"};                   //These fonts should all be included with your PDFL distribution.
-        PDEFont       *fontsV[] {&courVFont,     &kozgVFont,           &myunVFont              };                   //The vertical form of the font.
-        PDEFont       *fontsH[] {&courHFont,     &kozgHFont,           &myunHFont              };                   //The horizontal form of the font.
+        const char *fontNames[] = {"CourierStd",   "KozGoPr6N-Medium",   "AdobeMyungjoStd-Medium"};                   //These fonts should all be included with your PDFL distribution.
+        PDEFont       *fontsV[] = {&courVFont,     &kozgVFont,           &myunVFont              };                   //The vertical form of the font.
+        PDEFont       *fontsH[] = {&courHFont,     &kozgHFont,           &myunHFont              };                   //The horizontal form of the font.
 
         //These properties are common to all fonts, so are specified out here before the initialization loop.
         PDSysEncoding  iHEnc = PDSysEncodingCreateFromCMapName(ASAtomFromString("Identity-H"));                     //The system encoding used to translate code points to font GIDs for horizontally-texts.
@@ -170,7 +170,7 @@ int main(int argc, char** argv)
         };
 
         //This array associates each ASText object with the vertical (V) and horizontal (H) fonts we want to use for it. This is the order they will be drawn in.
-        textAndFont textsAndFonts[] {
+        textAndFont textsAndFonts[] = {
             { &enAST, &enTTL, &courHFont, &courVFont},                                                                  //The English ASText and associated fonts.
             { &jnAST, &jnTTL, &kozgHFont, &kozgVFont},                                                                  //Japanese...
             { &frAST, &frTTL, &courHFont, &courVFont},                                                                  //French...

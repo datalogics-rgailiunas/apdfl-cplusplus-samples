@@ -13,6 +13,14 @@
 			buildPhases = (
 			);
 			dependencies = (
+				2E79A5DD1C909AEB0087ECBC /* PBXTargetDependency */,
+				2E79A5B61C909A230087ECBC /* PBXTargetDependency */,
+				2E79A5901C9098180087ECBC /* PBXTargetDependency */,
+				2E79A56B1C907C750087ECBC /* PBXTargetDependency */,
+				2E79A5471C90723C0087ECBC /* PBXTargetDependency */,
+				2E79A5241C906E840087ECBC /* PBXTargetDependency */,
+				2E79A5001C906BC40087ECBC /* PBXTargetDependency */,
+				2E79A5021C906BC40087ECBC /* PBXTargetDependency */,
 				2E79A4531C8F637B0087ECBC /* PBXTargetDependency */,
 				2E79A4B41C8F84200087ECBC /* PBXTargetDependency */,
 				2E79A4351C8F5FF50087ECBC /* PBXTargetDependency */,
@@ -380,6 +388,118 @@
 			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
 			remoteInfo = FlattenTransparency;
 		};
+		2E79A4DD1C9069D10087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A4D91C9069D00087ECBC /* MergeDocuments.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = MergeDocuments;
+		};
+		2E79A4FD1C906BB40087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A4F81C906BB40087ECBC /* OpenEncrypted.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = OpenEncrypted;
+		};
+		2E79A4FF1C906BC40087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A4F81C906BB40087ECBC /* OpenEncrypted.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = OpenEncrypted;
+		};
+		2E79A5011C906BC40087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A4D91C9069D00087ECBC /* MergeDocuments.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = MergeDocuments;
+		};
+		2E79A5211C906E7E0087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A51D1C906E7E0087ECBC /* RasterizeCopy.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = RasterizeCopy;
+		};
+		2E79A5231C906E840087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A51D1C906E7E0087ECBC /* RasterizeCopy.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = RasterizeCopy;
+		};
+		2E79A5441C9072350087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A5401C9072350087ECBC /* SetUniquePermissions.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = SetUniquePermissions;
+		};
+		2E79A5461C90723C0087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A5401C9072350087ECBC /* SetUniquePermissions.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = SetUniquePermissions;
+		};
+		2E79A5681C907C700087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A5641C907C700087ECBC /* SplitPDF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = SplitPDF;
+		};
+		2E79A56A1C907C750087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A5641C907C700087ECBC /* SplitPDF.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = SplitPDF;
+		};
+		2E79A58D1C9098130087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A5891C9098130087ECBC /* TextSearch.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = TextSearch;
+		};
+		2E79A58F1C9098180087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A5891C9098130087ECBC /* TextSearch.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = TextSearch;
+		};
+		2E79A5B31C909A1E0087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A5AF1C909A1E0087ECBC /* UnicodeText.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = UnicodeText;
+		};
+		2E79A5B51C909A230087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A5AF1C909A1E0087ECBC /* UnicodeText.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = UnicodeText;
+		};
+		2E79A5DA1C909AE50087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A5D61C909AE40087ECBC /* WebOptimizedPDF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = WebOptimizedPDF;
+		};
+		2E79A5DC1C909AEB0087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A5D61C909AE40087ECBC /* WebOptimizedPDF.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = WebOptimizedPDF;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -407,6 +527,14 @@
 		2E79A42E1C8F5FEB0087ECBC /* FlattenAnnotations.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FlattenAnnotations.xcodeproj; path = ../FlattenAnnotations/FlattenAnnotations.xcodeproj; sourceTree = "<group>"; };
 		2E79A44C1C8F63720087ECBC /* LockDocument.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LockDocument.xcodeproj; path = ../LockDocument/LockDocument.xcodeproj; sourceTree = "<group>"; };
 		2E79A4AD1C8F840A0087ECBC /* FlattenTransparency.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FlattenTransparency.xcodeproj; path = ../FlattenTransparency/FlattenTransparency.xcodeproj; sourceTree = "<group>"; };
+		2E79A4D91C9069D00087ECBC /* MergeDocuments.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MergeDocuments.xcodeproj; path = ../MergeDocuments/MergeDocuments.xcodeproj; sourceTree = "<group>"; };
+		2E79A4F81C906BB40087ECBC /* OpenEncrypted.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OpenEncrypted.xcodeproj; path = ../OpenEncrypted/OpenEncrypted.xcodeproj; sourceTree = "<group>"; };
+		2E79A51D1C906E7E0087ECBC /* RasterizeCopy.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RasterizeCopy.xcodeproj; path = ../RasterizeCopy/RasterizeCopy.xcodeproj; sourceTree = "<group>"; };
+		2E79A5401C9072350087ECBC /* SetUniquePermissions.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SetUniquePermissions.xcodeproj; path = ../SetUniquePermissions/SetUniquePermissions.xcodeproj; sourceTree = "<group>"; };
+		2E79A5641C907C700087ECBC /* SplitPDF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SplitPDF.xcodeproj; path = ../SplitPDF/SplitPDF.xcodeproj; sourceTree = "<group>"; };
+		2E79A5891C9098130087ECBC /* TextSearch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TextSearch.xcodeproj; path = ../TextSearch/TextSearch.xcodeproj; sourceTree = "<group>"; };
+		2E79A5AF1C909A1E0087ECBC /* UnicodeText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UnicodeText.xcodeproj; path = ../UnicodeText/UnicodeText.xcodeproj; sourceTree = "<group>"; };
+		2E79A5D61C909AE40087ECBC /* WebOptimizedPDF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WebOptimizedPDF.xcodeproj; path = ../WebOptimizedPDF/WebOptimizedPDF.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -602,9 +730,81 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2E79A4DA1C9069D00087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A4DE1C9069D10087ECBC /* MergeDocuments-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A4F91C906BB40087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A4FE1C906BB40087ECBC /* OpenEncrypted-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A51E1C906E7E0087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A5221C906E7E0087ECBC /* RasterizeCopy-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A5411C9072350087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A5451C9072350087ECBC /* SetUniquePermissions-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A5651C907C700087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A5691C907C700087ECBC /* SplitPDF-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A58A1C9098130087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A58E1C9098130087ECBC /* TextSearch-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A5B01C909A1E0087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A5B41C909A1E0087ECBC /* UnicodeText-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A5D71C909AE40087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A5DB1C909AE50087ECBC /* WebOptimizedPDF-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		BAAE8A280ADC6237005A7834 = {
 			isa = PBXGroup;
 			children = (
+				2E79A5D61C909AE40087ECBC /* WebOptimizedPDF.xcodeproj */,
+				2E79A5AF1C909A1E0087ECBC /* UnicodeText.xcodeproj */,
+				2E79A5891C9098130087ECBC /* TextSearch.xcodeproj */,
+				2E79A5641C907C700087ECBC /* SplitPDF.xcodeproj */,
+				2E79A5401C9072350087ECBC /* SetUniquePermissions.xcodeproj */,
+				2E79A51D1C906E7E0087ECBC /* RasterizeCopy.xcodeproj */,
+				2E79A4F81C906BB40087ECBC /* OpenEncrypted.xcodeproj */,
+				2E79A4D91C9069D00087ECBC /* MergeDocuments.xcodeproj */,
 				2E79A44C1C8F63720087ECBC /* LockDocument.xcodeproj */,
 				2E79A4AD1C8F840A0087ECBC /* FlattenTransparency.xcodeproj */,
 				2E79A42E1C8F5FEB0087ECBC /* FlattenAnnotations.xcodeproj */,
@@ -748,6 +948,38 @@
 				{
 					ProductGroup = 2E79A44D1C8F63720087ECBC /* Products */;
 					ProjectRef = 2E79A44C1C8F63720087ECBC /* LockDocument.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A4DA1C9069D00087ECBC /* Products */;
+					ProjectRef = 2E79A4D91C9069D00087ECBC /* MergeDocuments.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A4F91C906BB40087ECBC /* Products */;
+					ProjectRef = 2E79A4F81C906BB40087ECBC /* OpenEncrypted.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A51E1C906E7E0087ECBC /* Products */;
+					ProjectRef = 2E79A51D1C906E7E0087ECBC /* RasterizeCopy.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A5411C9072350087ECBC /* Products */;
+					ProjectRef = 2E79A5401C9072350087ECBC /* SetUniquePermissions.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A5651C907C700087ECBC /* Products */;
+					ProjectRef = 2E79A5641C907C700087ECBC /* SplitPDF.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A58A1C9098130087ECBC /* Products */;
+					ProjectRef = 2E79A5891C9098130087ECBC /* TextSearch.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A5B01C909A1E0087ECBC /* Products */;
+					ProjectRef = 2E79A5AF1C909A1E0087ECBC /* UnicodeText.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A5D71C909AE40087ECBC /* Products */;
+					ProjectRef = 2E79A5D61C909AE40087ECBC /* WebOptimizedPDF.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -926,6 +1158,62 @@
 			remoteRef = 2E79A4B11C8F840A0087ECBC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		2E79A4DE1C9069D10087ECBC /* MergeDocuments-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "MergeDocuments-Debug.app";
+			remoteRef = 2E79A4DD1C9069D10087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A4FE1C906BB40087ECBC /* OpenEncrypted-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "OpenEncrypted-Debug.app";
+			remoteRef = 2E79A4FD1C906BB40087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A5221C906E7E0087ECBC /* RasterizeCopy-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "RasterizeCopy-Debug.app";
+			remoteRef = 2E79A5211C906E7E0087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A5451C9072350087ECBC /* SetUniquePermissions-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "SetUniquePermissions-Debug.app";
+			remoteRef = 2E79A5441C9072350087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A5691C907C700087ECBC /* SplitPDF-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "SplitPDF-Debug.app";
+			remoteRef = 2E79A5681C907C700087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A58E1C9098130087ECBC /* TextSearch-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "TextSearch-Debug.app";
+			remoteRef = 2E79A58D1C9098130087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A5B41C909A1E0087ECBC /* UnicodeText-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "UnicodeText-Debug.app";
+			remoteRef = 2E79A5B31C909A1E0087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A5DB1C909AE50087ECBC /* WebOptimizedPDF-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "WebOptimizedPDF-Debug.app";
+			remoteRef = 2E79A5DA1C909AE50087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXTargetDependency section */
@@ -1048,6 +1336,46 @@
 			isa = PBXTargetDependency;
 			name = FlattenTransparency;
 			targetProxy = 2E79A4B31C8F84200087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A5001C906BC40087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = OpenEncrypted;
+			targetProxy = 2E79A4FF1C906BC40087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A5021C906BC40087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MergeDocuments;
+			targetProxy = 2E79A5011C906BC40087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A5241C906E840087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RasterizeCopy;
+			targetProxy = 2E79A5231C906E840087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A5471C90723C0087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SetUniquePermissions;
+			targetProxy = 2E79A5461C90723C0087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A56B1C907C750087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SplitPDF;
+			targetProxy = 2E79A56A1C907C750087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A5901C9098180087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TextSearch;
+			targetProxy = 2E79A58F1C9098180087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A5B61C909A230087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = UnicodeText;
+			targetProxy = 2E79A5B51C909A230087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A5DD1C909AEB0087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = WebOptimizedPDF;
+			targetProxy = 2E79A5DC1C909AEB0087ECBC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

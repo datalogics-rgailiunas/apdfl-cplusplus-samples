@@ -137,5 +137,44 @@ cd ../LockDocument
 ./LockDocument-${stage}.app/Contents/MacOS/LockDocument-${stage}
 echo ""
 
+echo Running sample MergeDocuments
+cd ../MergeDocuments
+./MergeDocuments-${stage}.app/Contents/MacOS/MergeDocuments-${stage}
+echo ""
+
+echo Running sample OpenEncrypted
+cd ../OpenEncrypted
+./OpenEncrypted-${stage}.app/Contents/MacOS/OpenEncrypted-${stage}
+echo ""
+
+echo Running sample RasterizeCopy
+cd ../RasterizeCopy
+./RasterizeCopy-${stage}.app/Contents/MacOS/RasterizeCopy-${stage}
+echo ""
+
+echo Running sample SetUniquePermissions
+cd ../SetUniquePermissions
+./SetUniquePermissions-${stage}.app/Contents/MacOS/SetUniquePermissions-${stage}
+echo ""
+
+echo Running sample SplitPDF
+cd ../SplitPDF
+./SplitPDF-${stage}.app/Contents/MacOS/SplitPDF-${stage}
+echo ""
+
+echo Running sample TextSearch
+cd ../TextSearch
+./TextSearch-${stage}.app/Contents/MacOS/TextSearch-${stage}
+echo ""
+
+echo Running sample UnicodeText
+cd ../UnicodeText
+./UnicodeText-${stage}.app/Contents/MacOS/UnicodeText-${stage}
+echo ""
+
+echo Running sample WebOptimizedPDF
+cd ../WebOptimizedPDF
+./WebOptimizedPDF-${stage}.app/Contents/MacOS/WebOptimizedPDF-${stage}
+echo ""
 echo All Datalogics samples are finished running.
 
