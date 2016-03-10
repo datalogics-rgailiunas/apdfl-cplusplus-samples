@@ -1,0 +1,625 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		BAAE8A360ADC6251005A7834 /* All_Datalogics */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = BAAE8A370ADC6255005A7834 /* Build configuration list for PBXAggregateTarget "All_Datalogics" */;
+			buildPhases = (
+			);
+			dependencies = (
+				2E21C1EF1C8E0AFE00018A6D /* PBXTargetDependency */,
+				2E21C1DA1C8E0AD900018A6D /* PBXTargetDependency */,
+				2E21C1C61C8E0AAD00018A6D /* PBXTargetDependency */,
+				2E21C1A01C8E055100018A6D /* PBXTargetDependency */,
+				2E21C0F71C8DFD1500018A6D /* PBXTargetDependency */,
+				2E21C0E61C8DFBFB00018A6D /* PBXTargetDependency */,
+				2E21C0D01C8DF3EE00018A6D /* PBXTargetDependency */,
+				2E21C0C11C8DF22D00018A6D /* PBXTargetDependency */,
+				2E21C0B01C8DEAD500018A6D /* PBXTargetDependency */,
+				2E21C0951C8DDB4D00018A6D /* PBXTargetDependency */,
+				2E21C0811C8DD68E00018A6D /* PBXTargetDependency */,
+				2E5E09A31C8A1D5900098602 /* PBXTargetDependency */,
+			);
+			name = All_Datalogics;
+			productName = All_Datalogics_debug;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXContainerItemProxy section */
+		2E21C07C1C8DD57000018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0781C8DD57000018A6D /* AddArt.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddArt;
+		};
+		2E21C0801C8DD68E00018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0781C8DD57000018A6D /* AddArt.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddArt;
+		};
+		2E21C08F1C8DDAA900018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C08B1C8DDAA900018A6D /* AddBookmarks.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddBookmarks;
+		};
+		2E21C0941C8DDB4D00018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C08B1C8DDAA900018A6D /* AddBookmarks.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddBookmarks;
+		};
+		2E21C0AD1C8DEAC500018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0A91C8DEAC500018A6D /* AddContent.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddContent;
+		};
+		2E21C0AF1C8DEAD500018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0A91C8DEAC500018A6D /* AddContent.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddContent;
+		};
+		2E21C0B91C8DF1DF00018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0B51C8DF1DF00018A6D /* AddDocumentInformation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddDocumentInformation;
+		};
+		2E21C0C01C8DF22D00018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0B51C8DF1DF00018A6D /* AddDocumentInformation.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddDocumentInformation;
+		};
+		2E21C0C71C8DF3B500018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0C31C8DF3B500018A6D /* AddLinks.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddLinks;
+		};
+		2E21C0CF1C8DF3EE00018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0C31C8DF3B500018A6D /* AddLinks.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddLinks;
+		};
+		2E21C0DC1C8DFBC400018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0D81C8DFBC400018A6D /* AddPageNumbers.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddPageNumbers;
+		};
+		2E21C0E51C8DFBFB00018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0D81C8DFBC400018A6D /* AddPageNumbers.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddPageNumbers;
+		};
+		2E21C0EC1C8DFCE100018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0E81C8DFCE100018A6D /* AddPassword.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddPassword;
+		};
+		2E21C0F61C8DFD1500018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0E81C8DFCE100018A6D /* AddPassword.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddPassword;
+		};
+		2E21C1941C8E052A00018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C1901C8E052A00018A6D /* AddRedaction.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddRedaction;
+		};
+		2E21C19F1C8E055100018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C1901C8E052A00018A6D /* AddRedaction.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddRedaction;
+		};
+		2E21C1AF1C8E0A4E00018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C1AB1C8E0A4D00018A6D /* CopyContent.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = CopyContent;
+		};
+		2E21C1C51C8E0AAD00018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C1AB1C8E0A4D00018A6D /* CopyContent.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = CopyContent;
+		};
+		2E21C1CC1C8E0AB800018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C1C81C8E0AB800018A6D /* AddWatermark.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddWatermark;
+		};
+		2E21C1D91C8E0AD900018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C1C81C8E0AB800018A6D /* AddWatermark.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddWatermark;
+		};
+		2E21C1E01C8E0AE300018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C1DC1C8E0AE300018A6D /* AddText.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddText;
+		};
+		2E21C1EE1C8E0AFE00018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C1DC1C8E0AE300018A6D /* AddText.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddText;
+		};
+		2E5E09A01C8A1D3F00098602 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddAttachments;
+		};
+		2E5E09A21C8A1D5900098602 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddAttachments;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2E21C0781C8DD57000018A6D /* AddArt.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddArt.xcodeproj; path = ../AddArt/AddArt.xcodeproj; sourceTree = "<group>"; };
+		2E21C08B1C8DDAA900018A6D /* AddBookmarks.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddBookmarks.xcodeproj; path = ../AddBookmarks/AddBookmarks.xcodeproj; sourceTree = "<group>"; };
+		2E21C0A91C8DEAC500018A6D /* AddContent.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddContent.xcodeproj; path = ../AddContent/AddContent.xcodeproj; sourceTree = "<group>"; };
+		2E21C0B51C8DF1DF00018A6D /* AddDocumentInformation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddDocumentInformation.xcodeproj; path = ../AddDocumentInformation/AddDocumentInformation.xcodeproj; sourceTree = "<group>"; };
+		2E21C0C31C8DF3B500018A6D /* AddLinks.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddLinks.xcodeproj; path = ../AddLinks/AddLinks.xcodeproj; sourceTree = "<group>"; };
+		2E21C0D81C8DFBC400018A6D /* AddPageNumbers.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddPageNumbers.xcodeproj; path = ../AddPageNumbers/AddPageNumbers.xcodeproj; sourceTree = "<group>"; };
+		2E21C0E81C8DFCE100018A6D /* AddPassword.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddPassword.xcodeproj; path = ../AddPassword/AddPassword.xcodeproj; sourceTree = "<group>"; };
+		2E21C1901C8E052A00018A6D /* AddRedaction.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddRedaction.xcodeproj; path = ../AddRedaction/AddRedaction.xcodeproj; sourceTree = "<group>"; };
+		2E21C1AB1C8E0A4D00018A6D /* CopyContent.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CopyContent.xcodeproj; path = ../CopyContent/CopyContent.xcodeproj; sourceTree = "<group>"; };
+		2E21C1C81C8E0AB800018A6D /* AddWatermark.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddWatermark.xcodeproj; path = ../AddWatermark/AddWatermark.xcodeproj; sourceTree = "<group>"; };
+		2E21C1DC1C8E0AE300018A6D /* AddText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddText.xcodeproj; path = ../AddText/AddText.xcodeproj; sourceTree = "<group>"; };
+		2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddAttachments.xcodeproj; path = ../AddAttachments/AddAttachments.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		2E21C0791C8DD57000018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C07D1C8DD57000018A6D /* AddArt-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E21C08C1C8DDAA900018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C0901C8DDAA900018A6D /* AddBookmarks-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E21C0AA1C8DEAC500018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C0AE1C8DEAC500018A6D /* AddContent-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E21C0B61C8DF1DF00018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C0BA1C8DF1DF00018A6D /* AddDocumentInformation-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E21C0C41C8DF3B500018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C0C81C8DF3B500018A6D /* AddLinks-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E21C0D91C8DFBC400018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C0DD1C8DFBC400018A6D /* AddPageNumbers-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E21C0E91C8DFCE100018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C0ED1C8DFCE100018A6D /* AddPassword-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E21C1911C8E052A00018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C1951C8E052A00018A6D /* AddRedaction-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E21C1AC1C8E0A4D00018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C1B01C8E0A4E00018A6D /* CopyContent-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E21C1C91C8E0AB800018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C1CD1C8E0AB800018A6D /* AddWatermark-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E21C1DD1C8E0AE300018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C1E11C8E0AE300018A6D /* AddText-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E5E099D1C8A1D3F00098602 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E5E09A11C8A1D3F00098602 /* AddAttachments-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BAAE8A280ADC6237005A7834 = {
+			isa = PBXGroup;
+			children = (
+				2E21C1DC1C8E0AE300018A6D /* AddText.xcodeproj */,
+				2E21C1C81C8E0AB800018A6D /* AddWatermark.xcodeproj */,
+				2E21C1AB1C8E0A4D00018A6D /* CopyContent.xcodeproj */,
+				2E21C1901C8E052A00018A6D /* AddRedaction.xcodeproj */,
+				2E21C0E81C8DFCE100018A6D /* AddPassword.xcodeproj */,
+				2E21C0D81C8DFBC400018A6D /* AddPageNumbers.xcodeproj */,
+				2E21C0C31C8DF3B500018A6D /* AddLinks.xcodeproj */,
+				2E21C0B51C8DF1DF00018A6D /* AddDocumentInformation.xcodeproj */,
+				2E21C0A91C8DEAC500018A6D /* AddContent.xcodeproj */,
+				2E21C08B1C8DDAA900018A6D /* AddBookmarks.xcodeproj */,
+				2E21C0781C8DD57000018A6D /* AddArt.xcodeproj */,
+				2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		BAAE8A2A0ADC6237005A7834 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+			};
+			buildConfigurationList = BAAE8A2B0ADC6237005A7834 /* Build configuration list for PBXProject "All_Datalogics" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = BAAE8A280ADC6237005A7834;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 2E21C0791C8DD57000018A6D /* Products */;
+					ProjectRef = 2E21C0781C8DD57000018A6D /* AddArt.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E5E099D1C8A1D3F00098602 /* Products */;
+					ProjectRef = 2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E21C08C1C8DDAA900018A6D /* Products */;
+					ProjectRef = 2E21C08B1C8DDAA900018A6D /* AddBookmarks.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E21C0AA1C8DEAC500018A6D /* Products */;
+					ProjectRef = 2E21C0A91C8DEAC500018A6D /* AddContent.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E21C0B61C8DF1DF00018A6D /* Products */;
+					ProjectRef = 2E21C0B51C8DF1DF00018A6D /* AddDocumentInformation.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E21C0C41C8DF3B500018A6D /* Products */;
+					ProjectRef = 2E21C0C31C8DF3B500018A6D /* AddLinks.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E21C0D91C8DFBC400018A6D /* Products */;
+					ProjectRef = 2E21C0D81C8DFBC400018A6D /* AddPageNumbers.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E21C0E91C8DFCE100018A6D /* Products */;
+					ProjectRef = 2E21C0E81C8DFCE100018A6D /* AddPassword.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E21C1911C8E052A00018A6D /* Products */;
+					ProjectRef = 2E21C1901C8E052A00018A6D /* AddRedaction.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E21C1DD1C8E0AE300018A6D /* Products */;
+					ProjectRef = 2E21C1DC1C8E0AE300018A6D /* AddText.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E21C1C91C8E0AB800018A6D /* Products */;
+					ProjectRef = 2E21C1C81C8E0AB800018A6D /* AddWatermark.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E21C1AC1C8E0A4D00018A6D /* Products */;
+					ProjectRef = 2E21C1AB1C8E0A4D00018A6D /* CopyContent.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				BAAE8A360ADC6251005A7834 /* All_Datalogics */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		2E21C07D1C8DD57000018A6D /* AddArt-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddArt-Debug.app";
+			remoteRef = 2E21C07C1C8DD57000018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E21C0901C8DDAA900018A6D /* AddBookmarks-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddBookmarks-Debug.app";
+			remoteRef = 2E21C08F1C8DDAA900018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E21C0AE1C8DEAC500018A6D /* AddContent-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddContent-Debug.app";
+			remoteRef = 2E21C0AD1C8DEAC500018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E21C0BA1C8DF1DF00018A6D /* AddDocumentInformation-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddDocumentInformation-Debug.app";
+			remoteRef = 2E21C0B91C8DF1DF00018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E21C0C81C8DF3B500018A6D /* AddLinks-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddLinks-Debug.app";
+			remoteRef = 2E21C0C71C8DF3B500018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E21C0DD1C8DFBC400018A6D /* AddPageNumbers-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddPageNumbers-Debug.app";
+			remoteRef = 2E21C0DC1C8DFBC400018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E21C0ED1C8DFCE100018A6D /* AddPassword-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddPassword-Debug.app";
+			remoteRef = 2E21C0EC1C8DFCE100018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E21C1951C8E052A00018A6D /* AddRedaction-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddRedaction-Debug.app";
+			remoteRef = 2E21C1941C8E052A00018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E21C1B01C8E0A4E00018A6D /* CopyContent-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "CopyContent-Debug.app";
+			remoteRef = 2E21C1AF1C8E0A4E00018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E21C1CD1C8E0AB800018A6D /* AddWatermark-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddWatermark-Debug.app";
+			remoteRef = 2E21C1CC1C8E0AB800018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E21C1E11C8E0AE300018A6D /* AddText-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddText-Debug.app";
+			remoteRef = 2E21C1E01C8E0AE300018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E5E09A11C8A1D3F00098602 /* AddAttachments-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddAttachments-Debug.app";
+			remoteRef = 2E5E09A01C8A1D3F00098602 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXTargetDependency section */
+		2E21C0811C8DD68E00018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddArt;
+			targetProxy = 2E21C0801C8DD68E00018A6D /* PBXContainerItemProxy */;
+		};
+		2E21C0951C8DDB4D00018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddBookmarks;
+			targetProxy = 2E21C0941C8DDB4D00018A6D /* PBXContainerItemProxy */;
+		};
+		2E21C0B01C8DEAD500018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddContent;
+			targetProxy = 2E21C0AF1C8DEAD500018A6D /* PBXContainerItemProxy */;
+		};
+		2E21C0C11C8DF22D00018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddDocumentInformation;
+			targetProxy = 2E21C0C01C8DF22D00018A6D /* PBXContainerItemProxy */;
+		};
+		2E21C0D01C8DF3EE00018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddLinks;
+			targetProxy = 2E21C0CF1C8DF3EE00018A6D /* PBXContainerItemProxy */;
+		};
+		2E21C0E61C8DFBFB00018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddPageNumbers;
+			targetProxy = 2E21C0E51C8DFBFB00018A6D /* PBXContainerItemProxy */;
+		};
+		2E21C0F71C8DFD1500018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddPassword;
+			targetProxy = 2E21C0F61C8DFD1500018A6D /* PBXContainerItemProxy */;
+		};
+		2E21C1A01C8E055100018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddRedaction;
+			targetProxy = 2E21C19F1C8E055100018A6D /* PBXContainerItemProxy */;
+		};
+		2E21C1C61C8E0AAD00018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CopyContent;
+			targetProxy = 2E21C1C51C8E0AAD00018A6D /* PBXContainerItemProxy */;
+		};
+		2E21C1DA1C8E0AD900018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddWatermark;
+			targetProxy = 2E21C1D91C8E0AD900018A6D /* PBXContainerItemProxy */;
+		};
+		2E21C1EF1C8E0AFE00018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddText;
+			targetProxy = 2E21C1EE1C8E0AFE00018A6D /* PBXContainerItemProxy */;
+		};
+		2E5E09A31C8A1D5900098602 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddAttachments;
+			targetProxy = 2E5E09A21C8A1D5900098602 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		9C164A3F0BDE66AF00FDC29A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = All_Datalogics_debug;
+			};
+			name = Release;
+		};
+		9C164A400BDE66AF00FDC29A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = /../../Libs;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		BAAE8A2C0ADC6237005A7834 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = /../../Libs;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		BAAE8A380ADC6255005A7834 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = All_Datalogics_debug;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BAAE8A2B0ADC6237005A7834 /* Build configuration list for PBXProject "All_Datalogics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BAAE8A2C0ADC6237005A7834 /* Debug */,
+				9C164A400BDE66AF00FDC29A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BAAE8A370ADC6255005A7834 /* Build configuration list for PBXAggregateTarget "All_Datalogics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BAAE8A380ADC6255005A7834 /* Debug */,
+				9C164A3F0BDE66AF00FDC29A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BAAE8A2A0ADC6237005A7834 /* Project object */;
+}

@@ -53,7 +53,10 @@ int main(int argc, char** argv)
     ////////////////////////////
     //Display options.        //
     ////////////////////////////
-    watermarkOptions.targetRange  = {0,1,PDAllPages};                    //A list-initialized PDPageRange. The first page to watermark is 0, the last page is 1, and we'll add a watermark to every page in the range.
+	PDPageRange	placeHolder = {0, 1, PDAllPages};
+	watermarkOptions.targetRange = placeHolder;							 //A list-initialized PDPageRange. The first page to watermark is 0, the last page is 1, and we'll add a watermark to every page in the range.
+
+
     watermarkOptions.zOrderTop    = false;                               //Watermarks will be added to the background of the page, not on top.
     
     watermarkOptions.showOnScreen = true;                                //Watermarks will be visible in a PDF viewer...
