@@ -25,7 +25,7 @@ INCDIRS = -I. -I$(INCLUDE) -I$(DLI_INCLUDE) -I$(UTIL) -I$(COMMON)
 
 
 $(SAMPNAME) : $(COMMON_OBJS) $(OTHER_OBJS)
-	$(LD) -o $@ $(COMMON_OBJS) $(OTHER_OBJS) $(LDFLAGS) $(LIBS) $(EXTRA_LIBS)
+	$(CXX) -o $@ $(COMMON_OBJS) $(OTHER_OBJS) $(LDFLAGS) $(LIBS) $(EXTRA_LIBS)
 
 ##
 # The files have the source and object in different directories, explicit rules
@@ -45,4 +45,5 @@ APDFLDoc.o : $(COMMON)/APDFLDoc.cpp
 	$(CXX) $(INCDIRS) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	rm -f *.o $(UTIL)/*.o core out.* $(SAMPNAME) $(CLEAN_UP_FILES)
+	rm -f *.o $(UTIL)/*.o core out.* $(SAMPNAME) 
+

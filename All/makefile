@@ -9,15 +9,13 @@ do_pdfl_samples: build_pdfl_samples run_pdfl_samples
 
 SAMPLES = AddAttachments
 
-# DLADD kam 20Apr2007 set -e causes build to fail on the first sample that fails
 build_pdfl_samples:
 	set -e; \
 	export; \
-	cd ..; \
 	for target in $(SAMPLES); do \
-		cd $$target;gmake;cd ..; \
-	done; \
-	cd All
+		(cd ../$$target && gmake); \
+	done;
+
 
 # Library paths for running samples
 ifeq ($(OS), i80386linux)
@@ -38,21 +36,19 @@ run_pdfl_samples:
 	export LIBPATH=$(LIBPATHS):$$LIBPATH; \
 	export SHLIB_PATH=$(LIBPATHS):$$SHLIB_PATH; \
 	export; \
-	cd ..; \
+	#cd ..;\
 	for target in $(SAMPLES); do \
 		echo "Running DL Sample $$target"; \
-		cd $$target;./$$target $(REDIRECT) ;cd ..;\
+		(cd ../$$target && (./$$target $(REDIRECT))) ;\
+		#cd $$target;./$$target $(REDIRECT) ;cd ..;\
 		echo ; \
 	done; \
 	echo ; \
-	cd All
+	#cd All
 
 clean:
-	rm -f *.o *.out out.* ../utils/*.o; \
-	rm -rf ../MTInMemFS/outPath ../MTSerialNums/outDir; \
-	cd ..; \
+	rm -f *.o *.out out.* ../dlutils/*.o; \
 	for target in $(SAMPLES); do \
-		cd $$target; gmake clean; cd ..; \
-	done; \
-	cd All
+		(cd ../$$target && gmake clean); \
+	done;
 
