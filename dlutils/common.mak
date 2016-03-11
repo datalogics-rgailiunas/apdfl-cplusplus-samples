@@ -21,7 +21,7 @@ include ../../../APDFL/Samples/All/paths.rel
 
 default: $(SAMPNAME)
 
-INCDIRS = -I. -I$(INCLUDE) -I$(DLI_INCLUDE) -I$(UTIL) -I$(COMMON)
+CPPFLAGS = -I. -I$(INCLUDE) -I$(DLI_INCLUDE) -I$(UTIL) -I$(COMMON)
 
 
 $(SAMPNAME) : $(COMMON_OBJS) $(OTHER_OBJS)
@@ -33,17 +33,17 @@ $(SAMPNAME) : $(COMMON_OBJS) $(OTHER_OBJS)
 ##
 
 PDFLInitCommon.o : $(SOURCE)/PDFLInitCommon.c
-	$(CXX) $(INCDIRS) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 PDFLInitHFT.o : $(SOURCE)/PDFLInitHFT.c
-	$(CXX) $(INCDIRS) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 InitializeLibrary.o : $(COMMON)/InitializeLibrary.cpp
-	$(CXX) $(INCDIRS) $(CXXFLAGS) -c $< -o $@
-	
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
 APDFLDoc.o : $(COMMON)/APDFLDoc.cpp
-	$(CXX) $(INCDIRS) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	rm -f *.o $(UTIL)/*.o core out.* $(SAMPNAME) 
+	$(RM) *.o $(UTIL)/*.o core out.* $(SAMPNAME) 
 
