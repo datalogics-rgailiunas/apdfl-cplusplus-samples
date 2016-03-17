@@ -80,18 +80,18 @@ int main(int argc, char** argv)
         ASFixed rightHalfCenter_Y = pageCenter_Y;
 
         //All twelve blend modes available in APDFL.
-		char * modes[13] = {
-			"Opaque (None)",                                                          //Not a blend mode; we'll use the first page for no transparencies.
-			"Normal", "Multiply", "Screen",
-			"Overlay", "Darken", "Lighten",
-			"ColorDodge", "ColorBurn", "HardLight",
-			"SoftLight", "Difference", "Exclusion"
-		};
+        char * modes[13] = {
+            "Opaque (None)",                                                          //Not a blend mode; we'll use the first page for no transparencies.
+            "Normal", "Multiply", "Screen",
+            "Overlay", "Darken", "Lighten",
+            "ColorDodge", "ColorBurn", "HardLight",
+            "SoftLight", "Difference", "Exclusion"
+        };
 
-		std::vector<char *> blendModes(13);
-		for (int i=0; i<13; i++) {
-			blendModes[i] = modes[i];
-		}
+        std::vector<char *> blendModes(13);
+            for (int i=0; i<13; i++) {
+            blendModes[i] = modes[i];
+        }
         int NUM_PAGES = blendModes.size();                                            //A page to demonstrate each blend mode!
 
         std::wcout << L"Titling each page." << std::endl;
