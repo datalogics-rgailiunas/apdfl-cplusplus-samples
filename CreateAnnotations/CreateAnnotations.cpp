@@ -18,6 +18,7 @@
 
 #include <vector>
 #include <sstream>
+#include <math.h>
 
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
@@ -67,8 +68,9 @@ int main(int argc, char** argv)
     std::wcout << L"Creating an annotation for each." <<std::endl;
 
     int highlightColorNum = 0;                                                                                 //This will cycle between 0, 1, and 2 to cycle highlight colors.
-    for (PDEElement next : pageElements)
+    for (int i = 0; i < pageElements.size(); i++)
     {
+	    PDEElement next = pageElements[i];
         //The annotation's location. We will place the annotation where the original page element was found.
         ASFixedRect elementLoc;
         PDEElementGetBBox(next, &elementLoc);

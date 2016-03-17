@@ -7,7 +7,18 @@ endif
 do_pdfl_samples: build_pdfl_samples run_pdfl_samples
 	$(REDIRECT2)
 
-SAMPLES = AddAttachments
+SAMPLES = AddArt AddAttachments AddBookmarks \
+          AddContent AddDocumentInformation AddLinks \
+          AddPageNumbers AddPassword AddRedaction \
+          AddText AddWatermark CopyContent \
+          CreateAnnotations CreateDocument CreateLayers \
+          CreateTransparency EncryptDocument ExtractAttachments \
+ #         ExtractDocumentInfo ExtractText FindImageResolutions \
+ #         FlattenAnnotations FlattenTransparency LockDocument \
+ #         MergeDocuments OpenEncrypted RaasterizeCopy \
+ #         SetUniquePermissions SplitPDF TextSearch \
+ #         UnicodeText WebOptimizedPDF 
+
 
 build_pdfl_samples: 
 	for target in $(SAMPLES); do \
