@@ -152,12 +152,10 @@ int main(int argc, char** argv)
         PDAnnotSetTitle(annot, annotTitleStr, strlen(annotTitleStr));
 
         //Set the annotation's quadrilateral values. This will properly position a highlight annotation, and have no effect on the text annotation.
-        ASFixedQuad annotLocQuad;
-        //                  horizontal        vertical
-        annotLocQuad.bl = { elementLoc.left,  elementLoc.bottom };
-        annotLocQuad.br = { elementLoc.right, elementLoc.bottom };
-        annotLocQuad.tl = { elementLoc.left,  elementLoc.top };
-        annotLocQuad.tr = { elementLoc.right, elementLoc.top };
+        ASFixedQuad annotLocQuad = { { elementLoc.left,  elementLoc.bottom },
+						{ elementLoc.right, elementLoc.bottom },
+						{ elementLoc.left,  elementLoc.top },
+						{ elementLoc.right, elementLoc.top } };
         PDAnnotSetQuads(annot, &annotLocQuad, 1);
 
         //The annotation will be locked so that it cannot be edited again later.
