@@ -25,7 +25,6 @@
 ## ***
 ## ***   ARGUMENT      EFFECT
 ## ***   -release      Build Release configuration instead of Debug configuration.
-## ***   -64-bit       Build the 64-bit version instead of 32-bit version.
 ## ***
 ## *** Steps:
 ## *** 1) Initialize.
@@ -45,7 +44,6 @@ NUM_FAIL_RUN=0
 
 # Assume some default setting
 STAGE=Debug
-ARCH=i386
 
 for var in "$@"
 do 
@@ -53,15 +51,10 @@ do
 	then
 		STAGE=Release
 	fi
-  if [ "$var" == "-64-bit" ]
-  then
-    ARCH==x86_64
-  fi  
 done
 
 echo "Configuration: "$STAGE
-echo "Archs: "$ARCH
-xcodebuild -project All_Datalogics.xcodeproj -target All_Datalogics -configuration $STAGE -arch=$ARCH
+xcodebuild -project All_Datalogics.xcodeproj -target All_Datalogics -configuration $STAGE 
 echo $?
 if [ "$?" -eq "0" ]; then
     echo "All Sample" $STAGE $ARCH "Build Success"
