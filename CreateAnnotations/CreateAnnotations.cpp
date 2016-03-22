@@ -140,7 +140,8 @@ int main(int argc, char** argv)
         //The content string is ready. Now make its ASText to add it to the annotation.
         std::wstring annotContentStr;
         annotContentStr = annotContent.str();
-        ASText annotContentAST = ASTextFromUnicode((ASUTF16Val*)annotContentStr.c_str(), kUTF16HostEndian);
+        ASUnicodeFormat format = (sizeof(wchar_t) == 4) ? kUTF32HostEndian : kUTF16HostEndian;
+        ASText annotContentAST = ASTextFromUnicode((ASUTF16Val*)annotContentStr.c_str(), format);
 
         //The annotation must be cast to a TextAnnot to set its text content.
         PDTextAnnot textAnnot = CastToPDTextAnnot(annot);
@@ -261,7 +262,8 @@ int main(int argc, char** argv)
             extractedString << L" '" << contentBuffer << L"'";                                     //The content is placed in the output string here.
 
             //Add the text.
-            ASText extractedAST = ASTextFromUnicode((ASUTF16Val*)extractedString.str().c_str(), kUTF16HostEndian);
+            ASUnicodeFormat format = (sizeof(wchar_t) == 4) ? kUTF32HostEndian : kUTF16HostEndian;
+            ASText extractedAST = ASTextFromUnicode((ASUTF16Val*)extractedString.str().c_str(), format);
             PDETextAddASText(annotationsText, kPDETextRun, numTextAnnots - 1, extractedAST, font, &graphics, sizeof(PDEGraphicState), NULL, 0, &textLoc);
             ASTextDestroy(extractedAST);
 
