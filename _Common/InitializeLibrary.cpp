@@ -264,7 +264,31 @@ void APDFLib::fillDirectories()
 	pdflData.pluginDirList = (char**)pluginDirList;
 	pdflData.pluginDirListLen = NUM_PLUGIN_DIRS;
 #endif
+#ifdef UNIX_PLATFORM
+#define MAX_PATH 1000
+	const unsigned int NO_OF_RESOURCE_DIR = 2;
+	const char* SUB_RESOURCE_DIR[ NO_OF_RESOURCE_DIR ] = { "Font", "CMap" };
 
+	//Set the font directory list and its length.
+	fontDirList[0] = (ASUTF16Val*)"../../../APDFL/Resource/Font";
+	fontDirList[1] = (ASUTF16Val*)"../../../APDFL/Resource/CMap";
+	pdflData.dirList = (char**)fontDirList;
+	pdflData.listLen = NUM_FONTS;
+
+	//Set the color profile directory list and its length.
+	colorProfDirList[0] = (ASUTF16Val*)"../../../APDFL/Resource/Color/Profiles";
+	pdflData.colorProfileDirList = (char**)colorProfDirList;
+	pdflData.colorProfileDirListLen = NUM_COLOR_PROFS;
+
+	//Set the Unicode directory.
+	pdflData.cMapDirectory = (char*)fontDirList[1];
+	pdflData.unicodeDirectory = (char*)"../../../APDFL/Resource/Unicode";
+
+	//Set the plugin
+	pluginDirList[0] = (ASUTF16Val*)"../../../APDFL/Libs";
+	pdflData.pluginDirList = (char**)pluginDirList;
+    pdflData.pluginDirListLen = NUM_PLUGIN_DIRS;
+#endif
 }
 
 //========================================================================================================

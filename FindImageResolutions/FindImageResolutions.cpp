@@ -22,10 +22,10 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
+#include <math.h>
 #include "InitializeLibrary.h"
 #include "PERCalls.h"
-#include "PEWcalls.h"
+#include "PEWCalls.h"
 #include "PagePDECntCalls.h"
 #include "CosCalls.h"
 
