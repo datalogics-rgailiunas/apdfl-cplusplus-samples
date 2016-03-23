@@ -70,10 +70,6 @@ int main(int argc, char** argv)
     PDEGraphicState graphics;
     PDEDefaultGState(&graphics, sizeof(PDEGraphicState));
 
-    //A default graphics state with which to draw the text.
-    PDEGraphicState graphics;
-    PDEDefaultGState(&graphics, sizeof(PDEGraphicState));
-
     //This FixedMatrix will point to where each next word will be drawn.
     ASFixedMatrix nextWordLocation;
     memset(&nextWordLocation, 0, sizeof(nextWordLocation));

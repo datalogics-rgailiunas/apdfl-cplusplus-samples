@@ -26,6 +26,7 @@ APDFLib::APDFLib(wchar_t* dl150Dir)
 {
     initValid = false;                            //Whether the initialization succeeded.
 
+#ifdef WIN_PLATFORM
     if (dl150Dir == NULL)
         dl150Dir = L"..\\..\\Libs";               //The default DL150PDFL.lib directory.
 
@@ -137,6 +138,47 @@ int strncpy_safe (char *dest, size_t dest_size, const char *src, size_t n)
 	if(!dest || !src || dest_size == 0)
 		return -1;
 
+	size_t len = strnlen_safe (src, n);
+	if (len < dest_size)
+	{
+		copyChars (dest, src, len);
+		dest [len] = '\0';
+		return 0;
+	}
+	else
+	{
+		copyChars (dest, src, dest_size - 1);
+		dest [dest_size - 1] = '\0';
+		return -1;
+	}
+}
+int strcpy_safe (char *dest, size_t dest_size, const char *src)
+{
+	if(!dest || !src || dest_size == 0)
+		return -1;
+
+	return strncpy_safe (dest, dest_size, src, strlen_safe (src));
+}
+int strncat_safe (char *dest, size_t dest_size, const char *src, size_t n)
+{
+	if(!dest || !src || dest_size == 0)
+		return -1;
+
+	size_t dest_len = strnlen_safe (dest, dest_size);
+	if(dest_size <= dest_len)
+		return -1;
+
+	char *new_dest = dest + dest_len;
+	return strncpy_safe(new_dest, dest_size - dest_len, src, n);
+}
+int strcat_safe (char *dest, size_t dest_size, const char *src)
+{
+	if(!dest || !src || dest_size == 0)
+		return -1;
+
+	return strncat_safe (dest, dest_size, src, strlen_safe (src));
+}
+#endif
 
 
 //========================================================================================================
