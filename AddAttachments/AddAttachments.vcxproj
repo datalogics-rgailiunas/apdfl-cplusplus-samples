@@ -22,7 +22,7 @@
     <ProjectGuid>{5D04558C-183A-4ECC-80C8-542A9FDD72D2}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BlankSample</RootNamespace>
-    <ProjectName>AddAttachment</ProjectName>
+    <ProjectName>AddAttachments</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -157,7 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AddAttachment.cpp" />
+    <ClCompile Include="AddAttachments.cpp" />
     <ClCompile Include="..\_Common\APDFLDoc.cpp" />
     <ClCompile Include="..\_Common\InitializeLibrary.cpp" />
     <ClCompile Include="..\..\Include\Source\PDFLInitCommon.c" />
