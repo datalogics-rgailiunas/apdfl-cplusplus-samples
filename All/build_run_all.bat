@@ -222,7 +222,7 @@ IF %DO_AD% == N SET /A "NUM_AD_SAMPLES=0"
 
 REM *** Plugin Samples.
 SET "PL_SAMPLE_LIST=("
-SET "PL_SAMPLE_LIST=%PL_SAMPLE_LIST% FlattenPDF PDFAConverter XPS2PDFConverter"
+SET "PL_SAMPLE_LIST=%PL_SAMPLE_LIST% FlattenPDF PDFProcessor XPS2PDFConverter"
 SET "PL_SAMPLE_LIST=%PL_SAMPLE_LIST%)"
 REM *** The total number of PL samples. This must be accurate!
 IF %DO_PL% == Y SET /A "NUM_PL_SAMPLES=3"
