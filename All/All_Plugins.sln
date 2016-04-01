@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlattenPDF", "..\FlattenPDF\FlattenPDF.vcxproj", "{05EDF520-C3F4-4B65-B484-A803E0AFABDC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PDFAConverter", "..\PDFAConverter\PDFAConverter.vcxproj", "{8F9CD3AC-93B2-42BC-AF28-AF4E6332A5AF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PDFProcessor", "..\PDFProcessor\PDFProcessor.vcxproj", "{8F9CD3AC-93B2-42BC-AF28-AF4E6332A5AF}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XPS2PDFConverter", "..\XPS2PDFConverter\XPS2PDFConverter.vcxproj", "{E0E51599-4F58-44DB-9B15-F8964AE3A4C4}"
 EndProject
