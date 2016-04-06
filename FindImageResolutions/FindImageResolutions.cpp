@@ -18,7 +18,7 @@
 //
 // 2) Display the list
 //========================================================================
-
+#include <stdio.h>
 #include <iostream>
 #include <vector>
 using namespace std;
