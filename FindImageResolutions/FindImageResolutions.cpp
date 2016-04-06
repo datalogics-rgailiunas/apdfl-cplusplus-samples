@@ -18,25 +18,21 @@
 //
 // 2) Display the list
 //========================================================================
-#include <stdio.h>
+
 #include <iostream>
 #include <vector>
 using namespace std;
-#include <math.h>
+
 #include "InitializeLibrary.h"
 #include "PERCalls.h"
-#include "PEWCalls.h"
+#include "PEWcalls.h"
 #include "PagePDECntCalls.h"
 #include "CosCalls.h"
 
 #include "APDFLDoc.h"
 
 // Input file to use for example
-#if WIN_PLATFORM
 wchar_t Input_File[1024] = L"..\\_Input\\FindImageResolutions.pdf";
-#else
-wchar_t Input_File[1024] = L"../_Input/FindImageResolutions.pdf";
-#endif
 
 // These values are used to calculate the rotation specified in a Matrix
 #define degrees_to_radians (3.1415926535897932385 / 180.0)
@@ -362,7 +358,7 @@ void CleanupImageList (ImageList *list)
     }
 }
 
-int main(int argc, char** argv)
+int wmain(int argc, wchar_t** argv)
 {
     APDFLib libInit;                   //Initialize the Adobe PDF Library
     ASErrorCode errCode = 0;           //Variable used to report any exceptions/errors if they occur 

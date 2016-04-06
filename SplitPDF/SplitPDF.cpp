@@ -18,7 +18,6 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include <sstream>
 #include "APDFLDoc.h"
 #include "InitializeLibrary.h"
 
@@ -74,12 +73,7 @@ int main(int argc, char** argv)
             PDDocInsertPages(*iter, PDBeforeFirstPage, document.getPDDoc(), pageIndex, 1, NULL, NULL, NULL, NULL, NULL);
 
             //Set the output file name according to the current page number.
-			//http://stackoverflow.com/questions/12975341/to-string-is-not-a-member-of-std-says-so-g
-			//known issue with certain version g++
-			std::ostringstream ss;
-			ss << pageIndex + 1;
-			std::string name = "baseDocument_Page" + ss.str() + ".pdf";
-            pageNameString.assign(name.begin(), name.end());
+            pageNameString = L"baseDocument_Page" + std::to_wstring(pageIndex + 1) + L".pdf";
 
             //Create the ASText object used to create the ASPathName object.
             outPathText = ASTextFromUnicode((ASUTF16Val*)(wchar_t*)(pageNameString.c_str()), uniFormat);

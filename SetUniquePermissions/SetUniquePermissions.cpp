@@ -37,7 +37,7 @@ int main(int argc, char** argv)
 //Step 1) Select which permissions you want to allow/deny.
 //====================================================================================================================================================================================================================================================================
 
-    std::vector<std::pair<bool, PDPerms> > permList(15);          //There are 15 permissions listed here. C++03 require a space between two righ angle brackets.
+    std::vector<std::pair<bool, PDPerms>> permList(15);          //There are 15 permissions listed here.
 
     ////////////////////////////////
     //Most Permissions            //
@@ -131,11 +131,9 @@ int main(int argc, char** argv)
 
         //Set the supplied user permissions flags.
         securityData->perms = 0x00000000;                                                  //First, default to no permissions...
-        for (int i = 0; i < 15; i++)                                  //Then bitwise OR it with all the permissions we paired with true.
-        {
-            std::pair<const bool, PDPerms> x = permList[i];
+        for (std::pair<const bool, PDPerms> x : permList)                                  //Then bitwise OR it with all the permissions we paired with true.
             if (x.first) securityData->perms |= x.second;
-        }
+
         std::cout << "New security permissions have been created...." << std::endl;
 
 //====================================================================================================================================================================================================================================================================

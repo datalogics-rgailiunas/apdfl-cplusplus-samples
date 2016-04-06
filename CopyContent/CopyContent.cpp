@@ -90,10 +90,10 @@ int main(int argc, char** argv)
 //======================================================================================================================================================================================================================
 
 #if WILL_COPY_ALL_PAGES == 0
-    for (int index=0 ; index < 4; index++)
+    for (ASInt32 i : pagesToCopy)
+    if (i < PDDocGetNumPages(inDoc) && i >= 0)                                                  //Make sure the page number is valid...
     {
-	    ASInt32 i = pagesToCopy[index];
-        if (i < PDDocGetNumPages(inDoc) && i >= 0)                                                  //Make sure the page number is valid...                       
+#else
     for (int i = 0; i < PDDocGetNumPages(inDoc); i++)
 #endif
     {
