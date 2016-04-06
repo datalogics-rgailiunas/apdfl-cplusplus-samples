@@ -57,9 +57,9 @@ int main()
         wfConfig.trustNBSpace = false;                       //Don't differentiate between breaking and non-breaking spaces.
         wfConfig.noExtCharOffset = false;                    //If client doesn't have a need for detailed character offset information set to true for improvement in efficiency.
         wfConfig.noStyleInfo = false;                        //Set to true if client doesn't have a need for style information for improvement in efficiency.
-        wfConfig.decomposeTbl = NULL;                     //Table may be used to expand unicode ligatures not in the default list.
+        wfConfig.decomposeTbl = nullptr;                     //Table may be used to expand unicode ligatures not in the default list.
         wfConfig.decomposeTblSize = 0;                       //Not using decomposeTbl, so the size is 0.
-        wfConfig.charTypeTbl = NULL;                      //Custom table to enhance word breaking quality.
+        wfConfig.charTypeTbl = nullptr;                      //Custom table to enhance word breaking quality.
         wfConfig.charTypeTblSize = 0;                        //Unused, so the size will be 0.
         wfConfig.preserveRedundantChars = false;             //May be used to preserve overlapping redundant characters in some PDF documents.
         wfConfig.disableCharReordering = false;              //Used in cases where the PDF page has heavily overlapped character bounding boxes.
@@ -95,7 +95,7 @@ int main()
 
         for (ASInt32 pageNum = 0; pageNum < (PDDocGetNumPages(document.getPDDoc()) - 1); ++pageNum)                           //Iterate through each page in the PDDoc.
         {
-            PDWordFinderAcquireWordList(wordFinder, pageNum, &pdfWordArray, NULL, NULL, &numberOfWords);                //Get all words in the PDPage specified.
+            PDWordFinderAcquireWordList(wordFinder, pageNum, &pdfWordArray, nullptr, nullptr, &numberOfWords);                //Get all words in the PDPage specified.
 
             PDPage pdPage = document.getPage(pageNum);                                                                        //Get the PDPage object for adding the highlight annotation.
 
@@ -106,18 +106,17 @@ int main()
                 ASText asTextWord = ASTextNew();                                                                              //Create a new empty ASText object.
                 PDWordGetASText(pdWord, 0, asTextWord);                                                                       //Get the ASText object from the PDWord.
                                                                                
-				ASInt32 wordLen = 0;
-				char *pdWordChar = ASTextGetPDTextCopy(asTextWord, &wordLen);
-				for (int i=0; pdWordChar[i]; i++) {
-					pdWordChar[i] = tolower(pdWordChar[i]);
-				}
+                std::wstring testString = reinterpret_cast<wchar_t *>(ASTextGetUnicodeCopy(asTextWord, kUTF16HostEndian));    //Set string equal to the word being examined.
+
+                std::transform(testString.begin(), testString.end(), testString.begin(), ::tolower);                          //Convert the test string to all lowercase letters.
+
 //===================================================================================================================================================================================
 // Step 4) Add a highlight annotation when the word is found. The Annotation's Subtype, QuadPoints and rectangle must be set in order to render the highlight annotation to the page.
 // tempQuad contains the (x,y) coordinates of the annotation where each point represents one of the corners of the quadrilateral. 
 // Note:bl stands for bottom left and tr for top right
 //===================================================================================================================================================================================
 
-                if (strstr(pdWordChar, "pirate") != NULL)                                                     //Check for any occurences of the string "pirate".
+                if (wcsstr(testString.c_str(), L"pirate") != nullptr)                                                     //Check for any occurences of the string "pirate".
                 {
                     ASFixedQuad tempQuad;
                     PDWordGetNthQuad(pdWord, 0, &tempQuad);                                                               //Obtain the PDWords quad. 

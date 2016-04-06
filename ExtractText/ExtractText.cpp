@@ -180,8 +180,7 @@ int main(int argc, char** argv)
 //=====================================================================================================================================================================================================================
 
     APDFLDoc document(L"../_Input/ExtractUnicodeText.pdf", true);                                                       //Open the input document.
-
-    std::ofstream outputFile("ExtractedUnicodeText.txt");                                                               //Create a .txt output file for text extraction.
+    std::ofstream outputFile(L"ExtractedUnicodeText.txt");                                                              //Create a .txt output file for text extraction.
 
     if (outputFile.is_open())
     {

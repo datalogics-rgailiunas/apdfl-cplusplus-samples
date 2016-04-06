@@ -1,4 +1,4 @@
-// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
+﻿// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
@@ -49,19 +49,20 @@ int main(int argc, char** argv)
         PDEFont verdanaFont = NULL;                                                           //Font element that will represent the font Verdana.
        
         memset(&attrs, 0, sizeof(attrs));                                                     //Clear out PDEFontAttrs struct.                                                                     
-        attrs.name = ASAtomFromString("CourierStd");                                             //Set font attribute's name.                                                          
-        attrs.type = ASAtomFromString("Type1");                                            //Set font attribute's type.                                         
+        attrs.name = ASAtomFromString("Verdana");                                             //Set font attribute's name.                                                          
+        attrs.type = ASAtomFromString("TrueType");                                            //Set font attribute's type.                                         
        
         PDSysFont sysFont = PDFindSysFont(&attrs, sizeof(attrs), kPDSysFontMatchFontType);    //Get the corresponding system font.
-         
+          
         PDSysFontGetAttrs(sysFont, &attrs, sizeof(PDEFontAttrs));                             //Get font embedding policy. 
+
                                                                                               //Check if font is embeddable. 
         if (attrs.cantEmbed != 0)
             std::wcerr << L"Font " << ASAtomGetString(attrs.name) << L" can not be embedded";
         else
             verdanaFont = PDEFontCreateFromSysFont(sysFont, kPDEFontCreateEmbedded);          //Create font from the system font and embed.
 
-        std::wcout << L"Created CourierStd Font. " << std::endl;
+        std::wcout << L"Created verdanaFont. " << std::endl;
 
         //Determine the needed flags for embedding and call the appropriate routines for doing so.
         PDEFontEmbedNow(verdanaFont, PDDocGetCosDoc(document.pdDoc));

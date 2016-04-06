@@ -19,7 +19,6 @@
 #define NUM_PLUGIN_DIRS 1    //The number of plugin directories we'll include during initialization.
 
 #include <iostream>
-#include <cstring>
 #include "PDFLCalls.h"
 #include "ASCalls.h"
 

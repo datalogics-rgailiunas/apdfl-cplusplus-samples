@@ -80,7 +80,7 @@ int main(int argc, char** argv)
         ASFixed rightHalfCenter_Y = pageCenter_Y;
 
         //All twelve blend modes available in APDFL.
-        char * modes[13] = {
+        std::vector<char*> blendModes {
             "Opaque (None)",                                                          //Not a blend mode; we'll use the first page for no transparencies.
             "Normal", "Multiply", "Screen",
             "Overlay", "Darken", "Lighten",
@@ -88,10 +88,6 @@ int main(int argc, char** argv)
             "SoftLight", "Difference", "Exclusion"
         };
 
-        std::vector<char *> blendModes(13);
-            for (int i=0; i<13; i++) {
-            blendModes[i] = modes[i];
-        }
         int NUM_PAGES = blendModes.size();                                            //A page to demonstrate each blend mode!
 
         std::wcout << L"Titling each page." << std::endl;
@@ -167,8 +163,8 @@ int main(int argc, char** argv)
 
         //Now we want to define how the shapes will be positioned relative to each other, by making position deltas (or vectors, if you prefer) for each.
         //                                     shape 1                      shape 2  shape 3
-        ASFixed delta_x[NUM_BLENDING_SHAPES] = { radius - threeFourthsRadius, 0.00,    (radius/2) - threeFourthsRadius};
-        ASFixed delta_y[NUM_BLENDING_SHAPES] = { 0.00,                        0.00,    -radius };
+        ASFixed delta_x[NUM_BLENDING_SHAPES] { radius - threeFourthsRadius, 0.00,    (radius/2) - threeFourthsRadius};
+        ASFixed delta_y[NUM_BLENDING_SHAPES] { 0.00,                        0.00,    -radius };
 
         //Now we can create the basic shape's prototype.
 
@@ -207,13 +203,10 @@ int main(int argc, char** argv)
         PDEContent cmykContent = PDEContentCreate();
         PDEContent rgbContent  = PDEContentCreate();
 
-		PDEContent content[2] = {cmykContent, rgbContent};
-	PDEContent nextContent;
-	for (int i = 0; i < 2 ; i++)
+        for (PDEContent* nextContent : { &cmykContent, &rgbContent })
         {
-			nextContent = content[i];
             //Set the color space of the next triad.
-            const char* colorSpace = (nextContent == cmykContent ? "DeviceCMYK" : "DeviceRGB");
+            char* colorSpace = (nextContent == &cmykContent ? "DeviceCMYK" : "DeviceRGB");
             shapeGState.fillColorSpec.space = PDEColorSpaceCreateFromName(ASAtomFromString((colorSpace)));
             shapeGState.wasSetFlags = kPDEFillCSpaceWasSet;
 
@@ -239,7 +232,7 @@ int main(int argc, char** argv)
                 PDEElementSetGState((PDEElement)nextShape, &shapeGState, sizeof(shapeGState));
 
                 //Add the triad to its content.
-                PDEContentAddElem(nextContent, kPDEBeforeFirst, (PDEElement)nextShape);
+                PDEContentAddElem(*nextContent, kPDEBeforeFirst, (PDEElement)nextShape);
                 
                 PDERelease((PDEObject)nextShape);
             }
