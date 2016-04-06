@@ -1,0 +1,1445 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		BAAE8A360ADC6251005A7834 /* All_Datalogics */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = BAAE8A370ADC6255005A7834 /* Build configuration list for PBXAggregateTarget "All_Datalogics" */;
+			buildPhases = (
+			);
+			dependencies = (
+				2E79A5DD1C909AEB0087ECBC /* PBXTargetDependency */,
+				2E79A5B61C909A230087ECBC /* PBXTargetDependency */,
+				2E79A5901C9098180087ECBC /* PBXTargetDependency */,
+				2E79A56B1C907C750087ECBC /* PBXTargetDependency */,
+				2E79A5471C90723C0087ECBC /* PBXTargetDependency */,
+				2E79A5241C906E840087ECBC /* PBXTargetDependency */,
+				2E79A5001C906BC40087ECBC /* PBXTargetDependency */,
+				2E79A5021C906BC40087ECBC /* PBXTargetDependency */,
+				2E79A4531C8F637B0087ECBC /* PBXTargetDependency */,
+				2E79A4B41C8F84200087ECBC /* PBXTargetDependency */,
+				2E79A4351C8F5FF50087ECBC /* PBXTargetDependency */,
+				2E79A4271C8F5D990087ECBC /* PBXTargetDependency */,
+				2E79A4091C8F541A0087ECBC /* PBXTargetDependency */,
+				2E79A40B1C8F541A0087ECBC /* PBXTargetDependency */,
+				2E79A3FA1C8F48590087ECBC /* PBXTargetDependency */,
+				2E79A3B51C8F46340087ECBC /* PBXTargetDependency */,
+				2E79A39B1C8F42E80087ECBC /* PBXTargetDependency */,
+				2E5EF51C1C8F2A1B0077FABC /* PBXTargetDependency */,
+				2E5EF51E1C8F2A1B0077FABC /* PBXTargetDependency */,
+				2E5EF4E01C8F1C8F0077FABC /* PBXTargetDependency */,
+				2E21C1EF1C8E0AFE00018A6D /* PBXTargetDependency */,
+				2E21C1DA1C8E0AD900018A6D /* PBXTargetDependency */,
+				2E21C1C61C8E0AAD00018A6D /* PBXTargetDependency */,
+				2E21C1A01C8E055100018A6D /* PBXTargetDependency */,
+				2E21C0F71C8DFD1500018A6D /* PBXTargetDependency */,
+				2E21C0E61C8DFBFB00018A6D /* PBXTargetDependency */,
+				2E21C0D01C8DF3EE00018A6D /* PBXTargetDependency */,
+				2E21C0C11C8DF22D00018A6D /* PBXTargetDependency */,
+				2E21C0B01C8DEAD500018A6D /* PBXTargetDependency */,
+				2E21C0951C8DDB4D00018A6D /* PBXTargetDependency */,
+				2E5E09A31C8A1D5900098602 /* PBXTargetDependency */,
+				2E21C0811C8DD68E00018A6D /* PBXTargetDependency */,
+			);
+			name = All_Datalogics;
+			productName = All_Datalogics_debug;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXContainerItemProxy section */
+		2E21C07C1C8DD57000018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0781C8DD57000018A6D /* AddArt.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddArt;
+		};
+		2E21C0801C8DD68E00018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0781C8DD57000018A6D /* AddArt.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddArt;
+		};
+		2E21C08F1C8DDAA900018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C08B1C8DDAA900018A6D /* AddBookmarks.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddBookmarks;
+		};
+		2E21C0941C8DDB4D00018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C08B1C8DDAA900018A6D /* AddBookmarks.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddBookmarks;
+		};
+		2E21C0AD1C8DEAC500018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0A91C8DEAC500018A6D /* AddContent.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddContent;
+		};
+		2E21C0AF1C8DEAD500018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0A91C8DEAC500018A6D /* AddContent.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddContent;
+		};
+		2E21C0B91C8DF1DF00018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0B51C8DF1DF00018A6D /* AddDocumentInformation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddDocumentInformation;
+		};
+		2E21C0C01C8DF22D00018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0B51C8DF1DF00018A6D /* AddDocumentInformation.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddDocumentInformation;
+		};
+		2E21C0C71C8DF3B500018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0C31C8DF3B500018A6D /* AddLinks.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddLinks;
+		};
+		2E21C0CF1C8DF3EE00018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0C31C8DF3B500018A6D /* AddLinks.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddLinks;
+		};
+		2E21C0DC1C8DFBC400018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0D81C8DFBC400018A6D /* AddPageNumbers.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddPageNumbers;
+		};
+		2E21C0E51C8DFBFB00018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0D81C8DFBC400018A6D /* AddPageNumbers.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddPageNumbers;
+		};
+		2E21C0EC1C8DFCE100018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0E81C8DFCE100018A6D /* AddPassword.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddPassword;
+		};
+		2E21C0F61C8DFD1500018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C0E81C8DFCE100018A6D /* AddPassword.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddPassword;
+		};
+		2E21C1941C8E052A00018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C1901C8E052A00018A6D /* AddRedaction.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddRedaction;
+		};
+		2E21C19F1C8E055100018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C1901C8E052A00018A6D /* AddRedaction.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddRedaction;
+		};
+		2E21C1AF1C8E0A4E00018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C1AB1C8E0A4D00018A6D /* CopyContent.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = CopyContent;
+		};
+		2E21C1C51C8E0AAD00018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C1AB1C8E0A4D00018A6D /* CopyContent.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = CopyContent;
+		};
+		2E21C1CC1C8E0AB800018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C1C81C8E0AB800018A6D /* AddWatermark.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddWatermark;
+		};
+		2E21C1D91C8E0AD900018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C1C81C8E0AB800018A6D /* AddWatermark.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddWatermark;
+		};
+		2E21C1E01C8E0AE300018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C1DC1C8E0AE300018A6D /* AddText.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddText;
+		};
+		2E21C1EE1C8E0AFE00018A6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E21C1DC1C8E0AE300018A6D /* AddText.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddText;
+		};
+		2E5E09A01C8A1D3F00098602 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddAttachments;
+		};
+		2E5E09A21C8A1D5900098602 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddAttachments;
+		};
+		2E5EF4D01C8F1C600077FABC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E5EF4CC1C8F1C5F0077FABC /* CreateAnnotations.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = CreateAnnotations;
+		};
+		2E5EF4DF1C8F1C8F0077FABC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E5EF4CC1C8F1C5F0077FABC /* CreateAnnotations.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = CreateAnnotations;
+		};
+		2E5EF4E61C8F1EC00077FABC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E5EF4E21C8F1EC00077FABC /* CreateDocument.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = CreateDocument;
+		};
+		2E5EF4FA1C8F296A0077FABC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E5EF4F61C8F296A0077FABC /* CreateLayers.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = CreateLayers;
+		};
+		2E5EF51B1C8F2A1B0077FABC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E5EF4F61C8F296A0077FABC /* CreateLayers.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = CreateLayers;
+		};
+		2E5EF51D1C8F2A1B0077FABC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E5EF4E21C8F1EC00077FABC /* CreateDocument.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = CreateDocument;
+		};
+		2E5EF5251C8F42980077FABC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E5EF5211C8F42970077FABC /* CreateTransparency.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = CreateTransparency;
+		};
+		2E79A39A1C8F42E80087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E5EF5211C8F42970077FABC /* CreateTransparency.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = CreateTransparency;
+		};
+		2E79A3A11C8F46150087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A39D1C8F46150087ECBC /* EncryptDocument.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = EncryptDocument;
+		};
+		2E79A3B41C8F46340087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A39D1C8F46150087ECBC /* EncryptDocument.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = EncryptDocument;
+		};
+		2E79A3D31C8F48190087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A3CF1C8F48190087ECBC /* ExtractAttachments.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = ExtractAttachments;
+		};
+		2E79A3F91C8F48590087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A3CF1C8F48190087ECBC /* ExtractAttachments.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = ExtractAttachments;
+		};
+		2E79A4001C8F4B390087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A3FC1C8F4B390087ECBC /* ExtractDocumentInfo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = ExtractDocumentInfo;
+		};
+		2E79A4061C8F540E0087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A4021C8F540E0087ECBC /* ExtractText.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = ExtractText;
+		};
+		2E79A4081C8F541A0087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A4021C8F540E0087ECBC /* ExtractText.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = ExtractText;
+		};
+		2E79A40A1C8F541A0087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A3FC1C8F4B390087ECBC /* ExtractDocumentInfo.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = ExtractDocumentInfo;
+		};
+		2E79A4241C8F5D8D0087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A4201C8F5D8D0087ECBC /* FindImageResolutions.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = FindImageResolutions;
+		};
+		2E79A4261C8F5D990087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A4201C8F5D8D0087ECBC /* FindImageResolutions.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = FindImageResolutions;
+		};
+		2E79A4321C8F5FEB0087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A42E1C8F5FEB0087ECBC /* FlattenAnnotations.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = FlattenAnnotations;
+		};
+		2E79A4341C8F5FF50087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A42E1C8F5FEB0087ECBC /* FlattenAnnotations.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = FlattenAnnotations;
+		};
+		2E79A4501C8F63720087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A44C1C8F63720087ECBC /* LockDocument.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = LockDocument;
+		};
+		2E79A4521C8F637B0087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A44C1C8F63720087ECBC /* LockDocument.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = LockDocument;
+		};
+		2E79A4B11C8F840A0087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A4AD1C8F840A0087ECBC /* FlattenTransparency.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = FlattenTransparency;
+		};
+		2E79A4B31C8F84200087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A4AD1C8F840A0087ECBC /* FlattenTransparency.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = FlattenTransparency;
+		};
+		2E79A4DD1C9069D10087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A4D91C9069D00087ECBC /* MergeDocuments.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = MergeDocuments;
+		};
+		2E79A4FD1C906BB40087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A4F81C906BB40087ECBC /* OpenEncrypted.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = OpenEncrypted;
+		};
+		2E79A4FF1C906BC40087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A4F81C906BB40087ECBC /* OpenEncrypted.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = OpenEncrypted;
+		};
+		2E79A5011C906BC40087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A4D91C9069D00087ECBC /* MergeDocuments.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = MergeDocuments;
+		};
+		2E79A5211C906E7E0087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A51D1C906E7E0087ECBC /* RasterizeCopy.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = RasterizeCopy;
+		};
+		2E79A5231C906E840087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A51D1C906E7E0087ECBC /* RasterizeCopy.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = RasterizeCopy;
+		};
+		2E79A5441C9072350087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A5401C9072350087ECBC /* SetUniquePermissions.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = SetUniquePermissions;
+		};
+		2E79A5461C90723C0087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A5401C9072350087ECBC /* SetUniquePermissions.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = SetUniquePermissions;
+		};
+		2E79A5681C907C700087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A5641C907C700087ECBC /* SplitPDF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = SplitPDF;
+		};
+		2E79A56A1C907C750087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A5641C907C700087ECBC /* SplitPDF.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = SplitPDF;
+		};
+		2E79A58D1C9098130087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A5891C9098130087ECBC /* TextSearch.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = TextSearch;
+		};
+		2E79A58F1C9098180087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A5891C9098130087ECBC /* TextSearch.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = TextSearch;
+		};
+		2E79A5B31C909A1E0087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A5AF1C909A1E0087ECBC /* UnicodeText.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = UnicodeText;
+		};
+		2E79A5B51C909A230087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A5AF1C909A1E0087ECBC /* UnicodeText.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = UnicodeText;
+		};
+		2E79A5DA1C909AE50087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A5D61C909AE40087ECBC /* WebOptimizedPDF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = WebOptimizedPDF;
+		};
+		2E79A5DC1C909AEB0087ECBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E79A5D61C909AE40087ECBC /* WebOptimizedPDF.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = WebOptimizedPDF;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2E21C0781C8DD57000018A6D /* AddArt.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddArt.xcodeproj; path = ../AddArt/AddArt.xcodeproj; sourceTree = "<group>"; };
+		2E21C08B1C8DDAA900018A6D /* AddBookmarks.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddBookmarks.xcodeproj; path = ../AddBookmarks/AddBookmarks.xcodeproj; sourceTree = "<group>"; };
+		2E21C0A91C8DEAC500018A6D /* AddContent.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddContent.xcodeproj; path = ../AddContent/AddContent.xcodeproj; sourceTree = "<group>"; };
+		2E21C0B51C8DF1DF00018A6D /* AddDocumentInformation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddDocumentInformation.xcodeproj; path = ../AddDocumentInformation/AddDocumentInformation.xcodeproj; sourceTree = "<group>"; };
+		2E21C0C31C8DF3B500018A6D /* AddLinks.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddLinks.xcodeproj; path = ../AddLinks/AddLinks.xcodeproj; sourceTree = "<group>"; };
+		2E21C0D81C8DFBC400018A6D /* AddPageNumbers.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddPageNumbers.xcodeproj; path = ../AddPageNumbers/AddPageNumbers.xcodeproj; sourceTree = "<group>"; };
+		2E21C0E81C8DFCE100018A6D /* AddPassword.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddPassword.xcodeproj; path = ../AddPassword/AddPassword.xcodeproj; sourceTree = "<group>"; };
+		2E21C1901C8E052A00018A6D /* AddRedaction.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddRedaction.xcodeproj; path = ../AddRedaction/AddRedaction.xcodeproj; sourceTree = "<group>"; };
+		2E21C1AB1C8E0A4D00018A6D /* CopyContent.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CopyContent.xcodeproj; path = ../CopyContent/CopyContent.xcodeproj; sourceTree = "<group>"; };
+		2E21C1C81C8E0AB800018A6D /* AddWatermark.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddWatermark.xcodeproj; path = ../AddWatermark/AddWatermark.xcodeproj; sourceTree = "<group>"; };
+		2E21C1DC1C8E0AE300018A6D /* AddText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddText.xcodeproj; path = ../AddText/AddText.xcodeproj; sourceTree = "<group>"; };
+		2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddAttachments.xcodeproj; path = ../AddAttachments/AddAttachments.xcodeproj; sourceTree = "<group>"; };
+		2E5EF4CC1C8F1C5F0077FABC /* CreateAnnotations.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CreateAnnotations.xcodeproj; path = ../CreateAnnotations/CreateAnnotations.xcodeproj; sourceTree = "<group>"; };
+		2E5EF4E21C8F1EC00077FABC /* CreateDocument.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CreateDocument.xcodeproj; path = ../CreateDocument/CreateDocument.xcodeproj; sourceTree = "<group>"; };
+		2E5EF4F61C8F296A0077FABC /* CreateLayers.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CreateLayers.xcodeproj; path = ../CreateLayers/CreateLayers.xcodeproj; sourceTree = "<group>"; };
+		2E5EF5211C8F42970077FABC /* CreateTransparency.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CreateTransparency.xcodeproj; path = ../CreateTransparency/CreateTransparency.xcodeproj; sourceTree = "<group>"; };
+		2E79A39D1C8F46150087ECBC /* EncryptDocument.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EncryptDocument.xcodeproj; path = ../EncryptDocument/EncryptDocument.xcodeproj; sourceTree = "<group>"; };
+		2E79A3CF1C8F48190087ECBC /* ExtractAttachments.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ExtractAttachments.xcodeproj; path = ../ExtractAttachments/ExtractAttachments.xcodeproj; sourceTree = "<group>"; };
+		2E79A3FC1C8F4B390087ECBC /* ExtractDocumentInfo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ExtractDocumentInfo.xcodeproj; path = ../ExtractDocumentInfo/ExtractDocumentInfo.xcodeproj; sourceTree = "<group>"; };
+		2E79A4021C8F540E0087ECBC /* ExtractText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ExtractText.xcodeproj; path = ../ExtractText/ExtractText.xcodeproj; sourceTree = "<group>"; };
+		2E79A4201C8F5D8D0087ECBC /* FindImageResolutions.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FindImageResolutions.xcodeproj; path = ../FindImageResolutions/FindImageResolutions.xcodeproj; sourceTree = "<group>"; };
+		2E79A42E1C8F5FEB0087ECBC /* FlattenAnnotations.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FlattenAnnotations.xcodeproj; path = ../FlattenAnnotations/FlattenAnnotations.xcodeproj; sourceTree = "<group>"; };
+		2E79A44C1C8F63720087ECBC /* LockDocument.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LockDocument.xcodeproj; path = ../LockDocument/LockDocument.xcodeproj; sourceTree = "<group>"; };
+		2E79A4AD1C8F840A0087ECBC /* FlattenTransparency.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FlattenTransparency.xcodeproj; path = ../FlattenTransparency/FlattenTransparency.xcodeproj; sourceTree = "<group>"; };
+		2E79A4D91C9069D00087ECBC /* MergeDocuments.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MergeDocuments.xcodeproj; path = ../MergeDocuments/MergeDocuments.xcodeproj; sourceTree = "<group>"; };
+		2E79A4F81C906BB40087ECBC /* OpenEncrypted.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OpenEncrypted.xcodeproj; path = ../OpenEncrypted/OpenEncrypted.xcodeproj; sourceTree = "<group>"; };
+		2E79A51D1C906E7E0087ECBC /* RasterizeCopy.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RasterizeCopy.xcodeproj; path = ../RasterizeCopy/RasterizeCopy.xcodeproj; sourceTree = "<group>"; };
+		2E79A5401C9072350087ECBC /* SetUniquePermissions.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SetUniquePermissions.xcodeproj; path = ../SetUniquePermissions/SetUniquePermissions.xcodeproj; sourceTree = "<group>"; };
+		2E79A5641C907C700087ECBC /* SplitPDF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SplitPDF.xcodeproj; path = ../SplitPDF/SplitPDF.xcodeproj; sourceTree = "<group>"; };
+		2E79A5891C9098130087ECBC /* TextSearch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TextSearch.xcodeproj; path = ../TextSearch/TextSearch.xcodeproj; sourceTree = "<group>"; };
+		2E79A5AF1C909A1E0087ECBC /* UnicodeText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UnicodeText.xcodeproj; path = ../UnicodeText/UnicodeText.xcodeproj; sourceTree = "<group>"; };
+		2E79A5D61C909AE40087ECBC /* WebOptimizedPDF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WebOptimizedPDF.xcodeproj; path = ../WebOptimizedPDF/WebOptimizedPDF.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		2E21C0791C8DD57000018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C07D1C8DD57000018A6D /* AddArt-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E21C08C1C8DDAA900018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C0901C8DDAA900018A6D /* AddBookmarks-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E21C0AA1C8DEAC500018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C0AE1C8DEAC500018A6D /* AddContent-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E21C0B61C8DF1DF00018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C0BA1C8DF1DF00018A6D /* AddDocumentInformation-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E21C0C41C8DF3B500018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C0C81C8DF3B500018A6D /* AddLinks-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E21C0D91C8DFBC400018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C0DD1C8DFBC400018A6D /* AddPageNumbers-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E21C0E91C8DFCE100018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C0ED1C8DFCE100018A6D /* AddPassword-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E21C1911C8E052A00018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C1951C8E052A00018A6D /* AddRedaction-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E21C1AC1C8E0A4D00018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C1B01C8E0A4E00018A6D /* CopyContent-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E21C1C91C8E0AB800018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C1CD1C8E0AB800018A6D /* AddWatermark-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E21C1DD1C8E0AE300018A6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C1E11C8E0AE300018A6D /* AddText-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E5E099D1C8A1D3F00098602 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E5E09A11C8A1D3F00098602 /* AddAttachments-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E5EF4CD1C8F1C5F0077FABC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E5EF4D11C8F1C600077FABC /* CreateAnnotations-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E5EF4E31C8F1EC00077FABC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E5EF4E71C8F1EC00077FABC /* CreateDocument-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E5EF4F71C8F296A0077FABC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E5EF4FB1C8F296A0077FABC /* CreateLayers-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E5EF5221C8F42970077FABC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E5EF5261C8F42980077FABC /* CreateTransparency-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A39E1C8F46150087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A3A21C8F46150087ECBC /* EncryptDocument-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A3D01C8F48190087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A3D41C8F48190087ECBC /* ExtractAttachments-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A3FD1C8F4B390087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A4011C8F4B390087ECBC /* ExtractDocumentInfo-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A4031C8F540E0087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A4071C8F540E0087ECBC /* ExtractText-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A4211C8F5D8D0087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A4251C8F5D8D0087ECBC /* FindImageResolutions-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A42F1C8F5FEB0087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A4331C8F5FEB0087ECBC /* FlattenAnnotations-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A44D1C8F63720087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A4511C8F63720087ECBC /* LockDocument-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A4AE1C8F840A0087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A4B21C8F840A0087ECBC /* FlattenTransparency-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A4DA1C9069D00087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A4DE1C9069D10087ECBC /* MergeDocuments-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A4F91C906BB40087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A4FE1C906BB40087ECBC /* OpenEncrypted-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A51E1C906E7E0087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A5221C906E7E0087ECBC /* RasterizeCopy-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A5411C9072350087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A5451C9072350087ECBC /* SetUniquePermissions-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A5651C907C700087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A5691C907C700087ECBC /* SplitPDF-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A58A1C9098130087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A58E1C9098130087ECBC /* TextSearch-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A5B01C909A1E0087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A5B41C909A1E0087ECBC /* UnicodeText-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E79A5D71C909AE40087ECBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E79A5DB1C909AE50087ECBC /* WebOptimizedPDF-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BAAE8A280ADC6237005A7834 = {
+			isa = PBXGroup;
+			children = (
+				2E79A5D61C909AE40087ECBC /* WebOptimizedPDF.xcodeproj */,
+				2E79A5AF1C909A1E0087ECBC /* UnicodeText.xcodeproj */,
+				2E79A5891C9098130087ECBC /* TextSearch.xcodeproj */,
+				2E79A5641C907C700087ECBC /* SplitPDF.xcodeproj */,
+				2E79A5401C9072350087ECBC /* SetUniquePermissions.xcodeproj */,
+				2E79A51D1C906E7E0087ECBC /* RasterizeCopy.xcodeproj */,
+				2E79A4F81C906BB40087ECBC /* OpenEncrypted.xcodeproj */,
+				2E79A4D91C9069D00087ECBC /* MergeDocuments.xcodeproj */,
+				2E79A44C1C8F63720087ECBC /* LockDocument.xcodeproj */,
+				2E79A4AD1C8F840A0087ECBC /* FlattenTransparency.xcodeproj */,
+				2E79A42E1C8F5FEB0087ECBC /* FlattenAnnotations.xcodeproj */,
+				2E79A4201C8F5D8D0087ECBC /* FindImageResolutions.xcodeproj */,
+				2E79A4021C8F540E0087ECBC /* ExtractText.xcodeproj */,
+				2E79A3FC1C8F4B390087ECBC /* ExtractDocumentInfo.xcodeproj */,
+				2E79A3CF1C8F48190087ECBC /* ExtractAttachments.xcodeproj */,
+				2E79A39D1C8F46150087ECBC /* EncryptDocument.xcodeproj */,
+				2E5EF5211C8F42970077FABC /* CreateTransparency.xcodeproj */,
+				2E5EF4F61C8F296A0077FABC /* CreateLayers.xcodeproj */,
+				2E5EF4E21C8F1EC00077FABC /* CreateDocument.xcodeproj */,
+				2E5EF4CC1C8F1C5F0077FABC /* CreateAnnotations.xcodeproj */,
+				2E21C1DC1C8E0AE300018A6D /* AddText.xcodeproj */,
+				2E21C1C81C8E0AB800018A6D /* AddWatermark.xcodeproj */,
+				2E21C1AB1C8E0A4D00018A6D /* CopyContent.xcodeproj */,
+				2E21C1901C8E052A00018A6D /* AddRedaction.xcodeproj */,
+				2E21C0E81C8DFCE100018A6D /* AddPassword.xcodeproj */,
+				2E21C0D81C8DFBC400018A6D /* AddPageNumbers.xcodeproj */,
+				2E21C0C31C8DF3B500018A6D /* AddLinks.xcodeproj */,
+				2E21C0B51C8DF1DF00018A6D /* AddDocumentInformation.xcodeproj */,
+				2E21C0A91C8DEAC500018A6D /* AddContent.xcodeproj */,
+				2E21C08B1C8DDAA900018A6D /* AddBookmarks.xcodeproj */,
+				2E21C0781C8DD57000018A6D /* AddArt.xcodeproj */,
+				2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		BAAE8A2A0ADC6237005A7834 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+			};
+			buildConfigurationList = BAAE8A2B0ADC6237005A7834 /* Build configuration list for PBXProject "All_Datalogics" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = BAAE8A280ADC6237005A7834;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 2E21C0791C8DD57000018A6D /* Products */;
+					ProjectRef = 2E21C0781C8DD57000018A6D /* AddArt.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E5E099D1C8A1D3F00098602 /* Products */;
+					ProjectRef = 2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E21C08C1C8DDAA900018A6D /* Products */;
+					ProjectRef = 2E21C08B1C8DDAA900018A6D /* AddBookmarks.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E21C0AA1C8DEAC500018A6D /* Products */;
+					ProjectRef = 2E21C0A91C8DEAC500018A6D /* AddContent.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E21C0B61C8DF1DF00018A6D /* Products */;
+					ProjectRef = 2E21C0B51C8DF1DF00018A6D /* AddDocumentInformation.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E21C0C41C8DF3B500018A6D /* Products */;
+					ProjectRef = 2E21C0C31C8DF3B500018A6D /* AddLinks.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E21C0D91C8DFBC400018A6D /* Products */;
+					ProjectRef = 2E21C0D81C8DFBC400018A6D /* AddPageNumbers.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E21C0E91C8DFCE100018A6D /* Products */;
+					ProjectRef = 2E21C0E81C8DFCE100018A6D /* AddPassword.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E21C1911C8E052A00018A6D /* Products */;
+					ProjectRef = 2E21C1901C8E052A00018A6D /* AddRedaction.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E21C1DD1C8E0AE300018A6D /* Products */;
+					ProjectRef = 2E21C1DC1C8E0AE300018A6D /* AddText.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E21C1C91C8E0AB800018A6D /* Products */;
+					ProjectRef = 2E21C1C81C8E0AB800018A6D /* AddWatermark.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E21C1AC1C8E0A4D00018A6D /* Products */;
+					ProjectRef = 2E21C1AB1C8E0A4D00018A6D /* CopyContent.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E5EF4CD1C8F1C5F0077FABC /* Products */;
+					ProjectRef = 2E5EF4CC1C8F1C5F0077FABC /* CreateAnnotations.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E5EF4E31C8F1EC00077FABC /* Products */;
+					ProjectRef = 2E5EF4E21C8F1EC00077FABC /* CreateDocument.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E5EF4F71C8F296A0077FABC /* Products */;
+					ProjectRef = 2E5EF4F61C8F296A0077FABC /* CreateLayers.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E5EF5221C8F42970077FABC /* Products */;
+					ProjectRef = 2E5EF5211C8F42970077FABC /* CreateTransparency.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A39E1C8F46150087ECBC /* Products */;
+					ProjectRef = 2E79A39D1C8F46150087ECBC /* EncryptDocument.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A3D01C8F48190087ECBC /* Products */;
+					ProjectRef = 2E79A3CF1C8F48190087ECBC /* ExtractAttachments.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A3FD1C8F4B390087ECBC /* Products */;
+					ProjectRef = 2E79A3FC1C8F4B390087ECBC /* ExtractDocumentInfo.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A4031C8F540E0087ECBC /* Products */;
+					ProjectRef = 2E79A4021C8F540E0087ECBC /* ExtractText.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A4211C8F5D8D0087ECBC /* Products */;
+					ProjectRef = 2E79A4201C8F5D8D0087ECBC /* FindImageResolutions.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A42F1C8F5FEB0087ECBC /* Products */;
+					ProjectRef = 2E79A42E1C8F5FEB0087ECBC /* FlattenAnnotations.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A4AE1C8F840A0087ECBC /* Products */;
+					ProjectRef = 2E79A4AD1C8F840A0087ECBC /* FlattenTransparency.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A44D1C8F63720087ECBC /* Products */;
+					ProjectRef = 2E79A44C1C8F63720087ECBC /* LockDocument.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A4DA1C9069D00087ECBC /* Products */;
+					ProjectRef = 2E79A4D91C9069D00087ECBC /* MergeDocuments.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A4F91C906BB40087ECBC /* Products */;
+					ProjectRef = 2E79A4F81C906BB40087ECBC /* OpenEncrypted.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A51E1C906E7E0087ECBC /* Products */;
+					ProjectRef = 2E79A51D1C906E7E0087ECBC /* RasterizeCopy.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A5411C9072350087ECBC /* Products */;
+					ProjectRef = 2E79A5401C9072350087ECBC /* SetUniquePermissions.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A5651C907C700087ECBC /* Products */;
+					ProjectRef = 2E79A5641C907C700087ECBC /* SplitPDF.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A58A1C9098130087ECBC /* Products */;
+					ProjectRef = 2E79A5891C9098130087ECBC /* TextSearch.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A5B01C909A1E0087ECBC /* Products */;
+					ProjectRef = 2E79A5AF1C909A1E0087ECBC /* UnicodeText.xcodeproj */;
+				},
+				{
+					ProductGroup = 2E79A5D71C909AE40087ECBC /* Products */;
+					ProjectRef = 2E79A5D61C909AE40087ECBC /* WebOptimizedPDF.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				BAAE8A360ADC6251005A7834 /* All_Datalogics */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		2E21C07D1C8DD57000018A6D /* AddArt-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddArt-Debug.app";
+			remoteRef = 2E21C07C1C8DD57000018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E21C0901C8DDAA900018A6D /* AddBookmarks-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddBookmarks-Debug.app";
+			remoteRef = 2E21C08F1C8DDAA900018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E21C0AE1C8DEAC500018A6D /* AddContent-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddContent-Debug.app";
+			remoteRef = 2E21C0AD1C8DEAC500018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E21C0BA1C8DF1DF00018A6D /* AddDocumentInformation-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddDocumentInformation-Debug.app";
+			remoteRef = 2E21C0B91C8DF1DF00018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E21C0C81C8DF3B500018A6D /* AddLinks-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddLinks-Debug.app";
+			remoteRef = 2E21C0C71C8DF3B500018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E21C0DD1C8DFBC400018A6D /* AddPageNumbers-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddPageNumbers-Debug.app";
+			remoteRef = 2E21C0DC1C8DFBC400018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E21C0ED1C8DFCE100018A6D /* AddPassword-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddPassword-Debug.app";
+			remoteRef = 2E21C0EC1C8DFCE100018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E21C1951C8E052A00018A6D /* AddRedaction-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddRedaction-Debug.app";
+			remoteRef = 2E21C1941C8E052A00018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E21C1B01C8E0A4E00018A6D /* CopyContent-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "CopyContent-Debug.app";
+			remoteRef = 2E21C1AF1C8E0A4E00018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E21C1CD1C8E0AB800018A6D /* AddWatermark-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddWatermark-Debug.app";
+			remoteRef = 2E21C1CC1C8E0AB800018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E21C1E11C8E0AE300018A6D /* AddText-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddText-Debug.app";
+			remoteRef = 2E21C1E01C8E0AE300018A6D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E5E09A11C8A1D3F00098602 /* AddAttachments-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddAttachments-Debug.app";
+			remoteRef = 2E5E09A01C8A1D3F00098602 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E5EF4D11C8F1C600077FABC /* CreateAnnotations-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "CreateAnnotations-Debug.app";
+			remoteRef = 2E5EF4D01C8F1C600077FABC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E5EF4E71C8F1EC00077FABC /* CreateDocument-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "CreateDocument-Debug.app";
+			remoteRef = 2E5EF4E61C8F1EC00077FABC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E5EF4FB1C8F296A0077FABC /* CreateLayers-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "CreateLayers-Debug.app";
+			remoteRef = 2E5EF4FA1C8F296A0077FABC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E5EF5261C8F42980077FABC /* CreateTransparency-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "CreateTransparency-Debug.app";
+			remoteRef = 2E5EF5251C8F42980077FABC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A3A21C8F46150087ECBC /* EncryptDocument-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "EncryptDocument-Debug.app";
+			remoteRef = 2E79A3A11C8F46150087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A3D41C8F48190087ECBC /* ExtractAttachments-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "ExtractAttachments-Debug.app";
+			remoteRef = 2E79A3D31C8F48190087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A4011C8F4B390087ECBC /* ExtractDocumentInfo-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "ExtractDocumentInfo-Debug.app";
+			remoteRef = 2E79A4001C8F4B390087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A4071C8F540E0087ECBC /* ExtractText-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "ExtractText-Debug.app";
+			remoteRef = 2E79A4061C8F540E0087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A4251C8F5D8D0087ECBC /* FindImageResolutions-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "FindImageResolutions-Debug.app";
+			remoteRef = 2E79A4241C8F5D8D0087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A4331C8F5FEB0087ECBC /* FlattenAnnotations-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "FlattenAnnotations-Debug.app";
+			remoteRef = 2E79A4321C8F5FEB0087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A4511C8F63720087ECBC /* LockDocument-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "LockDocument-Debug.app";
+			remoteRef = 2E79A4501C8F63720087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A4B21C8F840A0087ECBC /* FlattenTransparency-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "FlattenTransparency-Debug.app";
+			remoteRef = 2E79A4B11C8F840A0087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A4DE1C9069D10087ECBC /* MergeDocuments-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "MergeDocuments-Debug.app";
+			remoteRef = 2E79A4DD1C9069D10087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A4FE1C906BB40087ECBC /* OpenEncrypted-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "OpenEncrypted-Debug.app";
+			remoteRef = 2E79A4FD1C906BB40087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A5221C906E7E0087ECBC /* RasterizeCopy-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "RasterizeCopy-Debug.app";
+			remoteRef = 2E79A5211C906E7E0087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A5451C9072350087ECBC /* SetUniquePermissions-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "SetUniquePermissions-Debug.app";
+			remoteRef = 2E79A5441C9072350087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A5691C907C700087ECBC /* SplitPDF-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "SplitPDF-Debug.app";
+			remoteRef = 2E79A5681C907C700087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A58E1C9098130087ECBC /* TextSearch-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "TextSearch-Debug.app";
+			remoteRef = 2E79A58D1C9098130087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A5B41C909A1E0087ECBC /* UnicodeText-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "UnicodeText-Debug.app";
+			remoteRef = 2E79A5B31C909A1E0087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E79A5DB1C909AE50087ECBC /* WebOptimizedPDF-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "WebOptimizedPDF-Debug.app";
+			remoteRef = 2E79A5DA1C909AE50087ECBC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXTargetDependency section */
+		2E21C0811C8DD68E00018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddArt;
+			targetProxy = 2E21C0801C8DD68E00018A6D /* PBXContainerItemProxy */;
+		};
+		2E21C0951C8DDB4D00018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddBookmarks;
+			targetProxy = 2E21C0941C8DDB4D00018A6D /* PBXContainerItemProxy */;
+		};
+		2E21C0B01C8DEAD500018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddContent;
+			targetProxy = 2E21C0AF1C8DEAD500018A6D /* PBXContainerItemProxy */;
+		};
+		2E21C0C11C8DF22D00018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddDocumentInformation;
+			targetProxy = 2E21C0C01C8DF22D00018A6D /* PBXContainerItemProxy */;
+		};
+		2E21C0D01C8DF3EE00018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddLinks;
+			targetProxy = 2E21C0CF1C8DF3EE00018A6D /* PBXContainerItemProxy */;
+		};
+		2E21C0E61C8DFBFB00018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddPageNumbers;
+			targetProxy = 2E21C0E51C8DFBFB00018A6D /* PBXContainerItemProxy */;
+		};
+		2E21C0F71C8DFD1500018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddPassword;
+			targetProxy = 2E21C0F61C8DFD1500018A6D /* PBXContainerItemProxy */;
+		};
+		2E21C1A01C8E055100018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddRedaction;
+			targetProxy = 2E21C19F1C8E055100018A6D /* PBXContainerItemProxy */;
+		};
+		2E21C1C61C8E0AAD00018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CopyContent;
+			targetProxy = 2E21C1C51C8E0AAD00018A6D /* PBXContainerItemProxy */;
+		};
+		2E21C1DA1C8E0AD900018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddWatermark;
+			targetProxy = 2E21C1D91C8E0AD900018A6D /* PBXContainerItemProxy */;
+		};
+		2E21C1EF1C8E0AFE00018A6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddText;
+			targetProxy = 2E21C1EE1C8E0AFE00018A6D /* PBXContainerItemProxy */;
+		};
+		2E5E09A31C8A1D5900098602 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddAttachments;
+			targetProxy = 2E5E09A21C8A1D5900098602 /* PBXContainerItemProxy */;
+		};
+		2E5EF4E01C8F1C8F0077FABC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CreateAnnotations;
+			targetProxy = 2E5EF4DF1C8F1C8F0077FABC /* PBXContainerItemProxy */;
+		};
+		2E5EF51C1C8F2A1B0077FABC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CreateLayers;
+			targetProxy = 2E5EF51B1C8F2A1B0077FABC /* PBXContainerItemProxy */;
+		};
+		2E5EF51E1C8F2A1B0077FABC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CreateDocument;
+			targetProxy = 2E5EF51D1C8F2A1B0077FABC /* PBXContainerItemProxy */;
+		};
+		2E79A39B1C8F42E80087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CreateTransparency;
+			targetProxy = 2E79A39A1C8F42E80087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A3B51C8F46340087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = EncryptDocument;
+			targetProxy = 2E79A3B41C8F46340087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A3FA1C8F48590087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ExtractAttachments;
+			targetProxy = 2E79A3F91C8F48590087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A4091C8F541A0087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ExtractText;
+			targetProxy = 2E79A4081C8F541A0087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A40B1C8F541A0087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ExtractDocumentInfo;
+			targetProxy = 2E79A40A1C8F541A0087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A4271C8F5D990087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FindImageResolutions;
+			targetProxy = 2E79A4261C8F5D990087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A4351C8F5FF50087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FlattenAnnotations;
+			targetProxy = 2E79A4341C8F5FF50087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A4531C8F637B0087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LockDocument;
+			targetProxy = 2E79A4521C8F637B0087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A4B41C8F84200087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FlattenTransparency;
+			targetProxy = 2E79A4B31C8F84200087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A5001C906BC40087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = OpenEncrypted;
+			targetProxy = 2E79A4FF1C906BC40087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A5021C906BC40087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MergeDocuments;
+			targetProxy = 2E79A5011C906BC40087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A5241C906E840087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RasterizeCopy;
+			targetProxy = 2E79A5231C906E840087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A5471C90723C0087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SetUniquePermissions;
+			targetProxy = 2E79A5461C90723C0087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A56B1C907C750087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SplitPDF;
+			targetProxy = 2E79A56A1C907C750087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A5901C9098180087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TextSearch;
+			targetProxy = 2E79A58F1C9098180087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A5B61C909A230087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = UnicodeText;
+			targetProxy = 2E79A5B51C909A230087ECBC /* PBXContainerItemProxy */;
+		};
+		2E79A5DD1C909AEB0087ECBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = WebOptimizedPDF;
+			targetProxy = 2E79A5DC1C909AEB0087ECBC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		9C164A3F0BDE66AF00FDC29A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = All_Datalogics_debug;
+			};
+			name = Release;
+		};
+		9C164A400BDE66AF00FDC29A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = /../../Libs;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		BAAE8A2C0ADC6237005A7834 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = /../../Libs;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		BAAE8A380ADC6255005A7834 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = All_Datalogics_debug;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BAAE8A2B0ADC6237005A7834 /* Build configuration list for PBXProject "All_Datalogics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BAAE8A2C0ADC6237005A7834 /* Debug */,
+				9C164A400BDE66AF00FDC29A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BAAE8A370ADC6255005A7834 /* Build configuration list for PBXAggregateTarget "All_Datalogics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BAAE8A380ADC6255005A7834 /* Debug */,
+				9C164A3F0BDE66AF00FDC29A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BAAE8A2A0ADC6237005A7834 /* Project object */;
+}

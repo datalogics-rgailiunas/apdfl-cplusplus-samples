@@ -18,6 +18,7 @@
 
 #include <vector>
 #include <sstream>
+#include <math.h>
 
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
@@ -67,8 +68,9 @@ int main(int argc, char** argv)
     std::wcout << L"Creating an annotation for each." <<std::endl;
 
     int highlightColorNum = 0;                                                                                 //This will cycle between 0, 1, and 2 to cycle highlight colors.
-    for (PDEElement next : pageElements)
+    for (int i = 0; i < pageElements.size(); i++)
     {
+	    PDEElement next = pageElements[i];
         //The annotation's location. We will place the annotation where the original page element was found.
         ASFixedRect elementLoc;
         PDEElementGetBBox(next, &elementLoc);
@@ -140,7 +142,8 @@ int main(int argc, char** argv)
         //The content string is ready. Now make its ASText to add it to the annotation.
         std::wstring annotContentStr;
         annotContentStr = annotContent.str();
-        ASText annotContentAST = ASTextFromUnicode((ASUTF16Val*)annotContentStr.c_str(), kUTF16HostEndian);
+        ASUnicodeFormat format = (sizeof(wchar_t) == 4) ? kUTF32HostEndian : kUTF16HostEndian;
+        ASText annotContentAST = ASTextFromUnicode((ASUTF16Val*)annotContentStr.c_str(), format);
 
         //The annotation must be cast to a TextAnnot to set its text content.
         PDTextAnnot textAnnot = CastToPDTextAnnot(annot);
@@ -152,12 +155,10 @@ int main(int argc, char** argv)
         PDAnnotSetTitle(annot, annotTitleStr, strlen(annotTitleStr));
 
         //Set the annotation's quadrilateral values. This will properly position a highlight annotation, and have no effect on the text annotation.
-        ASFixedQuad annotLocQuad;
-        //                  horizontal        vertical
-        annotLocQuad.bl = { elementLoc.left,  elementLoc.bottom };
-        annotLocQuad.br = { elementLoc.right, elementLoc.bottom };
-        annotLocQuad.tl = { elementLoc.left,  elementLoc.top };
-        annotLocQuad.tr = { elementLoc.right, elementLoc.top };
+        ASFixedQuad annotLocQuad = { { elementLoc.left,  elementLoc.bottom },
+						{ elementLoc.right, elementLoc.bottom },
+						{ elementLoc.left,  elementLoc.top },
+						{ elementLoc.right, elementLoc.top } };
         PDAnnotSetQuads(annot, &annotLocQuad, 1);
 
         //The annotation will be locked so that it cannot be edited again later.
@@ -263,7 +264,8 @@ int main(int argc, char** argv)
             extractedString << L" '" << contentBuffer << L"'";                                     //The content is placed in the output string here.
 
             //Add the text.
-            ASText extractedAST = ASTextFromUnicode((ASUTF16Val*)extractedString.str().c_str(), kUTF16HostEndian);
+            ASUnicodeFormat format = (sizeof(wchar_t) == 4) ? kUTF32HostEndian : kUTF16HostEndian;
+            ASText extractedAST = ASTextFromUnicode((ASUTF16Val*)extractedString.str().c_str(), format);
             PDETextAddASText(annotationsText, kPDETextRun, numTextAnnots - 1, extractedAST, font, &graphics, sizeof(PDEGraphicState), NULL, 0, &textLoc);
             ASTextDestroy(extractedAST);
 
