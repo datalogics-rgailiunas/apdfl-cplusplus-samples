@@ -1,0 +1,48 @@
+#  Makefile to build DL samples 
+
+ifeq ($(PLATFORM), )
+  PLATFORM = $(shell uname)
+endif
+
+do_pdfl_samples: build_pdfl_samples run_pdfl_samples $(REDIRECT2)
+
+SAMPLES = AddArt AddAttachments AddBookmarks \
+          AddContent AddDocumentInformation AddLinks \
+          AddPageNumbers AddPassword AddRedaction \
+          AddText AddWatermark CopyContent \
+          CreateAnnotations CreateDocument CreateLayers \
+          CreateTransparency EncryptDocument ExtractAttachments \
+          ExtractDocumentInfo ExtractText FindImageResolutions \
+          FlattenAnnotations FlattenTransparency LockDocument \
+          MergeDocuments OpenEncrypted RasterizeCopy \
+          SetUniquePermissions SplitPDF TextSearch \
+          UnicodeText WebOptimizedPDF 
+
+build_pdfl_samples: 
+	for target in $(SAMPLES); do \
+		(cd ../$$target && $(MAKE)); \
+	done;
+
+ifeq ($(LIBPATHS),)
+    LIBPATHS=../../Libs
+endif
+
+run_pdfl_samples:
+	set -e; \
+	export LD_LIBRARY_PATH=$(LIBPATHS):$$LD_LIBRARY_PATH; \
+	export LIBPATH=$(LIBPATHS):$$LIBPATH; \
+	export SHLIB_PATH=$(LIBPATHS):$$SHLIB_PATH; \
+	export; \
+	for target in $(SAMPLES); do \
+		echo "Running DL Sample $$target"; \
+		(cd ../$$target && (./$$target $(REDIRECT))) ;\
+		echo ; \
+	done; \
+	echo ; 
+
+clean:
+	rm -f *.o *.out out.* ../dlutils/*.o; \
+	for target in $(SAMPLES); do \
+		(cd ../$$target && $(MAKE) clean); \
+	done;
+

@@ -101,8 +101,10 @@ int main(int argc, char** argv)
 
     std::wcout << L"I found " << bsPages.size() << L" search occurrence:" << std::endl;                     //We could have used any of the vectors, not just bsLocts.
 
-    for (ASText partialText : bsTexts)
+    // In order to Linux platform
+    for (int i = 0; i < bsTexts.size(); i++)
     {
+        ASText partialText = bsTexts[i];
         ASInt32 wordLen = 0;                                                                        //Unused. Only for calling ASTextGetPDTextCopy.
 		std::wcout << ASTextGetPDTextCopy(partialText, &wordLen) << std::endl;                      //Unicode text will probably not display correctly. Rest assured it will look fine in the document.
     }
@@ -189,9 +191,9 @@ int main(int argc, char** argv)
 //======================================================================================================================================================================================================================================================
 //Step 5) Save and close the document.
 //======================================================================================================================================================================================================================================================
-
-    for (auto x : bsTexts)
-        ASTextDestroy(x);
+    // In order to Linux platform
+    for (int i=0;i<bsTexts.size();i++)
+        ASTextDestroy(bsTexts[i]);
 
     APDoc.saveDoc(outputPath);
 
