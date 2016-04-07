@@ -10,7 +10,7 @@
 // InitializeLibrary.cpp: Contains the method implementations.
 // InitializeLibrary.h: Contains the class definition.
 //========================================================================
-
+#include <stdio.h>
 #include "InitializeLibrary.h"
 
 #ifdef MAC_PLATFORM
@@ -300,7 +300,7 @@ void APDFLib::displayError(ASErrorCode errCode)
     if (errCode == 0) return;
 
     char errStr[250];
-    std::fprintf(stderr, "[Error %x] %s\n", errCode, ASGetErrorString(errCode, errStr, sizeof(errStr)));
+    fprintf(stderr, "[Error %x] %s\n", errCode, ASGetErrorString(errCode, errStr, sizeof(errStr)));
 }
 
 //========================================================================================================
