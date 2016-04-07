@@ -1,5 +1,5 @@
-CC = /opt/gcc-4.1.2/bin/gcc
-CXX = /opt/gcc-4.1.2/bin/g++
+CC = /usr/bin/gcc
+CXX = /usr/bin/g++
 
 ifeq ($(STAGE), debug)
     DEBUG=-DDEBUG -D_DEBUG
@@ -18,6 +18,6 @@ CCFLAGS  = $(ARCH_FLAGS) -g $(PDF_FDIR_DEF) -DNO_PRAGMA_ONCE -DUNIX_PLATFORM=1 -
 CXXFLAGS = $(CCFLAGS)
 
 LDFLAGS = $(ARCH_FLAGS) -L../../Libs
-LIBS = -lDL100pdfl -lDL100CoolType -lDL100AGM -lDL100BIB -lDL100ACE -lDL100ARE \
-	   -lDL100BIBUtils -lDL100JP2K -lDL100AdobeXMP -lDL100AXE8SharedExpat \
+LIBS = -lDL150pdfl -lDL150CoolType -lDL150AGM -lDL150BIB -lDL150ACE -lDL150ARE \
+	   -lDL150BIBUtils -lDL150JP2K -lDL150AdobeXMP -lDL150AXE8SharedExpat \
 	   -licucnv -licudata -lpthread
