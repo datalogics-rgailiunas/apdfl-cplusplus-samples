@@ -8,13 +8,16 @@ ARCHS = $(ARCHS_STANDARD_32_64_BIT)
 
 // Set deployment target to 10.5.
 // This is the minimum required version for 64-bit support.
-MACOSX_DEPLOYMENT_TARGET = 10.5;
+MACOSX_DEPLOYMENT_TARGET = 10.7;
 
 // Library search paths for all targets
 FRAMEWORK_SEARCH_PATHS = ../../Libs
 
+// Add an rpath setting to allow us to use @rpath in the APDFL Frameworks
+LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks"
+
 // Define frameworks to link here, rather than by including references in the project.
-DL_PDFL_FRAMEWORKS = -framework DL100ACE -framework DL100AGM -framework DL100ARE -framework DL100AXE8SharedExpat -framework DL100BIB -framework DL100BIBUtils -framework DL100CoolType -framework DL100JP2KLib -framework DL100AdobeXMP -framework DL100PDFL
+DL_PDFL_FRAMEWORKS = -framework DL150ACE -framework DL150AGM -framework DL150ARE -framework DL150AXE8SharedExpat -framework DL150BIB -framework DL150BIBUtils -framework DL150CoolType -framework DL150JP2KLib -framework DL150AdobeXMP -framework DL150PDFL
 
 // Common Header search paths for all targets
 HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) ../dlutils ../../Include/Headers
