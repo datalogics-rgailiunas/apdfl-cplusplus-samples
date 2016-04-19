@@ -57,7 +57,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractDocumentInfo", "..\E
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlattenAnnotations", "..\FlattenAnnotations\FlattenAnnotations.vcxproj", "{A261ECCE-8584-4E2E-B907-D5D342FED80E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RasterizeCopy", "..\RasterizeCopy\RasterizeCopy.vcxproj", "{DDABAB30-A20B-4B73-A3BF-0270253C6BD4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RenderPage", "..\RenderPage\RenderPage.vcxproj", "{DDABAB30-A20B-4B73-A3BF-0270253C6BD4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnicodeText", "..\UnicodeText\UnicodeText.vcxproj", "{26B0DAAC-1B6E-4020-BEC0-D47DDBA263C6}"
 EndProject

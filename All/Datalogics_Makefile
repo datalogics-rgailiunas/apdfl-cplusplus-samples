@@ -14,7 +14,7 @@ SAMPLES = AddArt AddAttachments AddBookmarks \
           CreateTransparency EncryptDocument ExtractAttachments \
           ExtractDocumentInfo ExtractText FindImageResolutions \
           FlattenAnnotations FlattenTransparency LockDocument \
-          MergeDocuments OpenEncrypted RasterizeCopy \
+          MergeDocuments OpenEncrypted RenderPage \
           SetUniquePermissions SplitPDF TextSearch \
           UnicodeText WebOptimizedPDF 
 

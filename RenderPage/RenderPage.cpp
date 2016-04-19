@@ -1,0 +1,284 @@
+/*	
+    RenderPage - Sample for the Adobe PDF Library distributed by Datalogics.
+    Copyright (c) 2007-2015, Datalogics, Inc. All rights reserved.
+
+    This sample code is licensed under the terms listed at
+    http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
+
+    This PDF Library sample demonstrates the process of rasterizing a PDF page
+    and placing the resulting raster as an image into a different PDF document.
+
+    This file contains functions for the RenderPage class.
+*/
+
+#include "RenderPage.h"
+
+RenderPage::RenderPage(PDPage &pdPage, char *colorSpace, char *filterName, ASInt32 inBPC, float inResolution)
+{
+    //If you are using a decode filter such as FlateDecode, the filterArray values will be set here
+    //
+    filterArray = SetFilter(filterName);
+
+    //Set the resolution. In terms of PDF settings, the default resolution is 72 units per inch.  A resolution
+    //value of 72.0, then, is the same as the default.  To double the resolution, set the value to 144.0, e.g.
+    resolution = SetResolution(inResolution);
+
+    //Get the colorspace atom, set the number of components per colorspace
+    //and store the appropriate colorspace for an output PDEImage
+    csAtom = SetColorSpace(colorSpace);
+
+    //The stream of data being rasterized to memory is divided into units of n bits each, where n is the 
+    //number of bits per component.  
+    bpc = SetBPC(inBPC);
+
+    //Gets the matrix that transforms user space coordinates to rotated and cropped coordinates 
+    //The origin of this space is the top-left of the rotated, cropped page. Y is decreasing
+    PDPageGetFlippedMatrix(pdPage, &matrix);
+
+    //Gets the crop box for a page. The crop box is the region of the page to display and print
+    //
+    PDPageGetCropBox(pdPage, &pageRect);
+
+    //Set page coordinates/rectangle to crop box for PDDocCreatePage
+    //
+    destRect = SetPageRect(pageRect);
+
+    //Set the scale matrix that will be concatenated to the user space matrix
+    //
+    scaleMatrix = SetScaleMatrix(resolution);
+
+    //Apply the scale to the default matrix
+    //
+    ASFixedMatrixConcat(&matrix, &scaleMatrix, &matrix);
+    ASFixedMatrixTransformRect(&scaledDestRect, &scaleMatrix, &destRect);
+
+    //Allocate and initialize the buffer to store the rendered page content
+    //
+    bufferSize = SetBufferSize(pdPage, matrix, csAtom, bpc, scaledDestRect);
+    buffer =   new char[bufferSize];
+    if (csAtom == ASAtomFromString("DeviceRGB"))
+        memset(buffer, 0xff, bufferSize);  // Initialize to an RGB background of white.
+    else if (csAtom == ASAtomFromString("DeviceCMYK"))
+        memset(buffer, 0x00, bufferSize);  // Initialize to a CMYK background of white.
+    else if (csAtom == ASAtomFromString("DeviceGray"))
+        memset(buffer, 0xff, bufferSize);  // Initialize to a DeviceGray background of white.
+    // Leave the memory buffer uninitialized for non-Device color spaces.
+
+    // Render page content to the bitmap buffer
+    //
+    PDPageDrawContentsToMemory(pdPage,kPDPageDoLazyErase | kPDPageUseAnnotFaces,
+        &matrix, NULL,kPDPageDrawSmoothText | kPDPageDrawSmoothLineArt | kPDPageDrawSmoothImage,
+        csAtom, bpc, &scaledDestRect, buffer, bufferSize,NULL, NULL);
+
+    // Set up attributes for the PDEImage made by MakePDEImage - these attributes are also
+    // used to repad the output buffer (from 32-bit row alignment to 8-bit alignment) in
+    // the PadCompute function below
+    SetImageAttrs(scaledDestRect, bpc);
+
+    //If the number of data bits per row is not a multiple of 8, the end of the row is padded with extra bits 
+    //to fill out the last byte. A PDF consumer application ignores these padding bits.
+    attrs.width = PadCompute(attrs, bpc, nComps, buffer, bufferSize);
+}
+
+RenderPage::~RenderPage() 
+{ 
+    if(buffer)
+    {
+        delete[] buffer;
+    }
+    buffer = 0;
+
+    PDERelease(reinterpret_cast<PDEObject>(image));
+    PDERelease(reinterpret_cast<PDEObject>(cs));
+}
+
+char * RenderPage::GetImageBuffer()
+{
+    return buffer;
+}
+
+ASInt32 RenderPage::GetImageBufferSize()
+{
+    return bufferSize;
+}
+
+ASFixedRect RenderPage::GetImageRect()
+{
+    return pageRect;
+}
+
+PDEImage RenderPage::MakePDEImage()
+{
+    //Prepare the image attributes
+    //
+    attrs = SetImageAttrs(scaledDestRect, bpc);
+
+    //Create the image matrix using the height/width attributes and apply the resolution.
+    //
+    imageMatrix = SetImageMatrix(attrs, resolution);
+
+    // Create an image XObject from the bitmap buffer to embed in the output document
+    //
+    image = PDEImageCreate(&attrs, sizeof(attrs),
+        &imageMatrix, 0,
+        cs, NULL,
+        &filterArray, 0,
+        (unsigned char*) buffer, bufferSize);
+
+    return image;
+}
+
+/* * * Internal (private) methods used in the above * * */
+
+PDEImageAttrs RenderPage::SetImageAttrs(ASFixedRect scaledDestRect, ASInt32 bpc)
+{
+    memset(&attrs, 0, sizeof(PDEImageAttrs));
+    attrs.flags = kPDEImageExternal;
+    attrs.height = abs(ASFixedRoundToInt16(scaledDestRect.top) - ASFixedRoundToInt16(scaledDestRect.bottom));
+    attrs.width = abs(ASFixedRoundToInt16(scaledDestRect.right) - ASFixedRoundToInt16(scaledDestRect.left));
+    attrs.bitsPerComponent = bpc;
+    return attrs;
+}
+
+PDEFilterArray RenderPage::SetFilter(char *filterName)
+{	
+    memset(&filterArray, 0, sizeof(PDEFilterArray));
+
+    if(filterName)
+    {
+        filterArray.numFilters = 1;
+        filterArray.spec[0].name = ASAtomFromString(filterName);
+    }
+    return filterArray;
+}
+
+ASFixedMatrix RenderPage::SetImageMatrix(PDEImageAttrs attrs, float resolution)
+{	//applying the proportional resolution width & height to the image matrix. 
+    imageMatrix.a = FloatToASFixed(attrs.width / (resolution / 72.0));
+    imageMatrix.d = FloatToASFixed(attrs.height / (resolution / 72.0));
+    imageMatrix.b = imageMatrix.c = 0;
+    imageMatrix.h = imageMatrix.v = 0;
+    return imageMatrix;
+}
+
+ASFixedMatrix RenderPage::SetScaleMatrix(float resolution)
+{   //Create a matrix to use to increase or decrease the default matrix via concatenation
+    scaleMatrix.a = scaleMatrix.d = FloatToASFixed(resolution / 72.0);
+    scaleMatrix.b = scaleMatrix.c = scaleMatrix.h = scaleMatrix.v = 0;
+    return scaleMatrix;
+}
+
+ASFixedRect RenderPage::SetPageRect(ASFixedRect destRect)
+{
+    pageRect.left = pageRect.bottom = 0;
+    pageRect.right = destRect.right - destRect.left;
+    pageRect.top = destRect.top - destRect.bottom;
+    return pageRect;
+}
+
+ASAtom RenderPage::SetColorSpace(char *colorSpace)
+{	//initialize colorspace atoms and set the channels per color
+    if(!strcmp(colorSpace,"DeviceGray")){
+        sDeviceGray_K = ASAtomFromString("DeviceGray");
+        csAtom = sDeviceGray_K;
+        nComps = 1;
+    }
+    else if(!strcmp(colorSpace,"DeviceRGB")){
+        sDeviceRGB_K  = ASAtomFromString("DeviceRGB");
+        csAtom = sDeviceRGB_K;
+        nComps = 3;
+    }
+    else if(!strcmp(colorSpace,"DeviceCMYK")){
+        sDeviceCMYK_K = ASAtomFromString("DeviceCMYK");
+        csAtom = sDeviceCMYK_K;
+        nComps = 4;
+    } else {
+        // Not a valid colorspace
+        ASRaise(genErrBadParm);
+    }
+
+    // initialize the output colorspace for the PDEImage we'll generate in MakePDEImage
+    cs = PDEColorSpaceCreateFromName(csAtom);
+
+    return csAtom;
+}
+
+ASInt32 RenderPage::SetBPC(ASInt32 bitsPerComp)
+{   //bpc must be set properly, depending on the colorspace being used
+    bpc = bitsPerComp;
+    if(csAtom==sDeviceRGB_K || csAtom==sDeviceCMYK_K)
+    {
+        if(bitsPerComp!=8)
+        {
+            printf("Resetting incorrect BPC value of %d ", bitsPerComp);
+            bpc = 8;
+            printf("to %d for the chosen colorspace...\n", bpc);
+        }
+    }
+    if(csAtom==sDeviceGray_K)
+    {
+        if(bitsPerComp == 1 || bitsPerComp == 8 || bitsPerComp == 24)
+        {}else{
+            printf("Resetting incorrect BPC value of %d ", bitsPerComp);
+            bpc = 8;
+            printf("to an acceptable value of %d for the chosen colorspace...\n", bpc);
+        }
+    }
+    return bpc;
+}
+
+ASInt32 RenderPage::PadCompute(PDEImageAttrs attrs, ASInt32 bpc, ASInt32 nComps, char *buffer, ASInt32 bufferSize)
+{   // The bitmap data generated by PDPageDrawContentsToWindow is 32-bit aligned. 
+    // The PDF image operator expects, however, 8-bit aligned image data. 
+    // To remedy this difference, we check to see if the 32-bit aligned width
+    // is different from the 8-bit aligned width. If so, we fix the image data by 
+    // stripping off the padding at the end
+    //
+    if (((((attrs.width * bpc * nComps) + 31) / 32) * 4) != ((attrs.width * bpc * nComps) /	8))
+    {
+        char *src, *dest;		// temporary pointers to the bitmap data buffer 
+        // created by PDPageDrawContentsToMemory
+        int sw, dw;					
+        sw = ((((attrs.width * bpc * nComps) + 31) / 32) * 4);
+        if (bpc == 1)
+            dw = attrs.width / 8 + ((attrs.width % 8) ? 1 : 0);
+        else
+            dw = (attrs.width * bpc * nComps) / 8;
+        src = dest = buffer;
+        //
+        // Copy the source bytes to the destination
+        //
+        for (int i = 0; i < attrs.height; i++) {
+            for (int j = 0; j < dw; j++) 
+                dest[j] = src[j];
+            src += sw; dest += dw;
+        }
+        //
+        // Recalculate buffer size
+        //
+        bufferSize = dw * attrs.height;
+    } else {
+        attrs.width = (((( attrs.width* bpc * nComps) + 31) / 32) * 4) * 8 / (bpc * nComps);
+    }
+    return attrs.width;
+}
+
+ASInt32 RenderPage::SetBufferSize(PDPage pdPage, ASFixedMatrix &matrix, ASAtom csAtom, ASInt32 bpc, ASFixedRect scaledDestRect)
+{   //calculate buffer size needed to for page contents
+    bufferSize = PDPageDrawContentsToMemory(pdPage,kPDPageDoLazyErase,
+        &matrix, NULL,0,csAtom,
+        bpc,&scaledDestRect,NULL,
+        0, NULL, NULL);
+    return bufferSize;
+}
+
+float RenderPage::SetResolution(float inResolution)
+{   //Correct for a resolution lower than or equal to zero
+    if(inResolution<=0.0)
+        resolution=72.0;
+    else
+        resolution = inResolution;
+    return resolution; 
+}
+
+

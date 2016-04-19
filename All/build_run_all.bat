@@ -25,9 +25,6 @@ REM ***   All arguments are case-insensitive.
 REM ***
 REM ***   ARGUMENT      EFFECT
 REM ***   -noRun        Don't run the samples, just build them.
-REM ***   -noAD         Don't process the Adobe samples.
-REM ***   -noDL         Don't process the Datalogics samples.
-REM ***   -noPL         Don't process the plugin samples.
 REM ***   -release      Build Release configuration instead of Debug configuration.
 REM ***   -64-bit       Build the 64-bit version instead of 32-bit version.
 REM ***
@@ -92,9 +89,7 @@ REM *************************************************
 REM *** Initialize environment variables, enable delayed expansion.
 SETLOCAL EnableDelayedExpansion  
 REM *** Filename of All project.
-SET ALL_AD_SLN=All_Adobe.sln
 SET ALL_DL_SLN=All_Datalogics.sln
-SET ALL_PL_SLN=All_Plugins.sln
 
 REM ************* Initialize variables which track our progress ******************
 REM *** The number of samples that failed to build.
@@ -121,9 +116,9 @@ SET ONLY_BUILD=N
 REM *** Process the Datalogics samples.
 SET DO_DL=Y
 REM *** Process the Adobe samples.
-SET DO_AD=Y
+SET DO_AD=N
 REM *** Process the plugin samples.
-SET DO_PL=Y
+SET DO_PL=N
 REM *** Build 32-Bit by default.
 SET ARCH=Win32
 
@@ -138,15 +133,7 @@ IF /i "%1"=="-release" (
 IF /i "%1"=="-noRun" (
 	SET ONLY_BUILD=Y
 )
-IF /i "%1"=="-noDL" (
-	SET DO_DL=N
-)
-IF /i "%1"=="-noAD" (
-	SET DO_AD=N
-)
-IF /i "%1"=="-noPL" (
-	SET DO_PL=N
-)
+
 IF /i "%1"=="-64-bit" (
 	SET ARCH=x64
 )
@@ -171,15 +158,6 @@ IF %DO_DL% == Y (
 	devenv %ALL_DL_SLN% /rebuild "%STAGE%|%ARCH%"
 )
 ECHO.
-IF %DO_AD% == Y (
-	ECHO #Building Adobe samples...
-	devenv %ALL_AD_SLN% /rebuild "%STAGE%|%ARCH%"
-)
-ECHO.
-IF %DO_PL% == Y (
-	ECHO #Building plugin samples...
-	devenv %ALL_PL_SLN% /rebuild "%STAGE%|%ARCH%"
-)
 
 REM *************************************************
 REM *** 3) Decide which samples to run.
@@ -198,7 +176,7 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% CreateAnnotations CreateDocument CreateLaye
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% CreateTransparency EncryptDocument ExtractAttachments"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ExtractDocumentInfo ExtractText FindImageResolutions"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FlattenAnnotations FlattenTransparency LockDocument"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% MergeDocuments OpenEncrypted RasterizeCopy"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% MergeDocuments OpenEncrypted RenderPage"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% SetUniquePermissions SplitPDF TextSearch"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% UnicodeText WebOptimizedPDF XPStoPDF"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"

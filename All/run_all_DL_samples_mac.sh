@@ -147,9 +147,9 @@ cd ../OpenEncrypted
 ./OpenEncrypted-${stage}.app/Contents/MacOS/OpenEncrypted-${stage}
 echo ""
 
-echo Running sample RasterizeCopy
-cd ../RasterizeCopy
-./RasterizeCopy-${stage}.app/Contents/MacOS/RasterizeCopy-${stage}
+echo Running sample RenderPage
+cd ../RenderPage
+./RenderPage-${stage}.app/Contents/MacOS/RenderPage-${stage}
 echo ""
 
 echo Running sample SetUniquePermissions
