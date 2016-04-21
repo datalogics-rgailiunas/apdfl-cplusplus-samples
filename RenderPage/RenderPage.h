@@ -33,7 +33,8 @@
 #include "PERCalls.h"
 #include "PEWCalls.h"
 #include "PagePDECntCalls.h"
-#include "MyPDFLibUtils.h"
+#include "PDFLExpT.h"
+#include "PDFLCalls.h"
 
 static ASAtom sDeviceRGB_K, sDeviceCMYK_K, sDeviceGray_K; //to hold colorspace ASAtoms
 

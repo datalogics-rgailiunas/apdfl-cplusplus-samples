@@ -1,4 +1,4 @@
-/*	
+/*
     RenderPage - Sample for the Adobe PDF Library distributed by Datalogics.
     Copyright (c) 2007-2015, Datalogics, Inc. All rights reserved.
 
@@ -141,7 +141,7 @@ PDEImageAttrs RenderPage::SetImageAttrs(ASFixedRect scaledDestRect, ASInt32 bpc)
 }
 
 PDEFilterArray RenderPage::SetFilter(char *filterName)
-{	
+{    
     memset(&filterArray, 0, sizeof(PDEFilterArray));
 
     if(filterName)
@@ -153,7 +153,7 @@ PDEFilterArray RenderPage::SetFilter(char *filterName)
 }
 
 ASFixedMatrix RenderPage::SetImageMatrix(PDEImageAttrs attrs, float resolution)
-{	//applying the proportional resolution width & height to the image matrix. 
+{    //applying the proportional resolution width & height to the image matrix. 
     imageMatrix.a = FloatToASFixed(attrs.width / (resolution / 72.0));
     imageMatrix.d = FloatToASFixed(attrs.height / (resolution / 72.0));
     imageMatrix.b = imageMatrix.c = 0;
@@ -177,7 +177,7 @@ ASFixedRect RenderPage::SetPageRect(ASFixedRect destRect)
 }
 
 ASAtom RenderPage::SetColorSpace(char *colorSpace)
-{	//initialize colorspace atoms and set the channels per color
+{    //initialize colorspace atoms and set the channels per color
     if(!strcmp(colorSpace,"DeviceGray")){
         sDeviceGray_K = ASAtomFromString("DeviceGray");
         csAtom = sDeviceGray_K;
@@ -234,11 +234,11 @@ ASInt32 RenderPage::PadCompute(PDEImageAttrs attrs, ASInt32 bpc, ASInt32 nComps,
     // is different from the 8-bit aligned width. If so, we fix the image data by 
     // stripping off the padding at the end
     //
-    if (((((attrs.width * bpc * nComps) + 31) / 32) * 4) != ((attrs.width * bpc * nComps) /	8))
+    if (((((attrs.width * bpc * nComps) + 31) / 32) * 4) != ((attrs.width * bpc * nComps) /    8))
     {
-        char *src, *dest;		// temporary pointers to the bitmap data buffer 
+        char *src, *dest;        // temporary pointers to the bitmap data buffer 
         // created by PDPageDrawContentsToMemory
-        int sw, dw;					
+        int sw, dw;                    
         sw = ((((attrs.width * bpc * nComps) + 31) / 32) * 4);
         if (bpc == 1)
             dw = attrs.width / 8 + ((attrs.width % 8) ? 1 : 0);

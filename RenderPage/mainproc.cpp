@@ -1,4 +1,4 @@
-/*	
+/*    
     RenderPage - Sample for the Adobe PDF Library distributed by Datalogics.
     Copyright (c) 2007-2015, Datalogics, Inc. All rights reserved.
 
@@ -12,6 +12,9 @@
     PDF document opening, creation and saving, page creation, etc.
 */
 
+#include "APDFLDoc.h"
+#include "InitializeLibrary.h"
+
 #include "PDFInit.h"
 #include "CosCalls.h"
 #include "CorCalls.h"
@@ -22,41 +25,40 @@
 #include "PEWCalls.h"
 #include "PIExcept.h"
 #include "PagePDECntCalls.h"
-#include "MyPDFLibUtils.h"
 #include "RenderPage.h"
 
 #ifdef MAC_ENV                                  
 #include "macUtils.h"
 #endif
 
-#define INPUT_FILE      "../_Input/RenderPage.pdf"
-#define OUTPUT_FILE     "RenderPage-out.pdf"
-#define RESOLUTION		150.0 //typically 72.0, 150.0, 200.0, 300.0, or 600.0  
-#define COLORSPACE		"DeviceRGB" //typically this, DeviceGray or DeviceCMYK
-#define FILTER			"FlateDecode" //or ASCIIHexDecode, LZWDecode, DCTDecode
-#define BPC				8 //this must be 8 for DeviceRGB & DeviceCYMK, or 1, 8, or 24 for DeviceGray
+#define INPUT_FILE      L"../_Input/RenderPage.pdf"
+#define OUTPUT_FILE     L"RenderPage-out.pdf"
+#define RESOLUTION      150.0 //typically 72.0, 150.0, 200.0, 300.0, or 600.0  
+#define COLORSPACE      "DeviceRGB" //typically this, DeviceGray or DeviceCMYK
+#define FILTER          "FlateDecode" //or ASCIIHexDecode, LZWDecode, DCTDecode
+#define BPC             8 //this must be 8 for DeviceRGB & DeviceCYMK, or 1, 8, or 24 for DeviceGray
 
-void MainProc(int argc, char **argv )
+int main(int argc, char** argv)
 {
-    ASInt32 err = 0;	
-    volatile ASPathName outputPathName = NULL;
-    volatile PDDoc      outputPDDoc    = NULL;
-    volatile PDPage     outputPDPage   = NULL;
-    volatile PDEContent content        = NULL;
+    APDFLib lib;                        //Initialize the Adobe PDF Library.
+    ASErrorCode errCode = 0;            //This will catch error codes thrown during library usage.
+    PDPage     outputPDPage = NULL;
+    PDEContent content = NULL;
 
-    PDDoc pdDoc = MyPDDocOpen(INPUT_FILE);
+    if (lib.isValid() == false)         //If it failed to initialize, return the error code.
+        return lib.getInitError();
 
-    if (pdDoc)
-    {
+    APDFLDoc inDoc(INPUT_FILE, true);   //Open the input document
+    APDFLDoc outDoc;                    //Create the output document
+
     DURING
-        PDPage pdPage = PDDocAcquirePage(pdDoc, 0);
+        PDPage pdPage = inDoc.getPage(0);                                                         //Returns the specified PDPage, the first page is 0.
 
         // The constructor for this class will do the scaling, position, etc. and rasterize
         // the supplied PDPage.
         RenderPage drawPage(pdPage, COLORSPACE, FILTER, BPC, RESOLUTION); 
 
-        outputPDDoc  = PDDocCreate();
-        outputPDPage = PDDocCreatePage(outputPDDoc, PDBeforeFirstPage, drawPage.GetImageRect());
+        outputPDPage = PDDocCreatePage(outDoc.getPDDoc(), PDBeforeFirstPage, drawPage.GetImageRect());
         content      = PDPageAcquirePDEContent(outputPDPage, 0);
 
         // The call to MakePDEImage synthesizes a PDEImage object from the rasterized PDF page
@@ -67,14 +69,7 @@ void MainProc(int argc, char **argv )
         PDPageSetPDEContentCanRaise(outputPDPage, 0);
         PDPageReleasePDEContent(outputPDPage, 0);
 
-#if WIN_PLATFORM || UNIX_PLATFORM
-        outputPathName = ASFileSysCreatePathName(NULL, ASAtomFromString("Cstring"), (char*)OUTPUT_FILE, 0);
-#elif MAC_PLATFORM
-        outputPathName = GetMacPath(OUTPUT_FILE);
-#endif
-
-        PDDocSave(outputPDDoc, PDSaveFull | PDSaveCollectGarbage, outputPathName, 0, 0, 0);
-        ASFileSysReleasePath(NULL, outputPathName);
+        outDoc.saveDoc(OUTPUT_FILE, PDSaveFull | PDSaveCollectGarbage);    //Save the output file in the working directory.
 
         PDPageRelease(outputPDPage);
         PDPageRelease(pdPage);
@@ -85,11 +80,6 @@ void MainProc(int argc, char **argv )
         fprintf(stderr, "Error code: 0x%x, Error Message: %s\n", ERRORCODE, buf);
     END_HANDLER
 
-        PDDocClose(outputPDDoc);
-        PDDocClose(pdDoc);
-    }
+        inDoc.~APDFLDoc();
+        outDoc.~APDFLDoc();
 }
-
-#define INCLUDE_MYPDFLIBAPP_CPP	1
-#include "MyPDFLibApp.cpp"
-#undef INCLUDE_MYPDFLIBAPP_CPP
