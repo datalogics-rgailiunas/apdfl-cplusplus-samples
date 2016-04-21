@@ -5,8 +5,6 @@ OTHER_OBJS = $(SAMPNAME).o mainproc.o
 include ../dlutils/common.mak
 
 $(SAMPNAME).o: $(SRC)/$(SAMPNAME).cpp
-	$(CXX) $(INCDIRS) $(CXXFLAGS) -c $< -o $@
 
 mainproc.o : $(SRC)/mainproc.cpp
-	$(CXX) $(INCDIRS) $(CXXFLAGS) -c $< -o $@
 
