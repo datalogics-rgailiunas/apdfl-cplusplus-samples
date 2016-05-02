@@ -15,21 +15,11 @@
 #include "APDFLDoc.h"
 #include "InitializeLibrary.h"
 
-#include "PDFInit.h"
-#include "CosCalls.h"
-#include "CorCalls.h"
-#include "ASCalls.h"
-#include "PDCalls.h"
-#include "PSFCalls.h"
 #include "PERCalls.h"
 #include "PEWCalls.h"
-#include "PIExcept.h"
 #include "PagePDECntCalls.h"
 #include "RenderPage.h"
 
-#ifdef MAC_ENV                                  
-#include "macUtils.h"
-#endif
 
 #define INPUT_FILE      L"../_Input/RenderPage.pdf"
 #define OUTPUT_FILE     L"RenderPage-out.pdf"

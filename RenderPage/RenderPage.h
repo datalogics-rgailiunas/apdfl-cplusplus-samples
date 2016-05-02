@@ -11,21 +11,8 @@
     This file contains declarations for the RenderPage class.
 */
 
-#ifndef MAC_PLATFORM
 #include <stdio.h>
-#include <assert.h>
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
-#endif
-#ifdef MAC_ENV
-#include "MacUtils.h"
-#endif
 
-#include <iostream>
-#include <string>
-
-#include "PDFInit.h"
 #include "CosCalls.h"
 #include "ASCalls.h"
 #include "PDCalls.h"
