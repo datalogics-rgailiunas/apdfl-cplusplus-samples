@@ -12,6 +12,7 @@
 */
 
 #include <stdio.h>
+#include <string.h>
 
 #include "CosCalls.h"
 #include "ASCalls.h"
