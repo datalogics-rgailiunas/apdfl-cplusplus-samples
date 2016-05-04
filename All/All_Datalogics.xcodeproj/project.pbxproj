@@ -13,6 +13,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				BAA38E921CDA41030011A215 /* PBXTargetDependency */,
 				2E79A5DD1C909AEB0087ECBC /* PBXTargetDependency */,
 				2E79A5B61C909A230087ECBC /* PBXTargetDependency */,
 				2E79A5901C9098180087ECBC /* PBXTargetDependency */,
@@ -484,6 +485,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
 			remoteInfo = WebOptimizedPDF;
+		};
+		BAA38E911CDA41030011A215 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BAD6A5761CD7F8680005B204 /* RenderPage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = RenderPage;
 		};
 		BAD6A57A1CD7F8680005B204 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1363,6 +1371,11 @@
 			isa = PBXTargetDependency;
 			name = WebOptimizedPDF;
 			targetProxy = 2E79A5DC1C909AEB0087ECBC /* PBXContainerItemProxy */;
+		};
+		BAA38E921CDA41030011A215 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RenderPage;
+			targetProxy = BAA38E911CDA41030011A215 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

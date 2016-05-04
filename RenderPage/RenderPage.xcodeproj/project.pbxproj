@@ -38,8 +38,11 @@
 		3E56135B0F8BF3DD0094B7E7 /* ICUConverter.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613530F8BF3C70094B7E7 /* ICUConverter.framework */; };
 		3E56135C0F8BF3E30094B7E7 /* ICUData.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613560F8BF3CC0094B7E7 /* ICUData.framework */; };
 		8D0C4E920486CD37000505A6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Foundation.framework */; };
+		BA2A0C1D0B6537A8007BB524 /* extrURI.h in Headers */ = {isa = PBXBuildFile; fileRef = BA2A0C180B6537A8007BB524 /* extrURI.h */; };
+		BA2A0C1E0B6537A8007BB524 /* macUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = BA2A0C190B6537A8007BB524 /* macUtils.h */; };
+		BA2A0C1F0B6537A8007BB524 /* MyPDFLibUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = BA2A0C1A0B6537A8007BB524 /* MyPDFLibUtils.h */; };
+		BA2A0C210B6537A8007BB524 /* SDKThreads.h in Headers */ = {isa = PBXBuildFile; fileRef = BA2A0C1C0B6537A8007BB524 /* SDKThreads.h */; };
 		BA2E45960888421A0081FD28 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2E45950888421A0081FD28 /* ApplicationServices.framework */; };
-		BA378BA91CD7BBB0005666A7 /* RenderPage.h in Headers */ = {isa = PBXBuildFile; fileRef = BA378BA81CD7BBB0005666A7 /* RenderPage.h */; settings = {ASSET_TAGS = (); }; };
 		BA3D8C2B0B652F6E0079A6FB /* ToolkitInitEASF.h in Headers */ = {isa = PBXBuildFile; fileRef = BA3D8BBB0B652F6E0079A6FB /* ToolkitInitEASF.h */; };
 		BA3D8C2C0B652F6E0079A6FB /* XtnMgrEASF.h in Headers */ = {isa = PBXBuildFile; fileRef = BA3D8BBC0B652F6E0079A6FB /* XtnMgrEASF.h */; };
 		BA3D8C2D0B652F6E0079A6FB /* XtnMgrE.h in Headers */ = {isa = PBXBuildFile; fileRef = BA3D8BBD0B652F6E0079A6FB /* XtnMgrE.h */; };
@@ -154,8 +157,8 @@
 		BA3D8C9A0B652F6E0079A6FB /* AcroColorProcs.h in Headers */ = {isa = PBXBuildFile; fileRef = BA3D8C2A0B652F6E0079A6FB /* AcroColorProcs.h */; };
 		BA568C160A47467400825A50 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA568C150A47467400825A50 /* CoreServices.framework */; };
 		BA64AAB20B5829E00026827E /* PDFLInitHFT.c in Sources */ = {isa = PBXBuildFile; fileRef = BA64AAB10B5829E00026827E /* PDFLInitHFT.c */; };
+		BAA612961CDA36510070937B /* mainproc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BAA612951CDA36510070937B /* mainproc.cpp */; settings = {ASSET_TAGS = (); }; };
 		BAB910C30B582A3000C283C9 /* PDFLInitCommon.c in Sources */ = {isa = PBXBuildFile; fileRef = BAB910C20B582A3000C283C9 /* PDFLInitCommon.c */; };
-		BAE845C11CD7BAA600E29A2E /* mainproc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BAE845C01CD7BAA600E29A2E /* mainproc.cpp */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -207,8 +210,11 @@
 		3E5613500F8BF3B90094B7E7 /* DL150AdobeXMP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150AdobeXMP.framework; path = ../../Libs/DL150AdobeXMP.framework; sourceTree = SOURCE_ROOT; };
 		3E5613530F8BF3C70094B7E7 /* ICUConverter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ICUConverter.framework; path = ../../Libs/ICUConverter.framework; sourceTree = SOURCE_ROOT; };
 		3E5613560F8BF3CC0094B7E7 /* ICUData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ICUData.framework; path = ../../Libs/ICUData.framework; sourceTree = SOURCE_ROOT; };
+		BA2A0C180B6537A8007BB524 /* extrURI.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; name = extrURI.h; path = ../utils/extrURI.h; sourceTree = SOURCE_ROOT; };
+		BA2A0C190B6537A8007BB524 /* macUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; name = macUtils.h; path = ../utils/macUtils.h; sourceTree = SOURCE_ROOT; };
+		BA2A0C1A0B6537A8007BB524 /* MyPDFLibUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; name = MyPDFLibUtils.h; path = ../utils/MyPDFLibUtils.h; sourceTree = SOURCE_ROOT; };
+		BA2A0C1C0B6537A8007BB524 /* SDKThreads.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; name = SDKThreads.h; path = ../utils/SDKThreads.h; sourceTree = SOURCE_ROOT; };
 		BA2E45950888421A0081FD28 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
-		BA378BA81CD7BBB0005666A7 /* RenderPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderPage.h; sourceTree = "<group>"; };
 		BA3D8BBB0B652F6E0079A6FB /* ToolkitInitEASF.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; name = ToolkitInitEASF.h; path = ../../Include/Headers/ToolkitInitEASF.h; sourceTree = SOURCE_ROOT; };
 		BA3D8BBC0B652F6E0079A6FB /* XtnMgrEASF.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; name = XtnMgrEASF.h; path = ../../Include/Headers/XtnMgrEASF.h; sourceTree = SOURCE_ROOT; };
 		BA3D8BBD0B652F6E0079A6FB /* XtnMgrE.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; name = XtnMgrE.h; path = ../../Include/Headers/XtnMgrE.h; sourceTree = SOURCE_ROOT; };
@@ -323,9 +329,9 @@
 		BA3D8C2A0B652F6E0079A6FB /* AcroColorProcs.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; name = AcroColorProcs.h; path = ../../Include/Headers/AcroColorProcs.h; sourceTree = SOURCE_ROOT; };
 		BA568C150A47467400825A50 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		BA64AAB10B5829E00026827E /* PDFLInitHFT.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = PDFLInitHFT.c; path = ../../Include/Source/PDFLInitHFT.c; sourceTree = SOURCE_ROOT; };
+		BAA612951CDA36510070937B /* mainproc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mainproc.cpp; sourceTree = "<group>"; };
 		BAAFDE0808980F3600470124 /* RenderPage-Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RenderPage-Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAB910C20B582A3000C283C9 /* PDFLInitCommon.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = PDFLInitCommon.c; path = ../../Include/Source/PDFLInitCommon.c; sourceTree = SOURCE_ROOT; };
-		BAE845C01CD7BAA600E29A2E /* mainproc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mainproc.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -379,8 +385,7 @@
 		20286C2AFDCF999611CA2CEA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				BA378BA81CD7BBB0005666A7 /* RenderPage.h */,
-				BAE845C01CD7BAA600E29A2E /* mainproc.cpp */,
+				BAA612951CDA36510070937B /* mainproc.cpp */,
 				2E21C06A1C8DD3FD00018A6D /* APDFLDoc.cpp */,
 				2E21C06B1C8DD3FD00018A6D /* APDFLDoc.h */,
 				2E21C06C1C8DD3FD00018A6D /* InitializeLibrary.cpp */,
@@ -404,6 +409,10 @@
 		BA3D8BB90B652F530079A6FB /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				BA2A0C180B6537A8007BB524 /* extrURI.h */,
+				BA2A0C190B6537A8007BB524 /* macUtils.h */,
+				BA2A0C1A0B6537A8007BB524 /* MyPDFLibUtils.h */,
+				BA2A0C1C0B6537A8007BB524 /* SDKThreads.h */,
 				BA3D8BBB0B652F6E0079A6FB /* ToolkitInitEASF.h */,
 				BA3D8BBC0B652F6E0079A6FB /* XtnMgrEASF.h */,
 				BA3D8BBD0B652F6E0079A6FB /* XtnMgrE.h */,
@@ -622,7 +631,6 @@
 				BA3D8C5E0B652F6E0079A6FB /* PDSExpT.h in Headers */,
 				BA3D8C5F0B652F6E0079A6FB /* PDSErrorASF.h in Headers */,
 				BA3D8C600B652F6E0079A6FB /* PDSError.h in Headers */,
-				BA378BA91CD7BBB0005666A7 /* RenderPage.h in Headers */,
 				BA3D8C610B652F6E0079A6FB /* PDProcs.h in Headers */,
 				BA3D8C620B652F6E0079A6FB /* PDPageEASF.h in Headers */,
 				BA3D8C630B652F6E0079A6FB /* PSFCalls.h in Headers */,
@@ -683,6 +691,10 @@
 				BA3D8C980B652F6E0079A6FB /* PDFLRequir.h in Headers */,
 				BA3D8C990B652F6E0079A6FB /* AcroColorHFT.h in Headers */,
 				BA3D8C9A0B652F6E0079A6FB /* AcroColorProcs.h in Headers */,
+				BA2A0C1D0B6537A8007BB524 /* extrURI.h in Headers */,
+				BA2A0C1E0B6537A8007BB524 /* macUtils.h in Headers */,
+				BA2A0C1F0B6537A8007BB524 /* MyPDFLibUtils.h in Headers */,
+				BA2A0C210B6537A8007BB524 /* SDKThreads.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -739,7 +751,7 @@
 			files = (
 				BA64AAB20B5829E00026827E /* PDFLInitHFT.c in Sources */,
 				2E21C0691C8DD3D500018A6D /* RenderPage.cpp in Sources */,
-				BAE845C11CD7BAA600E29A2E /* mainproc.cpp in Sources */,
+				BAA612961CDA36510070937B /* mainproc.cpp in Sources */,
 				2E21C06E1C8DD3FD00018A6D /* APDFLDoc.cpp in Sources */,
 				2E21C0701C8DD3FD00018A6D /* InitializeLibrary.cpp in Sources */,
 				BAB910C30B582A3000C283C9 /* PDFLInitCommon.c in Sources */,
