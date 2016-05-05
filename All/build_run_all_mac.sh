@@ -72,7 +72,7 @@ declare -a DL_SAMPLE_LIST=( \
   "CreateTransparency" "EncryptDocument" "ExtractAttachments" \
   "ExtractDocumentInfo" "ExtractText" "FindImageresolutions" \
   "FlattenAnnotations" "FlattenTransparency" "LockDocument" \
-  "MergeDocuments" "OpenEncrypted" "RasterizeCopy" \
+  "MergeDocuments" "OpenEncrypted" "RenderPage" \
   "SetUniquePermissions" "SplitPDF" "TextSearch" \
   "UnicodeText" "WebOptimizedPDF"
 	)

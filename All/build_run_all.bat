@@ -14,8 +14,8 @@ REM ***    2. Above, <samplename> is equal to <samplefolder>.
 REM ***
 REM *** MAINTENANCE:
 REM ***   Step 3 is where you want to be if you want to add or remove samples from this script.
-REM ***   Add or remove items from DL_SAMPLE_LIST or AD_SAMPLE_LIST, making sure to update NUM_SAMPLES,
-REM ***   NUM_AD_SAMPLES, NUM_DL_SAMPLES, and NUM_PL_SAMPLES accordingly. Bear in mind that each item in the list must
+REM ***   Add or remove items from DL_SAMPLE_LIST, making sure to update NUM_SAMPLES,
+REM ***   NUM_DL_SAMPLES accordingly. Bear in mind that each item in the list must
 REM ***   be, simultaneously, the name of the sample's folder in ../, the name of the sample's .sln,
 REM ***   and the name of the executable it builds...
 REM ***   If necessary, you can also specify arguments for samples. Follow the examples therein.
@@ -25,9 +25,6 @@ REM ***   All arguments are case-insensitive.
 REM ***
 REM ***   ARGUMENT      EFFECT
 REM ***   -noRun        Don't run the samples, just build them.
-REM ***   -noAD         Don't process the Adobe samples.
-REM ***   -noDL         Don't process the Datalogics samples.
-REM ***   -noPL         Don't process the plugin samples.
 REM ***   -release      Build Release configuration instead of Debug configuration.
 REM ***   -64-bit       Build the 64-bit version instead of 32-bit version.
 REM ***
@@ -92,9 +89,7 @@ REM *************************************************
 REM *** Initialize environment variables, enable delayed expansion.
 SETLOCAL EnableDelayedExpansion  
 REM *** Filename of All project.
-SET ALL_AD_SLN=All_Adobe.sln
 SET ALL_DL_SLN=All_Datalogics.sln
-SET ALL_PL_SLN=All_Plugins.sln
 
 REM ************* Initialize variables which track our progress ******************
 REM *** The number of samples that failed to build.
@@ -118,12 +113,6 @@ REM *** The configuration to use.
 SET STAGE=Debug
 REM *** Only build the samples, don't run them.
 SET ONLY_BUILD=N
-REM *** Process the Datalogics samples.
-SET DO_DL=Y
-REM *** Process the Adobe samples.
-SET DO_AD=Y
-REM *** Process the plugin samples.
-SET DO_PL=Y
 REM *** Build 32-Bit by default.
 SET ARCH=Win32
 
@@ -138,15 +127,7 @@ IF /i "%1"=="-release" (
 IF /i "%1"=="-noRun" (
 	SET ONLY_BUILD=Y
 )
-IF /i "%1"=="-noDL" (
-	SET DO_DL=N
-)
-IF /i "%1"=="-noAD" (
-	SET DO_AD=N
-)
-IF /i "%1"=="-noPL" (
-	SET DO_PL=N
-)
+
 IF /i "%1"=="-64-bit" (
 	SET ARCH=x64
 )
@@ -154,8 +135,6 @@ SHIFT
 GOTO AcceptCommands
 
 :ArgumentsEnd
-
-IF %DO_DL% == N IF %DO_AD% == N IF %DO_PL% == N GOTO MustIncludeFiles
 
 REM *** Set up the visual studio environment.
 IF "%VS120COMNTOOLS%" == "" GOTO Usage
@@ -166,27 +145,16 @@ REM *************************************************
 REM *** 2) Build each sample.
 REM *************************************************
 
-IF %DO_DL% == Y (
-	ECHO #Building Datalogics samples...
-	devenv %ALL_DL_SLN% /rebuild "%STAGE%|%ARCH%"
-)
+ECHO #Building Datalogics samples...
+devenv %ALL_DL_SLN% /rebuild "%STAGE%|%ARCH%"
 ECHO.
-IF %DO_AD% == Y (
-	ECHO #Building Adobe samples...
-	devenv %ALL_AD_SLN% /rebuild "%STAGE%|%ARCH%"
-)
-ECHO.
-IF %DO_PL% == Y (
-	ECHO #Building plugin samples...
-	devenv %ALL_PL_SLN% /rebuild "%STAGE%|%ARCH%"
-)
 
 REM *************************************************
 REM *** 3) Decide which samples to run.
 REM *************************************************
 
 REM *** The total number of samples. This must be accurate!
-SET /A "NUM_SAMPLES=50"
+SET /A "NUM_SAMPLES=33"
 
 REM *** Datalogics Samples.
 SET "DL_SAMPLE_LIST=("
@@ -198,49 +166,18 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% CreateAnnotations CreateDocument CreateLaye
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% CreateTransparency EncryptDocument ExtractAttachments"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ExtractDocumentInfo ExtractText FindImageResolutions"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FlattenAnnotations FlattenTransparency LockDocument"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% MergeDocuments OpenEncrypted RasterizeCopy"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% MergeDocuments OpenEncrypted RenderPage"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% SetUniquePermissions SplitPDF TextSearch"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% UnicodeText WebOptimizedPDF XPStoPDF"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
 REM *** The total number of DL samples. This must be accurate!
-IF %DO_DL% == Y SET /A "NUM_DL_SAMPLES=33"
-REM *** If we don't want these, set to zero so that we don't try running them later.
-IF %DO_DL% == N SET /A "NUM_DL_SAMPLES=0"
+SET /A "NUM_DL_SAMPLES=33"
 
-REM *** Adobe Samples.
-SET "AD_SAMPLE_LIST=("
-SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% addelem CreatePattern Decryption"
-SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% drawtomemory fontembd helowrld"
-SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% JPXEncode mergepdf MTInMemFS"
-SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% MTSerialNums MTTextExtract Peddler"
-SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST% printpdf unicode"
-SET "AD_SAMPLE_LIST=%AD_SAMPLE_LIST%)"
-REM *** The total number of AD samples. This must be accurate!
-IF %DO_AD% == Y SET /A "NUM_AD_SAMPLES=14"
-REM *** If we don't want these, set to zero so that we don't try running them later.
-IF %DO_AD% == N SET /A "NUM_AD_SAMPLES=0"
-
-REM *** Plugin Samples.
-SET "PL_SAMPLE_LIST=("
-SET "PL_SAMPLE_LIST=%PL_SAMPLE_LIST% FlattenPDF PDFProcessor XPS2PDFConverter"
-SET "PL_SAMPLE_LIST=%PL_SAMPLE_LIST%)"
-REM *** The total number of PL samples. This must be accurate!
-IF %DO_PL% == Y SET /A "NUM_PL_SAMPLES=3"
-REM *** If we don't want these, set to zero so that we don't try running them later.
-IF %DO_PL% == N SET /A "NUM_PL_SAMPLES=0"
-
-REM *** Ai iterates over Adobe samples. Do not change this value.
-SET /A "Ai=0"
 REM *** Di iterates over Datalogics samples. Do not change this value.
 SET /A "Di=0"
-REM *** Pi iterates over plugin samples. Do not change this value.
-SET /A "Pi=0"
 
 REM *** Some samples require arguments. The variable name before "_args"
 REM *** is the name of the sample.
-SET "MTInMemFS_args=..\_Data\input.txt outPath"
-SET "MTSerialNums_args=..\_Data\addelem.pdf outDir outBase 2 3"
-SET "SnippetRunner_args=DLautoInput.txt"
 
 REM *************************************************
 REM *** 4) Run the samples.
@@ -260,7 +197,7 @@ REM ************************************************************
 :RunSampleLoop_START
 REM *** If we've run all the samples, end.
 REM *** PL samples are always done last.)
-IF %Di% GEQ %NUM_DL_SAMPLES% IF %Ai% GEQ %NUM_AD_SAMPLES% IF %Pi% GEQ %NUM_PL_SAMPLES% GOTO RunSampleLoop_END
+IF %Di% GEQ %NUM_DL_SAMPLES% GOTO RunSampleLoop_END
 ECHO.
 
 REM *** Retrieve the next sample.
@@ -277,19 +214,12 @@ IF NOT EXIST %CURRENT_SAMPLE%.exe (GOTO CantFindExe)
 If %ONLY_BUILD% == Y GOTO RunSampleLoop_Call_End 
 
 :RunSampleLoop_Call
-	REM *** First DELETE %CURRENT_SAMPLE%.exe built before
-	DEL  %CURRENT_SAMPLE%.exe
-
-	REM *** Then rebuild %CURRENT_SAMPLE%.sln then to run %CURRENT_SAMPLE%.exe ...
-	REM *** Call the sample with its arguments, if any.
-	REM *** (undefined variables expand to nothing.)
-	
-	devenv ../../%CURRENT_SAMPLE%.sln /rebuild "%STAGE%|%ARCH%"
-	IF %ERRORLEVEL% NEQ 0 (GOTO CantFindExe)
-	REM *** NO ERROR Rebuild the #%CURRENT_SAMPLE%.sln file
+	ECHO #Run %CURRENT_SAMPLE%.
 	REM *** If the exe file could not be found.
 	IF NOT EXIST %CURRENT_SAMPLE%.exe (GOTO CantFindExe)
 
+	REM *** Call the sample with its arguments, if any.
+	REM *** (undefined variables expand to nothing.)
 	CD ../../
 	%ARCH%\%STAGE%\!CURRENT_SAMPLE!.exe %!CURRENT_SAMPLE!_args%
 	
@@ -312,9 +242,7 @@ REM ********************************
 :GetNextSample
 SET /A "n=0"
 
-IF %DO_DL% == Y IF %Di% LSS %NUM_DL_SAMPLES% GOTO NextDLSample
-IF %DO_AD% == Y IF %Ai% LSS %NUM_AD_SAMPLES% GOTO NextAdobeSample
-IF %DO_PL% == Y IF %Pi% LSS %NUM_PL_SAMPLES% GOTO NextPluginSample
+IF %Di% LSS %NUM_DL_SAMPLES% GOTO NextDLSample
 
 :NextDLSample
 FOR %%S IN %DL_SAMPLE_LIST% DO (
@@ -322,22 +250,6 @@ FOR %%S IN %DL_SAMPLE_LIST% DO (
 	SET /A "n+=1"
 )
 SET /A "Di+=1"
-GOTO GotNextSample
-
-:NextAdobeSample
-FOR %%S IN %AD_SAMPLE_LIST% DO (
-	IF !n! EQU !Ai! SET CURRENT_SAMPLE=%%S
-	SET /A "n+=1"
-)
-SET /A "Ai+=1"
-GOTO GotNextSample
-
-:NextPluginSample
-FOR %%S IN %PL_SAMPLE_LIST% DO (
-	IF !n! EQU !Pi! SET CURRENT_SAMPLE=%%S
-	SET /A "n+=1"
-)
-SET /A "Pi+=1"
 GOTO GotNextSample
 
 REM ********************************
@@ -377,9 +289,7 @@ REM *************************************************
 
 
 SET /A "NUM_SAMPLES=0"
-IF %DO_DL% == Y SET /A "NUM_SAMPLES+=%NUM_DL_SAMPLES%"
-IF %DO_AD% == Y SET /A "NUM_SAMPLES+=%NUM_AD_SAMPLES%"
-IF %DO_PL% == Y SET /A "NUM_SAMPLES+=%NUM_PL_SAMPLES%"
+SET /A "NUM_SAMPLES+=%NUM_DL_SAMPLES%"
 
 ECHO =====================================
 IF %ONLY_BUILD% == N (
