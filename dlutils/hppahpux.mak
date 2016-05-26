@@ -1,0 +1,35 @@
+CC = /opt/aCC/bin/aCC +e
+CXX = /opt/aCC/bin/aCC -AA
+CCFLAGS = +O0 -g +W67,728,740,749,829 -mt
+CXXFLAGS = +O0 -g +W67,728,740,749,829 -mt
+LD = $(CXX)
+LDFLAGS = +O0 -g -mt -Wl,+vnoshlibunsats
+
+ifeq ($(STAGE), debug)
+    DEBUG=-DDEBUG -D_DEBUG
+else
+    DEBUG=-DNDEBUG
+endif
+
+ifeq ($(BUILD_64_BIT), true)
+    CCFLAGS +=  +DA2.0W +DD64
+    CXXFLAGS +=  +DA2.0W +DD64
+    LDFLAGS +=  +DA2.0W +DD64
+else
+    CCFLAGS +=  +DA2.0 +DD32
+    CXXFLAGS +=  +DA2.0 +DD32
+    LDFLAGS +=  +DA2.0 +DD32
+endif
+
+CCFLAGS += -g $(PDF_FDIR_DEF) -DNO_PRAGMA_ONCE -DUNIX_PLATFORM=1 -DUNIX_ENV=1 -DPRODUCT=\"HFTLibrary.h\" $(DEBUG) -D_REENTRANT -DPLATFORM=\"UnixPlatform.h\"
+CCFLAGS += -DPDFL_SDK_SAMPLE -DPI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6 -DTOOLKIT -DHPPAHPUX
+CXXFLAGS = $(CCFLAGS)
+
+LD = $(CXX)
+LDFLAGS += -D_REENTRANT -g
+#LIBS = -L$(PDFL_PATH)/Libs -lDL100pdfl -lDL100CoolType -lDL100AGM -lDL100BIB -lDL100ACE -lDL100ARE -lDL100JP2K -lDL100AdobeXMP -lDL100AXE8SharedExpat -lDL100AXE16SharedExpat -lDL100BIBUtils -lpthread ${EXTRA_LIBS}
+LIBS = -L$(PDFL_PATH)/Libs -lDL100pdfl -lpthread ${EXTRA_LIBS}
+
+INCLUDE = $(PDFL_PATH)/Include/Headers
+SOURCE = $(PDFL_PATH)/Include/Source
+
