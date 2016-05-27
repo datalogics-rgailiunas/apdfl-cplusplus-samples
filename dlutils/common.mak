@@ -17,7 +17,7 @@ SOURCE=../../../APDFL/Include/Source
 COMMON=../_Common
 
 include $(UTIL)/$(OS).mak
-include ../../../APDFL/Samples/All/paths.rel
+include ../../../APDFL/Samples_Adobe/All/paths.rel
 
 default: $(SAMPNAME)
 
