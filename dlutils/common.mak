@@ -6,8 +6,6 @@ ifeq ($(OS), )
 $(error Need to set the OS environment variable)
 endif
 
-ADOBE_SAMPLES = Samples_Adobe
-
 UTIL = ../dlutils
 # 26Aug2009 - Give each sample a copy of the common modules
 # since plugin samples compile these differently
@@ -19,7 +17,7 @@ SOURCE=../../../APDFL/Include/Source
 COMMON=../_Common
 
 include $(UTIL)/$(OS).mak
-include ../../../APDFL/$(ADOBE_SAMPLES)/All/paths.rel
+include ../../../APDFL/Samples/All/paths.rel
 
 default: $(SAMPNAME)
 
