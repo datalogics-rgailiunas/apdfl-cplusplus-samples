@@ -13,10 +13,25 @@ SAMPLES = AddArt AddAttachments AddBookmarks \
           CreateAnnotations CreateDocument CreateLayers \
           CreateTransparency EncryptDocument ExtractAttachments \
           ExtractDocumentInfo ExtractText FindImageResolutions \
-          FlattenAnnotations FlattenTransparency LockDocument \
+          FlattenAnnotations LockDocument \
           MergeDocuments OpenEncrypted RenderPage \
           SetUniquePermissions SplitPDF TextSearch \
           UnicodeText WebOptimizedPDF 
+
+ifeq ($(OS), i80386linux)
+	# SAMPLES += FlattenTransparency XPStoPDF
+	SAMPLES += FlattenTransparency
+endif
+
+ifeq ($(OS), sparcsolaris)
+  ifneq ($(BUILD_64_BIT), true)
+    SAMPLES += FlattenTransparency XPStoPDF
+  endif
+endif
+
+ifeq ($(OS), intelsolaris)
+	SAMPLES += FlattenTransparency
+endif
 
 build_pdfl_samples: 
 	for target in $(SAMPLES); do \
