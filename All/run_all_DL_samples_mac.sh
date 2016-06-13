@@ -72,6 +72,16 @@ cd ../AddWatermark
 ./AddWatermark-${stage}.app/Contents/MacOS/AddWatermark-${stage}
 echo ""
 
+echo Running sample ConvertPDFtoEPS
+cd ../ConvertPDFtoEPS
+./ConvertPDFtoEPS-${stage}.app/Contents/MacOS/ConvertPDFtoEPS-${stage}
+echo ""
+
+echo Running sample ConvertPDFtoPostscript
+cd ../ConvertPDFtoPostscript
+./ConvertPDFtoPostscript-${stage}.app/Contents/MacOS/ConvertPDFtoPostscript-${stage}
+echo ""
+
 echo Running sample CopyContent
 cd ../CopyContent
 ./CopyContent-${stage}.app/Contents/MacOS/CopyContent-${stage}

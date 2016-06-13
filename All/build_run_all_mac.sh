@@ -64,18 +64,41 @@ fi
 
 # Sample Name List
 declare -a DL_SAMPLE_LIST=( \
-	"AddArt" "AddAttachments" "AddBookmarks" \
-	"AddContent" "AddDocumentInformation" "AddLinks" \
-  "AddPageNumbers" "AddPassword" "AddRedaction" \
-  "AddText" "AddWatermark" "CopyContent" \
-  "CreateAnnotations" "CreateDocument" "CreateLayers" \
-  "CreateTransparency" "EncryptDocument" "ExtractAttachments" \
-  "ExtractDocumentInfo" "ExtractText" "FindImageresolutions" \
-  "FlattenAnnotations" "FlattenTransparency" "LockDocument" \
-  "MergeDocuments" "OpenEncrypted" "RenderPage" \
-  "SetUniquePermissions" "SplitPDF" "TextSearch" \
-  "UnicodeText" "WebOptimizedPDF"
-	)
+  "AddArt" \
+  "AddAttachments" \
+  "AddBookmarks" \
+  "AddContent" \
+  "AddDocumentInformation" \
+  "AddLinks" \
+  "AddPageNumbers" \
+  "AddPassword" \
+  "AddRedaction" \
+  "AddText" \
+  "AddWatermark" \
+  "ConvertPDFtoEPS" \
+  "ConvertPDFtoPostscript" \
+  "CopyContent" \
+  "CreateAnnotations" \
+  "CreateDocument" \
+  "CreateLayers" \
+  "CreateTransparency" \
+  "EncryptDocument" \
+  "ExtractAttachments" \
+  "ExtractDocumentInfo" \
+  "ExtractText" \
+  "FindImageresolutions" \
+  "FlattenAnnotations" \
+  "FlattenTransparency" \
+  "LockDocument" \
+  "MergeDocuments" \
+  "OpenEncrypted" \
+  "RenderPage" \
+  "SetUniquePermissions" \
+  "SplitPDF" \
+  "TextSearch" \
+  "UnicodeText" \
+  "WebOptimizedPDF"
+  )
 
 ## now loop through the DL Samples
 for i in "${DL_SAMPLE_LIST[@]}"
