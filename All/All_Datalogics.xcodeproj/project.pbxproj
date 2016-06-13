@@ -13,6 +13,8 @@
 			buildPhases = (
 			);
 			dependencies = (
+				3C386FEC1D0222D700EBC3AE /* PBXTargetDependency */,
+				3C386FE81D0222D100EBC3AE /* PBXTargetDependency */,
 				BAA38E921CDA41030011A215 /* PBXTargetDependency */,
 				2E79A5DD1C909AEB0087ECBC /* PBXTargetDependency */,
 				2E79A5B61C909A230087ECBC /* PBXTargetDependency */,
@@ -486,6 +488,34 @@
 			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
 			remoteInfo = WebOptimizedPDF;
 		};
+		3C386FE71D0222D100EBC3AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3CD19E911CFF799A00575E88 /* ConvertPDFtoEPS.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = ConvertPDFtoEPS;
+		};
+		3C386FEB1D0222D700EBC3AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3CD19E971CFF79A900575E88 /* ConvertPDFtoPostscript.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = ConvertPDFtoPostscript;
+		};
+		3CD19E951CFF799B00575E88 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3CD19E911CFF799A00575E88 /* ConvertPDFtoEPS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = ConvertPDFtoEPS;
+		};
+		3CD19E9B1CFF79A900575E88 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3CD19E971CFF79A900575E88 /* ConvertPDFtoPostscript.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = ConvertPDFtoPostscript;
+		};
 		BAA38E911CDA41030011A215 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BAD6A5761CD7F8680005B204 /* RenderPage.xcodeproj */;
@@ -534,6 +564,8 @@
 		2E79A5891C9098130087ECBC /* TextSearch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TextSearch.xcodeproj; path = ../TextSearch/TextSearch.xcodeproj; sourceTree = "<group>"; };
 		2E79A5AF1C909A1E0087ECBC /* UnicodeText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UnicodeText.xcodeproj; path = ../UnicodeText/UnicodeText.xcodeproj; sourceTree = "<group>"; };
 		2E79A5D61C909AE40087ECBC /* WebOptimizedPDF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WebOptimizedPDF.xcodeproj; path = ../WebOptimizedPDF/WebOptimizedPDF.xcodeproj; sourceTree = "<group>"; };
+		3CD19E911CFF799A00575E88 /* ConvertPDFtoEPS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ConvertPDFtoEPS.xcodeproj; path = ../ConvertPDFtoEPS/ConvertPDFtoEPS.xcodeproj; sourceTree = "<group>"; };
+		3CD19E971CFF79A900575E88 /* ConvertPDFtoPostscript.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ConvertPDFtoPostscript.xcodeproj; path = ../ConvertPDFtoPostscript/ConvertPDFtoPostscript.xcodeproj; sourceTree = "<group>"; };
 		BAD6A5761CD7F8680005B204 /* RenderPage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RenderPage.xcodeproj; path = ../RenderPage/RenderPage.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -786,41 +818,59 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		3CD19E921CFF799A00575E88 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3CD19E961CFF799B00575E88 /* ConvertPDFtoEPS-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3CD19E981CFF79A900575E88 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3CD19E9C1CFF79A900575E88 /* ConvertPDFtoPostscript-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		BAAE8A280ADC6237005A7834 = {
 			isa = PBXGroup;
 			children = (
-				BAD6A5761CD7F8680005B204 /* RenderPage.xcodeproj */,
-				2E79A5D61C909AE40087ECBC /* WebOptimizedPDF.xcodeproj */,
-				2E79A5AF1C909A1E0087ECBC /* UnicodeText.xcodeproj */,
-				2E79A5891C9098130087ECBC /* TextSearch.xcodeproj */,
-				2E79A5641C907C700087ECBC /* SplitPDF.xcodeproj */,
-				2E79A5401C9072350087ECBC /* SetUniquePermissions.xcodeproj */,
-				2E79A4F81C906BB40087ECBC /* OpenEncrypted.xcodeproj */,
-				2E79A4D91C9069D00087ECBC /* MergeDocuments.xcodeproj */,
-				2E79A44C1C8F63720087ECBC /* LockDocument.xcodeproj */,
-				2E79A4AD1C8F840A0087ECBC /* FlattenTransparency.xcodeproj */,
-				2E79A42E1C8F5FEB0087ECBC /* FlattenAnnotations.xcodeproj */,
-				2E79A4201C8F5D8D0087ECBC /* FindImageResolutions.xcodeproj */,
-				2E79A4021C8F540E0087ECBC /* ExtractText.xcodeproj */,
-				2E79A3FC1C8F4B390087ECBC /* ExtractDocumentInfo.xcodeproj */,
-				2E79A3CF1C8F48190087ECBC /* ExtractAttachments.xcodeproj */,
-				2E79A39D1C8F46150087ECBC /* EncryptDocument.xcodeproj */,
-				2E5EF5211C8F42970077FABC /* CreateTransparency.xcodeproj */,
-				2E5EF4F61C8F296A0077FABC /* CreateLayers.xcodeproj */,
-				2E5EF4E21C8F1EC00077FABC /* CreateDocument.xcodeproj */,
-				2E5EF4CC1C8F1C5F0077FABC /* CreateAnnotations.xcodeproj */,
-				2E21C1DC1C8E0AE300018A6D /* AddText.xcodeproj */,
-				2E21C1C81C8E0AB800018A6D /* AddWatermark.xcodeproj */,
-				2E21C1AB1C8E0A4D00018A6D /* CopyContent.xcodeproj */,
-				2E21C1901C8E052A00018A6D /* AddRedaction.xcodeproj */,
-				2E21C0E81C8DFCE100018A6D /* AddPassword.xcodeproj */,
-				2E21C0D81C8DFBC400018A6D /* AddPageNumbers.xcodeproj */,
-				2E21C0C31C8DF3B500018A6D /* AddLinks.xcodeproj */,
-				2E21C0B51C8DF1DF00018A6D /* AddDocumentInformation.xcodeproj */,
-				2E21C0A91C8DEAC500018A6D /* AddContent.xcodeproj */,
-				2E21C08B1C8DDAA900018A6D /* AddBookmarks.xcodeproj */,
 				2E21C0781C8DD57000018A6D /* AddArt.xcodeproj */,
 				2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */,
+				2E21C08B1C8DDAA900018A6D /* AddBookmarks.xcodeproj */,
+				2E21C0A91C8DEAC500018A6D /* AddContent.xcodeproj */,
+				2E21C0B51C8DF1DF00018A6D /* AddDocumentInformation.xcodeproj */,
+				2E21C0C31C8DF3B500018A6D /* AddLinks.xcodeproj */,
+				2E21C0D81C8DFBC400018A6D /* AddPageNumbers.xcodeproj */,
+				2E21C0E81C8DFCE100018A6D /* AddPassword.xcodeproj */,
+				2E21C1901C8E052A00018A6D /* AddRedaction.xcodeproj */,
+				2E21C1DC1C8E0AE300018A6D /* AddText.xcodeproj */,
+				2E21C1C81C8E0AB800018A6D /* AddWatermark.xcodeproj */,
+				3CD19E911CFF799A00575E88 /* ConvertPDFtoEPS.xcodeproj */,
+				3CD19E971CFF79A900575E88 /* ConvertPDFtoPostscript.xcodeproj */,
+				2E21C1AB1C8E0A4D00018A6D /* CopyContent.xcodeproj */,
+				2E5EF4CC1C8F1C5F0077FABC /* CreateAnnotations.xcodeproj */,
+				2E5EF4E21C8F1EC00077FABC /* CreateDocument.xcodeproj */,
+				2E5EF4F61C8F296A0077FABC /* CreateLayers.xcodeproj */,
+				2E5EF5211C8F42970077FABC /* CreateTransparency.xcodeproj */,
+				2E79A39D1C8F46150087ECBC /* EncryptDocument.xcodeproj */,
+				2E79A3CF1C8F48190087ECBC /* ExtractAttachments.xcodeproj */,
+				2E79A3FC1C8F4B390087ECBC /* ExtractDocumentInfo.xcodeproj */,
+				2E79A4021C8F540E0087ECBC /* ExtractText.xcodeproj */,
+				2E79A4201C8F5D8D0087ECBC /* FindImageResolutions.xcodeproj */,
+				2E79A42E1C8F5FEB0087ECBC /* FlattenAnnotations.xcodeproj */,
+				2E79A4AD1C8F840A0087ECBC /* FlattenTransparency.xcodeproj */,
+				2E79A44C1C8F63720087ECBC /* LockDocument.xcodeproj */,
+				2E79A4D91C9069D00087ECBC /* MergeDocuments.xcodeproj */,
+				2E79A4F81C906BB40087ECBC /* OpenEncrypted.xcodeproj */,
+				BAD6A5761CD7F8680005B204 /* RenderPage.xcodeproj */,
+				2E79A5401C9072350087ECBC /* SetUniquePermissions.xcodeproj */,
+				2E79A5641C907C700087ECBC /* SplitPDF.xcodeproj */,
+				2E79A5891C9098130087ECBC /* TextSearch.xcodeproj */,
+				2E79A5AF1C909A1E0087ECBC /* UnicodeText.xcodeproj */,
+				2E79A5D61C909AE40087ECBC /* WebOptimizedPDF.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -896,6 +946,14 @@
 				{
 					ProductGroup = 2E21C1C91C8E0AB800018A6D /* Products */;
 					ProjectRef = 2E21C1C81C8E0AB800018A6D /* AddWatermark.xcodeproj */;
+				},
+				{
+					ProductGroup = 3CD19E921CFF799A00575E88 /* Products */;
+					ProjectRef = 3CD19E911CFF799A00575E88 /* ConvertPDFtoEPS.xcodeproj */;
+				},
+				{
+					ProductGroup = 3CD19E981CFF79A900575E88 /* Products */;
+					ProjectRef = 3CD19E971CFF79A900575E88 /* ConvertPDFtoPostscript.xcodeproj */;
 				},
 				{
 					ProductGroup = 2E21C1AC1C8E0A4D00018A6D /* Products */;
@@ -1207,6 +1265,20 @@
 			remoteRef = 2E79A5DA1C909AE50087ECBC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		3CD19E961CFF799B00575E88 /* ConvertPDFtoEPS-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "ConvertPDFtoEPS-Debug.app";
+			remoteRef = 3CD19E951CFF799B00575E88 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3CD19E9C1CFF79A900575E88 /* ConvertPDFtoPostscript-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "ConvertPDFtoPostscript-Debug.app";
+			remoteRef = 3CD19E9B1CFF79A900575E88 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		BAD6A57B1CD7F8680005B204 /* RenderPage-Debug.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -1371,6 +1443,16 @@
 			isa = PBXTargetDependency;
 			name = WebOptimizedPDF;
 			targetProxy = 2E79A5DC1C909AEB0087ECBC /* PBXContainerItemProxy */;
+		};
+		3C386FE81D0222D100EBC3AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ConvertPDFtoEPS;
+			targetProxy = 3C386FE71D0222D100EBC3AE /* PBXContainerItemProxy */;
+		};
+		3C386FEC1D0222D700EBC3AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ConvertPDFtoPostscript;
+			targetProxy = 3C386FEB1D0222D700EBC3AE /* PBXContainerItemProxy */;
 		};
 		BAA38E921CDA41030011A215 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
