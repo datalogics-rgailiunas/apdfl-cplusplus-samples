@@ -79,6 +79,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConvertPDFtoPostscript", ".
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PDFPrintGUI", "..\PDFPrintGUI\PDFPrintGUI.vcxproj", "{757D7956-3DF0-4657-9F1F-FBA28E12FC19}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PDFOptimizer", "..\PDFOptimizer\PDFOptimizer.vcxproj", "{820700EC-AC15-4F2E-9038-3FB7A0E768F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -383,6 +385,14 @@ Global
 		{757D7956-3DF0-4657-9F1F-FBA28E12FC19}.Release|Win32.Build.0 = Release|Win32
 		{757D7956-3DF0-4657-9F1F-FBA28E12FC19}.Release|x64.ActiveCfg = Release|x64
 		{757D7956-3DF0-4657-9F1F-FBA28E12FC19}.Release|x64.Build.0 = Release|x64
+		{820700EC-AC15-4F2E-9038-3FB7A0E768F1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{820700EC-AC15-4F2E-9038-3FB7A0E768F1}.Debug|Win32.Build.0 = Debug|Win32
+		{820700EC-AC15-4F2E-9038-3FB7A0E768F1}.Debug|x64.ActiveCfg = Debug|x64
+		{820700EC-AC15-4F2E-9038-3FB7A0E768F1}.Debug|x64.Build.0 = Debug|x64
+		{820700EC-AC15-4F2E-9038-3FB7A0E768F1}.Release|Win32.ActiveCfg = Release|Win32
+		{820700EC-AC15-4F2E-9038-3FB7A0E768F1}.Release|Win32.Build.0 = Release|Win32
+		{820700EC-AC15-4F2E-9038-3FB7A0E768F1}.Release|x64.ActiveCfg = Release|x64
+		{820700EC-AC15-4F2E-9038-3FB7A0E768F1}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

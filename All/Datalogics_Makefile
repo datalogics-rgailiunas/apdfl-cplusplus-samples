@@ -33,6 +33,7 @@ SAMPLES = AddArt \
           LockDocument \
           MergeDocuments \
           OpenEncrypted \
+          PDFOptimizer \
           RenderPage \
           SetUniquePermissions \
           SplitPDF \
