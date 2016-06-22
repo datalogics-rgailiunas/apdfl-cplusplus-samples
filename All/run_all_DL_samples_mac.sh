@@ -157,6 +157,11 @@ cd ../OpenEncrypted
 ./OpenEncrypted-${stage}.app/Contents/MacOS/OpenEncrypted-${stage}
 echo ""
 
+echo Running sample PDFOptimizer
+cd ../PDFOptimizer
+./PDFOptimizer-${stage}.app/Contents/MacOS/PDFOptimizer-${stage}
+echo ""
+
 echo Running sample RenderPage
 cd ../RenderPage
 ./RenderPage-${stage}.app/Contents/MacOS/RenderPage-${stage}

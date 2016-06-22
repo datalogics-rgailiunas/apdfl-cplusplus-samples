@@ -92,6 +92,7 @@ declare -a DL_SAMPLE_LIST=( \
   "LockDocument" \
   "MergeDocuments" \
   "OpenEncrypted" \
+  "PDFOptimizer" \
   "RenderPage" \
   "SetUniquePermissions" \
   "SplitPDF" \
