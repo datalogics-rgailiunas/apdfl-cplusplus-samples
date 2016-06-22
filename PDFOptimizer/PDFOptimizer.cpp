@@ -5,14 +5,13 @@
 
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
-#include "DLPDFOptimizer.h"
 #include "DLExtrasCalls.h"
 
 int main(int argc, char **argv)
 {
     //Paths to input and output documents.
     wchar_t* inPath = L"../_Input/Ulysses.pdf";
-    wchar_t* outPath = L"Ulysses_page_";
+    wchar_t* outPath = L"out.pdf";
 
     APDFLib lib;                                      // Initialize the Adobe PDF Library
     ASErrorCode errCode = 0;                          // This will catch error codes thrown during library usage
@@ -55,7 +54,7 @@ int main(int argc, char **argv)
 
     std::wcout << L"Saving document and freeing resources..." << std::endl;
 
-    PDDocumentOptimize(inDoc, outPathName, optParams);
+    PDDocumentOptimize(inDoc, outPathName, NULL, optParams);
 
 //=====================================================================================================================
 // Step 3) Release all objects that are still in use.
