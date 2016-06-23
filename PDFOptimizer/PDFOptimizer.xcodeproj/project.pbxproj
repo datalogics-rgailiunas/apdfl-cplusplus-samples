@@ -29,8 +29,6 @@
 		3357254D0C9B40500095FC3D /* DL150BIBUtils.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3357252F0C9B40480095FC3D /* DL150BIBUtils.framework */; };
 		3357254E0C9B40500095FC3D /* DL150CoolType.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 335725300C9B40480095FC3D /* DL150CoolType.framework */; };
 		335725500C9B40500095FC3D /* DL150PDFL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 335725320C9B40480095FC3D /* DL150PDFL.framework */; };
-		3C236EC01CE4BED40041E783 /* SetupPrintParams.h in Headers */ = {isa = PBXBuildFile; fileRef = 3C236EBF1CE4BED40041E783 /* SetupPrintParams.h */; };
-		3C236EC21CE4BEED0041E783 /* SetupPrintParams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C236EC11CE4BEED0041E783 /* SetupPrintParams.cpp */; };
 		3E56134E0F8BF3B10094B7E7 /* DL150JP2KLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E56134D0F8BF3B10094B7E7 /* DL150JP2KLib.framework */; };
 		3E5613510F8BF3B90094B7E7 /* DL150AdobeXMP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5613500F8BF3B90094B7E7 /* DL150AdobeXMP.framework */; };
 		3E5613540F8BF3C70094B7E7 /* ICUConverter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5613530F8BF3C70094B7E7 /* ICUConverter.framework */; };
@@ -91,8 +89,6 @@
 		3357252F0C9B40480095FC3D /* DL150BIBUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150BIBUtils.framework; path = ../../Libs/DL150BIBUtils.framework; sourceTree = SOURCE_ROOT; };
 		335725300C9B40480095FC3D /* DL150CoolType.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150CoolType.framework; path = ../../Libs/DL150CoolType.framework; sourceTree = SOURCE_ROOT; };
 		335725320C9B40480095FC3D /* DL150PDFL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150PDFL.framework; path = ../../Libs/DL150PDFL.framework; sourceTree = SOURCE_ROOT; };
-		3C236EBF1CE4BED40041E783 /* SetupPrintParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetupPrintParams.h; path = ../_Common/SetupPrintParams.h; sourceTree = "<group>"; };
-		3C236EC11CE4BEED0041E783 /* SetupPrintParams.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SetupPrintParams.cpp; path = ../_Common/SetupPrintParams.cpp; sourceTree = "<group>"; };
 		3E56134D0F8BF3B10094B7E7 /* DL150JP2KLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150JP2KLib.framework; path = ../../Libs/DL150JP2KLib.framework; sourceTree = SOURCE_ROOT; };
 		3E5613500F8BF3B90094B7E7 /* DL150AdobeXMP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150AdobeXMP.framework; path = ../../Libs/DL150AdobeXMP.framework; sourceTree = SOURCE_ROOT; };
 		3E5613530F8BF3C70094B7E7 /* ICUConverter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ICUConverter.framework; path = ../../Libs/ICUConverter.framework; sourceTree = SOURCE_ROOT; };
@@ -154,8 +150,6 @@
 		20286C2AFDCF999611CA2CEA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				3C236EC11CE4BEED0041E783 /* SetupPrintParams.cpp */,
-				3C236EBF1CE4BED40041E783 /* SetupPrintParams.h */,
 				2E21C06A1C8DD3FD00018A6D /* APDFLDoc.cpp */,
 				2E21C06B1C8DD3FD00018A6D /* APDFLDoc.h */,
 				2E21C06C1C8DD3FD00018A6D /* InitializeLibrary.cpp */,
@@ -223,7 +217,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C236EC01CE4BED40041E783 /* SetupPrintParams.h in Headers */,
 				2E21C0711C8DD3FD00018A6D /* InitializeLibrary.h in Headers */,
 				2E21C0651C8DD3BB00018A6D /* PDFLPrecompile.pch in Headers */,
 				2E21C06F1C8DD3FD00018A6D /* APDFLDoc.h in Headers */,
@@ -282,7 +275,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA64AAB20B5829E00026827E /* PDFLInitHFT.c in Sources */,
-				3C236EC21CE4BEED0041E783 /* SetupPrintParams.cpp in Sources */,
 				2E21C0691C8DD3D500018A6D /* PDFOptimizer.cpp in Sources */,
 				2E21C06E1C8DD3FD00018A6D /* APDFLDoc.cpp in Sources */,
 				2E21C0701C8DD3FD00018A6D /* InitializeLibrary.cpp in Sources */,
