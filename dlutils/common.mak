@@ -21,7 +21,18 @@ include ../../../APDFL/Samples_Adobe/All/paths.rel
 
 default: $(SAMPNAME)
 
-CPPFLAGS = -I. -I$(INCLUDE) -I$(DLI_INCLUDE) -I$(UTIL) -I$(COMMON)
+INCDIRS = -I. -I$(INCLUDE) -I$(DLI_INCLUDE) -I$(UTIL) -I$(COMMON)
+
+#
+# Default rules to build source files into object files
+# 
+
+%.o : %.cpp
+	$(CXX) $(INCDIRS) $(CXXFLAGS) -c $< -o $@
+
+%.o : %.c
+	$(CC) $(INCDIRS) $(CCFLAGS) -c $< -o $@
+
 
 
 $(SAMPNAME) : $(COMMON_OBJS) $(OTHER_OBJS)
@@ -33,16 +44,16 @@ $(SAMPNAME) : $(COMMON_OBJS) $(OTHER_OBJS)
 ##
 
 PDFLInitCommon.o : $(SOURCE)/PDFLInitCommon.c
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(INCDIRS) $(CXXFLAGS) -c $< -o $@
 
 PDFLInitHFT.o : $(SOURCE)/PDFLInitHFT.c
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(INCDIRS) $(CXXFLAGS) -c $< -o $@
 
 InitializeLibrary.o : $(COMMON)/InitializeLibrary.cpp
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(INCDIRS) $(CXXFLAGS) -c $< -o $@
 
 APDFLDoc.o : $(COMMON)/APDFLDoc.cpp
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(INCDIRS) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	$(RM) *.o $(UTIL)/*.o core out.* $(SAMPNAME) 
