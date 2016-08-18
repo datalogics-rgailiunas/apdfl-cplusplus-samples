@@ -54,7 +54,7 @@ int main(int argc, char **argv)
 
     std::wcout << L"Saving document and freeing resources..." << std::endl;
 
-    PDDocumentOptimize(inDoc, outPathName, NULL, optParams);
+    PDDocumentOptimize(inDoc, outPathName, NULL, optParams, NULL, NULL, NULL, NULL);
 
 //=====================================================================================================================
 // Step 3) Release all objects that are still in use.
