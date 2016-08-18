@@ -44,13 +44,10 @@ $(SAMPNAME) : $(COMMON_OBJS) $(OTHER_OBJS)
 ##
 
 PDFLInitCommon.o : $(SOURCE)/PDFLInitCommon.c
-	$(CXX) $(INCDIRS) $(CCFLAGS) -c $< -o $@
+	$(CC) $(INCDIRS) $(CCFLAGS) -c $< -o $@
 
 PDFLInitHFT.o : $(SOURCE)/PDFLInitHFT.c
-	$(CXX) $(INCDIRS) $(CCFLAGS) -c $< -o $@
-
-MyPDFLibUtils.o : $(COMMON)/MyPDFLibUtils.cpp
-	$(CXX) $(INCDIRS) $(CXXFLAGS) -c $< -o $@
+	$(CC) $(INCDIRS) $(CCFLAGS) -c $< -o $@
 
 InitializeLibrary.o : $(COMMON)/InitializeLibrary.cpp
 	$(CXX) $(INCDIRS) $(CXXFLAGS) -c $< -o $@
