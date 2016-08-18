@@ -266,8 +266,6 @@ void APDFLib::fillDirectories()
 #endif
 #ifdef UNIX_PLATFORM
 #define MAX_PATH 1000
-	const unsigned int NO_OF_RESOURCE_DIR = 2;
-	const char* SUB_RESOURCE_DIR[ NO_OF_RESOURCE_DIR ] = { "Font", "CMap" };
 
 	//Set the font directory list and its length.
 	fontDirList[0] = (ASUTF16Val*)"../../../APDFL/Resource/Font";
