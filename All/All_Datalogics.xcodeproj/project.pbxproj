@@ -13,40 +13,41 @@
 			buildPhases = (
 			);
 			dependencies = (
-				3C386FEC1D0222D700EBC3AE /* PBXTargetDependency */,
-				3C386FE81D0222D100EBC3AE /* PBXTargetDependency */,
-				BAA38E921CDA41030011A215 /* PBXTargetDependency */,
-				2E79A5DD1C909AEB0087ECBC /* PBXTargetDependency */,
-				2E79A5B61C909A230087ECBC /* PBXTargetDependency */,
-				2E79A5901C9098180087ECBC /* PBXTargetDependency */,
-				2E79A56B1C907C750087ECBC /* PBXTargetDependency */,
-				2E79A5471C90723C0087ECBC /* PBXTargetDependency */,
-				2E79A5001C906BC40087ECBC /* PBXTargetDependency */,
-				2E79A5021C906BC40087ECBC /* PBXTargetDependency */,
-				2E79A4531C8F637B0087ECBC /* PBXTargetDependency */,
-				2E79A4B41C8F84200087ECBC /* PBXTargetDependency */,
-				2E79A4351C8F5FF50087ECBC /* PBXTargetDependency */,
-				2E79A4271C8F5D990087ECBC /* PBXTargetDependency */,
-				2E79A4091C8F541A0087ECBC /* PBXTargetDependency */,
-				2E79A40B1C8F541A0087ECBC /* PBXTargetDependency */,
-				2E79A3FA1C8F48590087ECBC /* PBXTargetDependency */,
-				2E79A3B51C8F46340087ECBC /* PBXTargetDependency */,
-				2E79A39B1C8F42E80087ECBC /* PBXTargetDependency */,
-				2E5EF51C1C8F2A1B0077FABC /* PBXTargetDependency */,
-				2E5EF51E1C8F2A1B0077FABC /* PBXTargetDependency */,
-				2E5EF4E01C8F1C8F0077FABC /* PBXTargetDependency */,
+				2E21C0811C8DD68E00018A6D /* PBXTargetDependency */,
+				2E5E09A31C8A1D5900098602 /* PBXTargetDependency */,
+				2E21C0951C8DDB4D00018A6D /* PBXTargetDependency */,
+				2E21C0B01C8DEAD500018A6D /* PBXTargetDependency */,
+				2E21C0C11C8DF22D00018A6D /* PBXTargetDependency */,
+				2E21C0D01C8DF3EE00018A6D /* PBXTargetDependency */,
+				2E21C0E61C8DFBFB00018A6D /* PBXTargetDependency */,
+				2E21C0F71C8DFD1500018A6D /* PBXTargetDependency */,
+				2E21C1A01C8E055100018A6D /* PBXTargetDependency */,
 				2E21C1EF1C8E0AFE00018A6D /* PBXTargetDependency */,
 				2E21C1DA1C8E0AD900018A6D /* PBXTargetDependency */,
+				3C386FE81D0222D100EBC3AE /* PBXTargetDependency */,
+				3C386FEC1D0222D700EBC3AE /* PBXTargetDependency */,
 				2E21C1C61C8E0AAD00018A6D /* PBXTargetDependency */,
-				2E21C1A01C8E055100018A6D /* PBXTargetDependency */,
-				2E21C0F71C8DFD1500018A6D /* PBXTargetDependency */,
-				2E21C0E61C8DFBFB00018A6D /* PBXTargetDependency */,
-				2E21C0D01C8DF3EE00018A6D /* PBXTargetDependency */,
-				2E21C0C11C8DF22D00018A6D /* PBXTargetDependency */,
-				2E21C0B01C8DEAD500018A6D /* PBXTargetDependency */,
-				2E21C0951C8DDB4D00018A6D /* PBXTargetDependency */,
-				2E5E09A31C8A1D5900098602 /* PBXTargetDependency */,
-				2E21C0811C8DD68E00018A6D /* PBXTargetDependency */,
+				2E5EF4E01C8F1C8F0077FABC /* PBXTargetDependency */,
+				2E5EF51E1C8F2A1B0077FABC /* PBXTargetDependency */,
+				2E5EF51C1C8F2A1B0077FABC /* PBXTargetDependency */,
+				2E79A39B1C8F42E80087ECBC /* PBXTargetDependency */,
+				2E79A3B51C8F46340087ECBC /* PBXTargetDependency */,
+				2E79A3FA1C8F48590087ECBC /* PBXTargetDependency */,
+				2E79A40B1C8F541A0087ECBC /* PBXTargetDependency */,
+				2E79A4091C8F541A0087ECBC /* PBXTargetDependency */,
+				2E79A4271C8F5D990087ECBC /* PBXTargetDependency */,
+				2E79A4351C8F5FF50087ECBC /* PBXTargetDependency */,
+				2E79A4B41C8F84200087ECBC /* PBXTargetDependency */,
+				2E79A4531C8F637B0087ECBC /* PBXTargetDependency */,
+				2E79A5021C906BC40087ECBC /* PBXTargetDependency */,
+				2E79A5001C906BC40087ECBC /* PBXTargetDependency */,
+				94212D861D678EB4008D6363 /* PBXTargetDependency */,
+				BAA38E921CDA41030011A215 /* PBXTargetDependency */,
+				2E79A5471C90723C0087ECBC /* PBXTargetDependency */,
+				2E79A56B1C907C750087ECBC /* PBXTargetDependency */,
+				2E79A5901C9098180087ECBC /* PBXTargetDependency */,
+				2E79A5B61C909A230087ECBC /* PBXTargetDependency */,
+				2E79A5DD1C909AEB0087ECBC /* PBXTargetDependency */,
 			);
 			name = All_Datalogics;
 			productName = All_Datalogics_debug;
@@ -523,6 +524,13 @@
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
 			remoteInfo = ConvertPDFtoPostscript;
 		};
+		94212D851D678EB4008D6363 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DC78D131D676FEC00A8F1B0 /* PDFOptimizer.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = PDFOptimizer;
+		};
 		BAA38E911CDA41030011A215 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BAD6A5761CD7F8680005B204 /* RenderPage.xcodeproj */;
@@ -853,7 +861,6 @@
 		BAAE8A280ADC6237005A7834 = {
 			isa = PBXGroup;
 			children = (
-				1DC78D131D676FEC00A8F1B0 /* PDFOptimizer.xcodeproj */,
 				2E21C0781C8DD57000018A6D /* AddArt.xcodeproj */,
 				2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */,
 				2E21C08B1C8DDAA900018A6D /* AddBookmarks.xcodeproj */,
@@ -882,6 +889,7 @@
 				2E79A44C1C8F63720087ECBC /* LockDocument.xcodeproj */,
 				2E79A4D91C9069D00087ECBC /* MergeDocuments.xcodeproj */,
 				2E79A4F81C906BB40087ECBC /* OpenEncrypted.xcodeproj */,
+				1DC78D131D676FEC00A8F1B0 /* PDFOptimizer.xcodeproj */,
 				BAD6A5761CD7F8680005B204 /* RenderPage.xcodeproj */,
 				2E79A5401C9072350087ECBC /* SetUniquePermissions.xcodeproj */,
 				2E79A5641C907C700087ECBC /* SplitPDF.xcodeproj */,
@@ -1481,6 +1489,11 @@
 			isa = PBXTargetDependency;
 			name = ConvertPDFtoPostscript;
 			targetProxy = 3C386FEB1D0222D700EBC3AE /* PBXContainerItemProxy */;
+		};
+		94212D861D678EB4008D6363 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PDFOptimizer;
+			targetProxy = 94212D851D678EB4008D6363 /* PBXContainerItemProxy */;
 		};
 		BAA38E921CDA41030011A215 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
