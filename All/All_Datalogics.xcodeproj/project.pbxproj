@@ -54,6 +54,13 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXContainerItemProxy section */
+		1DC78D171D676FEC00A8F1B0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DC78D131D676FEC00A8F1B0 /* PDFOptimizer.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = PDFOptimizer;
+		};
 		2E21C07C1C8DD57000018A6D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2E21C0781C8DD57000018A6D /* AddArt.xcodeproj */;
@@ -533,6 +540,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1DC78D131D676FEC00A8F1B0 /* PDFOptimizer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PDFOptimizer.xcodeproj; path = ../PDFOptimizer/PDFOptimizer.xcodeproj; sourceTree = "<group>"; };
 		2E21C0781C8DD57000018A6D /* AddArt.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddArt.xcodeproj; path = ../AddArt/AddArt.xcodeproj; sourceTree = "<group>"; };
 		2E21C08B1C8DDAA900018A6D /* AddBookmarks.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddBookmarks.xcodeproj; path = ../AddBookmarks/AddBookmarks.xcodeproj; sourceTree = "<group>"; };
 		2E21C0A91C8DEAC500018A6D /* AddContent.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddContent.xcodeproj; path = ../AddContent/AddContent.xcodeproj; sourceTree = "<group>"; };
@@ -570,6 +578,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		1DC78D141D676FEC00A8F1B0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1DC78D181D676FEC00A8F1B0 /* PDFOptimizer-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		2E21C0791C8DD57000018A6D /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -837,6 +853,7 @@
 		BAAE8A280ADC6237005A7834 = {
 			isa = PBXGroup;
 			children = (
+				1DC78D131D676FEC00A8F1B0 /* PDFOptimizer.xcodeproj */,
 				2E21C0781C8DD57000018A6D /* AddArt.xcodeproj */,
 				2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */,
 				2E21C08B1C8DDAA900018A6D /* AddBookmarks.xcodeproj */,
@@ -1016,6 +1033,10 @@
 					ProjectRef = 2E79A4F81C906BB40087ECBC /* OpenEncrypted.xcodeproj */;
 				},
 				{
+					ProductGroup = 1DC78D141D676FEC00A8F1B0 /* Products */;
+					ProjectRef = 1DC78D131D676FEC00A8F1B0 /* PDFOptimizer.xcodeproj */;
+				},
+				{
 					ProductGroup = BAD6A5771CD7F8680005B204 /* Products */;
 					ProjectRef = BAD6A5761CD7F8680005B204 /* RenderPage.xcodeproj */;
 				},
@@ -1048,6 +1069,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		1DC78D181D676FEC00A8F1B0 /* PDFOptimizer-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "PDFOptimizer-Debug.app";
+			remoteRef = 1DC78D171D676FEC00A8F1B0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		2E21C07D1C8DD57000018A6D /* AddArt-Debug.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
