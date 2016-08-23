@@ -293,12 +293,12 @@ void APDFLib::fillDirectories()
 //Void function:
 //Utility method, may be used to print APDFL errors to the terminal.
 //========================================================================================================
-void APDFLib::displayError(ASErrorCode errCode)
+/* static */ void APDFLib::displayError(ASErrorCode errCode)
 {
     if (errCode == 0) return;
 
     char errStr[250];
-    fprintf(stderr, "[Error %x] %s\n", errCode, ASGetErrorString(errCode, errStr, sizeof(errStr)));
+    fprintf(stderr, "[Error 0x%08x] %s\n", errCode, ASGetErrorString(errCode, errStr, sizeof(errStr)));
 }
 
 //========================================================================================================
