@@ -33,7 +33,6 @@ SAMPLES = AddArt \
           LockDocument \
           MergeDocuments \
           OpenEncrypted \
-          PDFOptimizer \
           RenderPage \
           SetUniquePermissions \
           SplitPDF \
@@ -42,8 +41,8 @@ SAMPLES = AddArt \
           WebOptimizedPDF 
 
 ifeq ($(OS), i80386linux)
-	# SAMPLES += FlattenTransparency XPStoPDF
-	SAMPLES += FlattenTransparency
+	# SAMPLES += FlattenTransparency XPStoPDF PDFOptimizer
+	SAMPLES += FlattenTransparency  PDFOptimizer
 endif
 
 ifeq ($(OS), sparcsolaris)
