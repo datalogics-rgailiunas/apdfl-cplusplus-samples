@@ -46,7 +46,7 @@ int main(int argc, char** argv)
 //================================================================================================================================================
 
         PDEFontAttrs attrs;                                                                   //Structure holding the attributes of a PDEFont.
-        PDEFont verdanaFont = NULL;                                                           //Font element that will represent the font Verdana.
+        PDEFont courierStdFont = NULL;                                                        //Font element that will represent the font CourierStd.
        
         memset(&attrs, 0, sizeof(attrs));                                                     //Clear out PDEFontAttrs struct.                                                                     
         attrs.name = ASAtomFromString("CourierStd");                                             //Set font attribute's name.                                                          
@@ -59,12 +59,10 @@ int main(int argc, char** argv)
         if (attrs.cantEmbed != 0)
             std::wcerr << L"Font " << ASAtomGetString(attrs.name) << L" can not be embedded";
         else
-            verdanaFont = PDEFontCreateFromSysFont(sysFont, kPDEFontCreateEmbedded);          //Create font from the system font and embed.
+            courierStdFont = PDEFontCreateFromSysFont(sysFont, kPDEFontCreateEmbedded);       //Create font from the system font and embed.
 
         std::wcout << L"Created CourierStd Font. " << std::endl;
 
-        //Determine the needed flags for embedding and call the appropriate routines for doing so.
-        PDEFontEmbedNow(verdanaFont, PDDocGetCosDoc(document.pdDoc));
 
         
 //================================================================================================================================================
@@ -72,13 +70,15 @@ int main(int argc, char** argv)
 //================================================================================================================================================
         
         //Text that will be displayed on page
-        std::string textToDisplay = "Here is some text in the Verdana font, using both PDEText and PDEFont. Below is a PDEPath rectangle. ";
+        std::string textToDisplay = "Here is some text in the CourierStd font, using both PDEText and PDEFont.";
 
         PDEGraphicState gState;                         //Structure holding the graphic attributes of the text object.
+        memset(&gState, NULL, sizeof(gState));
 
-        PDEDefaultGState(&gState, 0);                   //Set the graphics state to its default values since the text is being displayed plainly.
+        PDEDefaultGState(&gState, sizeof(gState));      //Set the graphics state to its default values since the text is being displayed plainly.
         
         PDETextState tState;                            //Structure holding the attributes of a PDEText.
+        memset(&tState, NULL, sizeof(tState));
 
         ASDoubleMatrix textMatrix;                      //Transformation matrix for text which determines location of the text on page.
 
@@ -96,13 +96,31 @@ int main(int argc, char** argv)
             0,                                          //The index after which to add the text run.
             (Uns8 *)textToDisplay.c_str(),              //Text to add.    
             textToDisplay.length(),                     //Length of text 
-            verdanaFont,                                //Font to apply to text. 
-            &gState, 0,                                 //Graphic state and its size.  
-            &tState, 0,                                 //Text state and its size.
+            courierStdFont,                             //Font to apply to text.
+            &gState, sizeof(gState),                    //Graphic state and its size.
+            &tState, sizeof(tState),                    //Text state and its size.
             &textMatrix,                                //Transformation matrix for text.  
             NULL);                                      //Stroke matrix for the line width when stroking text.  
 
-        std::wcout << L"Created text object for display. " << std::endl;
+        textMatrix.v = 72 * 7;                          //y coordinate on page.
+        textToDisplay = "Below is a PDEPath rectangle. ";
+
+        //Adding the text run to the PDE text object
+        PDETextAddEx(pdeText,                          //Text container to add to.
+           kPDETextRun,                                //kPDETextRun or kPDETextChar for text runs or text characters.
+           0,                                          //The index after which to add the text run.
+           (Uns8 *)textToDisplay.c_str(),              //Text to add.
+           textToDisplay.length(),                     //Length of text
+           courierStdFont,                             //Font to apply to text.
+           &gState, sizeof(gState),                    //Graphic state and its size.
+           &tState, sizeof(tState),                    //Text state and its size.
+           &textMatrix,                                //Transformation matrix for text.
+           NULL);                                      //Stroke matrix for the line width when stroking text.
+
+        //Determine the needed flags for embedding and call the appropriate routines for doing so.
+        PDEFontEmbedNow(courierStdFont, PDDocGetCosDoc(document.pdDoc));
+
+        std::wcout << L"Created text objects for display. " << std::endl;
 
         //Call to PathRect() function to design a blue rectangle, passing in xPosition, yPosition, width, height, lineWidth, RGB color values.
         PDEPath rect = PathRect(ASFloatToFixed(72 * 3.25), ASInt32ToFixed(72 * 4), ASInt32ToFixed(72 * 2), ASInt32ToFixed(72 * 2), 46, fixedZero, fixedZero, fixedOne);
@@ -136,7 +154,7 @@ int main(int argc, char** argv)
         PDPageRelease(pdPage);
         PDERelease((PDEObject)pdeText);
         PDERelease((PDEObject)rect);
-        PDERelease((PDEObject)verdanaFont);
+        PDERelease((PDEObject)courierStdFont);
         PDERelease(reinterpret_cast<PDEObject>(gState.strokeColorSpec.space));    
         PDERelease(reinterpret_cast<PDEObject>(gState.fillColorSpec.space));
     
