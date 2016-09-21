@@ -22,7 +22,8 @@ include ../../../APDFL/Samples_Adobe/All/paths.rel
 default: $(SAMPNAME)
 
 CPPFLAGS = -I. -I$(INCLUDE) -I$(DLI_INCLUDE) -I$(UTIL) -I$(COMMON)
-CFLAGS = $(CCFLAGS)
+#DLADD LeonidK 15SEP2016: not in use
+#CFLAGS = $(CCFLAGS)
 
 $(SAMPNAME) : $(COMMON_OBJS) $(OTHER_OBJS)
 	$(CXX) -o $@ $(COMMON_OBJS) $(OTHER_OBJS) $(LDFLAGS) $(LIBS) $(EXTRA_LIBS)
@@ -34,11 +35,13 @@ $(SAMPNAME) : $(COMMON_OBJS) $(OTHER_OBJS)
 # And, the '.c' files have to be compiled using the C++ compiler.
 ##
 
+#DLADD LeonidK 15SEP2016: instead of CFLAGS it should be CXXFLAGS
 PDFLInitCommon.o : $(SOURCE)/PDFLInitCommon.c
-	$(CXX) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
+#DLADD LeonidK 15SEP2016: instead of CFLAGS it should be CXXFLAGS
 PDFLInitHFT.o : $(SOURCE)/PDFLInitHFT.c
-	$(CXX) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 InitializeLibrary.o : $(COMMON)/InitializeLibrary.cpp
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
