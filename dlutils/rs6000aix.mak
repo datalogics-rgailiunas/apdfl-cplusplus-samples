@@ -48,20 +48,15 @@ CCFLAGS += -qcpluscmt
 # YuriG 01Feb2012
 CCFLAGS += -DAIX_VACPP
 
-# DLADD LeonidK 20Sep16: This block should be executed BEFORE CCFLAFS is copied to CXXFLAGS. Otherwise 64-bit compilattion is not available.
-# DLADD MattK 20Nov09: add 64-bit support
-ifeq ($(BUILD_64_BIT), true)
-CCFLAGS += -q64
-# CXXFLAGS set by setting CCFLAGS, as it refers to the variable which results in a use-time resolution
-endif
-
 CXXFLAGS = $(CCFLAGS) -qrtti -+
 #Linking using xlC_r or xlC is required.
 LD = $(CXX)
 LDFLAGS = -g -brtl 
 
-# DLADD LeonidK 20Sep16: Setting 64 bit for linking should be here.
+# DLADD MattK 20Nov09: add 64-bit support
 ifeq ($(BUILD_64_BIT), true)
+CCFLAGS += -q64
+# CXXFLAGS set by setting CCFLAGS, as it refers to the variable which results in a use-time resolution
 LDFLAGS += -q64
 endif
 
