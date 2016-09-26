@@ -34,11 +34,13 @@ $(SAMPNAME) : $(COMMON_OBJS) $(OTHER_OBJS)
 # And, the '.c' files have to be compiled using the C++ compiler.
 ##
 
+#LeonidK 15SEP2016: instead of CFLAGS it should be CXXFLAGS
 PDFLInitCommon.o : $(SOURCE)/PDFLInitCommon.c
-	$(CXX) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
+#LeonidK 15SEP2016: instead of CFLAGS it should be CXXFLAGS
 PDFLInitHFT.o : $(SOURCE)/PDFLInitHFT.c
-	$(CXX) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 InitializeLibrary.o : $(COMMON)/InitializeLibrary.cpp
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
