@@ -1,7 +1,7 @@
 ifeq ($(USE_GCC), true)
 
-CC = /opt/gcc-4.1.2/bin/gcc
-CXX= /opt/gcc-4.1.2/bin/g++
+CC = /opt/hp-gcc/bin/gcc
+CXX= /opt/hp-gcc/bin/g++
 LD = $(CXX)
 
 CCFLAGS  = -g $(PDF_FDIR_DEF) -DUNIX_PLATFORM=1 -DUNIX_ENV=1 -DPRODUCT=\"HFTLibrary.h\" -D_REENTRANT
@@ -21,9 +21,9 @@ LDFLAGS += -mlp64
 endif
 
 CXXFLAGS = ${CCFLAGS} -Wno-ctor-dtor-privacy
-LIBS = -L$(PDFL_PATH)/Libs -lDL100ACE -lDL100AGM -lDL100ARE \
- 	   -lDL100AXE8SharedExpat -lDL100AdobeXMP -lDL100BIB \
- 	   -lDL100BIBUtils -lDL100CoolType -lDL100JP2K -lDL100pdfl \
+LIBS = -L$(PDFL_PATH)/Libs -lDL150ACE -lDL150AGM -lDL150ARE \
+ 	   -lDL150AXE8SharedExpat -lDL150AdobeXMP -lDL150BIB \
+ 	   -lDL150BIBUtils -lDL150CoolType -lDL150JP2K -lDL150pdfl \
  	   -lc -lpthread -lm
 
 INCLUDE = $(PDFL_PATH)/Include/Headers
@@ -37,10 +37,10 @@ else
 TARGET_CPU_FLAGS := +DD32 +DSitanium2
 endif
 
-CC = /opt/aCC.6.00/bin/aCC +e
-CXX = /opt/aCC.6.00/bin/aCC -AA
+CC = /opt/aCC.6.28/bin/aCC +e
+CXX = /opt/aCC.6.28/bin/aCC -AA
 #warning 2550: variable X was set but not used
-CCFLAGS  = ${TARGET_CPU_FLAGS} -g -mt +W728,740,749,829,67,2174,2550 $(PDF_FDIR_DEF) -DUNIX_PLATFORM=1 -DUNIX_ENV=1 -DPRODUCT=\"HFTLibrary.h\" -D_REENTRANT 
+CCFLAGS  = ${TARGET_CPU_FLAGS} -g -mt -D_RWSTD_MULTI_THREAD +W3422 $(PDF_FDIR_DEF) -DUNIX_PLATFORM=1 -DUNIX_ENV=1 -DPRODUCT=\"HFTLibrary.h\" -D_REENTRANT 
 CCFLAGS += -DPLATFORM=\"UnixPlatform.h\" -DPDFL_SDK_SAMPLE -DPI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6 -DTOOLKIT -DITANIUM2HPUX
 ifeq ($(STAGE), debug)
 #warning 2186: pointless comparison of unsigned integer with zero
@@ -53,7 +53,7 @@ CXXFLAGS = $(CCFLAGS)
 LD = $(CXX)
 LDFLAGS = ${TARGET_CPU_FLAGS} -g -mt -Wl,+vnoshlibunsats
 
-LIBS = -L$(PDFL_PATH)/Libs -lDL100pdfl
+LIBS = -L$(PDFL_PATH)/Libs -lDL150pdfl
 
 INCLUDE = $(PDFL_PATH)/Include/Headers
 SOURCE = $(PDFL_PATH)/Include/Source
