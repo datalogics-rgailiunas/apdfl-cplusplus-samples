@@ -12,6 +12,7 @@
 //===============================================================================
 
 #include "APDFLDoc.h"
+#include <cstring>
 
 //==============================================================================================================================
 // Default Constructor - This creates a new PDDoc object. This object will be automatically freed in the APDFLDoc's destructor.
@@ -42,7 +43,15 @@ APDFLDoc::APDFLDoc()
 
 APDFLDoc::APDFLDoc(wchar_t * nameOfDocument, bool repairDamagedFile)
 {
+    CommonConstruct ( nameOfDocument, repairDamagedFile );
+}
 
+
+//==============================================================================================================================
+// Common constructor stuff.  Introduced to allow char* overload for constructor with minimal code rewriting
+//==============================================================================================================================
+void APDFLDoc::CommonConstruct(wchar_t* nameOfDocument, bool repairDamagedFile )
+{
     initialize();                                                        
 
     wcscpy(this->nameOfDocument, nameOfDocument);                        //Set the nameOfDocument data member.
@@ -63,6 +72,28 @@ APDFLDoc::APDFLDoc(wchar_t * nameOfDocument, bool repairDamagedFile)
        RERAISE();                                                        //Pass the exception to the next handler on the stack.
 
    END_HANDLER
+}
+
+//==============================================================================================================================
+// Constructor - This overload accepts an ordinary c-string for the file name
+//==============================================================================================================================
+
+APDFLDoc::APDFLDoc(const char * nameOfDocument, bool repairDamagedFile)
+{
+    if ( nameOfDocument )
+    {
+        const size_t cSize = strlen(nameOfDocument) + 1;
+        wchar_t* wc = new wchar_t[cSize];
+        if ( wc )
+        {
+            mbstowcs ( wc, nameOfDocument, cSize );
+        }
+        CommonConstruct ( wc, repairDamagedFile );
+        if ( wc )
+        {
+            free ( wc );
+        }
+    }
 }
 
 //==============================================================================================================================
