@@ -53,6 +53,7 @@ public:
     volatile PDDoc& getPDDoc(){ return pdDoc; };                           //Returns a reference to the PDDoc that was created or opened.
 
     ASErrorCode saveDoc(wchar_t* = NULL, PDSaveFlags = PDSaveFull);        //Used to save the document, may be provided a path and PDSaveFlags.
+    ASErrorCode saveDoc(const char*, PDSaveFlags = PDSaveFull);            //Used to save the document to a specified non-wide string, may be provided PDSaveFlags.
     
     ~APDFLDoc();                                                           //Destructor frees up resources.
 
