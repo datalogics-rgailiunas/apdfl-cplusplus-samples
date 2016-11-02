@@ -17,6 +17,7 @@
 
 #include <iostream>
 #include <map>
+#include <set>
 #include <utility>
 #include <string>
 #include "InitializeLibrary.h"
@@ -68,8 +69,7 @@ int main(int argc, char** argv)
     typeCopyMap.insert(WC_PAIR(kPDEXObject,   true));
 
     //Which pages we'll copy:
-    ASInt32 pagesToCopy[] = { 0, 1, 3, 5 };                                                     //If WILL_COPY_ALL_PAGES is 0, we will copy only the pages specified here, in order of appearance. The first page is 0.
-#define WILL_COPY_ALL_PAGES 0                                                                   //If this is defined as 1, then all pages will be copied, regardless of what pagesToCopy is set to.
+    std::set<ASInt32> sPagesToCopy { 0, 1, 3, 5 };                                             // Remove initializer set to copy all pages.
 
     DURING
 
@@ -82,6 +82,8 @@ int main(int argc, char** argv)
     APDFLDoc inAPDoc(inPath, true);                                                             //Open the document specified by inPath.
     PDDoc inDoc = inAPDoc.getPDDoc();
 
+    int iInDocPages = PDDocGetNumPages(inDoc);
+
     APDFLDoc outAPDoc;                                                                          //Create a blank document.
     PDDoc outDoc = outAPDoc.getPDDoc();
 
@@ -89,14 +91,14 @@ int main(int argc, char** argv)
 //Step 3) Copy the specified content from the input PDF into the output PDF.
 //======================================================================================================================================================================================================================
 
-#if WILL_COPY_ALL_PAGES == 0
-    for (int index=0 ; index < 4; index++)
+    for (int i=0 ; i < iInDocPages; i++)
     {
-	    ASInt32 i = pagesToCopy[index];
-        if (i < PDDocGetNumPages(inDoc) && i >= 0)                                                  //Make sure the page number is valid...                       
-    for (int i = 0; i < PDDocGetNumPages(inDoc); i++)
-#endif
-    {
+        if (!sPagesToCopy.empty() && (sPagesToCopy.find(i) == sPagesToCopy.end()))
+        {
+            // Don't copy this page if the page selection set is not empty, and this page number isn't in it!
+            continue;
+        }
+
         //Give the output document a new page, with the same size as page i of the input.
         PDPage inPage = inAPDoc.getPage(i);
         ASFixedRect inPageSize;                                                                 //Stores the size of input page i.
@@ -118,10 +120,8 @@ int main(int argc, char** argv)
         PDPageRelease(outPage);
         PDPageReleasePDEContent(inPage, 0);
         PDPageRelease(inPage);
-#if WILL_COPY_ALL_PAGES == 0
-    }                                                                                           //If the page index given is valid.
-#endif
-    };
+
+	}
 
 //======================================================================================================================================================================================================================
 //Step 4) Save the output PDF and close both PDFs.
