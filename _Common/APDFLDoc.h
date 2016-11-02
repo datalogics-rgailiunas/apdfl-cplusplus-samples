@@ -34,12 +34,14 @@ private:
     void initialize();                                                     //Called in constructor to initialize some data members.
     ASErrorCode printErrorHandlerMessage();                                //Prints an error message and returns the appropriate error code.
     ASErrorCode setASPathName(wchar_t* );                                  //Helper method used to create ASPathName objects for operations.
+    void CommonConstruct(wchar_t*,bool);                                   //Helper to allow char* overload of constructor with minimal code copying
 
 public:
 
     volatile PDDoc pdDoc;                                                  //Made public so it can be accessed directly.
 
     APDFLDoc(wchar_t*, bool doRepairDamagedFile);                          //Constructor used to open a document.
+    APDFLDoc(const char*, bool doRepairDamagedFile);                       //Constructor used to open a document.
     APDFLDoc();                                                            //Constructor used to create a document.
 
     ASSize_t numPages () { return (PDDocGetNumPages (pdDoc)); }
