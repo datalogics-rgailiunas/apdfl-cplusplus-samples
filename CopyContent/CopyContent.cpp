@@ -69,7 +69,11 @@ int main(int argc, char** argv)
     typeCopyMap.insert(WC_PAIR(kPDEXObject,   true));
 
     //Which pages we'll copy:
-    std::set<ASInt32> sPagesToCopy { 0, 1, 3, 5 };                                             // Remove initializer set to copy all pages.
+    std::set<ASInt32> sPagesToCopy;
+    sPagesToCopy.insert ( 0 );                     // To copy all pages, omit populating this container
+    sPagesToCopy.insert ( 1 );
+    sPagesToCopy.insert ( 3 );
+    sPagesToCopy.insert ( 5 );
 
     DURING
 
