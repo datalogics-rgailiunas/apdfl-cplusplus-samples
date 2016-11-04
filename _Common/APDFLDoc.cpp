@@ -109,6 +109,30 @@ void APDFLDoc::initialize()
 }
 
 //==============================================================================================================================
+// saveDoc() - This overload accepts a non-wide path name, then passes through to the real function
+//==============================================================================================================================
+
+ASErrorCode APDFLDoc::saveDoc(const char* pathToSaveDoc, PDSaveFlags saveFlags)
+{
+    wchar_t* wc = NULL;
+    if ( pathToSaveDoc )
+    {
+        const size_t cSize = strlen(pathToSaveDoc) + 1;
+        wc = new wchar_t[cSize];
+        if ( wc )
+        {
+            mbstowcs ( wc, pathToSaveDoc, cSize );
+        }
+    }
+    ASErrorCode rc = saveDoc(wc, saveFlags);
+    if ( wc )
+    {
+        free ( wc );
+    }
+    return rc;
+}
+
+//==============================================================================================================================
 // saveDoc() - This method saves the PDDoc. If pathToSaveDoc is supplied it will save to the location specified. If it is 
 // not supplied it will overwrite the documents original location. The document will do a complete save by default, but other 
 // flags may be specified.
