@@ -133,7 +133,7 @@ int main(int argc, char** argv)
         securityData->perms = 0x00000000;                                                  //First, default to no permissions...
         for (int i = 0; i < 15; i++)                                  //Then bitwise OR it with all the permissions we paired with true.
         {
-            std::pair<const bool, PDPerms> x = permList[i];
+            std::pair<bool, PDPerms> x = permList[i];
             if (x.first) securityData->perms |= x.second;
         }
         std::cout << "New security permissions have been created...." << std::endl;
