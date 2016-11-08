@@ -74,11 +74,11 @@ int main(int argc, char** argv)
             PDDocInsertPages(*iter, PDBeforeFirstPage, document.getPDDoc(), pageIndex, 1, NULL, NULL, NULL, NULL, NULL);
 
             //Set the output file name according to the current page number.
-			//http://stackoverflow.com/questions/12975341/to-string-is-not-a-member-of-std-says-so-g
-			//known issue with certain version g++
-			std::ostringstream ss;
-			ss << pageIndex + 1;
-			std::string name = "baseDocument_Page" + ss.str() + ".pdf";
+            //http://stackoverflow.com/questions/12975341/to-string-is-not-a-member-of-std-says-so-g
+            //known issue with certain version g++
+            std::wostringstream ss;
+            ss << pageIndex + 1;
+            std::wstring name = L"baseDocument_Page" + ss.str() + L".pdf";
             pageNameString.assign(name.begin(), name.end());
 
             //Create the ASText object used to create the ASPathName object.
