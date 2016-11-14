@@ -3,7 +3,7 @@
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 //======================================================================================================================
-// Sample: UnicodeNew - This sample demonstrates the use of Unicode text in APDFL. We place a variety of texts
+// Sample: UnicodeText - This sample demonstrates the use of Unicode text in APDFL. We place a variety of texts
 //     in different languages and Unicode encodings, both vertically and horizontally placed, to the output document.
 //
 //Steps:
@@ -79,25 +79,18 @@ int main(int argc, char** argv)
             0x04, 0x30, 0x00, 0x00
     };
 
-    //Our Japanese text is in UTF-32B.
-    ASUTF8Val japaneseStr_U32B[] = {
-            0x00, 0x00, 0x30, 0x0E, 0x00, 0x00, 0x4E, 0x16,
-            0x00, 0x00, 0x75, 0x4C, 0x00, 0x00, 0x4E, 0xBA,
-            0x00, 0x00, 0x6A, 0x29, 0x00, 0x00, 0x5B, 0xA3,
-            0x00, 0x00, 0x8A, 0x00, 0x00, 0x00, 0x30, 0x0F,
-            0x00, 0x00, 0x00, 0x00,
+    //Our Japanese text is in UTF-16B.
+    ASUTF8Val japaneseStr_U16B[] = {
+            0x30, 0x0E, 0x4E, 0x16, 0x75, 0x4C, 0x4E, 0xBA,
+            0x6A, 0x29, 0x5B, 0xA3, 0x8A, 0x00, 0x30, 0x0F, 
+			0x00, 0x00
     };
-
-    //Our Korean text is in UTF-32B.
-    ASUTF8Val koreanStr_U32B[] = {
-            0x00, 0x00, 0xC1, 0x38, 0x00, 0x00, 0x00, 0x20,
-            0x00, 0x00, 0xAC, 0xC4, 0x00, 0x00, 0x00, 0x20,
-            0x00, 0x00, 0xC7, 0x78, 0x00, 0x00, 0x00, 0x20,
-            0x00, 0x00, 0xAD, 0x8C, 0x00, 0x00, 0x00, 0x20,
-            0x00, 0x00, 0xC1, 0x20, 0x00, 0x00, 0x00, 0x20,
-            0x00, 0x00, 0xC5, 0xB8, 0x00, 0x00, 0x00, 0x00
+    //Our Korean text is in UTF-16B.
+    ASUTF8Val koreanStr_U16B[] = {
+            0xC1, 0x38, 0x00, 0x20, 0xAC, 0xC4, 0x00, 0x20,
+            0xC7, 0x78, 0x00, 0x20, 0xAD, 0x8C, 0x00, 0x20,
+            0xC1, 0x20, 0x00, 0x20, 0xC5, 0xB8, 0x00, 0x00
     };
-
     DURING
 
 //================================================================================================================================================================================================================
@@ -153,10 +146,10 @@ int main(int argc, char** argv)
         ASText frAST = ASTextFromUnicode((ASUTF16Val*)frenchStr_U16B, kUTF16BigEndian);
         ASText frTTL = ASTextFromUnicode((ASUTF16Val*)"French",       kUTF8);
 
-        ASText jnAST = ASTextFromUnicode((ASUTF16Val*)japaneseStr_U32B, kUTF32BigEndian);
+        ASText jnAST = ASTextFromUnicode((ASUTF16Val*)japaneseStr_U16B, kUTF16BigEndian);
         ASText jnTTL = ASTextFromUnicode((ASUTF16Val*)"Japanese",       kUTF8);
 
-        ASText krAST = ASTextFromUnicode((ASUTF16Val*)koreanStr_U32B,   kUTF32BigEndian);
+        ASText krAST = ASTextFromUnicode((ASUTF16Val*)koreanStr_U16B,   kUTF16BigEndian);
         ASText krTTL = ASTextFromUnicode((ASUTF16Val*)"Korean",         kUTF8);
 
         ASText ruAST = ASTextFromUnicode((ASUTF16Val*)cyrillicStr_U16B, kUTF16BigEndian);
@@ -334,7 +327,7 @@ int main(int argc, char** argv)
         PDERelease((PDEObject)graphics.fillColorSpec.space);
         PDERelease((PDEObject)graphics.strokeColorSpec.space);
 
-        outDoc.saveDoc(L"UnicodeNew.pdf");                        //APDFLDoc's destructor will take care of closing the document.
+        outDoc.saveDoc(L"UnicodeText.pdf");                        //APDFLDoc's destructor will take care of closing the document.
 
         std::wcout << L"Success." << std::endl;
 
