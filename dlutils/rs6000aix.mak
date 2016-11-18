@@ -32,6 +32,12 @@ CXXFLAGS = -g -Wno-multichar -DAIX_GCC_COMPAT $(CPP_DEFINES) -D_ALL_SOURCE -D_PO
 # -brtl enables run time linking for the output file.
 LDFLAGS = -g -pthread -Wl,-bnoipath -Wl,-brtl
 
+ifeq ($(BUILD_64_BIT), true)
+CCFLAGS += -maix64
+CXXFLAGS += -maix64
+LDFLAGS += -maix64
+endif
+
 else
 # supress xlC warnings:
 #	1540-1401 (W) An unknown "pragma once" is specified.
