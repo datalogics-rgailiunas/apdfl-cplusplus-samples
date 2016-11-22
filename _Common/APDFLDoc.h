@@ -59,6 +59,9 @@ public:
 
     APDFLDoc(const APDFLDoc& ){};                                          //Do not allow copy constructor or assignment operator to be used.
     APDFLDoc& operator=(const APDFLDoc&){};                                //in order to prevent shallow copies of objects.
+
+    static ASPathName makePath(const char* path );                         //Provide functionality for device independent path construction
+    static ASPathName makePath(const wchar_t* path );
 };
 
 #endif

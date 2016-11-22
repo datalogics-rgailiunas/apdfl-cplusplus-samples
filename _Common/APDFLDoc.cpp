@@ -218,6 +218,53 @@ ASErrorCode APDFLDoc::setASPathName(wchar_t * pathToCreate)
 }
 
 //==============================================================================================================================
+// makePath() - Wrap the various steps required to construct a proper ASPathName
+//==============================================================================================================================
+
+/* static */ ASPathName APDFLDoc::makePath(const char* path) 
+{
+    if ( !path )
+    {
+        return NULL;
+    }
+    wchar_t* wc = NULL;
+    {
+        const size_t cSize = strlen(path) + 1;
+        wc = new wchar_t[cSize];
+        if ( wc )
+        {
+            mbstowcs ( wc, path, cSize );
+        }
+        else
+        {
+            return NULL;
+        }
+    }
+    ASPathName pn = makePath ( wc );
+    delete[] wc;
+    return pn;
+}
+
+/* static */ ASPathName APDFLDoc::makePath(const wchar_t* path)
+{
+    ASText textToCreatePath = NULL;         //Text object to create ASPathName
+    ASPathName pn;
+DURING
+    //Determine size of wchar_t on system and get the ASText
+    if (sizeof(wchar_t) == 2)
+        textToCreatePath = ASTextFromUnicode(reinterpret_cast<const ASUTF16Val*> (path), kUTF16HostEndian);
+    else
+        textToCreatePath = ASTextFromUnicode(reinterpret_cast<const ASUTF16Val*>(path), kUTF32HostEndian);
+
+    pn = ASFileSysCreatePathFromDIPathText(NULL, textToCreatePath, NULL);
+HANDLER
+    return NULL;
+END_HANDLER
+    ASTextDestroy(textToCreatePath);        //Release text object
+    return pn;
+}
+
+//==============================================================================================================================
 // insertPage() - Inserts a page into the PDDoc when provided ASFixed values for width, height and the location where the
 // page will be inserted. The PDPage created is deallocated at the end of this method.
 //==============================================================================================================================
