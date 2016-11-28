@@ -3,7 +3,7 @@
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 
-#include "../dlutils/MacSDKConfigurations/Common.xcconfig"
+#include "../../Samples/dlutils/MacSDKConfigurations/Common.xcconfig"
 
 //
 // GNU C/C++ - Language
