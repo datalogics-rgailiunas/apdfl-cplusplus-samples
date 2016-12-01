@@ -34,6 +34,8 @@ int main(int argc, char** argv)
     if (libInit.isValid() == false)                             //If there was a problem in initialization, return the error code.
         return libInit.getInitError();
 
+    PDFlattenerUserParamsRec flattenParams;
+
     DURING
 
         APDFLDoc doc(L"../_Input/FlattenTransparency.pdf", true);    //Open the input document, repairing it if it's damaged.
@@ -54,7 +56,6 @@ int main(int argc, char** argv)
 // Step 2) Configure the PDFlattener parameters.
 //===================================================================================================================================================================================================================================
 
-        PDFlattenerUserParamsRec flattenParams;
         memset(&flattenParams,0,sizeof (PDFlattenerUserParamsRec));
         flattenParams.size = sizeof(PDFlattenerUserParamsRec);
 
@@ -120,7 +121,7 @@ int main(int argc, char** argv)
         else
         {
             std::wcout << L"Flattening failed." << std::endl;
-            E_RETURN(result);
+            ASRaise(GenError(genErrGeneral));
         }
 
 //===================================================================================================================================================================================================================================
@@ -139,6 +140,9 @@ int main(int argc, char** argv)
         errCode = ERRORCODE;
             libInit.displayError(errCode);           //If there was an error, display it.
 
+        ASTextDestroy(flattenParams.profileDesc);    //Release resources.
+
+        PDFlattenerTerminate();                      //Terminate the PDFlattener plugin.
     END_HANDLER
 
     if (!errCode)
