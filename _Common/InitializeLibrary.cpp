@@ -80,15 +80,14 @@ ASInt32 APDFLib::getInitError()
 HINSTANCE APDFLib::loadDFL150PDFL (wchar_t* relativeDir)
 {
     //Prepare to find the full path name.
-    DWORD fullDLLPath = 0;                        //The path to the DLL.
     const int bufsize = 4096;                     //The size of the buffer we'll write the path to.
     TCHAR pathBuffer[bufsize] = TEXT("");         //The buffer we'll write the path to.
     TCHAR** lppPart = { NULL };                   //Recieves the address of the final name component.
 
-    fullDLLPath = GetFullPathName (relativeDir,   //Turn the relative path into an absolute path.
-        bufsize,
-        pathBuffer,
-        lppPart);
+    GetFullPathName (relativeDir,                 //Turn the relative path into an absolute path.
+                     bufsize,
+                     pathBuffer,
+                     lppPart);
 
     SetDllDirectory(pathBuffer);                  //Add the path to the DLL directory.
 
