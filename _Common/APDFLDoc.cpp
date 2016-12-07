@@ -53,6 +53,10 @@ APDFLDoc::APDFLDoc(wchar_t * nameOfDocument, bool repairDamagedFile)
 void APDFLDoc::CommonConstruct(wchar_t* nameOfDocument, bool repairDamagedFile )
 {
     initialize();                                                        
+    if (NULL == nameOfDocument)
+    {
+        return;
+    }
 
     wcscpy(this->nameOfDocument, nameOfDocument);                        //Set the nameOfDocument data member.
 
@@ -91,7 +95,7 @@ APDFLDoc::APDFLDoc(const char * nameOfDocument, bool repairDamagedFile)
         CommonConstruct ( wc, repairDamagedFile );
         if ( wc )
         {
-            free ( wc );
+            delete [] wc;
         }
     }
 }
@@ -127,7 +131,7 @@ ASErrorCode APDFLDoc::saveDoc(const char* pathToSaveDoc, PDSaveFlags saveFlags)
     ASErrorCode rc = saveDoc(wc, saveFlags);
     if ( wc )
     {
-        free ( wc );
+        delete [] wc;
     }
     return rc;
 }
