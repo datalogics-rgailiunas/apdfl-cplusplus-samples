@@ -36,6 +36,9 @@ private:
     ASErrorCode setASPathName(wchar_t* );                                  //Helper method used to create ASPathName objects for operations.
     void CommonConstruct(wchar_t*,bool);                                   //Helper to allow char* overload of constructor with minimal code copying
 
+    APDFLDoc(const APDFLDoc&);                                             //Do not allow copy constructor or assignment operator to be used.
+    APDFLDoc& operator=(const APDFLDoc&);                                  //in order to prevent shallow copies of objects.
+
 public:
 
     volatile PDDoc pdDoc;                                                  //Made public so it can be accessed directly.
@@ -56,9 +59,6 @@ public:
     ASErrorCode saveDoc(const char*, PDSaveFlags = PDSaveFull);            //Used to save the document to a specified non-wide string, may be provided PDSaveFlags.
     
     ~APDFLDoc();                                                           //Destructor frees up resources.
-
-    APDFLDoc(const APDFLDoc& ){};                                          //Do not allow copy constructor or assignment operator to be used.
-    APDFLDoc& operator=(const APDFLDoc&){};                                //in order to prevent shallow copies of objects.
 
     static ASPathName makePath(const char* path );                         //Provide functionality for device independent path construction
     static ASPathName makePath(const wchar_t* path );
