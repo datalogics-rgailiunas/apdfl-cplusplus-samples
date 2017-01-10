@@ -1,8 +1,9 @@
-// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
+// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+//
+// For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-//===========================================================================
 // Sample: AddBookmarks - Adds some bookmarks to the input PDF.
 //
 // Note: The input for this sample is a text-heavy PDF document.
@@ -11,13 +12,14 @@
 // This sample also adds a few children bookmarks to the first
 // bookmark, which copy that bookmark at different zoom levels.
 //
-//Steps:
+// Steps:
 // 1) Find each target word in the document and record their
 //    location and text.
 // 2) Create a bookmark for each occurrence with this information.
 // 3) Demonstrate different zoom levels.
 // 4) Save and close the document.
-//===========================================================================
+//
+// Command line:  <target-search-word> <input-file> <output-file>   (all optional)
 
 #include <sstream>
 #include <string>
@@ -30,201 +32,220 @@
 #include "PagePDECntCalls.h"
 #include "ASCalls.h"
 
-bool searchWord(PDWord nextWord, const char* target);
+#define INPUT_LOC "../../Samples/_Input/"
+#define DEF_INPUT "Ulysses.pdf"
+#define DEF_OUTPUT "AddBookmarks-out.pdf"
+#define DEF_TARGET "before"
+
+typedef struct _WordLocation
+{
+    ASFixedRect m_loc;   // Bounding rectangle (relative to page)
+    ASInt32     m_page;  // Page number
+    ASText      m_text;  // Actual text
+    _WordLocation ( ASInt32 p ) { m_page = p; }
+} WordLocation;
+
+static bool searchWord(PDWord nextWord, const char* target);
+
 int main(int argc, char** argv)
 {
-    APDFLib lib;                                                  //Initialize the Adobe PDF Library.
-    if (lib.isValid() == false)                                   //If it failed to initialize, return the error code.
-        return lib.getInitError();
+    ASErrorCode errCode = 0;
+    
+    //Initialize the Adobe PDF Library.
+    APDFLib lib;                       
+    if (lib.isValid() == false)
+    {
+        errCode = lib.getInitError();
+        std::cout << "Initialization failed with code " << errCode << std::endl;
+        return errCode;
+    }
 
-    wchar_t* inputPath  = L"../_Input/Ulysses.pdf";               //Input PDF path.
-    wchar_t* outputPath = L"Bookmarked.pdf";                      //Output path we'll save to.
+    std::string csSearchWord ( argc > 1 ? argv[1] : DEF_TARGET );
+    std::string csInputFileName ( argc > 2 ? argv[2] : INPUT_LOC DEF_INPUT );
+    std::string csOutputFileName ( argc > 3 ? argv[3] : DEF_OUTPUT );
 
-    ASErrorCode errCode = 0;                                      //Tracks runtime errors in the application.
+    std::cout << "Will search for \"" << csSearchWord.c_str() << "\" in "
+              << csInputFileName.c_str() << " and write output to " << csOutputFileName.c_str() 
+              << std::endl;
 
     DURING
 
-    std::wcout << L"Opening the input document." << std::endl;
-
-    APDFLDoc APDoc(inputPath, true);
+    APDFLDoc APDoc(csInputFileName.c_str(), true);
     PDDoc mydoc = APDoc.getPDDoc();
 
-//======================================================================================================================================================================================================================================================
-//Step 1) Find each occurrence of target word in the document and record their location and text.
-//======================================================================================================================================================================================================================================================
+    // Step 1) Find each occurrence of target word in the document and record the location and text
 
-	//We are using three vectors to keep track of what we are doing, they have to be updated synchronizely.
-    std::vector<ASFixedRect> bsLocts;                                                               //bsLocts[n] is the bounding rectangle (relative to its page) of the nth occurrence.
-    std::vector<ASInt32> bsPages;                                                                   //bsPages[n] is the page number the nth occurrence appeared on.
-    std::vector<ASText> bsTexts;                                                                    //bsTexts[n] is the text of the nth occurrence.
+    std::vector<WordLocation> vWords;
 
     //We'll use the PDWordFinder class to iterate through our document's words, looking for target word.
     PDWordFinder wordFinder = PDDocCreateWordFinderUCS(mydoc, WF_LATEST_VERSION, 0, NULL);
 
-    PDWord* wordList = new PDWord();                                                                //Our PDWordFinder will iterate through the words with this. We will not directly access it.
-    ASInt32 numWordsFound;
+    //Our PDWordFinder will iterate through the words with this. We will not directly access it.
+    PDWord* wordList = new PDWord();
+    ASInt32 numWordsFound ( 0 );
 
-    //This algorithm finds target word which satisfy a boolean function. Here, we use a boolean function
-    //which checks to see if the word is match.
-    //We assume that no word will span more than one page.
-    for (int nextPage = 0; nextPage < PDDocGetNumPages(mydoc); ++nextPage)
+    // Search all words in each page of the document.  It is assumed that no word will span pages.
+    for (int page = 0; page < PDDocGetNumPages(mydoc); ++page)
     {
-        PDWordFinderAcquireWordList(wordFinder, nextPage, wordList, NULL, NULL, &numWordsFound);    //Must be called before we call PDWordFinderGetNthWord. This sets up how we want to traverse the words on page 0. (I'm using the default settings.)
+        //Must be called before we call PDWordFinderGetNthWord.
+        PDWordFinderAcquireWordList(wordFinder, page, wordList, NULL, NULL, &numWordsFound);    
 
         for (int nextWordIndex = 0; nextWordIndex < numWordsFound; ++nextWordIndex)
         {
             PDWord nextWord = PDWordFinderGetNthWord(wordFinder, nextWordIndex);
-			// target word is "before" in this sample code
-			char	myWord[20] = "before";
-			if (searchWord(nextWord, myWord)){
-				//After we found the word
-				//The page number.
-				bsPages.push_back(nextPage);
-				//The text of the word.
-				ASText nextWordText = ASTextNew();
-				PDWordGetASText(nextWord, 0, nextWordText);
-				bsTexts.push_back(nextWordText);
-
-				//Its quads.
-				ASInt16 nQuads = PDWordGetNumQuads(nextWord);                                   //The word might be split up into several quads (e.g., if it's hyphenated), and we want the last set.
-				ASFixedQuad quad;
-				PDWordGetNthQuad(nextWord, nQuads - 1, &quad);
-				ASFixedRect partialWord;
-				partialWord.left = quad.tl.h;                                                  //The left location of the box lines up with the horizontal coordinate of the top-left point.
-				partialWord.top = quad.tl.v;                                                   //The top location of the box lines up with the vertical coordinate of the top-left pont.
-				bsLocts.push_back(partialWord);
-			}
-		}
-        PDWordFinderReleaseWordList(wordFinder, nextPage);                                          //Prepare to iterate over the word list for the next page.
+            if ( searchWord(nextWord, csSearchWord.c_str() ) )
+            {
+                WordLocation wl ( page );
+                // The text of the word.
+                ASText nextWordText = ASTextNew();
+                PDWordGetASText(nextWord, 0, nextWordText);
+                wl.m_text = nextWordText;
+                // Its quads: The word might be split up into several quads (e.g., if it's
+                //   hyphenated), and we want the last set.
+                ASInt16 nQuads = PDWordGetNumQuads(nextWord);                                   
+                ASFixedQuad quad;
+                PDWordGetNthQuad(nextWord, nQuads - 1, &quad);
+                ASFixedRect partialWord;
+                //The left location of the box lines up with the horizontal coordinate of the top-left point.
+                partialWord.left = quad.tl.h;                                                  
+                //The top location of the box lines up with the vertical coordinate of the top-left pont.
+                partialWord.top = quad.tl.v;                                                   
+                wl.m_loc = partialWord;
+                vWords.push_back ( wl );
+            }
+        }
+        //Prepare to iterate over the word list for the next page.
+        PDWordFinderReleaseWordList(wordFinder, page);                                          
     }
 
+    // Un-comment these lines if you wish to print out the words found
+    //std::vector<WordLocation>::iterator it2, it2End = vWords.end();
+    //for ( it2 = vWords.begin(); it2 != it2End; ++it2 )
+    //{
+    //  ASText partialText = it2->m_text;
+    //  ASInt32 wordLen = 0;
+    //  //Unicode text will probably not display correctly. Rest assured it will look fine in the document.
+    //  std::cout << "page " << it2->m_page << " " << ASTextGetPDTextCopy(partialText, &wordLen) << std::endl; 
+    // }
 
-    std::wcout << L"I found " << bsPages.size() << L" search occurrence:" << std::endl;                     //We could have used any of the vectors, not just bsLocts.
-
-    // In order to Linux platform
-    for (int i = 0; i < bsTexts.size(); i++)
-    {
-        ASText partialText = bsTexts[i];
-        ASInt32 wordLen = 0;                                                                        //Unused. Only for calling ASTextGetPDTextCopy.
-		std::wcout << ASTextGetPDTextCopy(partialText, &wordLen) << std::endl;                      //Unicode text will probably not display correctly. Rest assured it will look fine in the document.
-    }
-
-//======================================================================================================================================================================================================================================================
 //Step 2) Create a bookmark for each occurrence of target word with this information.
-//======================================================================================================================================================================================================================================================
 
-    std::wcout << L"Creating a bookmark for each search occurrence..." << std::endl;
+    // We'll create each bookmark by iterating over the subheadings.
+    // The bookmark's text will be the subheading's text,
+    // And the bookmark's action will be to bring the reader to
+    // the location of that subheading.
 
-    //We'll create each bookmark by iterating over the subheadings.
-    //The bookmark's text will be the subheading's text,
-    //And the bookmark's action will be to bring the reader to
-    //the location of that subheading.
+    //Bookmarks are added to a document's bookmark root.
+    PDBookmark bookMarkRoot = PDDocGetBookmarkRoot(mydoc);                                 
 
-    PDBookmark bookMarkRoot = PDDocGetBookmarkRoot(mydoc);                                 //Bookmarks are added to a document's bookmark root.
-
-    for (int nextBM = 0; nextBM < bsPages.size(); ++nextBM)
+    std::vector<WordLocation>::iterator it, itEnd = vWords.end();
+    for ( it = vWords.begin(); it != itEnd; ++it )
     {
         //Get the necessary information.
-        PDPage nextPage = APDoc.getPage(bsPages[nextBM]);                                  //Get the associated page.
+        PDPage nextPage = APDoc.getPage(it->m_page);
 
-        ASFixedRect* nextLocation = &bsLocts[nextBM];						  //Get the associated page location (the method we use requires a pointer).
+        ASFixedRect* nextLocation = &(it->m_loc);
 
-        //Make the bookmark and set its action.
-        PDBookmark nextbm = PDBookmarkAddNewChildASText(bookMarkRoot, bsTexts[nextBM]);    //Bookmarks must be created before their action is set.
+        //Make the bookmark and set its action; they must be created before their action is set.
+        PDBookmark nextbm = PDBookmarkAddNewChildASText(bookMarkRoot, it->m_text);    
 
         //We create a View Destination pointing to the location of the subheading, and then create an action
         //which will take the reader to that destination.
-        PDViewDestination nextDestination = PDViewDestCreate(mydoc, nextPage,
-                                                             ASAtomFromString("XYZ"),      //View Destination Fit Type
-                                                             nextLocation,                 //Pointer to the location rectangle we want.
-                                                             Int16ToFixed(0),              //Zoom factor. 0 means to inherit the current zoom factor
-                                                             0);                           //Unused argument
-
-        PDAction nextDestAct = PDActionNewFromDest(mydoc,nextDestination,mydoc);           //The first and third arguments are the source PDDoc and the destination PDDoc, respectively.
-                                                                                           //They must the the same.
-        PDBookmarkSetAction(nextbm, nextDestAct);                                          //Give the bookmark its action!
-        PDPageRelease(nextPage);                                                           //Prepare to get the next bookmark's page. (It may end up being the same page.)
+        PDViewDestination nextDestination = PDViewDestCreate (
+            mydoc, 
+            nextPage,
+            ASAtomFromString("XYZ"),      //View Destination Fit Type
+            nextLocation,                 //Pointer to the location rectangle we want.
+            Int16ToFixed(0),              //Zoom factor. 0 means to inherit the current zoom factor
+            0);                           //Unused argument
+        
+        //The first and third arguments are the source PDDoc and the destination PDDoc, respectively.
+        //They must the the same.
+        PDAction nextDestAct = PDActionNewFromDest(mydoc,nextDestination,mydoc);           
+                                                                                           
+        PDBookmarkSetAction(nextbm, nextDestAct);  //Give the bookmark its action!
+        PDPageRelease(nextPage);                   
     }
-    std::wcout << L"Done." << std::endl;
 
-//======================================================================================================================================================================================================================================================
 //Step 3) Demonstrate different zoom levels.
-//======================================================================================================================================================================================================================================================
 
-    std::wcout << L"Adding zoom demonstration bookmarks." << std::endl;
-
-    //This steps adds a few children bookmarks to the first bookmark of the
-    //document, which all copy that bookmark at different zoom levels.
-
-    PDBookmark parentBm = PDBookmarkGetFirstChild(PDDocGetBookmarkRoot(mydoc));                                                        //The bookmark we'll add children to. (The first bookmark.)
-    PDBookmark zoom100  = PDBookmarkAddNewChild(parentBm, "100% Zoom");
-    PDBookmark zoom200  = PDBookmarkAddNewChild(parentBm, "200% Zoom");
-    PDBookmark zoom800  = PDBookmarkAddNewChild(parentBm, "800% Zoom");
-    PDBookmark zoom40   = PDBookmarkAddNewChild(parentBm, "40% Zoom");
-
-    ASInt8 numZoomBookmarks = 4;
-    PDBookmark zoomBookmarks[] = {zoom100,      zoom200,      zoom800,      zoom40};
-    ASFloat zoomFactors[] = {1.0, 2.0, 8.0, 0.40};
-
-    //Copy the attributes of the parent bookmark.
-    ASInt32 pageNumber;                                                                                                                //The page index of the first bookmark.
-    ASAtom fitType;                                                                                                                    //The first bookmark's view destination fit type.
-    ASFixedRect locationRect;                                                                                                          //The location rectangle of the first bookmark.
-    ASFixed zoomFactor;                                                                                                                //The first bookmark's zoom factor (we won't be using this).
-    PDViewDestination parentViewDestination = PDActionGetDest(PDBookmarkGetAction(parentBm));
-
-    PDViewDestGetAttr(parentViewDestination, &pageNumber, &fitType, &locationRect, &zoomFactor);
-
-    //Set each bookmark's view destination per the above array.
-    PDPage parentPage = APDoc.getPage(pageNumber);                                                                                     //The page of the parent bookmark.
-    for (int i = 0; i < numZoomBookmarks; ++i)
+    ASInt32 numZoomBookmarks ( 0 );
+    if ( vWords.size() > 0 )
     {
-        PDViewDestination nextView = PDViewDestCreate(mydoc, parentPage, fitType,&locationRect, ASFloatToFixed(zoomFactors[i]), 0);
-        PDAction nextAction = PDActionNewFromDest(mydoc, nextView, mydoc);
-        PDBookmarkSetAction(zoomBookmarks[i],nextAction);
+        // We will add a few children bookmarks to the first bookmark (if there was one)
+        // that we created, which all copy that bookmark at different zoom levels.
+
+        PDBookmark parentBm = PDBookmarkGetFirstChild(PDDocGetBookmarkRoot(mydoc));
+        PDBookmark zoom100  = PDBookmarkAddNewChild(parentBm, "100% Zoom");
+        PDBookmark zoom200  = PDBookmarkAddNewChild(parentBm, "200% Zoom");
+        PDBookmark zoom800  = PDBookmarkAddNewChild(parentBm, "800% Zoom");
+        PDBookmark zoom40   = PDBookmarkAddNewChild(parentBm, "40% Zoom");
+
+        numZoomBookmarks = 4;
+        PDBookmark zoomBookmarks[] = {zoom100,      zoom200,      zoom800,      zoom40};
+        ASFloat zoomFactors[] = {1.0, 2.0, 8.0, 0.40};
+
+        //Copy the attributes of the parent bookmark.
+        ASInt32 pageNumber;
+        ASAtom fitType;
+        ASFixedRect locationRect;
+        ASFixed zoomFactor;
+        PDViewDestination parentViewDestination = PDActionGetDest(PDBookmarkGetAction(parentBm));
+
+        PDViewDestGetAttr(parentViewDestination, &pageNumber, &fitType, &locationRect, &zoomFactor);
+
+        //Set each bookmark's view destination per the above array.
+        PDPage parentPage = APDoc.getPage(pageNumber);
+        for (int i = 0; i < numZoomBookmarks; ++i)
+        {
+            PDViewDestination nextView = PDViewDestCreate ( 
+                                  mydoc, parentPage, fitType,
+                                  &locationRect, ASFloatToFixed(zoomFactors[i]), 0 );
+            PDAction nextAction = PDActionNewFromDest(mydoc, nextView, mydoc);
+            PDBookmarkSetAction(zoomBookmarks[i],nextAction);
+        }
+
+        PDPageRelease(parentPage);
     }
 
-    PDPageRelease(parentPage);
-
-    std::wcout << L"Done. Saving and closing the document." << std::endl;
-
-//======================================================================================================================================================================================================================================================
 //Step 5) Save and close the document.
-//======================================================================================================================================================================================================================================================
-    // In order to Linux platform
-    for (int i=0;i<bsTexts.size();i++)
-        ASTextDestroy(bsTexts[i]);
+    
+    std::cout << " --> Bookmarked " << vWords.size() << " occurrences, and added " 
+              << numZoomBookmarks << " zoom bookmarks\n";
+    // Release objects
+    for ( it = vWords.begin(); it != itEnd; ++it )
+    {
+        ASTextDestroy ( it->m_text );
+    }
 
-    APDoc.saveDoc(outputPath);
-
-    std::wcout << L"Success!" << std::endl;
+    APDoc.saveDoc( csOutputFileName.c_str() );
 
     HANDLER
-
         errCode = ERRORCODE;
-        lib.displayError(errCode);             //If there was an error, display it.
-
+        lib.displayError(errCode);
     END_HANDLER
 
     return errCode;
 };
 
-//======================================================================================================================================================================================================================================================
-//bool function: Checks to see if a PDWord contains target word. (Assumes target occurance count only once in each word.)
-//======================================================================================================================================================================================================================================================
+// The word-matching function.  Note that it is case sensitive!
 bool searchWord(PDWord nextWord, const char* target)
 {
-
-	ASText nextWordASText = ASTextNew();
-	PDWordGetASText(nextWord, 0, nextWordASText);
-	ASInt32 wordLen = 0;
-	char * nextWordChar = ASTextGetPDTextCopy(nextWordASText, &wordLen);
-	if (strlen(nextWordChar) < strlen(target))
-		return false;
-	for (unsigned int index = 0; index < strlen(target); index++)
-		if (nextWordChar[index] != target[index])
-			return false;
-
-	ASfree(nextWordChar);
-	return true;
+    ASText nextWordASText = ASTextNew();
+    PDWordGetASText(nextWord, 0, nextWordASText);
+    ASInt32 wordLen = 0;
+    char * nextWordChar = ASTextGetPDTextCopy(nextWordASText, &wordLen);
+    if (strlen(nextWordChar) < strlen(target))
+    {
+       return false;
+    }
+    for (unsigned int index = 0; index < strlen(target); index++)
+    {
+        if (nextWordChar[index] != target[index])
+        {
+            return false;
+        }
+    }
+    ASfree(nextWordChar);
+    return true;
 }

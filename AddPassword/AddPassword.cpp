@@ -1,103 +1,95 @@
-// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
+// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+//
+// For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-//================================================================================
 // Sample: AddPassword - Adds a password to open an otherwise unsecured document.
 //
-// Note: This sample takes the unsecured input document and creates an output
-//     document that can only be opened with the password "Datalogics".
+// Steps: 
+// 1) Open the input document and create a password for it.
+// 2) Set the new security data into the document.
+// 3) Save and close the document.
 //
-//Steps: 
-//1) Open the input document and create a password for it.
-//2) Set the new security data into the document.
-//3) Save and close the document.
-//================================================================================
+// Command-line:  <input-file> <password> <output-file>    (All optional)
 
 #include <iostream>
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
 
+#define INPUT_LOC "../../Samples/_Input/"
+#define DEF_INPUT "AddPassword.pdf"
+#define DEF_OUTPUT "AddPassword-out.pdf"
+#define DEF_PASSWORD "Datalogics"
+
 int main(int argc, char** argv)
 {
-    APDFLib lib;                                                                           //Initialize the Adobe PDF Library.
+    APDFLib lib;
 
-    if (lib.isValid() == false)                                                            //If it failed to initialize, return the error code.
-        return lib.getInitError();
+    ASErrorCode errCode = 0;
+    if (lib.isValid() == false)
+    {
+        errCode = lib.getInitError();
+        std::cout << "Initialization failed with code " << errCode << std::endl;
+        return errCode;
+    }
 
-    wchar_t* inPath  = L"../_Input/AddPassword.pdf";                                       //Input document path.
-    wchar_t* outPath = L"AddPassword_Out.pdf";                                             //Output document path.
-    char*   password = "Datalogics";                                                       //Password we'll give to the output document (cannot be a wide char).
+    std::string csInputFileName ( argc > 1 ? argv[1] : INPUT_LOC DEF_INPUT );
+    std::string csPassword ( argc > 2 ? argv[2] : DEF_PASSWORD );
+    std::string csOutputFileName ( argc > 3 ? argv[3] : DEF_OUTPUT );
+    std::cout << "Will apply password \"" << csPassword.c_str() << "\" to " << csInputFileName.c_str()
+              << " and save as " << csOutputFileName.c_str() << std::endl;
 
-    ASErrorCode errCode = 0;                                                               //This will catch error codes thrown during library usage.
+DURING
 
-    DURING
-
-//==========================================================================================================================================================================
 //Step 1) Open the input document and create a password for it.
-//==========================================================================================================================================================================
 
-        std::cout << "Opening the input document." << std::endl;
+    APDFLDoc APDoc ( csInputFileName.c_str(), true);
+    PDDoc document = APDoc.getPDDoc();
 
-        APDFLDoc APDoc(inPath, true);
-        PDDoc document = APDoc.getPDDoc();
+    //This structure will hold the new security data.
+    PDDocSetNewCryptHandler(document, ASAtomFromString("Standard"));
+    StdSecurityData securityData = (StdSecurityData)PDDocNewSecurityData(document);
+    securityData->size = sizeof(StdSecurityDataRec);
 
-        std::cout << "Creating the new security data." << std::endl;
+    //Set the password needed to open the output file.
+    securityData->hasUserPW = true;
+    securityData->newUserPW = true;
+    strcpy(securityData->userPW, csPassword.c_str());
 
-        //This structure will hold the new security data.
-        PDDocSetNewCryptHandler(document, ASAtomFromString("Standard"));                   //Prepare to create new security data...
-        StdSecurityData securityData = (StdSecurityData)PDDocNewSecurityData(document);    //...and create it.
-        securityData->size = sizeof(StdSecurityDataRec);
+    //Don't add a password to change restrictions once the file is open. 
+    //    (See SetUniquePermissions for this behavior.)
+    securityData->hasOwnerPW = false;
 
-        //Set the password needed to open the output file.
-        securityData->hasUserPW = true;
-        securityData->newUserPW = true;
-        strcpy(securityData->userPW, password);
+    //Set the encryption method:
+    //2 = CF_METHOD_RC4_V2 - RC4 algorithm.
+    //5 = CF_METHOD_AES_V1 - AES algorithm with a zero initialization vector.
+    //6 = CF_METHOD_AES_V2 - AES algorithm with a 16 byte random initialization vector.
+    //7 = CF_METHOD_AES_V3 - AES algorithm with a 4 byte random initialization vector.
+    securityData->encryptMethod = 2;
+    securityData->keyLength = 16;
+    //Either of the following two booleans can be set to true, but not both. It's up to you.
+    securityData->encryptMetadata = true;                       
+    securityData->encryptAttachmentsOnly = false;
 
-        //Don't add a password to change restrictions once the file is open. (See SetUniquePermissions for this behavior.)
-        securityData->hasOwnerPW = false;
+    //The user will be able to perform all operations when the file is opened with the password.
+    securityData->perms = pdPermOwner;
 
-        //Set the encryption method:
-        //2 = CF_METHOD_RC4_V2 - RC4 algorithm.
-        //5 = CF_METHOD_AES_V1 - AES algorithm with a zero initialization vector.
-        //6 = CF_METHOD_AES_V2 - AES algorithm with a 16 byte random initialization vector.
-        //7 = CF_METHOD_AES_V3 - AES algorithm with a 4 byte random initialization vector.
-        securityData->encryptMethod = 2;
-        securityData->keyLength = 16;                                                      //encryption key length, in bytes.
-        securityData->encryptMetadata = true;                                              //Either of these two booleans can be set to true, but not both. It's up to you.
-        securityData->encryptAttachmentsOnly = false;
-
-        //The user will be able to perform all operations when the file is opened with the password.
-        securityData->perms = pdPermOwner;
-
-        std::cout << "New security permissions have been created...." << std::endl;
-
-//==========================================================================================================================================================================
 //Step 2) Set the new security data into the document.
-//==========================================================================================================================================================================
 
-        PDDocSetNewSecurityData(document, (void*)securityData);
-        ASfree((void*)securityData);
+    PDDocSetNewSecurityData(document, (void*)securityData);
+    ASfree((void*)securityData);
 
-        std::cout << "...and added to the document." << std::endl;
-
-//==========================================================================================================================================================================
 //Step 3) Save and close the document.
-//==========================================================================================================================================================================
 
-        std::cout << "Saving the new file." << std::endl;
+    // Changing security permissions requires a full save. APDFLDoc saves with
+    //    PDSaveFull by default, but we are making this explicit!
+    APDoc.saveDoc ( csOutputFileName.c_str(), PDSaveFull);                                                 
 
-        APDoc.saveDoc(outPath, PDSaveFull);                                                 //Changing security permissions requires a full save. APDFLDoc saves with
-        PDDocClose(document);                                                               //    PDSaveFull by default, but it's important to make this explicit.
+HANDLER
+    errCode = ERRORCODE;
+    lib.displayError(errCode);
+END_HANDLER
 
-        std::cout << "Success." << std::endl;
-
-    HANDLER
-
-        errCode = ERRORCODE;
-        lib.displayError(errCode);                                                         //If there was an error, display it.
-
-    END_HANDLER
-
-    return errCode;                                                                        //lib's destructor terminates the library.
+    return errCode;
 };

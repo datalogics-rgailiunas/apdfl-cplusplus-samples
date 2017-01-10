@@ -1,80 +1,83 @@
-// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
+// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+//
+// For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-//============================================================================
-// Sample: AddPageLabels-Numbers. This program creates page labels and adds 
+// Sample: AddPageNumbers. This program creates page labels and adds 
 //         them to a PDF with numberings. They are viewable by looking at a 
 //         documents thumbnails.
 //
 // Steps:
-//  1) Open the Document that will have labels added to.
+//  1) Open the Document to which we will add the labels
 //  2) Create labels for different sets of pages
 //  3) Save and exit
-//============================================================================
+//
+//  Command-line:   <input-file>  <output-file>     (Both optional)
+//
 
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
 #include "ASExtraCalls.h"
 #include <iostream>
 
+#define INPUT_LOC "../../Samples/_Input/"
+#define DEF_INPUT "toNumber.pdf"
+#define DEF_OUTPUT "AddPageNumbers-out.pdf"
+
 int main(int argc, char** argv)
 {
 
-    APDFLib libInit;                        //Initialize the APDFL.
-    ASErrorCode errCode = 0;                //Error code initially is 0.
+    APDFLib lib;
+    ASErrorCode errCode = 0;
+    if (lib.isValid() == false)
+    {
+        errCode = lib.getInitError();
+        std::cout << "Initialization failed with code " << errCode << std::endl;
+        return errCode;
+    }
 
-    if (libInit.isValid() == false)         //Check for errors in initialization.
-        return libInit.getInitError();      //If there was an error return the code.
+    std::string csInputFileName ( argc > 1 ? argv[1] : INPUT_LOC DEF_INPUT );
+    std::string csOutputFileName ( argc > 2 ? argv[2] : DEF_OUTPUT );
+    std::cout << "Will add some page labels and numbers to " << csInputFileName.c_str()
+              << " and save as " << csOutputFileName.c_str() << std::endl;
 
-    DURING
+DURING
 
-//==================================================================================================================================
 // Step 1) Open the Document that will have labels added to.
-//==================================================================================================================================
 
-        APDFLDoc document(L"../_Input/toNumber.pdf", true);            //Open a document and repair if damaged
+    APDFLDoc document ( csInputFileName.c_str(), true );
+    PDDoc pdDoc = document.getPDDoc();
 
-        std::wcout << L"Document was sucessfully opened." << std::endl;
-
-//==================================================================================================================================
 // Step 2) Create label's for different sets of pages
-// Note: PDPageLabel takes in a style key : "R" for upper - case Roman numbers, "r" for lower - case Roman numbers,
-//                                          "A" for upper-case alphabetic numbers, "a" for lower-case alphabetic numbers,
-//                                          or "D" for decimal Arabic numerals.
-//==================================================================================================================================
 
-        //Set the first page's label to "Cover" with the number counter to 1
-        PDPageLabel coverLabel = PDPageLabelNew(document.pdDoc, ASAtomFromString("D"), "Cover ", sizeof("Cover "), 1);
-        PDDocSetPageLabel(document.pdDoc, 0, coverLabel);
+    // NOTE:  PDPageLabel() takes in a style key:
+    //    "R" for upper-case Roman numbers, 
+    //    "r" for lower-case Roman numbers,
+    //    "A" for upper-case alphabetic numbers, 
+    //    "a" for lower-case alphabetic numbers, or
+    //    "D" for decimal Arabic numerals.
 
-        std::wcout << L"Cover Label Added" << std::endl;
+    //Set the first page's label to "Cover" with the number counter to 1
+    PDPageLabel coverLabel = PDPageLabelNew(pdDoc, ASAtomFromString("D"), "Cover ", 6, 1);
+    PDDocSetPageLabel(pdDoc, 0, coverLabel);
 
-        //Set the label of second page and up to "preface" with the number counter starting at 2
-        PDPageLabel prefaceLabel = PDPageLabelNew(document.pdDoc, ASAtomFromString("r"), "preface ", sizeof("preface "), 2);
-        PDDocSetPageLabel(document.pdDoc, 1, prefaceLabel);
+    //Set the label of second page and up to "preface" with the number counter starting at 2
+    PDPageLabel prefaceLabel = PDPageLabelNew(pdDoc, ASAtomFromString("r"), "preface ", 8, 2);
+    PDDocSetPageLabel(pdDoc, 1, prefaceLabel);
 
-        std::wcout << L"Preface Labels Added" << std::endl;
+    //Starting from the 5th page onwards, display pages numbers starting with 1 and upwards
+    PDPageLabel pageLabel = PDPageLabelNew(pdDoc, ASAtomFromString("D"), "", 0, 1);
+    PDDocSetPageLabel(pdDoc, 5, pageLabel);
 
-        //Starting from the 5th page onwards, display pages numbers starting with 1 and upwards
-        PDPageLabel pageLabel = PDPageLabelNew(document.pdDoc, ASAtomFromString("D"), "", 0, 1);
-        PDDocSetPageLabel(document.pdDoc, 5, pageLabel);
-
-        std::wcout << L"Normal Page Number Labels Added" << std::endl;
-       
-//==================================================================================================================================
 // Step 3) Save and exit
-//==================================================================================================================================
       
-        document.saveDoc(L"labelled.pdf", PDSaveFull | PDSaveLinearized);    //Save the document, with output path, and save flags
+    document.saveDoc ( csOutputFileName.c_str(), PDSaveFull | PDSaveLinearized);
 
-        HANDLER
-
-            errCode = ERRORCODE;
-
-            libInit.displayError(errCode);                                   //If there was an error, display it.
-
-        END_HANDLER
+HANDLER
+    errCode = ERRORCODE;
+    lib.displayError(errCode);
+END_HANDLER
 
     return errCode;
 }

@@ -1,17 +1,18 @@
-// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
+// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+//
+// For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-//====================================================================================
-// Sample: AddContent - This samples opens a file called AddContent.pdf in the input 
-//                      directory. It adds several different elements to the page and 
-//                      saves it as AddedContent.pdf.
+// Sample: AddContent - Takes an input file and adds several different elements to it.
 //      
 // Steps:
-//  1) Set up the font for the text to be displayed.    
+//  1) Set up the font for the text to be added into document
 //  2) Set up the content to be added to the document.
 //  3) Acquire PDEContent and add elements to the page.       
-//====================================================================================
+//
+// Command-line:  <input-file> <output-file>   (both optional)
+//
 
 #include <iostream>
 
@@ -25,129 +26,130 @@
 #include "ASExtraCalls.h"
 #include "APDFLDoc.h"
 
-//Function used to create a rectangle, parameter description in function definition.
-PDEPath PathRect(ASFixed, ASFixed, ASFixed, ASFixed, int, ASFixed, ASFixed, ASFixed);
+#define DIR_LOC "../../Samples/_Input/"
+#define DEF_INPUT "AddContent.pdf"
+#define DEF_OUTPUT "AddContent-out.pdf"
+
+// Helper function used to create a rectangle, parameter description in function definition.
+static PDEPath PathRect(ASFixed, ASFixed, ASFixed, ASFixed, int, ASFixed, ASFixed, ASFixed);
 
 int main(int argc, char** argv)
 {
-   
-    APDFLib libInit;                                             //Initialize the Adobe PDF Library.
-    ASErrorCode errCode = 0;                                     //Variable used to report any exceptions/errors if they occured. 
+    APDFLib libInit;          // Initialize the Adobe PDF Library. (Going out of scope will terminate.)
+    ASErrorCode errCode = 0;
 
-    if (libInit.isValid() == false)                              //Check for errors upon initialization.
-        return libInit.getInitError();                           //If it failed, return the error code.
+    if (libInit.isValid() == false)
+    {
+        errCode = libInit.getInitError();
+        std::cout << "Initialization failed with code " << errCode << std::endl;
+        return errCode;
+    }
 
-    DURING
+DURING
 
-        APDFLDoc document(L"../_Input/AddContent.pdf", true);    //Open input document with path and repair if damaged.
+    std::string csInputFileName ( argc > 1 ? argv[1] : DIR_LOC DEF_INPUT );
+    std::string csOutputFileName ( argc > 2 ? argv[2] : DEF_OUTPUT );
+    std::cout << "Adding some PDE Elements to file " << csInputFileName.c_str()
+              << " and saving as " << csOutputFileName.c_str() << std::endl;
 
-//================================================================================================================================================
+    APDFLDoc document( csInputFileName.c_str(), true );
+
 // Step 1) Set up the font for the text to be displayed.                            
-//================================================================================================================================================
-
-        PDEFontAttrs attrs;                                                                   //Structure holding the attributes of a PDEFont.
-        PDEFont courierStdFont = NULL;                                                        //Font element that will represent the font CourierStd.
-       
-        memset(&attrs, 0, sizeof(attrs));                                                     //Clear out PDEFontAttrs struct.                                                                     
-        attrs.name = ASAtomFromString("CourierStd");                                             //Set font attribute's name.                                                          
-        attrs.type = ASAtomFromString("Type1");                                            //Set font attribute's type.                                         
-       
-        PDSysFont sysFont = PDFindSysFont(&attrs, sizeof(attrs), kPDSysFontMatchFontType);    //Get the corresponding system font.
-         
-        PDSysFontGetAttrs(sysFont, &attrs, sizeof(PDEFontAttrs));                             //Get font embedding policy. 
-                                                                                              //Check if font is embeddable. 
-        if (attrs.cantEmbed != 0)
-            std::wcerr << L"Font " << ASAtomGetString(attrs.name) << L" can not be embedded";
-        else
-            courierStdFont = PDEFontCreateFromSysFont(sysFont, kPDEFontCreateEmbedded);       //Create font from the system font and embed.
-
-        std::wcout << L"Created CourierStd Font. " << std::endl;
-
-
-        
-//================================================================================================================================================
-// Step 2) Set up the content to be added to the document. Elements are added to the page at X and Y values starting from the bottom left corner.
-//================================================================================================================================================
-        
-        //Text that will be displayed on page
-        std::string textToDisplay = "Here is some text in the CourierStd font, using both PDEText and PDEFont.";
-
-        PDEGraphicState gState;                         //Structure holding the graphic attributes of the text object.
-        memset(&gState, NULL, sizeof(gState));
-
-        PDEDefaultGState(&gState, sizeof(gState));      //Set the graphics state to its default values since the text is being displayed plainly.
-        
-        PDETextState tState;                            //Structure holding the attributes of a PDEText.
-        memset(&tState, NULL, sizeof(tState));
-
-        ASDoubleMatrix textMatrix;                      //Transformation matrix for text which determines location of the text on page.
-
-        memset(&textMatrix, 0, sizeof(textMatrix));     //Clear structure. 
-        textMatrix.a = 10;                              //Set font width and height. 
-        textMatrix.d = 10;                              //Set font point size.     
-        textMatrix.h = 72 * 0.6;                        //x coordinate on page (72 pixels = 1 inch).
-        textMatrix.v = 72 * 8;                          //y coordinate on page.         
-
-        PDEText pdeText = PDETextCreate();              //Create a new text run.
-
-        //Adding the text run to the PDE text object
-        PDETextAddEx(pdeText,                           //Text container to add to. 
-            kPDETextRun,                                //kPDETextRun or kPDETextChar for text runs or text characters. 
-            0,                                          //The index after which to add the text run.
-            (Uns8 *)textToDisplay.c_str(),              //Text to add.    
-            textToDisplay.length(),                     //Length of text 
-            courierStdFont,                             //Font to apply to text.
-            &gState, sizeof(gState),                    //Graphic state and its size.
-            &tState, sizeof(tState),                    //Text state and its size.
-            &textMatrix,                                //Transformation matrix for text.  
-            NULL);                                      //Stroke matrix for the line width when stroking text.  
-
-        textMatrix.v = 72 * 7;                          //y coordinate on page.
-        textToDisplay = "Below is a PDEPath rectangle. ";
-
-        //Adding the text run to the PDE text object
-        PDETextAddEx(pdeText,                          //Text container to add to.
-           kPDETextRun,                                //kPDETextRun or kPDETextChar for text runs or text characters.
-           0,                                          //The index after which to add the text run.
-           (Uns8 *)textToDisplay.c_str(),              //Text to add.
-           textToDisplay.length(),                     //Length of text
-           courierStdFont,                             //Font to apply to text.
-           &gState, sizeof(gState),                    //Graphic state and its size.
-           &tState, sizeof(tState),                    //Text state and its size.
-           &textMatrix,                                //Transformation matrix for text.
-           NULL);                                      //Stroke matrix for the line width when stroking text.
-
-        //Determine the needed flags for embedding and call the appropriate routines for doing so.
-        PDEFontEmbedNow(courierStdFont, PDDocGetCosDoc(document.pdDoc));
-
-        std::wcout << L"Created text objects for display. " << std::endl;
-
-        //Call to PathRect() function to design a blue rectangle, passing in xPosition, yPosition, width, height, lineWidth, RGB color values.
-        PDEPath rect = PathRect(ASFloatToFixed(72 * 3.25), ASInt32ToFixed(72 * 4), ASInt32ToFixed(72 * 2), ASInt32ToFixed(72 * 2), 46, fixedZero, fixedZero, fixedOne);
-
-        std::wcout << L"Created PDEPath in the form of a rectangle. " << std::endl;
-
-//================================================================================================================================================
-//Step 3) Acquire PDEContent and add elements to the page.           
-//================================================================================================================================================
-
-        PDPage pdPage = PDDocAcquirePage(document.pdDoc, 0);                      //Get the page.
-
-        PDEContent pdeContent = PDPageAcquirePDEContent(pdPage, 0);               //Get the page's content.
-    
-                                                                                  //Add the rectangle to the page content. 
-        PDEContentAddElem(pdeContent, kPDEAfterLast, (PDEElement)rect);                          
    
-                                                                                  //Add the text into page content.
+    PDEFontAttrs attrs;
+    memset(&attrs, 0, sizeof(attrs));
+    attrs.name = ASAtomFromString("CourierStd");
+    attrs.type = ASAtomFromString("Type1");
+    //Get the corresponding system font.
+    PDSysFont sysFont = PDFindSysFont(&attrs, sizeof(attrs), kPDSysFontMatchFontType);    
+     
+    PDSysFontGetAttrs(sysFont, &attrs, sizeof(PDEFontAttrs));
+                                                            
+    //Check if font is embeddable. 
+    PDEFont courierStdFont = NULL;
+    if (attrs.cantEmbed != 0)
+    {
+        std::cerr << "Font " << ASAtomGetString(attrs.name) << " can not be embedded";
+    }
+    else
+    {
+        //Create font from the system font and embed.
+        courierStdFont = PDEFontCreateFromSysFont(sysFont, kPDEFontCreateEmbedded);       
+    }
+        
+// Step 2) Set up the content to be added to the document. Elements are added to the page at 
+//         X and Y values starting from the bottom left corner.
+        
+    //Text that will be displayed on page
+    std::string textToDisplay = "Here is some text in the CourierStd font, using both PDEText and PDEFont.";
+
+    PDEGraphicState gState;
+    memset(&gState, NULL, sizeof(gState));
+
+    PDEDefaultGState(&gState, sizeof(gState));      //Set the graphics state to default values
+    
+    PDETextState tState;
+    memset(&tState, NULL, sizeof(tState));
+
+    //Transformation matrix for text which determines location of the text on page.
+    ASDoubleMatrix textMatrix;                      
+
+    memset(&textMatrix, 0, sizeof(textMatrix));
+    textMatrix.a = 10;                           //Set font width and height. 
+    textMatrix.d = 10;                           //Set font point size.     
+    textMatrix.h = 72 * 0.6;                     //x coordinate on page (72 pixels = 1 inch).
+    textMatrix.v = 72 * 8;                       //y coordinate on page.         
+
+    PDEText pdeText = PDETextCreate();           //Create a new text run.
+
+    //Adding the text run to the PDE text object
+    PDETextAddEx ( 
+        pdeText,                           //Text container to add to
+        kPDETextRun,                       //kPDETextRun or kPDETextChar as appropriate
+        0,                                 //The index after which to add the text run
+        (Uns8 *)textToDisplay.c_str(),     //Text to add
+        textToDisplay.length(),            //Length of text 
+        courierStdFont,                    //Font to apply to text
+        &gState, sizeof(gState),           //Graphic state and its size
+        &tState, sizeof(tState),           //Text state and its size
+        &textMatrix,                       //Transformation matrix for text
+        NULL);                             //Stroke matrix for the line width when stroking text
+
+    textMatrix.v = 72 * 7;                 //y coordinate on page.
+    textToDisplay = "Below is a PDEPath rectangle. ";
+
+    //Adding the text run to the PDE text object
+    PDETextAddEx ( 
+        pdeText,                          //Text container to add to.
+        kPDETextRun,                      //kPDETextRun or kPDETextChar as appropriate
+        0,                                //The index after which to add the text run.
+        (Uns8 *)textToDisplay.c_str(),    //Text to add.
+        textToDisplay.length(),           //Length of text
+        courierStdFont,                   //Font to apply to text.
+        &gState, sizeof(gState),          //Graphic state and its size.
+        &tState, sizeof(tState),          //Text state and its size.
+        &textMatrix,                      //Transformation matrix for text.
+        NULL);                            //Stroke matrix for the line width when stroking text.
+
+    //Determine the needed flags for embedding and call the appropriate routines for doing so.
+    PDEFontEmbedNow(courierStdFont, PDDocGetCosDoc(document.pdDoc));
+
+    // Cook up a blue rectangle...
+    PDEPath rect = PathRect ( ASFloatToFixed(72 * 3.25), ASInt32ToFixed(72 * 4), 
+                              ASInt32ToFixed(72 * 2), ASInt32ToFixed(72 * 2), 46,
+                              fixedZero, fixedZero, fixedOne);
+
+//Step 3) Acquire PDEContent and add elements to the page.           
+
+        PDPage pdPage = PDDocAcquirePage(document.pdDoc, 0);
+        PDEContent pdeContent = PDPageAcquirePDEContent(pdPage, 0);
+        //Add the rectangle to the page content. 
+        PDEContentAddElem(pdeContent, kPDEAfterLast, (PDEElement)rect);                          
+        //Add the text into page content.
         PDEContentAddElem(pdeContent, kPDEAfterLast, (PDEElement)pdeText);
-
-        std::wcout << L"Added all Elements" << std::endl;
-  
-                                                                                 
-        PDPageSetPDEContentCanRaise(pdPage, NULL);                                //Set the content ack into the page              
-
-                                                                                  
-        document.saveDoc(L"AddedContent.pdf", PDSaveFull | PDSaveLinearized);     //Save the document with proper save flags.
+        //Set the content back into the page              
+        PDPageSetPDEContentCanRaise(pdPage, NULL);                                
+        document.saveDoc ( csOutputFileName.c_str(), PDSaveFull | PDSaveLinearized);
 
         //Release all objects
         PDPageReleasePDEContent(pdPage, NULL);
@@ -158,71 +160,62 @@ int main(int argc, char** argv)
         PDERelease(reinterpret_cast<PDEObject>(gState.strokeColorSpec.space));    
         PDERelease(reinterpret_cast<PDEObject>(gState.fillColorSpec.space));
     
-    HANDLER
-        
+HANDLER
         errCode = ERRORCODE;   
+        libInit.displayError(errCode);
+END_HANDLER
 
-        libInit.displayError(errCode);                                            //If there was an error, display it.
-        
-    END_HANDLER
-
-                                                                                  //Return program status.
     return errCode;         
-
 }
 
-//================================================================================================================================================
-// PDEPath Function: Transforms PDEPath to rectangle of xPosition, yPosition, width, height, lineWidth, r, g, b (RGB color values).
-//================================================================================================================================================
-PDEPath PathRect(ASFixed  x, ASFixed  y, ASFixed  width, ASFixed  height, int  lineWidth, ASFixed r, ASFixed  g, ASFixed  b)
+// Helper function: Creates a PDEPath object from supplied parameters
+PDEPath PathRect(ASFixed  x, ASFixed  y, ASFixed  width, ASFixed  height, 
+                 int  lineWidth, ASFixed r, ASFixed  g, ASFixed  b)
 {
-
     //Create the PDEPath object that will be used to draw a rectangle.
     PDEPath rectangle = PDEPathCreate();                                        
                                                                        
-    PDEPathSetPaintOp(rectangle, kPDEStroke);                                           //Set the paint operation to Stroke for the path.
-
-    PDEGraphicState gState;                                                             //Holds the vewiable attributes of the rectangle.
-    PDEColorSpec strokeClrSpec;                                                         //Structure describing stroke specifications.
-    PDEColorSpace clrSpace;                                                             //The used color scheme.
-    PDEColorValue strokeClrValue;                                                       //Structure describing stroke color values
-
-    memset(&strokeClrValue, 0, sizeof (PDEColorValue));
+    //Set the paint operation to Stroke for the path.
+    PDEPathSetPaintOp(rectangle, kPDEStroke);
 
     //PDEColorValue color components for the RGB color space.
+    PDEColorValue strokeClrValue;
+    memset(&strokeClrValue, 0, sizeof (PDEColorValue));
     strokeClrValue.color[0] = ASInt32ToFixed(r);
     strokeClrValue.color[1] = ASInt32ToFixed(g);
     strokeClrValue.color[2] = ASInt32ToFixed(b);
 
     //Use RGB color space
+    PDEColorSpace clrSpace;
     clrSpace = PDEColorSpaceCreateFromName(ASAtomFromString("DeviceRGB")); 
 
     //Assign fill/stroke values to the appropriate PDEColorSpec.
+    PDEColorSpec strokeClrSpec;
     strokeClrSpec.space  = clrSpace;
     strokeClrSpec.value = strokeClrValue;
 
-    //Set up graphics state along with color specs so that the rectangle displays with the specified color and line width.
+    // Create the graphics state object as per specs
+    PDEGraphicState gState;
     memset(&gState, 0, sizeof (PDEGraphicState));
     gState.strokeColorSpec = strokeClrSpec;
     gState.lineWidth = ASInt32ToFixed(lineWidth);
     gState.miterLimit = fixedTen;
     gState.flatness = fixedOne;
 
-    //Set graphics state to the path to give it the color and size of the rectange.
+    // Set graphics state to the path to give it the color and size of the rectange.
     PDEElementSetGState((PDEElement)rectangle, &gState, sizeof (PDEGraphicState));
 
-    //Array structure for pathData needed for a rectangle.
+    // Prepare Array structure for pathData, and assign to object
     ASFixed  pathData[5];
     pathData[0] = kPDERect;
     pathData[1] = x;
     pathData[2] = y;
     pathData[3] = width;
     pathData[4] = height;
- 
-                                                                                      
-    PDEPathSetData(rectangle, pathData, sizeof (pathData));                             //Assign the pathData to the path to form rectangle.
+    PDEPathSetData(rectangle, pathData, sizeof (pathData));
                                                                                        
-    PDERelease((PDEObject)clrSpace);                                                    //Released objects.
+    //Released objects
+    PDERelease((PDEObject)clrSpace);                                                    
                                                                                      
-    return rectangle;                                                                   //Return the rectangle.
+    return rectangle;
 }

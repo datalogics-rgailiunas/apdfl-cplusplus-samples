@@ -1,9 +1,10 @@
-// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
+// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+//
+// For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-//====================================================================================
-// Sample: AddRedaction - This sample locates text to be redacted using the
+// Sample: AddRedaction - This sample locates text to be redacted using 
 // PDWordFinder and permanently removes it from the document, replacing the word with 
 // a black redaction box.
 //      
@@ -11,7 +12,9 @@
 //  1) Use the PDWordFinder to locate words that will be redacted.
 //  2) Create and apply the redactions.  
 //  3) Verify that the words were permanently removed.
-//====================================================================================
+//
+// Command-line:  <input-file> <output-file>    (Both optional)
+//
 
 #include <iostream>
 #include <string>
@@ -20,158 +23,169 @@
 #include "APDFLDoc.h"
 #include "InitializeLibrary.h"
 
+#define INPUT_LOC "../../Samples/_Input/"
+#define DEF_INPUT "AddRedaction.pdf"
+#define DEF_OUTPUT "AddRedaction-out.pdf"
+
 int main(int argc, char** argv)
 {
-    APDFLib libInit;                   //Initialize the Adobe PDF Library.
-    ASErrorCode errCode = 0;           //Variable used to report any exceptions/errors if they occured.
+    ASErrorCode errCode = 0;
+    APDFLib libInit;
 
-    if (libInit.isValid() == false)    //If there was a problem in initialization, return the error code.
-        return libInit.getInitError();
+    if (libInit.isValid() == false)
+    {
+        errCode = libInit.getInitError();
+        std::cout << "Initialization failed with code " << errCode << std::endl;
+        return errCode;
+    }
 
-    DURING
+    const wchar_t* rWords[2] = { L"navigation", L"screen" };
+    std::string csInputFileName ( argc > 1 ? argv[1] : INPUT_LOC DEF_INPUT );
+    std::string csOutputFileName ( argc > 2 ? argv[2] : DEF_OUTPUT );
+    std::cout << "Redacting words \"";
+    std::wcout << rWords[0] << L"\" and \"" << rWords[1];
+    std::cout << "\" from " << csInputFileName.c_str() << ", saving to " << csOutputFileName.c_str() 
+              << std::endl;
 
-        APDFLDoc document(L"../_Input/AddRedaction.pdf", true);
+DURING
 
-//===================================================================================================================================================================================
-// Step 1) Use the PDWordFinder to locate words that will be redacted. We will save their location in a vector of ASFixedQuads. 
-//===================================================================================================================================================================================
+    APDFLDoc document ( csInputFileName.c_str(), true);
 
-        std::vector<ASFixedQuad> quadVector;                                                                          //This vector will hold quad points for located words.
+// Step 1) Use PDWordFinder to locate words that will be redacted and save their locations
 
-        PDWordFinderConfigRec wfConfig;                                                                               //Set the default word finder settings.
-        memset(&wfConfig, 0, sizeof(PDWordFinderConfigRec));
-        wfConfig.recSize = sizeof(PDWordFinderConfigRec);
+    std::vector<ASFixedQuad> quadVector;                                                                          
 
-        PDWordFinder wordFinder = PDDocCreateWordFinderEx(document.getPDDoc(), WF_LATEST_VERSION, true, &wfConfig);   //Create the word finder object.    
-        PDWord pdWordArray;                                                                                           //Create a PDWord object used to hold individual words.
+    //Set the default word finder settings.
+    PDWordFinderConfigRec wfConfig;                                                                               
+    memset(&wfConfig, 0, sizeof(PDWordFinderConfigRec));
+    wfConfig.recSize = sizeof(PDWordFinderConfigRec);
 
-        ASInt32 numberOfWords = 0;
+    //Create the word finder object.    
+    PDWordFinder wordFinder = PDDocCreateWordFinderEx(document.getPDDoc(), WF_LATEST_VERSION, true, &wfConfig);
+    //Create a PDWord object used to hold individual words.
+    PDWord pdWordArray;                                                                                           
 
-        std::wcout << L"Acquiring word list..." << std::endl;
+    ASInt32 numberOfWords = 0;
 
-        PDWordFinderAcquireWordList(wordFinder, 0, &pdWordArray, NULL, NULL, &numberOfWords);                   //Acquire the word list from the page.
+    PDWordFinderAcquireWordList(wordFinder, 0, &pdWordArray, NULL, NULL, &numberOfWords);
 
-        //Determine the unicode format before converting the ASText to a wstring.        
-        ASUnicodeFormat unicodeFormat;                                                          
-        if (sizeof(wchar_t) == 2)                                                                   
-            unicodeFormat = kUTF16HostEndian;
-        else
-            unicodeFormat = kUTF32HostEndian;
+    for (ASInt32 index = 0; index < numberOfWords; ++index)
+    {
+        //Get the PDWord at the given index.
+        PDWord pdWord = PDWordFinderGetNthWord(wordFinder, index);                                                
 
-        std::wcout << L"Found " <<  numberOfWords << L" in document, searching for matches..." << std::endl;
+        //Convert word to an ASText object.
+        ASText asTextWord = ASTextNew();                                                                          
 
-        for (ASInt32 index = 0; index < numberOfWords; ++index)                                                       //Iterate through the word list.
+        PDWordGetASText(pdWord, 0, asTextWord);
+
+        //Convert ASText object to a wstring.
+        std::wstring testString = reinterpret_cast<wchar_t*> ( 
+                 ASTextGetUnicodeCopy(asTextWord, APDFLDoc::GetHostUnicodeFormat() ));    
+
+        std::transform(testString.begin(), testString.end(), testString.begin(), ::tolower);
+
+        //If either string is matched, push the words quad points into a vector.
+        if ((wcsstr(testString.c_str(), rWords[0]) != NULL) || (wcsstr(testString.c_str(), rWords[1]) != NULL))
         {
-            PDWord pdWord = PDWordFinderGetNthWord(wordFinder, index);                                                //Get the PDWord at the given index.
-
-            ASText asTextWord = ASTextNew();                                                                          //Convert word to an ASText object.
-
-            PDWordGetASText(pdWord, 0, asTextWord);
-
-            std::wstring testString = reinterpret_cast<wchar_t*>(ASTextGetUnicodeCopy(asTextWord, unicodeFormat));    //Convert ASText object to a wstring.
-
-            std::transform(testString.begin(), testString.end(), testString.begin(), ::tolower);
-
-            //If either string is matched, push the words quad points into a vector.
-            if ((wcsstr(testString.c_str(), L"navigation") != NULL) || (wcsstr(testString.c_str(), L"screen") != NULL))
-            {
-                ASFixedQuad quad;
-                PDWordGetNthQuad(pdWord, 0, &quad);
-                quadVector.push_back(quad);
-            }
-
-            ASTextDestroy(asTextWord);                                                                                //Destroy the ASText object.
+            ASFixedQuad quad;
+            PDWordGetNthQuad(pdWord, 0, &quad);
+            quadVector.push_back(quad);
         }
 
-        PDWordFinderReleaseWordList(wordFinder, 0);                                                                   //Release the word list.
+        ASTextDestroy(asTextWord);
+    }
 
-        std::wcout << L"Found " << quadVector.size() << L" matches..." << std::endl;
+    PDWordFinderReleaseWordList(wordFinder, 0);
 
-//===================================================================================================================================================================================
-// Step 2) Create and apply the redactions. The redaction configurations are set, the redaction is created and finally applied. If PDDocApplyRedactions is not called the words will
-// be marked for redaction, but not removed.
-//===================================================================================================================================================================================
-        if (quadVector.size() > 0)                                                            //Perform check on size to prevent quadVector.front() from having undefined behavior.
-        {
-            PDRedactParams redactParams;                                                      //Parameters controlling settings for the redaction annotation.
-            PDRedactParamsRec rpRec;
-            redactParams = &rpRec;
+// Step 2) Create and apply the redactions. 
 
-            PDColorValueRec cvRec;
+    if (quadVector.size() > 0)
+    {
+        PDRedactParams redactParams;
+        PDRedactParamsRec rpRec;
+        redactParams = &rpRec;
 
-            redactParams->size = sizeof(PDRedactParamsRec);                                   //Size is always set to the size of the PDRedactParamsRec struct.
-            redactParams->pageNum = 0;                                                        //The page number that the redaction will be applied to.
-            redactParams->redactQuads = &quadVector.front();                                  //The vector or array holding the quads.
-            redactParams->numQuads = quadVector.size();                                       //The number of entries in the vector or array.
-            redactParams->colorVal = &cvRec;
-            redactParams->colorVal->space = PDDeviceRGB;                                      //Set device color space to RGB
-            redactParams->colorVal->value[0] = FloatToASFixed(0.0);                           //The redaction box will be set to black.
-            redactParams->colorVal->value[1] = FloatToASFixed(0.0);
-            redactParams->colorVal->value[2] = FloatToASFixed(0.0);
-            redactParams->horizAlign = kPDHorizLeft;                                          //Horizontal alignment of the text when generating the redaction mark.
-            redactParams->overlayText = NULL;                                              //Overlay text may be used to replace the underlying content.
+        PDColorValueRec cvRec;
 
-            PDAnnot redactAnnot = PDDocCreateRedaction(document.getPDDoc(), redactParams);    //Create the redaction annotation. At this point the text HAS NOT been redacted.
+        redactParams->size = sizeof(PDRedactParamsRec);
+        redactParams->pageNum = 0;                                //The page that the redaction will be applied to.
+        redactParams->redactQuads = &quadVector.front();          //The vector or array holding the quads.
+        redactParams->numQuads = quadVector.size();               //The number of entries in the vector or array.
+        redactParams->colorVal = &cvRec;
+        redactParams->colorVal->space = PDDeviceRGB;              //Set device color space to RGB
+        redactParams->colorVal->value[0] = FloatToASFixed(0.0);   //The redaction box will be set to black.
+        redactParams->colorVal->value[1] = FloatToASFixed(0.0);
+        redactParams->colorVal->value[2] = FloatToASFixed(0.0);
+        redactParams->horizAlign = kPDHorizLeft;                  //Horizontal alignment of the text when 
+                                                                  //  generating the redaction mark.
+        redactParams->overlayText = NULL;                         //Overlay text may be used to replace the 
+                                                                  //  underlying content.
 
-            std::wcout << L"Marked words for redaction." << std::endl;
+        //Create the redaction annotation. At this point the text HAS NOT been redacted.
+        PDAnnot redactAnnot = PDDocCreateRedaction(document.getPDDoc(), redactParams);    
 
-            PDDocApplyRedactions(document.getPDDoc(), NULL);                               //Apply the redactions, the text is now redacted.
+        // Apply the redactions. IMPORTANT: until PDDocApplyRedactions is called, the
+        //    words are merely _marked for redaction_, but not removed!
+        PDDocApplyRedactions(document.getPDDoc(), NULL);                               
 
-            std::wcout << L"Words have been permanently removed." << std::endl;
-        }
-        else
-            std::wcout << L"No words were matched, no redactions will be made." << std::endl;
+        std::cout << quadVector.size() << " words have been permanently removed...  ";
+    }
+    else
+        std::cout << "No words were matched, no redactions needed." << std::endl;
 
-//===================================================================================================================================================================================
-// Step 3) Verify that the words were permanently removed. This is an optional step to demonstrate that our words have been completely removed.
-//===================================================================================================================================================================================
-
-        wordFinder = PDDocCreateWordFinderEx(document.getPDDoc(), WF_LATEST_VERSION, true, &wfConfig);                //Create the word finder object.
+// Step 3) Verify that the words were permanently removed. 
+  
+    if ( quadVector.size() > 0 )
+    {
+        wordFinder = PDDocCreateWordFinderEx(document.getPDDoc(), WF_LATEST_VERSION, true, &wfConfig);
 
         numberOfWords = 0;                                                                               
         memset(&pdWordArray, 0, sizeof(pdWordArray));
 
-        std::wcout << L"Acquiring word list after redactions..." << std::endl;
+        PDWordFinderAcquireWordList(wordFinder, 0, &pdWordArray, NULL, NULL, &numberOfWords); 
 
-        PDWordFinderAcquireWordList(wordFinder, 0, &pdWordArray, NULL, NULL, &numberOfWords);                   //Acquire the word list from the page.
+        ASInt32 cnt = 0;
 
-        std::wcout << L"Found " << numberOfWords << L" in document, searching for matches..." << std::endl;
-
-        ASInt32 cnt = 0;                                                                                              //Count used to track any words remaining.
-
-        for (ASInt32 index = 0; index < numberOfWords; ++index)                                                       //Iterate through the word list.
+        for (ASInt32 index = 0; index < numberOfWords; ++index)
         {
+            PDWord pdWord = PDWordFinderGetNthWord(wordFinder, index); //Get the PDWord at the given index.
 
-            PDWord pdWord = PDWordFinderGetNthWord(wordFinder, index);                                                //Get the PDWord at the given index.
-
-            ASText asTextWord = ASTextNew();                                                                          //Convert word to an ASText object.
+            ASText asTextWord = ASTextNew();                           //Convert word to an ASText object.
 
             PDWordGetASText(pdWord, 0, asTextWord);
 
-            std::wstring testString = reinterpret_cast<wchar_t*>(ASTextGetUnicodeCopy(asTextWord, unicodeFormat));    //Convert ASText object to a wstring.
+            //Convert ASText object to a wstring.
+            std::wstring testString = reinterpret_cast<wchar_t*> ( 
+                   ASTextGetUnicodeCopy(asTextWord, APDFLDoc::GetHostUnicodeFormat()));    
 
             std::transform(testString.begin(), testString.end(), testString.begin(), ::tolower);
 
             //If either string is matched, increment the count so we can report them.
-            if ((wcsstr(testString.c_str(), L"navigation") != NULL) || (wcsstr(testString.c_str(), L"screen") != NULL))
+            if ((wcsstr(testString.c_str(), rWords[0]) != NULL) || (wcsstr(testString.c_str(), rWords[1]) != NULL))
+            {
                 ++cnt;
-
-            ASTextDestroy(asTextWord);                                                                                //Destroy the ASText object.
+            }
+            ASTextDestroy(asTextWord);
         }
 
-        PDWordFinderReleaseWordList(wordFinder, 0);                                                                   //Release the word list.
+        PDWordFinderReleaseWordList(wordFinder, 0);
 
-        std::wcout << L"Found " << cnt << L" matches..." << std::endl;
+        if ( 0 == cnt )
+        {
+            std::cout << "Verified." << std::endl;
+        }
+        else
+        {
+            std::cout << "Uh oh... something didn't work right here." << std::endl;
+        }
+    }
+    document.saveDoc ( csOutputFileName.c_str(), true);
+    
+HANDLER
+    errCode = ERRORCODE;
+    libInit.displayError(errCode);
+END_HANDLER
 
-        document.saveDoc(L"RedactedDoc.pdf", true);                                                                   //Save the document with redacted text.
-        
-    HANDLER
-
-        errCode = ERRORCODE;
-
-        libInit.displayError(errCode);                                                                                //If there was an error, display the error that occured.
-
-    END_HANDLER
-
-    return errCode;                                                                                                   //APDFLib's destructor terminates the library.
+    return errCode;        // APDFLib's destructor terminates the library.
 }

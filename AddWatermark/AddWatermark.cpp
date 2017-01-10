@@ -1,20 +1,20 @@
-// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
+// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+//
+// For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-//==============================================================================
-// Sample: AddWatermark - This sample adds two watermarks to the first two
-//             pages of the input PDF. There are two ways of adding a watermark
-//             to a document. One can add a text watermark, or a watermark
-//             that is the image of a page of a PDF document. This sample
-//             adds both kinds to both pages.
+// Sample: AddWatermark - This sample adds watermarks to an input document.
+//       This program demonstrates both adding a text watermark, and
+//       adding a watermark which is the image of a page of a PDF document.
 //
 // Steps:
 // 1) Set the watermark parameters struct.
 // 2) Set the text watermark parameters struct.
 // 3) Add the page and text watermarks.
-//==============================================================================
-
+//
+// Command-line:   <input-file-name> <watermark-document> <output-file-name>    (All optional)
+//
 
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
@@ -24,98 +24,96 @@
 #include "PSFCalls.h"
 #include "PEWCalls.h"
 
+#define INPUT_LOC "../../Samples/_Input/"
+#define DEF_INPUT "AddWatermark.pdf"
+#define DEF_WATER "Watermark.pdf"
+#define DEF_OUTPUT "AddWatermark-out.pdf"
+#define DEF_TEXT "Copyright (c) 2017, Datalogics, Inc."
+
 int main(int argc, char** argv)
 {
+    ASErrorCode errCode = 0;
+    APDFLib libInit;
 
-    APDFLib libInit;                                            //Initialize the Adobe PDF Library.
-    ASErrorCode errCode = 0;                                    //Variable used to report any exceptions/errors if they occured.
+    if (libInit.isValid() == false)
+    {
+        errCode = libInit.getInitError();
+        std::cout << "Initialization failed with code " << errCode << std::endl;
+        return errCode;
+    }
 
-    if (libInit.isValid() == false)                             //If there was a problem in initialization, return the error code.
-        return libInit.getInitError();
+    std::string csInputFileName ( argc > 1 ? argv[1] : INPUT_LOC DEF_INPUT );
+    std::string csWatermarkFileName ( argc > 2 ? argv[2] : INPUT_LOC DEF_WATER );
+    std::string csOutputFileName ( argc > 3 ? argv[3] : DEF_OUTPUT );
+    std::string csWatermarkText ( DEF_TEXT );
+    std::cout << "Adding first page of " << csWatermarkFileName.c_str() << " to first 2 pages of "
+              << csInputFileName.c_str() << ",\n  and adding text \"" << csWatermarkText.c_str()
+              << "\" to second 2 pages, writing output to " << csOutputFileName.c_str() << std::endl;
 
-    DURING
+DURING
 
-    APDFLDoc inDoc(L"../_Input/AddWatermark.pdf", true);        //Open the input document, repairing it if it's damaged.
-    APDFLDoc watermarkDoc(L"../_Input/Watermark.pdf", true);    //We'll take the watermark image from the first page of this PDF.
+    APDFLDoc inDoc ( csInputFileName.c_str(), true);
+    // We'll take the watermark image from the first page of this PDF:
+    APDFLDoc watermarkDoc ( csWatermarkFileName.c_str(), true);    
 
-//========================================================================================================================================================================================================================
 //Step 1) Set the watermark parameters struct.
-//
-// Note: This struct is used by both our text and page watermarks.
-//========================================================================================================================================================================================================================
 
-    std::wcout << L"Preparing the watermark settings." << std::endl;
-
+    // Note: This struct is used by both our text and page watermarks.
     PDDocAddWatermarkParamsRec watermarkOptions;
     memset(&watermarkOptions, 0, sizeof(PDDocAddWatermarkParamsRec));
     watermarkOptions.size = sizeof(PDDocAddWatermarkParamsRec);
 
-    ////////////////////////////
-    //Display options.        //
-    ////////////////////////////
-	PDPageRange	placeHolder = {0, 1, PDAllPages};
-	watermarkOptions.targetRange = placeHolder;							 //A list-initialized PDPageRange. The first page to watermark is 0, the last page is 1, and we'll add a watermark to every page in the range.
-
-
-    watermarkOptions.zOrderTop    = false;                               //Watermarks will be added to the background of the page, not on top.
+    // Set display options:
     
-    watermarkOptions.showOnScreen = true;                                //Watermarks will be visible in a PDF viewer...
-    watermarkOptions.showOnPrint  = false;                               //..but will not show up if the PDF is printed.
-    watermarkOptions.fixedPrint   = false;                               //Watermarks will not be a fixed print watermark, meaning it changes its size and position based on the target media's dimensions, if necessary.
+    // This is a list-initialized PDPageRange. The first page to watermark is 0, 
+    //      the last page is 1, and we'll add a watermark to every page in the range.
+    PDPageRange	placeHolder = {0, 1, PDAllPages};
+    watermarkOptions.targetRange = placeHolder;							 
 
-    ////////////////////////////
-    //Placement options.      //
-    ////////////////////////////
-    watermarkOptions.horizAlign = kPDHorizCenter;                        //Watermarks will be horizontally aligned at the center of the page.
-    watermarkOptions.horizValue = 0.0f;                                  //No horizontal offset.
+    watermarkOptions.zOrderTop = false;       // Watermarks to be added to page background, not on top.
+    watermarkOptions.showOnScreen = true;     // Watermarks will be visible in a PDF viewer...
+    watermarkOptions.showOnPrint = false;     // ..but will not show up if the PDF is printed.
+    watermarkOptions.fixedPrint  = false;     // Watermarks will not be a fixed print watermark, 
+                                              //   meaning it changes its size and position based on 
+                                              //   the target media's dimensions, if necessary.
 
-    watermarkOptions.vertAlign  = kPDVertCenter;                         //Vertically aligned at the top.
-    watermarkOptions.vertValue  = 0.0f;                                  //No vertical offset either.
+    //Placement options.
+    watermarkOptions.horizAlign = kPDHorizCenter;   // Horizontally aligned at the center of the page.
+    watermarkOptions.horizValue = 0.0f;             // No horizontal offset.
+    watermarkOptions.vertAlign  = kPDVertCenter;    // Vertically aligned at the top.
+    watermarkOptions.vertValue  = 0.0f;             // No vertical offset either.
+    watermarkOptions.percentageVals = false;        // Indicates whether horizValue and vertValues 
+                                                    //   (above) are percentages of the page size or not.
+                                                    //   If not, they are in user units.
 
-    watermarkOptions.percentageVals = false;                             //Whether horizValue and vertValues are percentages of the page size. If not, they are in user units.
+    //Transformation options.
+    watermarkOptions.scale = 0.5f;           // Scale to draw watermark - 1.0f representing 100%.
+    watermarkOptions.rotation = -25.0f;      // Counterclockwise rotation for watermark, in degrees.
+    watermarkOptions.opacity  =  0.5f;       // Opacity for watermark, with 1.0f representing 100%.
 
-    ////////////////////////////
-    //Transformation options. //
-    ////////////////////////////
-    watermarkOptions.scale    =  0.5f;                                   //The scale the watermark should be drawn at, with 1.0f representing 100%.
-    watermarkOptions.rotation = -25.0f;                                  //Counterclockwise rotation added to the watermark, in degrees.
-    watermarkOptions.opacity  =  0.5f;                                   //The opacity set to the watermark, with 1.0f representing 100%.
+    //Optional callbacks. 
+    watermarkOptions.progMon = NULL;         // Optional progress monitor, to monitoring watermarking
+    watermarkOptions.progMonData = NULL;     // Optional data to send to progress monitor.
+    watermarkOptions.cancelProc = NULL;      // Optional cancel procedure function
+    watermarkOptions.cancelProcData = NULL;  // Optional data to send to cancel procedure.
 
-    ////////////////////////////
-    //Optional callbacks.     //
-    ////////////////////////////
-    watermarkOptions.progMon     = NULL;                                 //Optional progress monitor, for monitoring the watermark adding process.
-    watermarkOptions.progMonData = NULL;                                 //Optional data to send to progress monitor.
-
-    watermarkOptions.cancelProc     = NULL;                              //Optional cancel procedure function checked while adding the watermark.
-    watermarkOptions.cancelProcData = NULL;                              //Optional data to send to cancel procedure.
-
-//=======================================================================================================================================================================================================================
-//Step 2) Set the text watermark parameters struct.
-//
-// Note: This struct is only used by the text watermark. This will be a little more involved, as we have resource creation to do. We must:
-//     a) Create an ASText object for our watermark text.
-//     b) Load a font for it.
-//     c) Create a PDColorValueRec which specifies the color of the text.
-//=======================================================================================================================================================================================================================
+// Step 2) Set the text watermark parameters struct.
 
     PDDocWatermarkTextParamsRec textWatermarkOptions;
     memset(&textWatermarkOptions, 0, sizeof(PDDocWatermarkTextParamsRec));
     textWatermarkOptions.size = sizeof(PDDocWatermarkTextParamsRec);
 
-    ////////////////
-    //The text.   //
-    ////////////////
-    ASText text = ASTextFromUnicode((ASUTF16Val*)"Copyright (c) 2015, Datalogics, Inc.", kUTF8);    //This is possible because ASCII is equivalent to UTF-8.
+// Step 2a) Create the ASText object for the text watermark
+    
+    //This is possible because ASCII is equivalent to UTF-8.
+    ASText text = ASTextFromUnicode((ASUTF16Val*)csWatermarkText.c_str(), kUTF8);    
     textWatermarkOptions.srcText = text;
-    textWatermarkOptions.textAlign = kPDHorizCenter;                                                //The text will be horizontally aligned with the page.
+    textWatermarkOptions.textAlign = kPDHorizCenter;
 
-    ////////////////
-    //The font.   //
-    ////////////////
+// Step 2b) Prepare a font for the text watermark
+
     PDEFontAttrs fontAttrs;
     memset(&fontAttrs, 0, sizeof(fontAttrs));
-
     fontAttrs.name = ASAtomFromString("CourierStd");
     fontAttrs.type = ASAtomFromString("Type1");
     
@@ -126,9 +124,8 @@ int main(int argc, char** argv)
     textWatermarkOptions.sysFontName = fontAttrs.name;
     textWatermarkOptions.fontSize = 14.0f;
 
-    ////////////////
-    //The color.  //
-    ////////////////
+// Step 2c) Create a PDColorValueRec which specifies the color of the text.
+    
     PDColorValueRec color;
     color.space = PDDeviceRGB;
     color.value[0] = fixedZero;  //Red value.
@@ -136,39 +133,36 @@ int main(int argc, char** argv)
     color.value[2] = fixedZero;  //Blue value. I've gone with the color black.
     textWatermarkOptions.color = color;
 
-//=======================================================================================================================================================================================================================
 //Step 3) Add the page and text watermarks.
-//=======================================================================================================================================================================================================================
 
-    std::wcout << L"Adding the page watermark." << std::endl;
-
-    PDPage pageWatermarkSource = watermarkDoc.getPage(0);                                     //This page is our watermark image.
-    PDDocAddWatermarkFromPDPage(inDoc.getPDDoc(), pageWatermarkSource, &watermarkOptions);    //Add the page watermark.
+    //This page is our watermark image.
+    PDPage pageWatermarkSource = watermarkDoc.getPage(0);
+    PDDocAddWatermarkFromPDPage ( inDoc.getPDDoc(), pageWatermarkSource, &watermarkOptions );
     PDPageRelease(pageWatermarkSource);
 
     //We're going to modify our watermark parameters a bit for the text watermark.
     watermarkOptions.vertAlign = kPDVertBottom;
     watermarkOptions.scale = 1.0f;
-    watermarkOptions.rotation = 0.0f;
-    watermarkOptions.vertValue = textWatermarkOptions.fontSize;                               //This vertical offset ensures the text will be visible on the page.
+    watermarkOptions.rotation = 30.0f;
+    //This vertical offset ensures the text will be visible on the page.
+    watermarkOptions.vertValue = textWatermarkOptions.fontSize;                             
+    //We'll put this one on the last 2 pages...
+    PDPageRange	placeHolder2 = {1, 2, PDAllPages};
+    watermarkOptions.targetRange = placeHolder2;							 
 
-    std::wcout << L"Adding the text watermark." << std::endl;
-
-    PDDocAddWatermarkFromText(inDoc.getPDDoc(), &textWatermarkOptions, &watermarkOptions);    //Add the text watermark.
+    PDDocAddWatermarkFromText(inDoc.getPDDoc(), &textWatermarkOptions, &watermarkOptions);
     ASTextDestroy(text);
     PDERelease((PDEObject)pdeFont);
 
-    inDoc.saveDoc(L"AddedWatermarks.pdf");                                                    //Save the document. APDFLDoc defaults to using the "PDSaveFull" flag while saving. 
-                                                                                              //(APDFLDoc's destructor takes care of closing the documents and releasing the rest of their resources.)
-    HANDLER
+    //Save the document. APDFLDoc defaults to using the "PDSaveFull" flag while saving. 
+    inDoc.saveDoc ( csOutputFileName.c_str() );
+                                                                                              
+    //(APDFLDoc's destructor takes care of closing the documents and releasing the rest of their resources.)
+ 
+HANDLER
+    errCode = ERRORCODE;
+    libInit.displayError(errCode);
+END_HANDLER
 
-        errCode = ERRORCODE;
-        libInit.displayError(errCode);                                                        //If there was an error, display it.
-
-    END_HANDLER
-
-    if (!errCode)
-        std::wcout << L"Success!" << std::endl;
-
-    return errCode;                                                                           //APDFLib's destructor terminates the library.
+    return errCode;      //APDFLib's destructor terminates the library.
 }
