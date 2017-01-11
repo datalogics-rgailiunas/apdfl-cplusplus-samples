@@ -173,14 +173,15 @@ DURING
     ASFixed circleDiameter = FloatToASFixed(2.0  * 72.0);
     ASFixed radius = circleDiameter / 2;
     ASFixed threeFourthsRadius = (ASFloatToFixed(3.0f)*radius) / ASFloatToFixed(4.0f);
+    ASFixed zero = FloatToASFixed ( 0.0 );
 
     // Now we want to define how the shapes will be positioned relative to each 
     //    other, by making position deltas (or vectors, if you prefer) for each.
     //    They'll come out in a nice triangle.
     
     //                                       shape 1                      shape 2  shape 3
-    ASFixed delta_x[NUM_BLENDING_SHAPES] = { radius - threeFourthsRadius, 0.00,    (radius/2) - threeFourthsRadius};
-    ASFixed delta_y[NUM_BLENDING_SHAPES] = { 0.00,                        0.00,    -radius };
+    ASFixed delta_x[NUM_BLENDING_SHAPES] = { radius - threeFourthsRadius, zero,    (radius/2) - threeFourthsRadius};
+    ASFixed delta_y[NUM_BLENDING_SHAPES] = { zero,                        zero,    -radius };
 
     // Now we can create the basic shape's prototype.
     // We'll put our circle into this content object, which will be converted into a PDEForm object.
