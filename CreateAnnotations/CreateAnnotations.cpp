@@ -1,24 +1,28 @@
-// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
+// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+//
+// For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-//=====================================================================================
 // Sample: Annotations - Demonstrates adding annotations and extracting their content.
 //
-// Note:
-// This sample annotates all the PDEElements of the input document (it highlights the
-// text and adds a text annotation to everything else), and then extracts the text of
-// the annotations into a new PDF document.
+// This sample annotates all the PDEElements of the input document's first page (it 
+// highlights the text and adds a text annotation to everything else), and then 
+// extracts the text of the annotations into a text file.
 //
 // Steps:
 // 1) Create an annotation for each PDEElement on the page.
 // 2) Save the document and close it.
 // 3) Extract the annotations' text contents into a new document.
-//======================================================================================
+//
+// Command-line:  <input-file> <output-pdf> <output-text>    (All are optional)
+//
 
 #include <vector>
+#include <iostream>
+#include <fstream>
 #include <sstream>
-#include <math.h>
+#include <cmath>
 
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
@@ -31,181 +35,274 @@
 #include "CosCalls.h"
 #include "ASExtraVers.h"
 
-//void function: Searches through the contents of a PDEContent object, and the contents of its PDEContainer, PDEgroup, and PDEForm objects, adding all PDEElements to a list.
-void extractPDEElements(PDEContent* c, std::vector<PDEElement>* list);
+#define DIR_LOC "../../Samples/_Input/"
+#define DEF_INPUT "CreateAnnotations.pdf"
+#define DEF_OUTPUT_ANNOT "CreateAnnotations-out.pdf"
+#define DEF_OUTPUT_TEXT "CreateAnnotations-out-text.txt"
 
-//void function: Sets an annotation's quads.
-void PDAnnotSetQuads(PDAnnot annot, ASFixedQuad *quads, ASArraySize numQuads);
+static void extractPDEElements ( PDEContent c, std::vector<PDEElement>& list );
+static void SetAnnotationQuads ( PDAnnot annot, ASFixedQuad *quads, ASArraySize numQuads );
+static PDColorValue SelectColor ( bool textAnnotation );
 
 int main(int argc, char** argv)
 {
-    APDFLib libInit;                                                  //Initialize the Adobe PDF Library
-    ASErrorCode errCode = 0;                                          //Variable used to report any exceptions or errors, if they occur
-
-    if (libInit.isValid() == false)                                   //If there was a problem in initialization, return the error code
+    APDFLib libInit;
+    ASErrorCode errCode = 0;
+    if (libInit.isValid() == false)
+    {
+        errCode = libInit.getInitError();
+        std::cout << "Initialization failed with code " << errCode << std::endl;
         return libInit.getInitError();
+    }
+    
+    std::string csInputFileName ( argc > 1 ? argv[1] : DIR_LOC DEF_INPUT );
+    std::string csOutputFileName ( argc > 2 ? argv[2] : DEF_OUTPUT_ANNOT );
+    std::string csOutputTextFileName ( argc > 3 ? argv[3] : DEF_OUTPUT_TEXT );
+    std::cout << "Opening " << csInputFileName.c_str() << " and adding annotations to "
+              << "all elements on the first page;" << std::endl << "Will save to " << csOutputFileName.c_str()
+              << ", then we will reopen that file and extract all annotations to " 
+              << csOutputTextFileName.c_str() << std::endl;
 
-    DURING
+    std::ofstream ofText ( csOutputTextFileName.c_str() );
+    ofText << "Results from file " << csOutputFileName.c_str() << ":" << std::endl;
 
-    APDFLDoc doc(L"../_Input/CreateAnnotations.pdf", true);           //Open the input document, repairing it if necessary.
+DURING
+
+    APDFLDoc doc( csInputFileName.c_str(), true);      //Open the input document, repairing it if necessary.
 
     PDPage inPage = doc.getPage(0);
     PDEContent inPageContent = PDPageAcquirePDEContent(inPage, 0);
 
-//===================================================================================================================================================================================
-// 1) Create an annotation for each PDEElement on the page.
-//
-// Note: An annotation with content describing each PDEElement will be placed in the same location as that PDEElement.
-// For text elements, we will create a red, blue, or green highlight annotation. For other elements, we will create a
-// text annotation.
-//===================================================================================================================================================================================
+// Step 0) Retrieve all the PDEElements on the page.
 
-    //Retrieve all the PDEElements on the page.
     std::vector<PDEElement> pageElements;
-    extractPDEElements(&inPageContent,&pageElements);
+    extractPDEElements ( inPageContent, pageElements );
 
-    std::wcout << L"This page has " << pageElements.size() << L" PDEElements." <<std::endl;
-    std::wcout << L"Creating an annotation for each." <<std::endl;
+// Step 1) Annotate them all
 
-    int highlightColorNum = 0;                                                                                 //This will cycle between 0, 1, and 2 to cycle highlight colors.
-    for (int i = 0; i < pageElements.size(); i++)
+    // An annotation with descriptive content will be placed in the same location as each PDEElement.
+    // For text elements, we will create a red, blue, or green highlight annotation. 
+    // For other elements, we will create a yellow text annotation.
+
+    ASAtom atHighlight ( ASAtomFromString ( "Highlight" ) );
+    ASAtom atText ( ASAtomFromString ( "Text" ) );
+
+    std::vector<PDEElement>::iterator itElem, itElemEnd = pageElements.end();
+    for ( itElem = pageElements.begin(); itElem != itElemEnd; ++itElem )
     {
-	    PDEElement next = pageElements[i];
-        //The annotation's location. We will place the annotation where the original page element was found.
+        // Retrieve the element's location. We will place the annotation where the 
+        //    original page element was found.
         ASFixedRect elementLoc;
-        PDEElementGetBBox(next, &elementLoc);
+        PDEElementGetBBox( *itElem, &elementLoc);
 
-        //The annotation's type. We will highlight text, and make a text annotation for everything else.
-        char* annotType;
-        bool isHighlight = (PDEObjectGetType((PDEObject)next) == kPDEText);
-        if (isHighlight)
-            annotType = "Highlight";
-        else
-            annotType = "Text";
+        // Fetch the annotation's type
+        ASInt32 elementType = PDEObjectGetType ( (PDEObject)*itElem );
+        ASAtom annotationType = ( elementType == kPDEText ) ? atText : atHighlight;
 
-        //Create the new annotation. Set the appearance and content.
-        PDAnnot annot = PDPageAddNewAnnot(inPage, kPDEAfterLast, ASAtomFromString(annotType), &elementLoc);
+        // Create the new annotation. Set the appearance and content.
+        PDAnnot annot = PDPageAddNewAnnot ( inPage, kPDEAfterLast, annotationType, &elementLoc );
 
-        //Will be filled with the annotation's text content.
         std::wstringstream annotContent;
-
         annotContent << L"This is a ";
-
-        //These must be initialized outside of the switch statement.
-        int numContained = 0;                                                                                  //If the element is a container, form, or group, we will check how many elements it has.
-        PDEContainer container;
-        PDEForm form;
-        PDEGroup group;
-        switch (PDEObjectGetType((PDEObject)next))
+        switch ( elementType )
         {
-        case kPDEContainer:
-            annotContent << L"container";
-            container = (PDEContainer)next;
-            numContained = PDEContentGetNumElems(PDEContainerGetContent(container));                           //PDEContentGetNumElems will not count how many elements containers have.
-            break;
-        case kPDEForm:
-            annotContent << L"form";
-            form = (PDEForm)next;
-            numContained = PDEContentGetNumElems(PDEFormGetContent(form));
-            break;
-        case kPDEGroup:
-            group = (PDEGroup)next;
-            numContained = PDEContentGetNumElems(PDEGroupGetContent(group));
-            annotContent << L"group";
-            break;
-        case kPDEImage:
-            annotContent << L"image";
-            break;
-        case kPDEPath:
-            annotContent << L"path";
-            break;
-        case kPDEPlace:
-            annotContent << L"place";
-            break;
-        case kPDEText:
-            annotContent << L"text object";
-            break;
-        case kPDEXObject:
-            annotContent << L"XObject";
-            break;
+            case kPDEContainer:
+                annotContent << L"container containing " <<
+                      PDEContentGetNumElems ( PDEContainerGetContent ( (PDEContainer)*itElem ) )
+                      << L" elements";
+                break;
+            case kPDEForm:
+                annotContent << L"form containing " << 
+                      PDEContentGetNumElems ( PDEFormGetContent ( (PDEForm)*itElem ) ) 
+                      << L" elements";
+                break;
+            case kPDEGroup:
+                annotContent << L"group containing " << 
+                      PDEContentGetNumElems ( PDEGroupGetContent ( (PDEGroup)*itElem ) ) 
+                      << L" elements";
+                break;
+            case kPDEImage:
+                annotContent << L"image";
+                break;
+            case kPDEPath:
+                annotContent << L"path";
+                break;
+            case kPDEPlace:
+                annotContent << L"place";
+                break;
+            case kPDEText:
+                annotContent << L"text object";
+                break;
+            case kPDEXObject:
+                annotContent << L"XObject";
+                break;
         }
 
-        if (numContained > 0)
-            annotContent << L", containing " << numContained << L" elements ";
-
-        annotContent << L". It is situated at:\n";
-        annotContent << L"top: "    << ASFixedToFloat(elementLoc.top)    << L"\n";
-        annotContent << L"bottom: " << ASFixedToFloat(elementLoc.bottom) << L"\n";
-        annotContent << L"left: "   << ASFixedToFloat(elementLoc.left)   << L"\n";
-        annotContent << L"right: "  << ASFixedToFloat(elementLoc.right);
+        annotContent << L". It is situated at: " << std::endl 
+                     << L"\ttop: "    << ASFixedToFloat(elementLoc.top) << std::endl
+                     << L"\tbottom: " << ASFixedToFloat(elementLoc.bottom) << std::endl
+                     << L"\tleft: "   << ASFixedToFloat(elementLoc.left)   << std::endl
+                     << L"\tright: "  << ASFixedToFloat(elementLoc.right);
 
         //The content string is ready. Now make its ASText to add it to the annotation.
-        std::wstring annotContentStr;
-        annotContentStr = annotContent.str();
-        ASUnicodeFormat format = (sizeof(wchar_t) == 4) ? kUTF32HostEndian : kUTF16HostEndian;
-        ASText annotContentAST = ASTextFromUnicode((ASUTF16Val*)annotContentStr.c_str(), format);
+        ASText annotContentAST = ASTextFromUnicode ( 
+                   (ASUTF16Val*)annotContent.str().c_str(), 
+                   APDFLDoc::GetHostUnicodeFormat() );
 
         //The annotation must be cast to a TextAnnot to set its text content.
-        PDTextAnnot textAnnot = CastToPDTextAnnot(annot);
-        PDTextAnnotSetContentsASText(textAnnot, annotContentAST);
-        ASTextDestroy(annotContentAST);
+        PDTextAnnot textAnnot = CastToPDTextAnnot ( annot );
+        PDTextAnnotSetContentsASText ( textAnnot, annotContentAST );
+        ASTextDestroy ( annotContentAST );
 
         //The annotation's title.
         const char* annotTitleStr = "Page Element";
-        PDAnnotSetTitle(annot, annotTitleStr, strlen(annotTitleStr));
+        PDAnnotSetTitle ( annot, annotTitleStr, strlen(annotTitleStr) );
 
-        //Set the annotation's quadrilateral values. This will properly position a highlight annotation, and have no effect on the text annotation.
+        //Set the annotation's quadrilateral values. This will properly 
+        //   position a highlight annotation, and have no effect on the text annotation.
         ASFixedQuad annotLocQuad = { { elementLoc.left,  elementLoc.bottom },
-						{ elementLoc.right, elementLoc.bottom },
-						{ elementLoc.left,  elementLoc.top },
-						{ elementLoc.right, elementLoc.top } };
-        PDAnnotSetQuads(annot, &annotLocQuad, 1);
+                                     { elementLoc.right, elementLoc.bottom },
+                                     { elementLoc.left,  elementLoc.top },
+                                     { elementLoc.right, elementLoc.top } };
+        SetAnnotationQuads(annot, &annotLocQuad, 1);
 
         //The annotation will be locked so that it cannot be edited again later.
-        PDAnnotSetFlags(annot, PDAnnotGetFlags(annot) | pdAnnotLock | pdAnnotLockContents);
+        PDAnnotSetFlags ( annot, PDAnnotGetFlags(annot) | pdAnnotLock | pdAnnotLockContents );
 
-        //Set the annotation's color.
-        PDColorValueRec colorRec; PDColorValue color;
-        color = &colorRec;
-        color->space = PDDeviceRGB;                                                                            //Only RGB is acceptable for annotations.
-        if (isHighlight)
+        // Set its color
+        PDAnnotSetColor ( annot, SelectColor ( annotationType == atText ) );
+    }
+
+// Step 2) Save the document and close it.
+
+    doc.saveDoc ( csOutputFileName.c_str() );
+    PDPageRelease(inPage);
+    // Close the document and release resources
+    doc.~APDFLDoc();           
+
+// Step 3) Reopen the document we created and Extract the annotations' text
+
+    APDFLDoc annotDoc ( csOutputFileName.c_str(), true);
+    PDPage annotPage = annotDoc.getPage(0);
+
+    int numAnnots = PDPageGetNumAnnots(annotPage);
+    int numTextAnnots = 0;
+    int numBlankAnnots = 0;
+
+    ofText << "The input page has " << numAnnots << " annotations." << std::endl;
+
+    //Extract each annotation's text content (if any)
+    const size_t buffersize = 1000;
+    static char contentBuffer[buffersize];
+    for (int i = 0; i < numAnnots; ++i)
+    {
+        PDAnnot annotation = PDPageGetAnnot(annotPage, i);
+
+        PDTextAnnot nextAsText = CastToPDTextAnnot( annotation );
+        PDTextAnnotGetContents(nextAsText, contentBuffer, buffersize);
+        if (contentBuffer[0] != '\0')
         {
-            //Cycle between R/G/B for highlight annotations.
-            color->value[0] = highlightColorNum == 0 ? fixedOne : fixedHalf;
-            color->value[1] = highlightColorNum == 1 ? fixedOne : fixedHalf;
-            color->value[2] = highlightColorNum == 2 ? fixedOne : fixedHalf;
-            ++highlightColorNum %= 3;    //Add one and mod 3.
+            numTextAnnots++;
+            ofText << "Annotation no. " << numTextAnnots << ": " << contentBuffer << std::endl;
         }
         else
         {
-            //Text annotations will be yellow.
-            color->value[0] = fixedOne;
-            color->value[1] = fixedOne;
-            color->value[2] = fixedZero;
+            ++numBlankAnnots;
         }
-        PDAnnotSetColor(annot, color);
     }
 
-//===================================================================================================================================================================================
-// 2) Save the document and close it.
-//===================================================================================================================================================================================
+    PDPageRelease ( annotPage );
 
-    std::wcout << L"Saving the annotated document..." << std::endl;
+    ofText << numBlankAnnots << " annotations on the page did not have text content." << std::endl;
 
-    PDPageRelease(inPage);
-    doc.saveDoc(L"Annotated.pdf");                                                                //Save the document. APDFLDoc defaults to using the "PDSaveFull" flag while saving.
+HANDLER
+    errCode = ERRORCODE;
+    libInit.displayError(errCode);
+END_HANDLER
 
-    doc.~APDFLDoc();                                                                              //APDFLDoc's destructor takes care of closing the document and releasing the rest of the resources.
+    return errCode;
+}
 
-//===================================================================================================================================================================================
-// 3) Extract the annotations' text contents into a new document.
-//===================================================================================================================================================================================
+// Walk the PDEContent tree (recursively) and save a reference to every element found
+/* static */ void extractPDEElements ( PDEContent c, std::vector<PDEElement>& elements )
+{
+    ASInt32 numElems = PDEContentGetNumElems ( c );   
+    for ( ASInt32 i = 0; i < numElems;  ++i )
+    {
+        // Track each element found
+        PDEElement elem = PDEContentGetElem ( c, i );
+        elements.push_back( elem );
 
-    std::wcout << L"Extracting the annotations to a new document." << std::endl;
+        // ...and recurse into the aggregate element types
+        switch ( PDEObjectGetType ( (PDEObject)elem ) )
+        {
+        case kPDEContainer:
+            extractPDEElements ( PDEContainerGetContent ( (PDEContainer)elem ), elements );
+            break;
+        case kPDEForm:
+            extractPDEElements ( PDEFormGetContent ( (PDEForm)elem ), elements );
+            break;
+        case kPDEGroup:
+            extractPDEElements ( PDEGroupGetContent ( (PDEGroup)elem ), elements );
+            break;
+        }
+    }
+}
 
-    APDFLDoc annotDoc(L"Annotated.pdf", true);                                                     //Re-open the output document of steps 1-2.
-    PDPage annotPage = annotDoc.getPage(0);
+// Helper function to add quads in BL, BR, TL, TR order to get correct output. 
+/* static */ void SetAnnotationQuads(PDAnnot annot, ASFixedQuad *quads, ASArraySize numQuads)
+{
+    CosObj coAnnot = PDAnnotGetCosObj(annot);                  //Acquire the annotation's cos object.
+    CosDoc coDoc = CosObjGetDoc(coAnnot);                      //Get the CosDoc containing the annotation.
+    CosObj coQuads = CosNewArray(coDoc, false, numQuads * 8);  //Create a cos array to hold the quadpoints.
 
+    for (ASUns32 i = 0, n = 0; i < numQuads; ++i)
+    {
+        // Bottom left
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].bl.h));
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].bl.v));
+        // Bottom right
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].br.h));
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].br.v));
+        // Top LEFT
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tl.h));
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tl.v));
+        // Top RIGHT
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tr.h));
+        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tr.v));
+    }
+    CosDictPut(coAnnot, ASAtomFromString("QuadPoints"), coQuads);
+}
+
+/* static */ PDColorValue SelectColor ( bool textAnnotation )
+{
+    static PDColorValueRec colorRec; 
+
+    colorRec.space = PDDeviceRGB;
+
+    static int counter ( 0 );
+
+    if ( !textAnnotation )
+    {
+        //Cycle between R/G/B for highlight annotations.
+        colorRec.value[0] = 0 == counter ? fixedOne : fixedHalf;
+        colorRec.value[1] = 1 == counter ? fixedOne : fixedHalf;
+        colorRec.value[2] = 2 == counter ? fixedOne : fixedHalf;
+        ++counter %= 3;
+    }
+    else
+    {
+        //Text annotations will be yellow.
+        colorRec.value[0] = fixedOne;
+        colorRec.value[1] = fixedOne;
+        colorRec.value[2] = fixedZero;
+    }
+    return &colorRec;
+}
+
+
+
+#if 0
     //Prepare the text object which will hold all the extracted text.
     PDEText annotationsText = PDETextCreate();                                                     //This will hold all the extracted text.
     ASFixedMatrix textLoc;                                                                         //Use this value to position the texts.
@@ -227,30 +324,8 @@ int main(int argc, char** argv)
     PDEDefaultGState(&graphics, sizeof(PDEGraphicState));
 
     int maxDigits = (int)(log10((double)PDPageGetNumAnnots(annotPage)) + 1);                       //The maximum number of digits of n that the nth text annotation can have. Used to pad the text string.
-    int numAnnots = PDPageGetNumAnnots(annotPage);                                                 //The number of annotations on the page.
-    int numTextAnnots = 0;                                                                         //The number of annotations actually containing textual content. Updated as the program progresses.
-    int numBlankAnnots = 0;                                                                        //Track the number of annotations that don't have text content.
-
-    std::wcout << L"The input page has " << numAnnots << L" annotations." << std::endl;
-
-    //Extract each annotation's text content (if any) into our text object.
-    ASFixed neededWidth  = fixedZero;                                                              //The required width of a page that can hold all the text objects.
-    ASFixed neededHeight = fixedZero;                                                              //The required height.
-    for (int i = 0; i < numAnnots; ++i)
-    {
-        PDAnnot next = PDPageGetAnnot(annotPage, i);
-
-        //A buffer to hold the annotation's text content.
-        const size_t buffersize = 1000;
-        char contentBuffer[buffersize];
-
-        //Does the annotation actually have text conent?
-        PDTextAnnot nextAsText = CastToPDTextAnnot(next);
-        PDTextAnnotGetContents(nextAsText, contentBuffer, buffersize);                             //Put the content of the text annotation into buffer.
-        if (contentBuffer[0] != '\0')
-        {
-            numTextAnnots++;
-
+#endif
+#if 0
             //Prepare the string to output.
             std::wstringstream extractedString;
 
@@ -282,18 +357,14 @@ int main(int argc, char** argv)
 
             //Position the next text.
             textLoc.v -= fontSize*2;
-        }
-        else
-        {
-            ++numBlankAnnots;
-        }
-    }
-
+#endif
+#if 0
     PDERelease((PDEObject)font);
     PDERelease((PDEObject)graphics.fillColorSpec.space);
-
-    std::wcout << numBlankAnnots << L" annotations on the page did not have text content." << std::endl;
-
+#endif
+#if 0 
+    ASFixed neededWidth  = fixedZero;                                                              //The required width of a page that can hold all the text objects.
+    ASFixed neededHeight = fixedZero;                                                              //The required height.
     //The program needs to move each text object up so that it fits on the page. Otherwise it will be added to the bottom-left corner, and be invisible.
     for (int i = 0; i < numTextAnnots; ++i)
     {
@@ -323,81 +394,4 @@ int main(int argc, char** argv)
     PDPageReleasePDEContent(extractPage, 0);
     PDPageRelease(extractPage);
     extractDoc.saveDoc(L"AnnotationTexts.pdf",PDSaveFull);
-
-    HANDLER
-
-        errCode = ERRORCODE;
-        libInit.displayError(errCode);                                                             //If there was an error, display it.
-
-    END_HANDLER
-
-    if (!errCode)
-        std::wcout << L"Success!" << std::endl;
-
-    return errCode;                                                                                //APDFLib's destructor terminates the library.
-}
-
-//===================================================================================================================================================================================
-//void function: Searches through a PDEContent object, and the PDEContents of its PDEContainer, PDEgroup, and PDEForm objects, adding all PDEElements to a list.
-//===================================================================================================================================================================================
-void extractPDEElements(PDEContent* c, std::vector<PDEElement>* elements)
-{
-    //These will represent nonatomic elements inside the input PDEContent.
-    //They must be initialized outside the switch statement.
-    PDEContainer deepContainer; 
-    PDEGroup deepGroup;
-    PDEForm deepForm;
-    PDEContent deepContent;
-    
-    for (int i = 0; i < PDEContentGetNumElems(*c); ++i)
-    {
-        PDEElement next = PDEContentGetElem(*c, i);
-        elements->push_back(next);
-
-        switch (PDEObjectGetType((PDEObject)next))
-        {
-        case kPDEContainer:
-            deepContainer = (PDEContainer)next;
-            deepContent = PDEContainerGetContent(deepContainer);
-            extractPDEElements(&deepContent, elements);
-            break;
-        case kPDEForm:
-            deepForm = (PDEForm)next;
-            deepContent = PDEFormGetContent(deepForm);
-            extractPDEElements(&deepContent, elements);
-            break;
-        case kPDEGroup:
-            deepGroup = (PDEGroup)next;
-            deepContent = PDEGroupGetContent(deepGroup);
-            extractPDEElements(&deepContent, elements);
-            break;
-        }
-    }
-}
-
-//===================================================================================================================================================================================
-// void function: Sets the annotation's quads.
-//
-// Note: Adobe specifies quadrilaterals be added in this order - Bottom Left, Bottom Right, Top Right, Top left. 
-// They currently need to be added in as BL, BR, TL, TR to get correct output. 
-//===================================================================================================================================================================================
-void PDAnnotSetQuads(PDAnnot annot, ASFixedQuad *quads, ASArraySize numQuads)
-{
-    CosObj coAnnot = PDAnnotGetCosObj(annot);                                   //Acquire the annotation's cos object.
-    CosDoc coDoc = CosObjGetDoc(coAnnot);                                       //Get the CosDoc containing the annotation.
-    CosObj coQuads = CosNewArray(coDoc, false, numQuads * 8);                   //Create a cos array to hold the quadpoints.
-
-    for (ASUns32 i = 0, n = 0; i < numQuads; ++i)
-    {
-        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].bl.h));    //Add the quad points to the cos array. This will grow and shrink as needed.
-        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].bl.v));
-        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].br.h));
-        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].br.v));
-        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tl.h));    //These two points currently do not conform to the PDF specification.
-        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tl.v));
-        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tr.h));    //These two points currently do not conform to the PDF specification.
-        CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].tr.v));
-    }
-
-    CosDictPut(coAnnot, ASAtomFromString("QuadPoints"), coQuads);
-}
+#endif

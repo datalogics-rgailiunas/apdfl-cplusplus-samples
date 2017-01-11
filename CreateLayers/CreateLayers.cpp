@@ -1,8 +1,9 @@
-// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
+// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+//
+// For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-//===========================================================================
 // Sample: CreateLayers - Creates two layers in a PDF, one which contains
 //             text and one which contains annotations.
 //
@@ -11,7 +12,9 @@
 //  2) Add text to the page and set what layer they belong to.
 //  3) Add annotations to the page and set what layer they belong to.
 //  4) Save the output document and exit.
-//===========================================================================
+//
+// Command-line:    <output-file>      (Optional)
+//
 
 #include <iostream>
 
@@ -24,174 +27,168 @@
 #include "PagePDECntCalls.h"
 #include "CosCalls.h"
 
+#define DEF_OUTPUT "CreateLayers-out.pdf"
+
 //A function that places text onto a given position in a PDF.
-PDEText textMaker(std::string displayText, double xPos, double yPos);
+/* static */ PDEText textMaker(std::string displayText, double xPos, double yPos);
 
 int main(int argc, char** argv)
 {
-
-    APDFLib libInit;                      //Initialize the Adobe PDF Library.
-    ASErrorCode errCode = 0;              //Variable used to report any exceptions/errors if they occurred.
-
-    if (libInit.isValid() == false)       //If there was a problem in initialization, return the error code.
+    APDFLib libInit;
+    ASErrorCode errCode = 0;
+    if (libInit.isValid() == false)
+    {
+        errCode = libInit.getInitError();
+        std::cout << "Initialization failed with code " << errCode << std::endl;
         return libInit.getInitError();
+    }
 
-    DURING
+    std::string csOutputFileName ( argc > 1 ? argv[1] : DEF_OUTPUT );
+    std::cout << "Creating new document " << csOutputFileName.c_str() <<
+                 " and inserting 2 layers..." << std::endl;
 
-//==============================================================================================================================================================
-// Step 1) Create a pdf document and extract its content.
-//==============================================================================================================================================================
+DURING
 
-        APDFLDoc doc;                                                     //Create a new empty document.
+// Step 1) Create a pdf document and obtain a reference to it's first page, and its' content
 
-        //Insert a standard 8.5 inch x 11 inch page into the document.
-        doc.insertPage(ASFloatToFixed((8.5 * 72)), ASFloatToFixed((11 * 72)), PDBeforeFirstPage);
+    APDFLDoc doc;
 
-        PDPage page = doc.getPage(0);                                     //Get the first page from the document. 
+    //Insert a standard 8.5 inch x 11 inch page into the document.
+    doc.insertPage ( ASFloatToFixed ( 8.5 * 72 ), ASFloatToFixed ( 11 * 72 ), PDBeforeFirstPage );
+    PDPage page = doc.getPage(0);
+    PDEContent pageContent = PDPageAcquirePDEContent(page, NULL);
 
-        PDEContent pageContent = PDPageAcquirePDEContent(page, NULL);     //Acquire the content of the page.
-
-//==============================================================================================================================================================
 // Step 2) Set up the optional content groups, commonly referred to as layers.
-//==============================================================================================================================================================
 
-        //Create optional content groups (Layers) for texts and annotations.
-        PDOCG optionalGroupText = PDOCGCreate(doc.pdDoc, ASTextFromPDText("TextLayer"));
-        PDOCG optionalGroupAnnot = PDOCGCreate(doc.pdDoc, ASTextFromPDText("AnnotationLayer"));
+    //Create optional content groups (Layers) for texts and annotations.
+    PDOCG optionalGroupText = PDOCGCreate(doc.pdDoc, ASTextFromPDText("TextLayer"));
+    PDOCG optionalGroupAnnot = PDOCGCreate(doc.pdDoc, ASTextFromPDText("AnnotationLayer"));
 
-        //Set the layers initial state to visible.
-        PDOCConfig  ocConfig = PDDocGetOCConfig(doc.pdDoc);
-        PDOCGSetInitialState(optionalGroupText, ocConfig, true);
-        PDOCGSetInitialState(optionalGroupAnnot, ocConfig, true);
+    //Set the their initial state to visible.
+    PDOCConfig  ocConfig = PDDocGetOCConfig(doc.pdDoc);
+    PDOCGSetInitialState(optionalGroupText, ocConfig, true);
+    PDOCGSetInitialState(optionalGroupAnnot, ocConfig, true);
 
-        CosObj order;                               //The order of the optional content.
-        ASInt32 cosObjectTotal;                     //Keeps track of the total cosObjects.
+    CosObj order;                                     //The order of the optional content.
+    PDOCConfigGetOCGOrder(ocConfig, &order);          //Find the order.
+    ASInt32 cosObjectTotal = CosArrayLength(order);   //Find the total cosObjects.
 
-        PDOCConfigGetOCGOrder(ocConfig, &order);    //Find the order.
-        cosObjectTotal = CosArrayLength(order);     //Find the total cosObjects.
+    //Insert the layers as a cosObject in the pdf. 
+    CosArrayInsert(order, cosObjectTotal, PDOCGGetCosObj(optionalGroupText));
+    CosArrayInsert(order, cosObjectTotal + 1, PDOCGGetCosObj(optionalGroupAnnot));
 
-        //Insert the layers as a cosObject in the pdf. 
-        CosArrayInsert(order, cosObjectTotal, PDOCGGetCosObj(optionalGroupText));
-        CosArrayInsert(order, cosObjectTotal + 1, PDOCGGetCosObj(optionalGroupAnnot));
+    //Put the new order back as a part of the pdf's configuration.
+    PDOCConfigSetOCGOrder(ocConfig, order);
 
-        //Put the new order back as a part of the pdf's configuration.
-        PDOCConfigSetOCGOrder(ocConfig, order);
+    //Create a layer array in order to properly pass the layer into the membership dictionary creation function.
+    PDOCG pdDocArrayText[2];
+    pdDocArrayText[0] = optionalGroupText;
+    pdDocArrayText[1] = NULL;
 
-        //Create a layer array in order to properly pass the layer into the membership dictionary creation function.
-        PDOCG pdDocArrayText[2];
-        pdDocArrayText[0] = optionalGroupText;
-        pdDocArrayText[1] = NULL;
+    //Obtain the membership dictionary of the text layer.
+    PDOCMD optionalGroupMDText = PDOCMDCreate(doc.pdDoc, pdDocArrayText, kOCMDVisibility_AllOn);
 
-        //Obtain the membership dictionary of the text layer.
-        PDOCMD optionalGroupMDText = PDOCMDCreate(doc.pdDoc, pdDocArrayText, kOCMDVisibility_AllOn);
+    //Create a layer array in order to properly pass the layer into the membership dictionary creation function.
+    PDOCG  pdDocArrayAnnot[2];
+    pdDocArrayAnnot[0] = optionalGroupAnnot;
+    pdDocArrayAnnot[1] = NULL;
 
-        //Create a layer array in order to properly pass the layer into the membership dictionary creation function.
-        PDOCG  pdDocArrayAnnot[2];
-        pdDocArrayAnnot[0] = optionalGroupAnnot;
-        pdDocArrayAnnot[1] = NULL;
+    //Obtain the membership dictionary of the annotation layer.
+    PDOCMD optionalGroupMDAnnot = PDOCMDCreate(doc.pdDoc, pdDocArrayAnnot, kOCMDVisibility_AllOn);
 
-        //Obtain the membership dictionary of the annotation layer.
-        PDOCMD optionalGroupMDAnnot = PDOCMDCreate(doc.pdDoc, pdDocArrayAnnot, kOCMDVisibility_AllOn);
-
-//==============================================================================================================================================================
 // Step 3) Add text to the page and set what layer they belong to.
-//==============================================================================================================================================================
 
-        //By calling the textMaker function, place the following text at the given location.
-        PDEText displayText1 = textMaker("All the text on this page will be placed in it's own layer", 72 * 1, 72 * 10);
-        PDEText displayText2 = textMaker("Whereas the attachments will appear in a separate layer", 72 * 1, 72 * 9.75);
-        PDEText displayText3 = textMaker("There will be an annotation to the right.", 72 * 1, 72 * 8);
-        PDEText displayText4 = textMaker("There will be an annotation to the right.", 72 * 1, 72 * 7);
+    //By calling the textMaker function, place the following text at the given location.
+    PDEText displayText1 = textMaker("All the text on this page will be placed in it's own layer", 72 * 1, 72 * 10);
+    PDEText displayText2 = textMaker("Whereas the attachments will appear in a separate layer", 72 * 1, 72 * 9.75);
+    PDEText displayText3 = textMaker("There will be an annotation to the right.", 72 * 1, 72 * 8);
+    PDEText displayText4 = textMaker("There will be an annotation to the right.", 72 * 1, 72 * 7);
 
-        PDEContent texts = PDEContentCreate();
+    PDEContent texts = PDEContentCreate();
 
-        //Add the created text objects to the page's content.
-        PDEContentAddElem(texts, kPDEAfterLast, (PDEElement)displayText1);
-        PDEContentAddElem(texts, kPDEAfterLast, (PDEElement)displayText2);
-        PDEContentAddElem(texts, kPDEAfterLast, (PDEElement)displayText3);
-        PDEContentAddElem(texts, kPDEAfterLast, (PDEElement)displayText4);
+    //Add the created text objects to the page's content.
+    PDEContentAddElem(texts, kPDEAfterLast, (PDEElement)displayText1);
+    PDEContentAddElem(texts, kPDEAfterLast, (PDEElement)displayText2);
+    PDEContentAddElem(texts, kPDEAfterLast, (PDEElement)displayText3);
+    PDEContentAddElem(texts, kPDEAfterLast, (PDEElement)displayText4);
 
-        PDEContainer textContainer = PDEContainerCreate(ASAtomFromString("Texts"), NULL, false);    //Create an empty container for the text.
+    //Create an empty container for the text.
+    PDEContainer textContainer = PDEContainerCreate(ASAtomFromString("Texts"), NULL, false);    
 
-        PDEContainerSetContent(textContainer, texts);                                               //Create a container for all the text objects.
+    // Place them into this container
+    PDEContainerSetContent(textContainer, texts);
 
-        PDEContentAddElem(pageContent, kPDEAfterLast, (PDEElement)textContainer);                   //Add the text to the page's content
+    //Add the text to the page's content
+    PDEContentAddElem(pageContent, kPDEAfterLast, (PDEElement)textContainer);                   
 
-        PDEElementSetOCMD((PDEElement)textContainer, optionalGroupMDText);                          //Set the container's membership dictionary to the text layer.
+    //Set the container's membership dictionary to the text layer.
+    PDEElementSetOCMD((PDEElement)textContainer, optionalGroupMDText);                          
 
-        PDPageSetPDEContentCanRaise(page, NULL);                                                    //Set the content back into the page.
+    //Set the content back into the page.
+    PDPageSetPDEContentCanRaise(page, NULL);                                                    
 
-        //Release used objects
-        PDERelease(reinterpret_cast<PDEObject>(displayText1));
-        PDERelease(reinterpret_cast<PDEObject>(displayText2));
-        PDERelease(reinterpret_cast<PDEObject>(displayText3));
-        PDERelease(reinterpret_cast<PDEObject>(displayText4));
-        PDERelease(reinterpret_cast<PDEObject>(textContainer));
+    //Release used objects
+    PDERelease(reinterpret_cast<PDEObject>(displayText1));
+    PDERelease(reinterpret_cast<PDEObject>(displayText2));
+    PDERelease(reinterpret_cast<PDEObject>(displayText3));
+    PDERelease(reinterpret_cast<PDEObject>(displayText4));
+    PDERelease(reinterpret_cast<PDEObject>(textContainer));
 
-//==============================================================================================================================================================
 // Step 4) Add annotations to the page and set the layer they belong to. 
-//==============================================================================================================================================================
 
-        //Set up the bounds for the first annotation, where 72 represents an inch.
-        ASFixedRect annotLocation;
-        annotLocation.left = ASFloatToFixed(5.50 * 72);
-        annotLocation.right = ASFloatToFixed(5.00 * 72);
-        annotLocation.top = ASFloatToFixed(8.20 * 72);
-        annotLocation.bottom = ASFloatToFixed(7.70 * 72);
+    //Set up the bounds for the first annotation. 72 pixels represents one inch.
+    ASFixedRect annotLocation;
+    annotLocation.left = ASFloatToFixed(5.50 * 72);
+    annotLocation.right = ASFloatToFixed(5.00 * 72);
+    annotLocation.top = ASFloatToFixed(8.20 * 72);
+    annotLocation.bottom = ASFloatToFixed(7.70 * 72);
 
-        PDAnnot newAnnot = PDPageCreateAnnot(page, ASAtomFromString("FileAttachment"), &annotLocation);     //Create the annotation at the location.
+    //Create the annotation at the location.
+    PDAnnot newAnnot = PDPageCreateAnnot(page, ASAtomFromString("FileAttachment"), &annotLocation);     
 
-        //Add the annotation to the page, where -2 means to add to the end of the array.
-        PDPageAddAnnot(page, -2, newAnnot);
+    //Add the annotation to the page. -2 means to add to the end of the array.
+    PDPageAddAnnot(page, -2, newAnnot);
 
-        PDAnnotSetOCMD(newAnnot, optionalGroupMDAnnot);                                                     //Set the annotation to the annotation layer.
+    //Set the annotation to the annotation layer.
+    PDAnnotSetOCMD(newAnnot, optionalGroupMDAnnot);                                                     
 
-        //Move the bounds for the second annotation.
-        annotLocation.left = ASFloatToFixed(5.50 * 72);
-        annotLocation.right = ASFloatToFixed(5.00 * 72);
-        annotLocation.top = ASFloatToFixed(7.20 * 72);
-        annotLocation.bottom = ASFloatToFixed(6.70 * 72);
+    //Move the bounds for the second annotation.
+    annotLocation.left = ASFloatToFixed(5.50 * 72);
+    annotLocation.right = ASFloatToFixed(5.00 * 72);
+    annotLocation.top = ASFloatToFixed(7.20 * 72);
+    annotLocation.bottom = ASFloatToFixed(6.70 * 72);
 
-        PDAnnot newAnnot2 = PDPageCreateAnnot(page, ASAtomFromString("FileAttachment"), &annotLocation);    //Create the second annotation.
+    //Create the second annotation.
+    PDAnnot newAnnot2 = PDPageCreateAnnot(page, ASAtomFromString("FileAttachment"), &annotLocation);    
 
-        PDAnnotSetOCMD(newAnnot2, optionalGroupMDAnnot);                                                    //Set the annotation to the annotation layer.
+    //Set the annotation to the annotation layer.
+    PDAnnotSetOCMD(newAnnot2, optionalGroupMDAnnot);                                                    
 
-        PDPageAddAnnot(page, -2, newAnnot2);                                                                //Add the annotation to the page.
+    //Add the annotation to the page.
+    PDPageAddAnnot(page, -2, newAnnot2);                                                                
 
-//==============================================================================================================================================================
 // Step 5) Save the output document and exit.
-//==============================================================================================================================================================
 
-        //Release objects no longer in use
-        PDPageReleasePDEContent(page, NULL);
-        PDPageRelease(page);
+    //Release objects no longer in use
+    PDPageReleasePDEContent(page, NULL);
+    PDPageRelease(page);
 
-        doc.saveDoc(L"LayersCreated.pdf", PDSaveFull | PDSaveLinearized);                //Save the PDF document with the given name.
+    doc.saveDoc ( csOutputFileName.c_str(), PDSaveFull | PDSaveLinearized);
 
-        std::wcout << L"LayersCreated.pdf saved with text to be placed." << std::endl;
+HANDLER
+    errCode = ERRORCODE;
+    libInit.displayError(errCode);
+END_HANDLER
 
-    HANDLER
-
-        errCode = ERRORCODE;
-
-    libInit.displayError(errCode);                                                       //If there was an error, display the error that occurred.
-
-    END_HANDLER
-
-        return errCode;                                                                  //Returns the program status.
-
+    return errCode;
 }
 
-//==============================================================================================================================================================
-// PDEText Function: Creates and displays the text given string onto a pdf page given the x and y position.
-//==============================================================================================================================================================
-PDEText textMaker(std::string displayText, double xPos, double yPos)
+// Helper function to create a PDEText object
+/* static */ PDEText textMaker(std::string displayText, double xPos, double yPos)
 {
-    PDEFontAttrs fontAttrs;                                                   //Struct that will contain font name and type.
-
-    memset(&fontAttrs, 0, sizeof(fontAttrs));                                 //Ensure any "garbage" data is cleared out.
-
-    fontAttrs.name = ASAtomFromString("CourierStd");                          //Set the font name and type. 
+    PDEFontAttrs fontAttrs;
+    memset(&fontAttrs, 0, sizeof(fontAttrs));
+    fontAttrs.name = ASAtomFromString("CourierStd");
     fontAttrs.type = ASAtomFromString("Type1");
 
     //Locate the system font that corresponds to the PDEFontAttrs struct we just set.
@@ -200,38 +197,40 @@ PDEText textMaker(std::string displayText, double xPos, double yPos)
     //Create the CourierStd Type1 font with embed flag set.       
     PDEFont courierFont = PDEFontCreateFromSysFont(sysFont, kPDEFontCreateEmbedded);
 
-    PDETextState tState;                                                      //Structure holding the attributes of a PDEText.
+    //Transformation matrix for text which determines location of the text on page.
+    ASDoubleMatrix textMatrix;                                                
+    memset(&textMatrix, 0, sizeof(textMatrix));
+    textMatrix.a = 10;                            // Font width and height. 
+    textMatrix.d = 10;                            // Font point size.     
+    textMatrix.h = xPos;                          // x coordinate on page (72 pixels = 1 inch).
+    textMatrix.v = yPos;                          // y coordinate on page.   
 
-    ASDoubleMatrix textMatrix;                                                //Transformation matrix for text which determines location of the text on page.
+    // Create a Graphics State object with defaults
+    PDEGraphicState gState;
+    PDEDefaultGState(&gState, sizeof(PDEGraphicState));
 
-    memset(&textMatrix, 0, sizeof(textMatrix));                               //Clear structure. 
-    textMatrix.a = 10;                                                        //Set font width and height. 
-    textMatrix.d = 10;                                                        //Set font point size.     
-    textMatrix.h = xPos;                                                      //x coordinate on page (72 pixels = 1 inch).
-    textMatrix.v = yPos;                                                      //y coordinate on page.   
+    // Create a new text run
+    PDEText textObj = PDETextCreate();
 
-    PDEGraphicState gState;                                                   //Struct that will hold display attributes.
-    PDEDefaultGState(&gState, sizeof(PDEGraphicState));                       //Set graphics state to default values.
-
-    PDEText textObj = PDETextCreate();                                        //Create a new text run.
-
+    PDETextState tState;
+    
     //Adding the text run to the PDE text object.
-    PDETextAddEx(textObj,                                                     //Text container to add to. 
-        kPDETextRun,                                                          //kPDETextRun or kPDETextChar for text runs or text characters. 
-        0,                                                                    //The index after which to add the text run.
-        (Uns8 *)displayText.c_str(),                                          //Text to add.    
-        displayText.length(),                                                 //Length of text. 
-        courierFont,                                                          //Font to apply to text. 
-        &gState, sizeof(gState),                                              //PDEGraphicState and its size. Contains graphical attributes of the text object.
-        &tState, 0,                                                           //Text state and its size. Contains textual attributes of the text object.
-        &textMatrix,                                                          //Matrix containing size and location for the text.
-        NULL);                                                                //Stroke matrix for the line width when stroking text.  
+    PDETextAddEx ( 
+        textObj,                                  // Text container to add to. 
+        kPDETextRun,                              // kPDETextRun or kPDETextChar as appropriate
+        0,                                        // The index after which to add the text run.
+        (Uns8 *)displayText.c_str(),              // Text to add.    
+        displayText.length(),                     // Length of text. 
+        courierFont,                              // Font to apply to text. 
+        &gState, sizeof(gState),                  // PDEGraphicState and its size.
+        &tState, 0,                               // Text state and its size.
+        &textMatrix,                              // Matrix containing size and location for the text.
+        NULL);                                    // Stroke matrix for the line width when stroking text.  
 
     //Release used objects.
     PDERelease(reinterpret_cast<PDEObject>(courierFont));
     PDERelease(reinterpret_cast<PDEObject>(gState.strokeColorSpec.space));
     PDERelease(reinterpret_cast<PDEObject>(gState.fillColorSpec.space));
 
-    return textObj;                                                           //Return the text object.
-
+    return textObj;
 }

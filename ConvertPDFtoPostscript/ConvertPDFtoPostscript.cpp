@@ -1,126 +1,101 @@
-// Copyright (c) 2016, Datalogics, Inc. All rights reserved.
 //
+// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+//
+// For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-//=====================================================================================================================
 // Sample: ConvertPDFtoPostscript - Convert the contents of the input PDF 
 //              file into a new PS file. 
-//
 //
 // Steps:
 // 1) Open the input PDF
 // 2) Open the output stream
 // 3) Initialize PS parameters
 // 4) Write to PS file, close it, and clean up
-//=====================================================================================================================
+//
+// Command-line:    <input-pdf>  <output-name>       (Both optional)
+//
 
-/* Printing Support */
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
 #include "PDFLPrint.h"
 #include "SetupPrintParams.h"
 
+#define DIR_LOC "../../Samples/_Input/"
+#define DEF_INPUT "Ulysses.pdf"
+#define DEF_OUTPUT "ConvertPDFtoPostscript-out.ps"
+
 int main(int argc, char **argv)
 {
-    //Paths to input and output documents.
-    wchar_t* inPath = L"../_Input/Ulysses.pdf";
-    wchar_t* outPath = L"Ulysses.ps";
-
-    APDFLib lib;                                      // Initialize the Adobe PDF Library
-    ASErrorCode errCode = 0;                          // This will catch error codes thrown during library usage
-
-    if (lib.isValid() == false)                       // If it failed to initialize, return the error code
+    APDFLib lib;
+    ASErrorCode errCode = 0;
+    if (lib.isValid() == false)
+    {
+        errCode = lib.getInitError();
+        std::cout << "Initialization failed with code " << errCode << std::endl;
         return lib.getInitError();
+    }
+    
+    std::string csInputFileName ( argc > 1 ? argv[1] : DIR_LOC DEF_INPUT );
+    std::string csOutputFileName ( argc > 2 ? argv[2] : DEF_OUTPUT );
+    std::cout << "Will convert " << csInputFileName.c_str() << " to Postscript, writing output to "
+              << csOutputFileName.c_str() << std::endl;
 
-    DURING
+DURING
 
-//=====================================================================================================================
 // Step 1) Open the input PDF
-//=====================================================================================================================
 
-        std::wcout << L"Opening the input document - " << inPath << std::endl;
+    // Open the input document, repairing it if necessary.
+    APDFLDoc inAPDoc ( csInputFileName.c_str(), true);        
+    PDDoc inDoc = inAPDoc.getPDDoc();
 
-        APDFLDoc inAPDoc(inPath, true);               // Open the input document, repairing it if necessary.
-        PDDoc inDoc = inAPDoc.getPDDoc();
-
-//=====================================================================================================================
 // Step 2) Initialize print parameters
-//=====================================================================================================================
 
-        std::wcout << L"Initializing print parameters." << std::endl;
+    // Set defaults (see SetupPrintParams files in Common folder)
+    PDPrintParamsRec psParams;
+    SetupPDPrintParams(&psParams);
 
-        // Set defaults (see SetupPrintParams files in Common folder)
-        PDPrintParamsRec psParams;
-        SetupPDPrintParams(&psParams);
+    PDFLPrintUserParamsRec userParams;
+    SetupPDFLPrintUserParams(&userParams);
 
-        PDFLPrintUserParamsRec userParams;
-        SetupPDFLPrintUserParams(&userParams);
+    // Override defaults with specifics for this sample
+    userParams.emitToFile = true;                 // Print to file
+    psParams.emitPS = true;                       // Create PS file
 
-        // Override defaults with specifics for this sample
-        userParams.emitToFile = true;                 // Print to file
-
-        psParams.emitPS = true;                       // Create PS file
-
-//=====================================================================================================================
 // Step 3) Open the output stream and set print param for stream
-//=====================================================================================================================
 
-        std::wcout << L"Opening the output stream." << std::endl;
+    // Create the file for output
+    ASFile outFile = APDFLDoc::OpenFlatFile ( csOutputFileName.c_str(), ASFILE_WRITE | ASFILE_CREATE );
 
-        ASFile outFile = NULL;
-        ASStm printStm = NULL;
+    // Create  writeable ProcStm to handle the print stream
+    ASStm printStm = ASFileStmWrOpen ( outFile, 0 );
 
-        ASText outPathText = NULL;                    // ASText object is used to create the ASPathName object
+    userParams.printStm = printStm;                    // Send output to the writeable stream 
+    userParams.printParams = &psParams;                // Connect the two structures
 
-        // Determine the size of wchar_t on the system
-        // and set the ASTextObject to hold the path for the output document
-        if (sizeof(wchar_t) == 2)
-            outPathText = ASTextFromUnicode((ASUTF16Val*)outPath, kUTF16HostEndian);
-        else
-            outPathText = ASTextFromUnicode((ASUTF16Val*)outPath, kUTF32HostEndian);
-
-        // Create the ASPathName object from the ASText. This will be used to save the PDDoc
-        ASPathName outPathName = ASFileSysCreatePathFromDIPathText(NULL, outPathText, NULL);
-
-        // Create  writeable ProcStm to handle the print stream
-        ASFileSysOpenFile(ASGetDefaultFileSys(), outPathName, ASFILE_WRITE | ASFILE_CREATE, &outFile);
-        printStm = ASFileStmWrOpen(outFile, 0);
-
-        userParams.printStm = printStm;                    // Send output to the writeable stream 
-        userParams.printParams = &psParams;                // Connect the two structures
-
-//=====================================================================================================================
 // Step 4) Write to PS file, close it, and clean up
-//=====================================================================================================================
 
-        std::wcout << L"Writing to the output stream." << std::endl;
+DURING
+    PDFLPrintDoc(inDoc, &userParams);
+HANDLER
+    errCode = ERRORCODE;
+    lib.displayError(errCode);
+END_HANDLER
+  
+    // Cleanup and free memory
+    DisposePDPrintParams(&psParams);
+    DisposePDFLPrintUserParams(&userParams);
 
-        DURING
-            PDFLPrintDoc(inDoc, &userParams);
-        HANDLER
-            errCode = ERRORCODE;
-            lib.displayError(errCode);                // If there was an error, display it
-        END_HANDLER
+    ASStmClose(printStm);                         // Close the file stream
+    PDDocClose(inDoc);                            // Close the input document
 
-        std::wcout << L"Closing documents and cleaning up." << std::endl;
+    ASFileFlush(outFile);                         // Safely close outFile
+    ASFileClose(outFile);
 
-        // Cleanup and free memory
-        DisposePDPrintParams(&psParams);
-        DisposePDFLPrintUserParams(&userParams);
+HANDLER
+    errCode = ERRORCODE;
+    lib.displayError(errCode);
+END_HANDLER
 
-        ASStmClose(printStm);                         // Close the file stream
-        PDDocClose(inDoc);                            // Close the input document
-
-        ASFileFlush(outFile);                         // Safely close outFile
-        ASFileClose(outFile);
-
-        ASTextDestroy(outPathText);                   // Release all objects that are still in use
-        ASFileSysReleasePath(NULL, outPathName);
-
-    HANDLER
-        errCode = ERRORCODE;
-        lib.displayError(errCode);                    // If there was an error, display it
-    END_HANDLER
-
-    return errCode;                                   // APDFLib's destructor terminates the APDFL
+    return errCode;                               // APDFLib's destructor terminates the APDFL
 };
