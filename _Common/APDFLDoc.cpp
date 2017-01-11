@@ -373,12 +373,12 @@ APDFLDoc::~APDFLDoc()
 }
 
 
-/* static */ ASFile APDFLDoc::OpenFlatFile ( const char* path ) 
+/* static */ ASFile APDFLDoc::OpenFlatFile ( const char* path, int mode /* = ASFILE_READ */ )
 {
     ASPathName pn ( makePath ( path ) );
     ASFile f ( NULL );
 DURING
-    ASErrorCode openErr = ASFileSysOpenFile( ASGetDefaultFileSys(), pn, ASFILE_READ, &f );
+    ASErrorCode openErr = ASFileSysOpenFile( ASGetDefaultFileSys(), pn, mode, &f );
 
     //Release resources.
     ASFileSysReleasePath ( ASGetDefaultFileSys(), pn );
