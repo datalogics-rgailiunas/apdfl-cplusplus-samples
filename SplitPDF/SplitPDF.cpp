@@ -1,113 +1,73 @@
-// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
+// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+//
+// For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-//=================================================================================
-// Sample: SplitPDF - Opens the input file "PDFToBeSplit.pdf", and copies each page
-//                into a new PDF document which is saved to the working directory.
-//
-// Note: The length of the input document is irrelevant. A document of any length
-// can be split with this algorithm.
+// Sample: SplitPDF - Opens the input file specified and saves each page to its own
+//                    new PDF document 
 //
 // Steps: 
-//  1) Open PDFToBeSplit.pdf and prepare a vector of PDDocs, one for each page.
-//  2) Iterate through the vector, inserting the appropriate page and then
-//     saving the document.
-//=================================================================================
+//  1) Open PDFToBeSplit.pdf 
+//  2) For each page, create a new empty document, throw that page into it and save
+//
+//  Command-line:    <input-file>  <output-file-prefix>      (Both are optional)
+//
 
-#include <vector>
 #include <string>
 #include <iostream>
 #include <sstream>
 #include "APDFLDoc.h"
 #include "InitializeLibrary.h"
 
+#define DIR_LOC "../../Samples/_Input/"
+#define DEF_INPUT "PDFToBeSplit.pdf"
+#define DEF_OUTPUT_PREFIX "_b_"
+
 int main(int argc, char** argv)
 {
-    APDFLib lib;                      //Initialize the Adobe PDF Library.
+    APDFLib libInit;
+    ASErrorCode errCode = 0;
+    if (libInit.isValid() == false)
+    {
+        errCode = libInit.getInitError();
+        std::cout << "Initialization failed with code " << errCode << std::endl;
+        return libInit.getInitError();
+    }
+    
+    std::string csInputFileName ( argc > 1 ? argv[1] : DIR_LOC DEF_INPUT );
+    std::string csOutputFilePrefix ( argc > 2 ? argv[2] : DEF_OUTPUT_PREFIX );
+    std::cout << "Will split " << csInputFileName.c_str() << " into 1 PDF file per page, "
+              << " with names beginning with " << csOutputFilePrefix.c_str() << std::endl;
 
-    if (lib.isValid() == false)       //If it failed to initialize, return the error code.
-        return lib.getInitError();
+DURING
 
-    ASErrorCode errCode = 0;          //Will catch error codes thrown during library usage.
+// Step 1) Open input file
 
-//===========================================================================================================================
-// Step 1) Open PDFToBeSplit.pdf and prepare a vector of PDDocs, one for each page.
-//===========================================================================================================================
+    APDFLDoc document ( csInputFileName.c_str(), true );
 
-    DURING
+// Step 2) Copy each page into a newly created empty document, and save it
 
-        APDFLDoc document(L"../_Input/PDFToBeSplit.pdf", true);                 //Open the input document. Repair if damaged.
+    ASUns32 numInputPages = PDDocGetNumPages ( document.getPDDoc() );
+    for ( ASUns32 page = 0; page < numInputPages; ++page )
+    {
+        // Create new empty document
+        APDFLDoc outDoc;
 
-        std::vector<PDDoc> splitDocs(PDDocGetNumPages(document.getPDDoc()));    //A vector for the new documents.
+        // Insert the current page into the new document
+        PDDocInsertPages ( outDoc.getPDDoc(), PDBeforeFirstPage, document.getPDDoc(), page, 1, 
+                           NULL, NULL, NULL, NULL, NULL);
 
-        std::vector<PDDoc>::iterator iter = splitDocs.begin();                  //An iterator to access splitDocs' members.
+        // Cook up the file name, and save
+        std::ostringstream ossFile;
+        ossFile << csOutputFilePrefix.c_str() << ( page + 1 ) << ".pdf";
+        outDoc.saveDoc ( ossFile.str().c_str() );
+    }
 
-        int pageIndex;                                                          //Tracks the index of the iterator.
-        std::wstring pageNameString;                                            //Name of the next page to save.
+HANDLER
+    errCode = ERRORCODE;
+    libInit.displayError(errCode);
+END_HANDLER
 
-        //Determine the host's unicode format. For creating output pathnames.
-        ASInt32 uniFormat;
-        if (sizeof(wchar_t) == 2)
-            uniFormat = kUTF16HostEndian;
-        else
-            uniFormat = kUTF32HostEndian;
-
-        ASText outPathText;                                                     //Text object to create output pathname.
-
-        ASPathName outPathName;                                                 //Pathname used to save the document.
-
-//===========================================================================================================================
-// Step 2) Iterate through the vector, inserting the appropriate page and then saving the document.
-//===========================================================================================================================
-
-        //Advance the iterator through the splitDocs vector.
-        for (iter = splitDocs.begin(); iter < splitDocs.end(); std::cout<<std::endl, iter++)
-        {
-            //Create a new PDDoc for the next page.
-            *iter = PDDocCreate();
-
-            //Set tracker to the next page's index.
-            pageIndex = iter - splitDocs.begin();
-
-            //Insert one page from the input doc, starting with the page indexed by tracker, into the next PDDoc.
-            PDDocInsertPages(*iter, PDBeforeFirstPage, document.getPDDoc(), pageIndex, 1, NULL, NULL, NULL, NULL, NULL);
-
-            //Set the output file name according to the current page number.
-            //http://stackoverflow.com/questions/12975341/to-string-is-not-a-member-of-std-says-so-g
-            //known issue with certain version g++
-            std::wostringstream ss;
-            ss << pageIndex + 1;
-            std::wstring name = L"baseDocument_Page" + ss.str() + L".pdf";
-            pageNameString.assign(name.begin(), name.end());
-
-            //Create the ASText object used to create the ASPathName object.
-            outPathText = ASTextFromUnicode((ASUTF16Val*)(wchar_t*)(pageNameString.c_str()), uniFormat);
-
-            //The ASPathName will be used to save the document.
-            outPathName = ASFileSysCreatePathFromDIPathText(NULL, outPathText, NULL); 
-
-            //Save file using the ASPathName.
-            PDDocSave(*iter, PDSaveFull, outPathName, ASGetDefaultFileSys(), NULL, NULL); 
-
-            std::wcout << pageNameString << " was created and saved";
-
-            //Release the document after saving.
-            PDDocRelease(*iter);
-
-            //Release the path so that it can be reused within the loop.
-            ASFileSysReleasePath(NULL, outPathName);
-            
-            //Free up the ASText object that was created.
-            ASTextDestroy(outPathText);
-        }
-
-    HANDLER
-
-        errCode = ERRORCODE;
-        lib.displayError(errCode);    //If there was an error, display it.
-
-    END_HANDLER
-
-    return errCode;                   //lib's destructor terminates the library.
+    return errCode;
 }
