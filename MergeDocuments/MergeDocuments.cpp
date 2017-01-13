@@ -1,46 +1,62 @@
-// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
+// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+//
+// For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-//========================================================================
 // Sample: MergeDocuments : Opens two documents, merges them and saves the
 // resulting document in the working directory.
-//========================================================================
+//
+// Command-line:  <input-file-1> <input-file-2> <output-file>     (All optional)
+//
 
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
 
+#define DIR_LOC "../../Samples/_Input/"
+#define DEF_INPUT_1 "merge1.pdf"
+#define DEF_INPUT_2 "merge2.pdf"
+#define DEF_OUTPUT "MergeDocuments-out.pdf"
+
 int main(int argc, char** argv)
 {
-    APDFLib libInit;                                               //Initialize the Adobe PDF Library.
-    ASErrorCode errCode = 0;                                       //Variable used to report any exceptions/errors if they occured.
+    APDFLib libInit;
+    ASErrorCode errCode = 0;
+    if (libInit.isValid() == false)
+    {
+        errCode = libInit.getInitError();
+        std::cout << "Initialization failed with code " << errCode << std::endl;
+        return libInit.getInitError();
+    }
+    
+    std::string csInputFileName1 ( argc > 1 ? argv[1] : DIR_LOC DEF_INPUT_1 );
+    std::string csInputFileName2 ( argc > 2 ? argv[2] : DIR_LOC DEF_INPUT_2 );
+    std::string csOutputFileName ( argc > 3 ? argv[3] : DEF_OUTPUT );
+    std::cout << "Merging " << csInputFileName1.c_str() << " and " << csInputFileName2.c_str()
+              << " and saving to " << csOutputFileName.c_str() << std::endl;
 
-    if (libInit.isValid() == false)                                //If there was a problem in initialization, return the error code.
-        return libInit.getInitError(); 
+DURING  
 
-    DURING  
+    APDFLDoc doc1 ( csInputFileName1.c_str(), true);
+    APDFLDoc doc2 ( csInputFileName2.c_str(), true);
 
-        std::wcout << L"Opening input files..." << std::endl;
+    // Insert doc2's pages into doc1. 
+    //    Here, we've stated PDLastPage, which adds the pages just before the last page of the target.
+    //    If we specify PDBeforeFirstPage instead, doc2's pages will be inserted at the head of doc1.
+    PDDocInsertPages ( doc1.getPDDoc(), 
+                       PDLastPage, 
+                       doc2.getPDDoc(), 
+                       0, 
+                       PDAllPages, 
+                       PDInsertAll, 
+                       NULL, NULL, NULL, NULL);
 
-        APDFLDoc doc1(L"../_Input/merge1.pdf", true);              //Open both of the documents that will be merged together.
-        APDFLDoc doc2(L"../_Input/merge2.pdf", true);
+    doc1.saveDoc ( csOutputFileName.c_str(), PDSaveFull | PDSaveLinearized);
 
-        std::wcout << L"Inserting doc2's pages into doc1..." << std::endl;
+HANDLER                             
+    errCode = ERRORCODE;
+    libInit.displayError(errCode);
+END_HANDLER
 
-        //Insert doc2's pages into doc1. If PDBeforeFirstPage is used doc2's pages will be inserted into doc1's.
-        PDDocInsertPages(doc1.getPDDoc(), PDLastPage, doc2.getPDDoc(), 0, PDAllPages, PDInsertAll, NULL, NULL, NULL, NULL);
-
-        std::wcout << L"Saving the output file in the working directory..." << std::endl;
-
-        doc1.saveDoc(L"out.pdf", PDSaveFull | PDSaveLinearized);    //Save the output file as out.pdf in the working directory.
-
-    HANDLER                             
-
-        errCode = ERRORCODE;
-
-        libInit.displayError(errCode);                              //If there was an error, display the error that occured.
-
-    END_HANDLER
-
-    return errCode;                                                 //APDFLib's destructor terminates the APDFL.                         
+return errCode;
 }

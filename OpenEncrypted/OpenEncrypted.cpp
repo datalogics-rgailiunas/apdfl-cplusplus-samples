@@ -1,206 +1,156 @@
-// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
+// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+//
+// For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-//=================================================================
 // Sample: OpenEncrypted - Removes security from a document.
 //
 // Note: This sample completely removes the security from a 
 // password-protected document.
 //
-//Steps:
+// Steps:
 // 1) Open the document with the password.
 // 2) Remove the encryption.
 // 3) Save and close the document.
 // 4) Open it without a password to ensure the encryption is gone.
-//=================================================================
+//
+// Command-line:  <input-file>   <output-file>    (Both optional)
+//
 
 #include <iostream>
 
 #include "InitializeLibrary.h"
+#include "APDFLDoc.h"
 #include "ASExtraCalls.h"
 #include "PDFInit.h"
 #include "PDFLCalls.h"
 #include "PDExpT.h"
 #include "PDCalls.h"
 
+#define DIR_LOC "../../Samples/_Input/"
+#define DEF_INPUT "OpenEncrypted.pdf"
+#define DEF_OUTPUT "OpenEncrypted-out.pdf"
 
-//The password we will try is stored statically because openAuthorizationProcedure is static. Note that the password cannot be a wchar_t*.
-static char* password = "";
+#define PASSWORD "mypassword"
 
 //Callback function called by PDDocOpenEx to obtain permission to open the document by supplying the password.
 static ACCB1 ASBool ACCB2 openAuthorizationProcedure(PDDoc encrypted, void* password);
 
-//Creates an ASPathName from a wchar_t string.
-ASPathName makeASPathName(wchar_t* pathname);
-
 int main(int argc, char** argv)
 {
-    APDFLib lib;                                                         //Initialize the Adobe PDF Library.
+    APDFLib libInit;
+    ASErrorCode errCode = 0;
+    if (libInit.isValid() == false)
+    {
+        errCode = libInit.getInitError();
+        std::cout << "Initialization failed with code " << errCode << std::endl;
+        return libInit.getInitError();
+    }
+    
+    std::string csInputFileName ( argc > 1 ? argv[1] : DIR_LOC DEF_INPUT );
+    std::string csOutputFileName ( argc > 2 ? argv[2] : DEF_OUTPUT );
+    std::cout << "Will remove all security from " << csInputFileName.c_str() << " and save as "
+              << csOutputFileName.c_str() << std::endl;
 
-    if (!lib.isValid())                                                  //If it failed to initialize, return the error code.
-        return lib.getInitError();
+DURING
 
-    password = "mypassword";                                             //The password needed to open the document.
+// Step 1) Open the document with the password.
 
-    ASErrorCode errCode = 0;                                             //This will catch error codes thrown during library usage.
-
-    DURING
-
-//===================================================================================================================================================
-//Step 1) Open the document with the password.
-//===================================================================================================================================================
-
-    std::wcout << L"Attempting to open the document." << std::endl;
-
-    ASPathName inputPathName  = makeASPathName(L"../_Input/OpenEncrypted.pdf");
+    ASPathName inputPathName  = APDFLDoc::makePath ( csInputFileName.c_str() );
 
     //PDDocOpenEx openAuthorizationProcedure to supply the password.
     PDDoc document = PDDocOpenEx(inputPathName, ASGetDefaultFileSys(), &openAuthorizationProcedure, 0, true);
 
-    ASFileSysReleasePath(ASGetDefaultFileSys(), inputPathName);          //We only needed this to open the document. It will be saved to a new path.
+    // This can be released at this point
+    ASFileSysReleasePath(ASGetDefaultFileSys(), inputPathName);          
 
-//===================================================================================================================================================
-//Step 2) Remove the encryption.
-//===================================================================================================================================================
+// Step 2) Remove the encryption.
 
-    PDDocSetNewCryptHandler(document, ASAtomNull);                       //Setting it to ASAtomNull completely removes security from the document.
+    //Setting it to ASAtomNull completely removes security from the document.
+    PDDocSetNewCryptHandler(document, ASAtomNull);                       
 
-    std::wcout << L"The encryption was removed." << std::endl;
+// Step 3) Save and close the document.
 
-//===================================================================================================================================================
-//Step 3) Save and close the document.
-//===================================================================================================================================================
-
-    ASPathName pathOutput = makeASPathName(L"unencrypted.pdf");
+    ASPathName pathOutput = APDFLDoc::makePath ( csOutputFileName.c_str() );
     PDDocSave(document, PDDocNeedsSave | PDDocIsOpen, pathOutput, ASGetDefaultFileSys(), NULL, NULL);
-
-    std::wcout << L"The document was saved..." << std::endl;
 
     //Release resources.
     PDDocClose(document);
+    ASFileSysReleasePath(ASGetDefaultFileSys(), pathOutput);
 
-//===================================================================================================================================================
-//Step 4) Open it without a password to ensure the encryption is gone.
-//===================================================================================================================================================
+// Step 4) Open it without a password to ensure the encryption is gone.
 
     ASErrorCode openError = 0;
 
-    DURING
+DURING
+ 
+    // Since this class' default is to open without a password (or authorization proc) this will
+    //     throw instantly if there is a password on the file!
+    APDFLDoc doc ( csOutputFileName.c_str(), true );
 
-        document = PDDocOpen(pathOutput, NULL, NULL, true);              //Open the document as if it was unencrypted (which it should be).
-
-        PDDocClose(document);
-
-        document = NULL;
-
-    HANDLER
-
-        openError = ERRORCODE;
-
-    END_HANDLER
+HANDLER
+    openError = ERRORCODE;
+END_HANDLER
 
     if (openError)
     {
         if (ErrGetSystem(openError) == ErrSysPDDoc && ErrGetCode(openError) == pdErrNeedPassword)
-            std::wcout << L"...But still requires a password [FAILURE]." << std::endl;
+        {
+            std::cout << "Error:  The document still requires a password ]." << std::endl;
+        }
         else
-            std::wcout << L"An unexpected error occured." << std::endl;
-
-        ASRaise(openError);
+        {
+            std::cout << "An unexpected error occured." << std::endl;
+        }
+        return openError;
     }
 
-    std::wcout << L"...And is no longer encrypted!" << std::endl;
+HANDLER
+    errCode = ERRORCODE;
+    libInit.displayError(errCode);
+END_HANDLER
 
-    //Release resources.
-    if (document) PDDocClose(document);
-    ASFileSysReleasePath(ASGetDefaultFileSys(), pathOutput);
-
-    std::wcout << L"Success." << std::endl;
-
-    HANDLER
-
-        errCode = ERRORCODE;
-        lib.displayError(errCode);                                       //If there was an error, display it.
-
-    END_HANDLER
-
-    return errCode;                                                      //lib's destructor terminates the library.
+    return errCode;
 };
 
-//===================================================================================================================================================
-//ASBool function: Callback function called by PDDocOpenEx to obtain permission to open 
-//the document by supplying the password.
-//===================================================================================================================================================
+// Callback for PDDocOpenEx to obtain permission to open the document by supplying the password.
 static ACCB1 ASBool ACCB2 openAuthorizationProcedure(PDDoc encrypted, void *clientData){
 
-    PDPermReqStatus permReqStatus;                                       //Stores the result of the permission request.
+    PDPermReqStatus permReqStatus;
 
-    DURING
+DURING
 
-        //Request open permission by supplying the password.
-        permReqStatus = PDDocPermRequest(encrypted,                      //The document we want to open.
-                                         PDPermReqObjDoc,                //Object of the request: a document.
-                                         PDPermReqOprOpen,               //Target operation of the request: to open it.
-                                         (void*)password);               //And, of course, the password.
+    //Request open permission by supplying the password.
+    permReqStatus = PDDocPermRequest(encrypted,            //The document we want to open.
+                                     PDPermReqObjDoc,      //Object of the request: a document.
+                                     PDPermReqOprOpen,     //Target operation of the request: to open it.
+                                     (void*)PASSWORD);     //And, of course, the password.
 
-    HANDLER
+HANDLER
+    ASRaise(ERRORCODE);
+END_HANDLER
 
-        ASRaise(ERRORCODE);                                              //If there was an error, let the caller handle it.
-
-    END_HANDLER
-
+    std::cout << "openAuthorizationProcedure: ";
     switch (permReqStatus)
     {
-        std::wcout << "openAuthorizationProcedure: ";
         case PDPermReqGranted:
-            std::wcout << L"Password verified.\nPermission to open the document has been granted." << std::endl;
+            std::cout << "Password verified." << std::endl;
             break;
         case PDPermReqDenied:
-            std::wcout << L"Invalid password.\nThe request to open the document has been denied." << std::endl;
+            std::cout << "Invalid password." << std::endl;
             break;
         case PDPermReqUnknownObject:
-            std::wcout << L"Target object unknown for the permisson request." << std::endl;
+            std::cout << "Target object unknown for the permisson request." << std::endl;
             break;
         case PDPermReqUnknownOperation:
-            std::wcout << L"Target operation unknown for the permission request." << std::endl;
+            std::cout << "Target operation unknown for the permission request." << std::endl;
             break;
         default:
-            std::wcout << L"An unexpected error occured while trying to open the document." << std::endl;
+            std::cout << "An unexpected error occured while trying to open the document." << std::endl;
             break;
     }
 
     return (permReqStatus == PDPermReqGranted);
 };
 
-
-//===================================================================================================================================================
-//ASPathName function: Creates an ASPathName from a wchar_t string.
-//===================================================================================================================================================
-ASPathName makeASPathName(wchar_t* pathname){
-
-    ASText pathText = NULL;                                              //Text object of the path.
-    ASPathName pathASPath = NULL;                                        //Pathname of the path.
-
-    ASUnicodeFormat hostUniFormat;
-    if (sizeof(wchar_t) == 2)
-        hostUniFormat = kUTF16HostEndian;
-    else
-        hostUniFormat = kUTF32HostEndian;
-
-    DURING
-
-        pathText = ASTextFromUnicode((ASUTF16Val*)pathname, hostUniFormat);
-        pathASPath = ASFileSysCreatePathFromDIPathText(NULL, pathText, NULL);
-
-    HANDLER
-
-        ASRaise(ERRORCODE);                                              //If there was an error, let the caller handle it.
-
-    END_HANDLER
-
-    //Release resources.
-    ASTextDestroy(pathText);
-
-    return pathASPath;
-};

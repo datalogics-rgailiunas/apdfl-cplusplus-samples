@@ -1,15 +1,13 @@
-/*	
-    RenderPage - Sample for the Adobe PDF Library distributed by Datalogics.
-    Copyright (c) 2007-2015, Datalogics, Inc. All rights reserved.
-
-    This sample code is licensed under the terms listed at
-    http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
-
-    This PDF Library sample demonstrates the process of rasterizing a PDF page
-    and placing the resulting raster as an image into a different PDF document.
-
-    This file contains declarations for the RenderPage class.
-*/
+//
+// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+//
+// For complete copyright information, refer to:
+// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
+//
+// Sample: RenderPage
+//
+// This file contains declarations for the RenderPage class.
+//
 
 #include <stdio.h>
 #include <string.h>
@@ -24,7 +22,6 @@
 #include "PDFLExpT.h"
 #include "PDFLCalls.h"
 
-static ASAtom sDeviceRGB_K, sDeviceCMYK_K, sDeviceGray_K; //to hold colorspace ASAtoms
 
 class RenderPage 
 {
@@ -50,18 +47,22 @@ private:
     float               resolution;
 
     PDEImageAttrs       SetImageAttrs(ASFixedRect scaledDestRect, ASInt32 bpc);
-    PDEFilterArray      SetFilter(char *filterName);
+    PDEFilterArray      SetFilter(const char *filterName);
     ASFixedMatrix       SetImageMatrix(PDEImageAttrs attrs, float resolution);
     ASFixedMatrix       SetScaleMatrix(float resolution);
     ASFixedRect         SetPageRect(ASFixedRect	destRect);
-    ASAtom              SetColorSpace(char *colorSpace);
+    ASAtom              SetColorSpace(const char *colorSpace);
     ASInt32             SetBPC(ASInt32 bitsPerComp); 
     ASInt32             PadCompute(PDEImageAttrs attrs, ASInt32 bpc, ASInt32 nComps, char *buffer, ASInt32 bufferSize);	 
     ASInt32             SetBufferSize(PDPage pdPage, ASFixedMatrix &matrix, ASAtom csAtom, ASInt32 bpc, ASFixedRect scaledDestRect);
     float               SetResolution(float resolution);
 
+    static ASAtom       sDeviceRGB_K;
+    static ASAtom       sDeviceCMYK_K;
+    static ASAtom       sDeviceGray_K;
+
 public:
-    RenderPage(PDPage &pdPage, char *colorSpace, char *filterName, ASInt32 bpc, float resolution);
+    RenderPage(PDPage &pdPage, const char *colorSpace, const char *filterName, ASInt32 bpc, float resolution);
     ~RenderPage();
 
     char*               GetImageBuffer();
