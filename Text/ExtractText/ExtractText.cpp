@@ -1,24 +1,23 @@
-// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
+// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+//
+// For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-//=====================================================================
-// Sample: ExtractText - Extracts the text of the input PDF document
-//             and draws it to a new PDF document.
+// Sample: ExtractText - Extracts Unicode and ASCII text from PDF documents
 //
-// Note:
-// This sample will extract text from two seperate PDF documents. It
-// will save output in the working directory as a .pdf and .txt file. 
-// This program demonstrates the APDFL's ability to handle ASCII and
-// unicode text extraction.
+// This sample will extract text from two seperate PDF documents.  The program demonstrates 
+// APDFL's ability to handle ASCII and unicode text extraction.
 //
 //Steps:
-// 1) Initialize the PDWordFinder class and the information we 
-//    need to draw the text to the output.
+// 1) Initialize the PDWordFinder class and related objects we will
+//    need to draw the ASCII text to the output PDF file.
 // 2) Iterate through each word of the input document and draw
 //    each new line of text to the output document.
-// 3) Extract Unicode from a second PDF document.
-//=====================================================================
+// 3) Open the second document and extract Unicode therefrom, writing itto a text file.
+//
+// Command-line: <input-file-1> <input-file-2> <output-file-1> <output-file-2>
+//
 
 #include <iostream>
 #include <fstream>
@@ -33,31 +32,36 @@
 #include "PEWCalls.h"
 #include "PagePDECntCalls.h"
 
+#define DIR_LOC "../../Samples/_Input/"
+#define DEF_INPUT_1 "ExtractText.pdf"
+#define DEF_INPUT_2 "ExtractUnicodeText.pdf"
+#define DEF_OUTPUT_1 "ExtractText-out.pdf"
+#define DEF_OUTPUT_2 "ExtractText-out.txt"
+
 int main(int argc, char** argv)
 {
-    APDFLib lib;                                                                                //Initialize the Adobe PDF Library.
+    APDFLib libInit;
+    ASErrorCode errCode = 0;
+    if (libInit.isValid() == false)
+    {
+        errCode = libInit.getInitError();
+        std::cout << "Initialization failed with code " << errCode << std::endl;
+        return libInit.getInitError();
+    }
+    
+    std::string csInputFileName1 ( argc > 1 ? argv[1] : DIR_LOC DEF_INPUT_1 );
+    std::string csInputFileName2 ( argc > 2 ? argv[2] : DIR_LOC DEF_INPUT_2 );
+    std::string csOutputFileName1 ( argc > 3 ? argv[3] : DEF_OUTPUT_1 );
+    std::string csOutputFileName2 ( argc > 4 ? argv[4] : DEF_OUTPUT_2 );
 
-    if (lib.isValid() == false)                                                                 //If it failed to initialize, return the error code.
-        return lib.getInitError();
+DURING
 
-    wchar_t* inPath  = L"../_Input/ExtractText.pdf";                                            //Path to the input document.
-    wchar_t* outPath = L"ExtractedText.pdf";                                                    //Path to the output document we'll create.
+    APDFLDoc inAPDoc ( csInputFileName1.c_str(), true);
 
-    ASErrorCode errCode = 0;                                                                    //This will catch error codes thrown during library usage.
+// Step 1) Initialize the PDWordFinder class and things we'll need to draw the text to the output.
 
-    DURING
-
-    std::wcout << L"Opening the input PDF." << std::endl;
-
-    APDFLDoc inAPDoc(inPath, true);                                                             //Open the input document (and repair it if it's damaged).
-    APDFLDoc outAPDoc;                                                                          //Create a new, blank document.
-
-    outAPDoc.insertPage(FloatToASFixed(8.5 * 72), Int16ToFixed(11 * 72), PDBeforeFirstPage);    //Insert a new page into the document.                  
-
-//=====================================================================================================================================================================================================================
-//Step 1) Initialize the PDWordFinder class and the information we need to draw the text to the output.
-//Note: This is not the only way to search through text (See the sample AddBookmarks for another way), but it is a well-supported way.
-//=====================================================================================================================================================================================================================
+    // Note: This is not the only way to search through text (See the sample AddBookmarks 
+    //    for another way), but it is a well-supported way.
 
     //Prepare the font we'll draw the text with.
     PDEFontAttrs fontAttrs;
@@ -73,41 +77,42 @@ int main(int argc, char** argv)
     //This FixedMatrix will point to where each next word will be drawn.
     ASFixedMatrix nextWordLocation;
     memset(&nextWordLocation, 0, sizeof(nextWordLocation));
-    ASInt16 fontSize = 9;                                                                                            //We'll use a 9-point font size.
-    nextWordLocation.a = Int16ToFixed(fontSize);                                                                     //Set the character width.
-    nextWordLocation.d = Int16ToFixed(fontSize);                                                                     //Set the character height.
-    ASFixed leftMargin = ASFloatToFixed(0.5 * 72);                                                                   //(We save this value to reset nextWordLocation for each new line.)
-    nextWordLocation.h = leftMargin;                                                                                 //We'll start drawing text half an inch from the left margin. (72 pixels per inch.)
-    nextWordLocation.v = ASInt32ToFixed(10 * 72);                                                                    //We'll start drawing text 10 inches from the bottom.
+    ASInt16 fontSize = 9;
+    nextWordLocation.a = Int16ToFixed(fontSize);      // Character width.
+    nextWordLocation.d = Int16ToFixed(fontSize);      // Character height.
+    ASFixed leftMargin = ASFloatToFixed(0.5 * 72);
+    nextWordLocation.h = leftMargin;                  // Left margin of 1/2 inch (72 pixels per inch)
+    nextWordLocation.v = ASInt32ToFixed(10 * 72);     // Start drawing text 10 inches from the bottom.
 
-    //Use default settings for the PDWordFinder. See the sample TextSearch, step 1, for an example of PDWordFinder settings.
+    //Use default settings for the PDWordFinder. See the sample TextSearch for an example of PDWordFinder settings.
     PDWordFinderConfigRec wfConfig;
     memset (&wfConfig, 0, sizeof(PDWordFinderConfigRec));
     wfConfig.recSize = sizeof(PDWordFinderConfigRec);
 
     //We'll use the PDWordfinder class to iterate through all the words in our input document.
-    PDWordFinder wordFinder = PDDocCreateWordFinderEx(inAPDoc.getPDDoc(), WF_LATEST_VERSION, false, &wfConfig);      //If boolean value is set to true, the word finder extracts text in unicode.
+        // If boolean value is set to true, the word finder extracts text in unicode.
+    PDWordFinder wordFinder = PDDocCreateWordFinderEx(inAPDoc.getPDDoc(), WF_LATEST_VERSION, false, &wfConfig);      
 
     PDWord wordList;
     ASInt32 numWordsFound;
-    PDWordFinderAcquireWordList(wordFinder, 0, &wordList, NULL, NULL, &numWordsFound);                              //This acquires the list of words from the first page (0).           
+    PDWordFinderAcquireWordList(wordFinder, 0, &wordList, NULL, NULL, &numWordsFound);
 
-//=====================================================================================================================================================================================================================
 //Step 2) Iterate through each word of the input document and draw each new line of text to the output document.
-//=====================================================================================================================================================================================================================
 
-    std::wcout << L"There are " << numWordsFound << L" words on the first page:" << std::endl << std::endl;
+    std::cout << "Extracting " << numWordsFound << " words on the first page of " << csInputFileName1.c_str()
+              << " and placing into " << csOutputFileName1.c_str() << std::endl;
 
-    PDPage outPage = outAPDoc.getPage(0);                                                            //We must acquire the page and it's content to add text to it.
+    APDFLDoc outAPDoc;
+    outAPDoc.insertPage(FloatToASFixed(8.5 * 72), Int16ToFixed(11 * 72), PDBeforeFirstPage); 
+    PDPage outPage = outAPDoc.getPage(0);
     PDEContent outPageContent = PDPageAcquirePDEContent(outPage, 0);
 
     for (int i = 0; i < numWordsFound; ++i)
     {
-        PDEText nextLine = PDETextCreate();                                                          //Prepare to capture the next line.
-        int nextLineIndex = 0;                                                                       //Tracks the index in nextLine we'll add successive text objects (here, words) to.
-        ASUns16 nextWordAttrs = 0;                                                                   //Tracks the attribute flags of each next word.
-
-        //This do-while loop copies the next line of text into nextLine.
+        PDEText nextLine = PDETextCreate();
+        int nextLineIndex = 0;             
+        ASUns16 nextWordAttrs = 0;         
+        
         do
         {
             PDWord nextWord = PDWordFinderGetNthWord(wordFinder, i);
@@ -116,29 +121,38 @@ int main(int argc, char** argv)
             ASText nextWordASText = ASTextNew();
             PDWordGetASText(nextWord, 0, nextWordASText);
 
-            //This will print the text in UTF-16BE or in PDFDocEncoding, this may not output correctly in the console. It will be correct in the output document.
-            ASInt32 wordLen = 0;                                                                     
-            char * consoleMessage = ASTextGetPDTextCopy(nextWordASText, &wordLen);
-            std::cout << consoleMessage;                                                             //Print out the text being extracted.
-            ASfree(consoleMessage);
+            // NOTE:  Uncomment this paragraph to print the text to the screen as well
+            // This will print the text in UTF-16BE or in PDFDocEncoding; it may not output correctly in the console. 
+            //    It will be correct in the output document, however.
+            // ASInt32 wordLen = 0;                                                                     
+            // char* consoleMessage = ASTextGetPDTextCopy(nextWordASText, &wordLen);
+            // std::cout << consoleMessage;
+            // ASfree(consoleMessage);
+            // std::cout << "(Unicode text will not have displayed correctly.)";
+            // std::cout << "(But unicode text is printed in the output correctly.)" << std::endl;
+            // std::cout << "The text has been added to the output document." << std::endl;
 
             //Append the word to the line.
-            PDETextAddASText(nextLine, kPDETextRun, nextLineIndex, nextWordASText,                   //Add the word to the next index in the text object. It's a text run because it's (usually) multiple characters.
-                             font,                                                                   //The font we'll use.
-                             &graphics, sizeof(PDEGraphicState),                                     //Let the graphics state default.
-                             NULL, 0,                                                                //Let the text state default.
-                             &nextWordLocation);                                                     //The starting location of the word on the page.
+            PDETextAddASText ( nextLine, 
+                               kPDETextRun,      // It's a text run because it's (usually) multiple characters.
+                               nextLineIndex, 
+                               nextWordASText,                   
+                               font,                                                                   
+                               &graphics, sizeof(PDEGraphicState),                                     
+                               NULL, 0,                                                                
+                               &nextWordLocation);                                                     
 
             //Now that the word's been added, get the new location of the end of the line to prepare to add text there.
             ASFixedRect newLocation;
             PDETextGetBBox(nextLine, kPDETextRun, PDETextGetNumRuns(nextLine) - 1, &newLocation);
-            nextWordLocation.h = newLocation.right;                                                  //The h coordinate of our next word will be (at least) the very end of the last word.
+            //The h coordinate of our next word will be (at least) the very end of the last word.
+            nextWordLocation.h = newLocation.right;                                                  
 
-            //If the last word we printed is followed by a space, add a little to the starting h coordinate of the next word to account for that.
+            //If the last word we printed is followed by a space, add a little to 
+            //    the starting h coordinate of the next word to account for that.
             nextWordAttrs = PDWordGetAttr(nextWord);
             if (WXE_ADJACENT_TO_SPACE & nextWordAttrs)
             {
-                std::wcout << L" ";
                 nextWordLocation.h += ASFloatToFixed(0.5*fontSize);
             }
 
@@ -147,56 +161,55 @@ int main(int argc, char** argv)
             ++nextLineIndex;
             ++i;
 
-        } while ((!(WXE_LAST_WORD_ON_LINE & nextWordAttrs)));                                        //Note that this procedure works only if the last word in the page is the last word in its line (which is true).
-        --i;                                                                                         //i is overstepped at the end of the do-while loop.
+        } while ((!(WXE_LAST_WORD_ON_LINE & nextWordAttrs)));   // Note that this procedure works only
+                                                                // if the last word in the page is the 
+                                                                // last word in its line (which is true).
 
-        PDEContentAddElem(outPageContent, kPDEAfterLast, reinterpret_cast<PDEElement>(nextLine));    //We've captured the line, so add it to our output page's content.
+        --i;    // i got overstepped at the end of the do-while loop.
 
-        std::wcout << std::endl;
+        //We've captured the line, so add it to our output page's content.
+        PDEContentAddElem(outPageContent, kPDEAfterLast, reinterpret_cast<PDEElement>(nextLine));    
 
         //Prepare to draw the next line.
-        nextWordLocation.h  = leftMargin;                                                            //Reset our h coordinate to the left hand side we started on.
-        nextWordLocation.v -= Int16ToFixed(fontSize);                                                //Drop down the v coordinate just enough to draw new, non-overlapping text.
-        PDERelease(reinterpret_cast<PDEObject>(nextLine));                                           //We'll make a new PDEText object for the next line come next iteration.
+        nextWordLocation.h  = leftMargin;
+        //Drop down the v coordinate just enough to draw new text that won't overlap
+        nextWordLocation.v -= Int16ToFixed(fontSize);                                                
+        PDERelease(reinterpret_cast<PDEObject>(nextLine));
     }
 
-    PDPageSetPDEContentCanRaise(outPage, NULL);                                                      //We've now captured every line of text. This sets all the content we've just added into the page.
+    //We've now captured every line of text. This sets all the content we've just added into the page.
+    PDPageSetPDEContentCanRaise(outPage, NULL);                                                      
 
-    //We're done with these, so we release them.
     PDERelease(reinterpret_cast<PDEObject>(font));
-    PDWordFinderReleaseWordList(wordFinder, 0);                                                      //0 is the page index we used.
+    PDWordFinderReleaseWordList(wordFinder, 0);
     PDWordFinderDestroy(wordFinder);
     
-    std::wcout << std::endl << L"(Unicode text will not have displayed correctly.)";
-    std::wcout << std::endl << L"(But unicode text is printed in the output correctly.)" << std::endl;
-    std::wcout << std::endl << L"The text has been added to the output document." << std::endl;
+    PDPageReleasePDEContent(outPage, NULL);   
+    PDPageRelease(outPage);                   
+    outAPDoc.saveDoc( csOutputFileName1.c_str());                
 
-    PDPageReleasePDEContent(outPage, NULL);                                                          //The content must be released before we can release the page.
-    PDPageRelease(outPage);                                                                          //The page must be released before we can save the document.
-    outAPDoc.saveDoc(outPath);                                                                       //Save the new document. APDFLDoc's saveDoc method defaults to use the PDSaveFull flag.
+//Step 3) Extract unicode from a second PDF document into a text file 
 
-//=====================================================================================================================================================================================================================
-//Step 3) Extract unicode from a second PDF document. Open the document and extract the unicode chracters to a text file in the working directory.
-//=====================================================================================================================================================================================================================
+    APDFLDoc document ( csInputFileName2.c_str(), true);
 
-    APDFLDoc document(L"../_Input/ExtractUnicodeText.pdf", true);                                                       //Open the input document.
-
-    std::ofstream outputFile("ExtractedUnicodeText.txt");                                                               //Create a .txt output file for text extraction.
+    std::ofstream outputFile ( csOutputFileName2.c_str() ); 
 
     if (outputFile.is_open())
     {
-        PDWordFinder pdWordFinder = PDDocCreateWordFinderEx(document.getPDDoc(), WF_LATEST_VERSION, true, &wfConfig);    //If boolean value is set to true, the word finder extracts text in unicode.
+        // Here, we set the boolean value is set to true, in order to extract text in unicode.
+        PDWordFinder pdWordFinder = PDDocCreateWordFinderEx(document.getPDDoc(), WF_LATEST_VERSION, true, &wfConfig);
 
         ASInt32 numWords;
         PDWord wordArray;
-        PDWordFinderAcquireWordList(pdWordFinder, 0, &wordArray, NULL, NULL, &numWords);                                //This acquires the list of words from the first page (0).
+        PDWordFinderAcquireWordList(pdWordFinder, 0, &wordArray, NULL, NULL, &numWords);
 
-        std::wcout << L"There are " << numWords << L" words on the first page:" << std::endl << std::endl;
+        std::cout << "Extracting " << numWords << " (Unicode) words on the first page of "
+                  << csInputFileName2.c_str() << "; saving to " 
+                  << csOutputFileName2.c_str() << std::endl;
 
-        PDPage pdPage = document.getPage(0);                                                                            //We must acquire the page and it's content to add text to it.
-        PDEContent pdeContent = PDPageAcquirePDEContent(pdPage, 0);                                                     
+        PDPage pdPage = document.getPage(0);
 
-        for (ASInt32 index = 0; index < numWords; ++index)                                                              //Iterate through the acquired word list and extract the words to a text file.
+        for (ASInt32 index = 0; index < numWords; ++index)
         {
             ASUTF8Val* utf8String;
             PDWord pdWord = PDWordFinderGetNthWord(pdWordFinder, index);
@@ -204,14 +217,16 @@ int main(int argc, char** argv)
             ASText asText = ASTextNew();
             PDWordGetASText(pdWord, 0, asText);
 
-            utf8String = reinterpret_cast<ASUTF8Val*>(ASTextGetUnicodeCopy(asText, kUTF8));                             //Get the endian neutral utf8 string.
+            //Get the endian neutral utf8 string.
+            utf8String = reinterpret_cast<ASUTF8Val*>(ASTextGetUnicodeCopy(asText, kUTF8));                             
         
             ASUns16 wordAttrs = PDWordGetAttr(pdWord);
 
-            if ((WXE_LAST_WORD_ON_LINE & wordAttrs) == WXE_LAST_WORD_ON_LINE)                                           //Some formatting, more checks can be used for more complex documents.
-                outputFile << utf8String << std::endl;                                                                  //Insert the text into the output file.
-            else
-                outputFile << utf8String << " ";
+            outputFile << utf8String << " ";
+            if ((WXE_LAST_WORD_ON_LINE & wordAttrs) == WXE_LAST_WORD_ON_LINE)                                           
+            {
+                outputFile << std::endl;
+            }
 
             ASTextDestroy(asText);
         }
@@ -225,21 +240,16 @@ int main(int argc, char** argv)
 
         PDERelease((PDEObject)graphics.fillColorSpec.space);
         PDERelease((PDEObject)graphics.strokeColorSpec.space);
-
-        std::wcout << L"Success." << std::endl;
     }
     else
     {
-        std::wcout << L"Failed to create or open the output file." << std::endl;
+        std::cout << "Error opening output file." << std::endl;
     }
-    
 
-    HANDLER
+HANDLER
+    errCode = ERRORCODE;
+    libInit.displayError(errCode);
+END_HANDLER
 
-        errCode = ERRORCODE;
-        lib.displayError(errCode);                    //If there was an error, display it.
-
-    END_HANDLER
-
-    return errCode;                                   //APDFLib's destructor terminates the library.
+    return errCode;
 };

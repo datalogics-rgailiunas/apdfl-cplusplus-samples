@@ -1,8 +1,9 @@
-// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
+// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+//
+// For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-//===================================================================================
 // Sample: FlattenPDF - Uses the PDFlattener plugin to flatten the input document.
 //
 // Note:
@@ -13,7 +14,9 @@
 // Step 2) Configure the PDFlattener parameters.
 // Step 3) Call the PDFlattener.
 // Step 4) Save the document, close it, and terminate the plugin.
-//===================================================================================
+//
+// Command-line:  <input-file>  <output-file>       (Both optional)
+//
 
 #include <iomanip>
 
@@ -21,143 +24,154 @@
 #include "APDFLDoc.h"
 
 #include "PagePDECntCalls.h"
-#include "PDFlattenerCalls.h"    //Flattener plugin headers
+#include "PDFlattenerCalls.h"
+
+#define DIR_LOC "../../Samples/_Input/"
+#define DEF_INPUT "FlattenTransparency.pdf"
+#define DEF_OUTPUT "FlattenTransparency-out.pdf"
 
 //ASBool callback function: A function for PDFlattener which monitors the flattener's progress.
-ASBool flattenerProgMon(ASInt32 pageNum, ASInt32 totalPages, float current, ASInt32 reserved, void *clientData);
+static ASBool flattenerProgMon(ASInt32 pageNum, ASInt32 totalPages, float current, ASInt32 reserved, void *clientData);
 
 int main(int argc, char** argv)
 {
-    APDFLib libInit;                                            //Initialize the Adobe PDF Library.
-    ASErrorCode errCode = 0;                                    //Variable used to report any exceptions/errors if they occured.
+    ASErrorCode errCode = 0;
+    APDFLib libInit;
 
-    if (libInit.isValid() == false)                             //If there was a problem in initialization, return the error code.
+    if (libInit.isValid() == false)
+    {
+        errCode = libInit.getInitError();
+        std::cout << "Initialization failed with code " << errCode << std::endl;
         return libInit.getInitError();
+    }
+    
+    std::string csInputFileName ( argc > 1 ? argv[1] : DIR_LOC DEF_INPUT );
+    std::string csOutputFileName ( argc > 2 ? argv[2] : DEF_OUTPUT );
+    std::cout << "Flattening transparencies of " << csInputFileName.c_str() 
+              << " and saving to " << csOutputFileName.c_str() << std::endl;
 
     PDFlattenerUserParamsRec flattenParams;
 
-    DURING
+DURING
 
-        APDFLDoc doc(L"../_Input/FlattenTransparency.pdf", true);    //Open the input document, repairing it if it's damaged.
+    APDFLDoc doc ( csInputFileName.c_str(), true);
 
-//===================================================================================================================================================================================================================================
 // Step 1) Initialize the PDFLattener plugin.
-//===================================================================================================================================================================================================================================
 
-        gPDFlattenerHFT = InitPDFlattenerHFT;                                              //Sets the correct location for the PDFlattener function table.
+    //Sets the correct location for the PDFlattener function table.
+    gPDFlattenerHFT = InitPDFlattenerHFT;    
 
-        if (!PDFlattenerInitialize())
-        {
-            std::wcout << L"The PDFlattener plugin failed to initialize." << std::endl;
-            E_RETURN(-1);
-        }
+    if (!PDFlattenerInitialize())
+    {
+        std::cout << "The PDFlattener plugin failed to initialize." << std::endl;
+        return -1;
+    }
 
-//===================================================================================================================================================================================================================================
 // Step 2) Configure the PDFlattener parameters.
-//===================================================================================================================================================================================================================================
 
-        memset(&flattenParams,0,sizeof (PDFlattenerUserParamsRec));
-        flattenParams.size = sizeof(PDFlattenerUserParamsRec);
+    memset(&flattenParams,0,sizeof (PDFlattenerUserParamsRec));
+    flattenParams.size = sizeof(PDFlattenerUserParamsRec);
 
-        //////////////////////////////
-        // Appearance options.      //
-        //////////////////////////////
+    // Appearance options
 
-        flattenParams.profileDesc = ASTextFromUnicode((ASUTF16Val*)"sRGB IEC61966-2.1", kUTF8);    //A profiled color space to use for transparent objects. For CMYK, use "U.S. Web Coated (SWOP)v2".
-        flattenParams.colorCompression = kPDFlattenerZipCompression;                               //The ZIP compression scheme (Flate encoding) for images.
-        flattenParams.transQuality     = 100.0f;                                                   //Raster/Vector balance. Use 0.00f for no vectors.
+    //A profiled color space to use for transparent objects. For CMYK, use "U.S. Web Coated (SWOP)v2".
+    flattenParams.profileDesc = ASTextFromUnicode((ASUTF16Val*)"sRGB IEC61966-2.1", kUTF8);    
+    //The ZIP compression scheme (Flate encoding) for images.
+    flattenParams.colorCompression = kPDFlattenerZipCompression;                               
+    //Raster/Vector balance. Use 0.00f for no vectors.
+    flattenParams.transQuality     = 100.0f;                                                   
 
-        //////////////////////////////
-        // Callback options.        //
-        //////////////////////////////
+    // Callback options.
 
-        ASInt32 currentPage = -1;
-        flattenParams.progressClientData = (void*)&currentPage;                                    //Progress monitor callback data. I'm using this data to store the previous page the Flattener was working on, using -1 as "hasn't begun yet".
-        flattenParams.flattenProgress    = flattenerProgMon;                                       //The progress monitor callback function.
+    ASInt32 currentPage = -1;
+    //Progress monitor callback data. I'm using this data to store the previous page 
+    //   the Flattener was working on, using -1 as "hasn't begun yet".
+    flattenParams.progressClientData = (void*)&currentPage;                                    
+    //The progress monitor callback function.
+    flattenParams.flattenProgress    = flattenerProgMon;                                       
 
+    // Tile flattening options
+    
+    PDFlattenRec flattener;
+    memset(&flattener,0,sizeof (PDFlattenRec));
+    flattener.size = sizeof(PDFlattenRec);
 
-        //////////////////////////////
-        // Tile flattening options. //
-        //////////////////////////////
-        PDFlattenRec flattener;
-        memset(&flattener,0,sizeof (PDFlattenRec));
-        flattener.size = sizeof(PDFlattenRec);
+    flattener.tilingMode  = kPDNoTiling;
+    flattener.tileSizePts = 0;
 
-        flattener.tilingMode  = kPDNoTiling;                                                       //The tiling mode.
-        flattener.tileSizePts = 0;                                                                 //Target tile size, in points.
+    //Resolution for flattening the interior of an atomic region.
+    flattener.internalDPI = 800.0f;
+    //Resolution for flattening edges of atomic regions.
+    flattener.externalDPI = 200.0f;
 
-        flattener.internalDPI = 800.0f;                                                            //Resolution for flattening the interior of an atomic region.
-        flattener.externalDPI = 200.0f;                                                            //Resolution for flattening edges of atomic regions.
+    flattener.clipComplexRegions = false;
+    //If we convert stroked elements to filled elements.
+    flattener.strokeToFill       = true;
+    //If we use rastered text instead of native text.
+    flattener.useTextOutlines    = false;
+    //If we attempt to preserve overprint
+    flattener.preserveOverprint  = true;
 
-        flattener.clipComplexRegions = false;                                                      //If complex regions should be clipped.
-        flattener.strokeToFill       = true;                                                       //If we convert stroked elements to filled elements.
-        flattener.useTextOutlines    = false;                                                      //If we use rastered text instead of native text.
-        flattener.preserveOverprint  = true;                                                       //If we attempt to preserve overprint
+    flattener.allowShadingOutput       = true;
+    flattener.allowLevel3ShadingOutput = true;
 
-        flattener.allowShadingOutput       = true;                                                 //Allow shading output.
-        flattener.allowLevel3ShadingOutput = true;                                                 //Allow level 3 shading output.
+    //Maximum image size while flattening. 0 is default.
+    flattener.maxFltnrImageSize = 0;         
+    //Adaptive flattening threshold. Doesn't matter, since we're not doing adaptive tiling. See tilingMode.
+    flattener.adaptiveThreshold = 0;
 
-        flattener.maxFltnrImageSize = 0;                                                           //Maximum image size while flattening. 0 is default.
-        flattener.adaptiveThreshold = 0;                                                           //Adaptive flattening threshold. Doesn't matter, since we're not doing adaptive tiling. See tilingMode.
+    flattenParams.flattenParams = &flattener;
 
-        flattenParams.flattenParams = &flattener;
-
-//===================================================================================================================================================================================================================================
 // Step 3) Call the PDFlattener.
-//===================================================================================================================================================================================================================================
 
-        ASUns32 numFlattened = 0;
+    ASUns32 numFlattened = 0;
 
-        PDDoc pddoc = doc.getPDDoc();
-        ASInt32 result = 0;                                                       //PDFlattenerConvertEx2 will set this to 0 if flattening failed.
-        result = PDFlattenerConvertEx2(pddoc,                                     //The document whose pages we wish to flatten.
-                                       0,                                         //The first page to flatten.
-                                       PDDocGetNumPages(pddoc)-1,                 //The last page to flatten.
-                                       &numFlattened,                             //PDFlattener sets this to the number of pages it flattened. It will not flatten pages that do not contain transparent elements.
-                                       &flattenParams);                           //Flattener options.
+    PDDoc pddoc = doc.getPDDoc();
+    
+    //PDFlattenerConvertEx2 will set this to 0 if flattening failed.
+    ASInt32 result = 0;
 
-        if(result)
-            std::wcout << L"I flattened " << numFlattened << " pages." << std::endl;
-        else
-        {
-            std::wcout << L"Flattening failed." << std::endl;
-            ASRaise(GenError(genErrGeneral));
-        }
+    result = PDFlattenerConvertEx2 ( 
+                  pddoc,                       //The document whose pages we wish to flatten.
+                  0,                           //The first page to flatten.
+                  PDDocGetNumPages(pddoc)-1,   //The last page to flatten.
+                  &numFlattened,               //PDFlattener sets this to the number of pages 
+                                               //   it flattened. It will not flatten pages that do 
+                                               //   not contain transparent elements.
+                  &flattenParams);             //Flattener options.
 
-//===================================================================================================================================================================================================================================
-// Step 4) Save the document, close it, and terminate the plugin.
-//===================================================================================================================================================================================================================================
+    if(result)
+    {
+        std::cout << "Flattened " << numFlattened << " pages." << std::endl;
+    }
+    else
+    {
+        std::cout << "Flattening failed." << std::endl;
+        ASRaise(GenError(genErrGeneral));
+    }
 
-        doc.saveDoc(L"FlattenedTransparency.pdf");            //Save the document. APDFLDoc defaults to using the "PDSaveFull" flag while saving.
-                                                     //APDFLDoc's destructor takes care of closing the document and releasing the rest of its resources.
+// Step 4) Save the document, close it, release resources and terminate the plugin.
 
-        ASTextDestroy(flattenParams.profileDesc);    //Release resources. Hey, we only needed one creation!
+    doc.saveDoc ( csOutputFileName.c_str() );
+    ASTextDestroy(flattenParams.profileDesc);    
+    PDFlattenerTerminate();    
 
-        PDFlattenerTerminate();                      //Terminate the PDFlattener plugin.
+HANDLER
+    errCode = ERRORCODE;
+    libInit.displayError(errCode);
+    ASTextDestroy(flattenParams.profileDesc);
+    PDFlattenerTerminate();
+END_HANDLER
 
-    HANDLER
-
-        errCode = ERRORCODE;
-            libInit.displayError(errCode);           //If there was an error, display it.
-
-        ASTextDestroy(flattenParams.profileDesc);    //Release resources.
-
-        PDFlattenerTerminate();                      //Terminate the PDFlattener plugin.
-    END_HANDLER
-
-    if (!errCode)
-        std::wcout << L"Success!" << std::endl;
-
-    return errCode;                                  //APDFLib's destructor terminates the library.
+    return errCode;           //APDFLib's destructor terminates the library.
 }
 
-//===================================================================================================================================================================================================================================
 //ASBool callback function: A function for PDFlattener which monitors the flattener's progress.
 //
 //Note:
-//    clientData is an ASInt32* representing the previous page we were working on flattening. It must start with a page number that doesn't 
-//    exist, like -1. With it, we have this function print the progress only every time a new page is begun, or when the Flattener is finished.
-//===================================================================================================================================================================================================================================
+// clientData is an ASInt32* representing the previous page we were working on flattening. 
+// It must start with a page number that doesn't exist, like -1. With it, we have this function print 
+// the progress only every time a new page is begun, or when the Flattener is finished.
 ASBool flattenerProgMon(ASInt32 pageNum, ASInt32 totalPages, float current, ASInt32 reserved, void *clientData)
 {
     //The previous page we were working on.
@@ -167,10 +181,10 @@ ASBool flattenerProgMon(ASInt32 pageNum, ASInt32 totalPages, float current, ASIn
     if (pageNum != (*prevPage) || current == 100.0f)
     {
         //Print the completion percentage.
-        std::wcout << L"[" << std::fixed << std::setw(6) << std::setfill(L'0') << std::setprecision(2) << current << L"%] ";
+        std::cout << "[" << std::fixed << std::setw(6) << std::setfill('0') << std::setprecision(2) << current << "%] ";
 
         //Print the current page.
-        std::wcout << L"Flattening page " << pageNum+1 << L" of " << totalPages << L". " << std::endl;
+        std::cout << "Flattening page " << pageNum+1 << " of " << totalPages << ". " << std::endl;
 
         //Update previous page.
         *prevPage = pageNum;

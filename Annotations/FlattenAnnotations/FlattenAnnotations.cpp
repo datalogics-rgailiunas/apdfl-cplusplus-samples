@@ -1,22 +1,25 @@
-// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 //
+// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+//
+// For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-//=====================================================================================
 // Sample: FlattenAnnotations - Demonstrates flattening annotations.
 //
 // Note:
 // This sample merges the appearance (AP) dictionaries of all annotations on the page 
 // (if they have AP dictionaries) into the page's content stream, by converting them 
 // into Form XObjects.
-// See chapter 12.5.5 in the ISO 32000 document, “Appearance Streams,” on page 387, for
+// See chapter 12.5.5 in the ISO 32000 document, "Appearance Streams", on page 387, for
 // more information about annotation appearances.
 //
 // Steps:
 // 1) Convert each Annotation's appearance stream, if it has one, into a Form 
 //    XObject and remove the annotation.
 // 2) Save and close.
-//=====================================================================================
+//
+// Command-line:  <input-file>  <output-file>       (Both optional)
+//
 
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
@@ -26,90 +29,52 @@
 #include "PagePDECntCalls.h"
 #include "CosCalls.h"
 
-//A CosObjEnumProc puts the first entry of the CosDict obj, val, into clientData, and stops.
-ASBool getFirstElement(CosObj obj, CosObj val, void* clientData);
+#define DIR_LOC "../../Samples/_Input/"
+#define DEF_INPUT "FlattenAnnotations.pdf"
+#define DEF_OUTPUT "FlattenAnnotations-out.pdf"
+
+static CosObj FindAppearanceResourceEntry ( CosObj strm, PDPage page );
+static CosObj FindAnnotAppearanceStream ( CosObj annotCos );
 
 int main(int argc, char** argv)
 {
-    APDFLib libInit;                                               //Initialize the Adobe PDF Library.
-    ASErrorCode errCode = 0;                                       //Variable used to report any exceptions or errors if they occur.
-
-    if (libInit.isValid() == false)                                //If there was a problem with the initialization return the error code.
+    APDFLib libInit;
+    ASErrorCode errCode = 0;
+    if (libInit.isValid() == false)
+    {
+        errCode = libInit.getInitError();
+        std::cout << "Initialization failed with code " << errCode << std::endl;
         return libInit.getInitError();
+    }
+    
+    std::string csInputFileName ( argc > 1 ? argv[1] : DIR_LOC DEF_INPUT );
+    std::string csOutputFileName ( argc > 2 ? argv[2] : DEF_OUTPUT );
 
-    DURING
+DURING
 
-    APDFLDoc doc(L"../_Input/FlattenAnnotations.pdf", true);       //Open the input document, repairing it if necessary.
+    APDFLDoc doc ( csInputFileName.c_str(), true);
 
     PDPage page = doc.getPage(0);
     PDEContent  pageContent = PDPageAcquirePDEContent(page, 0);
 
-//======================================================================================================================================================================================================================================================================
-// 1) Convert each Annotation into a Form Xobject, and remove the annotation.
-//======================================================================================================================================================================================================================================================================
+// Step 1) Convert each Annotation into a Form Xobject, and remove the annotation.
 
-    std::wcout << L"This page has " << PDPageGetNumAnnots(page) << L" annotations." << std::endl;
-    std::wcout << L"Flattening them..." << std::endl;
+    ASInt32 nAnnotations = PDPageGetNumAnnots ( page );
 
-    for (int i = PDPageGetNumAnnots(page) - 1; i >= 0; --i)                                                        //Must be done in reverse order, because the annotation array is updated with each removal. See the documentation for PDPageRemoveAnnot.
+    std::cout << "Flattening " << nAnnotations << " from " << csInputFileName.c_str()
+              << " and writing to " << csOutputFileName.c_str() << std::endl;
+
+    // We need to iterate through the annotations in "reverse" order, since PDPageRemoveAnnot 
+    //    updates the array of annotations with each removal.
+    for ( ASInt32 i = nAnnotations - 1; i >= 0; --i )
     {
-        //Get the next annotation.
+        // Get the next annotation.
         PDAnnot next = PDPageGetAnnot(page, i);
         CosObj annotCos = PDAnnotGetCosObj(next);
 
-        CosObj appearanceStrm = CosNewNull();  //Will default to CosNull if we can't find an appearance stream for this annotation.
+        CosObj appearanceStrm = FindAnnotAppearanceStream ( annotCos );
+        CosObj resource = FindAppearanceResourceEntry ( appearanceStrm, page );
 
-        //Try to find this annotation's appearance stream, which may contain the resources CosObj we need to create the PDEForm of its appearance.
-        if (CosDictKnownKeyString(annotCos, "AP"))                        //The appearance dictionary of our annotation.
-        {
-            CosObj APDict = CosDictGetKeyString(annotCos, "AP");
-            if (CosDictKnownKeyString(APDict, "N"))
-            {
-                CosObj normal = CosDictGetKeyString(APDict, "N");       //The normal appearance of our annotation.
-
-                //The normal appearance is either a stream or a dictionary. If the appearance is a dictionary, 
-                //we will need to get the appearance stream from the appearance state ("AS").
-                if (CosObjGetType(normal) == CosStream)
-                    appearanceStrm = normal;
-                else
-                {
-                    if (CosDictKnownKeyString(annotCos, "AS"))
-                    {
-                        ASAtom appearanceName = CosNameValue(CosDictGetKeyString(annotCos, "AS"));
-
-                        if (CosDictKnown(normal, appearanceName))
-                            appearanceStrm = CosDictGet(normal, appearanceName);
-                    }
-                }
-            }
-        }
-
-        //If we found the appearance stream, we must find its resources entry. Otherwise the annotation has no appearance.
-        CosObj resource = CosNewNull();
-        if (CosObjGetType(appearanceStrm) != CosNull)
-        {
-            resource = CosDictGetKeyString(appearanceStrm, "Resources");
-
-            //If the appearance stream doesn't have a Resources entry, we must look for an appearance
-            //that might have been inherited from a parent page in the page tree.
-            if (CosObjGetType(resource) == CosNull)
-            {
-                CosObj pageObj = PDPageGetCosObj(page);
-                while (CosObjGetType(resource) == CosNull)
-                {
-                    resource = CosDictGetKeyString(pageObj, "Resources");
-                    if (CosObjGetType(resource) == CosNull)
-                    {
-                        pageObj = CosDictGetKeyString(pageObj, "Parent");
-                        if (CosObjGetType(pageObj) == CosNull)
-                            break;
-                    }
-                    else
-                        break;
-                }
-            }
-        }
-        
         if (CosObjGetType(resource) != CosNull)
         {
             // Place the annotation's resources in the page's content
@@ -130,36 +95,102 @@ int main(int argc, char** argv)
         else
         {
             //This annotation has no appearance.
-            std::wcout << L"Warning: The " << i << L"th annotation, a " << ASAtomGetString(PDAnnotGetSubtype(next)) << 
-                L", has no contained or inherited resources entry, so has no appearance. It will still be removed." << std::endl;
+            std::cout << "Warning: The " << i << "th annotation, a " 
+                      << ASAtomGetString(PDAnnotGetSubtype(next)) 
+                      << ", has no contained or inherited resources entry, so has no appearance. "
+                      << "It will still be removed." << std::endl;
         }
 
         PDPageRemoveAnnot(page, i);
 
     }
-        PDPageSetPDEContentCanRaise(page, 0);                                                                          //Set all this new content into the page.
+        PDPageSetPDEContentCanRaise(page, 0);
 
-//======================================================================================================================================================================================================================================================================
-// 2) Save and close.
-//======================================================================================================================================================================================================================================================================
-
-    std::wcout << L"Saving..." << std::endl;
+// Step 2) Save and close.
 
     //Release resources.
     PDPageReleasePDEContent(page, 0);
     PDPageRelease(page);
 
-    doc.saveDoc(L"Flattened.pdf");                 //APDFLDoc's destructor takes care of closing the rest of the PDDoc's resources.
+    doc.saveDoc ( csOutputFileName.c_str() );
 
-    HANDLER
+HANDLER
+    errCode = ERRORCODE;
+    libInit.displayError(errCode);
+END_HANDLER
 
-        errCode = ERRORCODE;
-        libInit.displayError(errCode);             //If there was an error, display it.
+    return errCode;
+}
 
-    END_HANDLER
+// Try to find an annotation's appearance stream, which may contain the resource's CosObj 
+//    that we will need to create the PDEForm of its appearance.
+//
+/* static */ CosObj FindAnnotAppearanceStream ( CosObj annotCos )
+{
+    CosObj retObj = CosNewNull();
+    // The appearance dictionary of our annotation.
+    if (CosDictKnownKeyString(annotCos, "AP"))                        
+    {
+        // The appearance dictionary of this annotation
+        CosObj APDict = CosDictGetKeyString(annotCos, "AP");
+        if (CosDictKnownKeyString(APDict, "N"))
+        {
+            //The normal appearance of our annotation.
+            CosObj normal = CosDictGetKeyString(APDict, "N");       
 
-    if (!errCode)
-        std::wcout << L"Success!" << std::endl;
+            //The normal appearance is either a stream or a dictionary. If the appearance is a dictionary, 
+            //we will need to get the appearance stream from the appearance state ("AS").
+            if (CosObjGetType(normal) == CosStream)
+            {
+                retObj = normal;
+            }
+            else
+            {
+                if (CosDictKnownKeyString(annotCos, "AS"))
+                {
+                    ASAtom appearanceName = CosNameValue(CosDictGetKeyString(annotCos, "AS"));
+                    if (CosDictKnown(normal, appearanceName))
+                    {
+                        retObj = CosDictGet(normal, appearanceName);
+                    }
+                }
+            }
+        }
+    }
+    return retObj;
+}
 
-    return errCode;                                //APDFLib's destructor terminates the library.
+// If we found an appearance stream, we must find its resources entry. Otherwise the annotation has no appearance.
+//
+/* static */ CosObj FindAppearanceResourceEntry ( CosObj strm, PDPage page )
+{
+    CosObj retObj = CosNewNull();
+    if (CosObjGetType ( strm ) != CosNull)
+    {
+        retObj = CosDictGetKeyString( strm, "Resources");
+
+        // If the appearance stream doesn't have a Resources entry, we must look for an appearance
+        // that might have been inherited from a parent page in the page tree.
+        if ( CosObjGetType ( retObj ) == CosNull)
+        {
+            CosObj pageObj = PDPageGetCosObj(page);
+            while (CosObjGetType( retObj ) == CosNull)
+            {
+                retObj = CosDictGetKeyString(pageObj, "Resources");
+                if (CosObjGetType( retObj ) == CosNull)
+                {
+                    pageObj = CosDictGetKeyString(pageObj, "Parent");
+                    if (CosObjGetType(pageObj) == CosNull)
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+    }
+    return retObj;
 }
