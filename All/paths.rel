@@ -1,7 +1,7 @@
 PDFL_PATH = ../..
 
 ifeq ($(PDF_FDIR_DEF), )
-PDF_FDIR_DEF=-DPDF_FDIR\=\"../_Data/\"
+PDF_FDIR_DEF=-DPDF_FDIR\=\"../_Input/\"
 endif
  
 SRC=./
