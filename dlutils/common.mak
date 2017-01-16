@@ -11,13 +11,13 @@ UTIL = ../../Samples/dlutils
 # since plugin samples compile these differently
 COMMON_OBJS = PDFLInitCommon.o PDFLInitHFT.o InitializeLibrary.o APDFLDoc.o
 
-INCLUDE = ../../../APDFL/Include/Headers
+INCLUDE = ../../../C_Interface/Include/Headers
 DLI_INCLUDE = ../../../DLI/Include
-SOURCE=../../../APDFL/Include/Source
+SOURCE=../../../C_Interface/Include/Source
 COMMON=../../Samples/_Common
 
 include $(UTIL)/$(OS).mak
-include ../../../APDFL/Samples_Adobe/All/paths.rel
+include ../All/paths.rel
 
 default: $(SAMPNAME)
 
