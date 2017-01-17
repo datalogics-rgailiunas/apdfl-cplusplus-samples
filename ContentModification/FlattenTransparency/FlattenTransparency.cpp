@@ -64,9 +64,11 @@ DURING
     if (!PDFlattenerInitialize())
     {
         std::cout << "The PDFlattener plugin failed to initialize." << std::endl;
-        return -1;
+        errCode = -1;
     }
 
+    if ( 0 == errCode )
+    {
 // Step 2) Configure the PDFlattener parameters.
 
     memset(&flattenParams,0,sizeof (PDFlattenerUserParamsRec));
@@ -155,7 +157,8 @@ DURING
     doc.saveDoc ( csOutputFileName.c_str() );
     ASTextDestroy(flattenParams.profileDesc);    
     PDFlattenerTerminate();    
-
+    
+    }    // if 0 == errCode
 HANDLER
     errCode = ERRORCODE;
     libInit.displayError(errCode);
