@@ -6,7 +6,7 @@
 //
 // Sample: ExtractText - Extracts Unicode and ASCII text from PDF documents
 //
-// This sample will extract text from two seperate PDF documents.  The program demonstrates 
+// This sample will extract text from two separate PDF documents.  The program demonstrates 
 // APDFL's ability to handle ASCII and unicode text extraction.
 //
 //Steps:
@@ -61,7 +61,7 @@ DURING
 // Step 1) Initialize the PDWordFinder class and things we'll need to draw the text to the output.
 
     // Note: This is not the only way to search through text (See the sample AddBookmarks 
-    //    for another way), but it is a well-supported way.
+    // for another way), but it is a well-supported way.
 
     //Prepare the font we'll draw the text with.
     PDEFontAttrs fontAttrs;
@@ -149,7 +149,7 @@ DURING
             nextWordLocation.h = newLocation.right;                                                  
 
             //If the last word we printed is followed by a space, add a little to 
-            //    the starting h coordinate of the next word to account for that.
+            //the starting h coordinate of the next word to account for that.
             nextWordAttrs = PDWordGetAttr(nextWord);
             if (WXE_ADJACENT_TO_SPACE & nextWordAttrs)
             {

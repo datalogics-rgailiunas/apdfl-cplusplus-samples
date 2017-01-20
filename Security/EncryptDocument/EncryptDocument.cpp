@@ -52,9 +52,9 @@ DURING
 
     // Verify it is not encrypted at this time
     // Actually, this is not needed, as based on the technique just used to open the document (not 
-    //    calling PDDocOpen with a PDAuthProc provided) the above constructor would have raised were
-    //    the document already password encrypted.
-    //    It is included here for contrasting against its result at the end of the program.
+    // calling PDDocOpen with a PDAuthProc provided) the above constructor would have raised were
+    // the document already password encrypted.
+    // It is included here for contrast against its result at the end of the program.
     if ( IsDocEncrypted ( document.pdDoc ) )                                  
     {
         std::cout << "Error! Input document seems to already be encrypted!" << std::endl;

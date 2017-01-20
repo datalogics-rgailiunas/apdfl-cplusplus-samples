@@ -125,7 +125,7 @@ END_HANDLER
 // Try to find an annotation's appearance stream, which may contain the resource's CosObj 
 //    that we will need to create the PDEForm of its appearance.
 //
-/* static */ CosObj FindAnnotAppearanceStream ( CosObj annotCos )
+CosObj FindAnnotAppearanceStream ( CosObj annotCos )
 {
     CosObj retObj = CosNewNull();
     // The appearance dictionary of our annotation.
@@ -162,7 +162,7 @@ END_HANDLER
 
 // If we found an appearance stream, we must find its resources entry. Otherwise the annotation has no appearance.
 //
-/* static */ CosObj FindAppearanceResourceEntry ( CosObj strm, PDPage page )
+CosObj FindAppearanceResourceEntry ( CosObj strm, PDPage page )
 {
     CosObj retObj = CosNewNull();
     if (CosObjGetType ( strm ) != CosNull)
