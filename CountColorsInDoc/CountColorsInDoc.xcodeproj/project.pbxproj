@@ -12,7 +12,7 @@
 		2E21C06F1C8DD3FD00018A6D /* APDFLDoc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E21C06B1C8DD3FD00018A6D /* APDFLDoc.h */; };
 		2E21C0701C8DD3FD00018A6D /* InitializeLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E21C06C1C8DD3FD00018A6D /* InitializeLibrary.cpp */; };
 		2E21C0711C8DD3FD00018A6D /* InitializeLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E21C06D1C8DD3FD00018A6D /* InitializeLibrary.h */; };
-		2E21C0841C8DD7DE00018A6D /* FindImageResolutions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E21C0831C8DD7DE00018A6D /* FindImageResolutions.cpp */; };
+		2E21C0841C8DD7DE00018A6D /* CountColorsInDoc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E21C0831C8DD7DE00018A6D /* CountColorsInDoc.cpp */; };
 		335725340C9B40490095FC3D /* DL150ACE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252A0C9B40480095FC3D /* DL150ACE.framework */; };
 		335725350C9B40490095FC3D /* DL150AGM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252B0C9B40480095FC3D /* DL150AGM.framework */; };
 		335725360C9B40490095FC3D /* DL150ARE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252C0C9B40480095FC3D /* DL150ARE.framework */; };
@@ -38,7 +38,6 @@
 		3E56135B0F8BF3DD0094B7E7 /* ICUConverter.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613530F8BF3C70094B7E7 /* ICUConverter.framework */; };
 		3E56135C0F8BF3E30094B7E7 /* ICUData.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613560F8BF3CC0094B7E7 /* ICUData.framework */; };
 		8D0C4E920486CD37000505A6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Foundation.framework */; };
-		A09F2E801DDF7430007DD6D7 /* MakeSample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A09F2E7F1DDF7430007DD6D7 /* MakeSample.cpp */; settings = {ASSET_TAGS = (); }; };
 		BA2E45960888421A0081FD28 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2E45950888421A0081FD28 /* ApplicationServices.framework */; };
 		BA3D8C2B0B652F6E0079A6FB /* ToolkitInitEASF.h in Headers */ = {isa = PBXBuildFile; fileRef = BA3D8BBB0B652F6E0079A6FB /* ToolkitInitEASF.h */; };
 		BA3D8C2C0B652F6E0079A6FB /* XtnMgrEASF.h in Headers */ = {isa = PBXBuildFile; fileRef = BA3D8BBC0B652F6E0079A6FB /* XtnMgrEASF.h */; };
@@ -193,7 +192,7 @@
 		2E21C06B1C8DD3FD00018A6D /* APDFLDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APDFLDoc.h; path = ../../Samples/_Common/APDFLDoc.h; sourceTree = "<group>"; };
 		2E21C06C1C8DD3FD00018A6D /* InitializeLibrary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InitializeLibrary.cpp; path = ../../Samples/_Common/InitializeLibrary.cpp; sourceTree = "<group>"; };
 		2E21C06D1C8DD3FD00018A6D /* InitializeLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InitializeLibrary.h; path = ../../Samples/_Common/InitializeLibrary.h; sourceTree = "<group>"; };
-		2E21C0831C8DD7DE00018A6D /* FindImageResolutions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FindImageResolutions.cpp; sourceTree = "<group>"; };
+		2E21C0831C8DD7DE00018A6D /* CountColorsInDoc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CountColorsInDoc.cpp; sourceTree = "<group>"; };
 		3357252A0C9B40480095FC3D /* DL150ACE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150ACE.framework; path = ../../Libs/DL150ACE.framework; sourceTree = SOURCE_ROOT; };
 		3357252B0C9B40480095FC3D /* DL150AGM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150AGM.framework; path = ../../Libs/DL150AGM.framework; sourceTree = SOURCE_ROOT; };
 		3357252C0C9B40480095FC3D /* DL150ARE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150ARE.framework; path = ../../Libs/DL150ARE.framework; sourceTree = SOURCE_ROOT; };
@@ -206,7 +205,6 @@
 		3E5613500F8BF3B90094B7E7 /* DL150AdobeXMP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150AdobeXMP.framework; path = ../../Libs/DL150AdobeXMP.framework; sourceTree = SOURCE_ROOT; };
 		3E5613530F8BF3C70094B7E7 /* ICUConverter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ICUConverter.framework; path = ../../Libs/ICUConverter.framework; sourceTree = SOURCE_ROOT; };
 		3E5613560F8BF3CC0094B7E7 /* ICUData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ICUData.framework; path = ../../Libs/ICUData.framework; sourceTree = SOURCE_ROOT; };
-		A09F2E7F1DDF7430007DD6D7 /* MakeSample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MakeSample.cpp; sourceTree = "<group>"; };
 		BA2E45950888421A0081FD28 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		BA3D8BBB0B652F6E0079A6FB /* ToolkitInitEASF.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; name = ToolkitInitEASF.h; path = ../../Include/Headers/ToolkitInitEASF.h; sourceTree = SOURCE_ROOT; };
 		BA3D8BBC0B652F6E0079A6FB /* XtnMgrEASF.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; name = XtnMgrEASF.h; path = ../../Include/Headers/XtnMgrEASF.h; sourceTree = SOURCE_ROOT; };
@@ -322,7 +320,7 @@
 		BA3D8C2A0B652F6E0079A6FB /* AcroColorProcs.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; name = AcroColorProcs.h; path = ../../Include/Headers/AcroColorProcs.h; sourceTree = SOURCE_ROOT; };
 		BA568C150A47467400825A50 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		BA64AAB10B5829E00026827E /* PDFLInitHFT.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = PDFLInitHFT.c; path = ../../Include/Source/PDFLInitHFT.c; sourceTree = SOURCE_ROOT; };
-		BAAFDE0808980F3600470124 /* FindImageResolutions-Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FindImageResolutions-Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAAFDE0808980F3600470124 /* CountColorsInDoc-Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CountColorsInDoc-Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAB910C20B582A3000C283C9 /* PDFLInitCommon.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = PDFLInitCommon.c; path = ../../Include/Source/PDFLInitCommon.c; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -355,7 +353,7 @@
 		195DF8CFFE9D517E11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BAAFDE0808980F3600470124 /* FindImageResolutions-Debug.app */,
+				BAAFDE0808980F3600470124 /* CountColorsInDoc-Debug.app */,
 			);
 			name = Products;
 			sourceTree = SOURCE_ROOT;
@@ -377,8 +375,7 @@
 		20286C2AFDCF999611CA2CEA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				A09F2E7F1DDF7430007DD6D7 /* MakeSample.cpp */,
-				2E21C0831C8DD7DE00018A6D /* FindImageResolutions.cpp */,
+				2E21C0831C8DD7DE00018A6D /* CountColorsInDoc.cpp */,
 				2E21C06A1C8DD3FD00018A6D /* APDFLDoc.cpp */,
 				2E21C06B1C8DD3FD00018A6D /* APDFLDoc.h */,
 				2E21C06C1C8DD3FD00018A6D /* InitializeLibrary.cpp */,
@@ -685,9 +682,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8D0C4E890486CD37000505A6 /* FindImageResolutions */ = {
+		8D0C4E890486CD37000505A6 /* CountColorsInDoc */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BACCD184089AA4370006D315 /* Build configuration list for PBXNativeTarget "FindImageResolutions" */;
+			buildConfigurationList = BACCD184089AA4370006D315 /* Build configuration list for PBXNativeTarget "CountColorsInDoc" */;
 			buildPhases = (
 				BA3D8D0B0B652F7E0079A6FB /* Headers */,
 				8D0C4E8F0486CD37000505A6 /* Sources */,
@@ -698,10 +695,10 @@
 			);
 			dependencies = (
 			);
-			name = FindImageResolutions;
+			name = CountColorsInDoc;
 			productInstallPath = "$(HOME)/Applications";
 			productName = HelowrldX;
-			productReference = BAAFDE0808980F3600470124 /* FindImageResolutions-Debug.app */;
+			productReference = BAAFDE0808980F3600470124 /* CountColorsInDoc-Debug.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -712,7 +709,7 @@
 			attributes = {
 				LastUpgradeCheck = 0450;
 			};
-			buildConfigurationList = BACCD188089AA4370006D315 /* Build configuration list for PBXProject "FindImageResolutions" */;
+			buildConfigurationList = BACCD188089AA4370006D315 /* Build configuration list for PBXProject "CountColorsInDoc" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -723,7 +720,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D0C4E890486CD37000505A6 /* FindImageResolutions */,
+				8D0C4E890486CD37000505A6 /* CountColorsInDoc */,
 			);
 		};
 /* End PBXProject section */
@@ -735,10 +732,9 @@
 			files = (
 				BA64AAB20B5829E00026827E /* PDFLInitHFT.c in Sources */,
 				2E21C06E1C8DD3FD00018A6D /* APDFLDoc.cpp in Sources */,
-				2E21C0841C8DD7DE00018A6D /* FindImageResolutions.cpp in Sources */,
+				2E21C0841C8DD7DE00018A6D /* CountColorsInDoc.cpp in Sources */,
 				2E21C0701C8DD3FD00018A6D /* InitializeLibrary.cpp in Sources */,
 				BAB910C30B582A3000C283C9 /* PDFLInitCommon.c in Sources */,
-				A09F2E801DDF7430007DD6D7 /* MakeSample.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -802,7 +798,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BACCD184089AA4370006D315 /* Build configuration list for PBXNativeTarget "FindImageResolutions" */ = {
+		BACCD184089AA4370006D315 /* Build configuration list for PBXNativeTarget "CountColorsInDoc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BACCD187089AA4370006D315 /* Debug */,
@@ -811,7 +807,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		BACCD188089AA4370006D315 /* Build configuration list for PBXProject "FindImageResolutions" */ = {
+		BACCD188089AA4370006D315 /* Build configuration list for PBXProject "CountColorsInDoc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BACCD18B089AA4370006D315 /* Debug */,
