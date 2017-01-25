@@ -41,8 +41,7 @@ SAMPLES = AddArt \
           WebOptimizedPDF 
 
 ifeq ($(OS), i80386linux)
-	# SAMPLES += FlattenTransparency XPStoPDF PDFOptimizer
-	SAMPLES += FlattenTransparency  PDFOptimizer
+	SAMPLES += FlattenTransparency XPStoPDF PDFOptimizer
 endif
 
 ifeq ($(OS), sparcsolaris)
@@ -82,4 +81,3 @@ clean:
 	for target in $(SAMPLES); do \
 		(cd ../$$target && $(MAKE) clean); \
 	done;
-
