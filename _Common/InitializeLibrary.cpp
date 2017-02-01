@@ -23,6 +23,9 @@
 //initializes APDFL and does not default the DL150PDFL.dll directory. dl150Dir should be a relative path.
 //========================================================================================================
 APDFLib::APDFLib(wchar_t* dl150Dir)
+#if AIX_GCC_COMPAT
+    :gccHelp()
+#endif
 {
     initValid = false;                            //Whether the initialization succeeded.
 
@@ -44,6 +47,7 @@ APDFLib::APDFLib(wchar_t* dl150Dir)
     pdflData.size = sizeof(PDFLDataRec);          //Give it its size.
     pdflData.allocator = NULL;                    //Use default memory allocation procedures.
     fillDirectories();                            //Set the directory inclusion data.
+
 #ifdef LOAD_PLUGIN
 	pdflData.pluginDirList[0] = "../../../APDFL/Libs"; /* specify plugin path */
 #endif
