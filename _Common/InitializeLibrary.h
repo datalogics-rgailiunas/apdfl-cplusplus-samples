@@ -82,7 +82,6 @@ public:
     static void displayError(ASErrorCode);            //Utility method, may be used to print APDFL errors to the terminal.
 
 private:
-    APDFLib();                                        // not implemented
     APDFLib(const APDFLib&);                          // not implemented
     PDFLDataRec pdflData;                             //A struct containing information that APDFL initializes with.
     ASInt32 initError;                                //Used to record initialization errors.
