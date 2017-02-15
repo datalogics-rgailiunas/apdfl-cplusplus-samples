@@ -16,7 +16,7 @@
 
 #include "PDFUncompress.h"
 
-#define INPUT_DIR "../../Samples/_Input/"
+#define INPUT_DIR "../../../../Resources/Sample_Input/"
 #define INPUT_FILE "CopyContent.pdf"
 #define OUTPUT_FILE "PDFUncompress-out.pdf"
 

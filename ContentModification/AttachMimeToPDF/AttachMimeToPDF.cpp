@@ -19,7 +19,7 @@
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
 
-#define INPUT_DIR "../../Samples/_Input/"
+#define INPUT_DIR "../../../../Resources/Sample_Input/"
 #define DEFAULT_INPUT "AttachMimeToPDF-in.pdf"
 #define DEFAULT_ATTACH "attachment.txt"
 #define DEFAULT_OUTPUT "AttachMimeToPDF-out.pdf"

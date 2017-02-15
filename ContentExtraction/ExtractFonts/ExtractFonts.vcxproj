@@ -90,7 +90,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\headers;..\..\..\APDFL\Samples\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Include\Headers;..\..\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>UNICODE;WIN32;WIN_ENV;_DEBUG;_CONSOLE;PRODUCT="HFTLibrary.h";_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -101,7 +101,7 @@
     <Link>
       <AdditionalDependencies>DL150PDFL.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)ExtractFonts.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\APDFL\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)ExtractFonts.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
@@ -111,7 +111,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\headers;..\..\..\APDFL\Samples\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Include\Headers;..\..\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>UNICODE;WIN32;WIN_ENV;_DEBUG;_CONSOLE;PRODUCT="HFTLibrary.h";_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -123,7 +123,7 @@
     <Link>
       <AdditionalDependencies>DL150PDFL.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)ExtractFonts.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\APDFL\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)ExtractFonts.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
@@ -131,7 +131,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\..\..\APDFL\Samples\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Include\Headers;..\..\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>UNICODE;WIN32;NDEBUG;_CONSOLE;WIN_ENV;PRODUCT="HFTLibrary.h";_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader />
@@ -141,7 +141,7 @@
     <Link>
       <AdditionalDependencies>DL150PDFL.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)ExtractFonts.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\\APDFL\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -151,7 +151,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\..\..\APDFL\Samples\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Include\Headers;..\..\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>UNICODE;WIN32;NDEBUG;_CONSOLE;WIN_ENV;PRODUCT="HFTLibrary.h";_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>
@@ -162,7 +162,7 @@
     <Link>
       <AdditionalDependencies>DL150PDFL.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)ExtractFonts.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\\APDFL\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -170,10 +170,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Include\Source\PDFLInitCommon.c" />
-    <ClCompile Include="..\..\Include\Source\PDFLInitHFT.c" />
-    <ClCompile Include="..\..\Samples\_Common\InitializeLibrary.cpp" />
-    <ClCompile Include="..\..\Samples\_Common\APDFLDoc.cpp" />
+    <ClCompile Include="..\..\..\Include\Source\PDFLInitCommon.c" />
+    <ClCompile Include="..\..\..\Include\Source\PDFLInitHFT.c" />
+    <ClCompile Include="..\..\_Common\InitializeLibrary.cpp" />
+    <ClCompile Include="..\..\_Common\APDFLDoc.cpp" />
     <ClCompile Include="ExtractFonts.cpp" />
   </ItemGroup>
   <ItemGroup>

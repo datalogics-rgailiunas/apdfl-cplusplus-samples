@@ -24,7 +24,7 @@
 #include "PSFCalls.h"
 #include "PEWCalls.h"
 
-#define INPUT_LOC "../../Samples/_Input/"
+#define INPUT_LOC "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "AddWatermark.pdf"
 #define DEF_WATER "Watermark.pdf"
 #define DEF_OUTPUT "AddWatermark-out.pdf"

@@ -46,7 +46,7 @@ int main(int argc, char** argv)
 
     //The .joboptions file specifies a great number of settings which determine exactly how the PDF document
     //is created by the converter.
-    ASText jobNameText = ASTextFromUnicode((ASUTF16Val*)"../../Resource/joboptions/Standard.joboptions", kUTF8);
+    ASText jobNameText = ASTextFromUnicode((ASUTF16Val*)"../../../../Resources/joboptions/Standard.joboptions", kUTF8);
     ASCabPutText(settings, "PDFSettings", jobNameText);
 
     //Specify which description in the .joboptions file we will use.

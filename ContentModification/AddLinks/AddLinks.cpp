@@ -26,7 +26,7 @@
 #include "APDFLDoc.h"
 #include "CosCalls.h"
 
-#define DIR_LOC "../../Samples/_Input/"
+#define DIR_LOC "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "AddLinks.pdf"
 #define DEF_OUTPUT "AddLinks-out.pdf"
 

@@ -34,7 +34,7 @@
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
 
-#define INPUT_DIR "../../Samples/_Input/"
+#define INPUT_DIR "../../../../Resources/Sample_Input/"
 #define INPUT_FILE "AlternateFileSystem-in.pdf"
 #define OUTPUT_FILE "AlternateFileSystem-out.pdf"
 

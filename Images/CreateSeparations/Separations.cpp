@@ -29,7 +29,7 @@
 #define FONT_NAME "MyriadPro-Regular"
 #define FONT_TYPE "TrueType"
 
-#define INPUT_LOC "../../Samples/_Input/"
+#define INPUT_LOC "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "RenderPage.pdf"
 #define DEF_ROOT "Out_.pdf"
 

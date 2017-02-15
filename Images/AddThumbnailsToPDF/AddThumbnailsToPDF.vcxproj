@@ -97,7 +97,7 @@
     <ClCompile>
       <Optimization>Full</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\..\..\APDFL\Samples\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Include\Headers;..\..\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;UNICODE;WIN32;NDEBUG;_CONSOLE;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -120,7 +120,7 @@
       <AdditionalDependencies>DL150PDFL.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)\AddThumbnailsToPDF.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>..\..\..\APDFL\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ProgramDatabaseFile>.\..\AddThumbnailsToPDF\Release/AddThumbnailsToPDF.pdb</ProgramDatabaseFile>
       <GenerateMapFile>false</GenerateMapFile>
       <SubSystem>Console</SubSystem>
@@ -136,7 +136,7 @@
     <ClCompile>
       <Optimization>Full</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\..\..\APDFL\Samples\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Include\Headers;..\..\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;UNICODE;WIN32;NDEBUG;_CONSOLE;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -160,7 +160,7 @@
       <AdditionalDependencies>DL150PDFL.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)\AddThumbnailsToPDF.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>..\..\..\APDFL\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ProgramDatabaseFile>.\..\AddThumbnailsToPDF\Release/AddThumbnailsToPDF.pdb</ProgramDatabaseFile>
       <GenerateMapFile>false</GenerateMapFile>
       <SubSystem>Console</SubSystem>
@@ -173,7 +173,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\..\..\APDFL\Samples\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Include\Headers;..\..\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;UNICODE;_DEBUG;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";WIN32;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -195,7 +195,7 @@
       <AdditionalDependencies>DL150pdfl.lib;AdvAPI32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)\AddThumbnailsToPDF.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>..\..\..\APDFL\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>.\Debug/AddThumbnailsToPDF.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
@@ -210,7 +210,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\..\..\APDFL\Samples\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Include\Headers;..\..\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;UNICODE;_DEBUG;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";WIN32;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -233,17 +233,17 @@
       <AdditionalDependencies>DL150pdfl.lib;AdvAPI32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)\AddThumbnailsToPDF.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>..\..\..\APDFL\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>.\Debug/AddThumbnailsToPDF.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Include\Source\PDFLInitCommon.c" />
-    <ClCompile Include="..\..\Include\Source\PDFLInitHFT.c" />
-    <ClCompile Include="..\..\Samples\_Common\InitializeLibrary.cpp" />
-    <ClCompile Include="..\..\Samples\_Common\APDFLDoc.cpp" />
+    <ClCompile Include="..\..\..\Include\Source\PDFLInitCommon.c" />
+    <ClCompile Include="..\..\..\Include\Source\PDFLInitHFT.c" />
+    <ClCompile Include="..\..\_Common\InitializeLibrary.cpp" />
+    <ClCompile Include="..\..\_Common\APDFLDoc.cpp" />
     <ClCompile Include="AddThumbnailsToPDF.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

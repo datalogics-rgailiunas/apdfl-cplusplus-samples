@@ -18,7 +18,7 @@
 #include "APDFLDoc.h"
 #include "DLExtrasCalls.h"
 
-#define DIR_LOC "../../Samples/_Input/"
+#define DIR_LOC "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "Ulysses.pdf"
 #define DEF_OUTPUT "PDFOptimizer-out.pdf"
 

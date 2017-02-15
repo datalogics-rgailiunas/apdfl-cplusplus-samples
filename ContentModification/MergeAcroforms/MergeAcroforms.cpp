@@ -21,7 +21,7 @@
 #include "APDFLDoc.h"
 #include "MergeAcroforms.h"
 
-#define INPUT_DIR "../../Samples/_Input/"
+#define INPUT_DIR "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "FSA_Fillable.pdf"
 #define DEF_OUTPUT "MergeAcroforms-out.pdf"
 

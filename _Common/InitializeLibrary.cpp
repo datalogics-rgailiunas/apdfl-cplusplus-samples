@@ -31,7 +31,7 @@ APDFLib::APDFLib(wchar_t* dl150Dir)
 
 #ifdef WIN_PLATFORM
     if (dl150Dir == NULL)
-        dl150Dir = L"..\\..\\Libs";               //The default DL150PDFL.lib directory.
+        dl150Dir = L"..\\..\\..\\Binaries";               //The default DL150PDFL.lib directory.
 
     HINSTANCE dllInst = loadDFL150PDFL (dl150Dir);
     if (dllInst == 0)
@@ -49,7 +49,7 @@ APDFLib::APDFLib(wchar_t* dl150Dir)
     fillDirectories();                            //Set the directory inclusion data.
 
 #ifdef LOAD_PLUGIN
-	pdflData.pluginDirList[0] = "../../../APDFL/Libs"; /* specify plugin path */
+	pdflData.pluginDirList[0] = "../../../Binaries"; /* specify plugin path */
 #endif
 #ifdef WIN_PLATFORM
     pdflData.inst = dllInst;
@@ -195,23 +195,23 @@ void APDFLib::fillDirectories()
 {
 #ifdef WIN_PLATFORM
 	//Set the font directory list and its length.
-    fontDirList[0] = (ASUTF16Val*)L"..\\..\\..\\APDFL\\Resource\\Font";
-    fontDirList[1] = (ASUTF16Val*)L"..\\..\\..\\APDFL\\Resource\\CMap";
+    fontDirList[0] = (ASUTF16Val*)L"..\\..\\..\\..\\Resources\\Font";
+    fontDirList[1] = (ASUTF16Val*)L"..\\..\\..\\..\\Resources\\CMap";
     pdflData.dirList = fontDirList;
     pdflData.listLen = NUM_FONTS;
 
 	//Set the color profile directory list and its length.
-    colorProfDirList[0] = (ASUTF16Val*)L"..\\..\\..\\APDFL\\Resource\\Color\\Profiles";
+    colorProfDirList[0] = (ASUTF16Val*)L"..\\..\\..\\..\\Resources\\Color\\Profiles";
     pdflData.colorProfileDirList = colorProfDirList;
     pdflData.colorProfileDirListLen = NUM_COLOR_PROFS;
 
 	//Set the Unicode directory.
     pdflData.cMapDirectory = fontDirList[1];
-    pdflData.unicodeDirectory = (ASUTF16Val*)L"..\\..\\..\\APDFL\\Resource\\Unicode";
+    pdflData.unicodeDirectory = (ASUTF16Val*)L"..\\..\\..\\..\\Resources\\Unicode";
 
 	//Set the plugin directory and its length.
     static TCHAR pluginPathBuffer[1024];
-    GetFullPathName (L"..\\..\\..\\APDFL\\Libs", 1024, pluginPathBuffer, 0);
+    GetFullPathName (L"..\\..\\..\\Binaries", 1024, pluginPathBuffer, 0);
     pluginDirList[0] = (ASUTF16Val*)pluginPathBuffer;
     pdflData.pluginDirList = pluginDirList;
     pdflData.pluginDirListLen = NUM_PLUGIN_DIRS;
@@ -222,19 +222,19 @@ void APDFLib::fillDirectories()
 	const char* SUB_RESOURCE_DIR[ NO_OF_RESOURCE_DIR ] = { "Font", "CMap" };
 
 	//Set the font directory list and its length.
-	fontDirList[0] = (ASUTF16Val*)"../../../APDFL/Resource/Font";
-	fontDirList[1] = (ASUTF16Val*)"../../../APDFL/Resource/CMap";
+	fontDirList[0] = (ASUTF16Val*)"../../../../Resources/Font";
+	fontDirList[1] = (ASUTF16Val*)"../../../../Resources/CMap";
 	pdflData.dirList = (char**)fontDirList;
 	pdflData.listLen = NUM_FONTS;
 
 	//Set the color profile directory list and its length.
-	colorProfDirList[0] = (ASUTF16Val*)"../../../APDFL/Resource/Color/Profiles";
+	colorProfDirList[0] = (ASUTF16Val*)"../../../../Resources/Color/Profiles";
 	pdflData.colorProfileDirList = (char**)colorProfDirList;
 	pdflData.colorProfileDirListLen = NUM_COLOR_PROFS;
 
 	//Set the Unicode directory.
 	pdflData.cMapDirectory = (char*)fontDirList[1];
-	pdflData.unicodeDirectory = (char*)"../../../APDFL/Resource/Unicode";
+	pdflData.unicodeDirectory = (char*)"../../../../Resources/Unicode";
 	char resourceDirectory[MAX_PATH];
 
 	CFBundleRef bundleRef = CFBundleGetMainBundle();
@@ -242,7 +242,7 @@ void APDFLib::fillDirectories()
 	CFURLRef resourceURL = CFURLCreateWithFileSystemPathRelativeToBase (kCFAllocatorDefault,
 																		// DLADD: RickK 03Jan2008 - Changed all resource paths to go up one directory
 																		// DLADD: further and include APDFL in the path.
-																		CFSTR("../../../../APDFL/Resource/"),
+																		CFSTR("../../../../Resources/"),
 																		kCFURLPOSIXPathStyle, true, baseURL);
 	CFURLGetFileSystemRepresentation (resourceURL, true, (unsigned char*)resourceDirectory, MAX_PATH);
 
@@ -271,22 +271,22 @@ void APDFLib::fillDirectories()
 #define MAX_PATH 1000
 
 	//Set the font directory list and its length.
-	fontDirList[0] = (ASUTF16Val*)"../../../APDFL/Resource/Font";
-	fontDirList[1] = (ASUTF16Val*)"../../../APDFL/Resource/CMap";
+	fontDirList[0] = (ASUTF16Val*)"../../../../Resources/Font";
+	fontDirList[1] = (ASUTF16Val*)"../../../../Resources/CMap";
 	pdflData.dirList = (char**)fontDirList;
 	pdflData.listLen = NUM_FONTS;
 
 	//Set the color profile directory list and its length.
-	colorProfDirList[0] = (ASUTF16Val*)"../../../APDFL/Resource/Color/Profiles";
+	colorProfDirList[0] = (ASUTF16Val*)"../../../../Resources/Color/Profiles";
 	pdflData.colorProfileDirList = (char**)colorProfDirList;
 	pdflData.colorProfileDirListLen = NUM_COLOR_PROFS;
 
 	//Set the Unicode directory.
 	pdflData.cMapDirectory = (char*)fontDirList[1];
-	pdflData.unicodeDirectory = (char*)"../../../APDFL/Resource/Unicode";
+	pdflData.unicodeDirectory = (char*)"../../../../Resources/Unicode";
 
 	//Set the plugin
-	pluginDirList[0] = (ASUTF16Val*)"../../../APDFL/Libs";
+	pluginDirList[0] = (ASUTF16Val*)"../../../Binaries";
 	pdflData.pluginDirList = (char**)pluginDirList;
     pdflData.pluginDirListLen = NUM_PLUGIN_DIRS;
 #endif

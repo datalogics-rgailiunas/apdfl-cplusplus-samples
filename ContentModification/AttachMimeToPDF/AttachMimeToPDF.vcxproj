@@ -71,30 +71,30 @@
     <OutDir>$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)\..\..\Include;$(ProjectDir)\..\..\Samples\_Common;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)\..\..\Include;$(ProjectDir)\..\..\_Common;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)\..\..\Include;$(ProjectDir)\..\..\Samples\_Common;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)\..\..\Include;$(ProjectDir)\..\..\_Common;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)\..\..\Include;$(ProjectDir)\..\..\Samples\_Common;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)\..\..\Include;$(ProjectDir)\..\..\_Common;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)\..\..\Include;$(ProjectDir)\..\..\Samples\_Common;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)\..\..\Include;$(ProjectDir)\..\..\_Common;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\headers;..\..\..\APDFL\Samples\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Include\Headers;..\..\..\APDFL\Samples\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;UNICODE;WIN_ENV;_DEBUG;_CONSOLE;PRODUCT="HFTLibrary.h";_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -104,7 +104,7 @@
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)AttachMimeToPDF.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\APDFL\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)AttachMimeToPDF.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
@@ -114,7 +114,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\..\..\APDFL\Samples\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Include\Headers;..\..\..\APDFL\Samples\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;UNICODE;NDEBUG;_CONSOLE;WIN_ENV;PRODUCT="HFTLibrary.h";_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader />
@@ -123,7 +123,7 @@
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)AttachMimeToPDF.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\APDFL\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -137,7 +137,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\headers;..\..\..\APDFL\Samples\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Include\Headers;..\..\..\APDFL\Samples\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;UNICODE;WIN_ENV;_DEBUG;_CONSOLE;PRODUCT="HFTLibrary.h";_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -148,7 +148,7 @@
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)AttachMimeToPDF.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\APDFL\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)AttachMimeToPDF.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
@@ -161,7 +161,7 @@
       <TargetEnvironment>X64</TargetEnvironment>
     </Midl>
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\..\..\APDFL\Samples\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Include\Headers;..\..\..\APDFL\Samples\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;UNICODE;NDEBUG;_CONSOLE;WIN_ENV;PRODUCT="HFTLibrary.h";_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader />
@@ -170,7 +170,7 @@
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)AttachMimeToPDF.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\APDFL\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -179,10 +179,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Include\Source\PDFLInitCommon.c" />
-    <ClCompile Include="..\..\Include\Source\PDFLInitHFT.c" />
-    <ClCompile Include="..\..\Samples\_Common\InitializeLibrary.cpp" />
-    <ClCompile Include="..\..\Samples\_Common\APDFLDoc.cpp" />
+    <ClCompile Include="..\..\..\Include\Source\PDFLInitCommon.c" />
+    <ClCompile Include="..\..\..\Include\Source\PDFLInitHFT.c" />
+    <ClCompile Include="..\..\_Common\InitializeLibrary.cpp" />
+    <ClCompile Include="..\..\_Common\APDFLDoc.cpp" />
     <ClCompile Include="AttachMimeToPDF.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

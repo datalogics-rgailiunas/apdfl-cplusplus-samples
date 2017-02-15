@@ -25,7 +25,7 @@
 // a file.  A file will still be generated, but by the print driver -- see below how to remove this.
 #define WIN_PRINT_TO_PRINTER 0
 
-#define INPUT_DIR "../../Samples/_Input/"
+#define INPUT_DIR "../../../../Resources/Sample_Input/"
 #define INPUT_FILE  "CopyContent.pdf"
 #define OUTPUT_FILE "PostscriptInjection-out.ps"
 

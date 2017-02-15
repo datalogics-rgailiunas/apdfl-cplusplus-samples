@@ -98,7 +98,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\..\..\APDFL\Samples\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Include\Headers;..\..\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>UNICODE;_DEBUG;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";WIN32;_CONSOLE;PDF_FDIR="..\\..\\..\\APDFL\\Samples\\_Data\\\\";%(PreprocessorDefinitions);UNICODE;UNICODE;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -119,7 +119,7 @@
     <Link>
       <OutputFile>$(OutDir)AlternateFileSystem.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>..\..\..\APDFL\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)AlternateFileSystem.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
@@ -136,7 +136,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\..\..\APDFL\Samples\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Include\Headers;..\..\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>UNICODE;NDEBUG;WIN32;_CONSOLE;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";PDF_FDIR="..\\..\\..\\APDFL\\Samples\\_Data\\\\";%(PreprocessorDefinitions);UNICODE;UNICODE;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -157,7 +157,7 @@
     <Link>
       <OutputFile>$(OutDir)AlternateFileSystem.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>..\..\..\APDFL\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ProgramDatabaseFile>$(OutDir)AlternateFileSystem.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX64</TargetMachine>
@@ -171,7 +171,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\..\..\APDFL\Samples\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Include\Headers;..\..\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>UNICODE;_DEBUG;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";WIN32;_CONSOLE;PDF_FDIR="..\\..\\..\\APDFL\\Samples\\_Data\\\\";%(PreprocessorDefinitions);UNICODE;UNICODE;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -191,7 +191,7 @@
     <Link>
       <OutputFile>$(OutDir)AlternateFileSystem.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>..\..\..\APDFL\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)AlternateFileSystem.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
@@ -207,7 +207,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\..\..\APDFL\Samples\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Include\Headers;..\..\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>UNICODE;NDEBUG;WIN32;_CONSOLE;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";PDF_FDIR="..\\..\\..\\APDFL\\Samples\\_Data\\\\";%(PreprocessorDefinitions);UNICODE;UNICODE;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -228,7 +228,7 @@
     <Link>
       <OutputFile>$(OutDir)AlternateFileSystem.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>..\..\..\APDFL\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ProgramDatabaseFile>$(OutDir)AlternateFileSystem.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -236,10 +236,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Include\Source\PDFLInitCommon.c" />
-    <ClCompile Include="..\..\Include\Source\PDFLInitHFT.c" />
-    <ClCompile Include="..\..\Samples\_Common\InitializeLibrary.cpp" />
-    <ClCompile Include="..\..\Samples\_Common\APDFLDoc.cpp" />
+    <ClCompile Include="..\..\..\Include\Source\PDFLInitCommon.c" />
+    <ClCompile Include="..\..\..\Include\Source\PDFLInitHFT.c" />
+    <ClCompile Include="..\..\_Common\InitializeLibrary.cpp" />
+    <ClCompile Include="..\..\_Common\APDFLDoc.cpp" />
     <ClCompile Include="AlternateFileSystem.cpp" />
     <ClCompile Include="AlternateFileSystemTest.cpp" />
   </ItemGroup>

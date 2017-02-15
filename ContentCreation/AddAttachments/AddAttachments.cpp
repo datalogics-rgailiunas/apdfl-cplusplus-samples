@@ -29,7 +29,7 @@
 
 #include "CosCalls.h"
 
-#define INPUT_LOC  "../../Samples/_Input/"
+#define INPUT_LOC  "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "noattachment.pdf"
 #define DEF_ATT_1 "attachment1.xlsx"
 #define DEF_ATT_2 "attachment2.docx"

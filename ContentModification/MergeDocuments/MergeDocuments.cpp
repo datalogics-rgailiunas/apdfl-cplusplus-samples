@@ -13,7 +13,7 @@
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
 
-#define DIR_LOC "../../Samples/_Input/"
+#define DIR_LOC "../../../../Resources/Sample_Input/"
 #define DEF_INPUT_1 "merge1.pdf"
 #define DEF_INPUT_2 "merge2.pdf"
 #define DEF_OUTPUT "MergeDocuments-out.pdf"

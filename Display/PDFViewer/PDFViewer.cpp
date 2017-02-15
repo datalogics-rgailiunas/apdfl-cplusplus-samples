@@ -162,7 +162,7 @@ BOOL CPDFViewerApp::InitInstance ()
 
     /* Where to look for Plugins  */
     ASUTF16Val  *Plugins[3];
-    Plugins[0] = (ASUTF16Val *)L"..\\..\\Libs";
+    Plugins[0] = (ASUTF16Val *)L"..\\..\\..\\Binaries";
 
     /* Construct the APDFL Initialization record. 
     **  NOTE: we are not using a local memory manager

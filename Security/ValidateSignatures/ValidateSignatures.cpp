@@ -32,7 +32,7 @@
 
 #include "ValidateSignatures.h"
 
-#define INPUT_DIR "../../Samples/_Input/"
+#define INPUT_DIR "../../../../Resources/Sample_Input/"
 #define INPUT_FILE "Signed_Gibson_PKCS7_DETACHED_Sha256.pdf"
 
 int main (int argc, char *argv[])

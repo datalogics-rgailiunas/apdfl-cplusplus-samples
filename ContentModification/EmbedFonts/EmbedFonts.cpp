@@ -44,7 +44,7 @@
 
 #include "EmbedFonts.h"
 
-#define INPUT_DIR "../../Samples/_Input/"
+#define INPUT_DIR "../../../../Resources/Sample_Input/"
 #define INPUT_NAME  "EmbedFonts-in.pdf"
 #define OUTPUT_NAME  "EmbedFonts-out.pdf"
     

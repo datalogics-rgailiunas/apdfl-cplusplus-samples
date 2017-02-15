@@ -90,7 +90,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\..\..\APDFL\Samples\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Include\Headers;..\..\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;UNICODE;_DEBUG;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";WIN32;_CONSOLE;PDF_FDIR="..\\..\\..\\APDFL\\Samples\\_Data\\\\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -101,7 +101,7 @@
     <Link>
       <OutputFile>$(OutDir)PDFMakeOCGVisible.exe</OutputFile>
       <AdditionalDependencies>DL150PDFL.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\APDFL\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -110,7 +110,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\..\..\APDFL\Samples\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Include\Headers;..\..\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;UNICODE;_DEBUG;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";WIN32;_CONSOLE;PDF_FDIR="..\\..\\..\\APDFL\\Samples\\_Data\\\\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -122,14 +122,14 @@
     <Link>
       <OutputFile>$(OutDir)PDFMakeOCGVisible.exe</OutputFile>
       <AdditionalDependencies>DL150PDFL.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\APDFL\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\..\..\APDFL\Samples\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Include\Headers;..\..\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;UNICODE;NDEBUG;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";WIN32;_CONSOLE;PDF_FDIR="..\\..\\..\\APDFL\\Samples\\_Data\\\\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader />
@@ -139,7 +139,7 @@
     <Link>
       <OutputFile>$(OutDir)PDFMakeOCGVisible.exe</OutputFile>
       <AdditionalDependencies>DL150PDFL.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\APDFL\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -149,7 +149,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\..\APDFL\Include\Headers;..\..\..\APDFL\Samples\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Include\Headers;..\..\_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;UNICODE;NDEBUG;WIN_ENV;WIN_PLATFORM;PRODUCT="HFTLibrary.h";WIN32;_CONSOLE;PDF_FDIR="..\\..\\..\\APDFL\\Samples\\_Data\\\\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader>
@@ -160,7 +160,7 @@
     <Link>
       <OutputFile>$(OutDir)PDFMakeOCGVisible.exe</OutputFile>
       <AdditionalDependencies>DL150PDFL.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\APDFL\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -168,10 +168,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Include\Source\PDFLInitCommon.c" />
-    <ClCompile Include="..\..\Include\Source\PDFLInitHFT.c" />
-    <ClCompile Include="..\..\Samples\_Common\InitializeLibrary.cpp" />
-    <ClCompile Include="..\..\Samples\_Common\APDFLDoc.cpp" />
+    <ClCompile Include="..\..\..\Include\Source\PDFLInitCommon.c" />
+    <ClCompile Include="..\..\..\Include\Source\PDFLInitHFT.c" />
+    <ClCompile Include="..\..\_Common\InitializeLibrary.cpp" />
+    <ClCompile Include="..\..\_Common\APDFLDoc.cpp" />
     <ClCompile Include="PDFMakeOCGVisible.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

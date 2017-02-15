@@ -12,7 +12,7 @@
 
 #include <cstdio>
 
-#define INPUT_DIR "../../Samples/_Input/"
+#define INPUT_DIR "../../../../Resources/Sample_Input/"
 #define DEF_INPUT_FILE "AESEncryption-in.pdf"
 #define DEF_OUTPUT_FILE "AESEncryption-out.pdf"
 

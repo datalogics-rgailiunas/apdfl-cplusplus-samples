@@ -26,7 +26,7 @@
 #include "ASExtraCalls.h"
 #include "APDFLDoc.h"
 
-#define DIR_LOC "../../Samples/_Input/"
+#define DIR_LOC "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "AddContent.pdf"
 #define DEF_OUTPUT "AddContent-out.pdf"
 

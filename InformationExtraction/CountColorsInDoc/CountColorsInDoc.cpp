@@ -20,7 +20,7 @@
 
 #include "CountColorsInDoc.h"
 
-#define INPUT_DIR "../../Samples/_Input/"
+#define INPUT_DIR "../../../../Resources/Sample_Input/"
 #define INPUT_FILE  "ColorNoColor.pdf"
 #define OUTPUT_FILE "CountColorsInDoc-out.txt"
 

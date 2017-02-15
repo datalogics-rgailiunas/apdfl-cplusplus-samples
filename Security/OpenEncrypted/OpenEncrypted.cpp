@@ -28,7 +28,7 @@
 #include "PDExpT.h"
 #include "PDCalls.h"
 
-#define DIR_LOC "../../Samples/_Input/"
+#define DIR_LOC "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "OpenEncrypted.pdf"
 #define DEF_OUTPUT "OpenEncrypted-out.pdf"
 

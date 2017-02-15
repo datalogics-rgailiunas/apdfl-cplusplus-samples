@@ -35,7 +35,7 @@
 #include "CosCalls.h"
 #include "ASExtraVers.h"
 
-#define DIR_LOC "../../Samples/_Input/"
+#define DIR_LOC "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "CreateAnnotations.pdf"
 #define DEF_OUTPUT_ANNOT "CreateAnnotations-out.pdf"
 #define DEF_OUTPUT_TEXT "CreateAnnotations-out-text.txt"

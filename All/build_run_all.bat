@@ -213,7 +213,7 @@ CD ..
 REM *** The directory in which the sample folders are located.
 SET SAMPLEDIR=%CD%
 REM *** Necessary for running.
-SET PATH=..\..\Libs;%PATH%
+SET PATH=..\..\..\Binaries;%PATH%
 SET CURRENT_SAMPLE=
 
 REM ************************************************************

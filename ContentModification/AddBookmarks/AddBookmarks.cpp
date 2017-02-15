@@ -32,7 +32,7 @@
 #include "PagePDECntCalls.h"
 #include "ASCalls.h"
 
-#define INPUT_LOC "../../Samples/_Input/"
+#define INPUT_LOC "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "Ulysses.pdf"
 #define DEF_OUTPUT "AddBookmarks-out.pdf"
 #define DEF_TARGET "before"

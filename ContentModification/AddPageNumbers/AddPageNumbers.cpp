@@ -21,7 +21,7 @@
 #include "ASExtraCalls.h"
 #include <iostream>
 
-#define INPUT_LOC "../../Samples/_Input/"
+#define INPUT_LOC "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "toNumber.pdf"
 #define DEF_OUTPUT "AddPageNumbers-out.pdf"
 

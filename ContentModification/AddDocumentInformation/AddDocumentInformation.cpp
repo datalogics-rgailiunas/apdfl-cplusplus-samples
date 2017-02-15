@@ -26,7 +26,7 @@
 
 #include "APDFLDoc.h"
 
-#define INPUT_DIR "../../Samples/_Input/"
+#define INPUT_DIR "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "AddDocumentInformation.pdf"
 #define DEF_OUTPUT "AddDocumentInformation-out.pdf"
 

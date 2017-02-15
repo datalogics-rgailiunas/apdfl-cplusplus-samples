@@ -24,7 +24,7 @@
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
 
-#define INPUT_DIR "../../Samples/_Input/"
+#define INPUT_DIR "../../../../Resources/Sample_Input/"
 #define PDF_FNAME1  "mergepdf1.pdf"
 #define PDF_FNAME2  "mergepdf2.pdf"
 #define OUTPUT_FILE "importPages-out.pdf"

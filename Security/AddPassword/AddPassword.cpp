@@ -17,7 +17,7 @@
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
 
-#define INPUT_LOC "../../Samples/_Input/"
+#define INPUT_LOC "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "AddPassword.pdf"
 #define DEF_OUTPUT "AddPassword-out.pdf"
 #define DEF_PASSWORD "Datalogics"
