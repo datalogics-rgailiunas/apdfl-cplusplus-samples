@@ -3,83 +3,83 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddContent", "..\AddContent\AddContent.vcxproj", "{826BF32A-5414-4DF3-8AF4-C65583AA773D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddContent", "..\ContentCreation\AddContent\AddContent.vcxproj", "{826BF32A-5414-4DF3-8AF4-C65583AA773D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddDocumentInformation", "..\AddDocumentInformation\AddDocumentInformation.vcxproj", "{B4A82CA7-3133-458E-AA3C-E4808877DCBF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddDocumentInformation", "..\ContentModification\AddDocumentInformation\AddDocumentInformation.vcxproj", "{B4A82CA7-3133-458E-AA3C-E4808877DCBF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddPassword", "..\AddPassword\AddPassword.vcxproj", "{1013E460-05A7-43D2-9E4F-B6366E7D1898}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddPassword", "..\Security\AddPassword\AddPassword.vcxproj", "{1013E460-05A7-43D2-9E4F-B6366E7D1898}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddText", "..\AddText\AddText.vcxproj", "{82006940-7ECC-454B-A571-B3854C407D25}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddText", "..\Text\AddText\AddText.vcxproj", "{82006940-7ECC-454B-A571-B3854C407D25}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CopyContent", "..\CopyContent\CopyContent.vcxproj", "{02D112D7-8B2A-4411-AE07-3F7E6169FF4A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CopyContent", "..\ContentExtraction\CopyContent\CopyContent.vcxproj", "{02D112D7-8B2A-4411-AE07-3F7E6169FF4A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreateDocument", "..\CreateDocument\CreateDocument.vcxproj", "{82797824-D05B-4230-8211-5E5A09A62C40}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreateDocument", "..\ContentCreation\CreateDocument\CreateDocument.vcxproj", "{82797824-D05B-4230-8211-5E5A09A62C40}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LockDocument", "..\LockDocument\LockDocument.vcxproj", "{60609083-04E5-4635-99F5-25C8C5B818A0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LockDocument", "..\Security\LockDocument\LockDocument.vcxproj", "{60609083-04E5-4635-99F5-25C8C5B818A0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MergeDocuments", "..\MergeDocuments\MergeDocuments.vcxproj", "{729F3CA8-F868-42B8-B061-446C423DA9A8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MergeDocuments", "..\ContentModification\MergeDocuments\MergeDocuments.vcxproj", "{729F3CA8-F868-42B8-B061-446C423DA9A8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SetUniquePermissions", "..\SetUniquePermissions\SetUniquePermissions.vcxproj", "{6A187553-5DE6-461E-9838-3A3765330451}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SetUniquePermissions", "..\Security\SetUniquePermissions\SetUniquePermissions.vcxproj", "{6A187553-5DE6-461E-9838-3A3765330451}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SplitPDF", "..\SplitPDF\SplitPDF.vcxproj", "{BF3F5105-EBCC-448A-8262-53DE2A125F54}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SplitPDF", "..\ContentModification\SplitPDF\SplitPDF.vcxproj", "{BF3F5105-EBCC-448A-8262-53DE2A125F54}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WebOptimizedPDF", "..\WebOptimizedPDF\WebOptimizedPDF.vcxproj", "{C7F0D2BF-4259-4B2C-BD59-0B7DCD9A15D5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WebOptimizedPDF", "..\DocumentOptimization\WebOptimizedPDF\WebOptimizedPDF.vcxproj", "{C7F0D2BF-4259-4B2C-BD59-0B7DCD9A15D5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenEncrypted", "..\OpenEncrypted\OpenEncrypted.vcxproj", "{91EBC49E-1D24-46E9-A465-696C1EBA3F23}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenEncrypted", "..\Security\OpenEncrypted\OpenEncrypted.vcxproj", "{91EBC49E-1D24-46E9-A465-696C1EBA3F23}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddArt", "..\AddArt\AddArt.vcxproj", "{5D04558C-183A-4ECC-80C8-542A9FDD72D2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddArt", "..\ContentCreation\AddArt\AddArt.vcxproj", "{5D04558C-183A-4ECC-80C8-542A9FDD72D2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddBookmarks", "..\AddBookmarks\AddBookmarks.vcxproj", "{A2575B7E-CCA9-42E4-8449-330BB89437AA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddBookmarks", "..\ContentModification\AddBookmarks\AddBookmarks.vcxproj", "{A2575B7E-CCA9-42E4-8449-330BB89437AA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddLinks", "..\AddLinks\AddLinks.vcxproj", "{939FEDCC-E180-47EB-8270-8ED8BD37BCDD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddLinks", "..\ContentModification\AddLinks\AddLinks.vcxproj", "{939FEDCC-E180-47EB-8270-8ED8BD37BCDD}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddPageNumbers", "..\AddPageNumbers\AddPageNumbers.vcxproj", "{4184B1FF-6865-439F-89B3-7FAAC161E0DF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddPageNumbers", "..\ContentModification\AddPageNumbers\AddPageNumbers.vcxproj", "{4184B1FF-6865-439F-89B3-7FAAC161E0DF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddRedaction", "..\AddRedaction\AddRedaction.vcxproj", "{CB9E6C09-C2F2-4639-A66A-A930B706980C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddRedaction", "..\Security\AddRedaction\AddRedaction.vcxproj", "{CB9E6C09-C2F2-4639-A66A-A930B706980C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EncryptDocument", "..\EncryptDocument\EncryptDocument.vcxproj", "{B8BF52E0-2350-47E4-B2B9-DC429C396DD2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EncryptDocument", "..\Security\EncryptDocument\EncryptDocument.vcxproj", "{B8BF52E0-2350-47E4-B2B9-DC429C396DD2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractAttachments", "..\ExtractAttachments\ExtractAttachments.vcxproj", "{36821584-EBF6-4C21-B8D6-C99C245F3912}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractAttachments", "..\ContentExtraction\ExtractAttachments\ExtractAttachments.vcxproj", "{36821584-EBF6-4C21-B8D6-C99C245F3912}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TextSearch", "..\TextSearch\TextSearch.vcxproj", "{CA4E530D-DAC1-4CAB-8C14-4B1B7EB4FFC6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TextSearch", "..\Text\TextSearch\TextSearch.vcxproj", "{CA4E530D-DAC1-4CAB-8C14-4B1B7EB4FFC6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractText", "..\ExtractText\ExtractText.vcxproj", "{2E8F147F-1CB9-4345-9CBE-EE28312F224D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractText", "..\Text\ExtractText\ExtractText.vcxproj", "{2E8F147F-1CB9-4345-9CBE-EE28312F224D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddWatermark", "..\AddWatermark\AddWatermark.vcxproj", "{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddWatermark", "..\ContentModification\AddWatermark\AddWatermark.vcxproj", "{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreateAnnotations", "..\CreateAnnotations\CreateAnnotations.vcxproj", "{F3E1C9B0-D3D9-4BE1-AE20-AFAC2C5B9131}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreateAnnotations", "..\Annotations\CreateAnnotations\CreateAnnotations.vcxproj", "{F3E1C9B0-D3D9-4BE1-AE20-AFAC2C5B9131}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreateLayers", "..\CreateLayers\CreateLayers.vcxproj", "{51C87E29-66CD-4887-AFD7-3F83CB86A306}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreateLayers", "..\ContentCreation\CreateLayers\CreateLayers.vcxproj", "{51C87E29-66CD-4887-AFD7-3F83CB86A306}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreateTransparency", "..\CreateTransparency\CreateTransparency.vcxproj", "{B755F192-1117-415D-B968-B7406D170190}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreateTransparency", "..\ContentCreation\CreateTransparency\CreateTransparency.vcxproj", "{B755F192-1117-415D-B968-B7406D170190}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractDocumentInfo", "..\ExtractDocumentInfo\ExtractDocumentInfo.vcxproj", "{660DCD10-7EEB-4550-8E37-D57698FAD152}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractDocumentInfo", "..\InformationExtraction\ExtractDocumentInfo\ExtractDocumentInfo.vcxproj", "{660DCD10-7EEB-4550-8E37-D57698FAD152}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlattenAnnotations", "..\FlattenAnnotations\FlattenAnnotations.vcxproj", "{A261ECCE-8584-4E2E-B907-D5D342FED80E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlattenAnnotations", "..\Annotations\FlattenAnnotations\FlattenAnnotations.vcxproj", "{A261ECCE-8584-4E2E-B907-D5D342FED80E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RenderPage", "..\RenderPage\RenderPage.vcxproj", "{65FB48A9-238C-4B34-ADCB-FF6E549F0B47}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RenderPage", "..\Images\RenderPage\RenderPage.vcxproj", "{65FB48A9-238C-4B34-ADCB-FF6E549F0B47}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnicodeText", "..\UnicodeText\UnicodeText.vcxproj", "{26B0DAAC-1B6E-4020-BEC0-D47DDBA263C6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnicodeText", "..\Text\UnicodeText\UnicodeText.vcxproj", "{26B0DAAC-1B6E-4020-BEC0-D47DDBA263C6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XPStoPDF", "..\XPStoPDF\XPStoPDF.vcxproj", "{463169C1-D201-4A98-AEB5-D51E666CAEAF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XPStoPDF", "..\DocumentConversion\XPStoPDF\XPStoPDF.vcxproj", "{463169C1-D201-4A98-AEB5-D51E666CAEAF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E606CC40-638C-466D-B7B0-851F3B1910A4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FindImageResolutions", "..\FindImageResolutions\FindImageResolutions.vcxproj", "{DA3822A3-6373-4701-A59E-5CE33509EA8B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FindImageResolutions", "..\Images\FindImageResolutions\FindImageResolutions.vcxproj", "{DA3822A3-6373-4701-A59E-5CE33509EA8B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlattenTransparency", "..\FlattenTransparency\FlattenTransparency.vcxproj", "{0DA6E459-4717-4971-9126-F699804A7570}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlattenTransparency", "..\ContentModification\FlattenTransparency\FlattenTransparency.vcxproj", "{0DA6E459-4717-4971-9126-F699804A7570}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddAttachments", "..\AddAttachments\AddAttachments.vcxproj", "{EC3EF969-ABF4-435D-A96F-31CF25F34307}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddAttachments", "..\ContentCreation\AddAttachments\AddAttachments.vcxproj", "{EC3EF969-ABF4-435D-A96F-31CF25F34307}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PDFViewer", "..\PDFViewer\PDFViewer.vcxproj", "{52750764-6821-4DA2-9DB6-79A0AFD5225B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PDFViewer", "..\Display\PDFViewer\PDFViewer.vcxproj", "{52750764-6821-4DA2-9DB6-79A0AFD5225B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConvertPDFtoEPS", "..\ConvertPDFtoEPS\ConvertPDFtoEPS.vcxproj", "{F1B7F67C-A923-41D7-9C99-0AF318DF2198}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConvertPDFtoEPS", "..\DocumentConversion\ConvertPDFtoEPS\ConvertPDFtoEPS.vcxproj", "{F1B7F67C-A923-41D7-9C99-0AF318DF2198}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConvertPDFtoPostscript", "..\ConvertPDFtoPostscript\ConvertPDFtoPostscript.vcxproj", "{A8FC5A39-AC22-424A-AC33-9C6CF190CD6C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConvertPDFtoPostscript", "..\DocumentConversion\ConvertPDFtoPostscript\ConvertPDFtoPostscript.vcxproj", "{A8FC5A39-AC22-424A-AC33-9C6CF190CD6C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PDFPrintGUI", "..\PDFPrintGUI\PDFPrintGUI.vcxproj", "{757D7956-3DF0-4657-9F1F-FBA28E12FC19}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PDFPrintGUI", "..\Printing\PDFPrintGUI\PDFPrintGUI.vcxproj", "{757D7956-3DF0-4657-9F1F-FBA28E12FC19}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PDFOptimizer", "..\PDFOptimizer\PDFOptimizer.vcxproj", "{820700EC-AC15-4F2E-9038-3FB7A0E768F1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PDFOptimizer", "..\DocumentOptimization\PDFOptimizer\PDFOptimizer.vcxproj", "{820700EC-AC15-4F2E-9038-3FB7A0E768F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
