@@ -77,6 +77,7 @@ END_HANDLER
 // It takes an array that must have memory allocated for 768 entries,
 // 256 colors times three (RGB). Anything in the array will
 // be overwritten.
+//
 void MakeColorTable(ASUns8 *p)
 {
     ASUns8 red, green, blue;
