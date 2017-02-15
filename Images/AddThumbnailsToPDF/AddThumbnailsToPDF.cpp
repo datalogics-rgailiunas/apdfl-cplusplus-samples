@@ -4,14 +4,12 @@
 // For complete copyright information, see:
 // http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
 //
-// Project: AddThumbnailsToPDF - Creates Thumbnails using an indexed color space.
-//
-// Steps:
-//
-//  Open PDF document
-//  Make an indexed color table
-//  Create thumbnails in the document
-//  Save the document
+// In a PDF document, a thumbnail is a small graphic image that represents a page.
+// Thumbnails appear in a panel on the left side of the Adobe Acrobat window and
+// aid in navigating through a document, as a user can scroll through a series of
+// thumbnails quickly to find a page. This sample program demonstrates how to create
+// thumbnails for a PDF document, one for each page. The program saves the thumbnail 
+// images in a PDF output file, using an indexed color table with 256 colors RGB.
 //
 
 #include <cstdio>
@@ -28,7 +26,7 @@ static ASBool MycancelProc (void* clientData);
 
 int main(int argc, char *argv[])
 {
-    // Initialize the Adobe PDF Library.  Termination will be automatic when scope is lost
+    // Initialize the Adobe PDF Library. Termination will be automatic when scope is lost.
     APDFLib libInit;
 
     if (libInit.isValid() == false)
@@ -75,15 +73,10 @@ END_HANDLER
     return 0;
 }
 
-//
-// Make Color Table creates a generic indexed color table.
-// It takes an array of ASUns8 which must have memory
-// allocated for 256*3 entries. Anything in the array will
-// be overwritten. This function is only a sample, and not supported.
-// If you have questions about modifying this color table or creating
-// adaptive color tables, please consult a book on image
-// processing and/or a C programming reference.
-//
+// The Make Color Table function creates a generic indexed color table.
+// It takes an array that must have memory allocated for 768 entries,
+// 256 colors times three (RGB). Anything in the array will
+// be overwritten.
 void MakeColorTable(ASUns8 *p)
 {
     ASUns8 red, green, blue;
