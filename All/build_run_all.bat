@@ -268,7 +268,6 @@ If %ONLY_BUILD% == Y GOTO RunSampleLoop_Call_End
 	REM *** Call the sample with its arguments, if any.
 	REM *** (undefined variables expand to nothing.)
 	CD ../../
-    echo curr dir = %CD%
 	%ARCH%\%STAGE%\!EXE_NAME!.exe %!EXE_NAME!_args%
 	
 	REM *** If it failed to run.
