@@ -29,7 +29,7 @@
 #include "PagePDECntCalls.h"
 #include "CosCalls.h"
 
-#define DIR_LOC "../../Samples/_Input/"
+#define DIR_LOC "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "FlattenAnnotations.pdf"
 #define DEF_OUTPUT "FlattenAnnotations-out.pdf"
 

@@ -32,7 +32,7 @@
 #include "PEWCalls.h"
 #include "PagePDECntCalls.h"
 
-#define DIR_LOC "../../Samples/_Input/"
+#define DIR_LOC "../../../../Resources/Sample_Input/"
 #define DEF_INPUT_1 "ExtractText.pdf"
 #define DEF_INPUT_2 "ExtractUnicodeText.pdf"
 #define DEF_OUTPUT_1 "ExtractText-out.pdf"

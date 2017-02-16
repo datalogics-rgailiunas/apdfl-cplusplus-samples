@@ -24,7 +24,7 @@
 #include "APDFLDoc.h"
 #include <iostream>
 
-#define DIR_LOC "../../Samples/_Input/"
+#define DIR_LOC "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "extractFrom.pdf"
 #define DEF_PREFIX "_x_"
 
