@@ -4,7 +4,11 @@
 // For complete copyright information see:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// AESEncryption.cpp:  Add encryption and a password to a file
+// This sample demonstrates how to add an encryption key and a password to a
+// PDF document. The program uses the Advanced Encryption Standard (AES) algorithm,
+// introduced by the United States National Institute of Standards and Technology
+// in 2001. The program uses version 3 of AES, which uses a three or four byte
+// random initialization vector.
 //
 
 #include "InitializeLibrary.h"
