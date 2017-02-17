@@ -4,7 +4,10 @@
 // For complete copyright information, see:
 // http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
 //
-// This sample scans the specified input file, and reports on images within.
+// This sample program demonstrates how to calculate the resolution for the images found in a PDF
+// document. The sample scans the PDF input file and processes the images on each page one by one,
+// rotating them as needed before calculating the Dots per Inch (DPI) for each image. Then, it
+// lists the results in an output text file.
 //
 
 #include <iostream>
@@ -156,8 +159,8 @@ void ASFixedMatrixScale (ASFixedMatrix *M, double ScaleX, double ScaleY)
 }
 
 // A simple utility routine to assure that angle is within
-// 0 to 359 degrees, and has not more then 2 decimal places or precision
-// This will make ocmparing angles simpler
+// 0 to 359 degrees, and has no more then 2 decimal places of precision
+// This makes comparing angles simpler
 double NormalizeRotation (double Angle)
 {
     Angle = floor((Angle * 100) + 0.5) / 100;
@@ -191,13 +194,14 @@ void FindImageDPI (PDEImage image,ASFixedMatrix *matrix, double userScale, ASInt
 
     // Find the angle between the current matrix, and erect, horizontally and vertically 
     // ArcTangent of the vertical over horizontal components of the movement yields angle in radians, and can convert 
-    // easily to degrees. The horizontal movement components are b and d, where d is the vertical and b the horizontal,
-    // (see PDF Reference, 4.2.3). 
+    // easily to degrees. The horizontal movement components are b and d, where d is the vertical and b the horizontal.
+    // See section 8.8.4 of the ISO 32000-1:2008, Document Management-Portable Document Format-Part 1:PDF 1.7,
+	// "Transformation Matrices," page 119. 
     //
     // So Arctangent b/a is the basis of the angle of a row in the image data
     idata.hRotation = atan2 (ASFixedToFloat (idata.finalMatrix.b), ASFixedToFloat (idata.finalMatrix.a)) / degrees_to_radians;
 
-    // Then we do the same thing, for the vertical movement (columns), 
+    // Then we do the same thing, for the vertical movement (columns) 
     // Normally, we would expect to get an angle of 90 degrees to the horizontal angle. However, because some images are scanned
     // top to bottom, and PDF expects data to be bottom to top, we see an angle of -90 degrees between the two. If we make the same 
     // calculations, then we should rotate such that we will have a positive movement in both planes, regardless of skew or mirroring.
@@ -211,16 +215,16 @@ void FindImageDPI (PDEImage image,ASFixedMatrix *matrix, double userScale, ASInt
     idata.xShear = idata.yShear = 0;
 
     // If the horizontal and vertical rotations are not normal
-    // (the same, or inverted), then we have a skew present. Go and detect it,
+    // (the same, or inverted), a skew is present. Detect the skew,
     // record it,and remove it.
     //
-    // Do this test with a set of angles normalized to be between 0 and 359, and
-    // to have no more than 2 decimals. This is more than sufficient precision to 
-    // make this decision on, and avoids doing skew calculations for floating point scruf.
-    // (But leave the real values sruffy, for conversion purposes)
+    // Complete the test with a set of angles normalized to be between 0 and 359, and
+    // round the result to no more than two decimal points. This is enough precision, and 
+    // it avoids trying to make skew calculations with numbers showing very long floating
+    // point decimal ranges. But preserve the real values for conversion.
     //
-    // I have found one case that fails. If the user has sheared in BOTH planes, and
-    // rotated the image, this will not decide it properly. 
+    // If the user has sheared in both planes, and rotated the image, the process to calculate
+    // the skew value will fail. 
     double testX = NormalizeRotation (idata.hRotation);
     double testY = NormalizeRotation (idata.vRotation);
     if ( (testX != testY) && (fabs (testX - testY) != 180) )
@@ -268,18 +272,18 @@ void FindImageDPI (PDEImage image,ASFixedMatrix *matrix, double userScale, ASInt
     // Get the image attributes
     PDEImageGetAttrs (image, &idata.attrs, sizeof (PDEImageAttrs));
 
-    // Horizontal DPI is width in points divided by width in pixels divided by 72 
+    // Horizontal DPI is width in pixels divided by width in points divided by 72.
     // Round these to an even integer, just to make comparison easier.
     //
     // User scale is a scale factor the page creator can apply to the page. It is normally 
     // used for very large pages, to allow a larger range for an ASFixed value. When we 
-    // calculate this DPI, it is in user units. So we need to multiple by user scale to 
+    // calculate this DPI, it is in user units. So we need to multiply by user scale to 
     // find the actual DPI in absolute space. 
     // UserScale is not used often, but it must be allowed for. 
     idata.hDPI = floor (idata.attrs.width / (idata.widthInPoints / 72.0)+0.5) * userScale;
 
-    // Vertical DPI is depth in points divided by depth in pixels divided by 72
-    // Round these to an even integer, just to make comparision easier 
+    // Vertical DPI is depth in pixels divided by depth in points divided by 72.
+    // Round these to an even integer, just to make comparision easier.
     idata.vDPI = floor (idata.attrs.height / (idata.depthInPoints / 72.0)+0.5) * userScale;
 
     imageTable.push_back ( idata );
@@ -310,8 +314,8 @@ void WalkContent (PDEContent content, ASFixedMatrix *matrix, double userScale, A
 
             case kPDEForm:
             {
-                // For a form, obtain it's content, and scn it.
-                // Displace it's position and scale by it's parents
+                // For a form, obtain it's content, and scan it.
+                // Displace it's position and scale by the form's parents.
                 ASFixedMatrix innerMatrix;
                 PDEElementGetMatrix (elem, &innerMatrix);
                 ASFixedMatrixConcat (&innerMatrix, matrix, &innerMatrix);
@@ -326,14 +330,14 @@ void WalkContent (PDEContent content, ASFixedMatrix *matrix, double userScale, A
             {
                 // For a container, simply descend into the container.
                 // Containers do not displace or scale. Nor does the 
-                // content of a container need to be released
+                // content of a container need to be released.
                 PDEContent inner = PDEContainerGetContent ((PDEContainer)elem);
                 WalkContent (inner, matrix, userScale, pageNumb, sequence, imageTable);
                 break;
             }
 
             default:
-                // For current purposes, we may ignore everything else
+                // For current purposes, ignore everything else
                 break;
         }
     }
