@@ -60,7 +60,7 @@ build_pdfl_samples:
 	done;
 
 ifeq ($(LIBPATHS),)
-    LIBPATHS=../../Libs
+    LIBPATHS=../../../Binaries
 endif
 
 run_pdfl_samples:

@@ -17,7 +17,7 @@ CCFLAGS  = $(ARCH_FLAGS) -pthread -g $(PDF_FDIR_DEF) -DNO_PRAGMA_ONCE -DUNIX_PLA
 
 CXXFLAGS = $(CCFLAGS)
 
-LDFLAGS = $(ARCH_FLAGS) -L../../Libs
+LDFLAGS = $(ARCH_FLAGS) -L../../../Binaries
 LIBS = -lDL150pdfl -lDL150CoolType -lDL150AGM -lDL150BIB -lDL150ACE -lDL150ARE \
 	   -lDL150BIBUtils -lDL150JP2K -lDL150AdobeXMP -lDL150AXE8SharedExpat \
 	   -licucnv -licudata -lpthread

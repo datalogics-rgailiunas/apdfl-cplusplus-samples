@@ -1517,7 +1517,7 @@
 		9C164A400BDE66AF00FDC29A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = /../../Libs;
+				FRAMEWORK_SEARCH_PATHS = /../../../Binaries;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -1525,7 +1525,7 @@
 		BAAE8A2C0ADC6237005A7834 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = /../../Libs;
+				FRAMEWORK_SEARCH_PATHS = /../../../Binaries;
 				SDKROOT = macosx;
 			};
 			name = Debug;

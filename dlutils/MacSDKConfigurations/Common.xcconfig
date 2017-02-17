@@ -11,7 +11,7 @@ ARCHS = $(ARCHS_STANDARD_32_64_BIT)
 MACOSX_DEPLOYMENT_TARGET = 10.7;
 
 // Library search paths for all targets
-FRAMEWORK_SEARCH_PATHS = ../../Libs
+FRAMEWORK_SEARCH_PATHS = ../../../Binaries
 
 // Add an rpath setting to allow us to use @rpath in the APDFL Frameworks
 LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks"
