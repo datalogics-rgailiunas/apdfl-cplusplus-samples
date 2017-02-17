@@ -4,15 +4,21 @@
 //  For complete copyright information, see:
 //  http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
 //
-//  This is a simple implementation of an ASFileSys structure, for use
-//  in Adobe PDF Library applications which can accept an ASFileSys.
-//  This very simple implementation is a modified, simplified version
-//  of an "in-memory" file system.  When opening a file, it will search
-//  on-disk if the filename supplied does not already exist in the
-//  file system.  On close, files are written to disk.
+// This sample program shows how to implement an ASFileSys structure in an
+// Adobe PDF Library application. It also demonstrates adding a simplified
+// “in memory” file system for use in an app.
 //  
-//  This does not demonstrate all the calls available for use in
-//  the ASFileSys structure, but does implement enough for most uses.
+// The Alternate File System structure (ASFileSys) is a series of routines within
+// the Adobe PDF Library that allows a developer to implement file system services
+// in an APDFL application. ASFileSys allows an application to open and delete files,
+// read data from a file, and write data to a file. Adobe Acrobat and the Adobe PDF
+// Library both offer a built-in Alternate File System that serves as the platform’s
+// native file system, but developers working with the Adobe PDF Library can create
+// additional ASFileSys objects to serve other file systems.  The sample does not
+// demonstrate all of the calls available for use with ASFileSys, but it implements
+// enough to illustrate the most common uses.
+//
+// This sample does not define input or output files, or an input directory.
 //
 
 #include "ASCalls.h"
@@ -167,10 +173,10 @@ ASInt32 altFSOpen (ASPathName Path, ASUns16 Flags, MDFile *File)
         strcpy (altFile->Name, inCPath);
     }
 
-    // If a file is created in read mode, and not to be created, and there's
-    // no data currently associated with this file, then read the corresponding file
-    // on disk in as the initial data. If opening only for write,
-    // don't bother reading it.
+    // If a file in read mode, and not to be created, with no data
+    // currently associated with the file, the program reads the
+    // corresponding file on the disk as the initial data. If the file
+    // is only opening in write mode, don't bother reading it.
     if ((altFile->Name) && (altFile->Name[0]) &&
         !(altFile->CurrentSize) && !(Flags & ASFILE_CREATE) )
     {
@@ -204,7 +210,7 @@ ASInt32 altFSOpen (ASPathName Path, ASUns16 Flags, MDFile *File)
                 fclose (Initial);
             }
         }
-        // If we're in read, no-create mode, and there's no physical file, file does not exist.
+        // If the system is in read, no-create mode, and no physical file is provided, the file does not exist.
         else
         {
             ASfree(altFileHandle);
@@ -324,7 +330,7 @@ ASInt32 altFSGetEOF (MDFile File, ASUns32 *Pos)
     return 0;
 }
 
-// Similar to fread, for the Alternate FileSystem
+// Similar to fRead, for the Alternate FileSystem
 ASSize_t altFSRead (void *Buffer, ASSize_t Size, ASSize_t Count, MDFile File, ASInt32 *Error)
 {
     altFSFileHandle    *altFileHandle = (altFSFileHandle *) File;
@@ -361,7 +367,7 @@ ASSize_t altFSRead (void *Buffer, ASSize_t Size, ASSize_t Count, MDFile File, AS
     return Recs;
 }
 
-// Similar to fwrite, for the Alternate FileSystem
+// Similar to fWrite, for the Alternate FileSystem
 ASSize_t altFSWrite (void *Buffer, ASSize_t Size, ASSize_t Count, MDFile File, ASInt32 *Error)
 {
     altFSFileHandle    *altFileHandle = (altFSFileHandle *) File;

@@ -4,12 +4,15 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// This is a sample program for APDFL 15.0 that demonstrates how to 
-// embed a file in a PDF document as an "attachment" displayed on the attachments pane.
-//
-// This sample is a command line program which accepts 2 optional parameters:
-//   Parameter 1 - the name of the input PDF file 
-//   Parameter 2 - the name of the file to be attached
+// This sample program demonstrates how to add a file attachment to a PDF document, and
+// then save the updated file. If you run this program and then open the PDF output document
+// in Adobe Acrobat, the newly attached file appears in the Attachments pane on the left side
+// of the window.
+// 
+// MIME refers to the Multipurpose Internet Mail Extensions (MIME) standard.  It was developed
+// to define the types of files that can be attached to an electronic mail message using the SMTP
+// format, but it also applies to other protocols like HTTP, and the MIME standard is used to
+// define the types of files that can be attached to a PDF document.
 //
 
 #include <cstdio>
@@ -60,8 +63,8 @@ DURING
     // Make a convenient pointer to the cos doc
     CosDoc cosPDFDoc = PDDocGetCosDoc (PDFDoc);
 
-    // That's all the setup and testing. We now know that we have a good pdf file, a 
-    // good file to embed in it, and a mime type to apply to it.
+    // Setup and testing complete. PDF document in place, with a file to embed in that PDF 
+    // and a MIME type to apply to it.
     PDNameTree nameTree = PDDocCreateNameTree(PDFDoc, ASAtomFromString("EmbeddedFiles"));
     CosObj EmbeddedNames;
     CosObj cosNameTree = PDNameTreeGetCosObj(nameTree);
