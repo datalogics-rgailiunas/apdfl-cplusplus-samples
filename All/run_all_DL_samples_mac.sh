@@ -18,178 +18,301 @@ fi
 echo "$0: Setting stage to $stage."
 echo ""
 
+# Annotations
+
+echo Running sample CreateAnnotations
+cd ../Annotations/CreateAnnotations
+./CreateAnnotations-${stage}.app/Contents/MacOS/CreateAnnotations-${stage}
+echo ""
+
+echo Running sample FlattenAnnotations
+cd ../../Annotations/FlattenAnnotations
+./FlattenAnnotations-${stage}.app/Contents/MacOS/FlattenAnnotations-${stage}
+echo ""
+
+
+# ContentCreation
+
 echo Running sample AddArt
-cd ../AddArt
+cd ../../ContentCreation/AddArt
 ./AddArt-${stage}.app/Contents/MacOS/AddArt-${stage}
 echo ""
 
 echo Running sample AddAttachments
-cd ../AddAttachments
+cd ../../ContentCreation/AddAttachments
 ./AddAttachments-${stage}.app/Contents/MacOS/AddAttachments-${stage}
 echo ""
 
-echo Running sample AddBookmarks
-cd ../AddBookmarks
-./AddBookmarks-${stage}.app/Contents/MacOS/AddBookmarks-${stage}
-echo ""
-
 echo Running sample AddContent
-cd ../AddContent
+cd ../../ContentCreation/AddContent
 ./AddContent-${stage}.app/Contents/MacOS/AddContent-${stage}
 echo ""
 
-echo Running sample AddDocumentInformation
-cd ../AddDocumentInformation
-./AddDocumentInformation-${stage}.app/Contents/MacOS/AddDocumentInformation-${stage}
-
-echo Running sample AddLinks
-cd ../AddLinks
-./AddLinks-${stage}.app/Contents/MacOS/AddLinks-${stage}
-echo ""
-
-echo Running sample AddPageNumbers
-cd ../AddPageNumbers
-./AddPageNumbers-${stage}.app/Contents/MacOS/AddPageNumbers-${stage}
-echo ""
-
-echo Running sample AddPassword
-cd ../AddPassword
-./AddPassword-${stage}.app/Contents/MacOS/AddPassword-${stage}
-echo ""
-
-echo Running sample AddRedaction
-cd ../AddRedaction
-./AddRedaction-${stage}.app/Contents/MacOS/AddRedaction-${stage}
-echo ""
-
-echo Running sample AddText
-cd ../AddText
-./AddText-${stage}.app/Contents/MacOS/AddText-${stage}
-echo ""
-
-echo Running sample AddWatermark
-cd ../AddWatermark
-./AddWatermark-${stage}.app/Contents/MacOS/AddWatermark-${stage}
-echo ""
-
-echo Running sample ConvertPDFtoEPS
-cd ../ConvertPDFtoEPS
-./ConvertPDFtoEPS-${stage}.app/Contents/MacOS/ConvertPDFtoEPS-${stage}
-echo ""
-
-echo Running sample ConvertPDFtoPostscript
-cd ../ConvertPDFtoPostscript
-./ConvertPDFtoPostscript-${stage}.app/Contents/MacOS/ConvertPDFtoPostscript-${stage}
-echo ""
-
-echo Running sample CopyContent
-cd ../CopyContent
-./CopyContent-${stage}.app/Contents/MacOS/CopyContent-${stage}
-echo ""
-
-echo Running sample CreateAnnotations
-cd ../CreateAnnotations
-./CreateAnnotations-${stage}.app/Contents/MacOS/CreateAnnotations-${stage}
+echo Running sample CreateBookmarks
+cd ../../ContentCreation/CreateBookmarks
+./CreateBookmarks-${stage}.app/Contents/MacOS/CreateBookmarks-${stage}
 echo ""
 
 echo Running sample CreateDocument
-cd ../CreateDocument
+cd ../../ContentCreation/CreateDocument
 ./CreateDocument-${stage}.app/Contents/MacOS/CreateDocument-${stage}
 echo ""
 
 echo Running sample CreateLayers
-cd ../CreateLayers
+cd ../../ContentCreation/CreateLayers
 ./CreateLayers-${stage}.app/Contents/MacOS/CreateLayers-${stage}
 echo ""
 
 echo Running sample CreateTransparency
-cd ../CreateTransparency
+cd ../../ContentCreation/CreateTransparency
 ./CreateTransparency-${stage}.app/Contents/MacOS/CreateTransparency-${stage}
 echo ""
 
-echo Running sample EncryptDocument
-cd ../EncryptDocument
-./EncryptDocument-${stage}.app/Contents/MacOS/EncryptDocument-${stage}
+# ContentExtraction
+
+echo Running sample CopyContent
+cd ../../ContentExtraction/CopyContent
+./CopyContent-${stage}.app/Contents/MacOS/CopyContent-${stage}
 echo ""
 
 echo Running sample ExtractAttachments
-cd ../ExtractAttachments
+cd ../../ContentExtraction/ExtractAttachments
 ./ExtractAttachments-${stage}.app/Contents/MacOS/ExtractAttachments-${stage}
 echo ""
 
-echo Running sample ExtractDocumentInfo
-cd ../ExtractDocumentInfo
-./ExtractDocumentInfo-${stage}.app/Contents/MacOS/ExtractDocumentInfo-${stage}
+echo Running sample ExtractFonts
+cd ../../ContentExtraction/ExtractFonts
+./ExtractFonts-${stage}.app/Contents/MacOS/ExtractFonts-${stage}
 echo ""
 
-echo Running sample ExtractText
-cd ../ExtractText
-./ExtractText-${stage}.app/Contents/MacOS/ExtractText-${stage}
+# ContentModification
+
+echo Running sample AddBookmarks
+cd ../../ContentModification/AddBookmarks
+./AddBookmarks-${stage}.app/Contents/MacOS/AddBookmarks-${stage}
 echo ""
 
-echo Running sample FindImageResolutions
-cd ../FindImageResolutions
-./FindImageResolutions-${stage}.app/Contents/MacOS/FindImageResolutions-${stage}
+echo Running sample AddDocumentInformation
+cd ../../ContentModification/AddDocumentInformation
+./AddDocumentInformation-${stage}.app/Contents/MacOS/AddDocumentInformation-${stage}
 echo ""
 
-echo Running sample FlattenAnnotations
-cd ../FlattenAnnotations
-./FlattenAnnotations-${stage}.app/Contents/MacOS/FlattenAnnotations-${stage}
+echo Running sample AddLinks
+cd ../../ContentModification/AddLinks
+./AddLinks-${stage}.app/Contents/MacOS/AddLinks-${stage}
+echo ""
+
+echo Running sample AddPageNumbers
+cd ../../ContentModification/AddPageNumbers
+./AddPageNumbers-${stage}.app/Contents/MacOS/AddPageNumbers-${stage}
+echo ""
+
+echo Running sample AttachMimeToPDF
+cd ../../ContentModification/AttachMimeToPDF
+./AttachMimeToPDF-${stage}.app/Contents/MacOS/AttachMimeToPDF-${stage}
 echo ""
 
 echo Running sample FlattenTransparency
-cd ../FlattenTransparency
+cd ../../ContentModification/FlattenTransparency
 ./FlattenTransparency-${stage}.app/Contents/MacOS/FlattenTransparency-${stage}
 echo ""
 
-echo Running sample LockDocument
-cd ../LockDocument
-./LockDocument-${stage}.app/Contents/MacOS/LockDocument-${stage}
+echo Running sample MergeAcroforms
+cd ../../ContentModification/MergeAcroforms
+./MergeAcroforms-${stage}.app/Contents/MacOS/MergeAcroforms-${stage}
 echo ""
 
 echo Running sample MergeDocuments
-cd ../MergeDocuments
+cd ../../ContentModification/MergeDocuments
 ./MergeDocuments-${stage}.app/Contents/MacOS/MergeDocuments-${stage}
 echo ""
 
-echo Running sample OpenEncrypted
-cd ../OpenEncrypted
-./OpenEncrypted-${stage}.app/Contents/MacOS/OpenEncrypted-${stage}
+echo Running sample PDFMakeOCGVisible
+cd ../../ContentModification/PDFMakeOCGVisible
+./PDFMakeOCGVisible-${stage}.app/Contents/MacOS/PDFMakeOCGVisible-${stage}
 echo ""
 
-echo Running sample PDFOptimizer
-cd ../PDFOptimizer
-./PDFOptimizer-${stage}.app/Contents/MacOS/PDFOptimizer-${stage}
-echo ""
-
-echo Running sample RenderPage
-cd ../RenderPage
-./RenderPage-${stage}.app/Contents/MacOS/RenderPage-${stage}
-echo ""
-
-echo Running sample SetUniquePermissions
-cd ../SetUniquePermissions
-./SetUniquePermissions-${stage}.app/Contents/MacOS/SetUniquePermissions-${stage}
+echo Running sample PDFUncompress
+cd ../../ContentModification/PDFUncompress
+./PDFUncompress-${stage}.app/Contents/MacOS/PDFUncompress-${stage}
 echo ""
 
 echo Running sample SplitPDF
-cd ../SplitPDF
+cd ../../ContentModification/SplitPDF
 ./SplitPDF-${stage}.app/Contents/MacOS/SplitPDF-${stage}
 echo ""
 
-echo Running sample TextSearch
-cd ../TextSearch
-./TextSearch-${stage}.app/Contents/MacOS/TextSearch-${stage}
+echo Running sample ImportPages
+cd ../../ContentModification/ImportPages
+./ImportPages-${stage}.app/Contents/MacOS/ImportPages-${stage}
 echo ""
 
-echo Running sample UnicodeText
-cd ../UnicodeText
-./UnicodeText-${stage}.app/Contents/MacOS/UnicodeText-${stage}
+echo Running sample AddWatermark
+cd ../../ContentModification/AddWatermark
+./AddWatermark-${stage}.app/Contents/MacOS/AddWatermark-${stage}
+echo ""
+
+echo Running sample EmbedFonts
+cd ../../ContentModification/EmbedFonts
+./EmbedFonts-${stage}.app/Contents/MacOS/EmbedFonts-${stage}
+echo ""
+
+# DocumentOptimization
+
+echo Running sample PDFOptimizer
+cd ../../DocumentOptimization/PDFOptimizer
+./PDFOptimizer-${stage}.app/Contents/MacOS/PDFOptimizer-${stage}
 echo ""
 
 echo Running sample WebOptimizedPDF
-cd ../WebOptimizedPDF
+cd ../../DocumentOptimization/WebOptimizedPDF
 ./WebOptimizedPDF-${stage}.app/Contents/MacOS/WebOptimizedPDF-${stage}
 echo ""
+
+# DocumentConversion
+
+echo Running sample ConvertPDFtoEPS
+cd ../../DocumentConversion/ConvertPDFtoEPS
+./ConvertPDFtoEPS-${stage}.app/Contents/MacOS/ConvertPDFtoEPS-${stage}
+echo ""
+
+echo Running sample ConvertPDFtoPostscript
+cd ../../DocumentConversion/ConvertPDFtoPostscript
+./ConvertPDFtoPostscript-${stage}.app/Contents/MacOS/ConvertPDFtoPostscript-${stage}
+echo ""
+
+# FileSystem
+
+echo Running sample AlternateFileSystem
+cd ../../FileSystem/AlternateFileSystem
+./AlternateFileSystem-${stage}.app/Contents/MacOS/AlternateFileSystem-${stage}
+echo ""
+
+# Images
+
+echo Running sample AddThumbnailsToPDF
+cd ../../Images/AddThumbnailsToPDF
+./AddThumbnailsToPDF-${stage}.app/Contents/MacOS/AddThumbnailsToPDF-${stage}
+echo ""
+
+echo Running sample RenderPage
+cd ../../Images/RenderPage
+./RenderPage-${stage}.app/Contents/MacOS/RenderPage-${stage}
+echo ""
+
+echo Running sample CreateImageWithTransparency
+cd ../../Images/CreateImageWithTransparency
+./CreateImageWithTransparency-${stage}.app/Contents/MacOS/CreateImageWithTransparency-${stage}
+echo ""
+
+echo Running sample CreateSeparations
+cd ../../Images/CreateSeparations
+./CreateSeparations-${stage}.app/Contents/MacOS/CreateSeparations-${stage}
+echo ""
+
+echo Running sample CalcImageDPI
+cd ../../Images/CalcImageDPI
+./CalcImageDPI-${stage}.app/Contents/MacOS/CalcImageDPI-${stage}
+echo ""
+
+echo Running sample FindImageResolutions
+cd ../../Images/FindImageResolutions
+./FindImageResolutions-${stage}.app/Contents/MacOS/FindImageResolutions-${stage}
+echo ""
+
+# InformationExtraction
+
+echo Running sample CountColorsInDoc
+cd ../../InformationExtraction/CountColorsInDoc
+./CountColorsInDoc-${stage}.app/Contents/MacOS/CountColorsInDoc-${stage}
+echo ""
+
+echo Running sample ExtractDocumentInfo
+cd ../../InformationExtraction/ExtractDocumentInfo
+./ExtractDocumentInfo-${stage}.app/Contents/MacOS/ExtractDocumentInfo-${stage}
+echo ""
+
+# Printing
+
+echo Running sample PostScriptInjection
+cd ../../Printing/PostScriptInjection
+./PostScriptInjection-${stage}.app/Contents/MacOS/PostScriptInjection-${stage}
+echo ""
+
+# Security
+
+echo Running sample AESEncryption
+cd ../../Security/AESEncryption
+./AESEncryption-${stage}.app/Contents/MacOS/AESEncryption-${stage}
+echo ""
+
+echo Running sample AddPassword
+cd ../../Security/AddPassword
+./AddPassword-${stage}.app/Contents/MacOS/AddPassword-${stage}
+echo ""
+
+echo Running sample AddRedaction
+cd ../../Security/AddRedaction
+./AddRedaction-${stage}.app/Contents/MacOS/AddRedaction-${stage}
+echo ""
+
+echo Running sample EncryptDocument
+cd ../../Security/EncryptDocument
+./EncryptDocument-${stage}.app/Contents/MacOS/EncryptDocument-${stage}
+echo ""
+
+echo Running sample LockDocument
+cd ../../Security/LockDocument
+./LockDocument-${stage}.app/Contents/MacOS/LockDocument-${stage}
+echo ""
+
+echo Running sample SetUniquePermissions
+cd ../../Security/SetUniquePermissions
+./SetUniquePermissions-${stage}.app/Contents/MacOS/SetUniquePermissions-${stage}
+echo ""
+
+echo Running sample OpenEncrypted
+cd ../../Security/OpenEncrypted
+./OpenEncrypted-${stage}.app/Contents/MacOS/OpenEncrypted-${stage}
+echo ""
+
+echo Running sample ValidateSignatures
+cd ../../Security/ValidateSignatures
+./ValidateSignatures-${stage}.app/Contents/MacOS/ValidateSignatures-${stage}
+echo ""
+
+# Text
+
+echo Running sample InsertHeadFoot
+cd ../../Text/InsertHeadFoot
+./InsertHeadFoot-${stage}.app/Contents/MacOS/InsertHeadFoot-${stage}
+echo ""
+
+echo Running sample ExtractText
+cd ../../Text/ExtractText
+./ExtractText-${stage}.app/Contents/MacOS/ExtractText-${stage}
+echo ""
+
+echo Running sample AddText
+cd ../../Text/AddText
+./AddText-${stage}.app/Contents/MacOS/AddText-${stage}
+echo ""
+
+echo Running sample UnicodeText
+cd ../../Text/UnicodeText
+./UnicodeText-${stage}.app/Contents/MacOS/UnicodeText-${stage}
+echo ""
+
+echo Running sample HelloJapan
+cd ../../Text/HelloJapan
+./HelloJapan-${stage}.app/Contents/MacOS/HelloJapan-${stage}
+echo ""
+
+echo Running sample TextSearch
+cd ../../Text/TextSearch
+./TextSearch-${stage}.app/Contents/MacOS/TextSearch-${stage}
+echo ""
+
+
 echo All Datalogics samples are finished running.
 

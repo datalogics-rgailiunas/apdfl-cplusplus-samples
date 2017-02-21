@@ -13,6 +13,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				9F6648471E5CE98E00DF496B /* PBXTargetDependency */,
 				9F8422E61E5CAE47001E30FB /* PBXTargetDependency */,
 				9F8422E81E5CAE47001E30FB /* PBXTargetDependency */,
 				9F8422EA1E5CAE47001E30FB /* PBXTargetDependency */,
@@ -178,6 +179,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
 			remoteInfo = AddDocumentInformation;
+		};
+		9F6647D61E5CE63E00DF496B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F6647D21E5CE63D00DF496B /* WebOptimizedPDF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = WebOptimizedPDF;
+		};
+		9F6648461E5CE98E00DF496B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F6647D21E5CE63D00DF496B /* WebOptimizedPDF.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = WebOptimizedPDF;
 		};
 		9F8422571E5CADFC001E30FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -848,6 +863,7 @@
 		9F50499B1E5CA3AF00C113B1 /* ExtractFonts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ExtractFonts.xcodeproj; path = ../ContentExtraction/ExtractFonts/ExtractFonts.xcodeproj; sourceTree = "<group>"; };
 		9F5049A11E5CA3BF00C113B1 /* AddBookmarks.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddBookmarks.xcodeproj; path = ../ContentModification/AddBookmarks/AddBookmarks.xcodeproj; sourceTree = "<group>"; };
 		9F5049A71E5CA3E500C113B1 /* AddDocumentInformation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddDocumentInformation.xcodeproj; path = ../ContentModification/AddDocumentInformation/AddDocumentInformation.xcodeproj; sourceTree = "<group>"; };
+		9F6647D21E5CE63D00DF496B /* WebOptimizedPDF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WebOptimizedPDF.xcodeproj; path = ../DocumentOptimization/WebOptimizedPDF/WebOptimizedPDF.xcodeproj; sourceTree = "<group>"; };
 		9F8EE1661E5CA403004E294B /* AddLinks.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddLinks.xcodeproj; path = ../ContentModification/AddLinks/AddLinks.xcodeproj; sourceTree = "<group>"; };
 		9F8EE17B1E5CA40C004E294B /* AddPageNumbers.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddPageNumbers.xcodeproj; path = ../ContentModification/AddPageNumbers/AddPageNumbers.xcodeproj; sourceTree = "<group>"; };
 		9F8EE1811E5CA419004E294B /* AddWatermark.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddWatermark.xcodeproj; path = ../ContentModification/AddWatermark/AddWatermark.xcodeproj; sourceTree = "<group>"; };
@@ -1006,6 +1022,14 @@
 			isa = PBXGroup;
 			children = (
 				9F5049AC1E5CA3E600C113B1 /* AddDocumentInformation-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F6647D31E5CE63D00DF496B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F6647D71E5CE63E00DF496B /* WebOptimizedPDF-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1325,6 +1349,7 @@
 		BAAE8A280ADC6237005A7834 = {
 			isa = PBXGroup;
 			children = (
+				9F6647D21E5CE63D00DF496B /* WebOptimizedPDF.xcodeproj */,
 				9F8EE2661E5CA9DA004E294B /* UnicodeText.xcodeproj */,
 				9F8EE2601E5CA9D2004E294B /* TextSearch.xcodeproj */,
 				9F8EE25A1E5CA9C9004E294B /* InsertHeadFoot.xcodeproj */,
@@ -1619,6 +1644,10 @@
 					ProductGroup = 9F8EE2431E5CA980004E294B /* Products */;
 					ProjectRef = 9F8EE2421E5CA980004E294B /* ValidateSignatures.xcodeproj */;
 				},
+				{
+					ProductGroup = 9F6647D31E5CE63D00DF496B /* Products */;
+					ProjectRef = 9F6647D21E5CE63D00DF496B /* WebOptimizedPDF.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -1631,7 +1660,8 @@
 		9F5049581E5CA2F700C113B1 /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "AlternateFileSystem-Debug.app";
 			remoteRef = 9F5049571E5CA2F700C113B1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1673,7 +1703,8 @@
 		9F50497C1E5CA36700C113B1 /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "CreateBookmarks-Debug.app";
 			remoteRef = 9F50497B1E5CA36700C113B1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1715,7 +1746,8 @@
 		9F5049A01E5CA3AF00C113B1 /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "ExtractFonts-Debug.app";
 			remoteRef = 9F50499F1E5CA3AF00C113B1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1731,6 +1763,13 @@
 			fileType = wrapper.application;
 			path = "AddDocumentInformation-Debug.app";
 			remoteRef = 9F5049AB1E5CA3E600C113B1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F6647D71E5CE63E00DF496B /* WebOptimizedPDF-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "WebOptimizedPDF-Debug.app";
+			remoteRef = 9F6647D61E5CE63E00DF496B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9F8EE1701E5CA403004E294B /* AddLinks-Debug.app */ = {
@@ -1757,14 +1796,16 @@
 		9F8EE18C1E5CA425004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "AttachMimeToPDF-Debug.app";
 			remoteRef = 9F8EE18B1E5CA425004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9F8EE1921E5CA42D004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "EmbedFonts-Debug.app";
 			remoteRef = 9F8EE1911E5CA42D004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1778,14 +1819,16 @@
 		9F8EE19E1E5CA43F004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "importPages-Debug.app";
 			remoteRef = 9F8EE19D1E5CA43F004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9F8EE1A41E5CA448004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "MergeAcroforms-Debug.app";
 			remoteRef = 9F8EE1A31E5CA448004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1799,14 +1842,16 @@
 		9F8EE1B01E5CA459004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "PDFMakeOCGVisible-Debug.app";
 			remoteRef = 9F8EE1AF1E5CA459004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9F8EE1B61E5CA461004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "PDFUncompress-Debug.app";
 			remoteRef = 9F8EE1B51E5CA461004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1820,7 +1865,8 @@
 		9F8EE1CF1E5CA49E004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "DisplayPDEContent-Debug.app";
 			remoteRef = 9F8EE1CE1E5CA49E004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1848,35 +1894,40 @@
 		9F8EE1E71E5CA8CF004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "AddThumbnailsToPDF-Debug.app";
 			remoteRef = 9F8EE1E61E5CA8CF004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9F8EE1ED1E5CA8DA004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "CalcImageDPI-Debug.app";
 			remoteRef = 9F8EE1EC1E5CA8DA004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9F8EE1F31E5CA8E8004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "CreateImageWithTransparency-Debug.app";
 			remoteRef = 9F8EE1F21E5CA8E8004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9F8EE1F91E5CA8F9004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "CreateSeparations-Debug.app";
 			remoteRef = 9F8EE1F81E5CA8F9004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9F8EE1FF1E5CA905004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "FindImageResolutions-Debug.app";
 			remoteRef = 9F8EE1FE1E5CA905004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1890,7 +1941,8 @@
 		9F8EE20B1E5CA917004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "CountColorsInDoc-Debug.app";
 			remoteRef = 9F8EE20A1E5CA917004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1904,7 +1956,8 @@
 		9F8EE2171E5CA92C004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "PostScriptInjection-Debug.app";
 			remoteRef = 9F8EE2161E5CA92C004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1925,7 +1978,8 @@
 		9F8EE2291E5CA955004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "AESEncryption-Debug.app";
 			remoteRef = 9F8EE2281E5CA955004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1960,7 +2014,8 @@
 		9F8EE2471E5CA980004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "ValidateSignatures-Debug.app";
 			remoteRef = 9F8EE2461E5CA980004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1981,14 +2036,16 @@
 		9F8EE2591E5CA9C1004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "helloJapan-Debug.app";
 			remoteRef = 9F8EE2581E5CA9C1004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9F8EE25F1E5CA9CA004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = .app;
+			name = .app;
+			path = "InsertHeadFoot-Debug.app";
 			remoteRef = 9F8EE25E1E5CA9CA004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -2009,6 +2066,11 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXTargetDependency section */
+		9F6648471E5CE98E00DF496B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = WebOptimizedPDF;
+			targetProxy = 9F6648461E5CE98E00DF496B /* PBXContainerItemProxy */;
+		};
 		9F8422581E5CADFC001E30FB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = UnicodeText;
