@@ -4,7 +4,15 @@
 // For complete copyright information, see:
 // http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
 //
-// Project:  CountColorsInDoc - counts colors in a document
+// This sample reviews a PDF document to determine the distinct colors found,
+// and then generates an output text file listing those colors. The program
+// identifies colors from either RGB or CYMK color spaces, as well as gray
+// scale shading. The program identifies the colors in the PDF document by
+// referring to the list of colors defined in the color profile stored within
+// the PDF document itself.
+//
+// This sample demonstrates how to find information in a PDF document,
+// and how to access an object within a PDF. 
 // 
 
 #include <iostream>
@@ -122,7 +130,7 @@ void MarkColors (PDEColorSpec *color, ColorsUsed *colors)
     }
     else
     {
-        // For any color, we need its number of channels and its name
+        // For any color, find the number of channels and name
         ASUns16 channels = PDEColorSpaceGetNumComps (color->space);
         ASAtom name = PDEColorSpaceGetName (color->space);
 
@@ -154,21 +162,20 @@ void MarkColors (PDEColorSpec *color, ColorsUsed *colors)
         if (thisColor.neverColored)
             return;
 
-        // We could get the alternate space from a separation color here, 
-        // and loop back through this process to handle it. I am not going to do that for this
-        // example though
+		// Figuring out if a color specified is a color or a shade of gray can be difficult
+		// when working with ICC, DeviceN, and Separation colors. The program creates a 
+		// single array to hold all color values.
 
-        // Now, is the color specified a "real" color, or a shade of gray?
-        // For RGB and CMYK, we can answer that, for ICC, DeviceN, and Sep colors, 
-        // it gets a lot harder. Make one array that holds all color values, so we
-        // don't have to write the per-channel multiple times
+		// The program is not designed to write each color channel to an array one color
+		// at a time, looping through the process until the array is filled.
+
         ASFixed colorValue[20];
         if (color->value.colorObj2 && (name == ASAtomFromString("DeviceN")))
         {
             // This color is a DeviceN color space. 
-            // Not all deviceN color spaces will use this object, but any may.
+            // Not all deviceN color spaces will use this object, but any of them can.
             // When it is used, the color per channel values are stored here, instead of
-            // in the array in color value
+            // in the array in the color value field.
             colors->hadDeviceN = true;
             for (ASUns16 index = 0; index < channels; index++)
                 colorValue[index] = PDEDeviceNColorsGetColorValue ((PDEDeviceNColors)color->value.colorObj2, index);
@@ -179,13 +186,14 @@ void MarkColors (PDEColorSpec *color, ColorsUsed *colors)
                 colorValue[index] = color->value.color[index];
         }
 
-        // If this is CMYK, then we want to ignore the last channel, which we known is black
+        // If this is CMYK, ignore the last channel (black)
         if (thisColor.mark.hadCMYK)
             channels -= 1;
 
-        // We could look for DeviceN channels which contain black or white ink, and ignore them,
-        // and separation colors that draw black or white, and ignore them. This is more than I want to do for 
-        // a sample though. Instead, we will consider any ink drawn as colored here.
+        // Program considers any ink drawn as color ink. 
+		// The sample does not look for and ignore DeviceN channels or separation colors
+        // that contain or draw black or white. 
+        //
         for (ASUns16 index = 0; index < channels; index++)
         {
             if ((thisColor.additive) && (colorValue[index] != 0))
@@ -264,7 +272,7 @@ void WalkPDETree (PDEContent content, ColorsUsed *colors)
                 else
                 {
                     // If there is a colored image, presume it is never gray.
-                    // Setting one channel to max, and one to min, will cover both the
+                    // Setting one channel to maximum, and one to minimum, will cover both the
                     // additive and subtractive cases.
                     memset (&imageSpec.value, 0, sizeof (PDEColorValue));
                     imageSpec.value.color[0] = fixedOne;

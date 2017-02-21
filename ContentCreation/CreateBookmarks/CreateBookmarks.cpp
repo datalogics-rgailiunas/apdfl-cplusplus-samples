@@ -4,16 +4,14 @@
 // For complete copyright information, see:
 // http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
 //
-// This sample opens a pdf file which has no bookmarks. It creates a parent bookmark (bookmark 1)
-// in Korean via Unicode, and then creates a child bookmark (bookmark 1.1). The resulting
-// file will be saved in the current directory.
+// A bookmark in a PDF document labels a place within the PDF document to serve as a destination, often a
+// heading or a graphic. If you manually add a bookmark to a PDF, you can create a link elsewhere in the same
+// PDF document and connect it to that bookmark. When the reader clicks on that link the viewer will take the
+// reader to the place in the PDF where that bookmark is found.
 //
-// Steps:
-//
-//    Open PDF document
-//    Create parent bookmark 1
-//    Create child bookmark 1.1
-//    Save output document
+// This sample demonstrates how to add a bookmark to a PDF documnent. It creates a parent bookmark in Korean
+// via Unicode (bookmark 1), and then creates a child bookmark under that (bookmark 1.1). The program saves
+// the PDF document as an output file in the current directory.
 //
 
 #include <iostream>
