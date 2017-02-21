@@ -796,7 +796,7 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../Binaries\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../Binaries\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../Binaries\"";
-				INFOPLIST_FILE = ../../Samples/dlutils/Info.plist;
+				INFOPLIST_FILE = ../../dlutils/Info.plist;
 			};
 			name = Release;
 		};
@@ -823,7 +823,7 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../Binaries\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../Binaries\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../Binaries\"";
-				INFOPLIST_FILE = ../../Samples/dlutils/Info.plist;
+				INFOPLIST_FILE = ../../dlutils/Info.plist;
 			};
 			name = Debug;
 		};
