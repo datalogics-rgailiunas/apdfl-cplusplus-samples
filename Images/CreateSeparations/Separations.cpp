@@ -8,7 +8,7 @@
 // 
 // Color separation is part of high volume offset printing processing. The original digital content
 // is color separated to create a set of plates for printing, generally one plate per page for each
-// of the primary colors—Cyan, Magenta, Yellow, and Black (CMYK). During printing each color layer is
+// of the primary colorsâ€”Cyan, Magenta, Yellow, and Black (CMYK). During printing each color layer is
 // printed separately, one on top of the other, blended together to create the depth and variety of
 // color in the final images. A spot color is a separate color added on top of the image after the
 // four color plates are used to create the initial print run.
@@ -272,10 +272,10 @@ END_HANDLER
     return (0);
 }
 
-// This routine separates a CMYK image into 4 plates, one for each of those inks.
+// This routine separates a CMYK image into 4 plates, one for each of those four colors.
 // Each image will be an 8 bit single color image, representing the proportion of that color
 // used in each pixel. The image will be at 4 times the resolution of the original image, and will
-// use 1/4 of the pixels only. The effect should be identical to a 25% screen image at 45 degrees.
+// use only one fourth of the pixels. The effect should be identical to a 25% screen image at 45 degrees.
 //
 // A separate mask image will be supplied. It will also be at 4 times the resolution of the 
 // original image, but will be 1 bit per pixel. It will have turned on only those pixels which are 
