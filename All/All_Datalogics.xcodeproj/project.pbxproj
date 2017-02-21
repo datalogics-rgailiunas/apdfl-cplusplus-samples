@@ -13,41 +13,60 @@
 			buildPhases = (
 			);
 			dependencies = (
-				2E21C0811C8DD68E00018A6D /* PBXTargetDependency */,
-				2E5E09A31C8A1D5900098602 /* PBXTargetDependency */,
-				2E21C0951C8DDB4D00018A6D /* PBXTargetDependency */,
-				2E21C0B01C8DEAD500018A6D /* PBXTargetDependency */,
-				2E21C0C11C8DF22D00018A6D /* PBXTargetDependency */,
-				2E21C0D01C8DF3EE00018A6D /* PBXTargetDependency */,
-				2E21C0E61C8DFBFB00018A6D /* PBXTargetDependency */,
-				2E21C0F71C8DFD1500018A6D /* PBXTargetDependency */,
-				2E21C1A01C8E055100018A6D /* PBXTargetDependency */,
-				2E21C1EF1C8E0AFE00018A6D /* PBXTargetDependency */,
-				2E21C1DA1C8E0AD900018A6D /* PBXTargetDependency */,
-				3C386FE81D0222D100EBC3AE /* PBXTargetDependency */,
-				3C386FEC1D0222D700EBC3AE /* PBXTargetDependency */,
-				2E21C1C61C8E0AAD00018A6D /* PBXTargetDependency */,
-				2E5EF4E01C8F1C8F0077FABC /* PBXTargetDependency */,
-				2E5EF51E1C8F2A1B0077FABC /* PBXTargetDependency */,
-				2E5EF51C1C8F2A1B0077FABC /* PBXTargetDependency */,
-				2E79A39B1C8F42E80087ECBC /* PBXTargetDependency */,
-				2E79A3B51C8F46340087ECBC /* PBXTargetDependency */,
-				2E79A3FA1C8F48590087ECBC /* PBXTargetDependency */,
-				2E79A40B1C8F541A0087ECBC /* PBXTargetDependency */,
-				2E79A4091C8F541A0087ECBC /* PBXTargetDependency */,
-				2E79A4271C8F5D990087ECBC /* PBXTargetDependency */,
-				2E79A4351C8F5FF50087ECBC /* PBXTargetDependency */,
-				2E79A4B41C8F84200087ECBC /* PBXTargetDependency */,
-				2E79A4531C8F637B0087ECBC /* PBXTargetDependency */,
-				2E79A5021C906BC40087ECBC /* PBXTargetDependency */,
-				2E79A5001C906BC40087ECBC /* PBXTargetDependency */,
-				94212D861D678EB4008D6363 /* PBXTargetDependency */,
-				BAA38E921CDA41030011A215 /* PBXTargetDependency */,
-				2E79A5471C90723C0087ECBC /* PBXTargetDependency */,
-				2E79A56B1C907C750087ECBC /* PBXTargetDependency */,
-				2E79A5901C9098180087ECBC /* PBXTargetDependency */,
-				2E79A5B61C909A230087ECBC /* PBXTargetDependency */,
-				2E79A5DD1C909AEB0087ECBC /* PBXTargetDependency */,
+				9F8422E61E5CAE47001E30FB /* PBXTargetDependency */,
+				9F8422E81E5CAE47001E30FB /* PBXTargetDependency */,
+				9F8422EA1E5CAE47001E30FB /* PBXTargetDependency */,
+				9F8422EC1E5CAE47001E30FB /* PBXTargetDependency */,
+				9F8422EE1E5CAE47001E30FB /* PBXTargetDependency */,
+				9F8422F01E5CAE47001E30FB /* PBXTargetDependency */,
+				9F8422F21E5CAE47001E30FB /* PBXTargetDependency */,
+				9F8422F41E5CAE47001E30FB /* PBXTargetDependency */,
+				9F8422F61E5CAE47001E30FB /* PBXTargetDependency */,
+				9F8422F81E5CAE47001E30FB /* PBXTargetDependency */,
+				9F8422D21E5CAE39001E30FB /* PBXTargetDependency */,
+				9F8422D41E5CAE39001E30FB /* PBXTargetDependency */,
+				9F8422D61E5CAE39001E30FB /* PBXTargetDependency */,
+				9F8422D81E5CAE39001E30FB /* PBXTargetDependency */,
+				9F8422DA1E5CAE39001E30FB /* PBXTargetDependency */,
+				9F8422DC1E5CAE39001E30FB /* PBXTargetDependency */,
+				9F8422DE1E5CAE39001E30FB /* PBXTargetDependency */,
+				9F8422E01E5CAE39001E30FB /* PBXTargetDependency */,
+				9F8422E21E5CAE39001E30FB /* PBXTargetDependency */,
+				9F8422E41E5CAE39001E30FB /* PBXTargetDependency */,
+				9F8422BE1E5CAE2D001E30FB /* PBXTargetDependency */,
+				9F8422C01E5CAE2D001E30FB /* PBXTargetDependency */,
+				9F8422C21E5CAE2D001E30FB /* PBXTargetDependency */,
+				9F8422C41E5CAE2D001E30FB /* PBXTargetDependency */,
+				9F8422C61E5CAE2D001E30FB /* PBXTargetDependency */,
+				9F8422C81E5CAE2D001E30FB /* PBXTargetDependency */,
+				9F8422CA1E5CAE2D001E30FB /* PBXTargetDependency */,
+				9F8422CC1E5CAE2D001E30FB /* PBXTargetDependency */,
+				9F8422CE1E5CAE2D001E30FB /* PBXTargetDependency */,
+				9F8422D01E5CAE2D001E30FB /* PBXTargetDependency */,
+				9F8422AA1E5CAE20001E30FB /* PBXTargetDependency */,
+				9F8422AC1E5CAE20001E30FB /* PBXTargetDependency */,
+				9F8422AE1E5CAE20001E30FB /* PBXTargetDependency */,
+				9F8422B01E5CAE20001E30FB /* PBXTargetDependency */,
+				9F8422B21E5CAE20001E30FB /* PBXTargetDependency */,
+				9F8422B41E5CAE20001E30FB /* PBXTargetDependency */,
+				9F8422B61E5CAE20001E30FB /* PBXTargetDependency */,
+				9F8422B81E5CAE20001E30FB /* PBXTargetDependency */,
+				9F8422BA1E5CAE20001E30FB /* PBXTargetDependency */,
+				9F8422BC1E5CAE20001E30FB /* PBXTargetDependency */,
+				9F8422901E5CAE14001E30FB /* PBXTargetDependency */,
+				9F8422921E5CAE14001E30FB /* PBXTargetDependency */,
+				9F8422941E5CAE14001E30FB /* PBXTargetDependency */,
+				9F8422961E5CAE14001E30FB /* PBXTargetDependency */,
+				9F8422981E5CAE14001E30FB /* PBXTargetDependency */,
+				9F84229A1E5CAE14001E30FB /* PBXTargetDependency */,
+				9F84229C1E5CAE14001E30FB /* PBXTargetDependency */,
+				9F84229E1E5CAE14001E30FB /* PBXTargetDependency */,
+				9F8422A01E5CAE14001E30FB /* PBXTargetDependency */,
+				9F8422A21E5CAE14001E30FB /* PBXTargetDependency */,
+				9F8422A41E5CAE14001E30FB /* PBXTargetDependency */,
+				9F8422A61E5CAE14001E30FB /* PBXTargetDependency */,
+				9F8422A81E5CAE14001E30FB /* PBXTargetDependency */,
+				9F8422581E5CADFC001E30FB /* PBXTargetDependency */,
 			);
 			name = All_Datalogics;
 			productName = All_Datalogics_debug;
@@ -55,805 +74,1250 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXContainerItemProxy section */
-		1DC78D171D676FEC00A8F1B0 /* PBXContainerItemProxy */ = {
+		9F5049571E5CA2F700C113B1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 1DC78D131D676FEC00A8F1B0 /* PDFOptimizer.xcodeproj */;
+			containerPortal = 9F5049531E5CA2F700C113B1 /* AlternateFileSystem.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = PDFOptimizer;
+			remoteInfo = AlternateFileSystem;
 		};
-		2E21C07C1C8DD57000018A6D /* PBXContainerItemProxy */ = {
+		9F50495D1E5CA30D00C113B1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C0781C8DD57000018A6D /* AddArt.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = AddArt;
-		};
-		2E21C0801C8DD68E00018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C0781C8DD57000018A6D /* AddArt.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = AddArt;
-		};
-		2E21C08F1C8DDAA900018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C08B1C8DDAA900018A6D /* AddBookmarks.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = AddBookmarks;
-		};
-		2E21C0941C8DDB4D00018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C08B1C8DDAA900018A6D /* AddBookmarks.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = AddBookmarks;
-		};
-		2E21C0AD1C8DEAC500018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C0A91C8DEAC500018A6D /* AddContent.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = AddContent;
-		};
-		2E21C0AF1C8DEAD500018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C0A91C8DEAC500018A6D /* AddContent.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = AddContent;
-		};
-		2E21C0B91C8DF1DF00018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C0B51C8DF1DF00018A6D /* AddDocumentInformation.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = AddDocumentInformation;
-		};
-		2E21C0C01C8DF22D00018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C0B51C8DF1DF00018A6D /* AddDocumentInformation.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = AddDocumentInformation;
-		};
-		2E21C0C71C8DF3B500018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C0C31C8DF3B500018A6D /* AddLinks.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = AddLinks;
-		};
-		2E21C0CF1C8DF3EE00018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C0C31C8DF3B500018A6D /* AddLinks.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = AddLinks;
-		};
-		2E21C0DC1C8DFBC400018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C0D81C8DFBC400018A6D /* AddPageNumbers.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = AddPageNumbers;
-		};
-		2E21C0E51C8DFBFB00018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C0D81C8DFBC400018A6D /* AddPageNumbers.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = AddPageNumbers;
-		};
-		2E21C0EC1C8DFCE100018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C0E81C8DFCE100018A6D /* AddPassword.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = AddPassword;
-		};
-		2E21C0F61C8DFD1500018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C0E81C8DFCE100018A6D /* AddPassword.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = AddPassword;
-		};
-		2E21C1941C8E052A00018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C1901C8E052A00018A6D /* AddRedaction.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = AddRedaction;
-		};
-		2E21C19F1C8E055100018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C1901C8E052A00018A6D /* AddRedaction.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = AddRedaction;
-		};
-		2E21C1AF1C8E0A4E00018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C1AB1C8E0A4D00018A6D /* CopyContent.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = CopyContent;
-		};
-		2E21C1C51C8E0AAD00018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C1AB1C8E0A4D00018A6D /* CopyContent.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = CopyContent;
-		};
-		2E21C1CC1C8E0AB800018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C1C81C8E0AB800018A6D /* AddWatermark.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = AddWatermark;
-		};
-		2E21C1D91C8E0AD900018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C1C81C8E0AB800018A6D /* AddWatermark.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = AddWatermark;
-		};
-		2E21C1E01C8E0AE300018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C1DC1C8E0AE300018A6D /* AddText.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = AddText;
-		};
-		2E21C1EE1C8E0AFE00018A6D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E21C1DC1C8E0AE300018A6D /* AddText.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = AddText;
-		};
-		2E5E09A01C8A1D3F00098602 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = AddAttachments;
-		};
-		2E5E09A21C8A1D5900098602 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = AddAttachments;
-		};
-		2E5EF4D01C8F1C600077FABC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E5EF4CC1C8F1C5F0077FABC /* CreateAnnotations.xcodeproj */;
+			containerPortal = 9F5049591E5CA30D00C113B1 /* CreateAnnotations.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
 			remoteInfo = CreateAnnotations;
 		};
-		2E5EF4DF1C8F1C8F0077FABC /* PBXContainerItemProxy */ = {
+		9F5049631E5CA31B00C113B1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2E5EF4CC1C8F1C5F0077FABC /* CreateAnnotations.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = CreateAnnotations;
-		};
-		2E5EF4E61C8F1EC00077FABC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E5EF4E21C8F1EC00077FABC /* CreateDocument.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = CreateDocument;
-		};
-		2E5EF4FA1C8F296A0077FABC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E5EF4F61C8F296A0077FABC /* CreateLayers.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = CreateLayers;
-		};
-		2E5EF51B1C8F2A1B0077FABC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E5EF4F61C8F296A0077FABC /* CreateLayers.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = CreateLayers;
-		};
-		2E5EF51D1C8F2A1B0077FABC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E5EF4E21C8F1EC00077FABC /* CreateDocument.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = CreateDocument;
-		};
-		2E5EF5251C8F42980077FABC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E5EF5211C8F42970077FABC /* CreateTransparency.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = CreateTransparency;
-		};
-		2E79A39A1C8F42E80087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E5EF5211C8F42970077FABC /* CreateTransparency.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = CreateTransparency;
-		};
-		2E79A3A11C8F46150087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A39D1C8F46150087ECBC /* EncryptDocument.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = EncryptDocument;
-		};
-		2E79A3B41C8F46340087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A39D1C8F46150087ECBC /* EncryptDocument.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = EncryptDocument;
-		};
-		2E79A3D31C8F48190087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A3CF1C8F48190087ECBC /* ExtractAttachments.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = ExtractAttachments;
-		};
-		2E79A3F91C8F48590087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A3CF1C8F48190087ECBC /* ExtractAttachments.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = ExtractAttachments;
-		};
-		2E79A4001C8F4B390087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A3FC1C8F4B390087ECBC /* ExtractDocumentInfo.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = ExtractDocumentInfo;
-		};
-		2E79A4061C8F540E0087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A4021C8F540E0087ECBC /* ExtractText.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = ExtractText;
-		};
-		2E79A4081C8F541A0087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A4021C8F540E0087ECBC /* ExtractText.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = ExtractText;
-		};
-		2E79A40A1C8F541A0087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A3FC1C8F4B390087ECBC /* ExtractDocumentInfo.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = ExtractDocumentInfo;
-		};
-		2E79A4241C8F5D8D0087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A4201C8F5D8D0087ECBC /* FindImageResolutions.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = FindImageResolutions;
-		};
-		2E79A4261C8F5D990087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A4201C8F5D8D0087ECBC /* FindImageResolutions.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = FindImageResolutions;
-		};
-		2E79A4321C8F5FEB0087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A42E1C8F5FEB0087ECBC /* FlattenAnnotations.xcodeproj */;
+			containerPortal = 9F50495F1E5CA31B00C113B1 /* FlattenAnnotations.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
 			remoteInfo = FlattenAnnotations;
 		};
-		2E79A4341C8F5FF50087ECBC /* PBXContainerItemProxy */ = {
+		9F5049691E5CA33900C113B1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A42E1C8F5FEB0087ECBC /* FlattenAnnotations.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = FlattenAnnotations;
-		};
-		2E79A4501C8F63720087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A44C1C8F63720087ECBC /* LockDocument.xcodeproj */;
+			containerPortal = 9F5049651E5CA33800C113B1 /* AddArt.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = LockDocument;
+			remoteInfo = AddArt;
 		};
-		2E79A4521C8F637B0087ECBC /* PBXContainerItemProxy */ = {
+		9F50496F1E5CA34200C113B1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A44C1C8F63720087ECBC /* LockDocument.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = LockDocument;
-		};
-		2E79A4B11C8F840A0087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A4AD1C8F840A0087ECBC /* FlattenTransparency.xcodeproj */;
+			containerPortal = 9F50496B1E5CA34200C113B1 /* AddAttachments.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = FlattenTransparency;
+			remoteInfo = AddAttachments;
 		};
-		2E79A4B31C8F84200087ECBC /* PBXContainerItemProxy */ = {
+		9F5049751E5CA35E00C113B1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A4AD1C8F840A0087ECBC /* FlattenTransparency.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = FlattenTransparency;
-		};
-		2E79A4DD1C9069D10087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A4D91C9069D00087ECBC /* MergeDocuments.xcodeproj */;
+			containerPortal = 9F5049711E5CA35E00C113B1 /* AddContent.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = MergeDocuments;
+			remoteInfo = AddContent;
 		};
-		2E79A4FD1C906BB40087ECBC /* PBXContainerItemProxy */ = {
+		9F50497B1E5CA36700C113B1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A4F81C906BB40087ECBC /* OpenEncrypted.xcodeproj */;
+			containerPortal = 9F5049771E5CA36600C113B1 /* CreateBookmarks.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = OpenEncrypted;
+			remoteInfo = CreateBookmarks;
 		};
-		2E79A4FF1C906BC40087ECBC /* PBXContainerItemProxy */ = {
+		9F5049811E5CA37000C113B1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A4F81C906BB40087ECBC /* OpenEncrypted.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = OpenEncrypted;
-		};
-		2E79A5011C906BC40087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A4D91C9069D00087ECBC /* MergeDocuments.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = MergeDocuments;
-		};
-		2E79A5441C9072350087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A5401C9072350087ECBC /* SetUniquePermissions.xcodeproj */;
+			containerPortal = 9F50497D1E5CA37000C113B1 /* CreateDocument.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = SetUniquePermissions;
+			remoteInfo = CreateDocument;
 		};
-		2E79A5461C90723C0087ECBC /* PBXContainerItemProxy */ = {
+		9F5049871E5CA37900C113B1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A5401C9072350087ECBC /* SetUniquePermissions.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = SetUniquePermissions;
-		};
-		2E79A5681C907C700087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A5641C907C700087ECBC /* SplitPDF.xcodeproj */;
+			containerPortal = 9F5049831E5CA37800C113B1 /* CreateLayers.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = SplitPDF;
+			remoteInfo = CreateLayers;
 		};
-		2E79A56A1C907C750087ECBC /* PBXContainerItemProxy */ = {
+		9F50498D1E5CA38B00C113B1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A5641C907C700087ECBC /* SplitPDF.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = SplitPDF;
-		};
-		2E79A58D1C9098130087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A5891C9098130087ECBC /* TextSearch.xcodeproj */;
+			containerPortal = 9F5049891E5CA38B00C113B1 /* CreateTransparency.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = TextSearch;
+			remoteInfo = CreateTransparency;
 		};
-		2E79A58F1C9098180087ECBC /* PBXContainerItemProxy */ = {
+		9F5049931E5CA39D00C113B1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A5891C9098130087ECBC /* TextSearch.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = TextSearch;
-		};
-		2E79A5B31C909A1E0087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A5AF1C909A1E0087ECBC /* UnicodeText.xcodeproj */;
+			containerPortal = 9F50498F1E5CA39D00C113B1 /* CopyContent.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = UnicodeText;
+			remoteInfo = CopyContent;
 		};
-		2E79A5B51C909A230087ECBC /* PBXContainerItemProxy */ = {
+		9F5049991E5CA3A500C113B1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A5AF1C909A1E0087ECBC /* UnicodeText.xcodeproj */;
+			containerPortal = 9F5049951E5CA3A500C113B1 /* ExtractAttachments.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = ExtractAttachments;
+		};
+		9F50499F1E5CA3AF00C113B1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F50499B1E5CA3AF00C113B1 /* ExtractFonts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = ExtractFonts;
+		};
+		9F5049A51E5CA3BF00C113B1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F5049A11E5CA3BF00C113B1 /* AddBookmarks.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddBookmarks;
+		};
+		9F5049AB1E5CA3E600C113B1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F5049A71E5CA3E500C113B1 /* AddDocumentInformation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddDocumentInformation;
+		};
+		9F8422571E5CADFC001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE2661E5CA9DA004E294B /* UnicodeText.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
 			remoteInfo = UnicodeText;
 		};
-		2E79A5DA1C909AE50087ECBC /* PBXContainerItemProxy */ = {
+		9F84228F1E5CAE14001E30FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A5D61C909AE40087ECBC /* WebOptimizedPDF.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = WebOptimizedPDF;
-		};
-		2E79A5DC1C909AEB0087ECBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2E79A5D61C909AE40087ECBC /* WebOptimizedPDF.xcodeproj */;
+			containerPortal = 9F8EE2601E5CA9D2004E294B /* TextSearch.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = WebOptimizedPDF;
+			remoteInfo = TextSearch;
 		};
-		3C386FE71D0222D100EBC3AE /* PBXContainerItemProxy */ = {
+		9F8422911E5CAE14001E30FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 3CD19E911CFF799A00575E88 /* ConvertPDFtoEPS.xcodeproj */;
+			containerPortal = 9F8EE25A1E5CA9C9004E294B /* InsertHeadFoot.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = ConvertPDFtoEPS;
+			remoteInfo = InsertHeadFoot;
 		};
-		3C386FEB1D0222D700EBC3AE /* PBXContainerItemProxy */ = {
+		9F8422931E5CAE14001E30FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 3CD19E971CFF79A900575E88 /* ConvertPDFtoPostscript.xcodeproj */;
+			containerPortal = 9F8EE2541E5CA9C0004E294B /* helloJapan.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = ConvertPDFtoPostscript;
+			remoteInfo = helloJapan;
 		};
-		3CD19E951CFF799B00575E88 /* PBXContainerItemProxy */ = {
+		9F8422951E5CAE14001E30FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 3CD19E911CFF799A00575E88 /* ConvertPDFtoEPS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = ConvertPDFtoEPS;
+			containerPortal = 9F8EE24E1E5CA9AB004E294B /* ExtractText.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = ExtractText;
 		};
-		3CD19E9B1CFF79A900575E88 /* PBXContainerItemProxy */ = {
+		9F8422971E5CAE14001E30FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 3CD19E971CFF79A900575E88 /* ConvertPDFtoPostscript.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = ConvertPDFtoPostscript;
+			containerPortal = 9F8EE2481E5CA99E004E294B /* AddText.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddText;
 		};
-		94212D851D678EB4008D6363 /* PBXContainerItemProxy */ = {
+		9F8422991E5CAE14001E30FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 1DC78D131D676FEC00A8F1B0 /* PDFOptimizer.xcodeproj */;
+			containerPortal = 9F8EE2421E5CA980004E294B /* ValidateSignatures.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = ValidateSignatures;
+		};
+		9F84229B1E5CAE14001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE23C1E5CA978004E294B /* SetUniquePermissions.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = SetUniquePermissions;
+		};
+		9F84229D1E5CAE14001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE2361E5CA970004E294B /* OpenEncrypted.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = OpenEncrypted;
+		};
+		9F84229F1E5CAE14001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE2301E5CA964004E294B /* LockDocument.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = LockDocument;
+		};
+		9F8422A11E5CAE14001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE22A1E5CA95C004E294B /* EncryptDocument.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = EncryptDocument;
+		};
+		9F8422A31E5CAE14001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE2241E5CA955004E294B /* AESEncryption.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AESEncryption;
+		};
+		9F8422A51E5CAE14001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE21E1E5CA94C004E294B /* AddRedaction.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddRedaction;
+		};
+		9F8422A71E5CAE14001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE2181E5CA940004E294B /* AddPassword.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddPassword;
+		};
+		9F8422A91E5CAE20001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE2121E5CA92C004E294B /* PostscriptInjection.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = PostScriptInjection;
+		};
+		9F8422AB1E5CAE20001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE20C1E5CA91E004E294B /* ExtractDocumentInfo.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = ExtractDocumentInfo;
+		};
+		9F8422AD1E5CAE20001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE2061E5CA916004E294B /* CountColorsInDoc.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = CountColorsInDoc;
+		};
+		9F8422AF1E5CAE20001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE2001E5CA90D004E294B /* RenderPage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = RenderPage;
+		};
+		9F8422B11E5CAE20001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1FA1E5CA904004E294B /* FindImageResolutions.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = FindImageResolutions;
+		};
+		9F8422B31E5CAE20001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1F41E5CA8F9004E294B /* CreateSeparations.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = CreateSeparations;
+		};
+		9F8422B51E5CAE20001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1EE1E5CA8E7004E294B /* CreateImageWithTransparency.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = CreateImageWithTransparency;
+		};
+		9F8422B71E5CAE20001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1E81E5CA8D9004E294B /* CalcImageDPI.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = CalcImageDPI;
+		};
+		9F8422B91E5CAE20001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1E21E5CA8CE004E294B /* AddThumbnailsToPDF.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddThumbnailsToPDF;
+		};
+		9F8422BB1E5CAE20001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1DC1E5CA8BD004E294B /* PDFOptimizer.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
 			remoteInfo = PDFOptimizer;
 		};
-		BAA38E911CDA41030011A215 /* PBXContainerItemProxy */ = {
+		9F8422BD1E5CAE2D001E30FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = BAD6A5761CD7F8680005B204 /* RenderPage.xcodeproj */;
+			containerPortal = 9F8EE1D61E5CA8B4004E294B /* ConvertPDFtoPostscript.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = RenderPage;
+			remoteInfo = ConvertPDFtoPostscript;
 		};
-		BAD6A57A1CD7F8680005B204 /* PBXContainerItemProxy */ = {
+		9F8422BF1E5CAE2D001E30FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = BAD6A5761CD7F8680005B204 /* RenderPage.xcodeproj */;
+			containerPortal = 9F8EE1D01E5CA4A6004E294B /* ConvertPDFtoEPS.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = ConvertPDFtoEPS;
+		};
+		9F8422C11E5CAE2D001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1C91E5CA49E004E294B /* DisplayPDEContent.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = DisplayPDEContent;
+		};
+		9F8422C31E5CAE2D001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1B71E5CA46A004E294B /* SplitPDF.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = SplitPDF;
+		};
+		9F8422C51E5CAE2D001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1B11E5CA460004E294B /* PDFUncompress.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = PDFUncompress;
+		};
+		9F8422C71E5CAE2D001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1AB1E5CA458004E294B /* PDFMakeOCGVisible.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = PDFMakeOCGVisible;
+		};
+		9F8422C91E5CAE2D001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1A51E5CA450004E294B /* MergeDocuments.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = MergeDocuments;
+		};
+		9F8422CB1E5CAE2D001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE19F1E5CA448004E294B /* MergeAcroforms.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = MergeAcroforms;
+		};
+		9F8422CD1E5CAE2D001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1991E5CA43F004E294B /* importPages.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = importPages;
+		};
+		9F8422CF1E5CAE2D001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1931E5CA435004E294B /* FlattenTransparency.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = FlattenTransparency;
+		};
+		9F8422D11E5CAE39001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE18D1E5CA42C004E294B /* EmbedFonts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = EmbedFonts;
+		};
+		9F8422D31E5CAE39001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1871E5CA425004E294B /* AttachMimeToPDF.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AttachMimeToPDF;
+		};
+		9F8422D51E5CAE39001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1811E5CA419004E294B /* AddWatermark.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddWatermark;
+		};
+		9F8422D71E5CAE39001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE17B1E5CA40C004E294B /* AddPageNumbers.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddPageNumbers;
+		};
+		9F8422D91E5CAE39001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1661E5CA403004E294B /* AddLinks.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddLinks;
+		};
+		9F8422DB1E5CAE39001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F5049A71E5CA3E500C113B1 /* AddDocumentInformation.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddDocumentInformation;
+		};
+		9F8422DD1E5CAE39001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F5049A11E5CA3BF00C113B1 /* AddBookmarks.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddBookmarks;
+		};
+		9F8422DF1E5CAE39001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F50499B1E5CA3AF00C113B1 /* ExtractFonts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = ExtractFonts;
+		};
+		9F8422E11E5CAE39001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F5049951E5CA3A500C113B1 /* ExtractAttachments.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = ExtractAttachments;
+		};
+		9F8422E31E5CAE39001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F50498F1E5CA39D00C113B1 /* CopyContent.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = CopyContent;
+		};
+		9F8422E51E5CAE47001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F5049891E5CA38B00C113B1 /* CreateTransparency.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = CreateTransparency;
+		};
+		9F8422E71E5CAE47001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F5049831E5CA37800C113B1 /* CreateLayers.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = CreateLayers;
+		};
+		9F8422E91E5CAE47001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F50497D1E5CA37000C113B1 /* CreateDocument.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = CreateDocument;
+		};
+		9F8422EB1E5CAE47001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F5049771E5CA36600C113B1 /* CreateBookmarks.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = CreateBookmarks;
+		};
+		9F8422ED1E5CAE47001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F5049711E5CA35E00C113B1 /* AddContent.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddContent;
+		};
+		9F8422EF1E5CAE47001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F50496B1E5CA34200C113B1 /* AddAttachments.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddAttachments;
+		};
+		9F8422F11E5CAE47001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F5049651E5CA33800C113B1 /* AddArt.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddArt;
+		};
+		9F8422F31E5CAE47001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F50495F1E5CA31B00C113B1 /* FlattenAnnotations.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = FlattenAnnotations;
+		};
+		9F8422F51E5CAE47001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F5049591E5CA30D00C113B1 /* CreateAnnotations.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = CreateAnnotations;
+		};
+		9F8422F71E5CAE47001E30FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F5049531E5CA2F700C113B1 /* AlternateFileSystem.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AlternateFileSystem;
+		};
+		9F8EE16F1E5CA403004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1661E5CA403004E294B /* AddLinks.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddLinks;
+		};
+		9F8EE17F1E5CA40D004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE17B1E5CA40C004E294B /* AddPageNumbers.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddPageNumbers;
+		};
+		9F8EE1851E5CA419004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1811E5CA419004E294B /* AddWatermark.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddWatermark;
+		};
+		9F8EE18B1E5CA425004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1871E5CA425004E294B /* AttachMimeToPDF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AttachMimeToPDF;
+		};
+		9F8EE1911E5CA42D004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE18D1E5CA42C004E294B /* EmbedFonts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = EmbedFonts;
+		};
+		9F8EE1971E5CA436004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1931E5CA435004E294B /* FlattenTransparency.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = FlattenTransparency;
+		};
+		9F8EE19D1E5CA43F004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1991E5CA43F004E294B /* importPages.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = importPages;
+		};
+		9F8EE1A31E5CA448004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE19F1E5CA448004E294B /* MergeAcroforms.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = MergeAcroforms;
+		};
+		9F8EE1A91E5CA450004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1A51E5CA450004E294B /* MergeDocuments.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = MergeDocuments;
+		};
+		9F8EE1AF1E5CA459004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1AB1E5CA458004E294B /* PDFMakeOCGVisible.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = PDFMakeOCGVisible;
+		};
+		9F8EE1B51E5CA461004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1B11E5CA460004E294B /* PDFUncompress.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = PDFUncompress;
+		};
+		9F8EE1BB1E5CA46A004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1B71E5CA46A004E294B /* SplitPDF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = SplitPDF;
+		};
+		9F8EE1CE1E5CA49E004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1C91E5CA49E004E294B /* DisplayPDEContent.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = DisplayPDEContent;
+		};
+		9F8EE1D41E5CA4A6004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1D01E5CA4A6004E294B /* ConvertPDFtoEPS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = ConvertPDFtoEPS;
+		};
+		9F8EE1DA1E5CA8B4004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1D61E5CA8B4004E294B /* ConvertPDFtoPostscript.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = ConvertPDFtoPostscript;
+		};
+		9F8EE1E01E5CA8BD004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1DC1E5CA8BD004E294B /* PDFOptimizer.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = PDFOptimizer;
+		};
+		9F8EE1E61E5CA8CF004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1E21E5CA8CE004E294B /* AddThumbnailsToPDF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddThumbnailsToPDF;
+		};
+		9F8EE1EC1E5CA8DA004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1E81E5CA8D9004E294B /* CalcImageDPI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = CalcImageDPI;
+		};
+		9F8EE1F21E5CA8E8004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1EE1E5CA8E7004E294B /* CreateImageWithTransparency.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = CreateImageWithTransparency;
+		};
+		9F8EE1F81E5CA8F9004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1F41E5CA8F9004E294B /* CreateSeparations.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = CreateSeparations;
+		};
+		9F8EE1FE1E5CA905004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE1FA1E5CA904004E294B /* FindImageResolutions.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = FindImageResolutions;
+		};
+		9F8EE2041E5CA90E004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE2001E5CA90D004E294B /* RenderPage.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
 			remoteInfo = RenderPage;
+		};
+		9F8EE20A1E5CA917004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE2061E5CA916004E294B /* CountColorsInDoc.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = CountColorsInDoc;
+		};
+		9F8EE2101E5CA91E004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE20C1E5CA91E004E294B /* ExtractDocumentInfo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = ExtractDocumentInfo;
+		};
+		9F8EE2161E5CA92C004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE2121E5CA92C004E294B /* PostscriptInjection.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = PostScriptInjection;
+		};
+		9F8EE21C1E5CA940004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE2181E5CA940004E294B /* AddPassword.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddPassword;
+		};
+		9F8EE2221E5CA94C004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE21E1E5CA94C004E294B /* AddRedaction.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddRedaction;
+		};
+		9F8EE2281E5CA955004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE2241E5CA955004E294B /* AESEncryption.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AESEncryption;
+		};
+		9F8EE22E1E5CA95D004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE22A1E5CA95C004E294B /* EncryptDocument.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = EncryptDocument;
+		};
+		9F8EE2341E5CA965004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE2301E5CA964004E294B /* LockDocument.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = LockDocument;
+		};
+		9F8EE23A1E5CA971004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE2361E5CA970004E294B /* OpenEncrypted.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = OpenEncrypted;
+		};
+		9F8EE2401E5CA978004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE23C1E5CA978004E294B /* SetUniquePermissions.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = SetUniquePermissions;
+		};
+		9F8EE2461E5CA980004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE2421E5CA980004E294B /* ValidateSignatures.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = ValidateSignatures;
+		};
+		9F8EE24C1E5CA99E004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE2481E5CA99E004E294B /* AddText.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddText;
+		};
+		9F8EE2521E5CA9AC004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE24E1E5CA9AB004E294B /* ExtractText.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = ExtractText;
+		};
+		9F8EE2581E5CA9C1004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE2541E5CA9C0004E294B /* helloJapan.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = helloJapan;
+		};
+		9F8EE25E1E5CA9CA004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE25A1E5CA9C9004E294B /* InsertHeadFoot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = InsertHeadFoot;
+		};
+		9F8EE2641E5CA9D3004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE2601E5CA9D2004E294B /* TextSearch.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = TextSearch;
+		};
+		9F8EE26A1E5CA9DA004E294B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE2661E5CA9DA004E294B /* UnicodeText.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = UnicodeText;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1DC78D131D676FEC00A8F1B0 /* PDFOptimizer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PDFOptimizer.xcodeproj; path = ../PDFOptimizer/PDFOptimizer.xcodeproj; sourceTree = "<group>"; };
-		2E21C0781C8DD57000018A6D /* AddArt.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddArt.xcodeproj; path = ../AddArt/AddArt.xcodeproj; sourceTree = "<group>"; };
-		2E21C08B1C8DDAA900018A6D /* AddBookmarks.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddBookmarks.xcodeproj; path = ../AddBookmarks/AddBookmarks.xcodeproj; sourceTree = "<group>"; };
-		2E21C0A91C8DEAC500018A6D /* AddContent.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddContent.xcodeproj; path = ../AddContent/AddContent.xcodeproj; sourceTree = "<group>"; };
-		2E21C0B51C8DF1DF00018A6D /* AddDocumentInformation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddDocumentInformation.xcodeproj; path = ../AddDocumentInformation/AddDocumentInformation.xcodeproj; sourceTree = "<group>"; };
-		2E21C0C31C8DF3B500018A6D /* AddLinks.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddLinks.xcodeproj; path = ../AddLinks/AddLinks.xcodeproj; sourceTree = "<group>"; };
-		2E21C0D81C8DFBC400018A6D /* AddPageNumbers.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddPageNumbers.xcodeproj; path = ../AddPageNumbers/AddPageNumbers.xcodeproj; sourceTree = "<group>"; };
-		2E21C0E81C8DFCE100018A6D /* AddPassword.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddPassword.xcodeproj; path = ../AddPassword/AddPassword.xcodeproj; sourceTree = "<group>"; };
-		2E21C1901C8E052A00018A6D /* AddRedaction.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddRedaction.xcodeproj; path = ../AddRedaction/AddRedaction.xcodeproj; sourceTree = "<group>"; };
-		2E21C1AB1C8E0A4D00018A6D /* CopyContent.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CopyContent.xcodeproj; path = ../CopyContent/CopyContent.xcodeproj; sourceTree = "<group>"; };
-		2E21C1C81C8E0AB800018A6D /* AddWatermark.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddWatermark.xcodeproj; path = ../AddWatermark/AddWatermark.xcodeproj; sourceTree = "<group>"; };
-		2E21C1DC1C8E0AE300018A6D /* AddText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddText.xcodeproj; path = ../AddText/AddText.xcodeproj; sourceTree = "<group>"; };
-		2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddAttachments.xcodeproj; path = ../AddAttachments/AddAttachments.xcodeproj; sourceTree = "<group>"; };
-		2E5EF4CC1C8F1C5F0077FABC /* CreateAnnotations.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CreateAnnotations.xcodeproj; path = ../CreateAnnotations/CreateAnnotations.xcodeproj; sourceTree = "<group>"; };
-		2E5EF4E21C8F1EC00077FABC /* CreateDocument.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CreateDocument.xcodeproj; path = ../CreateDocument/CreateDocument.xcodeproj; sourceTree = "<group>"; };
-		2E5EF4F61C8F296A0077FABC /* CreateLayers.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CreateLayers.xcodeproj; path = ../CreateLayers/CreateLayers.xcodeproj; sourceTree = "<group>"; };
-		2E5EF5211C8F42970077FABC /* CreateTransparency.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CreateTransparency.xcodeproj; path = ../CreateTransparency/CreateTransparency.xcodeproj; sourceTree = "<group>"; };
-		2E79A39D1C8F46150087ECBC /* EncryptDocument.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EncryptDocument.xcodeproj; path = ../EncryptDocument/EncryptDocument.xcodeproj; sourceTree = "<group>"; };
-		2E79A3CF1C8F48190087ECBC /* ExtractAttachments.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ExtractAttachments.xcodeproj; path = ../ExtractAttachments/ExtractAttachments.xcodeproj; sourceTree = "<group>"; };
-		2E79A3FC1C8F4B390087ECBC /* ExtractDocumentInfo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ExtractDocumentInfo.xcodeproj; path = ../ExtractDocumentInfo/ExtractDocumentInfo.xcodeproj; sourceTree = "<group>"; };
-		2E79A4021C8F540E0087ECBC /* ExtractText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ExtractText.xcodeproj; path = ../ExtractText/ExtractText.xcodeproj; sourceTree = "<group>"; };
-		2E79A4201C8F5D8D0087ECBC /* FindImageResolutions.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FindImageResolutions.xcodeproj; path = ../FindImageResolutions/FindImageResolutions.xcodeproj; sourceTree = "<group>"; };
-		2E79A42E1C8F5FEB0087ECBC /* FlattenAnnotations.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FlattenAnnotations.xcodeproj; path = ../FlattenAnnotations/FlattenAnnotations.xcodeproj; sourceTree = "<group>"; };
-		2E79A44C1C8F63720087ECBC /* LockDocument.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LockDocument.xcodeproj; path = ../LockDocument/LockDocument.xcodeproj; sourceTree = "<group>"; };
-		2E79A4AD1C8F840A0087ECBC /* FlattenTransparency.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FlattenTransparency.xcodeproj; path = ../FlattenTransparency/FlattenTransparency.xcodeproj; sourceTree = "<group>"; };
-		2E79A4D91C9069D00087ECBC /* MergeDocuments.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MergeDocuments.xcodeproj; path = ../MergeDocuments/MergeDocuments.xcodeproj; sourceTree = "<group>"; };
-		2E79A4F81C906BB40087ECBC /* OpenEncrypted.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OpenEncrypted.xcodeproj; path = ../OpenEncrypted/OpenEncrypted.xcodeproj; sourceTree = "<group>"; };
-		2E79A5401C9072350087ECBC /* SetUniquePermissions.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SetUniquePermissions.xcodeproj; path = ../SetUniquePermissions/SetUniquePermissions.xcodeproj; sourceTree = "<group>"; };
-		2E79A5641C907C700087ECBC /* SplitPDF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SplitPDF.xcodeproj; path = ../SplitPDF/SplitPDF.xcodeproj; sourceTree = "<group>"; };
-		2E79A5891C9098130087ECBC /* TextSearch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TextSearch.xcodeproj; path = ../TextSearch/TextSearch.xcodeproj; sourceTree = "<group>"; };
-		2E79A5AF1C909A1E0087ECBC /* UnicodeText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UnicodeText.xcodeproj; path = ../UnicodeText/UnicodeText.xcodeproj; sourceTree = "<group>"; };
-		2E79A5D61C909AE40087ECBC /* WebOptimizedPDF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WebOptimizedPDF.xcodeproj; path = ../WebOptimizedPDF/WebOptimizedPDF.xcodeproj; sourceTree = "<group>"; };
-		3CD19E911CFF799A00575E88 /* ConvertPDFtoEPS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ConvertPDFtoEPS.xcodeproj; path = ../ConvertPDFtoEPS/ConvertPDFtoEPS.xcodeproj; sourceTree = "<group>"; };
-		3CD19E971CFF79A900575E88 /* ConvertPDFtoPostscript.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ConvertPDFtoPostscript.xcodeproj; path = ../ConvertPDFtoPostscript/ConvertPDFtoPostscript.xcodeproj; sourceTree = "<group>"; };
-		BAD6A5761CD7F8680005B204 /* RenderPage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RenderPage.xcodeproj; path = ../RenderPage/RenderPage.xcodeproj; sourceTree = "<group>"; };
+		9F5049531E5CA2F700C113B1 /* AlternateFileSystem.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AlternateFileSystem.xcodeproj; path = ../FileSystem/AlternateFileSystem/AlternateFileSystem.xcodeproj; sourceTree = "<group>"; };
+		9F5049591E5CA30D00C113B1 /* CreateAnnotations.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CreateAnnotations.xcodeproj; path = ../Annotations/CreateAnnotations/CreateAnnotations.xcodeproj; sourceTree = "<group>"; };
+		9F50495F1E5CA31B00C113B1 /* FlattenAnnotations.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FlattenAnnotations.xcodeproj; path = ../Annotations/FlattenAnnotations/FlattenAnnotations.xcodeproj; sourceTree = "<group>"; };
+		9F5049651E5CA33800C113B1 /* AddArt.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddArt.xcodeproj; path = ../ContentCreation/AddArt/AddArt.xcodeproj; sourceTree = "<group>"; };
+		9F50496B1E5CA34200C113B1 /* AddAttachments.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddAttachments.xcodeproj; path = ../ContentCreation/AddAttachments/AddAttachments.xcodeproj; sourceTree = "<group>"; };
+		9F5049711E5CA35E00C113B1 /* AddContent.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddContent.xcodeproj; path = ../ContentCreation/AddContent/AddContent.xcodeproj; sourceTree = "<group>"; };
+		9F5049771E5CA36600C113B1 /* CreateBookmarks.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CreateBookmarks.xcodeproj; path = ../ContentCreation/CreateBookmarks/CreateBookmarks.xcodeproj; sourceTree = "<group>"; };
+		9F50497D1E5CA37000C113B1 /* CreateDocument.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CreateDocument.xcodeproj; path = ../ContentCreation/CreateDocument/CreateDocument.xcodeproj; sourceTree = "<group>"; };
+		9F5049831E5CA37800C113B1 /* CreateLayers.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CreateLayers.xcodeproj; path = ../ContentCreation/CreateLayers/CreateLayers.xcodeproj; sourceTree = "<group>"; };
+		9F5049891E5CA38B00C113B1 /* CreateTransparency.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CreateTransparency.xcodeproj; path = ../ContentCreation/CreateTransparency/CreateTransparency.xcodeproj; sourceTree = "<group>"; };
+		9F50498F1E5CA39D00C113B1 /* CopyContent.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CopyContent.xcodeproj; path = ../ContentExtraction/CopyContent/CopyContent.xcodeproj; sourceTree = "<group>"; };
+		9F5049951E5CA3A500C113B1 /* ExtractAttachments.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ExtractAttachments.xcodeproj; path = ../ContentExtraction/ExtractAttachments/ExtractAttachments.xcodeproj; sourceTree = "<group>"; };
+		9F50499B1E5CA3AF00C113B1 /* ExtractFonts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ExtractFonts.xcodeproj; path = ../ContentExtraction/ExtractFonts/ExtractFonts.xcodeproj; sourceTree = "<group>"; };
+		9F5049A11E5CA3BF00C113B1 /* AddBookmarks.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddBookmarks.xcodeproj; path = ../ContentModification/AddBookmarks/AddBookmarks.xcodeproj; sourceTree = "<group>"; };
+		9F5049A71E5CA3E500C113B1 /* AddDocumentInformation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddDocumentInformation.xcodeproj; path = ../ContentModification/AddDocumentInformation/AddDocumentInformation.xcodeproj; sourceTree = "<group>"; };
+		9F8EE1661E5CA403004E294B /* AddLinks.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddLinks.xcodeproj; path = ../ContentModification/AddLinks/AddLinks.xcodeproj; sourceTree = "<group>"; };
+		9F8EE17B1E5CA40C004E294B /* AddPageNumbers.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddPageNumbers.xcodeproj; path = ../ContentModification/AddPageNumbers/AddPageNumbers.xcodeproj; sourceTree = "<group>"; };
+		9F8EE1811E5CA419004E294B /* AddWatermark.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddWatermark.xcodeproj; path = ../ContentModification/AddWatermark/AddWatermark.xcodeproj; sourceTree = "<group>"; };
+		9F8EE1871E5CA425004E294B /* AttachMimeToPDF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AttachMimeToPDF.xcodeproj; path = ../ContentModification/AttachMimeToPDF/AttachMimeToPDF.xcodeproj; sourceTree = "<group>"; };
+		9F8EE18D1E5CA42C004E294B /* EmbedFonts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EmbedFonts.xcodeproj; path = ../ContentModification/EmbedFonts/EmbedFonts.xcodeproj; sourceTree = "<group>"; };
+		9F8EE1931E5CA435004E294B /* FlattenTransparency.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FlattenTransparency.xcodeproj; path = ../ContentModification/FlattenTransparency/FlattenTransparency.xcodeproj; sourceTree = "<group>"; };
+		9F8EE1991E5CA43F004E294B /* importPages.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = importPages.xcodeproj; path = ../ContentModification/importPages/importPages.xcodeproj; sourceTree = "<group>"; };
+		9F8EE19F1E5CA448004E294B /* MergeAcroforms.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MergeAcroforms.xcodeproj; path = ../ContentModification/MergeAcroforms/MergeAcroforms.xcodeproj; sourceTree = "<group>"; };
+		9F8EE1A51E5CA450004E294B /* MergeDocuments.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MergeDocuments.xcodeproj; path = ../ContentModification/MergeDocuments/MergeDocuments.xcodeproj; sourceTree = "<group>"; };
+		9F8EE1AB1E5CA458004E294B /* PDFMakeOCGVisible.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PDFMakeOCGVisible.xcodeproj; path = ../ContentModification/PDFMakeOCGVisible/PDFMakeOCGVisible.xcodeproj; sourceTree = "<group>"; };
+		9F8EE1B11E5CA460004E294B /* PDFUncompress.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PDFUncompress.xcodeproj; path = ../ContentModification/PDFUncompress/PDFUncompress.xcodeproj; sourceTree = "<group>"; };
+		9F8EE1B71E5CA46A004E294B /* SplitPDF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SplitPDF.xcodeproj; path = ../ContentModification/SplitPDF/SplitPDF.xcodeproj; sourceTree = "<group>"; };
+		9F8EE1C91E5CA49E004E294B /* DisplayPDEContent.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DisplayPDEContent.xcodeproj; path = ../Display/DisplayPDEContent/DisplayPDEContent.xcodeproj; sourceTree = "<group>"; };
+		9F8EE1D01E5CA4A6004E294B /* ConvertPDFtoEPS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ConvertPDFtoEPS.xcodeproj; path = ../DocumentConversion/ConvertPDFtoEPS/ConvertPDFtoEPS.xcodeproj; sourceTree = "<group>"; };
+		9F8EE1D61E5CA8B4004E294B /* ConvertPDFtoPostscript.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ConvertPDFtoPostscript.xcodeproj; path = ../DocumentConversion/ConvertPDFtoPostscript/ConvertPDFtoPostscript.xcodeproj; sourceTree = "<group>"; };
+		9F8EE1DC1E5CA8BD004E294B /* PDFOptimizer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PDFOptimizer.xcodeproj; path = ../DocumentOptimization/PDFOptimizer/PDFOptimizer.xcodeproj; sourceTree = "<group>"; };
+		9F8EE1E21E5CA8CE004E294B /* AddThumbnailsToPDF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddThumbnailsToPDF.xcodeproj; path = ../Images/AddThumbnailsToPDF/AddThumbnailsToPDF.xcodeproj; sourceTree = "<group>"; };
+		9F8EE1E81E5CA8D9004E294B /* CalcImageDPI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CalcImageDPI.xcodeproj; path = ../Images/CalcImageDPI/CalcImageDPI.xcodeproj; sourceTree = "<group>"; };
+		9F8EE1EE1E5CA8E7004E294B /* CreateImageWithTransparency.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CreateImageWithTransparency.xcodeproj; path = ../Images/CreateImageWithTransparency/CreateImageWithTransparency.xcodeproj; sourceTree = "<group>"; };
+		9F8EE1F41E5CA8F9004E294B /* CreateSeparations.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CreateSeparations.xcodeproj; path = ../Images/CreateSeparations/CreateSeparations.xcodeproj; sourceTree = "<group>"; };
+		9F8EE1FA1E5CA904004E294B /* FindImageResolutions.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FindImageResolutions.xcodeproj; path = ../Images/FindImageResolutions/FindImageResolutions.xcodeproj; sourceTree = "<group>"; };
+		9F8EE2001E5CA90D004E294B /* RenderPage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RenderPage.xcodeproj; path = ../Images/RenderPage/RenderPage.xcodeproj; sourceTree = "<group>"; };
+		9F8EE2061E5CA916004E294B /* CountColorsInDoc.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CountColorsInDoc.xcodeproj; path = ../InformationExtraction/CountColorsInDoc/CountColorsInDoc.xcodeproj; sourceTree = "<group>"; };
+		9F8EE20C1E5CA91E004E294B /* ExtractDocumentInfo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ExtractDocumentInfo.xcodeproj; path = ../InformationExtraction/ExtractDocumentInfo/ExtractDocumentInfo.xcodeproj; sourceTree = "<group>"; };
+		9F8EE2121E5CA92C004E294B /* PostscriptInjection.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PostscriptInjection.xcodeproj; path = ../Printing/PostScriptInjection/PostscriptInjection.xcodeproj; sourceTree = "<group>"; };
+		9F8EE2181E5CA940004E294B /* AddPassword.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddPassword.xcodeproj; path = ../Security/AddPassword/AddPassword.xcodeproj; sourceTree = "<group>"; };
+		9F8EE21E1E5CA94C004E294B /* AddRedaction.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddRedaction.xcodeproj; path = ../Security/AddRedaction/AddRedaction.xcodeproj; sourceTree = "<group>"; };
+		9F8EE2241E5CA955004E294B /* AESEncryption.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AESEncryption.xcodeproj; path = ../Security/AESEncryption/AESEncryption.xcodeproj; sourceTree = "<group>"; };
+		9F8EE22A1E5CA95C004E294B /* EncryptDocument.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EncryptDocument.xcodeproj; path = ../Security/EncryptDocument/EncryptDocument.xcodeproj; sourceTree = "<group>"; };
+		9F8EE2301E5CA964004E294B /* LockDocument.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LockDocument.xcodeproj; path = ../Security/LockDocument/LockDocument.xcodeproj; sourceTree = "<group>"; };
+		9F8EE2361E5CA970004E294B /* OpenEncrypted.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OpenEncrypted.xcodeproj; path = ../Security/OpenEncrypted/OpenEncrypted.xcodeproj; sourceTree = "<group>"; };
+		9F8EE23C1E5CA978004E294B /* SetUniquePermissions.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SetUniquePermissions.xcodeproj; path = ../Security/SetUniquePermissions/SetUniquePermissions.xcodeproj; sourceTree = "<group>"; };
+		9F8EE2421E5CA980004E294B /* ValidateSignatures.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ValidateSignatures.xcodeproj; path = ../Security/ValidateSignatures/ValidateSignatures.xcodeproj; sourceTree = "<group>"; };
+		9F8EE2481E5CA99E004E294B /* AddText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddText.xcodeproj; path = ../Text/AddText/AddText.xcodeproj; sourceTree = "<group>"; };
+		9F8EE24E1E5CA9AB004E294B /* ExtractText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ExtractText.xcodeproj; path = ../Text/ExtractText/ExtractText.xcodeproj; sourceTree = "<group>"; };
+		9F8EE2541E5CA9C0004E294B /* helloJapan.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = helloJapan.xcodeproj; path = ../Text/helloJapan/helloJapan.xcodeproj; sourceTree = "<group>"; };
+		9F8EE25A1E5CA9C9004E294B /* InsertHeadFoot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InsertHeadFoot.xcodeproj; path = ../Text/InsertHeadFoot/InsertHeadFoot.xcodeproj; sourceTree = "<group>"; };
+		9F8EE2601E5CA9D2004E294B /* TextSearch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TextSearch.xcodeproj; path = ../Text/TextSearch/TextSearch.xcodeproj; sourceTree = "<group>"; };
+		9F8EE2661E5CA9DA004E294B /* UnicodeText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UnicodeText.xcodeproj; path = ../Text/UnicodeText/UnicodeText.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		1DC78D141D676FEC00A8F1B0 /* Products */ = {
+		9F5049541E5CA2F700C113B1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1DC78D181D676FEC00A8F1B0 /* PDFOptimizer-Debug.app */,
+				9F5049581E5CA2F700C113B1 /* .app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E21C0791C8DD57000018A6D /* Products */ = {
+		9F50495A1E5CA30D00C113B1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E21C07D1C8DD57000018A6D /* AddArt-Debug.app */,
+				9F50495E1E5CA30D00C113B1 /* CreateAnnotations-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E21C08C1C8DDAA900018A6D /* Products */ = {
+		9F5049601E5CA31B00C113B1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E21C0901C8DDAA900018A6D /* AddBookmarks-Debug.app */,
+				9F5049641E5CA31B00C113B1 /* FlattenAnnotations-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E21C0AA1C8DEAC500018A6D /* Products */ = {
+		9F5049661E5CA33800C113B1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E21C0AE1C8DEAC500018A6D /* AddContent-Debug.app */,
+				9F50496A1E5CA33900C113B1 /* AddArt-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E21C0B61C8DF1DF00018A6D /* Products */ = {
+		9F50496C1E5CA34200C113B1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E21C0BA1C8DF1DF00018A6D /* AddDocumentInformation-Debug.app */,
+				9F5049701E5CA34200C113B1 /* AddAttachments-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E21C0C41C8DF3B500018A6D /* Products */ = {
+		9F5049721E5CA35E00C113B1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E21C0C81C8DF3B500018A6D /* AddLinks-Debug.app */,
+				9F5049761E5CA35E00C113B1 /* AddContent-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E21C0D91C8DFBC400018A6D /* Products */ = {
+		9F5049781E5CA36600C113B1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E21C0DD1C8DFBC400018A6D /* AddPageNumbers-Debug.app */,
+				9F50497C1E5CA36700C113B1 /* .app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E21C0E91C8DFCE100018A6D /* Products */ = {
+		9F50497E1E5CA37000C113B1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E21C0ED1C8DFCE100018A6D /* AddPassword-Debug.app */,
+				9F5049821E5CA37000C113B1 /* CreateDocument-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E21C1911C8E052A00018A6D /* Products */ = {
+		9F5049841E5CA37800C113B1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E21C1951C8E052A00018A6D /* AddRedaction-Debug.app */,
+				9F5049881E5CA37900C113B1 /* CreateLayers-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E21C1AC1C8E0A4D00018A6D /* Products */ = {
+		9F50498A1E5CA38B00C113B1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E21C1B01C8E0A4E00018A6D /* CopyContent-Debug.app */,
+				9F50498E1E5CA38B00C113B1 /* CreateTransparency-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E21C1C91C8E0AB800018A6D /* Products */ = {
+		9F5049901E5CA39D00C113B1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E21C1CD1C8E0AB800018A6D /* AddWatermark-Debug.app */,
+				9F5049941E5CA39D00C113B1 /* CopyContent-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E21C1DD1C8E0AE300018A6D /* Products */ = {
+		9F5049961E5CA3A500C113B1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E21C1E11C8E0AE300018A6D /* AddText-Debug.app */,
+				9F50499A1E5CA3A500C113B1 /* ExtractAttachments-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E5E099D1C8A1D3F00098602 /* Products */ = {
+		9F50499C1E5CA3AF00C113B1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E5E09A11C8A1D3F00098602 /* AddAttachments-Debug.app */,
+				9F5049A01E5CA3AF00C113B1 /* .app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E5EF4CD1C8F1C5F0077FABC /* Products */ = {
+		9F5049A21E5CA3BF00C113B1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E5EF4D11C8F1C600077FABC /* CreateAnnotations-Debug.app */,
+				9F5049A61E5CA3BF00C113B1 /* AddBookmarks-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E5EF4E31C8F1EC00077FABC /* Products */ = {
+		9F5049A81E5CA3E500C113B1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E5EF4E71C8F1EC00077FABC /* CreateDocument-Debug.app */,
+				9F5049AC1E5CA3E600C113B1 /* AddDocumentInformation-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E5EF4F71C8F296A0077FABC /* Products */ = {
+		9F8EE1671E5CA403004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E5EF4FB1C8F296A0077FABC /* CreateLayers-Debug.app */,
+				9F8EE1701E5CA403004E294B /* AddLinks-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E5EF5221C8F42970077FABC /* Products */ = {
+		9F8EE17C1E5CA40C004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E5EF5261C8F42980077FABC /* CreateTransparency-Debug.app */,
+				9F8EE1801E5CA40D004E294B /* AddPageNumbers-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E79A39E1C8F46150087ECBC /* Products */ = {
+		9F8EE1821E5CA419004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E79A3A21C8F46150087ECBC /* EncryptDocument-Debug.app */,
+				9F8EE1861E5CA419004E294B /* AddWatermark-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E79A3D01C8F48190087ECBC /* Products */ = {
+		9F8EE1881E5CA425004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E79A3D41C8F48190087ECBC /* ExtractAttachments-Debug.app */,
+				9F8EE18C1E5CA425004E294B /* .app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E79A3FD1C8F4B390087ECBC /* Products */ = {
+		9F8EE18E1E5CA42C004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E79A4011C8F4B390087ECBC /* ExtractDocumentInfo-Debug.app */,
+				9F8EE1921E5CA42D004E294B /* .app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E79A4031C8F540E0087ECBC /* Products */ = {
+		9F8EE1941E5CA435004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E79A4071C8F540E0087ECBC /* ExtractText-Debug.app */,
+				9F8EE1981E5CA436004E294B /* FlattenTransparency-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E79A4211C8F5D8D0087ECBC /* Products */ = {
+		9F8EE19A1E5CA43F004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E79A4251C8F5D8D0087ECBC /* FindImageResolutions-Debug.app */,
+				9F8EE19E1E5CA43F004E294B /* .app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E79A42F1C8F5FEB0087ECBC /* Products */ = {
+		9F8EE1A01E5CA448004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E79A4331C8F5FEB0087ECBC /* FlattenAnnotations-Debug.app */,
+				9F8EE1A41E5CA448004E294B /* .app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E79A44D1C8F63720087ECBC /* Products */ = {
+		9F8EE1A61E5CA450004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E79A4511C8F63720087ECBC /* LockDocument-Debug.app */,
+				9F8EE1AA1E5CA450004E294B /* MergeDocuments-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E79A4AE1C8F840A0087ECBC /* Products */ = {
+		9F8EE1AC1E5CA458004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E79A4B21C8F840A0087ECBC /* FlattenTransparency-Debug.app */,
+				9F8EE1B01E5CA459004E294B /* .app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E79A4DA1C9069D00087ECBC /* Products */ = {
+		9F8EE1B21E5CA460004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E79A4DE1C9069D10087ECBC /* MergeDocuments-Debug.app */,
+				9F8EE1B61E5CA461004E294B /* .app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E79A4F91C906BB40087ECBC /* Products */ = {
+		9F8EE1B81E5CA46A004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E79A4FE1C906BB40087ECBC /* OpenEncrypted-Debug.app */,
+				9F8EE1BC1E5CA46A004E294B /* SplitPDF-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E79A5411C9072350087ECBC /* Products */ = {
+		9F8EE1CA1E5CA49E004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E79A5451C9072350087ECBC /* SetUniquePermissions-Debug.app */,
+				9F8EE1CF1E5CA49E004E294B /* .app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E79A5651C907C700087ECBC /* Products */ = {
+		9F8EE1D11E5CA4A6004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E79A5691C907C700087ECBC /* SplitPDF-Debug.app */,
+				9F8EE1D51E5CA4A6004E294B /* ConvertPDFtoEPS-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E79A58A1C9098130087ECBC /* Products */ = {
+		9F8EE1D71E5CA8B4004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E79A58E1C9098130087ECBC /* TextSearch-Debug.app */,
+				9F8EE1DB1E5CA8B4004E294B /* ConvertPDFtoPostscript-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E79A5B01C909A1E0087ECBC /* Products */ = {
+		9F8EE1DD1E5CA8BD004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E79A5B41C909A1E0087ECBC /* UnicodeText-Debug.app */,
+				9F8EE1E11E5CA8BD004E294B /* PDFOptimizer-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E79A5D71C909AE40087ECBC /* Products */ = {
+		9F8EE1E31E5CA8CE004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E79A5DB1C909AE50087ECBC /* WebOptimizedPDF-Debug.app */,
+				9F8EE1E71E5CA8CF004E294B /* .app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3CD19E921CFF799A00575E88 /* Products */ = {
+		9F8EE1E91E5CA8D9004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3CD19E961CFF799B00575E88 /* ConvertPDFtoEPS-Debug.app */,
+				9F8EE1ED1E5CA8DA004E294B /* .app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3CD19E981CFF79A900575E88 /* Products */ = {
+		9F8EE1EF1E5CA8E7004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3CD19E9C1CFF79A900575E88 /* ConvertPDFtoPostscript-Debug.app */,
+				9F8EE1F31E5CA8E8004E294B /* .app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F8EE1F51E5CA8F9004E294B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F8EE1F91E5CA8F9004E294B /* .app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F8EE1FB1E5CA904004E294B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F8EE1FF1E5CA905004E294B /* .app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F8EE2011E5CA90D004E294B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F8EE2051E5CA90E004E294B /* RenderPage-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F8EE2071E5CA916004E294B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F8EE20B1E5CA917004E294B /* .app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F8EE20D1E5CA91E004E294B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F8EE2111E5CA91E004E294B /* ExtractDocumentInfo-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F8EE2131E5CA92C004E294B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F8EE2171E5CA92C004E294B /* .app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F8EE2191E5CA940004E294B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F8EE21D1E5CA940004E294B /* AddPassword-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F8EE21F1E5CA94C004E294B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F8EE2231E5CA94C004E294B /* AddRedaction-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F8EE2251E5CA955004E294B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F8EE2291E5CA955004E294B /* .app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F8EE22B1E5CA95C004E294B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F8EE22F1E5CA95D004E294B /* EncryptDocument-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F8EE2311E5CA964004E294B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F8EE2351E5CA965004E294B /* LockDocument-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F8EE2371E5CA970004E294B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F8EE23B1E5CA971004E294B /* OpenEncrypted-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F8EE23D1E5CA978004E294B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F8EE2411E5CA978004E294B /* SetUniquePermissions-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F8EE2431E5CA980004E294B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F8EE2471E5CA980004E294B /* .app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F8EE2491E5CA99E004E294B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F8EE24D1E5CA99E004E294B /* AddText-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F8EE24F1E5CA9AB004E294B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F8EE2531E5CA9AC004E294B /* ExtractText-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F8EE2551E5CA9C0004E294B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F8EE2591E5CA9C1004E294B /* .app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F8EE25B1E5CA9C9004E294B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F8EE25F1E5CA9CA004E294B /* .app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F8EE2611E5CA9D2004E294B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F8EE2651E5CA9D3004E294B /* TextSearch-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F8EE2671E5CA9DA004E294B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F8EE26B1E5CA9DA004E294B /* UnicodeText-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -861,50 +1325,61 @@
 		BAAE8A280ADC6237005A7834 = {
 			isa = PBXGroup;
 			children = (
-				2E21C0781C8DD57000018A6D /* AddArt.xcodeproj */,
-				2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */,
-				2E21C08B1C8DDAA900018A6D /* AddBookmarks.xcodeproj */,
-				2E21C0A91C8DEAC500018A6D /* AddContent.xcodeproj */,
-				2E21C0B51C8DF1DF00018A6D /* AddDocumentInformation.xcodeproj */,
-				2E21C0C31C8DF3B500018A6D /* AddLinks.xcodeproj */,
-				2E21C0D81C8DFBC400018A6D /* AddPageNumbers.xcodeproj */,
-				2E21C0E81C8DFCE100018A6D /* AddPassword.xcodeproj */,
-				2E21C1901C8E052A00018A6D /* AddRedaction.xcodeproj */,
-				2E21C1DC1C8E0AE300018A6D /* AddText.xcodeproj */,
-				2E21C1C81C8E0AB800018A6D /* AddWatermark.xcodeproj */,
-				3CD19E911CFF799A00575E88 /* ConvertPDFtoEPS.xcodeproj */,
-				3CD19E971CFF79A900575E88 /* ConvertPDFtoPostscript.xcodeproj */,
-				2E21C1AB1C8E0A4D00018A6D /* CopyContent.xcodeproj */,
-				2E5EF4CC1C8F1C5F0077FABC /* CreateAnnotations.xcodeproj */,
-				2E5EF4E21C8F1EC00077FABC /* CreateDocument.xcodeproj */,
-				2E5EF4F61C8F296A0077FABC /* CreateLayers.xcodeproj */,
-				2E5EF5211C8F42970077FABC /* CreateTransparency.xcodeproj */,
-				2E79A39D1C8F46150087ECBC /* EncryptDocument.xcodeproj */,
-				2E79A3CF1C8F48190087ECBC /* ExtractAttachments.xcodeproj */,
-				2E79A3FC1C8F4B390087ECBC /* ExtractDocumentInfo.xcodeproj */,
-				2E79A4021C8F540E0087ECBC /* ExtractText.xcodeproj */,
-				2E79A4201C8F5D8D0087ECBC /* FindImageResolutions.xcodeproj */,
-				2E79A42E1C8F5FEB0087ECBC /* FlattenAnnotations.xcodeproj */,
-				2E79A4AD1C8F840A0087ECBC /* FlattenTransparency.xcodeproj */,
-				2E79A44C1C8F63720087ECBC /* LockDocument.xcodeproj */,
-				2E79A4D91C9069D00087ECBC /* MergeDocuments.xcodeproj */,
-				2E79A4F81C906BB40087ECBC /* OpenEncrypted.xcodeproj */,
-				1DC78D131D676FEC00A8F1B0 /* PDFOptimizer.xcodeproj */,
-				BAD6A5761CD7F8680005B204 /* RenderPage.xcodeproj */,
-				2E79A5401C9072350087ECBC /* SetUniquePermissions.xcodeproj */,
-				2E79A5641C907C700087ECBC /* SplitPDF.xcodeproj */,
-				2E79A5891C9098130087ECBC /* TextSearch.xcodeproj */,
-				2E79A5AF1C909A1E0087ECBC /* UnicodeText.xcodeproj */,
-				2E79A5D61C909AE40087ECBC /* WebOptimizedPDF.xcodeproj */,
+				9F8EE2661E5CA9DA004E294B /* UnicodeText.xcodeproj */,
+				9F8EE2601E5CA9D2004E294B /* TextSearch.xcodeproj */,
+				9F8EE25A1E5CA9C9004E294B /* InsertHeadFoot.xcodeproj */,
+				9F8EE2541E5CA9C0004E294B /* helloJapan.xcodeproj */,
+				9F8EE24E1E5CA9AB004E294B /* ExtractText.xcodeproj */,
+				9F8EE2481E5CA99E004E294B /* AddText.xcodeproj */,
+				9F8EE2421E5CA980004E294B /* ValidateSignatures.xcodeproj */,
+				9F8EE23C1E5CA978004E294B /* SetUniquePermissions.xcodeproj */,
+				9F8EE2361E5CA970004E294B /* OpenEncrypted.xcodeproj */,
+				9F8EE2301E5CA964004E294B /* LockDocument.xcodeproj */,
+				9F8EE22A1E5CA95C004E294B /* EncryptDocument.xcodeproj */,
+				9F8EE2241E5CA955004E294B /* AESEncryption.xcodeproj */,
+				9F8EE21E1E5CA94C004E294B /* AddRedaction.xcodeproj */,
+				9F8EE2181E5CA940004E294B /* AddPassword.xcodeproj */,
+				9F8EE2121E5CA92C004E294B /* PostscriptInjection.xcodeproj */,
+				9F8EE20C1E5CA91E004E294B /* ExtractDocumentInfo.xcodeproj */,
+				9F8EE2061E5CA916004E294B /* CountColorsInDoc.xcodeproj */,
+				9F8EE2001E5CA90D004E294B /* RenderPage.xcodeproj */,
+				9F8EE1FA1E5CA904004E294B /* FindImageResolutions.xcodeproj */,
+				9F8EE1F41E5CA8F9004E294B /* CreateSeparations.xcodeproj */,
+				9F8EE1EE1E5CA8E7004E294B /* CreateImageWithTransparency.xcodeproj */,
+				9F8EE1E81E5CA8D9004E294B /* CalcImageDPI.xcodeproj */,
+				9F8EE1E21E5CA8CE004E294B /* AddThumbnailsToPDF.xcodeproj */,
+				9F8EE1DC1E5CA8BD004E294B /* PDFOptimizer.xcodeproj */,
+				9F8EE1D61E5CA8B4004E294B /* ConvertPDFtoPostscript.xcodeproj */,
+				9F8EE1D01E5CA4A6004E294B /* ConvertPDFtoEPS.xcodeproj */,
+				9F8EE1C91E5CA49E004E294B /* DisplayPDEContent.xcodeproj */,
+				9F8EE1B71E5CA46A004E294B /* SplitPDF.xcodeproj */,
+				9F8EE1B11E5CA460004E294B /* PDFUncompress.xcodeproj */,
+				9F8EE1AB1E5CA458004E294B /* PDFMakeOCGVisible.xcodeproj */,
+				9F8EE1A51E5CA450004E294B /* MergeDocuments.xcodeproj */,
+				9F8EE19F1E5CA448004E294B /* MergeAcroforms.xcodeproj */,
+				9F8EE1991E5CA43F004E294B /* importPages.xcodeproj */,
+				9F8EE1931E5CA435004E294B /* FlattenTransparency.xcodeproj */,
+				9F8EE18D1E5CA42C004E294B /* EmbedFonts.xcodeproj */,
+				9F8EE1871E5CA425004E294B /* AttachMimeToPDF.xcodeproj */,
+				9F8EE1811E5CA419004E294B /* AddWatermark.xcodeproj */,
+				9F8EE17B1E5CA40C004E294B /* AddPageNumbers.xcodeproj */,
+				9F8EE1661E5CA403004E294B /* AddLinks.xcodeproj */,
+				9F5049A71E5CA3E500C113B1 /* AddDocumentInformation.xcodeproj */,
+				9F5049A11E5CA3BF00C113B1 /* AddBookmarks.xcodeproj */,
+				9F50499B1E5CA3AF00C113B1 /* ExtractFonts.xcodeproj */,
+				9F5049951E5CA3A500C113B1 /* ExtractAttachments.xcodeproj */,
+				9F50498F1E5CA39D00C113B1 /* CopyContent.xcodeproj */,
+				9F5049891E5CA38B00C113B1 /* CreateTransparency.xcodeproj */,
+				9F5049831E5CA37800C113B1 /* CreateLayers.xcodeproj */,
+				9F50497D1E5CA37000C113B1 /* CreateDocument.xcodeproj */,
+				9F5049771E5CA36600C113B1 /* CreateBookmarks.xcodeproj */,
+				9F5049711E5CA35E00C113B1 /* AddContent.xcodeproj */,
+				9F50496B1E5CA34200C113B1 /* AddAttachments.xcodeproj */,
+				9F5049651E5CA33800C113B1 /* AddArt.xcodeproj */,
+				9F50495F1E5CA31B00C113B1 /* FlattenAnnotations.xcodeproj */,
+				9F5049591E5CA30D00C113B1 /* CreateAnnotations.xcodeproj */,
+				9F5049531E5CA2F700C113B1 /* AlternateFileSystem.xcodeproj */,
 			);
-			sourceTree = "<group>";
-		};
-		BAD6A5771CD7F8680005B204 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				BAD6A57B1CD7F8680005B204 /* RenderPage-Debug.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -929,144 +1404,220 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 2E21C0791C8DD57000018A6D /* Products */;
-					ProjectRef = 2E21C0781C8DD57000018A6D /* AddArt.xcodeproj */;
+					ProductGroup = 9F5049661E5CA33800C113B1 /* Products */;
+					ProjectRef = 9F5049651E5CA33800C113B1 /* AddArt.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E5E099D1C8A1D3F00098602 /* Products */;
-					ProjectRef = 2E5E099C1C8A1D3F00098602 /* AddAttachments.xcodeproj */;
+					ProductGroup = 9F50496C1E5CA34200C113B1 /* Products */;
+					ProjectRef = 9F50496B1E5CA34200C113B1 /* AddAttachments.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E21C08C1C8DDAA900018A6D /* Products */;
-					ProjectRef = 2E21C08B1C8DDAA900018A6D /* AddBookmarks.xcodeproj */;
+					ProductGroup = 9F5049A21E5CA3BF00C113B1 /* Products */;
+					ProjectRef = 9F5049A11E5CA3BF00C113B1 /* AddBookmarks.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E21C0AA1C8DEAC500018A6D /* Products */;
-					ProjectRef = 2E21C0A91C8DEAC500018A6D /* AddContent.xcodeproj */;
+					ProductGroup = 9F5049721E5CA35E00C113B1 /* Products */;
+					ProjectRef = 9F5049711E5CA35E00C113B1 /* AddContent.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E21C0B61C8DF1DF00018A6D /* Products */;
-					ProjectRef = 2E21C0B51C8DF1DF00018A6D /* AddDocumentInformation.xcodeproj */;
+					ProductGroup = 9F5049A81E5CA3E500C113B1 /* Products */;
+					ProjectRef = 9F5049A71E5CA3E500C113B1 /* AddDocumentInformation.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E21C0C41C8DF3B500018A6D /* Products */;
-					ProjectRef = 2E21C0C31C8DF3B500018A6D /* AddLinks.xcodeproj */;
+					ProductGroup = 9F8EE1671E5CA403004E294B /* Products */;
+					ProjectRef = 9F8EE1661E5CA403004E294B /* AddLinks.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E21C0D91C8DFBC400018A6D /* Products */;
-					ProjectRef = 2E21C0D81C8DFBC400018A6D /* AddPageNumbers.xcodeproj */;
+					ProductGroup = 9F8EE17C1E5CA40C004E294B /* Products */;
+					ProjectRef = 9F8EE17B1E5CA40C004E294B /* AddPageNumbers.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E21C0E91C8DFCE100018A6D /* Products */;
-					ProjectRef = 2E21C0E81C8DFCE100018A6D /* AddPassword.xcodeproj */;
+					ProductGroup = 9F8EE2191E5CA940004E294B /* Products */;
+					ProjectRef = 9F8EE2181E5CA940004E294B /* AddPassword.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E21C1911C8E052A00018A6D /* Products */;
-					ProjectRef = 2E21C1901C8E052A00018A6D /* AddRedaction.xcodeproj */;
+					ProductGroup = 9F8EE21F1E5CA94C004E294B /* Products */;
+					ProjectRef = 9F8EE21E1E5CA94C004E294B /* AddRedaction.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E21C1DD1C8E0AE300018A6D /* Products */;
-					ProjectRef = 2E21C1DC1C8E0AE300018A6D /* AddText.xcodeproj */;
+					ProductGroup = 9F8EE2491E5CA99E004E294B /* Products */;
+					ProjectRef = 9F8EE2481E5CA99E004E294B /* AddText.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E21C1C91C8E0AB800018A6D /* Products */;
-					ProjectRef = 2E21C1C81C8E0AB800018A6D /* AddWatermark.xcodeproj */;
+					ProductGroup = 9F8EE1E31E5CA8CE004E294B /* Products */;
+					ProjectRef = 9F8EE1E21E5CA8CE004E294B /* AddThumbnailsToPDF.xcodeproj */;
 				},
 				{
-					ProductGroup = 3CD19E921CFF799A00575E88 /* Products */;
-					ProjectRef = 3CD19E911CFF799A00575E88 /* ConvertPDFtoEPS.xcodeproj */;
+					ProductGroup = 9F8EE1821E5CA419004E294B /* Products */;
+					ProjectRef = 9F8EE1811E5CA419004E294B /* AddWatermark.xcodeproj */;
 				},
 				{
-					ProductGroup = 3CD19E981CFF79A900575E88 /* Products */;
-					ProjectRef = 3CD19E971CFF79A900575E88 /* ConvertPDFtoPostscript.xcodeproj */;
+					ProductGroup = 9F8EE2251E5CA955004E294B /* Products */;
+					ProjectRef = 9F8EE2241E5CA955004E294B /* AESEncryption.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E21C1AC1C8E0A4D00018A6D /* Products */;
-					ProjectRef = 2E21C1AB1C8E0A4D00018A6D /* CopyContent.xcodeproj */;
+					ProductGroup = 9F5049541E5CA2F700C113B1 /* Products */;
+					ProjectRef = 9F5049531E5CA2F700C113B1 /* AlternateFileSystem.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E5EF4CD1C8F1C5F0077FABC /* Products */;
-					ProjectRef = 2E5EF4CC1C8F1C5F0077FABC /* CreateAnnotations.xcodeproj */;
+					ProductGroup = 9F8EE1881E5CA425004E294B /* Products */;
+					ProjectRef = 9F8EE1871E5CA425004E294B /* AttachMimeToPDF.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E5EF4E31C8F1EC00077FABC /* Products */;
-					ProjectRef = 2E5EF4E21C8F1EC00077FABC /* CreateDocument.xcodeproj */;
+					ProductGroup = 9F8EE1E91E5CA8D9004E294B /* Products */;
+					ProjectRef = 9F8EE1E81E5CA8D9004E294B /* CalcImageDPI.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E5EF4F71C8F296A0077FABC /* Products */;
-					ProjectRef = 2E5EF4F61C8F296A0077FABC /* CreateLayers.xcodeproj */;
+					ProductGroup = 9F8EE1D11E5CA4A6004E294B /* Products */;
+					ProjectRef = 9F8EE1D01E5CA4A6004E294B /* ConvertPDFtoEPS.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E5EF5221C8F42970077FABC /* Products */;
-					ProjectRef = 2E5EF5211C8F42970077FABC /* CreateTransparency.xcodeproj */;
+					ProductGroup = 9F8EE1D71E5CA8B4004E294B /* Products */;
+					ProjectRef = 9F8EE1D61E5CA8B4004E294B /* ConvertPDFtoPostscript.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E79A39E1C8F46150087ECBC /* Products */;
-					ProjectRef = 2E79A39D1C8F46150087ECBC /* EncryptDocument.xcodeproj */;
+					ProductGroup = 9F5049901E5CA39D00C113B1 /* Products */;
+					ProjectRef = 9F50498F1E5CA39D00C113B1 /* CopyContent.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E79A3D01C8F48190087ECBC /* Products */;
-					ProjectRef = 2E79A3CF1C8F48190087ECBC /* ExtractAttachments.xcodeproj */;
+					ProductGroup = 9F8EE2071E5CA916004E294B /* Products */;
+					ProjectRef = 9F8EE2061E5CA916004E294B /* CountColorsInDoc.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E79A3FD1C8F4B390087ECBC /* Products */;
-					ProjectRef = 2E79A3FC1C8F4B390087ECBC /* ExtractDocumentInfo.xcodeproj */;
+					ProductGroup = 9F50495A1E5CA30D00C113B1 /* Products */;
+					ProjectRef = 9F5049591E5CA30D00C113B1 /* CreateAnnotations.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E79A4031C8F540E0087ECBC /* Products */;
-					ProjectRef = 2E79A4021C8F540E0087ECBC /* ExtractText.xcodeproj */;
+					ProductGroup = 9F5049781E5CA36600C113B1 /* Products */;
+					ProjectRef = 9F5049771E5CA36600C113B1 /* CreateBookmarks.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E79A4211C8F5D8D0087ECBC /* Products */;
-					ProjectRef = 2E79A4201C8F5D8D0087ECBC /* FindImageResolutions.xcodeproj */;
+					ProductGroup = 9F50497E1E5CA37000C113B1 /* Products */;
+					ProjectRef = 9F50497D1E5CA37000C113B1 /* CreateDocument.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E79A42F1C8F5FEB0087ECBC /* Products */;
-					ProjectRef = 2E79A42E1C8F5FEB0087ECBC /* FlattenAnnotations.xcodeproj */;
+					ProductGroup = 9F8EE1EF1E5CA8E7004E294B /* Products */;
+					ProjectRef = 9F8EE1EE1E5CA8E7004E294B /* CreateImageWithTransparency.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E79A4AE1C8F840A0087ECBC /* Products */;
-					ProjectRef = 2E79A4AD1C8F840A0087ECBC /* FlattenTransparency.xcodeproj */;
+					ProductGroup = 9F5049841E5CA37800C113B1 /* Products */;
+					ProjectRef = 9F5049831E5CA37800C113B1 /* CreateLayers.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E79A44D1C8F63720087ECBC /* Products */;
-					ProjectRef = 2E79A44C1C8F63720087ECBC /* LockDocument.xcodeproj */;
+					ProductGroup = 9F8EE1F51E5CA8F9004E294B /* Products */;
+					ProjectRef = 9F8EE1F41E5CA8F9004E294B /* CreateSeparations.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E79A4DA1C9069D00087ECBC /* Products */;
-					ProjectRef = 2E79A4D91C9069D00087ECBC /* MergeDocuments.xcodeproj */;
+					ProductGroup = 9F50498A1E5CA38B00C113B1 /* Products */;
+					ProjectRef = 9F5049891E5CA38B00C113B1 /* CreateTransparency.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E79A4F91C906BB40087ECBC /* Products */;
-					ProjectRef = 2E79A4F81C906BB40087ECBC /* OpenEncrypted.xcodeproj */;
+					ProductGroup = 9F8EE1CA1E5CA49E004E294B /* Products */;
+					ProjectRef = 9F8EE1C91E5CA49E004E294B /* DisplayPDEContent.xcodeproj */;
 				},
 				{
-					ProductGroup = 1DC78D141D676FEC00A8F1B0 /* Products */;
-					ProjectRef = 1DC78D131D676FEC00A8F1B0 /* PDFOptimizer.xcodeproj */;
+					ProductGroup = 9F8EE18E1E5CA42C004E294B /* Products */;
+					ProjectRef = 9F8EE18D1E5CA42C004E294B /* EmbedFonts.xcodeproj */;
 				},
 				{
-					ProductGroup = BAD6A5771CD7F8680005B204 /* Products */;
-					ProjectRef = BAD6A5761CD7F8680005B204 /* RenderPage.xcodeproj */;
+					ProductGroup = 9F8EE22B1E5CA95C004E294B /* Products */;
+					ProjectRef = 9F8EE22A1E5CA95C004E294B /* EncryptDocument.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E79A5411C9072350087ECBC /* Products */;
-					ProjectRef = 2E79A5401C9072350087ECBC /* SetUniquePermissions.xcodeproj */;
+					ProductGroup = 9F5049961E5CA3A500C113B1 /* Products */;
+					ProjectRef = 9F5049951E5CA3A500C113B1 /* ExtractAttachments.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E79A5651C907C700087ECBC /* Products */;
-					ProjectRef = 2E79A5641C907C700087ECBC /* SplitPDF.xcodeproj */;
+					ProductGroup = 9F8EE20D1E5CA91E004E294B /* Products */;
+					ProjectRef = 9F8EE20C1E5CA91E004E294B /* ExtractDocumentInfo.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E79A58A1C9098130087ECBC /* Products */;
-					ProjectRef = 2E79A5891C9098130087ECBC /* TextSearch.xcodeproj */;
+					ProductGroup = 9F50499C1E5CA3AF00C113B1 /* Products */;
+					ProjectRef = 9F50499B1E5CA3AF00C113B1 /* ExtractFonts.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E79A5B01C909A1E0087ECBC /* Products */;
-					ProjectRef = 2E79A5AF1C909A1E0087ECBC /* UnicodeText.xcodeproj */;
+					ProductGroup = 9F8EE24F1E5CA9AB004E294B /* Products */;
+					ProjectRef = 9F8EE24E1E5CA9AB004E294B /* ExtractText.xcodeproj */;
 				},
 				{
-					ProductGroup = 2E79A5D71C909AE40087ECBC /* Products */;
-					ProjectRef = 2E79A5D61C909AE40087ECBC /* WebOptimizedPDF.xcodeproj */;
+					ProductGroup = 9F8EE1FB1E5CA904004E294B /* Products */;
+					ProjectRef = 9F8EE1FA1E5CA904004E294B /* FindImageResolutions.xcodeproj */;
+				},
+				{
+					ProductGroup = 9F5049601E5CA31B00C113B1 /* Products */;
+					ProjectRef = 9F50495F1E5CA31B00C113B1 /* FlattenAnnotations.xcodeproj */;
+				},
+				{
+					ProductGroup = 9F8EE1941E5CA435004E294B /* Products */;
+					ProjectRef = 9F8EE1931E5CA435004E294B /* FlattenTransparency.xcodeproj */;
+				},
+				{
+					ProductGroup = 9F8EE2551E5CA9C0004E294B /* Products */;
+					ProjectRef = 9F8EE2541E5CA9C0004E294B /* helloJapan.xcodeproj */;
+				},
+				{
+					ProductGroup = 9F8EE19A1E5CA43F004E294B /* Products */;
+					ProjectRef = 9F8EE1991E5CA43F004E294B /* importPages.xcodeproj */;
+				},
+				{
+					ProductGroup = 9F8EE25B1E5CA9C9004E294B /* Products */;
+					ProjectRef = 9F8EE25A1E5CA9C9004E294B /* InsertHeadFoot.xcodeproj */;
+				},
+				{
+					ProductGroup = 9F8EE2311E5CA964004E294B /* Products */;
+					ProjectRef = 9F8EE2301E5CA964004E294B /* LockDocument.xcodeproj */;
+				},
+				{
+					ProductGroup = 9F8EE1A01E5CA448004E294B /* Products */;
+					ProjectRef = 9F8EE19F1E5CA448004E294B /* MergeAcroforms.xcodeproj */;
+				},
+				{
+					ProductGroup = 9F8EE1A61E5CA450004E294B /* Products */;
+					ProjectRef = 9F8EE1A51E5CA450004E294B /* MergeDocuments.xcodeproj */;
+				},
+				{
+					ProductGroup = 9F8EE2371E5CA970004E294B /* Products */;
+					ProjectRef = 9F8EE2361E5CA970004E294B /* OpenEncrypted.xcodeproj */;
+				},
+				{
+					ProductGroup = 9F8EE1AC1E5CA458004E294B /* Products */;
+					ProjectRef = 9F8EE1AB1E5CA458004E294B /* PDFMakeOCGVisible.xcodeproj */;
+				},
+				{
+					ProductGroup = 9F8EE1DD1E5CA8BD004E294B /* Products */;
+					ProjectRef = 9F8EE1DC1E5CA8BD004E294B /* PDFOptimizer.xcodeproj */;
+				},
+				{
+					ProductGroup = 9F8EE1B21E5CA460004E294B /* Products */;
+					ProjectRef = 9F8EE1B11E5CA460004E294B /* PDFUncompress.xcodeproj */;
+				},
+				{
+					ProductGroup = 9F8EE2131E5CA92C004E294B /* Products */;
+					ProjectRef = 9F8EE2121E5CA92C004E294B /* PostscriptInjection.xcodeproj */;
+				},
+				{
+					ProductGroup = 9F8EE2011E5CA90D004E294B /* Products */;
+					ProjectRef = 9F8EE2001E5CA90D004E294B /* RenderPage.xcodeproj */;
+				},
+				{
+					ProductGroup = 9F8EE23D1E5CA978004E294B /* Products */;
+					ProjectRef = 9F8EE23C1E5CA978004E294B /* SetUniquePermissions.xcodeproj */;
+				},
+				{
+					ProductGroup = 9F8EE1B81E5CA46A004E294B /* Products */;
+					ProjectRef = 9F8EE1B71E5CA46A004E294B /* SplitPDF.xcodeproj */;
+				},
+				{
+					ProductGroup = 9F8EE2611E5CA9D2004E294B /* Products */;
+					ProjectRef = 9F8EE2601E5CA9D2004E294B /* TextSearch.xcodeproj */;
+				},
+				{
+					ProductGroup = 9F8EE2671E5CA9DA004E294B /* Products */;
+					ProjectRef = 9F8EE2661E5CA9DA004E294B /* UnicodeText.xcodeproj */;
+				},
+				{
+					ProductGroup = 9F8EE2431E5CA980004E294B /* Products */;
+					ProjectRef = 9F8EE2421E5CA980004E294B /* ValidateSignatures.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1077,428 +1628,656 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		1DC78D181D676FEC00A8F1B0 /* PDFOptimizer-Debug.app */ = {
+		9F5049581E5CA2F700C113B1 /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = "PDFOptimizer-Debug.app";
-			remoteRef = 1DC78D171D676FEC00A8F1B0 /* PBXContainerItemProxy */;
+			path = .app;
+			remoteRef = 9F5049571E5CA2F700C113B1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2E21C07D1C8DD57000018A6D /* AddArt-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "AddArt-Debug.app";
-			remoteRef = 2E21C07C1C8DD57000018A6D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E21C0901C8DDAA900018A6D /* AddBookmarks-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "AddBookmarks-Debug.app";
-			remoteRef = 2E21C08F1C8DDAA900018A6D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E21C0AE1C8DEAC500018A6D /* AddContent-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "AddContent-Debug.app";
-			remoteRef = 2E21C0AD1C8DEAC500018A6D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E21C0BA1C8DF1DF00018A6D /* AddDocumentInformation-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "AddDocumentInformation-Debug.app";
-			remoteRef = 2E21C0B91C8DF1DF00018A6D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E21C0C81C8DF3B500018A6D /* AddLinks-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "AddLinks-Debug.app";
-			remoteRef = 2E21C0C71C8DF3B500018A6D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E21C0DD1C8DFBC400018A6D /* AddPageNumbers-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "AddPageNumbers-Debug.app";
-			remoteRef = 2E21C0DC1C8DFBC400018A6D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E21C0ED1C8DFCE100018A6D /* AddPassword-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "AddPassword-Debug.app";
-			remoteRef = 2E21C0EC1C8DFCE100018A6D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E21C1951C8E052A00018A6D /* AddRedaction-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "AddRedaction-Debug.app";
-			remoteRef = 2E21C1941C8E052A00018A6D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E21C1B01C8E0A4E00018A6D /* CopyContent-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "CopyContent-Debug.app";
-			remoteRef = 2E21C1AF1C8E0A4E00018A6D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E21C1CD1C8E0AB800018A6D /* AddWatermark-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "AddWatermark-Debug.app";
-			remoteRef = 2E21C1CC1C8E0AB800018A6D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E21C1E11C8E0AE300018A6D /* AddText-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "AddText-Debug.app";
-			remoteRef = 2E21C1E01C8E0AE300018A6D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E5E09A11C8A1D3F00098602 /* AddAttachments-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "AddAttachments-Debug.app";
-			remoteRef = 2E5E09A01C8A1D3F00098602 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E5EF4D11C8F1C600077FABC /* CreateAnnotations-Debug.app */ = {
+		9F50495E1E5CA30D00C113B1 /* CreateAnnotations-Debug.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = "CreateAnnotations-Debug.app";
-			remoteRef = 2E5EF4D01C8F1C600077FABC /* PBXContainerItemProxy */;
+			remoteRef = 9F50495D1E5CA30D00C113B1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2E5EF4E71C8F1EC00077FABC /* CreateDocument-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "CreateDocument-Debug.app";
-			remoteRef = 2E5EF4E61C8F1EC00077FABC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E5EF4FB1C8F296A0077FABC /* CreateLayers-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "CreateLayers-Debug.app";
-			remoteRef = 2E5EF4FA1C8F296A0077FABC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E5EF5261C8F42980077FABC /* CreateTransparency-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "CreateTransparency-Debug.app";
-			remoteRef = 2E5EF5251C8F42980077FABC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E79A3A21C8F46150087ECBC /* EncryptDocument-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "EncryptDocument-Debug.app";
-			remoteRef = 2E79A3A11C8F46150087ECBC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E79A3D41C8F48190087ECBC /* ExtractAttachments-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "ExtractAttachments-Debug.app";
-			remoteRef = 2E79A3D31C8F48190087ECBC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E79A4011C8F4B390087ECBC /* ExtractDocumentInfo-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "ExtractDocumentInfo-Debug.app";
-			remoteRef = 2E79A4001C8F4B390087ECBC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E79A4071C8F540E0087ECBC /* ExtractText-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "ExtractText-Debug.app";
-			remoteRef = 2E79A4061C8F540E0087ECBC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E79A4251C8F5D8D0087ECBC /* FindImageResolutions-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "FindImageResolutions-Debug.app";
-			remoteRef = 2E79A4241C8F5D8D0087ECBC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E79A4331C8F5FEB0087ECBC /* FlattenAnnotations-Debug.app */ = {
+		9F5049641E5CA31B00C113B1 /* FlattenAnnotations-Debug.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = "FlattenAnnotations-Debug.app";
-			remoteRef = 2E79A4321C8F5FEB0087ECBC /* PBXContainerItemProxy */;
+			remoteRef = 9F5049631E5CA31B00C113B1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2E79A4511C8F63720087ECBC /* LockDocument-Debug.app */ = {
+		9F50496A1E5CA33900C113B1 /* AddArt-Debug.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = "LockDocument-Debug.app";
-			remoteRef = 2E79A4501C8F63720087ECBC /* PBXContainerItemProxy */;
+			path = "AddArt-Debug.app";
+			remoteRef = 9F5049691E5CA33900C113B1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2E79A4B21C8F840A0087ECBC /* FlattenTransparency-Debug.app */ = {
+		9F5049701E5CA34200C113B1 /* AddAttachments-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddAttachments-Debug.app";
+			remoteRef = 9F50496F1E5CA34200C113B1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F5049761E5CA35E00C113B1 /* AddContent-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddContent-Debug.app";
+			remoteRef = 9F5049751E5CA35E00C113B1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F50497C1E5CA36700C113B1 /* .app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = .app;
+			remoteRef = 9F50497B1E5CA36700C113B1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F5049821E5CA37000C113B1 /* CreateDocument-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "CreateDocument-Debug.app";
+			remoteRef = 9F5049811E5CA37000C113B1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F5049881E5CA37900C113B1 /* CreateLayers-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "CreateLayers-Debug.app";
+			remoteRef = 9F5049871E5CA37900C113B1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F50498E1E5CA38B00C113B1 /* CreateTransparency-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "CreateTransparency-Debug.app";
+			remoteRef = 9F50498D1E5CA38B00C113B1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F5049941E5CA39D00C113B1 /* CopyContent-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "CopyContent-Debug.app";
+			remoteRef = 9F5049931E5CA39D00C113B1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F50499A1E5CA3A500C113B1 /* ExtractAttachments-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "ExtractAttachments-Debug.app";
+			remoteRef = 9F5049991E5CA3A500C113B1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F5049A01E5CA3AF00C113B1 /* .app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = .app;
+			remoteRef = 9F50499F1E5CA3AF00C113B1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F5049A61E5CA3BF00C113B1 /* AddBookmarks-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddBookmarks-Debug.app";
+			remoteRef = 9F5049A51E5CA3BF00C113B1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F5049AC1E5CA3E600C113B1 /* AddDocumentInformation-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddDocumentInformation-Debug.app";
+			remoteRef = 9F5049AB1E5CA3E600C113B1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE1701E5CA403004E294B /* AddLinks-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddLinks-Debug.app";
+			remoteRef = 9F8EE16F1E5CA403004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE1801E5CA40D004E294B /* AddPageNumbers-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddPageNumbers-Debug.app";
+			remoteRef = 9F8EE17F1E5CA40D004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE1861E5CA419004E294B /* AddWatermark-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddWatermark-Debug.app";
+			remoteRef = 9F8EE1851E5CA419004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE18C1E5CA425004E294B /* .app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = .app;
+			remoteRef = 9F8EE18B1E5CA425004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE1921E5CA42D004E294B /* .app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = .app;
+			remoteRef = 9F8EE1911E5CA42D004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE1981E5CA436004E294B /* FlattenTransparency-Debug.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = "FlattenTransparency-Debug.app";
-			remoteRef = 2E79A4B11C8F840A0087ECBC /* PBXContainerItemProxy */;
+			remoteRef = 9F8EE1971E5CA436004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2E79A4DE1C9069D10087ECBC /* MergeDocuments-Debug.app */ = {
+		9F8EE19E1E5CA43F004E294B /* .app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = .app;
+			remoteRef = 9F8EE19D1E5CA43F004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE1A41E5CA448004E294B /* .app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = .app;
+			remoteRef = 9F8EE1A31E5CA448004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE1AA1E5CA450004E294B /* MergeDocuments-Debug.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = "MergeDocuments-Debug.app";
-			remoteRef = 2E79A4DD1C9069D10087ECBC /* PBXContainerItemProxy */;
+			remoteRef = 9F8EE1A91E5CA450004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2E79A4FE1C906BB40087ECBC /* OpenEncrypted-Debug.app */ = {
+		9F8EE1B01E5CA459004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = "OpenEncrypted-Debug.app";
-			remoteRef = 2E79A4FD1C906BB40087ECBC /* PBXContainerItemProxy */;
+			path = .app;
+			remoteRef = 9F8EE1AF1E5CA459004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2E79A5451C9072350087ECBC /* SetUniquePermissions-Debug.app */ = {
+		9F8EE1B61E5CA461004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = "SetUniquePermissions-Debug.app";
-			remoteRef = 2E79A5441C9072350087ECBC /* PBXContainerItemProxy */;
+			path = .app;
+			remoteRef = 9F8EE1B51E5CA461004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2E79A5691C907C700087ECBC /* SplitPDF-Debug.app */ = {
+		9F8EE1BC1E5CA46A004E294B /* SplitPDF-Debug.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = "SplitPDF-Debug.app";
-			remoteRef = 2E79A5681C907C700087ECBC /* PBXContainerItemProxy */;
+			remoteRef = 9F8EE1BB1E5CA46A004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2E79A58E1C9098130087ECBC /* TextSearch-Debug.app */ = {
+		9F8EE1CF1E5CA49E004E294B /* .app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = "TextSearch-Debug.app";
-			remoteRef = 2E79A58D1C9098130087ECBC /* PBXContainerItemProxy */;
+			path = .app;
+			remoteRef = 9F8EE1CE1E5CA49E004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2E79A5B41C909A1E0087ECBC /* UnicodeText-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "UnicodeText-Debug.app";
-			remoteRef = 2E79A5B31C909A1E0087ECBC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2E79A5DB1C909AE50087ECBC /* WebOptimizedPDF-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "WebOptimizedPDF-Debug.app";
-			remoteRef = 2E79A5DA1C909AE50087ECBC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3CD19E961CFF799B00575E88 /* ConvertPDFtoEPS-Debug.app */ = {
+		9F8EE1D51E5CA4A6004E294B /* ConvertPDFtoEPS-Debug.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = "ConvertPDFtoEPS-Debug.app";
-			remoteRef = 3CD19E951CFF799B00575E88 /* PBXContainerItemProxy */;
+			remoteRef = 9F8EE1D41E5CA4A6004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		3CD19E9C1CFF79A900575E88 /* ConvertPDFtoPostscript-Debug.app */ = {
+		9F8EE1DB1E5CA8B4004E294B /* ConvertPDFtoPostscript-Debug.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = "ConvertPDFtoPostscript-Debug.app";
-			remoteRef = 3CD19E9B1CFF79A900575E88 /* PBXContainerItemProxy */;
+			remoteRef = 9F8EE1DA1E5CA8B4004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		BAD6A57B1CD7F8680005B204 /* RenderPage-Debug.app */ = {
+		9F8EE1E11E5CA8BD004E294B /* PDFOptimizer-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "PDFOptimizer-Debug.app";
+			remoteRef = 9F8EE1E01E5CA8BD004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE1E71E5CA8CF004E294B /* .app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = .app;
+			remoteRef = 9F8EE1E61E5CA8CF004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE1ED1E5CA8DA004E294B /* .app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = .app;
+			remoteRef = 9F8EE1EC1E5CA8DA004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE1F31E5CA8E8004E294B /* .app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = .app;
+			remoteRef = 9F8EE1F21E5CA8E8004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE1F91E5CA8F9004E294B /* .app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = .app;
+			remoteRef = 9F8EE1F81E5CA8F9004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE1FF1E5CA905004E294B /* .app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = .app;
+			remoteRef = 9F8EE1FE1E5CA905004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE2051E5CA90E004E294B /* RenderPage-Debug.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = "RenderPage-Debug.app";
-			remoteRef = BAD6A57A1CD7F8680005B204 /* PBXContainerItemProxy */;
+			remoteRef = 9F8EE2041E5CA90E004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE20B1E5CA917004E294B /* .app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = .app;
+			remoteRef = 9F8EE20A1E5CA917004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE2111E5CA91E004E294B /* ExtractDocumentInfo-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "ExtractDocumentInfo-Debug.app";
+			remoteRef = 9F8EE2101E5CA91E004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE2171E5CA92C004E294B /* .app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = .app;
+			remoteRef = 9F8EE2161E5CA92C004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE21D1E5CA940004E294B /* AddPassword-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddPassword-Debug.app";
+			remoteRef = 9F8EE21C1E5CA940004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE2231E5CA94C004E294B /* AddRedaction-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddRedaction-Debug.app";
+			remoteRef = 9F8EE2221E5CA94C004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE2291E5CA955004E294B /* .app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = .app;
+			remoteRef = 9F8EE2281E5CA955004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE22F1E5CA95D004E294B /* EncryptDocument-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "EncryptDocument-Debug.app";
+			remoteRef = 9F8EE22E1E5CA95D004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE2351E5CA965004E294B /* LockDocument-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "LockDocument-Debug.app";
+			remoteRef = 9F8EE2341E5CA965004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE23B1E5CA971004E294B /* OpenEncrypted-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "OpenEncrypted-Debug.app";
+			remoteRef = 9F8EE23A1E5CA971004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE2411E5CA978004E294B /* SetUniquePermissions-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "SetUniquePermissions-Debug.app";
+			remoteRef = 9F8EE2401E5CA978004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE2471E5CA980004E294B /* .app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = .app;
+			remoteRef = 9F8EE2461E5CA980004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE24D1E5CA99E004E294B /* AddText-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddText-Debug.app";
+			remoteRef = 9F8EE24C1E5CA99E004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE2531E5CA9AC004E294B /* ExtractText-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "ExtractText-Debug.app";
+			remoteRef = 9F8EE2521E5CA9AC004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE2591E5CA9C1004E294B /* .app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = .app;
+			remoteRef = 9F8EE2581E5CA9C1004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE25F1E5CA9CA004E294B /* .app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = .app;
+			remoteRef = 9F8EE25E1E5CA9CA004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE2651E5CA9D3004E294B /* TextSearch-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "TextSearch-Debug.app";
+			remoteRef = 9F8EE2641E5CA9D3004E294B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9F8EE26B1E5CA9DA004E294B /* UnicodeText-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "UnicodeText-Debug.app";
+			remoteRef = 9F8EE26A1E5CA9DA004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXTargetDependency section */
-		2E21C0811C8DD68E00018A6D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AddArt;
-			targetProxy = 2E21C0801C8DD68E00018A6D /* PBXContainerItemProxy */;
-		};
-		2E21C0951C8DDB4D00018A6D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AddBookmarks;
-			targetProxy = 2E21C0941C8DDB4D00018A6D /* PBXContainerItemProxy */;
-		};
-		2E21C0B01C8DEAD500018A6D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AddContent;
-			targetProxy = 2E21C0AF1C8DEAD500018A6D /* PBXContainerItemProxy */;
-		};
-		2E21C0C11C8DF22D00018A6D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AddDocumentInformation;
-			targetProxy = 2E21C0C01C8DF22D00018A6D /* PBXContainerItemProxy */;
-		};
-		2E21C0D01C8DF3EE00018A6D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AddLinks;
-			targetProxy = 2E21C0CF1C8DF3EE00018A6D /* PBXContainerItemProxy */;
-		};
-		2E21C0E61C8DFBFB00018A6D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AddPageNumbers;
-			targetProxy = 2E21C0E51C8DFBFB00018A6D /* PBXContainerItemProxy */;
-		};
-		2E21C0F71C8DFD1500018A6D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AddPassword;
-			targetProxy = 2E21C0F61C8DFD1500018A6D /* PBXContainerItemProxy */;
-		};
-		2E21C1A01C8E055100018A6D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AddRedaction;
-			targetProxy = 2E21C19F1C8E055100018A6D /* PBXContainerItemProxy */;
-		};
-		2E21C1C61C8E0AAD00018A6D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CopyContent;
-			targetProxy = 2E21C1C51C8E0AAD00018A6D /* PBXContainerItemProxy */;
-		};
-		2E21C1DA1C8E0AD900018A6D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AddWatermark;
-			targetProxy = 2E21C1D91C8E0AD900018A6D /* PBXContainerItemProxy */;
-		};
-		2E21C1EF1C8E0AFE00018A6D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AddText;
-			targetProxy = 2E21C1EE1C8E0AFE00018A6D /* PBXContainerItemProxy */;
-		};
-		2E5E09A31C8A1D5900098602 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AddAttachments;
-			targetProxy = 2E5E09A21C8A1D5900098602 /* PBXContainerItemProxy */;
-		};
-		2E5EF4E01C8F1C8F0077FABC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CreateAnnotations;
-			targetProxy = 2E5EF4DF1C8F1C8F0077FABC /* PBXContainerItemProxy */;
-		};
-		2E5EF51C1C8F2A1B0077FABC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CreateLayers;
-			targetProxy = 2E5EF51B1C8F2A1B0077FABC /* PBXContainerItemProxy */;
-		};
-		2E5EF51E1C8F2A1B0077FABC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CreateDocument;
-			targetProxy = 2E5EF51D1C8F2A1B0077FABC /* PBXContainerItemProxy */;
-		};
-		2E79A39B1C8F42E80087ECBC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CreateTransparency;
-			targetProxy = 2E79A39A1C8F42E80087ECBC /* PBXContainerItemProxy */;
-		};
-		2E79A3B51C8F46340087ECBC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = EncryptDocument;
-			targetProxy = 2E79A3B41C8F46340087ECBC /* PBXContainerItemProxy */;
-		};
-		2E79A3FA1C8F48590087ECBC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ExtractAttachments;
-			targetProxy = 2E79A3F91C8F48590087ECBC /* PBXContainerItemProxy */;
-		};
-		2E79A4091C8F541A0087ECBC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ExtractText;
-			targetProxy = 2E79A4081C8F541A0087ECBC /* PBXContainerItemProxy */;
-		};
-		2E79A40B1C8F541A0087ECBC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ExtractDocumentInfo;
-			targetProxy = 2E79A40A1C8F541A0087ECBC /* PBXContainerItemProxy */;
-		};
-		2E79A4271C8F5D990087ECBC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = FindImageResolutions;
-			targetProxy = 2E79A4261C8F5D990087ECBC /* PBXContainerItemProxy */;
-		};
-		2E79A4351C8F5FF50087ECBC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = FlattenAnnotations;
-			targetProxy = 2E79A4341C8F5FF50087ECBC /* PBXContainerItemProxy */;
-		};
-		2E79A4531C8F637B0087ECBC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = LockDocument;
-			targetProxy = 2E79A4521C8F637B0087ECBC /* PBXContainerItemProxy */;
-		};
-		2E79A4B41C8F84200087ECBC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = FlattenTransparency;
-			targetProxy = 2E79A4B31C8F84200087ECBC /* PBXContainerItemProxy */;
-		};
-		2E79A5001C906BC40087ECBC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = OpenEncrypted;
-			targetProxy = 2E79A4FF1C906BC40087ECBC /* PBXContainerItemProxy */;
-		};
-		2E79A5021C906BC40087ECBC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = MergeDocuments;
-			targetProxy = 2E79A5011C906BC40087ECBC /* PBXContainerItemProxy */;
-		};
-		2E79A5471C90723C0087ECBC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SetUniquePermissions;
-			targetProxy = 2E79A5461C90723C0087ECBC /* PBXContainerItemProxy */;
-		};
-		2E79A56B1C907C750087ECBC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SplitPDF;
-			targetProxy = 2E79A56A1C907C750087ECBC /* PBXContainerItemProxy */;
-		};
-		2E79A5901C9098180087ECBC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TextSearch;
-			targetProxy = 2E79A58F1C9098180087ECBC /* PBXContainerItemProxy */;
-		};
-		2E79A5B61C909A230087ECBC /* PBXTargetDependency */ = {
+		9F8422581E5CADFC001E30FB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = UnicodeText;
-			targetProxy = 2E79A5B51C909A230087ECBC /* PBXContainerItemProxy */;
+			targetProxy = 9F8422571E5CADFC001E30FB /* PBXContainerItemProxy */;
 		};
-		2E79A5DD1C909AEB0087ECBC /* PBXTargetDependency */ = {
+		9F8422901E5CAE14001E30FB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = WebOptimizedPDF;
-			targetProxy = 2E79A5DC1C909AEB0087ECBC /* PBXContainerItemProxy */;
+			name = TextSearch;
+			targetProxy = 9F84228F1E5CAE14001E30FB /* PBXContainerItemProxy */;
 		};
-		3C386FE81D0222D100EBC3AE /* PBXTargetDependency */ = {
+		9F8422921E5CAE14001E30FB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = ConvertPDFtoEPS;
-			targetProxy = 3C386FE71D0222D100EBC3AE /* PBXContainerItemProxy */;
+			name = InsertHeadFoot;
+			targetProxy = 9F8422911E5CAE14001E30FB /* PBXContainerItemProxy */;
 		};
-		3C386FEC1D0222D700EBC3AE /* PBXTargetDependency */ = {
+		9F8422941E5CAE14001E30FB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = ConvertPDFtoPostscript;
-			targetProxy = 3C386FEB1D0222D700EBC3AE /* PBXContainerItemProxy */;
+			name = helloJapan;
+			targetProxy = 9F8422931E5CAE14001E30FB /* PBXContainerItemProxy */;
 		};
-		94212D861D678EB4008D6363 /* PBXTargetDependency */ = {
+		9F8422961E5CAE14001E30FB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = PDFOptimizer;
-			targetProxy = 94212D851D678EB4008D6363 /* PBXContainerItemProxy */;
+			name = ExtractText;
+			targetProxy = 9F8422951E5CAE14001E30FB /* PBXContainerItemProxy */;
 		};
-		BAA38E921CDA41030011A215 /* PBXTargetDependency */ = {
+		9F8422981E5CAE14001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddText;
+			targetProxy = 9F8422971E5CAE14001E30FB /* PBXContainerItemProxy */;
+		};
+		9F84229A1E5CAE14001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ValidateSignatures;
+			targetProxy = 9F8422991E5CAE14001E30FB /* PBXContainerItemProxy */;
+		};
+		9F84229C1E5CAE14001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SetUniquePermissions;
+			targetProxy = 9F84229B1E5CAE14001E30FB /* PBXContainerItemProxy */;
+		};
+		9F84229E1E5CAE14001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = OpenEncrypted;
+			targetProxy = 9F84229D1E5CAE14001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422A01E5CAE14001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LockDocument;
+			targetProxy = 9F84229F1E5CAE14001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422A21E5CAE14001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = EncryptDocument;
+			targetProxy = 9F8422A11E5CAE14001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422A41E5CAE14001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AESEncryption;
+			targetProxy = 9F8422A31E5CAE14001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422A61E5CAE14001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddRedaction;
+			targetProxy = 9F8422A51E5CAE14001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422A81E5CAE14001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddPassword;
+			targetProxy = 9F8422A71E5CAE14001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422AA1E5CAE20001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PostScriptInjection;
+			targetProxy = 9F8422A91E5CAE20001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422AC1E5CAE20001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ExtractDocumentInfo;
+			targetProxy = 9F8422AB1E5CAE20001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422AE1E5CAE20001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CountColorsInDoc;
+			targetProxy = 9F8422AD1E5CAE20001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422B01E5CAE20001E30FB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = RenderPage;
-			targetProxy = BAA38E911CDA41030011A215 /* PBXContainerItemProxy */;
+			targetProxy = 9F8422AF1E5CAE20001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422B21E5CAE20001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FindImageResolutions;
+			targetProxy = 9F8422B11E5CAE20001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422B41E5CAE20001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CreateSeparations;
+			targetProxy = 9F8422B31E5CAE20001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422B61E5CAE20001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CreateImageWithTransparency;
+			targetProxy = 9F8422B51E5CAE20001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422B81E5CAE20001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CalcImageDPI;
+			targetProxy = 9F8422B71E5CAE20001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422BA1E5CAE20001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddThumbnailsToPDF;
+			targetProxy = 9F8422B91E5CAE20001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422BC1E5CAE20001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PDFOptimizer;
+			targetProxy = 9F8422BB1E5CAE20001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422BE1E5CAE2D001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ConvertPDFtoPostscript;
+			targetProxy = 9F8422BD1E5CAE2D001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422C01E5CAE2D001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ConvertPDFtoEPS;
+			targetProxy = 9F8422BF1E5CAE2D001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422C21E5CAE2D001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DisplayPDEContent;
+			targetProxy = 9F8422C11E5CAE2D001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422C41E5CAE2D001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SplitPDF;
+			targetProxy = 9F8422C31E5CAE2D001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422C61E5CAE2D001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PDFUncompress;
+			targetProxy = 9F8422C51E5CAE2D001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422C81E5CAE2D001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PDFMakeOCGVisible;
+			targetProxy = 9F8422C71E5CAE2D001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422CA1E5CAE2D001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MergeDocuments;
+			targetProxy = 9F8422C91E5CAE2D001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422CC1E5CAE2D001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MergeAcroforms;
+			targetProxy = 9F8422CB1E5CAE2D001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422CE1E5CAE2D001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = importPages;
+			targetProxy = 9F8422CD1E5CAE2D001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422D01E5CAE2D001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FlattenTransparency;
+			targetProxy = 9F8422CF1E5CAE2D001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422D21E5CAE39001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = EmbedFonts;
+			targetProxy = 9F8422D11E5CAE39001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422D41E5CAE39001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AttachMimeToPDF;
+			targetProxy = 9F8422D31E5CAE39001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422D61E5CAE39001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddWatermark;
+			targetProxy = 9F8422D51E5CAE39001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422D81E5CAE39001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddPageNumbers;
+			targetProxy = 9F8422D71E5CAE39001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422DA1E5CAE39001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddLinks;
+			targetProxy = 9F8422D91E5CAE39001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422DC1E5CAE39001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddDocumentInformation;
+			targetProxy = 9F8422DB1E5CAE39001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422DE1E5CAE39001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddBookmarks;
+			targetProxy = 9F8422DD1E5CAE39001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422E01E5CAE39001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ExtractFonts;
+			targetProxy = 9F8422DF1E5CAE39001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422E21E5CAE39001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ExtractAttachments;
+			targetProxy = 9F8422E11E5CAE39001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422E41E5CAE39001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CopyContent;
+			targetProxy = 9F8422E31E5CAE39001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422E61E5CAE47001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CreateTransparency;
+			targetProxy = 9F8422E51E5CAE47001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422E81E5CAE47001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CreateLayers;
+			targetProxy = 9F8422E71E5CAE47001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422EA1E5CAE47001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CreateDocument;
+			targetProxy = 9F8422E91E5CAE47001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422EC1E5CAE47001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CreateBookmarks;
+			targetProxy = 9F8422EB1E5CAE47001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422EE1E5CAE47001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddContent;
+			targetProxy = 9F8422ED1E5CAE47001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422F01E5CAE47001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddAttachments;
+			targetProxy = 9F8422EF1E5CAE47001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422F21E5CAE47001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddArt;
+			targetProxy = 9F8422F11E5CAE47001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422F41E5CAE47001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FlattenAnnotations;
+			targetProxy = 9F8422F31E5CAE47001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422F61E5CAE47001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CreateAnnotations;
+			targetProxy = 9F8422F51E5CAE47001E30FB /* PBXContainerItemProxy */;
+		};
+		9F8422F81E5CAE47001E30FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AlternateFileSystem;
+			targetProxy = 9F8422F71E5CAE47001E30FB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

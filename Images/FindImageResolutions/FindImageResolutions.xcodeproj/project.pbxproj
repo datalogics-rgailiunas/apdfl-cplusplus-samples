@@ -38,7 +38,7 @@
 		3E56135B0F8BF3DD0094B7E7 /* ICUConverter.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613530F8BF3C70094B7E7 /* ICUConverter.framework */; };
 		3E56135C0F8BF3E30094B7E7 /* ICUData.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613560F8BF3CC0094B7E7 /* ICUData.framework */; };
 		8D0C4E920486CD37000505A6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Foundation.framework */; };
-		A09F2E801DDF7430007DD6D7 /* MakeSample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A09F2E7F1DDF7430007DD6D7 /* MakeSample.cpp */; settings = {ASSET_TAGS = (); }; };
+		A09F2E801DDF7430007DD6D7 /* MakeSample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A09F2E7F1DDF7430007DD6D7 /* MakeSample.cpp */; };
 		BA2E45960888421A0081FD28 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2E45950888421A0081FD28 /* ApplicationServices.framework */; };
 		BA3D8C2B0B652F6E0079A6FB /* ToolkitInitEASF.h in Headers */ = {isa = PBXBuildFile; fileRef = BA3D8BBB0B652F6E0079A6FB /* ToolkitInitEASF.h */; };
 		BA3D8C2C0B652F6E0079A6FB /* XtnMgrEASF.h in Headers */ = {isa = PBXBuildFile; fileRef = BA3D8BBC0B652F6E0079A6FB /* XtnMgrEASF.h */; };
@@ -322,7 +322,7 @@
 		BA3D8C2A0B652F6E0079A6FB /* AcroColorProcs.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; name = AcroColorProcs.h; path = ../../../Include/Headers/AcroColorProcs.h; sourceTree = SOURCE_ROOT; };
 		BA568C150A47467400825A50 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		BA64AAB10B5829E00026827E /* PDFLInitHFT.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = PDFLInitHFT.c; path = ../../../Include/Source/PDFLInitHFT.c; sourceTree = SOURCE_ROOT; };
-		BAAFDE0808980F3600470124 /* FindImageResolutions-Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FindImageResolutions-Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAAFDE0808980F3600470124 /* .app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = .app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAB910C20B582A3000C283C9 /* PDFLInitCommon.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = PDFLInitCommon.c; path = ../../../Include/Source/PDFLInitCommon.c; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -355,7 +355,7 @@
 		195DF8CFFE9D517E11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BAAFDE0808980F3600470124 /* FindImageResolutions-Debug.app */,
+				BAAFDE0808980F3600470124 /* .app */,
 			);
 			name = Products;
 			sourceTree = SOURCE_ROOT;
@@ -701,7 +701,7 @@
 			name = FindImageResolutions;
 			productInstallPath = "$(HOME)/Applications";
 			productName = HelowrldX;
-			productReference = BAAFDE0808980F3600470124 /* FindImageResolutions-Debug.app */;
+			productReference = BAAFDE0808980F3600470124 /* .app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
