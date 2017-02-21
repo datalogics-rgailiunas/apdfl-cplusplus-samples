@@ -4,9 +4,14 @@
 // For complete copyright information, see:
 // http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
 //
-// Project: CreateSeparations - demonstrates how to create separations for spot color images
+// The sample demonstrates how to create color separations for spot color images.
 // 
-// The input file name, and the (root of the per-page) output file name(s) may be specified on the command line.
+// Color separation is part of high volume offset printing processing. The original digital content
+// is color separated to create a set of plates for printing, generally one plate per page for each
+// of the primary colors—Cyan, Magenta, Yellow, and Black (CMYK). During printing each color layer is
+// printed separately, one on top of the other, blended together to create the depth and variety of
+// color in the final images. A spot color is a separate color added on top of the image after the
+// four color plates are used to create the initial print run.
 //
 
 #include <iostream>
@@ -106,16 +111,15 @@ DURING
         // Separate the image in to it's components
         CreateSeparation ( Image, Width, Depth, &vSeparations );
 
-        // From this point on we are simply displaying the separations we built above. 
-        // I.E. all that follows is for purpose of verifying that the three calls above, 
-        // CreateColorList, CreateCMYKBitmap and Create separations, did what they were supposed 
-        // to do.
+        // From this point on the program simply displays the separations built previously.
+        // In other words, the code that follows is intended to verify that the three calls above,
+        // CreateColorList, CreateCMYKBitmap and Create separations, completed successfully.
 
-        // Create a document to hold the separation display
+        // Create a document to hold the separation display.
         PDDoc OutDoc = PDDocCreate ();
 
-        // Make the page 1 inch larger than the image (1/2 inch border on all sides)
-        // so we have room to identify the separations
+        // Make the page one inch larger than the image (1/2 inch border on all sides)
+        // to provide room to identify the separations.
         ASFixedRect PageSize;
         PageSize.left = PageSize.bottom = 0;
         PageSize.right = ASInt32ToFixed (Width) + ASInt32ToFixed ( 72 );
@@ -175,7 +179,7 @@ DURING
         PDERelease ((PDEObject) ColorSpace);
 
         // Create a page which has every component on it. This should
-        // appear identical to the original page
+        // appear identical to the original page.
         OutPage = PDDocCreatePage (OutDoc, 0, PageSize);
         Content = PDPageAcquirePDEContent (OutPage, 0);
         ASUns32 CurrentColor;
@@ -271,7 +275,7 @@ END_HANDLER
 // This routine separates a CMYK image into 4 plates, one for each of those inks.
 // Each image will be an 8 bit single color image, representing the proportion of that color
 // used in each pixel. The image will be at 4 times the resolution of the original image, and will
-// use 1/4 of the pixels only. The effect should be identical to a 25% screen image at 45 degree.
+// use 1/4 of the pixels only. The effect should be identical to a 25% screen image at 45 degrees.
 //
 // A separate mask image will be supplied. It will also be at 4 times the resolution of the 
 // original image, but will be 1 bit per pixel. It will have turned on only those pixels which are 
@@ -284,7 +288,7 @@ void ProcessSeparation ( ASUns8 *OriginalImage, ASInt32 InWidth, ASInt32 InDepth
     ASInt32     RowWidth = ((Width + 7) / 8);
 
     // This routine will produce 4 masks. Each mask will be 4 
-    // times the size of the spot color masks (twice as wide, and 
+    // times the size of the spot color masks, twice as wide and 
     // twice as deep. This is so that there can be 4 pixels in each
     // of the process plates for each pixel in the original plate. 
     // The effect below is to create a plate for each of the 4 
@@ -308,7 +312,7 @@ void ProcessSeparation ( ASUns8 *OriginalImage, ASInt32 InWidth, ASInt32 InDepth
     K->m_black = true;
     sc->push_back ( K );
 
-    /* The following looks really weird, but is intended to "rotate" the
+    /* The following diagram is intended to "rotate" the
      * four pixels in the pattern
 
     -------------------------------------------------
@@ -332,7 +336,7 @@ void ProcessSeparation ( ASUns8 *OriginalImage, ASInt32 InWidth, ASInt32 InDepth
             ASUns32   ColorOut = ((Line * Width * 2) + (Row * 2));
             ASUns32   MaskOut = (Line * RowWidth * 2) + ((Row * 2)  / 8);
 
-            // Mark the separation present if it has a non zero value in it
+            // Mark the separation present if it has a non-zero value
             if (Color[0])
                 C->m_present = true;
             if (Color[1])
@@ -391,9 +395,10 @@ void ProcessSeparation ( ASUns8 *OriginalImage, ASInt32 InWidth, ASInt32 InDepth
 // This routine will create separation plates for spot colors. Each plate will be a 1 bit per pixel
 // bitmap in the original image resolution. A true bit indicates that the spot color is present,
 // a false bit indicates it is not present.
+//
 // As each color is imaged on a separate plate, it is removed from the original CMYK image. If there
-// are no colors left in the CMYK image at completion of spot color removal, then we will not create
-// process color plates. If there are colors remaining, we will create process color plates.
+// are no colors left in the CMYK image when the spot color is removed, the program will not create
+// process color plates. If there are colors remaining, the program will create process color plates.
 void CreateSeparation ( ASUns8 *OriginalImage, ASInt32 Width, ASInt32 Depth, SeparationsContainer* sc )
 {
     ASUns32 *InputImage = (ASUns32*) OriginalImage;
@@ -409,8 +414,8 @@ void CreateSeparation ( ASUns8 *OriginalImage, ASInt32 Width, ASInt32 Depth, Sep
         Sep->ReallocBuffer ( Width, Depth, RowWidth );
 
         ASInt32 Row, Line;
-        // Scan the image looking for Color.  When we find one, turn on the corresponding bit in the 
-        // separation bitmap
+        // Scan the image looking for Color. When we find one, turn on the corresponding bit in the 
+        // separation bitmap.
         for (Line = 0; Line < Depth; Line++)
         {
             for (Row = 0; Row < Width; Row++)
@@ -476,14 +481,14 @@ ASBool EnumerateInks (PDPageInk ink, void *clientData)
 
 // This routine will create a list of separations for the spot colors defined on
 // a given page. Note that it lists the colors defined. They may or may not be used
-// on any given page
+// on any given page.
 void CreateColorList (PDPage Page, SeparationsContainer* sc )
 {
     PDPageEnumInks (Page, EnumerateInks, (void *)sc, true);
 }
 
 // This routine will create a CMYK bitmap for the specified page.
-// Note that resolution is given as a define at the start of this program
+// Note that resolution given is defined at the start of this program.
 ASUns8 *CreateCMYKBitmap (PDPage Page, double Resolution, ASInt32 *Width, ASInt32 *Depth)
 {
     ASInt32        ImageSize;
@@ -516,7 +521,7 @@ ASUns8 *CreateCMYKBitmap (PDPage Page, double Resolution, ASInt32 *Width, ASInt3
 }
 
 // This routine is present simply to verify results. A consumer of bitmaps would not
-// need it. It creates a soft masked PDF Image for each plate
+// need it. It creates a soft masked PDF Image for each plate.
 void CreateMaskedImage (SEPARATION *Sep)
 {
     PDEImageAttrs         ImageAttrs;
@@ -642,7 +647,7 @@ void VerifyValidate ( std::string& ifname, std::string& ofroot, const char* inpu
 
     ifname = input;
     ofroot = output;
-    // If output file name already ends in ".pdf" remove it...
+    // If output file name already ends in ".pdf" remove the extension.
     std::size_t slen = ofroot.length();
     if ( ( slen > 4 ) && ( 0 == ofroot.compare ( slen - 4, 4, ".pdf" ) ) )
     {

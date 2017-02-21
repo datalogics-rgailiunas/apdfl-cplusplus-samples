@@ -4,12 +4,22 @@
 // For complete copyright information, see:
 // http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
 //
-// CreateImageWithTransparency - This sample demonstrates the creation of a PDEImage object and
-//   the use of a soft mask.  The main image is JPEG-encoded, with the compression level
-//   adjustable.  Text behind the image is partially visible due to transparency
-//   in the mask.
+// This sample shows how to create a transparency within a PDF document, in the form of a graphic
+// image with an art graphic layered on top. PDF files can have objects that are partially or fully
+// transparent, and thus can blend in various ways with objects behind them. Transparent graphics
+// or images can be stacked in a PDF file, with each one blending to contribute to the final result
+// that appears on the page. In this sample the text behind the image is partially visible.
+// 
+// The PDFEdit Layer (PDE) of the Adobe Acrobat API contains classes that provide for editing objects
+// in PDF documents, including images. The program creates a PDEImage object, using a JPG image with
+// an adjustable compression level. The program also provides for creating a soft mask with the
+// transparent object. A SoftMask object in the PDF format allows you to place an image on a PDF
+// page and control the level of transparency of that image. You can provide settings to determine
+// how much of the background color or text on the page shows through the SoftMask image appearing
+// in the foreground.
 //
-
+// CreateImageWithTransparency does not define an input file or an input directory.
+//
 
 #include "PSFCalls.h"
 #include "PERCalls.h"
@@ -70,9 +80,9 @@ DURING
     CosDictPut(dctParams, ASAtomFromString("Colors"),
     CosNewInteger( outCosDoc, false, PDEColorSpaceGetNumComps(ImageColorSpace)));
     
-    // QFactor controls the quality/compression tradeoff.  Some sample
-    // values and approximate image quality:
-    // 0.15: "Superexcellent"
+    // The QFactor controls the quality/compression tradeoff.
+	// These values describe the approximate image quality:
+    // 0.15: Superior
     // 0.3: Excellent
     // 0.5 - 0.7: Very Good
     // 1.3: Fair
@@ -100,7 +110,7 @@ DURING
     ASUns8* ImageBuffer = new ASUns8[ImageSize];
     ASUns8* MaskBuffer = new ASUns8[MaskSize];
 
-    // Image data - a 9 in. x 4 in. yellow rectangle
+    // Image data - Create a 9 x 4 inch yellow rectangle
     for (Line = 0; Line < attrs.height; Line++)
     {
         for (Row = 0; Row < attrs.width; Row++)
@@ -114,19 +124,19 @@ DURING
         }
     }
 
-    // Mask data - Set a 7 in. x 2 in. hole in the middle of the 9 x 4 rectangle.
+    // Mask data - Set a 7 x 2 inch hole in the middle of the 9 x 4 inch rectangle.
     // Initially set the mask to all black (on)
     memset(MaskBuffer, 0xFF, MaskSize);
 
     // Also set a gradation in the middle of the hole.
     ASUns8  pixelVal = 0;
-    // Go from 1 in. (72 points) from the bottom to 1 in. from the top.
+    // Gradiate from one inch (72 points) from the bottom to one inch from the top.
     for (Line = 72; Line < attrs.height - 72; Line++)
     {
-        // Go from 1 in. from the left to 1 in. from the right
+        // Gradiate from one inch from the left to one inch from the right.
         for (Row = 72; Row < attrs.width - 72; Row++)
         {
-            // From 1 in. from the left, go from full (0xFF) to (near) zero
+            // From one inch from the left, gradiate from full color (0xFF) to (near) zero color.
             pixelVal = 0xFF - (ASUns8)((Row * 0xFF) / (attrs.width - 72));
             ASUns8    *Pixel = &MaskBuffer[(Line * attrs.width) + (Row)];
             Pixel[0] = pixelVal;
@@ -164,13 +174,13 @@ DURING
     gState.flatness = fixedOne;
     gState.lineWidth = fixedOne;
 
-    ASFixedMatrix textMatrix;     // transformation matrix for text
+    ASFixedMatrix textMatrix;                    // transformation matrix for text
     memset(&textMatrix, 0, sizeof(textMatrix));    // clear structure
     textMatrix.a = Int16ToFixed(24);               // set font width and height
     textMatrix.d = Int16ToFixed(24);               // to 24 point size
     textMatrix.h = Int16ToFixed(0.75*72);          // x,y coordinate on page
     textMatrix.v = Int16ToFixed(1.5*72);
-    PDEText pdeText = PDETextCreate();                     // create new text run
+    PDEText pdeText = PDETextCreate(); // create new text run
     PDETextAdd(pdeText,                  // text container to add to
                kPDETextRun,              // kPDETextRun, kPDETextChar
                0,                        // index
@@ -182,7 +192,7 @@ DURING
                &textMatrix,              // transformation matrix for text
                NULL);                    // stroke matrix
 
-    // Create the output page, 9 in. x 4 in.
+    // Create the output page, 9 x 4 inch
     ASFixedRect pageRect;
     pageRect.left = pageRect.bottom = 0;
     pageRect.right = 72 * fixedNine;
