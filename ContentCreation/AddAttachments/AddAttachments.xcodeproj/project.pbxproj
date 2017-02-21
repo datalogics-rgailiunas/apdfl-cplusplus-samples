@@ -756,8 +756,8 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../Binaries\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../Binaries\"";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ../dlutils/PDFLPrecompile.pch;
-				INFOPLIST_FILE = ../dlutils/Info.plist;
+				GCC_PREFIX_HEADER =../../dlutils/PDFLPrecompile.pch;
+				INFOPLIST_FILE = ../../dlutils/Info.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)-$(CONFIGURATION)";
 				SHARED_PRECOMPS_DIR = "$(SRCROOT)/Build/pch";
 			};
@@ -770,12 +770,12 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ../dlutils/PDFLPrecompile.pch;
+				GCC_PREFIX_HEADER =../../dlutils/PDFLPrecompile.pch;
 				HEADER_SEARCH_PATHS = (
-					../dlutils,
-					../../Include/Headers,
+					../../dlutils,
+					../../../Include/Headers,
 				);
-				INFOPLIST_FILE = ../dlutils/Info.plist;
+				INFOPLIST_FILE = ../../dlutils/Info.plist;
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = "$(SRCROOT)/Build/pch";
 			};
@@ -796,8 +796,8 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../Binaries\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../Binaries\"";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ../dlutils/PDFLPrecompile.pch;
-				INFOPLIST_FILE = ../dlutils/Info.plist;
+				GCC_PREFIX_HEADER =../../dlutils/PDFLPrecompile.pch;
+				INFOPLIST_FILE = ../../dlutils/Info.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)-$(CONFIGURATION)";
 				SHARED_PRECOMPS_DIR = "$(SRCROOT)/Build/pch";
 			};
@@ -810,8 +810,8 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ../dlutils/PDFLPrecompile.pch;
-				INFOPLIST_FILE = ../dlutils/Info.plist;
+				GCC_PREFIX_HEADER =../../dlutils/PDFLPrecompile.pch;
+				INFOPLIST_FILE = ../../dlutils/Info.plist;
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = "$(SRCROOT)/Build/pch";
 			};
