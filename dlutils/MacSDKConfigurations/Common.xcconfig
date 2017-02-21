@@ -20,7 +20,7 @@ LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks"
 DL_PDFL_FRAMEWORKS = -framework DL150ACE -framework DL150AGM -framework DL150ARE -framework DL150AXE8SharedExpat -framework DL150BIB -framework DL150BIBUtils -framework DL150CoolType -framework DL150JP2KLib -framework DL150AdobeXMP -framework DL150PDFL
 
 // Common Header search paths for all targets
-HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) ../../Samples/dlutils ../../Include/Headers
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) ../../dlutils ../../../Include/Headers
 
 // Compile everything as objective-c++
 GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp
@@ -79,7 +79,7 @@ COPY_PHASE_STRIP = NO
 //
 
 //Prefix header is in dlutils
-GCC_PREFIX_HEADER = ../../Samples/dlutils/PDFLPrecompile.pch
+GCC_PREFIX_HEADER = ../../dlutils/PDFLPrecompile.pch
 
 // Precompile the prefix
 GCC_PRECOMPILE_PREFIX_HEADER = YES
