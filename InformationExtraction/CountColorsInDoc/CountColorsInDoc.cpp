@@ -162,12 +162,11 @@ void MarkColors (PDEColorSpec *color, ColorsUsed *colors)
         if (thisColor.neverColored)
             return;
 
-		// Figuring out if a color specified is a color or a shade of gray can be difficult
-		// when working with ICC, DeviceN, and Separation colors. The program creates a 
-		// single array to hold all color values.
-
-		// The program is not designed to write each color channel to an array one color
-		// at a time, looping through the process until the array is filled.
+	// Figuring out if a color specified is a color or a shade of gray can be difficult
+	// when working with ICC, DeviceN, and Separation colors. The program creates a 
+	// single array to hold all color values.
+	// The program is not designed to write each color channel to an array one color
+	// at a time, looping through the process until the array is filled.
 
         ASFixed colorValue[20];
         if (color->value.colorObj2 && (name == ASAtomFromString("DeviceN")))
