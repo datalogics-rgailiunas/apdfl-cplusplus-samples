@@ -4,7 +4,13 @@
 // For complete copyright information, see:
 // http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
 //
-// Project: ExtractFonts - Extracts all fonts contained in the input document, placing them in the current directory.
+// This sample is similar to EmbedFonts. The sample looks for fonts embedded in a PDF document and then
+// extracts those fonts and saves them as font files, storing them in the same directory on the local
+// system where the input PDF document is found.
+//
+// The ExtractFonts sample does not define a default output file.
+//
+// See the description of the EmbedFonts sample program.
 //
 
 #include "CosCalls.h"
@@ -54,8 +60,16 @@ ASBool ExtractEmbeddedFonts (CosObj obj, CosObj value, void *clientData)
     if (CosDictKnown (obj, ASAtomFromString ("DescendantFonts")))
     {
         // Only type 0 fonts have a DescendantFonts entry, which is an
-        // array of other fonts, and we will recurse into it. 
-        // (In practice, it will always be a single entry array, pointing to a CID font).
+        // array of other fonts, and it will be recursive. 
+        // In practice, it will always be a single entry array, pointing to a CID font.
+		//
+		// The Type 0/Original Composite Font (OCF) format is a composite font designed
+		// to support a character set with a large number of glyphs, particularly Asian
+		// languages like Korean, Japanese, and Mandarin.
+		//
+		// Adobe Systems developed the Character Identifier Font (CID) to improve the
+		// performance the OCF format.
+
         CosObj descendants = CosDictGet (obj, ASAtomFromString ("DescendantFonts"));
         for (int index = 0; index < CosArrayLength (descendants); index++)
         {

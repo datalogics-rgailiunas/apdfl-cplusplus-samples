@@ -4,15 +4,18 @@
 // For complete copyright information, see:
 // http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
 //
-// DisplayPDEContent:  This sample program walks an entire document page by page,
-//    emitting a summary of the contents on each page.
-//
-// The program accepts two optional command-line arguments:  input-file-name, and output-file-name, which, 
-//    when not given, default to CalcImageDPI-in.pdf and DisplayPDEContent-out.txt .
-//
-// The data output for any given PDE element by this program may not be complete; there are extensive options and
-//    copious fields for any given element type and we do not make any attempt to display every single one!
-//    Feel free to add to you your liking!
+// This program generates an output text file that lists details regarding the PDE content on every page
+// in an input PDF document. The PDFEdit Layer (PDE) of the Adobe Acrobat API contains classes that provide
+// for editing objects in PDF documents, including color spaces, clip and page objects, fonts, form XObjects,
+// and other objects. This program can list the number of pages in the document and the file size, and identify
+// and describe a variety of features within the PDF, such as the page layout (landscape or portrait), annotations,
+// text content, and graphics. For graphics, the program describes how the document manages graphic images, such
+// as setting boundaries.
+// 
+// The purpose of this program is to demonstrate gathering information from a PDE content tree in a PDF document.
+// This content tree stores objects in the document. Note that a wide variety of different kinds of information
+// can be drawn from the PDE content tree.  This sample provides a report that lists some of the kinds of data
+// available, but you can edit the program to find and display other values that interest you.
 //
 
 #include <iostream>
@@ -59,7 +62,7 @@ DURING
     // Save number of pages
     ASUns32 pagesInDoc = PDDocGetNumPages( pdDoc );
 
-    // Do whatever reporting you wish to do about the document as a whole
+    // Complete whatever reporting you like about the document
     ASTFilePos fileSize = ASFileGetEOF ( PDDocGetFile ( pdDoc ) );
     Outputter::Inst()->GetOfs() << "Start of document " << csInputFileName.c_str() << "\nDocument has "
                                 << pagesInDoc << " pages contained in " << fileSize << " bytes.\n{\n";
@@ -78,14 +81,14 @@ DURING
         PDPage page = PDDocAcquirePage ( pdDoc, pageNumber );
         PDEContent content = PDPageAcquirePDEContent ( page, 0 );
 
-        // Do whatever reporting you wish to do at the start of a page
+        // Complete whatever reporting you like at the start of a page
         Outputter::Inst()->GetOfs() << "Start of page " << pageNumber << std::endl;
         DisplayPageInfo ( page );
 
         // Parse and analyze the PDE content of the page
         AnalyzePDEContent( content, &UnityMatrix );
 
-        // Do whatever reporting you wish to do at the end of a page
+        // Complete whatever reporting you like at the end of a page
         Outputter::Inst()->Outdent();
         Outputter::Inst()->GetOfs() << "} End of page " << pageNumber << " content\n";
 
@@ -149,6 +152,15 @@ static std::string GetBoxDimsText ( PDPage p, const char* box = 0 )
     return DisplayRectangle ( r );
 }
 
+//
+// When working with objects embedded on a page, particularly graphics objects, PDF documents define a rectangular
+// bounding type to describe the region where an image is found. Elements on the page that do not fall within the
+// boundaries of this region are ignored and do not appear in output.
+//
+// There are a variety of ways to define these boundaries, and thus define how content would be selected. For example,
+// the input content could use a media box, which defines the full boundaries of the actual page, or a crop box, which
+// is limited to the exact boundaries for the print or graphic content shown on that page. So an object on an input page
+// that is defined with a crop box will usually be smaller than an object defined using a media box. 
 static void DisplayPageInfo ( PDPage page )
 {
     Outputter::Inst()->GetOfs() << "Page is displayed " << GetRotationText ( PDPageGetRotate ( page ) ) << std::endl;
@@ -311,7 +323,7 @@ static void StartDisplayPostscript (PDEPS EPSImage, ASFixedMatrix *Matrix, PDEGr
 {
     char First100[101];
 
-    // Determine the length of the stream (by traversing the whole thing), but only show first 100
+    // Review the stream to determine the length, but only show first 100 characters
     ASStm PSStm = PDEPSGetDataStm (EPSImage);
     char Buffer[100];
     ASUns32 PSSize = 0;
@@ -399,7 +411,7 @@ void AnalyzePDEContent ( PDEContent Content, ASFixedMatrix *Matrix )
         // Obtain the element
         PDEElement Element = PDEContentGetElem (Content, Index);
 
-        // Obtain its Graphic State (if it has one)
+        // Obtain its Graphic State (if any)
         HasGState = PDEElementHasGState (Element, &GState, sizeof (PDEGraphicState));
 
         // Obtain its position in the container

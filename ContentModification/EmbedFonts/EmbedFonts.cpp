@@ -4,35 +4,19 @@
 // For complete copyright information, see:
 // http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
 //
-// Project:  FontEmbedder 
+// This sample program demonstrates how to scan a PDF document to determine whether the fonts
+// used in that document are embedded. For each font the program finds that is not embedded in
+// the document, the sample looks for characters in that font that are used in the document.
+// It gathers up the characters and then requests that the Adobe PDF Library to generate a subset
+// font stream for these characters and then embed this font in a subset data stream. That is,
+// the program subsets the characters from that font into the PDF document.
 //
-//  This sample for the PDF Library demonstrates the following:
-//      - Scanning a PDF document and obtaining information on the embedding status of
-//          each font in the PDF document
-//      - Subsetting each font in the PDF document that is not embedded in the PDF
+// The default input PDF document has some fonts that are embedded and some that are not.
+// The sample program finds the fonts in the document that are not embedded, and then looks for
+// an alternative font on the local computer system to use as a substitute. Then, the program
+// subsets the characters of that font that are used in the document into that document, and
+// renames this newly subset font to show that it was embedded and subset.
 //
-//  As an overview, this sample carries out the following high-level steps:
-//
-//  1) Prints each font used in the PDF file and its embedding status
-//  2) Determine which fonts in the PDF file are not embedded
-//  3) Determine if there is a suitable font available to use to subset each unembedded font,
-//      and notifies the PDF Library to use the system font for the unembedded font
-//  4) For each unembedded font, this sample
-//      a) Scans each page in the PDF file to see if there is text set in the font
-//      b) If there is, the sample gathers the text in the unembedded font and signals to
-//          the PDF Library that the text is used in that font
-//  5) After (4) is performed, for each unembedded font this sample
-//      a) Requests that the PDF Library generate a subset font stream for the characters
-//          that we've signaled are used from the font & embeds this font subset datastream
-//      b) Generates a new name for the font to signal that it was embedded and subset
-//
-//  One may see significant speed improvements over large documents with many unembedded fonts
-//  if steps 4 and 5 are collapsed into one scan over each page for all unembedded fonts --
-//  it's clearer for example purposes to keep these two steps separate.
-//
-//  Note that the default input file for this program has been custom crafted with some embedded and some
-//  unembedded fonts.  If you re-run the program a second time, using the output of the first run as the
-//  input file, you will see that the fonts got embedded.
 
 #include "PSFCalls.h"
 #include "PERCalls.h"
@@ -132,7 +116,6 @@ DURING
             PDEFontEmbedNow(fontEntry->pdeFont, PDDocGetCosDoc(pdDoc));
         }
     }
-    // TODO: We chould check system font for at least high-level compatibility, to be certain
     
 HANDLER
     APDFLib::displayError(ERRORCODE);
@@ -160,7 +143,7 @@ DURING
 
     fontEmbedded = PDFontIsEmbedded(pdFont);
     // Subset test: a font was subset if the 7th character is '+' (a plus-sign), according
-    // to Acrobat/Reader and industry norms
+    // to Acrobat/Reader and industry norms.
     if (fontEmbedded)
     {
         if ((strlen(fontNameBuf)) > 7 && (fontNameBuf[6] == '+') )
@@ -189,8 +172,8 @@ DURING
     }
     std::cout << ")" << std::endl;
 
-    // Add font to the list of fonts to be subset -- this example only subsets System
-    // fonts that are not embedded in this PDF document; it doesn't subset fonts
+    // Add font to the list of fonts to be subset. This example only subsets System
+    // fonts that are not embedded in this PDF document. The sample will not subset fonts
     // that are fully embedded in the PDF file.
     if (fontIsSysFont && !fontEmbedded)
     {
