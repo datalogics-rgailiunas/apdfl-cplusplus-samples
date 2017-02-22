@@ -93,12 +93,12 @@ declare -a DL_SAMPLE_LIST=( \
   "DocumentOptimization/PDFOptimizer" \
   "DocumentOptimization/WebOptimizedPDF" \
   "DocumentConversion/ConvertPDFtoEPS" \
-  "DocumentConversion/ConvertPDFtoPostscript"
+  "DocumentConversion/ConvertPDFtoPostscript" \
   "FileSystem/AlternateFileSystem" \
   "Images/AddThumbnailsToPDF" \
   "Images/RenderPage" \
   "Images/CreateImageWithTransparency" \
-  "Images/CreateSeparations"
+  "Images/CreateSeparations" \
   "Images/CalcImageDPI" \
   "Images/FindImageResolutions" \
   "InformationExtraction/CountColorsInDoc" \
