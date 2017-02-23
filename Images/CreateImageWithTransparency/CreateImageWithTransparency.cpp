@@ -130,10 +130,10 @@ DURING
 
     // Also set a gradation in the middle of the hole.
     ASUns8  pixelVal = 0;
-    // Gradiate from one inch (72 points) from the bottom to one inch from the top.
+    // Blend color from one inch (72 points) from the bottom to one inch from the top.
     for (Line = 72; Line < attrs.height - 72; Line++)
     {
-        // Gradiate from one inch from the left to one inch from the right.
+        // Blend color from one inch from the left to one inch from the right.
         for (Row = 72; Row < attrs.width - 72; Row++)
         {
             // From one inch from the left, gradiate from full color (0xFF) to (near) zero color.
