@@ -174,13 +174,13 @@ DURING
     gState.flatness = fixedOne;
     gState.lineWidth = fixedOne;
 
-    ASFixedMatrix textMatrix;                    // transformation matrix for text
+    ASFixedMatrix textMatrix;                      // transformation matrix for text
     memset(&textMatrix, 0, sizeof(textMatrix));    // clear structure
     textMatrix.a = Int16ToFixed(24);               // set font width and height
     textMatrix.d = Int16ToFixed(24);               // to 24 point size
     textMatrix.h = Int16ToFixed(0.75*72);          // x,y coordinate on page
     textMatrix.v = Int16ToFixed(1.5*72);
-    PDEText pdeText = PDETextCreate(); // create new text run
+    PDEText pdeText = PDETextCreate();   // create new text run
     PDETextAdd(pdeText,                  // text container to add to
                kPDETextRun,              // kPDETextRun, kPDETextChar
                0,                        // index
