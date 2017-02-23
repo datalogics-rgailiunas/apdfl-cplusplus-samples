@@ -10,9 +10,9 @@
 // or images can be stacked in a PDF file, with each one blending to contribute to the final result
 // that appears on the page. In this sample the text behind the image is partially visible.
 // 
-// The PDFEdit Layer (PDE) of the Adobe Acrobat API contains classes that provide for editing objects
-// in PDF documents, including images. The program creates a PDEImage object, using a JPG image with
-// an adjustable compression level. The program also provides for creating a soft mask with the
+// The PDFEdit Layer (PDE) of the Adobe Acrobat API contains classes that provide a means for editing
+// objects in PDF documents, including images. The program creates a PDEImage object, using a JPG image
+// with an adjustable compression level. The program also provides for creating a soft mask with the
 // transparent object. A SoftMask object in the PDF format allows you to place an image on a PDF
 // page and control the level of transparency of that image. You can provide settings to determine
 // how much of the background color or text on the page shows through the SoftMask image appearing
