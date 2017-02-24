@@ -4,12 +4,14 @@
 // For complete copyright information, see:
 // http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
 //
-// HelloJapan - Sample program which writes the text "Hello Nihon[in Kanji]" to an output file, a la "Hello, World".
+// This sample program is effectively a version of Hello World, except that when run it generates a PDF document
+// with the text “Hello Japan,” using Japanese Kanji characters. Two default fonts are provided in the sample program,
+// though the sample does not define a default input file, and it does not define an input directory. The program generates
+// an output PDF with two pages, using each of the two fonts provided, one on each page.  If you run the program from the
+// command line you can define the name of the output file and the fonts to use.
 //
-// Command line arguments:  <Output-File-Name> <Font-1> <Font-2>
-//    They are all optional!
-//
-// Process return code:  0 on success, otherwise, non-zero
+// The files for the fonts used for this sample program are shipped with the Adobe PDF Library, stored in the Resource
+// directory under APDFL. When the Adobe PDF Library initializes, it loads the files found in the Resource directory.
 // 
 
 #include "PEWCalls.h"
@@ -28,7 +30,7 @@
 
 int main ( int argc, char* argv[] )
 {
-    APDFLib libInit;                     // Initialize the Adobe PDF Library.  Termination will be automatic when scope is lost
+    APDFLib libInit;                     // Initialize the Adobe PDF Library. Termination will be automatic when scope is lost.
 
     if (libInit.isValid() == false)      // Check for errors upon initialization.
     {
@@ -43,10 +45,9 @@ int main ( int argc, char* argv[] )
 
     std::cout << "Using fonts " << csFont1.c_str() << " and " << csFont2.c_str() << ", writing to file " << csOutputFile.c_str() << std::endl;
 
-    // NOTE: when supplying Unicode text to the PDEText API (i.e. for all CMaps with
-    // "UCS", "UCS2", etc. in their names) - text must be supplied as UTF16 in
-    // big endian format (UTF16-BE). In this sample, arrays of ASUns8 (bytes) are
-    // explicitly populated for the sake of exposition.
+    // When supplying Unicode text to the PDEText API, such as for all Character Map (CMAP) files with
+    // "UCS" in their names, the text must be provided as UTF16 in big endian format (UTF16-BE).
+    // In this sample, arrays of ASUns8 (bytes) are explicitly populated for the sake of exposition.
 #if USE_UTF
     size_t stringLen = 18;
 
@@ -59,8 +60,8 @@ int main ( int argc, char* argv[] )
     ASUns8 *HelloWorldStr = (ASUns8*)"Hello “ú–{."; 
 #endif
 
-    // First page: uses a CIDType0 font (Character ID-based font)
-    // for setting - in this case, KozGoPr6N-Medium is used by default
+    // The first page of the PDF document uses a CIDType0 font (Character ID-based font)
+    // for setting. In this case, the KozGoPr6N-Medium font is used by default.
 DURING
     PDDoc pdDoc = PDDocCreate();
     ASFixedRect mediaBox;           // dimensions of page
@@ -106,8 +107,8 @@ DURING
     PDPageReleasePDEContent(pdPage, NULL);
     PDPageRelease(pdPage);
 
-    // Second page: use a different font.  
-    // (is KozMinPr6N-Regular a CIDType2 font (Glyph ID-based font) ?)
+    // The second page of the document uses a different font,
+    // KozMinPr6N-Regular. This is a CIDType2 font, or a glyph ID-based font.
     pdPage = PDDocCreatePage(pdDoc, PDBeforeFirstPage, mediaBox);
     pdeContent = PDPageAcquirePDEContent(pdPage, NULL);    
     memset(&pdeFontAttrs, 0, sizeof(pdeFontAttrs));
