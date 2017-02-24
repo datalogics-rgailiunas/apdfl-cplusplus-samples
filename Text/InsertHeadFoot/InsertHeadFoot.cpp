@@ -4,28 +4,20 @@
 // For complete copyright information, see:
 // http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
 //
-// This sample will read in a document and insert on each page a fixed header/footer text.
-// The contents of each page are adjusted if necessary to accommodate the header and footer.
-// The new document is then created and written out to a file.
+// This sample reads an input PDF document and inserts text for a header and for a footer on each page.  The program adjusts
+// the contents of each page if necessary to make sure that the header and footer will fit. It also provides default text
+// for the header and footer, and then saves the PDF as an output file. InsertHeadFoot does not work with rotated pages.
+// 
+// The font used for the text in the header and footer is defined in DEF_FONT and DEF_CHARSET, and the point size for the
+// text for the header and footer is also set. You can name any font you like, but keep in mind that the program must be able
+// to find this font stored on the system where it is run. The program queries the local environment to see if the default font
+// named in the program is available there.
 //
-// The input file may be specified on the command line; if not, it defaults to INPUT_FILE.
-//
-// NOTE:  This sample does _not_ handle rotated pages.
-//
-// Bonus:  This program also demonstrates how to access and make use of an encrypted file.
-//
-// NOTE:  The font chosen for creation of the header and footer text is hardcoded as DEF_FONT.  However, this is
-//   system-dependent, as this font may not be available on all systems.  In order to facilitate automated batch
-//   running and testing of this program, the program queries the environment to see if a substitute font has been
-//   requested.  Therefore, a script set up to build/run on a given system which does not have the default font
-//   would first export to the environment the appropriate information so that subsequent batches will correctly
-//   test the execution of the program.
-//
-// Command-line arguments (all optional):  <Input-File> <Output-File>
+// The program is also designed to encrypt the output file so that the header and footer cannot be removed or edited without a password.
 //
 
 #ifdef WIN32
-// Avoid compiler warning...  This is a sample program.
+// Avoid compiler warning. This is a sample program.
 #pragma warning(disable:4267)
 #endif
 
@@ -65,9 +57,12 @@ int main (int argc, char *argv[])
         return errCode;
     }
 
-    // Check that we have the desired font on this system and load now.
-    // The font name may be passed via the environment when building on a system
-    // that knows it doesn't have the "default" font.
+    // Verify that the default font named in the program is found on the local system and load it.
+	// The font name and character set name are drawn from HEADFOOT_FONT and HEADFOOT_CHARSET.
+	// If these are valid environment variables on the local system, the program will use that local font
+	// and character set. 
+	// Otherwise, the program will use the font "CourierStd" and character set "Roman" defined above,
+	// under DEF_FONT and DEF_CHARSET.
     char* ep = std::getenv("HEADFOOT_FONT");
     std::string csFontName ( ep ? ep : DEF_FONT );
     ep = std::getenv("HEADFOOT_CHARSET");
@@ -138,14 +133,14 @@ DURING
         ASFixedMatrix Matrix, PageMatrix, IPageMatrix;
         CosObj Content, CosWork, CosPage, CosResource, CosFontDict;
 
-        // Get the page, and find it's size
+        // Get the page, and find the page size
         InPage = PDDocAcquirePage (InDoc, PageNumb);
         PDPageGetMediaBox (InPage, &MediaBox);
 
-        // And if there is free space above/below
+        // Determine if the page has free space on the top and bottom
         PDPageGetBBox (InPage, &BBox);
 
-        // And get the content object
+        // Get the content object
         CosPage = PDPageGetCosObj (InPage);
         Content = CosDictGet (CosPage, ASAtomFromString ("Contents"));
         CosResource = CosDictGet (CosPage, ASAtomFromString ("Resources"));
@@ -158,7 +153,7 @@ DURING
         CosFontDict = CosDictGet (CosResource, ASAtomFromString ("Font"));
         if (CosObjGetType (CosFontDict) == CosNull)
         {
-            // There are no fonts on this page yet!
+            // There are no fonts on this page yet
             CosFontDict = CosNewDict (PDDocGetCosDoc (InDoc), false, 1);
             CosDictPut (CosResource, ASAtomFromString ("Font"), CosFontDict);
         }
@@ -170,7 +165,7 @@ DURING
         ASFixedMatrixInvert (&IPageMatrix, &PageMatrix);
         PDPageRelease (InPage);
 
-        // Is there room for the (2") header and footer
+        // Check to see if the page has room for a two inch header and footer.
         Width = MediaBox.right - MediaBox.left;
         Depth = MediaBox.top - MediaBox.bottom;
         FreeAbove = MediaBox.top - BBox.top;
@@ -179,16 +174,16 @@ DURING
         HeadDepth = FootDepth = fixedOne * 72;
         if (Free < (HeadDepth + FootDepth))
         {
-            // We will have to scale to fit the header and footer.
-            Scale =  ASFixedDiv (Depth,                                     // The size we must fit into
-                                 Depth + ((HeadDepth + FootDepth) - Free)); // The amount we must fit
+            // Scale the header and footer to fit as needed
+            Scale =  ASFixedDiv (Depth,                                     // The available space on the page
+                                 Depth + ((HeadDepth + FootDepth) - Free)); // The amount of scaling needed for the header & footer
             FreeAbove = ASFixedDiv (FreeAbove, Scale) + (Depth - ASFixedMul (Depth, Scale));
             FreeBelow = ASFixedDiv (FreeBelow, Scale);
         }
         else
             Scale = fixedOne;
 
-        // Do we need to move the page down to clear header?
+        // Verify if the page needs to be moved down to clear the header
         if (FreeAbove < HeadDepth)
         {
             // Move image down (- offset) to accommodate heading
@@ -213,7 +208,7 @@ DURING
             }
         }
 
-        // We will scale symmetrically, so center the page horizontally
+        // Scale symmetrically.  Center the page horizontally.
         if (Scale != fixedOne)
             HOffset = (Width - ASFixedMul (Width, Scale)) / 2;
         else
@@ -237,16 +232,16 @@ DURING
         ASAtom  CosWorkName = ASAtomFromString ("WorkFont");
         CosDictPut (CosFontDict, CosWorkName, CosWorkFont);
 
-        // form the complete transformation matrix
+        // Form the complete transformation matrix
         Matrix.h = HOffset;
         Matrix.v = VOffset;
         Matrix.a = Matrix.d = Scale;
         Matrix.b = Matrix.c = 0;
 
         // Prepend the transformation to the content. Put a save before
-        // it, and a restore after it
+        // it, and a restore after it.
         // This will transform the text from the document to the new location on the 
-        // page. The text was transformed on the page once scaling was done to accommodate
+        // page. The text was transformed on the page after scaling was done to accommodate
         // the header and footer being inserted.
         if (CosObjGetType (Content) == CosStream)
         {
@@ -282,7 +277,7 @@ HANDLER
     return ERRORCODE;
 END_HANDLER
 
-    // Don't forget to release  the color spaces in the default graphic state
+    // Don't forget to release the color spaces in the default graphic state
     PDERelease ((PDEObject)gState.fillColorSpec.space);
     PDERelease ((PDEObject)gState.strokeColorSpec.space);
 
@@ -307,7 +302,7 @@ ASBool GetPassWord (PDDoc Doc)
     if (NewPerms & (pdPermOpen | pdPermOwner))
         return (TRUE);
 
-    // I made no provision for multiple tries here
+    // The program makes no provision for multiple attempts to enter a password
     std::cout << "Incorrect Password.\n";
     return false;
 }
@@ -369,7 +364,8 @@ CosObj CopyStreamAddRestore (CosObj Stream)
     return NewContent;
 }
 
-// Utility function to render a FixedMatrix' members as a string in a, b, c, d, h, v order
+// Utility function to render the elements in an ASFixedMatrix as a string in a, b, c, d, h, v order
+// To learn more about these matrix values, visit the Datalogics KnowledgeBase, feedback.datalogics.com/knowledgebase, and search on "ASFixedMatrix."
 std::string FixedMatrixToStrings ( ASFixedMatrix* pM )
 {
     char A[10], B[10], C[10], D[10], H[10], V[10];
