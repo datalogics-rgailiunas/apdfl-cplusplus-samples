@@ -4,17 +4,13 @@
 // For complete copyright information, see:
 // http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
 //
-// Sample project: importPages -- demonstrates how to copy the contents of one PDF page and place these
-// into a different PDF page, by creating a PDEForm containing the page contents.
-// The PDEForm is created with the PDEContentAddPage PDF Library API call, and is scaled
-// so that it occupies one-quarter of the page it's being inserted into.
-//                                                                                       
-// Note that this sample uses the media boxes of the input pages -- this may pick up
-// artifacts outside of the page's crop boxes (such as cut marks and color bars) that
-// are not usually visible.  If you want these to be omitted, use the page's crop box
-// to process and set (not the media boxes, as are used here).
+// This program demonstrates how to copy the contents of one page from a PDF input file and place that content
+// into a PDF page in a different document. The program creates a PDEForm to hold the page contents, and scales
+// the page so that the imported content occupies one quarter of the PDF page where it will be placed. The program
+// creates the PDEForm by calling the PDF Library API known as PDEContentAddPage.
 //
-// Command-line arguments (all optional): <Input-File-1> <Input-File-2> <Output-File>
+// The PDFEdit Layer (PDE) of the Adobe Acrobat API contains classes that provide for editing a variety of objects
+// in PDF documents, including form XObjects with this sample.
 //
 
 #include "PEWCalls.h"
@@ -31,7 +27,7 @@
 
 int main (int argc, char **argv)
 {
-    APDFLib libInit;       // Initialize the Adobe PDF Library.  Termination will be automatic when scope is lost
+    APDFLib libInit;       // Initialize the Adobe PDF Library.  The Library will terminate automatically when scope is lost.
     if (libInit.isValid() == false)
     {
         ASErrorCode errCode = libInit.getInitError();
@@ -80,9 +76,9 @@ DURING
     outputMatrix1.h = outputMatrix1.v = fixedZero;
 
     // If the input page was rotated 90 degrees (clockwise or counter-clockwise),
-    // swap the a and d values in the output matrix --
-    // the call to add the content will auto-rotate the created PDEForm, but we need
-    // to adjust so that the form takes up the bottom one-quarter of the page */
+    // swap the a and d values in the output matrix. The call to add the content
+    // will auto-rotate the created PDEForm, but the imported content needs to be
+    // adjusted so that the form takes up the bottom one-quarter of the page.
     if ((inputRotate1 == pdRotate90) || (inputRotate1 == pdRotate270))
     {
         ASFixed tempVal = outputMatrix1.a;
@@ -95,11 +91,12 @@ DURING
                       outputCosDoc,
                       inputPage1,
                       &outputMatrix1,
-                      NULL,              // ASAtom[] of annotation types to copy
-                      0,                 // flag to specify annotation types to copy
-                      &inputPageRect1);  // bounding box - use NULL to specify page's crop box
+                      NULL,              // ASAtom of annotation types to copy. An ASAtom object is a hashed token used to represent a string.
+                      0,                 // Flag to specify annotation types to copy (may be 0)
+                      &inputPageRect1);  // Destination bounding box
+	                                     // Use NULL to use the crop box on the new page, in the output document.
 
-    // Position this page in the upper-right corner
+    // Position this page in the upper-right corner.
     ASFixedMatrix outputMatrix2;
     outputMatrix2.a = ASFixedDiv((outputPageRect.right - outputPageRect.left) / 2,
                                  (inputPageRect2.right - inputPageRect2.left));
@@ -108,7 +105,7 @@ DURING
                                  (inputPageRect2.top - inputPageRect2.bottom));
     outputMatrix2.h = (outputPageRect.right - outputPageRect.left) / 2;
     outputMatrix2.v = (outputPageRect.top - outputPageRect.bottom) / 2;
-    // And adjust this page's boundaries if it's rotated also...
+    // Adjust this page's boundaries if it is also rotated.
     if ((inputRotate2 == pdRotate90) || (inputRotate2 == pdRotate270))
     {
         ASFixed tempVal = outputMatrix2.a;
