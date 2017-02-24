@@ -4,12 +4,17 @@
 // For complete copyright information, see:
 // http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
 //
-// This is a sample program written by Datalogics Inc. to demonstrate
-// how to use the Adobe PDF Library to move all of the Acroforms from a given
-// document to a new document. In this example, we will create the new document
-// as raster image pages of the existing document.
-//
-// Command-line options (all are optional):  <Input-File> <Output-File>
+// This sample program demonstrates how to use the Adobe PDF Library to move all of the AcroForm
+// objects, namely forms fields and digital signatures, from one PDF document to another. AcroForm,
+// or Acrobat Form, is the technology provided by Adobe Systems to build PDF forms documents.
+// 
+// The MergeAcroforms sample program starts by creating, effectively, a facsimile of each page in
+// the input PDF document. These pages are used to build the pages in the output PDF file, with each
+// new page in the output file a rasterized image of the corresponding page found in the input file.
+// Then, the sample fills in these copied pages in the output file by copying in to them the Acroform
+// fields found in the input file. The end of the sample program copies the standard individual objects
+// of the Acroforms dictionary array (such as “NeedAppearances” and “SigFlags”) from the input PDF
+// document to the Acroforms dictionary in the output document.
 //
 
 #include "PEWCalls.h"
@@ -32,7 +37,7 @@ int main (int argc, char *argv[])
     std::cout << "Reading input file " << csInputFileName.c_str() << "; will write new file " 
               << csOutputFileName.c_str() << std::endl;
 
-    APDFLib libInit;            // Initialize the Adobe PDF Library.  Termination will be automatic when scope is lost
+    APDFLib libInit;            // Initialize the Adobe PDF Library. The Library will terminate automatically when the scope is lost.
 
     if (libInit.isValid() == false)
     {
@@ -69,7 +74,7 @@ END_HANDLER
         ASInt32        InsertBefore;
 
 DURING
-        // Acquire the input document page, and it's size
+        // Acquire the input document page, and the page size
         InPage = PDDocAcquirePage (InDoc, PageNumber);
         PDPageGetMediaBox (InPage, &PageSize);
 
@@ -117,8 +122,8 @@ END_HANDLER
     return 0;
 }
 
-// This routine will create a bitmap representation of the input page at 300 DPI in RGB. It will then
-// make an Image XObject of that bitmap, Flate compressed, and place this image in the output page. 
+// This routine creates a bitmap representation of the input page at 300 DPI in RGB. It then
+// makes an Image XObject of that bitmap, Flate compressed, and places this image in the output page. 
 int CopyPageToBitmap (PDPage InPage, PDPage OutPage)
 {
     ASFixedRect         MediaBox;
@@ -185,11 +190,10 @@ HANDLER
     ASRaise (ERRORCODE);
 END_HANDLER
 
-    // APDFL draws it's rows in even long (32 bit) words.
-    // Most of the world responds correctly to that, BUT, some do not. 
+    // APDFL draws rows in even long (32 bit) words.
     //
-    // Reading it back in as a raw bit map is one that does not. 
-    // This bit of code compress it back into a "solid" bit map.
+    // Reading these rows back into a raw bit map generally does not work properly. 
+    // This section of code compresses the content back into a "solid" bit map.
     if ((Width * 3) != rowBytes) 
     {
         ASInt32        RealWidth = Width * 3;
@@ -256,7 +260,7 @@ ASBool FieldDictCopy (CosObj KeyObj, CosObj Value, void* ClientData)
     if (Key == ASAtomFromString ("Kids"))
         return (TRUE);
 
-    // We have to transliterate the page reference
+    // Transliterate the page reference
     if (Key == ASAtomFromString ("P")) 
     {
         ASInt32        Page;
@@ -298,7 +302,7 @@ ASBool FieldDictCopy (CosObj KeyObj, CosObj Value, void* ClientData)
 }
 
 
-// This routine will copy one field from the source to the destination document
+// This routine copies one field from the source to the destination document.
 CosObj CopyField (CosDoc InDoc, CosDoc OutDoc, CosObj Field, CosObj Parent, 
           ASInt32 PageCount, CosObj *InPageTable, CosObj *OutPageTable)
 {
@@ -333,8 +337,8 @@ CosObj CopyField (CosDoc InDoc, CosDoc OutDoc, CosObj Field, CosObj Parent,
     return (NewField);
 }
 
-// This routine will copy all of the fields required for Acroforms from 
-// the source document to the destination document
+// This routine copies all of the fields required for Acroforms from 
+// the source document to the destination document.
 int CopyAcroforms (PDDoc InDoc, PDDoc OutDoc)
 {
     CosDoc   InCosDoc = PDDocGetCosDoc (InDoc);
@@ -351,14 +355,14 @@ int CopyAcroforms (PDDoc InDoc, PDDoc OutDoc)
     CosObj  *InPageTable;
     CosObj  *OutPageTable;
 
-    // If there is no Acroforms in the input doc, we are done
+    // Process done if no Acroforms are found in the input document.
     if (CosObjGetType(InAcroForms) == CosNull)
     {
         std::cout << "No AcroForms found...\n";
         return 1;
     }
 
-    // If the Acroforms contain no fields, we are done
+    // Process done if the Acroforms contain no fields.
     InFields = CosDictGet (InAcroForms, ASAtomFromString ("Fields"));
     if ((CosObjGetType(InFields) != CosArray) || (CosArrayLength(InFields) == 0))
     {
@@ -366,9 +370,9 @@ int CopyAcroforms (PDDoc InDoc, PDDoc OutDoc)
         return 2;
     }
 
-    // We need to transliterate references to a page cos object into page number, 
+    // Transliterate references to a page cos object into page number, 
     // and hence into a page cos object in the output doc. To facilitate this, 
-    // I am creating an array of cos objects for both documents, each entry being a page.
+    // the program creates an array of cos objects for both documents, each entry being a page.
     PageCount = PDDocGetNumPages (InDoc);
     InPageTable = (CosObj*)malloc (sizeof (CosObj) * PageCount); 
     OutPageTable = (CosObj*)malloc (sizeof (CosObj) * PageCount); 
@@ -382,8 +386,8 @@ int CopyAcroforms (PDDoc InDoc, PDDoc OutDoc)
         PDPageRelease (OutPage);
     }
 
-    // Create an Acroforms dictionary in the output. It shouldbe just like the 
-    // input dictionary, except for the fields array (which we will do below).
+    // Create an Acroforms dictionary in the output. It should match the 
+    // input dictionary, except for the fields array (completed below).
     // Create the new dictionary, and insert it into the root.
     OutAcroForms = CosNewDict (OutCosDoc, FALSE, 5);
     CosDictPut (OutRoot, ASAtomFromString ("AcroForm"), OutAcroForms);
