@@ -4,26 +4,17 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: FindImageResolutions - Create a list of all images in a document, and their parameters, 
-//         with a sublist of instances where these images are displayed, and 
-//         their effective resolutions.
-//      
-// For simplicity, we are going to ignore images that are used in pattern color spaces!
+// This sample creates a list of all of the images found within a PDF document. It also describes where
+// these images are found and the resolution for each one. The program will rotate any images it finds,
+// as needed, to orient the image properly for calculating the resolution. 
 //
-// Steps:
-// 0) [Optional, performed when no file name is specified on command line:] Perhaps the more
-//      edifying part of this sample is the production of a meaty sample file.  This is
-//      performed by the code in the second source file, which produces a multi-page document
-//      with oodles of images in all sorts of orientations and positions.  The program 
-//      then performs its analytics on the newly created file.
-// 1) Walk the document, finding all images and all references
-//      This will locate all images, either in-line, or XObjects, referenced
-//      in the document. It will not locate images that are present in the 
-//      document but never referenced, nor will it locate images in the document
-//      that are used as GState implied Soft Masks.
-// 2) Print the list to an output file.
+// The resolution is calculated for both vertical and horizontal, in Dots per Inch (DPI). You can enter
+// an input file name on a command line, or use the default input file named in the program. FindImageResolutions
+// does not define an input directory.
 //
-// Command line arguments:  <InputFileName>   (optional - defaults to SAMPLE_FILE)
+// The program generates an output file with a variety of images, and then performs analytics on these images.
+// The output file does not include images present in the document but not referenced, or images that are soft
+// masks for use with transparencies.
 //
 
 #include <cmath>
@@ -72,7 +63,7 @@ int main(int argc, char* argv[])
     }
     std::string csOutputFileName ( OUTPUT_FILE );
 
-    // Step 0: Produce the input file is requested
+    // Step 1: Produce the input file. Optional, used when no input file is entered on the command line.
     if ( fMakeSample )
     {
         std::cout << "Producing sample file " << SAMPLE_FILE << std::endl;
@@ -91,7 +82,7 @@ DURING
               << csOutputFileName.c_str() << std::endl;
     APDFLDoc document (csInputFile.c_str(), true);                  //Open the document to be analyzed
 
-    // Step 1: Locate all images by walking the document and saving images and references
+    // Step 2: Locate all of the images in the input file by walking the document and saving images and references
     for (ASSize_t pageNo = 0; pageNo < document.numPages(); pageNo++)
     {
         PDPage page = document.getPage (pageNo);                    // Acquire the page
@@ -106,7 +97,7 @@ DURING
         PDPageRelease (page);                                       // Release the page
     }
 
-    // Step 2: Output the results
+    // Step 3: Output the results
     std::ofstream ofs ( csOutputFileName.c_str() );
     ofs << "Processing file " << csInputFile.c_str() << std::endl
         << "We found a total of " << imageList.size() << " images, referended " 
@@ -123,16 +114,16 @@ HANDLER
     return ERRORCODE;
 END_HANDLER
 
-    return 0;                              //APDFLib's destructor terminates the library.
+    return 0;                              //The APDFL destructor terminates the library.
 }
 
 // This routine calculates the horizontal and vertical resolution of 
 // each reference to each image. Note that different references may have
-// different effective resolutions
+// different effective resolutions.
 void CalculateResolution (ImageDef *image, ImageRef *reference)
 {
-    // We want to find the resolution of the image as if it were not rotated.
-    // To that end, we need to discover if it IS rotated, and create a Matrix
+    // Find the resolution of the image as if it had not been rotated.
+    // To that end, the program needs to determine if it is rotated, and create a Matrix
     // as it would be if the image were not rotated.
 
     // Discover the rotation and horizontally, and vertically
@@ -169,12 +160,12 @@ void CalculateResolution (ImageDef *image, ImageRef *reference)
     ASDoubleMatrix erect;
     ASDoubleMatrixConcat (&erect, &reference->m_matrix, &derotating);
 
-    // We use the absolute largest of each of the horizontal components to find
+    // Use the largest of each of the horizontal components to find
     // horizontal resolution, and of each of the vertical components to find vertical
-    // resolution. In essence, we are finding the width of any horizontal, 1 pixel, 
-    // "slice" of the image, as it intersects a row of the render media, and the same 
-    // for a vertical slice as it intersects a column. We use absolute values, as we 
-    // do not care which "direction" the lines are drawn in.
+    // resolution. In essence, the program finds the width of any horizontal, 1 pixel, 
+    // "slice" of the image, as it intersects a row of the render media. The same is true 
+    // for a vertical slice as it intersects a column. The program uses absolute values. 
+    // The "direction" the lines are drawn in does not matter.
     double  hScale = (std::max) (fabs (erect.a), fabs (erect.c));
     double  vScale = (std::max) (fabs (erect.d), fabs (erect.b));
     reference->m_hRes = fabs (image->m_width / hScale) * 72.0;
@@ -198,8 +189,8 @@ void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, I
     if (((CosObjGetType (newImage.m_cos_object)) != 0 ) &&
         (CosDictKnownKeyString (newImage.m_cos_object, "Mask")))
     {
-        // There is a Mask applied to the image.  It may be a "Stencil" mask, or a "Chroma" mask. 
-        // The former is all we care about. It will be a stencil if the object is a stream.
+        // There is a Mask applied to the image.  It may be a "Stencil" mask or a "Chroma" mask. 
+        // The program disregards a Chroma mask. It will be a stencil if the object is a stream.
         CosObj mask = CosDictGetKeyString (newImage.m_cos_object, "Mask");
         if (CosObjGetType (mask) == CosStream)
         {
@@ -234,7 +225,7 @@ void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, I
 
         CalculateResolution (&newImage, &newImageRef);
 
-        // See if we already have an image entry for this image
+        // Verify if an image entry for this image is present
         for (ASSize_t count = 0; count < imageList->size (); count++)
         {
             if (CosObjEqual (imageList->at(count).m_cos_object, newImage.m_cos_object))
@@ -248,7 +239,7 @@ void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, I
     }
     else
     {
-        // This is an InLine image. There may be only a single reference too it, and there is no CosObj
+        // This is an InLine image. There may be only a single reference too it, and there is no CosObj.
         newImage.m_inline = true;
         newImage.m_cos_object = CosNewNull ();
         newImage.m_width = newImageRef.m_attrs.width;
@@ -262,7 +253,7 @@ void CreateImageEntry (ASSize_t pageNo, PDEImage image, ASDoubleMatrix matrix, I
 }
 
 // This is a PDE tree walk through a content block. It will always be called with the page content,
-// and may recurse to include the contents of elements which are containers.
+// and may be recursive to include the contents of elements which are containers.
 void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatrix matrix, ImageList *imageList, ASBool inSoftMask)
 { 
     for (ASInt32 count = 0; count < PDEContentGetNumElems (content); count++)
@@ -272,7 +263,7 @@ void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatri
         // Locate images, and elements that contain contents.
         switch (PDEObjectGetType ((PDEObject)elem))
         {
-            // In the case of a PDEImage, we create an image entry
+            // In the case of a PDEImage, create an image entry.
             case kPDEImage:
             {
                 ASDoubleMatrix imageMatrix;
@@ -282,8 +273,8 @@ void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatri
                 break;
             }
 
-            // In the case of a PDEForm, we parse the forms content, 
-            // concatenating the forms matrix to the current matrix
+            // In the case of a PDEForm, the program parses the forms content, 
+            // concatenating the forms matrix to the current matrix.
             case kPDEForm:
             {
                 PDEContent local = PDEFormGetContent ((PDEForm)elem);
@@ -292,14 +283,14 @@ void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatri
                 ASDoubleMatrixConcat (&localMatrix, &localMatrix, &matrix);
                 FindImagesInContent (pageNumber, local, localMatrix, imageList, inSoftMask);
 
-                // NOTE: PDEFormGetContent "acquires" the content, so it must be 
+                // PDEFormGetContent "acquires" the content, so it must be 
                 // released. Other elements type that get content do not acquire them.
                 PDERelease ((PDEObject)local);
                 break;
             }
 
-            // In the case of a container, we parse the container content.
-            // In this case, we do NOT concatenate the matrices
+            // In the case of a container, the program parses the container content.
+            // In this case, it does not concatenate the matrices.
             case kPDEContainer:
             {
                 PDEContent local = PDEContainerGetContent ((PDEContainer)elem);
@@ -307,8 +298,8 @@ void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatri
                 break;
             }
 
-            // In the case of a group, we parse the group content.
-            // In this case, we do NOT concatenate the matrices
+            // In the case of a group, the program parses the group content.
+            // In this case, it does not concatenate the matrices.
             case kPDEGroup:
             {
                 PDEContent local = PDEGroupGetContent ((PDEGroup)elem);
@@ -316,7 +307,7 @@ void FindImagesInContent (ASSize_t pageNumber, PDEContent content, ASDoubleMatri
                 break;
             }
 
-            // All other objects, we simply ignore
+            // All other objects are ignored.
             default:
                 break;
 
