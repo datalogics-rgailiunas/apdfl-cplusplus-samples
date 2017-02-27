@@ -4,11 +4,16 @@
 // For complete copyright information, see:
 // http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
 // 
-// This sample reads in a PDF file and finds the Optional Content Groups contained therein
-// and writes out a new PDF document without the Optional Content.
+// This program makes the Optional Content Groups within a PDF document visible within a viewing application,
+// like Adobe Reader or Adobe Acrobat. The program finds any of these Optional Content Groups within the input
+// PDF document and writes them to an output file.
 //
-// Optional command-line argument are input file name, and output file name.  When not specified, they default to
-// the hard-coded file names below.
+// Optional Content Groups, also known as layers, can be used to separate and manage content or graphics on a
+// single page. Layers are a very useful way to present information when opening a PDF file. For example,
+// you could create a brochure with multiple layers offering the same content but in different languages.
+// The first layer would be the blank background page. The resulting PDF file could be set up, with some script
+// code, to select the appropriate layer with French or Spanish or English, depending on the language of the reader,
+// and then display that language in the PDF file.
 //
 
 #include "CosCalls.h"
@@ -37,10 +42,10 @@ int main (int argc, char *argv[])
     std::string csOutputFile(argc > 2 ? argv[2] : OUTPUT_FILE);
     std::cout << "Reading file " << csInputFile.c_str() << ", writing to " << csOutputFile.c_str() << std::endl;
 
-    // One can "separate" a PDF document into constituent parts by re-opening
-    // the document and pulling the optional-content groups desired out.
-    // One could also copy the pages to process to a temporary document, and work
-    // with the copies on a second pass.
+    // It is possible to separate a PDF document into constituent parts by opening
+    // the document and pulling out the Optional Content Groups. A program function
+    // could also copy the pages to a temporary document, and process the page copies
+    // on a second pass.
 
 DURING
     APDFLDoc apdflDoc ( csInputFile.c_str(), true );
@@ -60,7 +65,7 @@ DURING
         // content layers visible, and the invisible content is not on the page
         PDPageFlattenOC(pdPage, PDDocGetOCContext(pdDoc));
 
-        // The above call doesn't remove the actual OC structure; do that now.
+        // The above call does not remove the actual Optional Content structure. That is completed below.
         CosDoc cosDoc = PDDocGetCosDoc(pdDoc);
         CosObj cosCatalog = CosDocGetRoot(cosDoc);
         if (CosDictKnown(cosCatalog, ASAtomFromString("OCProperties")))
@@ -92,7 +97,7 @@ ACCB1 ASBool ACCB2 showFirstThree(PDOCG ocgGroup, void *ctrVoidPtr)
 
     if (!ocgGroup || !ctrVoidPtr)
     {
-        return TRUE;    // fluke, but handle gracefully
+        return TRUE;    // This result would rarely appear
     }
 
 DURING
@@ -100,7 +105,7 @@ DURING
     PDOCConfig curOCconfig = PDDocGetOCConfig(curPDDoc);
     PDOCContext curOCcontext = PDDocGetOCContext(curPDDoc);
 
-    // Get the name of this layer, and convert to a roman charset representation
+    // Get the name of this layer, and convert to a Roman character set
     ASText groupASName = PDOCGGetName(ocgGroup);
     if (groupASName)
     {
@@ -125,7 +130,7 @@ HANDLER
     std::cout << "Exception " << ERRORCODE << " in function \"showFirstThree\"\n";
 END_HANDLER
 
-    // Check how many we've processed - in our sample, we will only do the first 3
+    // Verify the number of layers processed. This sample completes only the first three.
     if (*ctrPtr > 0)
     {
         *ctrPtr = *ctrPtr + 1;
