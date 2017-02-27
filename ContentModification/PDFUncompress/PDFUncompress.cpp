@@ -4,9 +4,17 @@
 // For complete copyright information, see:
 // http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
 //
-// This sample reads in a PDF file and uncompresses its contents.
+// The PDFUncompress sample is a utility that demonstrates how to completely un-compress the elements within a PDF
+// document into a readable form. 
 //
-// The input and output files may be specified on the command line, or they default to the hard-coded names below.
+// Nearly all PDF documents feature compressed elements to make the documents more efficient to use, and most of the time
+// these documents are left in their compressed state even when being opened in a browser or viewing tool.  But sometimes
+// it is necessary to completely uncompress a PDF document so that it can be opened and all of its contents viewed in detail
+// in a text editor. This would be useful if you want to find the reason for a problem with a PDF document or set of PDF documents,
+// or with a workflow that generates PDF documents.
+//
+// For example, this sample also uncompresses font streams that are embedded in the document. The fonts are normally compressed
+// using the Flate compression algorithm, but PDFUncompress can render this font content as ASCII or Hexadecimal characters.
 //
 
 #include "CosCalls.h"
