@@ -8,9 +8,10 @@
 // these images are found and the resolution for each one. The program will rotate any images it finds,
 // as needed, to orient the image properly for calculating the resolution. 
 //
-// The resolution is calculated for both vertical and horizontal, in Dots per Inch (DPI). You can enter
-// an input file name on a command line, or use the default input file named in the program. FindImageResolutions
-// does not define an input directory.
+// The resolution is calculated for both the vertical and horizontal sides of each image, in Dots per Inch (DPI).
+// You can enter an input file name on a command line, or use the default input file named in the program.
+//
+// FindImageResolutions does not define an input directory.
 //
 // The program generates an output file with a variety of images, and then performs analytics on these images.
 // The output file does not include images present in the document but not referenced, or images that are soft
