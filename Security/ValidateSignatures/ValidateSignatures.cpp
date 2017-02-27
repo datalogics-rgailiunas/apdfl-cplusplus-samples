@@ -4,25 +4,22 @@
 // For complete copyright information, see:
 // http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
 //                                                                                                                        
-// Portions Copyright (C) 2000-2017 Adobe Systems Incorporated:
-//                                                                                                                        
-// ADOBE SYSTEMS INCORPORATED
-// Copyright (C) 2000-2017 Adobe Systems Incorporated
-// All rights reserved.
-//                                                                                                                        
-// NOTICE: Adobe permits you to use, modify, and distribute this file
-// in accordance with the terms of the Adobe license agreement
-// accompanying it. If you have received this file from a source other
-// than Adobe, then your use, modification, or distribution of it
-// requires the prior written permission of Adobe.
+// PDF documents can allow readers to add digital signatures.  In many cases someone
+// who signs a PDF document is simply showing that he or she has read the document and
+// approves of the content.  But it is possible for a digital signature or digital
+// signatures to be added to a PDF document so that the document becomes binding, and
+// can be presented a legal document or business contract just as valid as if the document
+// were printed and signed by hand. Recent changes in Federal and State law make this possible.
 //
-// This sample analyzes the input document and reports on the number of signatures
-// found therein, and how many are valid or not valid.
+// But for a PDF file to be used in this setting, it must be possible to lock the PDF document
+// after a digital signature is added, to prevent any further changes from being applied. More
+// important, it must also be possible to validate the signature on that document, to demonstrate
+// that the PDF document was not altered or tampered with after a digital signature was added. 
+// 
+// This sample analyzes an input PDF document, lists the number of signatures found in that document,
+// and determines if those signatures are valid.  This represents a programmatic way to validate a PDF document.
 //
-// NOTE: this sample is INCOMPLETE. See TODO below.
-// This is because actually decrypting the digest is out of the scope of the sample project.
-//
-// The input file may be specified on the command line, or it will default to the hard-coded data file as below.
+// ValidateSignatures does not define a default output file.
 //
 
 #include "CosCalls.h"
@@ -207,10 +204,9 @@ static ASBool   VerifySig (CosObj Signature)
         return (false);
     }
 
-    // TODO: Here, the stored digest would NEED to be decrypted before checking for correctness,
-    //       That task, however, is out of scope of this sample, and so this function will
-    //       always be returning 'false'.
-
+	// The code needed to complete the function that decrypts the stored digest for the PDF document
+	// is not included in this sample program. This function always returns ‘false’ in response.
+	//
 
     // Free the copy of the stored content
     ASfree (StoredContent);
@@ -229,10 +225,10 @@ ASBool   EnumerateFields (CosObj Fields, ASBool *Invalid, ASUns32 *Signatures)
     if (CosObjGetType (Fields) != CosArray)
         return false;
 
-    // For each field in the array, the object may be a list of sub fields, or a field itself.
-    // If it is a field itself, we ignore anything that is not a signature
-    // If it is a signature, we go and verify it
-    // If it is not a field, we descend into it's children
+    // For each field in the array, the object may be a list of sub fields, or a field.
+    // If the object is a field, the program ignores anything that is not a signature.
+    // If it is a signature, the program verifies it.
+    // If it is not a field, the program works at the level of the children.
     ASUns32 FieldCount = CosArrayLength (Fields);
     ASUns32 Index;
     for (Index = 0; Index < FieldCount; Index++)
