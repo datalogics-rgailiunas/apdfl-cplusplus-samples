@@ -62,13 +62,13 @@ ASBool ExtractEmbeddedFonts (CosObj obj, CosObj value, void *clientData)
         // Only type 0 fonts have a DescendantFonts entry, which is an
         // array of other fonts, and it will be recursive. 
         // In practice, it will always be a single entry array, pointing to a CID font.
-		//
-		// The Type 0/Original Composite Font (OCF) format is a composite font designed
-		// to support a character set with a large number of glyphs, particularly Asian
-		// languages like Korean, Japanese, and Mandarin.
-		//
-		// Adobe Systems developed the Character Identifier Font (CID) to improve the
-		// performance the OCF format.
+	//
+	// The Type 0/Original Composite Font (OCF) format is a composite font designed
+	// to support a character set with a large number of glyphs, particularly Asian
+	// languages like Korean, Japanese, and Mandarin.
+	//
+	// Adobe Systems developed the Character Identifier Font (CID) to improve the
+	// performance the OCF format.
 
         CosObj descendants = CosDictGet (obj, ASAtomFromString ("DescendantFonts"));
         for (int index = 0; index < CosArrayLength (descendants); index++)
