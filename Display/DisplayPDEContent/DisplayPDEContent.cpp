@@ -17,6 +17,8 @@
 // can be drawn from the PDE content tree.  This sample provides a report that lists some of the kinds of data
 // available, but you can edit the program to find and display other values that interest you.
 //
+// This program is also a good example of how to walk through the content of a PDF document.
+//
 
 #include <iostream>
 #include <sstream>
