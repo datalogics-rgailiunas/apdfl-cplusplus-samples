@@ -241,8 +241,8 @@ END_HANDLER
     printParams.outFileName = psName;
 
     // Provide a printer name.  For a list of the current Windows printer drivers available, look at
-	// "Print server properties" in the Devices and Printers dialog in the Windows Control Panel.
-	// Make sure you provide a PostScript printer driver here.
+    // "Print server properties" in the Devices and Printers dialog in the Windows Control Panel.
+    // Make sure you provide a PostScript printer driver here.
     printParams.deviceName = "\\\\gutenberg\\eaglesnest";
     printParams.portName = "Ne05:";
 #else
