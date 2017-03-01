@@ -204,9 +204,9 @@ static ASBool   VerifySig (CosObj Signature)
         return (false);
     }
 
-	// The code needed to complete the function that decrypts the stored digest for the PDF document
-	// is not included in this sample program. This function always returns ‘false’ in response.
-	//
+    // The code needed to complete the function that decrypts the stored digest for the PDF document
+    // is not included in this sample program. This function always returns "false" in response.
+    //
 
     // Free the copy of the stored content
     ASfree (StoredContent);
