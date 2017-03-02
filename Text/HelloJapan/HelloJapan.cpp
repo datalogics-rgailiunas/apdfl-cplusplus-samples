@@ -5,7 +5,7 @@
 // http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
 //
 // This sample program is effectively a version of Hello World, except that when run it generates a PDF document
-// with the text ìHello Japan,î using Japanese Kanji characters. Two default fonts are provided in the sample program,
+// with the text ‚ÄúHello Japan,‚Äù using Japanese Kanji characters. Two default fonts are provided in the sample program,
 // though the sample does not define a default input file, and it does not define an input directory. The program generates
 // an output PDF with two pages, using each of the two fonts provided, one on each page.  If you run the program from the
 // command line you can define the name of the output file and the fonts to use.
@@ -13,8 +13,8 @@
 // The files for the fonts used for this sample program are shipped with the Adobe PDF Library, stored in the Resource
 // directory under APDFL. When the Adobe PDF Library initializes, it loads the files found in the Resource directory.
 // 
-// For more detail see the description of the helloJapan sample program on our Developerís site,
-// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#helloJapan.
+// For more detail see the description of the helloJapan sample program on our Developer‚Äôs site,
+// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#helloJapan
 
 #include "PEWCalls.h"
 #include "PERCalls.h"
@@ -59,7 +59,7 @@ int main ( int argc, char* argv[] )
 #else
     size_t stringLen = 11;
     // "Hello [Nihon]." in Shift-JIS 
-    ASUns8 *HelloWorldStr = (ASUns8*)"Hello ì˙ñ{."; 
+    ASUns8 *HelloWorldStr = (ASUns8*)"Hello ‚Äú√∫‚Äì{."; 
 #endif
 
     // The first page of the PDF document uses a CIDType0 font (Character ID-based font)
