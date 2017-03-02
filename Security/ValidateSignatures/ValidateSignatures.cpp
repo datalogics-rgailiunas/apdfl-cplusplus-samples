@@ -22,7 +22,7 @@
 // ValidateSignatures does not define a default output file.
 //
 // For more detail see the description of the ValidateSignature sample program on our Developer’s site,
-// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples# validatesignature.
+// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#validatesignature.
 
 #include "CosCalls.h"
 
