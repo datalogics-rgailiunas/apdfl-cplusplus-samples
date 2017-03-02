@@ -16,8 +16,8 @@
 // For example, this sample also uncompresses font streams that are embedded in the document. The fonts are normally compressed
 // using the Flate compression algorithm, but PDFUncompress can render this font content as ASCII or Hexadecimal characters.
 //
-// For more detail see the description of the PDFUncompress sample program on our Developer’s site,
-// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#pdfuncompress.
+// For more detail see the description of the PDFUncompress sample program on our Developerâ€™s site,
+// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#pdfuncompress
 
 #include "CosCalls.h"
 
