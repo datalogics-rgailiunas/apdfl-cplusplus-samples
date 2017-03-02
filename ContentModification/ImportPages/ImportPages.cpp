@@ -12,8 +12,8 @@
 // The PDFEdit Layer (PDE) of the Adobe Acrobat API contains classes that provide for editing a variety of objects
 // in PDF documents, including form XObjects with this sample.
 //
-// For more detail see the description of the ImportPages sample program on our Developer’s site, 
-// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#importpages.
+// For more detail see the description of the ImportPages sample program on our Developerâ€™s site, 
+// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#importpages
 
 #include "PEWCalls.h"
 #include "PERCalls.h"
