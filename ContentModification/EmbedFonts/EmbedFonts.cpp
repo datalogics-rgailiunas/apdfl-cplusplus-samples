@@ -17,8 +17,8 @@
 // subsets the characters of that font that are used in the document into that document, and
 // renames this newly subset font to show that it was embedded and subset.
 //
-// For more detail see the description of the EmbedFonts sample program on our Developer’s site, 
-// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#embedfonts.
+// For more detail see the description of the EmbedFonts sample program on our Developerâ€™s site, 
+// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#embedfonts
 
 #include "PSFCalls.h"
 #include "PERCalls.h"
