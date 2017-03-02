@@ -9,6 +9,8 @@
 // rotating them as needed before calculating the Dots per Inch (DPI) for each image. Then, it
 // lists the results in an output text file.
 //
+// For more detail see the description of the CalcImageDPI sample program on our Developer’s site, 
+// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#calcimagedpi.
 
 #include <iostream>
 #include <iomanip>

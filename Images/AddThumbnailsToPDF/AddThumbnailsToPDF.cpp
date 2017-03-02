@@ -11,6 +11,8 @@
 // thumbnails for a PDF document, one for each page. The program saves the thumbnail 
 // images in a PDF output file, using an indexed color table with 256 colors RGB.
 //
+// For more detail see the description of the AddThumbnailsToPDF sample program on our Developer’s site,
+// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addthumbnailstopdf.
 
 #include <cstdio>
 

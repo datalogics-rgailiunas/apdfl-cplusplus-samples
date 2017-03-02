@@ -20,6 +20,8 @@
 //
 // This sample does not define input or output files, or an input directory.
 //
+// For more detail see the description of the AlternateFileSystem sample program on our Developer’s site, 
+// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#alternatefilesystem.
 
 #include "ASCalls.h"
 

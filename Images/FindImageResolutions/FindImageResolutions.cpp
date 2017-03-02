@@ -17,6 +17,8 @@
 // The output file does not include images present in the document but not referenced, or images that are soft
 // masks for use with transparencies.
 //
+// For more detail see the description of the FindImageResolutions sample program on our Developer’s site,
+// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#findimageresolutions.
 
 #include <cmath>
 #include <iostream>

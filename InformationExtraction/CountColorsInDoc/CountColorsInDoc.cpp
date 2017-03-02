@@ -14,6 +14,8 @@
 // This sample demonstrates how to find information in a PDF document,
 // and how to access an object within a PDF. 
 // 
+// For more detail see the description of the CountColorsInDoc sample program on our Developer’s site, 
+// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#countcolorsindoc.
 
 #include <iostream>
 #include <fstream>

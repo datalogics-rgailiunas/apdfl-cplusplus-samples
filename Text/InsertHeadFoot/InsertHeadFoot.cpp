@@ -15,6 +15,8 @@
 //
 // The program is also designed to encrypt the output file so that the header and footer cannot be removed or edited without a password.
 //
+// For more detail see the description of the InsertHeadFoot sample program on our Developer’s site, 
+// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#insertheadfoot.
 
 #ifdef WIN32
 // Avoid compiler warning. This is a sample program.

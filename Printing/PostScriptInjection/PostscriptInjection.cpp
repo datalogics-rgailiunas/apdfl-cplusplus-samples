@@ -12,6 +12,8 @@
 // is defined and available, the program will send the output to the printer, to create
 // a paper copy.
 //
+// For more detail see the description of the PostScriptInjection sample program on our Developer’s site,
+// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#postscriptinjection.
 
 #include <cstdio>
 

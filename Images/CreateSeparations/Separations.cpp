@@ -13,6 +13,8 @@
 // color in the final images. A spot color is a separate color added on top of the image after the
 // four color plates are used to create the initial print run.
 //
+// For more detail see the description of the CreateSeparations sample program on our Developer’s site, 
+// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#createseparations.
 
 #include <iostream>
 #include <sstream>
