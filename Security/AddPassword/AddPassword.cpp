@@ -12,6 +12,9 @@
 // 3) Save and close the document.
 //
 // Command-line:  <input-file> <password> <output-file>    (All optional)
+//
+// For more detail see the description of the AddPassword sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addpassword
 
 #include <iostream>
 #include "InitializeLibrary.h"

@@ -14,6 +14,8 @@
 //
 // Command-line:    <input-file>  <output-file>  <password>   (Optional)
 //
+// For more detail see the description of the EncryptDocument sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#encryptdocument
 
 #include <iostream>
 #include "ASExtraCalls.h"
