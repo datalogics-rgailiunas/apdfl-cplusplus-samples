@@ -6,18 +6,18 @@ ifeq ($(OS), )
 $(error Need to set the OS environment variable)
 endif
 
-UTIL = ../../Samples/dlutils
+UTIL = ../../dlutils
 # 26Aug2009 - Give each sample a copy of the common modules
 # since plugin samples compile these differently
 COMMON_OBJS = PDFLInitCommon.o PDFLInitHFT.o InitializeLibrary.o APDFLDoc.o
 
-INCLUDE = ../../../APDFL/Include/Headers
+INCLUDE = ../../../Include/Headers
 DLI_INCLUDE = ../../../DLI/Include
-SOURCE=../../../APDFL/Include/Source
-COMMON=../../Samples/_Common
+SOURCE=../../../Include/Source
+COMMON=../../_Common
 
 include $(UTIL)/$(OS).mak
-include ../../../APDFL/Samples_Adobe/All/paths.rel
+include ../../All/paths.rel
 
 default: $(SAMPNAME)
 

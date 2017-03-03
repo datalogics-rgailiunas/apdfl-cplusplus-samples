@@ -154,49 +154,68 @@ REM *** 3) Decide which samples to run.
 REM *************************************************
 
 REM *** The total number of samples. This must be accurate!
-SET /A "NUM_SAMPLES=36"
+SET /A "NUM_SAMPLES=55"
 
 REM *** Datalogics Samples.
 SET "DL_SAMPLE_LIST=("
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddArt"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddAttachments"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddBookmarks"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddContent"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddDocumentInformation"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddLinks"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddPageNumbers"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddPassword"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddRedaction"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddText"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% AddWatermark"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ConvertPDFtoEPS"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ConvertPDFtoPostscript"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% CopyContent"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% CreateAnnotations"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% CreateDocument"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% CreateLayers"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% CreateTransparency"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% EncryptDocument"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ExtractAttachments"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ExtractDocumentInfo"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ExtractText"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FindImageResolutions"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FlattenAnnotations"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FlattenTransparency"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% LockDocument"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% MergeDocuments"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% OpenEncrypted"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% PDFOptimizer"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% RenderPage"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% SetUniquePermissions"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% SplitPDF"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% TextSearch"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% UnicodeText"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% WebOptimizedPDF"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% XPStoPDF"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Annotations\CreateAnnotations"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Annotations\FlattenAnnotations"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Printing\PostScriptInjection"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentOptimization\PDFOptimizer"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentOptimization\WebOptimizedPDF"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\AddBookmarks"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\AddDocumentInformation"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\AddLinks"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\AddPageNumbers"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\AttachMimeToPDF"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\FlattenTransparency"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\MergeAcroforms"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\MergeDocuments"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\PDFMakeOCGVisible"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\PDFUncompress"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\SplitPDF"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\ImportPages"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\AddWatermark"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\EmbedFonts"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentConversion\ConvertPDFtoEPS"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentConversion\ConvertPDFtoPostscript"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentConversion\XPStoPDF"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Images\AddThumbnailsToPDF"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Images\RenderPage"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Images\CreateImageWithTransparency"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Images\CreateSeparations"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Images\CalcImageDPI"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Images\FindImageResolutions"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Text\InsertHeadFoot"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Text\ExtractText"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Text\AddText"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Text\UnicodeText"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Text\HelloJapan"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Text\TextSearch"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentCreation\AddArt"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentCreation\AddAttachments"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentCreation\AddContent"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentCreation\CreateBookmarks"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentCreation\CreateDocument"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentCreation\CreateLayers"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentCreation\CreateTransparency"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Security\AESEncryption"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Security\AddPassword"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Security\AddRedaction"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Security\EncryptDocument"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Security\LockDocument"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Security\SetUniquePermissions"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Security\OpenEncrypted"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Security\ValidateSignatures"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentExtraction\CopyContent"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentExtraction\ExtractAttachments"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentExtraction\ExtractFonts"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% InformationExtraction\CountColorsInDoc"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% InformationExtraction\ExtractDocumentInfo"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FileSystem\AlternateFileSystem"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
 REM *** The total number of DL samples. This must be accurate!
-SET /A "NUM_DL_SAMPLES=36"
+SET /A "NUM_DL_SAMPLES=55"
 
 REM *** Di iterates over Datalogics samples. Do not change this value.
 SET /A "Di=0"
@@ -213,7 +232,7 @@ CD ..
 REM *** The directory in which the sample folders are located.
 SET SAMPLEDIR=%CD%
 REM *** Necessary for running.
-SET PATH=..\..\Libs;%PATH%
+SET PATH=..\..\..\Binaries;%PATH%
 SET CURRENT_SAMPLE=
 
 REM ************************************************************
@@ -231,22 +250,25 @@ GOTO GetNextSample
 
 CD %SAMPLEDIR%\%CURRENT_SAMPLE%\%ARCH%\%STAGE%
 
+REM Isolate the actual name fromt the group name
+for %%F in ("%CURRENT_SAMPLE%") do ( set "EXE_NAME=%%~nxF")
+
 REM *** If the directory could not be found.
 IF %ERRORLEVEL% NEQ 0 (GOTO CantFindExe)
 REM *** If the exe file could not be found.
-IF NOT EXIST %CURRENT_SAMPLE%.exe (GOTO CantFindExe)
+IF NOT EXIST %EXE_NAME%.exe (GOTO CantFindExe)
 
 If %ONLY_BUILD% == Y GOTO RunSampleLoop_Call_End 
 
 :RunSampleLoop_Call
 	ECHO #Run %CURRENT_SAMPLE%.
 	REM *** If the exe file could not be found.
-	IF NOT EXIST %CURRENT_SAMPLE%.exe (GOTO CantFindExe)
+	IF NOT EXIST %EXE_NAME%.exe (GOTO CantFindExe)
 
 	REM *** Call the sample with its arguments, if any.
 	REM *** (undefined variables expand to nothing.)
 	CD ../../
-	%ARCH%\%STAGE%\!CURRENT_SAMPLE!.exe %!CURRENT_SAMPLE!_args%
+	%ARCH%\%STAGE%\!EXE_NAME!.exe %!EXE_NAME!_args%
 	
 	REM *** If it failed to run.
 	IF %ERRORLEVEL% NEQ 0 (GOTO FailedRun)

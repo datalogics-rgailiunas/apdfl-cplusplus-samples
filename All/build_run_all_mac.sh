@@ -64,55 +64,80 @@ fi
 
 # Sample Name List
 declare -a DL_SAMPLE_LIST=( \
-  "AddArt" \
-  "AddAttachments" \
-  "AddBookmarks" \
-  "AddContent" \
-  "AddDocumentInformation" \
-  "AddLinks" \
-  "AddPageNumbers" \
-  "AddPassword" \
-  "AddRedaction" \
-  "AddText" \
-  "AddWatermark" \
-  "ConvertPDFtoEPS" \
-  "ConvertPDFtoPostscript" \
-  "CopyContent" \
-  "CreateAnnotations" \
-  "CreateDocument" \
-  "CreateLayers" \
-  "CreateTransparency" \
-  "EncryptDocument" \
-  "ExtractAttachments" \
-  "ExtractDocumentInfo" \
-  "ExtractText" \
-  "FindImageresolutions" \
-  "FlattenAnnotations" \
-  "FlattenTransparency" \
-  "LockDocument" \
-  "MergeDocuments" \
-  "OpenEncrypted" \
-  "PDFOptimizer" \
-  "RenderPage" \
-  "SetUniquePermissions" \
-  "SplitPDF" \
-  "TextSearch" \
-  "UnicodeText" \
-  "WebOptimizedPDF"
-  )
+  "Annotations/CreateAnnotations" \
+  "Annotations/FlattenAnnotations" \
+  "ContentCreation/AddArt" \
+  "ContentCreation/AddAttachments" \
+  "ContentCreation/AddContent" \
+  "ContentCreation/CreateBookmarks" \
+  "ContentCreation/CreateDocument" \
+  "ContentCreation/CreateLayers" \
+  "ContentCreation/CreateTransparency" \
+  "ContentExtraction/CopyContent" \
+  "ContentExtraction/ExtractAttachments" \
+  "ContentExtraction/ExtractFonts" \
+  "ContentModification/AddBookmarks" \
+  "ContentModification/AddDocumentInformation" \
+  "ContentModification/AddLinks" \
+  "ContentModification/AddPageNumbers" \
+  "ContentModification/AttachMimeToPDF" \
+  "ContentModification/FlattenTransparency" \
+  "ContentModification/MergeAcroforms" \
+  "ContentModification/MergeDocuments" \
+  "ContentModification/PDFMakeOCGVisible" \
+  "ContentModification/PDFUncompress" \
+  "ContentModification/SplitPDF" \
+  "ContentModification/ImportPages" \
+  "ContentModification/AddWatermark" \
+  "ContentModification/EmbedFonts" \
+  "DocumentOptimization/PDFOptimizer" \
+  "DocumentOptimization/WebOptimizedPDF" \
+  "DocumentConversion/ConvertPDFtoEPS" \
+  "DocumentConversion/ConvertPDFtoPostscript" \
+  "FileSystem/AlternateFileSystem" \
+  "Images/AddThumbnailsToPDF" \
+  "Images/RenderPage" \
+  "Images/CreateImageWithTransparency" \
+  "Images/CreateSeparations" \
+  "Images/CalcImageDPI" \
+  "Images/FindImageResolutions" \
+  "InformationExtraction/CountColorsInDoc" \
+  "InformationExtraction/ExtractDocumentInfo" \
+  "Printing/PostScriptInjection" \
+  "Security/AESEncryption" \
+  "Security/AddPassword" \
+  "Security/AddRedaction" \
+  "Security/EncryptDocument" \
+  "Security/LockDocument" \
+  "Security/SetUniquePermissions" \
+  "Security/OpenEncrypted" \
+  "Security/ValidateSignatures" \
+  "Text/InsertHeadFoot" \
+  "Text/ExtractText" \
+  "Text/AddText" \
+  "Text/UnicodeText" \
+  "Text/HelloJapan" \
+  "Text/TextSearch"
+)
+
+cd ..
 
 ## now loop through the DL Samples
 for i in "${DL_SAMPLE_LIST[@]}"
 do
    echo "$i"
-   cd ../"$i"
-   ./"$i"-${STAGE}.app/Contents/MacOS/"$i"-${STAGE}
+   cd "$i"
+   # Isolate the sample name from the group.
+   TEMP="$i"
+   SAMPLE_NAME=$(echo $TEMP | cut -d'/' -f 2)
+   ./"$SAMPLE_NAME"-${STAGE}.app/Contents/MacOS/"$SAMPLE_NAME"-${STAGE}
    # check the status
    if [ "$?" -eq "0" ]; then
    	   NUM_SUCCEED_RUN=$(( $NUM_SUCCEED_RUN + 1 ))
    else
    	   NUM_FAIL_RUN=$(( $NUM_FAIL_RUN + 1))
    fi
+   cd ../../
 done
 
 echo "Succeed Run number: " $NUM_SUCCEED_RUN

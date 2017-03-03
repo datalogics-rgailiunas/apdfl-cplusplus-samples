@@ -371,3 +371,27 @@ APDFLDoc::~APDFLDoc()
 
     END_HANDLER
 }
+
+
+/* static */ ASFile APDFLDoc::OpenFlatFile ( const char* path, int mode /* = ASFILE_READ */ )
+{
+    ASPathName pn ( makePath ( path ) );
+    ASFile f ( NULL );
+DURING
+    ASErrorCode openErr = ASFileSysOpenFile( ASGetDefaultFileSys(), pn, mode, &f );
+
+    //Release resources.
+    ASFileSysReleasePath ( ASGetDefaultFileSys(), pn );
+    if (openErr) 
+    {
+        //If there was an error opening the file, throw it.
+        ASRaise(openErr);                                    
+    }
+HANDLER
+    //If there was some other error, throw it.
+    ASRaise(ERRORCODE);                                               
+END_HANDLER
+
+    return f;
+}
+

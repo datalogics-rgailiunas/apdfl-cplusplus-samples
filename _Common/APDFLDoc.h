@@ -62,6 +62,9 @@ public:
 
     static ASPathName makePath(const char* path );                         //Provide functionality for device independent path construction
     static ASPathName makePath(const wchar_t* path );
+    static ASFile OpenFlatFile ( const char* path, int mode = ASFILE_READ );   // Generic file open
+
+    static ASUnicodeFormat GetHostUnicodeFormat() { return ( sizeof(wchar_t) == 2 ? kUTF16HostEndian : kUTF32HostEndian ); }
 };
 
 #endif

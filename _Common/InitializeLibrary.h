@@ -74,7 +74,7 @@ class GCCAIXHelper
 class APDFLib
 {
 public:
-    APDFLib(wchar_t* dl150Dir = NULL);                //Constructor initializes APDFL and sets the path to DL150PDFL.dll to dl150Dir. If NULL is passed, defaults to ../../Libs. dl150Dir should be a relative path.
+    APDFLib(wchar_t* dl150Dir = NULL);                //Constructor initializes APDFL and sets the path to DL150PDFL.dll to dl150Dir. If NULL is passed, defaults to ../../../Binaries. dl150Dir should be a relative path.
     ~APDFLib();                                       //Destructor terminates APDFL.
 
     ASInt32 getInitError();                           //Reports whether an error happened during initialization and returns that error.
