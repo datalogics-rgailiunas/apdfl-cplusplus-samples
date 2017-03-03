@@ -15,7 +15,7 @@
 // define the types of files that can be attached to a PDF document.
 //
 // For more detail see the description of the AttachMimeToPDF sample program on our Developer’s site, 
-// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#attachmimetopdf
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#attachmimetopdf
 
 #include <cstdio>
 

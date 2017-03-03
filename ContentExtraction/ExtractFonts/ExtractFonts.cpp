@@ -11,7 +11,7 @@
 // The ExtractFonts sample does not define a default output file.
 //
 // For more information about working with fonts in the Adobe PDF Library, see the description of the EmbedFonts sample program on our Developer’s site, 
-// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#embedfonts
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#embedfonts
 
 #include "CosCalls.h"
 
