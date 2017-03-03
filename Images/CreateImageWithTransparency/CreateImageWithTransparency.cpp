@@ -21,7 +21,7 @@
 // CreateImageWithTransparency does not define an input file or an input directory.
 //
 // For more detail see the description of the CreateImageWithTransparency sample program on our Developer’s site,
-// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#createimagewithtransparency
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#createimagewithtransparency
 
 #include "PSFCalls.h"
 #include "PERCalls.h"

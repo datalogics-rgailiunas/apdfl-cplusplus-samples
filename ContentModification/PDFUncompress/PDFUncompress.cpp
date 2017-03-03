@@ -17,7 +17,7 @@
 // using the Flate compression algorithm, but PDFUncompress can render this font content as ASCII or Hexadecimal characters.
 //
 // For more detail see the description of the PDFUncompress sample program on our Developer’s site,
-// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#pdfuncompress
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#pdfuncompress
 
 #include "CosCalls.h"
 

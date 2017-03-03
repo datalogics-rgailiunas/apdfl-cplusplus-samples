@@ -14,7 +14,7 @@
 // directory under APDFL. When the Adobe PDF Library initializes, it loads the files found in the Resource directory.
 // 
 // For more detail see the description of the HelloJapan sample program on our Developer’s site,
-// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#hellojapan
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#hellojapan
 
 #include "PEWCalls.h"
 #include "PERCalls.h"

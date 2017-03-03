@@ -10,7 +10,7 @@
 // lists the results in an output text file.
 //
 // For more detail see the description of the CalcImageDPI sample program on our Developer’s site, 
-// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#calcimagedpi
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#calcimagedpi
 
 #include <iostream>
 #include <iomanip>

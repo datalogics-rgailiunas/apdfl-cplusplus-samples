@@ -13,7 +13,7 @@
 // in PDF documents, including form XObjects with this sample.
 //
 // For more detail see the description of the ImportPages sample program on our Developer’s site, 
-// dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#importpages
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#importpages
 
 #include "PEWCalls.h"
 #include "PERCalls.h"
