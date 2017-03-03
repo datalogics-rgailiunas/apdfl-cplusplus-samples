@@ -20,6 +20,8 @@
 //
 // Command-line:  <input-file>  <output-file>       (Both optional)
 //
+// For more detail see the description of the FlattenAnnotations sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#flattenannotations
 
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"

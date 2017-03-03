@@ -17,6 +17,9 @@
 //
 // Command-line:  <input-file> <output-pdf> <output-text>    (All are optional)
 //
+// For more detail see the description of the CreateAnnotations sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#createannotations
+
 
 #include <vector>
 #include <iostream>

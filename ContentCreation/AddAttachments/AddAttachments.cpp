@@ -21,6 +21,8 @@
 //
 // Command-line arguments:  <input-file> <output-file> <attachment-1> <attachment-2>   (All optional)
 //
+// For more detail see the description of the AddAttachments sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addattachments
 
 #include <iostream>
 
