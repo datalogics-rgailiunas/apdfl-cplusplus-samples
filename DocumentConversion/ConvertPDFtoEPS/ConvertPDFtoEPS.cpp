@@ -13,6 +13,8 @@
 // 3) Open the output stream for each page, set print param for stream, and write to file
 //
 // Command-line:  <input-pdf> <output-name-root>      (Both are optional)
+// For more detail see the description of the ConvertPDFtoEPS sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#convertpdftoeps
 
 #include <sstream>
 

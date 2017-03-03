@@ -8,6 +8,8 @@
 //
 //  This file contains functions for the RenderPage class.
 //
+// For more detail see the description of the RenderPage sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#renderpage
 
 #include "RenderPage.h"
 

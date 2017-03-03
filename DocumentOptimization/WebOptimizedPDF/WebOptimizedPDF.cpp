@@ -12,6 +12,9 @@
 // 2) Save it as a web-optimized document and close it.
 //
 // Command-line:  <input-file> <output-file>     (Both optional)
+//
+// For more detail see the description of the WebOptimizedPDF sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#weboptimizedpdf
 
 #include <iostream>
 #include "ASExtraCalls.h"
