@@ -15,6 +15,8 @@
 //
 // Command-line:   <input-file>  <output-file>     (Both optional)
 //
+// For more detail see the description of the CopyContent sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#copycontent
 
 #include <iostream>
 #include <map>

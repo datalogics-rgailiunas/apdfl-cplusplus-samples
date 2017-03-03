@@ -13,6 +13,8 @@
 //
 //  Command-line:    <input-file>  <output-file-prefix>      (Both are optional)
 //
+// For more detail see the description of the SplitPDF sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#splitpdf
 
 #include <string>
 #include <iostream>
