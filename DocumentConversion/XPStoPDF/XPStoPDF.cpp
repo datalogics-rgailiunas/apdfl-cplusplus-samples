@@ -69,7 +69,7 @@ int main(int argc, char** argv)
 //=========================================================================================================================
 
     //The path of the input XPS.
-    ASPathName asInPathName = ASFileSysCreatePathName(NULL, ASAtomFromString("Cstring"), csInputFileName, 0);
+    ASPathName asInPathName = ASFileSysCreatePathName(NULL, ASAtomFromString("Cstring"), csInputFileName.c_str(), 0);
 
     //We supply an empty PDDoc to convert the XPS into.
     PDDoc outputDoc = NULL;
@@ -89,7 +89,7 @@ int main(int argc, char** argv)
         //We construct an APDFLDoc object for this PDF to ease saving it.
         APDFLDoc outAPDoc;
         outAPDoc.pdDoc = outputDoc;
-        outAPDoc.saveDoc(csOutputFileName);
+        outAPDoc.saveDoc(csOutputFileName.c_str());
 
         //Release the other resources we created.
         //(APDFLDoc's destructor takes care of closing the document and releasing the rest of its resources.)
