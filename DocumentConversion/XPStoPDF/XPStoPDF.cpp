@@ -20,6 +20,10 @@
 
 #include "XPS2PDFCalls.h"
 
+#define DIR_LOC "../../../../Resources/Sample_Input/"
+#define DEF_INPUT "XPStoPDF.xps"
+#define DEF_OUTPUT "XPStoPDF-out.pdf"
+
 int main(int argc, char** argv)
 {
     APDFLib lib;                      //Initialize the Adobe PDF Library.
@@ -42,6 +46,12 @@ int main(int argc, char** argv)
         ASRaise(ERRORCODE);              //The handler will display the error code.
     }
 
+    std::string csInputFileName(argc > 1 ? argv[1] : DIR_LOC DEF_INPUT);
+    std::string csOutputFileName(argc > 2 ? argv[2] : DEF_OUTPUT);
+
+    std::cout << "Converting input file " << csInputFileName.c_str()
+        << " and saving as " << csOutputFileName.c_str() << std::endl;
+
     ASCab settings = ASCabNew();
 
     //The .joboptions file specifies a great number of settings which determine exactly how the PDF document
@@ -59,7 +69,7 @@ int main(int argc, char** argv)
 //=========================================================================================================================
 
     //The path of the input XPS.
-    ASPathName asInPathName = ASFileSysCreatePathName(NULL, ASAtomFromString("Cstring"), "../_Input/XPStoPDF.xps", 0);
+    ASPathName asInPathName = ASFileSysCreatePathName(NULL, ASAtomFromString("Cstring"), csInputFileName.c_str(), 0);
 
     //We supply an empty PDDoc to convert the XPS into.
     PDDoc outputDoc = NULL;
@@ -79,7 +89,7 @@ int main(int argc, char** argv)
         //We construct an APDFLDoc object for this PDF to ease saving it.
         APDFLDoc outAPDoc;
         outAPDoc.pdDoc = outputDoc;
-        outAPDoc.saveDoc(L"converted.pdf");
+        outAPDoc.saveDoc(csOutputFileName.c_str());
 
         //Release the other resources we created.
         //(APDFLDoc's destructor takes care of closing the document and releasing the rest of its resources.)
