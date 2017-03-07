@@ -69,6 +69,3 @@ endif
 endif
 
 LIBS = -L../../../Binaries -lDL150pdfl -lDL150CoolType -lDL150AGM -lDL150BIB -lDL150ACE -lDL150ARE -lDL150BIBUtils -lDL150JP2K -lDL150AdobeXMP -lDL150AXE8SharedExpat -lpthread
-
-INCLUDE = ../../Include/Headers
-SOURCE=../../Include/Source

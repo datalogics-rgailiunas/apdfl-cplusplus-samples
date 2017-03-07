@@ -21,13 +21,11 @@ LDFLAGS += -mlp64
 endif
 
 CXXFLAGS = ${CCFLAGS} -Wno-ctor-dtor-privacy
-LIBS = -L$(PDFL_PATH)/Libs -lDL150ACE -lDL150AGM -lDL150ARE \
+LIBS = -L$(PDFL_PATH)/Binaries -lDL150ACE -lDL150AGM -lDL150ARE \
  	   -lDL150AXE8SharedExpat -lDL150AdobeXMP -lDL150BIB \
  	   -lDL150BIBUtils -lDL150CoolType -lDL150JP2K -lDL150pdfl \
  	   -lc -lpthread -lm
 
-INCLUDE = $(PDFL_PATH)/Include/Headers
-SOURCE = $(PDFL_PATH)/Include/Source
 
 else #USE_GCC
 
@@ -53,9 +51,6 @@ CXXFLAGS = $(CCFLAGS)
 LD = $(CXX)
 LDFLAGS = ${TARGET_CPU_FLAGS} -g -mt -Wl,+vnoshlibunsats
 
-LIBS = -L$(PDFL_PATH)/Libs -lDL150pdfl
-
-INCLUDE = $(PDFL_PATH)/Include/Headers
-SOURCE = $(PDFL_PATH)/Include/Source
+LIBS = -L$(PDFL_PATH)/Binaries -lDL150pdfl
 
 endif
