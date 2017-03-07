@@ -15,6 +15,8 @@
 //
 // Command line argument:  (Optional) <output-file-name>
 //
+// For more detail see the description of the AddArt sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addart
 
 #include <iostream>
 #include "PagePDECntCalls.h"

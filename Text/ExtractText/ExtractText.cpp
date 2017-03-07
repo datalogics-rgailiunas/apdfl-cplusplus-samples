@@ -18,6 +18,8 @@
 //
 // Command-line: <input-file-1> <input-file-2> <output-file-1> <output-file-2>
 //
+// For more detail see the description of the ExtractText sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#extracttext
 
 #include <iostream>
 #include <fstream>

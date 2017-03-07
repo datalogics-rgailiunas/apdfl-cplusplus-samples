@@ -16,6 +16,8 @@
 //     Note: To save the attachments with no prefix, type "" (two quotation marks)
 //           for the second command-line argument.
 //
+// For more detail see the description of the ExtractAttachments sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#extractattachments
 
 #include "PERCalls.h"
 #include "CosCalls.h"

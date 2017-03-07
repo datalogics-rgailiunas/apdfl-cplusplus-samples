@@ -15,6 +15,8 @@
 //
 // Command-line:  <output-file>  <text-to-put-in-it>     (Both optional)
 //
+// For more detail see the description of the AddText sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addtext
 
 #include <iostream>
 

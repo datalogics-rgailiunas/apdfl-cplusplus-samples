@@ -11,6 +11,8 @@
 // 2) Convert the input XPS document.
 // 3) Save the new PDF document and release resources.
 //==============================================================================
+// For more detail see the description of the XPStoPDF sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#xpstopdf
 
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"

@@ -9,6 +9,8 @@
 //
 // Command-line:  <input-file-1> <input-file-2> <output-file>     (All optional)
 //
+// For more detail see the description of the MergeDocuments sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#mergedocuments
 
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"

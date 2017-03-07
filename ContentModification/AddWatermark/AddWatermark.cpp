@@ -15,6 +15,8 @@
 //
 // Command-line:   <input-file-name> <watermark-document> <output-file-name>    (All optional)
 //
+// For more detail see the description of the AddWatermark sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addwatermark
 
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"

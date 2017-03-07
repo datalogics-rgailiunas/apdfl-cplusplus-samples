@@ -20,6 +20,9 @@
 // 4) Save and close the document.
 //
 // Command line:  <target-search-word> <input-file> <output-file>   (all optional)
+//
+// For more detail see the description of the AddBookmarks sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addbookmarks
 
 #include <sstream>
 #include <string>

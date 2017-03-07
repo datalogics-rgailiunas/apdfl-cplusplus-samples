@@ -12,6 +12,9 @@
 // 3) Open the Print Dialog UI and gather user input
 // 4) Write to printer and clean up
 //=====================================================================================================================
+//
+// For more detail see the description of the PDFPrintGUI sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#pdfprintgui
 
 /* Printing Support */
 #include "InitializeLibrary.h"
