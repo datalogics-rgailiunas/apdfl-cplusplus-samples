@@ -40,7 +40,6 @@ SAMPLES = Annotations/CreateAnnotations \
           Images/CreateImageWithTransparency \
           Images/CreateSeparations \
           Images/CalcImageDPI \
-          Images/FindImageResolutions \
           InformationExtraction/CountColorsInDoc \
           InformationExtraction/ExtractDocumentInfo \
           Printing/PostScriptInjection \
@@ -55,7 +54,6 @@ SAMPLES = Annotations/CreateAnnotations \
           Text/InsertHeadFoot \
           Text/ExtractText \
           Text/AddText \
-          Text/UnicodeText \
           Text/HelloJapan \
           Text/TextSearch
 
@@ -65,9 +63,11 @@ ifeq ($(OS), i80386linux)
 endif
 
 ifeq ($(OS), sparcsolaris)
-  ifneq ($(BUILD_64_BIT), true)
-    SAMPLES +=  ContentModification/FlattenTransparency DocumentConversion/XPStoPDF
-  endif
+    ifneq ($(BUILD_64_BIT), true)
+        SAMPLES +=  ContentModification/FlattenTransparency DocumentConversion/XPStoPDF Images/FindImageResolutions Text/UnicodeText
+    endif
+else
+    SAMPLES += Images/FindImageResolutions Text/UnicodeText
 endif
 
 ifeq ($(OS), intelsolaris)
