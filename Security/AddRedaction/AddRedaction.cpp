@@ -4,16 +4,8 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: AddRedaction - This sample locates text to be redacted using 
-// PDWordFinder and permanently removes it from the document, replacing the word with 
-// a black redaction box.
-//      
-// Steps:
-//  1) Use the PDWordFinder to locate words that will be redacted.
-//  2) Create and apply the redactions.  
-//  3) Verify that the words were permanently removed.
-//
-// Command-line:  <input-file> <output-file>    (Both optional)
+// The AddRedaction sample program uses PDWordFinder to locate text to be redacted in 
+// a PDF document. The text is permanently removed from the document.
 //
 // For more detail see the description of the AddRedaction sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addredaction

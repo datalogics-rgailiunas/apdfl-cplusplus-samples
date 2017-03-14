@@ -4,15 +4,7 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: AddLinks - Adds hyperlinks into a PDF file
-//					  
-// Steps:
-//  1) Create/set up/place a link that will open a file
-//  2) Create/set up/place a link that will jump to a new location in the file
-//  3) Create/set up/and place a link that will open a webpage
-//  4) Save and close
-//
-// Command-line:  <input-file>  <output-file>    (Both optional)
+// This sample shows how to add three different kinds of hyperlinks to a PDF document.
 //
 // For more detail see the description of the AddLinks sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addlinks
@@ -67,7 +59,7 @@ DURING
     //Add this text object to the page's content
     PDEContentAddElem(pageContent, kPDEAfterLast, (PDEElement)clickMeText1);
 
-    //Set up the annotation's bounds.  NOTE: 72 represent an inch
+    //Set up the annotation's bounds. 72 pixels represent one inch.
     ASFixedRect annotLocation;
     PDETextGetBBox(clickMeText1, kPDETextRun, 0, &annotLocation);
 

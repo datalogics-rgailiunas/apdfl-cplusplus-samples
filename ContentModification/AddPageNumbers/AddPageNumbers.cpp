@@ -4,16 +4,8 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: AddPageNumbers. This program creates page labels and adds 
-//         them to a PDF with numberings. They are viewable by looking at a 
-//         documents thumbnails.
-//
-// Steps:
-//  1) Open the Document to which we will add the labels
-//  2) Create labels for different sets of pages
-//  3) Save and exit
-//
-//  Command-line:   <input-file>  <output-file>     (Both optional)
+// AddPageNumbers adds labels to the page numbers in a PDF document. These labels appear under the 
+// page thumbnails.
 //
 // For more detail see the description of the AddPageNumbers sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addpagenumbers

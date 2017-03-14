@@ -4,19 +4,12 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample AddDocumentInformation: Add document information into a document
+// The AddDocumentInformation sample inserts standard document metadata into a PDF document.
 //
-// This program inserts standard document information contained in the "Document Information Dictionary." 
-// See "Document Information Dictionary" (section 14.3.3)in "ISO 32000-1:2008, Document   
+// The information is found in the "Document Information Dictionary" for a PDF. See 
+// "Document Information Dictionary" (section 14.3.3)in "ISO 32000-1:2008, Document   
 // Management-Portable Document Format-Part 1: PDF 1.7, page 549" at:
 // http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/PDF32000_2008.pdf#page=557.
-//
-// Steps:
-// 1) Open the Document that the document information will be inserted into.
-// 2) Insert the document information.
-// 3) Save the document and release resources.
-//
-// Command-line:  <input-file> <output-file>   (Both optional)
 //
 // For more detail see the description of the AddDocumentInformation sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#adddocumentinformation

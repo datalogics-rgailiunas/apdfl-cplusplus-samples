@@ -4,14 +4,7 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: AddPassword - Adds a password to open an otherwise unsecured document.
-//
-// Steps: 
-// 1) Open the input document and create a password for it.
-// 2) Set the new security data into the document.
-// 3) Save and close the document.
-//
-// Command-line:  <input-file> <password> <output-file>    (All optional)
+// This sample adds a password to open an otherwise unsecured PDF document.
 //
 // For more detail see the description of the AddPassword sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addpassword

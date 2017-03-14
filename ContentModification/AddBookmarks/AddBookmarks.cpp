@@ -4,22 +4,7 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: AddBookmarks - Adds some bookmarks to the input PDF.
-//
-// Note: The input for this sample is a text-heavy PDF document.
-// This sample searchs for target word and adds a bookmark which will
-// take the reader to that word.
-// This sample also adds a few children bookmarks to the first
-// bookmark, which copy that bookmark at different zoom levels.
-//
-// Steps:
-// 1) Find each target word in the document and record their
-//    location and text.
-// 2) Create a bookmark for each occurrence with this information.
-// 3) Demonstrate different zoom levels.
-// 4) Save and close the document.
-//
-// Command line:  <target-search-word> <input-file> <output-file>   (all optional)
+// This sample shows how to add bookmarks to a PDF document.
 //
 // For more detail see the description of the AddBookmarks sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addbookmarks

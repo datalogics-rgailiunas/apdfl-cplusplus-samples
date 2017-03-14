@@ -4,16 +4,7 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: AddWatermark - This sample adds watermarks to an input document.
-//       This program demonstrates both adding a text watermark, and
-//       adding a watermark which is the image of a page of a PDF document.
-//
-// Steps:
-// 1) Set the watermark parameters struct.
-// 2) Set the text watermark parameters struct.
-// 3) Add the page and text watermarks.
-//
-// Command-line:   <input-file-name> <watermark-document> <output-file-name>    (All optional)
+// This sample adds watermarks to an input document, a text watermark and a graphic.
 //
 // For more detail see the description of the AddWatermark sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addwatermark
