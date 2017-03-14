@@ -4,17 +4,6 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: CreateLayers - Creates two layers in a PDF, one which contains
-//             text and one which contains annotations.
-//
-// Steps:
-//  1) Create a pdf document and extract its content.
-//  2) Add text to the page and set what layer they belong to.
-//  3) Add annotations to the page and set what layer they belong to.
-//  4) Save the output document and exit.
-//
-// Command-line:    <output-file>      (Optional)
-//
 // For more detail see the description of the CreateLayers sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#createlayers
 

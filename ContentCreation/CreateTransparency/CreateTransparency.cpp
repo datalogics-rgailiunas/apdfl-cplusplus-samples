@@ -4,26 +4,12 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: CreateTransparency - This sample demonstrates transparency and blend modes
-//             in APDFL for CMYK and RGB color spaces. It creates 13 sets of RGB and CMYK
-//             color blending circles, one for each of the 12 blend modes, and an
-//             additional set demonstrating the absence of blending.
-//             A total of 24 color blending circles are drawn.
+// This sample demonstrates transparency and blend modes in Adobe PDF Library for CMYK and RGB color spaces.
+// It creates 13 sets of RGB and CMYK color blending circles, one for each of the 12 blend modes, and an
+// additional set demonstrating the absence of blending. So a total of 24 color blending circles are drawn.
 //
-// Note:
-// The 12 standard blend modes, all included with APDFL, are:
-// Normal, Multiply, Screen, Overlay, Darken, Lighten, ColorDodge, ColorBurn, HardLight, 
-//     SoftLight, Difference, and Exclusion.
 // See ISO 32000, table 136, for more information, available here:
 // http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/PDF32000_2008.pdf#page=332
-//
-// Steps:
-// 1) Create and title a page for each color blending mode.
-// 2) Define and create a PDEForm prototype for the basic shape of each triad.
-// 3) Create a PDEForm prototype for the CMYK and RGB triads by triplicating the basic shape.
-// 4) Copy the triads to each page, with different blending modes each time.
-//
-// Command-line:    <output-file>      (Optional)
 //
 // For more detail see the description of the CreateTransparency sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#createtransparency

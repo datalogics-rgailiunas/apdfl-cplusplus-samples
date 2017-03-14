@@ -4,16 +4,8 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: CopyContent - Walks the input PDF file, selectively copying elements  into
-//             a new PDF file.  You can specify which kinds of content types and pages.
-//
-// Steps:
-// 1) Set up containers for content types we will copy, and page numbers we will operate on
-// 2) Open the input PDF, create the output PDF.
-// 3) Copy the specified content from the input PDF into the output PDF.
-// 4) Save the output PDF and close both PDFs.
-//
-// Command-line:   <input-file>  <output-file>     (Both optional)
+// CopyContent copies content from an input PDF document into a new PDF document
+// and then saves the output file. You can specify the type of content you want to copy.
 //
 // For more detail see the description of the CopyContent sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#copycontent

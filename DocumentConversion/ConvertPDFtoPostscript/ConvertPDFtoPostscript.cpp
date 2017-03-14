@@ -4,16 +4,7 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: ConvertPDFtoPostscript - Convert the contents of the input PDF 
-//              file into a new PS file. 
-//
-// Steps:
-// 1) Open the input PDF
-// 2) Open the output stream
-// 3) Initialize PS parameters
-// 4) Write to PS file, close it, and clean up
-//
-// Command-line:    <input-pdf>  <output-name>       (Both optional)
+// This sample converts the contents of an input PDF document into a PostScript file.
 //
 // For more detail see the description of the ConvertPDFtoPostscript sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#convertpdftopostscript

@@ -4,15 +4,9 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: ConvertPDFtoEPS - Convert the contents of each page of the input PDF 
-//              file into a new EPS file. 
+// ConvertPDFtoEPS converts the contents of each page of an input PDF into a series of new 
+// Encapsulated Postscript files.
 //
-// Steps:
-// 1) Open the input PDF
-// 2) Initialize print parameters
-// 3) Open the output stream for each page, set print param for stream, and write to file
-//
-// Command-line:  <input-pdf> <output-name-root>      (Both are optional)
 // For more detail see the description of the ConvertPDFtoEPS sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#convertpdftoeps
 
