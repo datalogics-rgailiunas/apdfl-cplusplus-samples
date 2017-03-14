@@ -4,18 +4,7 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: FlattenPDF - Uses the PDFlattener plugin to flatten the input document.
-//
-// Note:
-// PDFlattener will only flatten pages that include transparent elements.
-//
-// Steps:
-// Step 1) Initialize the PDFLattener plugin.
-// Step 2) Configure the PDFlattener parameters.
-// Step 3) Call the PDFlattener.
-// Step 4) Save the document, close it, and terminate the plugin.
-//
-// Command-line:  <input-file>  <output-file>       (Both optional)
+// This sample program uses the PDFlattener plugin to flatten a PDF input document.
 //
 // For more detail see the description of the FlattenTransparency sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#flattentransparency

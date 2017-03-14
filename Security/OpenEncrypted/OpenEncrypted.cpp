@@ -4,18 +4,8 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: OpenEncrypted - Removes security from a document.
-//
-// Note: This sample completely removes the security from a 
-// password-protected document.
-//
-// Steps:
-// 1) Open the document with the password.
-// 2) Remove the encryption.
-// 3) Save and close the document.
-// 4) Open it without a password to ensure the encryption is gone.
-//
-// Command-line:  <input-file>   <output-file>    (Both optional)
+// This sample removes security from a password-protected document. It is effectively
+// the opposite of the EncryptDocument sample program.
 //
 // For more detail see the description of the OpenEncrypted sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#openencrypted

@@ -4,16 +4,7 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: SetUniquePermissions - Changes the user security permissions
-//              of the input document to allow or deny any permission chosen
-//
-// Steps: 
-// 1) Select which permissions you want to allow/deny.
-// 2) Create new security data with the specified permissions.
-// 3) Set the new security data into the document.
-// 4) Save and close the document.
-//
-// Command-line:  <input-file>   <output-file>    (Both optional)
+// The SetUniquePermissions sample shows how to assign security permissions to a PDF document.
 //
 // For more detail see the description of the SetUniquePermissions sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#setuniquepermissions

@@ -4,16 +4,9 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: TextSearch - This sample demonstrates searching a document for text
-// using the PDWordFinder. When text is found it marks it with a highlight 
-// annotation and saves the output document in the working directory.
-//
-// Steps:
-// 1) Set the word finder configurations.
-// 2) Fill in color information for highlighting text.
-// 3) Check pages for matches and highlight
-//
-// Command-line:   <input-file> <output-file> <search-word>    (All optional)
+// This sample demonstrates using the PDWordFinder to find examples of a specific word in a PDF
+// document.  When the sample finds the text it highlights each example and saves the file as an
+// output document.
 //
 // For more detail see the description of the TextSearch sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#textsearch

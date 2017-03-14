@@ -4,19 +4,8 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: UnicodeText - This sample demonstrates the use of Unicode text in APDFL. 
-//     We place a variety of texts in different languages and Unicode encodings, 
-//     both vertically and horizontally placed, to the output document.
-//
-// Steps:
-// Step 1) Declare the Unicode strings.
-// Step 2) Load the necessary fonts.
-// Step 3) Prepare the text objects and check for font compatibility.
-// Step 4) Prepare to draw the texts to a new document.
-// Step 5) Draw the texts, and subset the fonts we used.
-// Step 6) Release resources, save, and close.
-//
-// Command-line:  <output-file>     (Optional)
+// The UnicodeText sample demonstrates how the Library works with Unicode text. 
+// The sample converts hexadecimal characters into Unicode. 
 //
 // For more detail see the description of the UnicodeText sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#unicodetext

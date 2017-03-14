@@ -2,16 +2,7 @@
 //
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-//=====================================================================================================================
-// Sample: PDFPrintGUI - Print PDF to printer with GUI input. 
-//
-//
-// Steps:
-// 1) Open the input PDF
-// 2) Initialize print parameters
-// 3) Open the Print Dialog UI and gather user input
-// 4) Write to printer and clean up
-//=====================================================================================================================
+// This sample allows a user to send a PDF document to a printer, using a Windows print interface. 
 //
 // For more detail see the description of the PDFPrintGUI sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#pdfprintgui

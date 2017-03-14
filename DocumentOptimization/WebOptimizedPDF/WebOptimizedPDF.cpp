@@ -4,14 +4,7 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: WebOptimizedPDF - Takes a non "web-optimized" document as input and
-// converts it into a "web-optimized" document simply by resaving it "Linearized".
-//
-// Steps:
-// 1) Open the input document.
-// 2) Save it as a web-optimized document and close it.
-//
-// Command-line:  <input-file> <output-file>     (Both optional)
+// This sample converts a PDF document into a web optimized, or linearized, file. 
 //
 // For more detail see the description of the WebOptimizedPDF sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#weboptimizedpdf

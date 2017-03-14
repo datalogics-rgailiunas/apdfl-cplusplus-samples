@@ -4,9 +4,7 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-//  RenderPage - Sample for the Adobe PDF Library distributed by Datalogics.
-//
-//  This file contains functions for the RenderPage class.
+// The RenderPage sample program shows how to render a PDF document page to memory.
 //
 // For more detail see the description of the RenderPage sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#renderpage

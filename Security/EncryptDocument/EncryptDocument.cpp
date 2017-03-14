@@ -4,15 +4,7 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: EncryptDocument - Encrypting and saving an existing document
-//
-// Steps: 
-//  0) Open the document and verify that it is not currently encrypted
-//  1) Create new security data, set with a user password for encryption using 
-//     the RC4 algorithm.
-//  2) Set the encrptyion method to the document, save and exit   
-//
-// Command-line:    <input-file>  <output-file>  <password>   (Optional)
+// The EncryptDocument encrypts a PDF document to secure it, and saves it with a password.
 //
 // For more detail see the description of the EncryptDocument sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#encryptdocument

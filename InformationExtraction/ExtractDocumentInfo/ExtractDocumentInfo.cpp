@@ -4,18 +4,8 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: ExtractDocumentInformation opens a document, extracts document 
-// information and saves it to a text file
+// This sample extracts standard information from a PDF documenet and saves it to an output text file. 
 //
-// Note: This program uses standard document information contained in the
-// "Document Information Dictionary" see the PDF Reference section 10.2 for 
-// more information
-//
-// Steps:
-//  1) Extract document information from input document 
-//
-// Command-line:  <input-file> <output-file>     (Both optional)
-// 
 // For more detail see the description of the ExtractDocumentInfo sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#extractdocumentinfo
 //

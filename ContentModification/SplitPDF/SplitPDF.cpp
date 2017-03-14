@@ -4,14 +4,8 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: SplitPDF - Opens the input file specified and saves each page to its own
-//                    new PDF document 
-//
-// Steps: 
-//  1) Open PDFToBeSplit.pdf 
-//  2) For each page, create a new empty document, throw that page into it and save
-//
-//  Command-line:    <input-file>  <output-file-prefix>      (Both are optional)
+// The SplitPDF opens a PDF input document and exports the pages to a set of separate PDF documents.
+// This sample is effectively the opposite of MergeDocuments. 
 //
 // For more detail see the description of the SplitPDF sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#splitpdf
