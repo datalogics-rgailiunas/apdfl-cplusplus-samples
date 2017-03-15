@@ -4,18 +4,11 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: AddArt - This sample demonstrates drawing an object by manipulating PDEPath objects.
-//	
-// Steps:
-// 1) Create a PDF document with one page.
-// 2) Set the graphics state for the first shape.
-// 3) Draw an arrow.
-// 4) Draw a second arrow and apply transformations.
-// 5) Release resources and save the PDF document.
-//
 // Command line argument:  (Optional) <output-file-name>
 //
-// For more detail see the description of the AddArt sample program on our Developer’s site, 
+// The AddArt sample demonstrates drawing a graphic image on a PDF page by manipulating PDEPath objects.
+//
+// For more detail see the description of the AddArt sample program on our Developerâ€™s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addart
 
 #include <iostream>

@@ -4,18 +4,11 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: AddText - Creates a new PDF document and adds text to it
-//       
-// Steps: 
-//  1) Create a document.
-//  2) Create a PDEFont object.
-//  3) Set the graphic state.
-//  4) Create the PDEText object and add it to the PDEContent object.
-//  5) Save the output document.
+// This sample demonstrates creating a new PDF document and adding text to the page, using a PDEFont element.
 //
 // Command-line:  <output-file>  <text-to-put-in-it>     (Both optional)
 //
-// For more detail see the description of the AddText sample program on our Developer’s site, 
+// For more detail see the description of the AddText sample program on our Developerâ€™s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addtext
 
 #include <iostream>

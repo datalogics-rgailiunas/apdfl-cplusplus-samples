@@ -4,16 +4,11 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: AddContent - Takes an input file and adds several different elements to it.
-//      
-// Steps:
-//  1) Set up the font for the text to be added into document
-//  2) Set up the content to be added to the document.
-//  3) Acquire PDEContent and add elements to the page.       
+// AddContent adds several elements to a blank PDF input document, including text and a rectangle.
 //
 // Command-line:  <input-file> <output-file>   (both optional)
 //
-// For more detail see the description of the AddContent sample program on our Developer’s site, 
+// For more detail see the description of the AddContent sample program on our Developerâ€™s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addcontent
 
 #include <iostream>

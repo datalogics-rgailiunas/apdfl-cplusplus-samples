@@ -4,24 +4,11 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: AddAttachments - Adds two attachments to the input document.
-//
-// Note: 
-// The first attachment is embedded in the EmbeddedFiles name tree of the document.
-// The second is embedded into the File Specification dictionary of
-//    an annotation that will be added to the page.
-//
-//Steps:
-// 1) Create the first PDFileAttachment.
-// 2) Embed it to the document's name tree.
-// 3) Create the second PDFileAttachment.
-// 4) Create an annotation.
-// 5) Embed the second PDFileAttachment to the annotation.
-// 6) Save and close.
+// This sample program adds two attachments to an input PDF document.
 //
 // Command-line arguments:  <input-file> <output-file> <attachment-1> <attachment-2>   (All optional)
 //
-// For more detail see the description of the AddAttachments sample program on our Developer’s site, 
+// For more detail see the description of the AddAttachments sample program on our Developerâ€™s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addattachments
 
 #include <iostream>
