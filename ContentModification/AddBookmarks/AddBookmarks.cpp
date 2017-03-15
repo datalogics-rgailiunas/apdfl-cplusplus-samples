@@ -6,7 +6,9 @@
 //
 // This sample shows how to add bookmarks to a PDF document.
 //
-// For more detail see the description of the AddBookmarks sample program on our Developer’s site, 
+// Command line:  <target-search-word> <input-file> <output-file>   (all optional)
+//
+// For more detail see the description of the AddBookmarks sample program on our Developerâ€™s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addbookmarks
 
 #include <sstream>
