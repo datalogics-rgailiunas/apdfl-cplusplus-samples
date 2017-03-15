@@ -7,7 +7,9 @@
 // AddPageNumbers adds labels to the page numbers in a PDF document. These labels appear under the 
 // page thumbnails.
 //
-// For more detail see the description of the AddPageNumbers sample program on our Developer’s site, 
+//  Command-line:   <input-file>  <output-file>     (Both optional)
+//
+// For more detail see the description of the AddPageNumbers sample program on our Developerâ€™s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addpagenumbers
 
 #include "InitializeLibrary.h"
