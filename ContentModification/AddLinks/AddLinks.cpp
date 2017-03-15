@@ -6,7 +6,9 @@
 //
 // This sample shows how to add three different kinds of hyperlinks to a PDF document.
 //
-// For more detail see the description of the AddLinks sample program on our Developer’s site, 
+// Command-line:  <input-file>  <output-file>    (Both optional)
+//
+// For more detail see the description of the AddLinks sample program on our Developerâ€™s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addlinks
 
 #include <iostream>
