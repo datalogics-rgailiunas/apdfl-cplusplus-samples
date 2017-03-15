@@ -4,9 +4,11 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
+// Command line argument:  (Optional) <output-file-name>
+//
 // The AddArt sample demonstrates drawing a graphic image on a PDF page by manipulating PDEPath objects.
 //
-// For more detail see the description of the AddArt sample program on our Developer’s site, 
+// For more detail see the description of the AddArt sample program on our Developerâ€™s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addart
 
 #include <iostream>
