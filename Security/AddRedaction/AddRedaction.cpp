@@ -7,7 +7,9 @@
 // The AddRedaction sample program uses PDWordFinder to locate text to be redacted in 
 // a PDF document. The text is permanently removed from the document.
 //
-// For more detail see the description of the AddRedaction sample program on our Developer’s site, 
+// Command-line:  <input-file> <output-file>    (Both optional)
+//
+// For more detail see the description of the AddRedaction sample program on our Developerâ€™s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addredaction
 
 #include <iostream>
