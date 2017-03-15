@@ -8,6 +8,8 @@
 // It creates 13 sets of RGB and CMYK color blending circles, one for each of the 12 blend modes, and an
 // additional set demonstrating the absence of blending. So a total of 24 color blending circles are drawn.
 //
+// Command-line:    <output-file>      (Optional)
+//
 // See ISO 32000, table 136, for more information, available here:
 // http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/PDF32000_2008.pdf#page=332
 //

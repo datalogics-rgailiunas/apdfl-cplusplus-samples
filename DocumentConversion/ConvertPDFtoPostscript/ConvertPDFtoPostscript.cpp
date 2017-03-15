@@ -6,6 +6,8 @@
 //
 // This sample converts the contents of an input PDF document into a PostScript file.
 //
+// Command-line:    <input-pdf>  <output-name>       (Both optional)
+//
 // For more detail see the description of the ConvertPDFtoPostscript sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#convertpdftopostscript
 

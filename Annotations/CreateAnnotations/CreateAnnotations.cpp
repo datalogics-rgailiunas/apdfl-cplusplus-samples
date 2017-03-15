@@ -7,6 +7,8 @@
 // CreateAnnotations demonstrates adding annotations to a PDF document, and how to extract text
 // from these annotations and save the content to a separate PDF document.
 //
+// Command-line:  <input-file> <output-pdf> <output-text>    (All are optional)
+//
 // For more detail see the description of the CreateAnnotations sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#createannotations
 

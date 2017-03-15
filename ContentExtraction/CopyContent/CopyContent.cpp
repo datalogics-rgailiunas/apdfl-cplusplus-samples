@@ -7,6 +7,8 @@
 // CopyContent copies content from an input PDF document into a new PDF document
 // and then saves the output file. You can specify the type of content you want to copy.
 //
+// Command-line:   <input-file>  <output-file>     (Both optional)
+//
 // For more detail see the description of the CopyContent sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#copycontent
 
