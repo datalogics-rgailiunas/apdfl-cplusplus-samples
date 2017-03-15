@@ -7,6 +7,8 @@
 // MergeDocuments opens two PDF input documents, merges them and saves the
 // resulting document in the working directory.
 //
+// Command-line:  <input-file-1> <input-file-2> <output-file>     (All optional)
+//
 // For more detail see the description of the MergeDocuments sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#mergedocuments
 

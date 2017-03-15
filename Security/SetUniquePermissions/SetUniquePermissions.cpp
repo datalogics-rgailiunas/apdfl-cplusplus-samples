@@ -6,6 +6,8 @@
 //
 // The SetUniquePermissions sample shows how to assign security permissions to a PDF document.
 //
+// Command-line:  <input-file>   <output-file>    (Both optional)
+//
 // For more detail see the description of the SetUniquePermissions sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#setuniquepermissions
 

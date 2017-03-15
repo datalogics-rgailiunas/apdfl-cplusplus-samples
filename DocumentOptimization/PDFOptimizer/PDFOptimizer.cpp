@@ -8,6 +8,8 @@
 // Adobe PDF Library. This effectively compresses a PDF document to make it smaller and
 // thus faster and easier to download and open.
 //
+// Command-line:  <input-file>   <output-file>    (Both optional)
+//
 // For more detail see the description of the PDFOptimizer sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#pdfoptimizer
 
