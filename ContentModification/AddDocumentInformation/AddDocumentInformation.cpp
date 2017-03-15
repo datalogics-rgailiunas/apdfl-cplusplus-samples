@@ -11,7 +11,9 @@
 // Management-Portable Document Format-Part 1: PDF 1.7, page 549" at:
 // http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/PDF32000_2008.pdf#page=557.
 //
-// For more detail see the description of the AddDocumentInformation sample program on our Developer’s site, 
+// Command-line:  <input-file> <output-file>   (Both optional)
+//
+// For more detail see the description of the AddDocumentInformation sample program on our Developerâ€™s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#adddocumentinformation
 
 #include <iostream>
