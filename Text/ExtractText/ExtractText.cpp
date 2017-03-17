@@ -9,7 +9,7 @@
 //
 // Command-line:    <input-pdf>  <output-name>       (Both optional)
 //
-// For more detail see the description of the ExtractText sample program on our Developer’s site, 
+// For more detail see the description of the ExtractText sample program on our Developerâ€™s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#extracttext
 
 #include <iostream>
@@ -117,7 +117,7 @@ DURING
             // NOTE:  Uncomment this paragraph to print the text to the screen as well
             // This will print the text in UTF-16BE or in PDFDocEncoding; it may not output correctly on the console. 
             // It will be correct in the output document, however.
-			//
+            //
             // ASInt32 wordLen = 0;                                                                     
             // char* consoleMessage = ASTextGetPDTextCopy(nextWordASText, &wordLen);
             // std::cout << consoleMessage;
