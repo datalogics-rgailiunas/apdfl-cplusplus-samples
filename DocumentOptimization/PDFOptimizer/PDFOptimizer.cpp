@@ -4,12 +4,9 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample:  PDFOptimizer - Demonstrates use of Datalogics' PDFOptimizer feature
-//
-// Steps:
-// 1) Open an input PDF
-// 2) Create a Path object for the output file name and optimize
-// 3) Shut down
+// This sample program demonstrates the use of the PDFOptimizer feature offered with the
+// Adobe PDF Library. This effectively compresses a PDF document to make it smaller and
+// thus faster and easier to download and open.
 //
 // Command-line:  <input-file>   <output-file>    (Both optional)
 //

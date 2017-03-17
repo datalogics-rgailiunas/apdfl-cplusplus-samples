@@ -4,19 +4,7 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: FlattenAnnotations - Demonstrates flattening annotations.
-//
-// Note:
-// This sample merges the appearance (AP) dictionaries of all annotations on the page 
-// (if they have AP dictionaries) into the page's content stream, by converting them 
-// into Form XObjects.
-// See chapter 12.5.5 in the ISO 32000 document, "Appearance Streams", on page 387, for
-// more information about annotation appearances.
-//
-// Steps:
-// 1) Convert each Annotation's appearance stream, if it has one, into a Form 
-//    XObject and remove the annotation.
-// 2) Save and close.
+// This sample demonstrates flattening annotations within a PDF document.
 //
 // Command-line:  <input-file>  <output-file>       (Both optional)
 //

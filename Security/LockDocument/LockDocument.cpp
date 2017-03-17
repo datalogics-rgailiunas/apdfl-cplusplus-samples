@@ -4,13 +4,7 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: LockDocument - Makes the input document read-only.
-//
-// Steps: 
-// 1) Open the document, and create new security data for 
-//    it which will disallow all editing permissions.
-// 2) Set the new security data into the document.
-// 3) Save and close the document.
+// The LockDocument sample program makes a PDF input document read-only.
 //
 // Command-line:    <input-file>  <output-file>     (Both optional)
 //
