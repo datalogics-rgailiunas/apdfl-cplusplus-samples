@@ -4,21 +4,12 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: ExtractText - Extracts Unicode and ASCII text from PDF documents
+// This sample extracts Unicode and ASCII text from two PDF input documents and saves the
+// content to a text file and to a PDF output document.
 //
-// This sample will extract text from two separate PDF documents.  The program demonstrates 
-// APDFL's ability to handle ASCII and unicode text extraction.
+// Command-line:    <input-pdf>  <output-name>       (Both optional)
 //
-//Steps:
-// 1) Initialize the PDWordFinder class and related objects we will
-//    need to draw the ASCII text to the output PDF file.
-// 2) Iterate through each word of the input document and draw
-//    each new line of text to the output document.
-// 3) Open the second document and extract Unicode therefrom, writing itto a text file.
-//
-// Command-line: <input-file-1> <input-file-2> <output-file-1> <output-file-2>
-//
-// For more detail see the description of the ExtractText sample program on our Developer’s site, 
+// For more detail see the description of the ExtractText sample program on our Developerâ€™s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#extracttext
 
 #include <iostream>
@@ -124,8 +115,9 @@ DURING
             PDWordGetASText(nextWord, 0, nextWordASText);
 
             // NOTE:  Uncomment this paragraph to print the text to the screen as well
-            // This will print the text in UTF-16BE or in PDFDocEncoding; it may not output correctly in the console. 
-            //    It will be correct in the output document, however.
+            // This will print the text in UTF-16BE or in PDFDocEncoding; it may not output correctly on the console. 
+            // It will be correct in the output document, however.
+            //
             // ASInt32 wordLen = 0;                                                                     
             // char* consoleMessage = ASTextGetPDTextCopy(nextWordASText, &wordLen);
             // std::cout << consoleMessage;

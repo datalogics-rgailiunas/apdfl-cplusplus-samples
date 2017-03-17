@@ -4,11 +4,7 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: Create Document - Creates a new document and inserts pages.
-//	
-// Steps:
-// 1) Create the document and add pages.
-// 2) Save the document and release resources.
+// This sample creates a new PDF document and inserts pages.
 //
 // Command-line:  <output-file>   <number-of-pages>    (Both optional)
 //

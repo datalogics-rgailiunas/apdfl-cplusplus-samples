@@ -4,17 +4,11 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// Sample: ExtractAttachments - Extracts from the specified input file all
-//         Annotation-embedded attachments on the first page, and all nametree 
-//         attachments in the file as individual files in the current directory.
+// This sample extracts from a PDF input document all of the embedded attachments 
+// found on the first page, and all attachments in the nametree. 
 //
-// Steps:
-//  1) Iterate through the annotations on page 0 and extract embedded files 
-//  2) Iterate through the nametree to extract embedded files 
-//
-// Command-line:  <input-file>  <prefix>    (Both are optional)
-//     Note: To save the attachments with no prefix, type "" (two quotation marks)
-//           for the second command-line argument.
+// To run the program from the command line, enter the input file name and prefix. Both are optional.
+// To save the attachments with no prefix, type "" (two quotation marks) for the second command-line argument.
 //
 // For more detail see the description of the ExtractAttachments sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#extractattachments

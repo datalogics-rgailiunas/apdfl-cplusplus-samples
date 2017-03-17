@@ -2,15 +2,8 @@
 //
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-//==============================================================================
-// Sample: XPStoPDF - Demonstrates the XPS2PDF plugin, which converts a
-//             PDF document into an XPS document.
+// This sample demonstrates the XPS2PDF plugin, which converts a PDF document into an XPS document.
 //
-// Steps:
-// 1) Load and configure settings for the plugin.
-// 2) Convert the input XPS document.
-// 3) Save the new PDF document and release resources.
-//==============================================================================
 // For more detail see the description of the XPStoPDF sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#xpstopdf
 
