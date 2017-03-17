@@ -1,77 +1,23 @@
 /*--------------------------------------------------------------------------------
 ** Copyright (c) 2014, Datalogics, Inc. All rights reserved. 
-**
-** This is a sample PDF Viewer application. It is intended to show the 
-** "best practices" in building a viewer application, not to be a final form viewer. 
-** It does not include all of the verification and error handling that would be 
-** required of a roboust viewer product. This was done in order to more clearly 
-** show the Windows and APDFL interfaces needed to construct a viewer. Any code 
-** not strictly needed to show the interfaces to Windows and APDFL to support
-** the viewer function has been omitted!
-**
-** This sample uses ASDouble throughout to refer to page positions or matrices. 
-** This should be done, since there are many documents in the field that do not
-** restrict Matrices or Sizes to the ASFixed limitations of earlier versions of 
-** PDF. APDFL 10.0 and later will, internally, treat all such as ASDouble values.
-**
-** This sample uses the drawing interface PDPageDrawContentsToWindowWithParams(),
-** contained in the DLExtras.h header file, as this is the only "draw to a window"
-** interface that currently permits the external specification of a page to 
-** rendering matrix as floating point values.
-**
-** The overall scheme for creating this sample is to render the entire page to 
-** an offscreen DC, then use window level bitmap commands to display portions of
-** that offscreen rendering on screen, as needed. This allows for a very rapid 
-** response to scrolling and rotation. It also allows a "placeholder" image to 
-** be displayed when the page is scaled, while the new rendering is being prepared. 
-** To that end, renderings are prepared on a seperate thread.
-**
-** The rendering thread is conceived as a repeating renderer. That is, it opens
-** and closes APDFL and the Document only once per document, but can render any
-** number of pages, in any number of Page To Render matrices without restarting.
-** We need to create a new rendering ONLY if the page scale changes. 
-**
-** This approach breaks down if the page is too large, or scaled too large, as 
-** an Off Screen DC is limited to a 2GB image or smaller. However, for normal
-** sized pages, in normal scaling amounts, this approach yields a very fast
-** viewer. This sample clamps the scale factor at the size which requires about
-** a 1.8GB bitmap. For larger images or scaling factors, the page would have to
-** be banded or tiled. Note that many extant computers will not perform well with
-** multiple gigbtyes of bitmap being held. It is also possible to appear to create
-** higher scale factors by stretching the offscreen rendering to the screen. This
-** is done for a preview image while rendering occurs, but can also be done to extend
-** the scaling range. However, such images will tend to have ragged edges when
-** displayed, so we did not implement that feature here.
-**
-** IMPORTANT: This application is constructed on Microsoft's MFC, as a multiple
-** document viewer application. However, the common controls, (Rotation, Scale,
-** And Page Select) are not saved and restored between views, so it should be
-** used as a Single Document viewer.
-**
-** The user interface is fairly simple, but comprehensive.
-**
-** The first pull down is page orientation, and may be set to the values defined
-** in the list only, (4 orientations, and 90 degree increments)
-**
-** The second pull down is scaling. It may be set the values specified in the list only.
-**
-** The third is a list of pages in the document. Pages may be selected in any order.
-**
-** There are keyboard accelerators to select Next Page, (Down Arrow or Page Down key),
-** Previous Page (Up Arrow or Page Up key), First Page (Home key) and Last Page (End key).
-**
-** The mouse may be used to position, scale, or rotate the page. 
-**   Left Button Down and Drag will "Drag" the page around the viewport. 
-**   Right Button Press will position the page so the portion of the page pointed
-**      too by the cursor is centered in the viewport.
-**   Ctrl-Left Button Down will scale the page to to twice its current size, centering
-**      the page on the point where the cursor lay.
-**   Ctrl-Right Button Down will scale the page to 1/2 its current size, again centered
-**      on the cursor.
-**   Shift-Left Button will rotate the page counterclockwise 90 degrees.
-**   Shift-Right Button will rotate the page clockwise 90 degrees.
-
-*/
+//
+// For complete copyright information, refer to:
+// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
+//
+// PDFViewer is an application to use to open and view PDF documents in Windows environments,
+// intended to serve as a model that you can use to build your own viewing tool. As such
+// PDFViewer is a simple utility, though it will quickly open and display PDF documents
+// with standard page and file sizes.
+//
+// The user interface provided with PDFViewer allows you to set the page orientation and
+// scaling, and to select the page in the document to display. You can also page through
+// the document using arrows or the Home key to return to the first page or the End key
+// to go to the last page, and you can use the mouse to position pages or change the page
+// scaling or rotation.
+//
+// For more detail see the description of the PDFViewer sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#pdfviewer
+//
 
 #include "PDFViewer.h"      /* Definitions for this application. 
                             ** This includes the APDFL Library interfaces,
@@ -106,7 +52,7 @@ CPDFViewerApp::CPDFViewerApp()
 }
 
 /* This is the initialization for the Viewer Instance. 
-** We will create the windows structure here, and open the APDFL library
+** This creates the Windows structure here, and open the Adobe PDF Library
 */
 BOOL CPDFViewerApp::InitInstance ()
 {
@@ -138,11 +84,11 @@ BOOL CPDFViewerApp::InitInstance ()
     /*  Initialize the PDF library
     **  Point resources to appropriate directories
     **
-    ** NOTE: The resources as set here presume that this 
-    ** application will run with a current working directroy set
-    ** to a sample in the samples directory. Hence all paths are 
-    ** relative from the samples directory to the resources installed
-    ** with APDFL, and with the samples.
+    ** NOTE: The resources set here assumes that this application
+    ** runs using the samples directory as the current working 
+    ** directory. Hence all paths are relative from the samples 
+    ** directory to the resources installed with APDFL, and with 
+    ** the samples.
     **
     */
 
@@ -155,7 +101,7 @@ BOOL CPDFViewerApp::InitInstance ()
     ASUTF16Val  *Colors[3];
     Colors[0] = (ASUTF16Val *)L"..\\..\\Resource\\Color";
 
-    /* Where windows keeps color profiles */
+    /* Where Windows keeps color profiles */
     Colors[1] = (ASUTF16Val *)malloc (256 * sizeof (ASUTF16Val));
     GetSystemDirectory ((LPWSTR)Colors[1], 256);
     wcscat_s ((wchar_t *)Colors[1], 256, L"\\spool\\drivers\\color");
@@ -165,7 +111,7 @@ BOOL CPDFViewerApp::InitInstance ()
     Plugins[0] = (ASUTF16Val *)L"..\\..\\..\\Binaries";
 
     /* Construct the APDFL Initialization record. 
-    **  NOTE: we are not using a local memory manager
+    **  NOTE: PDFViewer does not use a local memory manager
     */
     PDFLDataRec  pdflData;
     memset (&pdflData, 0, sizeof(PDFLDataRec));
@@ -179,7 +125,7 @@ BOOL CPDFViewerApp::InitInstance ()
     pdflData.colorProfileDirList = Colors;
     pdflData.colorProfileDirListLen = 2;
 
-    /* Initialize the library
+    /* Initialize the Library
     */
     if (PDFLInitHFT (&pdflData) != 0)
         return false;
@@ -187,7 +133,7 @@ BOOL CPDFViewerApp::InitInstance ()
     APDFLInitialized = TRUE;
 
     /* Set up APDFL parameters to keep throughout the application's lifetime
-    ** Typically these will be options to set up a more pleasant document appearance.
+    ** Typically these options govern how the document appears.
     */
 
     return TRUE;
@@ -238,7 +184,7 @@ void CPDFViewerApp::OnAppAbout ()
 
 
 /* This is the definition of the primary window displayed for PDFViewer.
-** It contains a tool bar and a window to display individual documents
+** It contains a tool bar and a window to display individual documents.
 */
 IMPLEMENT_DYNAMIC (CMainFrame, CMDIFrameWnd)
 
@@ -260,7 +206,7 @@ int CMainFrame::OnCreate( LPCREATESTRUCT lpCreateStruct)
     if (CMDIFrameWnd::OnCreate (lpCreateStruct) == -1)
         return -1;
 
-    /* Create and Display the Toolbar */
+    /* Create and Display the toolbar */
     if (!Toolbar.CreateEx (this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_TOP
                                 | CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC) ||
                                 !Toolbar.LoadToolBar(IDI_ICON1))
@@ -273,7 +219,7 @@ int CMainFrame::OnCreate( LPCREATESTRUCT lpCreateStruct)
     int nIndex = Toolbar.GetToolBarCtrl ().CommandToIndex (ID_PAGE_ROTATE);
     Toolbar.SetButtonInfo (nIndex, ID_PAGE_ROTATE, TBBS_SEPARATOR, 205);
     
-    /* Position it on the tool bar, with its right edge aligned to the
+    /* Position it on the toolbar, with its right edge aligned to the
     ** "button" for rotation
     ** Increase its width and depth to allow for the orientation names
     */
@@ -313,7 +259,7 @@ int CMainFrame::OnCreate( LPCREATESTRUCT lpCreateStruct)
     }
 
     /* Provide a list of standard scalings. 
-    ** NOTE: The edit box may be used to specify a non standard
+    ** NOTE: The edit box may be used to specify a non-standard
     ** scale factor.
     */
     SelectScaleList.AddString (L"0.25");
@@ -348,7 +294,7 @@ int CMainFrame::OnCreate( LPCREATESTRUCT lpCreateStruct)
     }
 
     /* The user may enter a page number in the edit box. 
-    ** The list of pages will be updated at document open
+    ** The list of pages will be updated when the document is opened.
     */
     SelectPageList.AddString (L"1");
     SelectPageList.SetCurSel (0);
@@ -383,7 +329,7 @@ CDocumentFrame::CDocumentFrame (){}
 CDocumentFrame::~CDocumentFrame (){}
 
 
-/* Definition of A PDF document, displayed in a window */
+/* Definition of a PDF document, displayed in a window */
 IMPLEMENT_DYNCREATE (CPDFViewerDoc, CDocument)
 
 BEGIN_MESSAGE_MAP (CPDFViewerDoc, CDocument)
@@ -475,7 +421,7 @@ void CPDFViewerDoc::OnFileClose ()
     OnCloseDocument ();
 }
 
-/* This is the PDFViewerView. The actual display within the Document Window
+/* This is the PDFViewerView, the actual display within the Document Window
 */
 
 IMPLEMENT_DYNCREATE (CPDFViewerView, CScrollView)
@@ -512,7 +458,10 @@ CPDFViewerView::CPDFViewerView()
     OldScreenDC = NULL;
 
     /* Create mutexes to synch drawing to a DC
-    ** in a separate thread
+    ** in a separate thread.
+	** 
+	** A mutex is a program object that allows more than one program thread
+	** to share a resource, such as a file access, but not at the same time. 
     */
     RenderThreadReady = CreateMutex(NULL,false,NULL);
     DrawNextBitmap = CreateMutex(NULL,false,NULL);
@@ -521,14 +470,14 @@ CPDFViewerView::CPDFViewerView()
     /* Take ownership of "DrawNextBitmap"
     **
     ** This will stop the render thread from rendering a page
-    ** until we release it.
+    ** until it is released.
     */
     WaitForSingleObject(DrawNextBitmap,INFINITE);
 
     /*
-    ** We cannot start the thread to render pages here, as
-    ** we do not yet have a connection to the PDFViewerDocument.
-    ** So we will do that in OnInitialUpdate
+    ** The program cannot start the thread to render pages here, as
+    ** it does not yet have a connection to the PDFViewerDocument.
+    ** So the program will do that in OnInitialUpdate.
     **
     ** In fact, much of the initialization has to wait for
     ** that connection, and is done in Initial Update
@@ -586,10 +535,10 @@ CPDFViewerView::~CPDFViewerView()
 /* This draw method will use a single thread, started at View creation, to 
 ** draw to the off screen DC. 
 ** 
-** We will keep a block of information, shared with that thread, that will allow user to 
+** The PDFViewer keeps a block of information, shared with that thread, that will allow a user to 
 ** specify page and matrix. A pair of mutexes will be used to start and note the end of
-** rendering. Note that we also need to notify the main thread when we have completed the
-** APDFL init, and open document. Otherwise we can get a call to render before we are ready for it.
+** rendering. Note that the program also needs to notify the main thread when it has completed the
+** APDFL initialization, and open document. Otherwise the Viewer might get a call to render before it is ready.
 */
 
 DWORD WINAPI RenderToDCViaThreadRepeatedly (void *clientData)
@@ -599,7 +548,7 @@ DWORD WINAPI RenderToDCViaThreadRepeatedly (void *clientData)
 
     /* Initialize the library in a second thread
     **
-    ** We do not need to set up locations of resources. 
+    ** No need to set up locations of resources. 
     ** These will be found via the primary thread
     */
     PDFLDataRec    initData;
@@ -617,20 +566,20 @@ DWORD WINAPI RenderToDCViaThreadRepeatedly (void *clientData)
     ASUns32 PageNumber = 0;
     PDPage page = NULL;
 
-    /* The  main thread must sleep until this mutex becomes 
+    /* The main thread must sleep until this mutex becomes 
     ** unavailable. 
     */
     WaitForSingleObject (threadData->ReadyMutex, INFINITE);
 
     while (1)
     {
-        /* Wait for the mainthread to say I should render a page
+        /* Wait for the main thread to say to render a page
         */
         WaitForSingleObject(threadData->StartMutex,INFINITE);
         ReleaseMutex (threadData->StartMutex);
 
         /* Main thread, before starting a new page rendering, 
-        ** should wait for this mutex to clear. it will be owned 
+        ** should wait for this mutex to clear. It will be owned 
         ** by the render thread until the rendering is complete. 
         **
         ** The main thread may wait on this mutex, to assure a 
@@ -644,7 +593,7 @@ DWORD WINAPI RenderToDCViaThreadRepeatedly (void *clientData)
         if (threadData->Done)
             break;
 
-        /* If we don't already have it, 
+        /* If not already in place, 
         ** Acquire the page to render
         */
         if ((!page) || (PageNumber != threadData->Page))
@@ -741,7 +690,7 @@ DWORD WINAPI RenderToDCViaThreadRepeatedly (void *clientData)
 ** until the render is complete before drawing from the rendering, to the screen, via BitBlt. 
 **
 ** When the user scrolls, we will display the existing image, using either BitBlt, if the 
-** rendering is complete or StretchBlt if it is not. We will start a new rendering ONLY when 
+** rendering is complete, or StretchBlt if it is not. We will start a new rendering ONLY when 
 ** the page scale changes. If the page is rotated, we will rotate the existing image, and 
 ** continue to display that. If neither changes, we will simply display a different portion
 ** of the existing image using BitBlt.
@@ -753,7 +702,7 @@ void CPDFViewerView::OnDraw (CDC* pDC)
     */
     SetFocus();
 
-    /* What portion of the document can we view */
+    /* What portion of the document can be viewed */
     RECT viewSize;
     GetClientRect (&viewSize);
     ASInt32 hSize = viewSize.right;
@@ -778,7 +727,7 @@ void CPDFViewerView::OnDraw (CDC* pDC)
     ** or OldScreenDC. This depends on wheter a newly scaled image is being prepared. 
     ** If one is, we will rotate the image in OldScreenDC, and continue to use it, If
     ** one is not, we will simply rotate the image OffScreenDC. We accomplish rotation
-    ** by simply rotating the image data. We will not rerender for rotation. However, the 
+    ** by simply rotating the image data. We will not render again for rotation. But the 
     ** next rendering due to a scale change will be rendered at the current rotation.
     */
 
@@ -838,12 +787,12 @@ void CPDFViewerView::OnDraw (CDC* pDC)
                 HBITMAP Bitmap = (HBITMAP)GetCurrentObject (workingDC, OBJ_BITMAP);
 
                 /* Rotate the image. The rotated image will be put into the 
-                ** desired DC. It may or may not be in the same Bitmap
+                ** desired DC. It may or may not be in the same Bitmap.
                 */
                 RotateDC (workingDC, Bitmap, Rotation - OldRotation, workingWide, workingDeep);
 
                 /* Get the bitmap after it is rotated
-                ** and get it's sizes
+                ** and get the sizes
                 */
                 Bitmap = (HBITMAP)GetCurrentObject (workingDC, OBJ_BITMAP);
                 BITMAP  bitmapHeader;
@@ -924,7 +873,7 @@ void CPDFViewerView::OnDraw (CDC* pDC)
     else
     {
         /* If this is the first time that we are displaying a given page, 
-        ** create an off screen rendering of the entire page, in the given 
+        ** create an off-screen rendering of the entire page, in the given 
         ** scale and rotation
         */
         OffScreenDC = CreateCompatibleDC (GetDC()->m_hDC);
@@ -1011,11 +960,11 @@ void CPDFViewerView::OnDraw (CDC* pDC)
     **
     ** If we draw the entire screen to gray before we place the image over it, 
     ** we get a "flickering" image when the view size is large, and we drag
-    ** the image around. So just draw the (up to) 4 gray bars as they are needed
+    ** the image around. So just draw the (up to) four gray bars as they are needed.
     **
     ** Note also: If we do not do this, whether to gray or white, then if the page is
-    ** smaller than the view, we will not repaint areas of the view. This can cause "interesting"
-    ** effects.
+    ** smaller than the view, we will not repaint areas of the view. This can cause
+    ** problems with the appearance of a page.
     */
     if (leftIndent)
     {
@@ -1064,7 +1013,7 @@ void CPDFViewerView::OnDraw (CDC* pDC)
             /* Wait for the new rendering to complete */
 //            WaitForSingleObject (NextBitmapComplete, INFINITE);
             /* The draw to bitmap will call OnDraw when it completes. So we 
-            ** Do not need to wait for it
+            ** do not need to wait for it.
             */
             return;
     }
@@ -1286,7 +1235,7 @@ void CPDFViewerView::SetPage (ASUns32 page)
     CurrentPage = page;
 
     /* If this is from a keyboard shortcut, the
-    ** page selector may not match. Make it match
+    ** page selector may not match. Make it match.
     */
     SelectPageList.SetCurSel(page);
 
@@ -1569,7 +1518,7 @@ void CPDFViewerView::OnLButtonUp (UINT flag, CPoint position)
 
 /* If the right mouse button is pressed, without shift or control,
 ** center the current mouse point to the center of the view
-** (Within the limits of scrolling)
+** (within the limits of scrolling)
 **
 ** If it is pressed with control, scale down by 50%, center on the
 ** mouse, and redraw the screen
@@ -1652,10 +1601,10 @@ void CPDFViewerView::PageToScreen ()
 {
     /* The rotate matrix will take into account the pages
     ** specification that it should be rendered rotated from (The PDRotate
-    ** attribute) the orientation it is defined in, and the users specification
+    ** attribute) the orientation it is defined in, and the user's specification
     ** of how he would like to see the page. It also has to account for
-    ** "mirroring" the page vertically, since windows draws from the 
-    ** upper left, and APDFL Draws from the lower left
+    ** "mirroring" the page vertically, since Windows draws from the 
+    ** upper left, and APDFL draws from the lower left
     **
     ** All of that will be taken into account in this matrix
     */
@@ -1667,7 +1616,7 @@ void CPDFViewerView::PageToScreen ()
     RotateMatrix.d = -1.0;
 
     /* Get the pages description of how it believes it should be 
-    ** rendered to appear "upright".
+    ** rendered to appear "upright"
     **
     ** This is a value between 0 and 270, in 90 degree increments
     */
@@ -1677,7 +1626,7 @@ void CPDFViewerView::PageToScreen ()
         PageRotate = PDPageGetRotate (pDoc->Page);
 
     /* Add to this the user specified rotation. Also
-    ** 0 to 270, in 90 degree increments
+    ** 0 to 270, in 90 degree increments.
     */
     PageRotate += (ASInt32)Rotation;
 
@@ -1747,12 +1696,11 @@ void CPDFViewerView::PageToScreen ()
     ** It detects that we cannot build a Bitmap, and uses the existing 
     ** map, and StretchBlt, to "show" the page at larger scale sizes. 
     **
-    **  However, it seems to be a bit erratic in it's display, so I am leaving this
-    ** "clamp" in place to limit scale size
+    ** This parameter is in place to limit the scale size.
     */
 
     /* Windows will not support a Compatible Bitmap > 2GB in size. So if this is
-    ** going to be greater, then scale it down
+    ** going to be greater, scale it down.
     */
     if (((ASUns64)WindowWide * (ASUns64)WindowDeep * 3) > 0x20000000)
     {
@@ -1768,7 +1716,7 @@ void CPDFViewerView::PageToScreen ()
 ** This MUST be called after the call to 
 ** PageToScreen, to set up the new page metrics.
 ** The supplied matrix must be the value in the 
-** PageToScreenMatrix BEFORE that call
+** PageToScreenMatrix BEFORE that call.
 */
 void CPDFViewerView::TranslateScroll (ASDoubleMatrix *oldMatrix)
 {
@@ -1857,7 +1805,7 @@ void CPDFViewerView::CenterOnMouse (CPoint *point)
     ** NOTE: If this would scroll the image such that some
     ** portion of the view is NOT covered by the image, limit
     ** the motion to keep the entire view covered. This will 
-    ** happen automatically when we request the new scroll position
+    ** happen automatically when we request the new scroll position.
     **
     */
     ScrollToPosition (newScroll);
@@ -1877,11 +1825,11 @@ void CPDFViewerView::CenterOnMouse (CPoint *point)
     curPos.y -= displacement.y;
     SetCursorPos (curPos.x, curPos.y);
 
-    /* Move the mouse point (Which is in 
+    /* Move the mouse point (found in 
     ** window position values) by the same
     ** displacement we moved the cursor. 
     ** Return this value, so it can be passed 
-    ** to the parent windows
+    ** to the parent windows.
     */
     point->x -= displacement.x;
     point->y -= displacement.y;
@@ -1948,8 +1896,8 @@ void CPDFViewerView::RotateDC (HDC dc, HBITMAP bitmap, ASDouble Rotation, ASUns3
     ASUns32 rowWideOut = (((mapWide * sourceInfo.bmiHeader.biBitCount) + 31)/ 32) * 4;
 
     /* The output image will have the same number of pixels as the input image, 
-    ** but width and depth will swap. This, may cause the images to be differently
-    ** sized (Due to row alingment, and the 32 bit alignment required for a windows bitmap).
+    ** but width and depth will swap. This may cause the images to be differently
+    ** sized, because of row alignment, and the 32 bit alignment required for a Windows bitmap.
     */
     sourceInfo.bmiHeader.biSizeImage = rowWideOut * mapDeep;
     ASUns8 *destData = (ASUns8 *)malloc (sourceInfo.bmiHeader.biSizeImage);
@@ -1994,7 +1942,7 @@ void CPDFViewerView::RotateDC (HDC dc, HBITMAP bitmap, ASDouble Rotation, ASUns3
     }
 
     /* If we rotated 180 degrees, we can use the same bitmap. Otherwise, we need to create a 
-    ** new bitmap, with the new orientation
+    ** new bitmap, with the new orientation.
     */
     if (sourceInfo.bmiHeader.biHeight == mapDeep)
         SetDIBits (dc, bitmap, 0, sourceInfo.bmiHeader.biHeight, destData, &sourceInfo, DIB_RGB_COLORS);
