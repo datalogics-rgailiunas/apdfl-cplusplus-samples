@@ -4,11 +4,11 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// This sample extracts standard information from a PDF documenet and saves it to an output text file. 
+// This sample extracts standard information from a PDF document and saves it to an output text file. 
 //
 // Command-line:  <input-file> <output-file>     (Both optional)
 //
-// For more detail see the description of the ExtractDocumentInfo sample program on our Developer’s site, 
+// For more detail see the description of the ExtractDocumentInfo sample program on our Developerâ€™s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#extractdocumentinfo
 //
 
