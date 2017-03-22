@@ -47,9 +47,7 @@ int main(int argc, char** argv)
 
 DURING
 
-    APDFLDoc doc ( csInputFileName.c_str(), true);
-
-// Step 1) Initialize the PDFLattener plugin.
+    // Initialize the PDFLattener plugin.
 
     //Sets the correct location for the PDFlattener function table.
     gPDFlattenerHFT = InitPDFlattenerHFT;    
@@ -62,7 +60,11 @@ DURING
 
     if ( 0 == errCode )
     {
-// Step 2) Configure the PDFlattener parameters.
+
+    // Step 1) Open the input pdf
+    APDFLDoc doc(csInputFileName.c_str(), true);
+    
+    // Step 2) Configure the PDFlattener parameters.
 
     memset(&flattenParams,0,sizeof (PDFlattenerUserParamsRec));
     flattenParams.size = sizeof(PDFlattenerUserParamsRec);

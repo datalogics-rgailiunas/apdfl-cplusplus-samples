@@ -195,7 +195,7 @@
     <ClCompile Include="..\..\..\Include\Source\PDFLInitHFT.c" />
     <ClCompile Include="..\..\_Common\InitializeLibrary.cpp" />
     <ClCompile Include="..\..\_Common\APDFLDoc.cpp" />
-    <ClCompile Include="Separations.cpp" />
+    <ClCompile Include="CreateSeparations.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

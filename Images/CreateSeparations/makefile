@@ -1,5 +1,5 @@
 SAMPNAME = $(shell basename `pwd`)
 
-OTHER_OBJS=Separations.o
+OTHER_OBJS=CreateSeparations.o
 
 include ../../dlutils/common.mak

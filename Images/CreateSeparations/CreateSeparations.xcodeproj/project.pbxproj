@@ -12,7 +12,7 @@
 		2E21C06F1C8DD3FD00018A6D /* APDFLDoc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E21C06B1C8DD3FD00018A6D /* APDFLDoc.h */; };
 		2E21C0701C8DD3FD00018A6D /* InitializeLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E21C06C1C8DD3FD00018A6D /* InitializeLibrary.cpp */; };
 		2E21C0711C8DD3FD00018A6D /* InitializeLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E21C06D1C8DD3FD00018A6D /* InitializeLibrary.h */; };
-		2E21C0841C8DD7DE00018A6D /* Separations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E21C0831C8DD7DE00018A6D /* Separations.cpp */; };
+		2E21C0841C8DD7DE00018A6D /* CreateSeparations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E21C0831C8DD7DE00018A6D /* CreateSeparations.cpp */; };
 		335725340C9B40490095FC3D /* DL150ACE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252A0C9B40480095FC3D /* DL150ACE.framework */; };
 		335725350C9B40490095FC3D /* DL150AGM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252B0C9B40480095FC3D /* DL150AGM.framework */; };
 		335725360C9B40490095FC3D /* DL150ARE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252C0C9B40480095FC3D /* DL150ARE.framework */; };
@@ -192,7 +192,7 @@
 		2E21C06B1C8DD3FD00018A6D /* APDFLDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APDFLDoc.h; path = ../../_Common/APDFLDoc.h; sourceTree = "<group>"; };
 		2E21C06C1C8DD3FD00018A6D /* InitializeLibrary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InitializeLibrary.cpp; path = ../../_Common/InitializeLibrary.cpp; sourceTree = "<group>"; };
 		2E21C06D1C8DD3FD00018A6D /* InitializeLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InitializeLibrary.h; path = ../../_Common/InitializeLibrary.h; sourceTree = "<group>"; };
-		2E21C0831C8DD7DE00018A6D /* Separations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Separations.cpp; sourceTree = "<group>"; };
+		2E21C0831C8DD7DE00018A6D /* CreateSeparations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CreateSeparations.cpp; sourceTree = "<group>"; };
 		3357252A0C9B40480095FC3D /* DL150ACE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150ACE.framework; path = ../../../Binaries/DL150ACE.framework; sourceTree = SOURCE_ROOT; };
 		3357252B0C9B40480095FC3D /* DL150AGM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150AGM.framework; path = ../../../Binaries/DL150AGM.framework; sourceTree = SOURCE_ROOT; };
 		3357252C0C9B40480095FC3D /* DL150ARE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150ARE.framework; path = ../../../Binaries/DL150ARE.framework; sourceTree = SOURCE_ROOT; };
@@ -375,7 +375,7 @@
 		20286C2AFDCF999611CA2CEA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				2E21C0831C8DD7DE00018A6D /* Separations.cpp */,
+				2E21C0831C8DD7DE00018A6D /* CreateSeparations.cpp */,
 				2E21C06A1C8DD3FD00018A6D /* APDFLDoc.cpp */,
 				2E21C06B1C8DD3FD00018A6D /* APDFLDoc.h */,
 				2E21C06C1C8DD3FD00018A6D /* InitializeLibrary.cpp */,
@@ -732,7 +732,7 @@
 			files = (
 				BA64AAB20B5829E00026827E /* PDFLInitHFT.c in Sources */,
 				2E21C06E1C8DD3FD00018A6D /* APDFLDoc.cpp in Sources */,
-				2E21C0841C8DD7DE00018A6D /* Separations.cpp in Sources */,
+				2E21C0841C8DD7DE00018A6D /* CreateSeparations.cpp in Sources */,
 				2E21C0701C8DD3FD00018A6D /* InitializeLibrary.cpp in Sources */,
 				BAB910C30B582A3000C283C9 /* PDFLInitCommon.c in Sources */,
 			);
