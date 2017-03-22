@@ -89,7 +89,7 @@ REM *************************************************
 REM *** Initialize environment variables, enable delayed expansion.
 SETLOCAL EnableDelayedExpansion  
 REM *** Filename of All project.
-SET ALL_DL_SLN=All_Datalogics.sln
+SET ALL_DL_SLN=All_Datalogics_32Bit.sln
 
 REM ************* Initialize variables which track our progress ******************
 REM *** The number of samples that failed to build.
@@ -129,6 +129,7 @@ IF /i "%1"=="-noRun" (
 )
 
 IF /i "%1"=="-64-bit" (
+	SET ALL_DL_SLN=All_Datalogics_64Bit.sln
 	SET ARCH=x64
 )
 SHIFT
