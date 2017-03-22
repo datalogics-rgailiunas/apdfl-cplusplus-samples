@@ -2,7 +2,6 @@
 
 # User-specific files
 *.suo
-*.user
 *.filters
 *.exe
 *.lnk
