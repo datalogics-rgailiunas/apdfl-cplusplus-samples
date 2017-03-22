@@ -3,7 +3,7 @@
 //
 // For complete copyright information, see:
 // http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
-// File: Separations.h
+// File: CreateSeparations.h
 // 
 
 // This structure represents one single plate of the separation.

@@ -28,7 +28,7 @@
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
 
-#include "Separations.h"
+#include "CreateSeparations.h"
 
 // Resolution of image desired for plates.  Process plates will be 4 times this resolution.
 #define RESOLUTION (300.0)
