@@ -20,7 +20,7 @@
 #include "PDFlattenerCalls.h"
 
 #define DIR_LOC "../../../../Resources/Sample_Input/"
-#define DEF_INPUT "FlattenTranspareaaaancy.pdf"
+#define DEF_INPUT "FlattenTransparency.pdf"
 #define DEF_OUTPUT "FlattenTransparency-out.pdf"
 
 //ASBool callback function: A function for PDFlattener which monitors the flattener's progress.
