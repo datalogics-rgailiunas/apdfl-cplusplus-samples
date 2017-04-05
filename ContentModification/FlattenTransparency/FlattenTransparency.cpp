@@ -20,7 +20,7 @@
 #include "PDFlattenerCalls.h"
 
 #define DIR_LOC "../../../../Resources/Sample_Input/"
-#define DEF_INPUT "FlattenTransparency.pdf"
+#define DEF_INPUT "FlattenTranspareaaaancy.pdf"
 #define DEF_OUTPUT "FlattenTransparency-out.pdf"
 
 //ASBool callback function: A function for PDFlattener which monitors the flattener's progress.
@@ -60,12 +60,8 @@ DURING
 
     if ( 0 == errCode )
     {
-
-    // Step 1) Open the input pdf
-    APDFLDoc doc(csInputFileName.c_str(), true);
     
-    // Step 2) Configure the PDFlattener parameters.
-
+// Step 1) Configure the PDFlattener parameters.
     memset(&flattenParams,0,sizeof (PDFlattenerUserParamsRec));
     flattenParams.size = sizeof(PDFlattenerUserParamsRec);
 
@@ -119,6 +115,9 @@ DURING
 
     flattenParams.flattenParams = &flattener;
 
+// Step 2) Open the input pdf
+    APDFLDoc doc(csInputFileName.c_str(), true);
+
 // Step 3) Call the PDFlattener.
 
     ASUns32 numFlattened = 0;
@@ -157,7 +156,8 @@ DURING
 HANDLER
     errCode = ERRORCODE;
     libInit.displayError(errCode);
-    ASTextDestroy(flattenParams.profileDesc);
+    if(flattenParams.profileDesc != NULL)
+        ASTextDestroy(flattenParams.profileDesc);
     PDFlattenerTerminate();
 END_HANDLER
 
