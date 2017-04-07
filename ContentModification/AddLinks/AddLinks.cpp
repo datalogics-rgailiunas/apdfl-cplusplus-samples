@@ -90,7 +90,7 @@ DURING
     //Using the file specification key "F" set up the file input path
     CosDictPut ( fileLinkDict, 
                  ASAtomFromString("F"), 
-                 CosNewString(inputDocCosDoc, false, "../_Input/DOCXLink.docx", strlen("../_Input/DOCXLink.docx")));
+                 CosNewString(inputDocCosDoc, false, "../../../../Resources/Sample_Input/DOCXLink.docx", strlen("../../../../Resources/Sample_Input/DOCXLink.docx")));
 
     //Using the name key "S" set the type to a Launch for opening the file
     CosDictPut ( fileLinkDict, 
