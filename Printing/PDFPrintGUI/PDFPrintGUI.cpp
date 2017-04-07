@@ -16,7 +16,7 @@
 int main(int argc, char **argv)
 {
     //Paths to input and output documents.
-    wchar_t* inPath = L"../_Input/printpdf.pdf";
+    wchar_t* inPath = L"../../../../Resources/Sample_Input/printpdf.pdf";
 
     APDFLib lib;                                      // Initialize the Adobe PDF Library
     ASErrorCode errCode = 0;                          // This will catch error codes thrown during library usage
