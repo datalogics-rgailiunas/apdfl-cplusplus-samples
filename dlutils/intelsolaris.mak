@@ -1,5 +1,5 @@
-CC = /usr/bin/gcc
-CXX = /usr/bin/g++
+CC = /usr/gcc/4.8/bin/gcc
+CXX = /usr/gcc/4.8/bin/g++
 
 ifeq ($(STAGE), debug)
     DEBUG=-DDEBUG -D_DEBUG
