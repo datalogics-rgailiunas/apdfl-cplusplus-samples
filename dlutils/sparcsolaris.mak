@@ -24,8 +24,8 @@ LIBS = -lDL150pdfl -lDL150CoolType -lDL150AGM -lDL150BIB -lDL150ACE -lDL150ARE \
 	   -licucnv -licudata -lpthread -lsocket -lnsl -lc -lm
 
 else  # 32-bit w/ gcc
-CC = /usr/bin/gcc
-CXX = /usr/bin/g++
+CC = /usr/gcc/4.8/bin/gcc
+CXX = /usr/gcc/4.8/bin/g++
 CCFLAGS  = -g $(PDF_FDIR_DEF) -DUNIX_PLATFORM=1 -DUNIX_ENV=1 $(DEBUG) -DPRODUCT=\"HFTLibrary.h\" -DPLATFORM=\"UnixPlatform.h\" -D_REENTRANT -Wno-multichar
 CCFLAGS += -DPDFL_SDK_SAMPLE -DPI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6 -DTOOLKIT
 CXXFLAGS = $(CCFLAGS)
