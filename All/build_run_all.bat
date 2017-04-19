@@ -150,8 +150,6 @@ ECHO #Building Datalogics samples...
 devenv %ALL_DL_SLN% /rebuild "%STAGE%|%ARCH%"
 ECHO.
 
-IF %ERRORLEVEL% NEQ 0 GOTO End
-
 REM *************************************************
 REM *** 3) Decide which samples to run.
 REM *************************************************
