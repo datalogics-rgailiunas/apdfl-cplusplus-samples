@@ -1,5 +1,6 @@
 /*--------------------------------------------------------------------------------
 ** Copyright (c) 2014, Datalogics, Inc. All rights reserved. 
+*/
 //
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
