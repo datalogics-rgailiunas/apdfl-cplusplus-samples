@@ -23,7 +23,7 @@
 #define DEF_INPUT "RenderPage.pdf"
 #define DEF_OUTPUT "RenderPage-out.pdf"
 
-#define RESOLUTION  150.0         // Other common choices might be 72.0, 150.0, 200.0, 300.0, or 600.0  
+#define RESOLUTION  300.0         // Other common choices might be 72.0, 150.0, 200.0, 300.0, or 600.0
 #define COLORSPACE  "DeviceRGB"   // Typically this, DeviceGray or DeviceCMYK
 #define FILTER      "FlateDecode" // Could also be ASCIIHexDecode, LZWDecode, DCTDecode
 #define BPC         8             // This must be 8 for DeviceRGB and DeviceCYMK, 
