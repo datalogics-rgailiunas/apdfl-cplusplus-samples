@@ -31,6 +31,7 @@ SAMPLES = Annotations/CreateAnnotations \
           ContentModification/ImportPages \
           ContentModification/AddWatermark \
           ContentModification/EmbedFonts \
+          Display/DisplayPDEContent \
           DocumentOptimization/WebOptimizedPDF \
           DocumentConversion/ConvertPDFtoEPS \
           DocumentConversion/ConvertPDFtoPostscript \
