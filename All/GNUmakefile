@@ -34,6 +34,8 @@ SAMPLES = Annotations/CreateAnnotations \
           Display/DisplayPDEContent \
           DocumentOptimization/WebOptimizedPDF \
           DocumentConversion/ConvertPDFtoEPS \
+          DocumentConversion/ConvertToPDFA \
+          DocumentConversion/ConvertToPDFX \
           DocumentConversion/ConvertPDFtoPostscript \
           FileSystem/AlternateFileSystem \
           Images/AddThumbnailsToPDF \
