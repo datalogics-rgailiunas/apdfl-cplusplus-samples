@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F1B7F67C-A923-41D7-9C99-0AF318DF2198}</ProjectGuid>
+    <ProjectGuid>{A51E0247-F7EF-4C7E-96B7-F50752C73D81}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BlankSample</RootNamespace>
     <ProjectName>ConvertToPDFX</ProjectName>

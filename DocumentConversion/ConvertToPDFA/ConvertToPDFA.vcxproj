@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F1B7F67C-A923-41D7-9C99-0AF318DF2198}</ProjectGuid>
+    <ProjectGuid>{99CD8B64-8362-4089-A610-D878CD422581}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BlankSample</RootNamespace>
     <ProjectName>ConvertToPDFA</ProjectName>
