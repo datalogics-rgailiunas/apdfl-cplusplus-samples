@@ -1,0 +1,364 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2E21C0651C8DD3BB00018A6D /* PDFLPrecompile.pch in Headers */ = {isa = PBXBuildFile; fileRef = 2E21C0641C8DD3BB00018A6D /* PDFLPrecompile.pch */; };
+		2E21C0691C8DD3D500018A6D /* ConvertToPDFA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E21C0681C8DD3D500018A6D /* ConvertToPDFA.cpp */; };
+		2E21C06E1C8DD3FD00018A6D /* APDFLDoc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E21C06A1C8DD3FD00018A6D /* APDFLDoc.cpp */; };
+		2E21C06F1C8DD3FD00018A6D /* APDFLDoc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E21C06B1C8DD3FD00018A6D /* APDFLDoc.h */; };
+		2E21C0701C8DD3FD00018A6D /* InitializeLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E21C06C1C8DD3FD00018A6D /* InitializeLibrary.cpp */; };
+		2E21C0711C8DD3FD00018A6D /* InitializeLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E21C06D1C8DD3FD00018A6D /* InitializeLibrary.h */; };
+		335725340C9B40490095FC3D /* DL150ACE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252A0C9B40480095FC3D /* DL150ACE.framework */; };
+		335725350C9B40490095FC3D /* DL150AGM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252B0C9B40480095FC3D /* DL150AGM.framework */; };
+		335725360C9B40490095FC3D /* DL150ARE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252C0C9B40480095FC3D /* DL150ARE.framework */; };
+		335725370C9B40490095FC3D /* DL150AXE8SharedExpat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252D0C9B40480095FC3D /* DL150AXE8SharedExpat.framework */; };
+		335725380C9B40490095FC3D /* DL150BIB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252E0C9B40480095FC3D /* DL150BIB.framework */; };
+		335725390C9B40490095FC3D /* DL150BIBUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252F0C9B40480095FC3D /* DL150BIBUtils.framework */; };
+		3357253A0C9B40490095FC3D /* DL150CoolType.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 335725300C9B40480095FC3D /* DL150CoolType.framework */; };
+		3357253C0C9B40490095FC3D /* DL150PDFL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 335725320C9B40480095FC3D /* DL150PDFL.framework */; };
+		335725480C9B40500095FC3D /* DL150ACE.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3357252A0C9B40480095FC3D /* DL150ACE.framework */; };
+		335725490C9B40500095FC3D /* DL150AGM.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3357252B0C9B40480095FC3D /* DL150AGM.framework */; };
+		3357254A0C9B40500095FC3D /* DL150ARE.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3357252C0C9B40480095FC3D /* DL150ARE.framework */; };
+		3357254B0C9B40500095FC3D /* DL150AXE8SharedExpat.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3357252D0C9B40480095FC3D /* DL150AXE8SharedExpat.framework */; };
+		3357254C0C9B40500095FC3D /* DL150BIB.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3357252E0C9B40480095FC3D /* DL150BIB.framework */; };
+		3357254D0C9B40500095FC3D /* DL150BIBUtils.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3357252F0C9B40480095FC3D /* DL150BIBUtils.framework */; };
+		3357254E0C9B40500095FC3D /* DL150CoolType.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 335725300C9B40480095FC3D /* DL150CoolType.framework */; };
+		335725500C9B40500095FC3D /* DL150PDFL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 335725320C9B40480095FC3D /* DL150PDFL.framework */; };
+		3E56134E0F8BF3B10094B7E7 /* DL150JP2KLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E56134D0F8BF3B10094B7E7 /* DL150JP2KLib.framework */; };
+		3E5613510F8BF3B90094B7E7 /* DL150AdobeXMP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5613500F8BF3B90094B7E7 /* DL150AdobeXMP.framework */; };
+		3E5613540F8BF3C70094B7E7 /* ICUConverter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5613530F8BF3C70094B7E7 /* ICUConverter.framework */; };
+		3E5613570F8BF3CC0094B7E7 /* ICUData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5613560F8BF3CC0094B7E7 /* ICUData.framework */; };
+		3E5613590F8BF3D60094B7E7 /* DL150JP2KLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E56134D0F8BF3B10094B7E7 /* DL150JP2KLib.framework */; };
+		3E56135A0F8BF3DA0094B7E7 /* DL150AdobeXMP.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613500F8BF3B90094B7E7 /* DL150AdobeXMP.framework */; };
+		3E56135B0F8BF3DD0094B7E7 /* ICUConverter.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613530F8BF3C70094B7E7 /* ICUConverter.framework */; };
+		3E56135C0F8BF3E30094B7E7 /* ICUData.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613560F8BF3CC0094B7E7 /* ICUData.framework */; };
+		8D0C4E920486CD37000505A6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Foundation.framework */; };
+		BA2E45960888421A0081FD28 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2E45950888421A0081FD28 /* ApplicationServices.framework */; };
+		BA568C160A47467400825A50 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA568C150A47467400825A50 /* CoreServices.framework */; };
+		BA64AAB20B5829E00026827E /* PDFLInitHFT.c in Sources */ = {isa = PBXBuildFile; fileRef = BA64AAB10B5829E00026827E /* PDFLInitHFT.c */; };
+		BAB910C30B582A3000C283C9 /* PDFLInitCommon.c in Sources */ = {isa = PBXBuildFile; fileRef = BAB910C20B582A3000C283C9 /* PDFLInitCommon.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BAD19408088F1C5600DCC249 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				335725480C9B40500095FC3D /* DL150ACE.framework in CopyFiles */,
+				335725490C9B40500095FC3D /* DL150AGM.framework in CopyFiles */,
+				3357254A0C9B40500095FC3D /* DL150ARE.framework in CopyFiles */,
+				3357254B0C9B40500095FC3D /* DL150AXE8SharedExpat.framework in CopyFiles */,
+				3357254C0C9B40500095FC3D /* DL150BIB.framework in CopyFiles */,
+				3357254D0C9B40500095FC3D /* DL150BIBUtils.framework in CopyFiles */,
+				3357254E0C9B40500095FC3D /* DL150CoolType.framework in CopyFiles */,
+				3E5613590F8BF3D60094B7E7 /* DL150JP2KLib.framework in CopyFiles */,
+				3E56135A0F8BF3DA0094B7E7 /* DL150AdobeXMP.framework in CopyFiles */,
+				335725500C9B40500095FC3D /* DL150PDFL.framework in CopyFiles */,
+				3E56135B0F8BF3DD0094B7E7 /* ICUConverter.framework in CopyFiles */,
+				3E56135C0F8BF3E30094B7E7 /* ICUData.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		20286C33FDCF999611CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		2E21C0611C8DD3AE00018A6D /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Common.xcconfig; path = ../../dlutils/MacSDKConfigurations/Common.xcconfig; sourceTree = "<group>"; };
+		2E21C0621C8DD3AE00018A6D /* Project_debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Project_debug.xcconfig; path = ../../dlutils/MacSDKConfigurations/Project_debug.xcconfig; sourceTree = "<group>"; };
+		2E21C0631C8DD3AE00018A6D /* Project_release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Project_release.xcconfig; path = ../../dlutils/MacSDKConfigurations/Project_release.xcconfig; sourceTree = "<group>"; };
+		2E21C0641C8DD3BB00018A6D /* PDFLPrecompile.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDFLPrecompile.pch; path = ../../dlutils/PDFLPrecompile.pch; sourceTree = "<group>"; };
+		2E21C0661C8DD3CC00018A6D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../dlutils/Info.plist; sourceTree = "<group>"; };
+		2E21C0671C8DD3CC00018A6D /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = ../../dlutils/InfoPlist.strings; sourceTree = "<group>"; };
+		2E21C0681C8DD3D500018A6D /* ConvertToPDFA.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConvertToPDFA.cpp; sourceTree = "<group>"; };
+		2E21C06A1C8DD3FD00018A6D /* APDFLDoc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = APDFLDoc.cpp; path = ../../_Common/APDFLDoc.cpp; sourceTree = "<group>"; };
+		2E21C06B1C8DD3FD00018A6D /* APDFLDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APDFLDoc.h; path = ../../_Common/APDFLDoc.h; sourceTree = "<group>"; };
+		2E21C06C1C8DD3FD00018A6D /* InitializeLibrary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InitializeLibrary.cpp; path = ../../_Common/InitializeLibrary.cpp; sourceTree = "<group>"; };
+		2E21C06D1C8DD3FD00018A6D /* InitializeLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InitializeLibrary.h; path = ../../_Common/InitializeLibrary.h; sourceTree = "<group>"; };
+		3357252A0C9B40480095FC3D /* DL150ACE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150ACE.framework; path = ../../../Binaries/DL150ACE.framework; sourceTree = SOURCE_ROOT; };
+		3357252B0C9B40480095FC3D /* DL150AGM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150AGM.framework; path = ../../../Binaries/DL150AGM.framework; sourceTree = SOURCE_ROOT; };
+		3357252C0C9B40480095FC3D /* DL150ARE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150ARE.framework; path = ../../../Binaries/DL150ARE.framework; sourceTree = SOURCE_ROOT; };
+		3357252D0C9B40480095FC3D /* DL150AXE8SharedExpat.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150AXE8SharedExpat.framework; path = ../../../Binaries/DL150AXE8SharedExpat.framework; sourceTree = SOURCE_ROOT; };
+		3357252E0C9B40480095FC3D /* DL150BIB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150BIB.framework; path = ../../../Binaries/DL150BIB.framework; sourceTree = SOURCE_ROOT; };
+		3357252F0C9B40480095FC3D /* DL150BIBUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150BIBUtils.framework; path = ../../../Binaries/DL150BIBUtils.framework; sourceTree = SOURCE_ROOT; };
+		335725300C9B40480095FC3D /* DL150CoolType.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150CoolType.framework; path = ../../../Binaries/DL150CoolType.framework; sourceTree = SOURCE_ROOT; };
+		335725320C9B40480095FC3D /* DL150PDFL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150PDFL.framework; path = ../../../Binaries/DL150PDFL.framework; sourceTree = SOURCE_ROOT; };
+		3E56134D0F8BF3B10094B7E7 /* DL150JP2KLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150JP2KLib.framework; path = ../../../Binaries/DL150JP2KLib.framework; sourceTree = SOURCE_ROOT; };
+		3E5613500F8BF3B90094B7E7 /* DL150AdobeXMP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150AdobeXMP.framework; path = ../../../Binaries/DL150AdobeXMP.framework; sourceTree = SOURCE_ROOT; };
+		3E5613530F8BF3C70094B7E7 /* ICUConverter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ICUConverter.framework; path = ../../../Binaries/ICUConverter.framework; sourceTree = SOURCE_ROOT; };
+		3E5613560F8BF3CC0094B7E7 /* ICUData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ICUData.framework; path = ../../../Binaries/ICUData.framework; sourceTree = SOURCE_ROOT; };
+		BA2E45950888421A0081FD28 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
+		BA568C150A47467400825A50 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
+		BA64AAB10B5829E00026827E /* PDFLInitHFT.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = PDFLInitHFT.c; path = ../../../Include/Source/PDFLInitHFT.c; sourceTree = SOURCE_ROOT; };
+		BAAFDE0808980F3600470124 /* ConvertToPDFA-Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ConvertToPDFA-Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAB910C20B582A3000C283C9 /* PDFLInitCommon.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = PDFLInitCommon.c; path = ../../../Include/Source/PDFLInitCommon.c; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D0C4E910486CD37000505A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D0C4E920486CD37000505A6 /* Foundation.framework in Frameworks */,
+				BA2E45960888421A0081FD28 /* ApplicationServices.framework in Frameworks */,
+				BA568C160A47467400825A50 /* CoreServices.framework in Frameworks */,
+				335725340C9B40490095FC3D /* DL150ACE.framework in Frameworks */,
+				335725350C9B40490095FC3D /* DL150AGM.framework in Frameworks */,
+				335725360C9B40490095FC3D /* DL150ARE.framework in Frameworks */,
+				335725370C9B40490095FC3D /* DL150AXE8SharedExpat.framework in Frameworks */,
+				335725380C9B40490095FC3D /* DL150BIB.framework in Frameworks */,
+				335725390C9B40490095FC3D /* DL150BIBUtils.framework in Frameworks */,
+				3357253A0C9B40490095FC3D /* DL150CoolType.framework in Frameworks */,
+				3357253C0C9B40490095FC3D /* DL150PDFL.framework in Frameworks */,
+				3E56134E0F8BF3B10094B7E7 /* DL150JP2KLib.framework in Frameworks */,
+				3E5613510F8BF3B90094B7E7 /* DL150AdobeXMP.framework in Frameworks */,
+				3E5613540F8BF3C70094B7E7 /* ICUConverter.framework in Frameworks */,
+				3E5613570F8BF3CC0094B7E7 /* ICUData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		195DF8CFFE9D517E11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BAAFDE0808980F3600470124 /* ConvertToPDFA-Debug.app */,
+			);
+			name = Products;
+			sourceTree = SOURCE_ROOT;
+		};
+		20286C29FDCF999611CA2CEA /* HelowrldX */ = {
+			isa = PBXGroup;
+			children = (
+				BA8E7EB50AD7027C00AD5ADC /* Precompiled Headers */,
+				BA8BFB7D0AC2F69500AF4E32 /* Configurations */,
+				20286C2AFDCF999611CA2CEA /* Sources */,
+				20286C2CFDCF999611CA2CEA /* Resources */,
+				BA7F63E60A53393300BFE059 /* External Frameworks and Libraries */,
+				195DF8CFFE9D517E11CA2CBB /* Products */,
+			);
+			name = HelowrldX;
+			sourceTree = "<group>";
+		};
+		20286C2AFDCF999611CA2CEA /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C06A1C8DD3FD00018A6D /* APDFLDoc.cpp */,
+				2E21C06B1C8DD3FD00018A6D /* APDFLDoc.h */,
+				2E21C06C1C8DD3FD00018A6D /* InitializeLibrary.cpp */,
+				2E21C06D1C8DD3FD00018A6D /* InitializeLibrary.h */,
+				2E21C0681C8DD3D500018A6D /* ConvertToPDFA.cpp */,
+				BAB910C20B582A3000C283C9 /* PDFLInitCommon.c */,
+				BA64AAB10B5829E00026827E /* PDFLInitHFT.c */,
+			);
+			name = Sources;
+			sourceTree = SOURCE_ROOT;
+		};
+		20286C2CFDCF999611CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C0661C8DD3CC00018A6D /* Info.plist */,
+				2E21C0671C8DD3CC00018A6D /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = SOURCE_ROOT;
+		};
+		BA7F63E60A53393300BFE059 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				3357252A0C9B40480095FC3D /* DL150ACE.framework */,
+				3357252B0C9B40480095FC3D /* DL150AGM.framework */,
+				3357252C0C9B40480095FC3D /* DL150ARE.framework */,
+				3357252D0C9B40480095FC3D /* DL150AXE8SharedExpat.framework */,
+				3357252E0C9B40480095FC3D /* DL150BIB.framework */,
+				3357252F0C9B40480095FC3D /* DL150BIBUtils.framework */,
+				335725300C9B40480095FC3D /* DL150CoolType.framework */,
+				3E56134D0F8BF3B10094B7E7 /* DL150JP2KLib.framework */,
+				335725320C9B40480095FC3D /* DL150PDFL.framework */,
+				3E5613500F8BF3B90094B7E7 /* DL150AdobeXMP.framework */,
+				3E5613530F8BF3C70094B7E7 /* ICUConverter.framework */,
+				3E5613560F8BF3CC0094B7E7 /* ICUData.framework */,
+				BA568C150A47467400825A50 /* CoreServices.framework */,
+				20286C33FDCF999611CA2CEA /* Foundation.framework */,
+				BA2E45950888421A0081FD28 /* ApplicationServices.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		BA8BFB7D0AC2F69500AF4E32 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C0611C8DD3AE00018A6D /* Common.xcconfig */,
+				2E21C0621C8DD3AE00018A6D /* Project_debug.xcconfig */,
+				2E21C0631C8DD3AE00018A6D /* Project_release.xcconfig */,
+			);
+			name = Configurations;
+			sourceTree = "<group>";
+		};
+		BA8E7EB50AD7027C00AD5ADC /* Precompiled Headers */ = {
+			isa = PBXGroup;
+			children = (
+				2E21C0641C8DD3BB00018A6D /* PDFLPrecompile.pch */,
+			);
+			name = "Precompiled Headers";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		BA3D8D0B0B652F7E0079A6FB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E21C0711C8DD3FD00018A6D /* InitializeLibrary.h in Headers */,
+				2E21C0651C8DD3BB00018A6D /* PDFLPrecompile.pch in Headers */,
+				2E21C06F1C8DD3FD00018A6D /* APDFLDoc.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8D0C4E890486CD37000505A6 /* ConvertToPDFA */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BACCD184089AA4370006D315 /* Build configuration list for PBXNativeTarget "ConvertToPDFA" */;
+			buildPhases = (
+				BA3D8D0B0B652F7E0079A6FB /* Headers */,
+				8D0C4E8F0486CD37000505A6 /* Sources */,
+				8D0C4E910486CD37000505A6 /* Frameworks */,
+				BAD19408088F1C5600DCC249 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ConvertToPDFA;
+			productInstallPath = "$(HOME)/Applications";
+			productName = HelowrldX;
+			productReference = BAAFDE0808980F3600470124 /* ConvertToPDFA-Debug.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		20286C28FDCF999611CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+			};
+			buildConfigurationList = BACCD188089AA4370006D315 /* Build configuration list for PBXProject "ConvertToPDFA" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 20286C29FDCF999611CA2CEA /* HelowrldX */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D0C4E890486CD37000505A6 /* ConvertToPDFA */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D0C4E8F0486CD37000505A6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA64AAB20B5829E00026827E /* PDFLInitHFT.c in Sources */,
+				2E21C0691C8DD3D500018A6D /* ConvertToPDFA.cpp in Sources */,
+				2E21C06E1C8DD3FD00018A6D /* APDFLDoc.cpp in Sources */,
+				2E21C0701C8DD3FD00018A6D /* InitializeLibrary.cpp in Sources */,
+				BAB910C30B582A3000C283C9 /* PDFLInitCommon.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		9CFF6D980BD675D5001DD019 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E21C0631C8DD3AE00018A6D /* Project_release.xcconfig */;
+			buildSettings = {
+				CLANG_LINK_OBJC_RUNTIME = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../Binaries\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../Binaries\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../Binaries\"";
+			};
+			name = Release;
+		};
+		9CFF6D990BD675D5001DD019 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E21C0631C8DD3AE00018A6D /* Project_release.xcconfig */;
+			buildSettings = {
+				CLANG_LINK_OBJC_RUNTIME = NO;
+			};
+			name = Release;
+		};
+		BACCD187089AA4370006D315 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E21C0621C8DD3AE00018A6D /* Project_debug.xcconfig */;
+			buildSettings = {
+				CLANG_LINK_OBJC_RUNTIME = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../Binaries\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../Binaries\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../Binaries\"";
+			};
+			name = Debug;
+		};
+		BACCD18B089AA4370006D315 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E21C0621C8DD3AE00018A6D /* Project_debug.xcconfig */;
+			buildSettings = {
+				CLANG_LINK_OBJC_RUNTIME = NO;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BACCD184089AA4370006D315 /* Build configuration list for PBXNativeTarget "ConvertToPDFA" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BACCD187089AA4370006D315 /* Debug */,
+				9CFF6D980BD675D5001DD019 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BACCD188089AA4370006D315 /* Build configuration list for PBXProject "ConvertToPDFA" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BACCD18B089AA4370006D315 /* Debug */,
+				9CFF6D990BD675D5001DD019 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 20286C28FDCF999611CA2CEA /* Project object */;
+}

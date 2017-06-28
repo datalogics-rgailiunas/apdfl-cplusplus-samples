@@ -92,6 +92,8 @@ declare -a DL_SAMPLE_LIST=( \
   "ContentModification/EmbedFonts" \
   "DocumentOptimization/PDFOptimizer" \
   "DocumentOptimization/WebOptimizedPDF" \
+  "DocumentConversion/ConvertToPDFA" \
+  "DocumentConversion/ConvertToPDFX" \
   "DocumentConversion/ConvertPDFtoEPS" \
   "DocumentConversion/ConvertPDFtoPostscript" \
   "FileSystem/AlternateFileSystem" \

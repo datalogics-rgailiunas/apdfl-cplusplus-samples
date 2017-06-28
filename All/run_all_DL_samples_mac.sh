@@ -176,6 +176,16 @@ cd ../../DocumentConversion/ConvertPDFtoEPS
 ./ConvertPDFtoEPS-${stage}.app/Contents/MacOS/ConvertPDFtoEPS-${stage}
 echo ""
 
+echo Running sample ConvertToPDFA
+cd ../../DocumentConversion/ConvertToPDFA
+./ConvertToPDFA-${stage}.app/Contents/MacOS/ConvertToPDFA-${stage}
+echo ""
+
+echo Running sample ConvertToPDFX
+cd ../../DocumentConversion/ConvertToPDFX
+./ConvertToPDFX-${stage}.app/Contents/MacOS/ConvertToPDFX-${stage}
+echo ""
+
 echo Running sample ConvertPDFtoPostscript
 cd ../../DocumentConversion/ConvertPDFtoPostscript
 ./ConvertPDFtoPostscript-${stage}.app/Contents/MacOS/ConvertPDFtoPostscript-${stage}
