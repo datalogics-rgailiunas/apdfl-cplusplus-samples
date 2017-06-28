@@ -9,12 +9,13 @@
 // Command-line:  <input-pdf> <convert-option>       (all parameters are optional moving from left to right)
 //        where convert-option is 'PDFX1a2001' or 'PDFX32003'
 //        if no parameters are specified, a pre-selected PDF is input and converted using PDFX1a2001
-//        examples of valid input:
-//        
-//        ConvertToPDFX 
-//        ConvertToPDFX in.pdf
-//        ConvertToPDFX in.pdf PDFX1a2001
-//        ConvertToPDFX in.pdf PDFX32003
+//
+//        For example, you might enter a command line statement that looks like this:
+//
+//        ConvertToPDFX input-file.pdf PDFX32003
+//
+//        This statement provides the name of an input file and specifies the PDF/X-3:2003 format, rather than
+//        the default PDF/X-1a:2001 format.
 // For more detail see the description of the ConvertToPDFX sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#converttopdfx
 

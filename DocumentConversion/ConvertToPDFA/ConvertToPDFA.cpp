@@ -9,12 +9,13 @@
 // Command-line:  <input-pdf> <convert-option> <color-space>      (all parameters are optional moving from left to right)
 //        where convert-option is 'PDF1b' or 'PDF1a' and where color-space is 'rgb' or 'cmyk'
 //        if no parameters are specified, a pre-selected PDF is input and converted using PDFA1bRGB
-//        examples of valid input:
-//        
-//        ConvertToPDFA 
-//        ConvertToPDFA in.pdf
-//        ConvertToPDFA in.pdf PDF1b
-//        ConvertToPDFA in.pdf PDF1b cmyk
+//
+//        For example, you might enter a command line statement that looks like this:
+//
+//        ConvertToPDFA inut-file.pdf PDF1a
+//
+//        This statement provides the name of an input file and specifies the PDF/A-1a format, rather than
+//        the default PDF/A-1b format.
 // For more detail see the description of the ConvertToPDFA sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#converttopdfa
 
