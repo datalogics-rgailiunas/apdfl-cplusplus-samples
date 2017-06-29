@@ -12,7 +12,7 @@
 //
 //        For example, you might enter a command line statement that looks like this:
 //
-//        ConvertToPDFA inut-file.pdf PDF1a
+//        ConvertToPDFA input-file.pdf PDF1a
 //
 //        This statement provides the name of an input file and specifies the PDF/A-1a format, rather than
 //        the default PDF/A-1b format.
