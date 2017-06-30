@@ -108,14 +108,18 @@ DURING
         if (PDEFontIsMultiByte(fontEntry->pdeFont))
         {
             // Subset embed font
-            PDEFontCreateFromSysFont(fontEntry->pdSysFont, kPDEFontCreateEmbedded | kPDEFontCreateSubset);
+            PDEFont pdeFont = PDEFontCreateFromSysFont(fontEntry->pdSysFont, kPDEFontCreateEmbedded | kPDEFontCreateSubset);
             PDEFontSubsetNow(fontEntry->pdeFont, PDDocGetCosDoc(pdDoc));
+
+            PDERelease((PDEObject)pdeFont);
         }
         else
         {
             // Fully embed font
-            PDEFontCreateFromSysFont(fontEntry->pdSysFont, kPDEFontCreateEmbedded);
+            PDEFont pdeFont = PDEFontCreateFromSysFont(fontEntry->pdSysFont, kPDEFontCreateEmbedded);
             PDEFontEmbedNow(fontEntry->pdeFont, PDDocGetCosDoc(pdDoc));
+
+            PDERelease((PDEObject)pdeFont);
         }
     }
     
