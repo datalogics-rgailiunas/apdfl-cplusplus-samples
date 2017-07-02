@@ -108,6 +108,7 @@ DURING
     PDERelease((PDEObject) pdeText);
     PDPageReleasePDEContent(pdPage, NULL);
     PDPageRelease(pdPage);
+    PDERelease((PDEObject)sysEncoding);
 
     // The second page of the document uses a different font,
     // KozMinPr6N-Regular. This is a CIDType2 font, or a glyph ID-based font.
@@ -145,6 +146,7 @@ DURING
     PDPageRelease(pdPage);
     PDERelease((PDEObject)gState.strokeColorSpec.space );
     PDERelease((PDEObject)gState.fillColorSpec.space );
+    PDERelease((PDEObject)sysEncoding);
 
     ASPathName outPath = APDFLDoc::makePath ( csOutputFile.c_str() );
     PDDocSave(pdDoc, PDSaveFull | PDSaveLinearized, outPath, ASGetDefaultFileSys(), NULL, NULL);
