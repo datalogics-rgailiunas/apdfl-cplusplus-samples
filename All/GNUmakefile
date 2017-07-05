@@ -72,7 +72,7 @@ else
 endif
 
 ifeq ($(OS), intelsolaris)
-	SAMPLES += ContentModification/FlattenTransparency
+	SAMPLES += ContentModification/FlattenTransparency  DocumentConversion/ConvertToPDFA  DocumentConversion/ConvertToPDFX
 endif
 
 build_pdfl_samples: 
