@@ -34,8 +34,6 @@ SAMPLES = Annotations/CreateAnnotations \
           Display/DisplayPDEContent \
           DocumentOptimization/WebOptimizedPDF \
           DocumentConversion/ConvertPDFtoEPS \
-          DocumentConversion/ConvertToPDFA \
-          DocumentConversion/ConvertToPDFX \
           DocumentConversion/ConvertPDFtoPostscript \
           FileSystem/AlternateFileSystem \
           Images/AddThumbnailsToPDF \
@@ -62,19 +60,19 @@ SAMPLES = Annotations/CreateAnnotations \
 
 ifeq ($(OS), i80386linux)
 	# SAMPLES += FlattenTransparency XPStoPDF PDFOptimizer
-	SAMPLES += ContentModification/FlattenTransparency  DocumentOptimization/PDFOptimizer
+	SAMPLES += ContentModification/FlattenTransparency  DocumentOptimization/PDFOptimizer  DocumentConversion/ConvertToPDFA  DocumentConversion/ConvertToPDFX
 endif
 
 ifeq ($(OS), sparcsolaris)
     ifneq ($(BUILD_64_BIT), true)
-        SAMPLES +=  ContentModification/FlattenTransparency DocumentConversion/XPStoPDF Images/FindImageResolutions Text/UnicodeText
+        SAMPLES +=  ContentModification/FlattenTransparency DocumentConversion/XPStoPDF Images/FindImageResolutions Text/UnicodeText DocumentConversion/ConvertToPDFA  DocumentConversion/ConvertToPDFX
     endif
 else
     SAMPLES += Images/FindImageResolutions Text/UnicodeText
 endif
 
 ifeq ($(OS), intelsolaris)
-	SAMPLES += ContentModification/FlattenTransparency
+	SAMPLES += ContentModification/FlattenTransparency  DocumentConversion/ConvertToPDFA  DocumentConversion/ConvertToPDFX
 endif
 
 build_pdfl_samples: 
