@@ -121,7 +121,7 @@ DURING
 #if !MAC_ENV
         destFilePath = ASFileSysCreatePathName( NULL, ASAtomFromString("Cstring"), csOutputFileName.c_str(), NULL );
 #else
-        destFilePath = GetMacPath(outputPath);
+        destFilePath = APDFLDoc::makePath ( csOutputFileName.c_str() );
 #endif
 
         // Step 4) Convert the input PDF

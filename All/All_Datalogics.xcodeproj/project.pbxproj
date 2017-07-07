@@ -13,6 +13,8 @@
 			buildPhases = (
 			);
 			dependencies = (
+				7C201C511F0FDBE70026F486 /* PBXTargetDependency */,
+				7C201C531F0FDBE70026F486 /* PBXTargetDependency */,
 				9F6648471E5CE98E00DF496B /* PBXTargetDependency */,
 				9F8422E61E5CAE47001E30FB /* PBXTargetDependency */,
 				9F8422E81E5CAE47001E30FB /* PBXTargetDependency */,
@@ -75,6 +77,20 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXContainerItemProxy section */
+		7C201C501F0FDBE70026F486 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7C658AAE1F0D966900B03491 /* ConvertToPDFX.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = ConvertToPDFX;
+		};
+		7C201C521F0FDBE70026F486 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7CF311A01F0D95CF004CC903 /* ConvertToPDFA.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = ConvertToPDFA;
+		};
 		7C658AB31F0D966900B03491 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7C658AAE1F0D966900B03491 /* ConvertToPDFX.xcodeproj */;
@@ -2101,6 +2117,16 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXTargetDependency section */
+		7C201C511F0FDBE70026F486 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ConvertToPDFX;
+			targetProxy = 7C201C501F0FDBE70026F486 /* PBXContainerItemProxy */;
+		};
+		7C201C531F0FDBE70026F486 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ConvertToPDFA;
+			targetProxy = 7C201C521F0FDBE70026F486 /* PBXContainerItemProxy */;
+		};
 		9F6648471E5CE98E00DF496B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = WebOptimizedPDF;
