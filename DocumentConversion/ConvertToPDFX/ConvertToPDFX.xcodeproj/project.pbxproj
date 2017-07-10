@@ -38,7 +38,7 @@
 		3E56135B0F8BF3DD0094B7E7 /* ICUConverter.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613530F8BF3C70094B7E7 /* ICUConverter.framework */; };
 		3E56135C0F8BF3E30094B7E7 /* ICUData.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613560F8BF3CC0094B7E7 /* ICUData.framework */; };
 		7C0BA80D1F1039AC001195BA /* DL150PDFPort.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C0BA80C1F1039AC001195BA /* DL150PDFPort.framework */; };
-		7C0BA80E1F1039AC001195BA /* DL150PDFPort.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7C0BA80C1F1039AC001195BA /* DL150PDFPort.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7C0BA80E1F1039AC001195BA /* DL150PDFPort.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7C0BA80C1F1039AC001195BA /* DL150PDFPort.framework */; };
 		7C58E1EB1F13D77D00207E06 /* DL150PDFSettings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C58E1EA1F13D77D00207E06 /* DL150PDFSettings.framework */; };
 		7C58E1EC1F13D77D00207E06 /* DL150PDFSettings.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7C58E1EA1F13D77D00207E06 /* DL150PDFSettings.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8D0C4E920486CD37000505A6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Foundation.framework */; };
