@@ -37,8 +37,10 @@
 		3E56135A0F8BF3DA0094B7E7 /* DL150AdobeXMP.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613500F8BF3B90094B7E7 /* DL150AdobeXMP.framework */; };
 		3E56135B0F8BF3DD0094B7E7 /* ICUConverter.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613530F8BF3C70094B7E7 /* ICUConverter.framework */; };
 		3E56135C0F8BF3E30094B7E7 /* ICUData.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613560F8BF3CC0094B7E7 /* ICUData.framework */; };
-		7C0BA8101F103AFF001195BA /* DL150PDFPort.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C0BA80F1F103AFF001195BA /* DL150PDFPort.framework */; };
-		7C0BA8111F103AFF001195BA /* DL150PDFPort.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7C0BA80F1F103AFF001195BA /* DL150PDFPort.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7C58E1E21F13D3FD00207E06 /* DL150PDFPort.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C58E1E11F13D3FD00207E06 /* DL150PDFPort.framework */; };
+		7C58E1E31F13D3FD00207E06 /* DL150PDFPort.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7C58E1E11F13D3FD00207E06 /* DL150PDFPort.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7C58E1E81F13D6AA00207E06 /* DL150PDFSettings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C58E1E71F13D6AA00207E06 /* DL150PDFSettings.framework */; };
+		7C58E1E91F13D6AA00207E06 /* DL150PDFSettings.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7C58E1E71F13D6AA00207E06 /* DL150PDFSettings.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8D0C4E920486CD37000505A6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Foundation.framework */; };
 		BA2E45960888421A0081FD28 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2E45950888421A0081FD28 /* ApplicationServices.framework */; };
 		BA568C160A47467400825A50 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA568C150A47467400825A50 /* CoreServices.framework */; };
@@ -54,13 +56,14 @@
 			dstSubfolderSpec = 10;
 			files = (
 				335725480C9B40500095FC3D /* DL150ACE.framework in CopyFiles */,
+				7C58E1E91F13D6AA00207E06 /* DL150PDFSettings.framework in CopyFiles */,
 				335725490C9B40500095FC3D /* DL150AGM.framework in CopyFiles */,
 				3357254A0C9B40500095FC3D /* DL150ARE.framework in CopyFiles */,
 				3357254B0C9B40500095FC3D /* DL150AXE8SharedExpat.framework in CopyFiles */,
 				3357254C0C9B40500095FC3D /* DL150BIB.framework in CopyFiles */,
 				3357254D0C9B40500095FC3D /* DL150BIBUtils.framework in CopyFiles */,
 				3357254E0C9B40500095FC3D /* DL150CoolType.framework in CopyFiles */,
-				7C0BA8111F103AFF001195BA /* DL150PDFPort.framework in CopyFiles */,
+				7C58E1E31F13D3FD00207E06 /* DL150PDFPort.framework in CopyFiles */,
 				3E5613590F8BF3D60094B7E7 /* DL150JP2KLib.framework in CopyFiles */,
 				3E56135A0F8BF3DA0094B7E7 /* DL150AdobeXMP.framework in CopyFiles */,
 				335725500C9B40500095FC3D /* DL150PDFL.framework in CopyFiles */,
@@ -96,7 +99,9 @@
 		3E5613500F8BF3B90094B7E7 /* DL150AdobeXMP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150AdobeXMP.framework; path = ../../../Binaries/DL150AdobeXMP.framework; sourceTree = SOURCE_ROOT; };
 		3E5613530F8BF3C70094B7E7 /* ICUConverter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ICUConverter.framework; path = ../../../Binaries/ICUConverter.framework; sourceTree = SOURCE_ROOT; };
 		3E5613560F8BF3CC0094B7E7 /* ICUData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ICUData.framework; path = ../../../Binaries/ICUData.framework; sourceTree = SOURCE_ROOT; };
-		7C0BA80F1F103AFF001195BA /* DL150PDFPort.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150PDFPort.framework; path = ../../../../../../../build/mac/Debug/DL150PDFPort.framework; sourceTree = "<group>"; };
+		7C0BA80F1F103AFF001195BA /* DL150PDFPort.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150PDFPort.framework; path = ../../../Binaries/DL150PDFPort.framework; sourceTree = "<group>"; };
+		7C58E1E11F13D3FD00207E06 /* DL150PDFPort.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150PDFPort.framework; path = ../../../Binaries/DL150PDFPort.framework; sourceTree = "<group>"; };
+		7C58E1E71F13D6AA00207E06 /* DL150PDFSettings.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150PDFSettings.framework; path = ../../../Binaries/DL150PDFSettings.framework; sourceTree = "<group>"; };
 		BA2E45950888421A0081FD28 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		BA568C150A47467400825A50 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		BA64AAB10B5829E00026827E /* PDFLInitHFT.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = PDFLInitHFT.c; path = ../../../Include/Source/PDFLInitHFT.c; sourceTree = SOURCE_ROOT; };
@@ -116,9 +121,10 @@
 				335725350C9B40490095FC3D /* DL150AGM.framework in Frameworks */,
 				335725360C9B40490095FC3D /* DL150ARE.framework in Frameworks */,
 				335725370C9B40490095FC3D /* DL150AXE8SharedExpat.framework in Frameworks */,
-				7C0BA8101F103AFF001195BA /* DL150PDFPort.framework in Frameworks */,
+				7C58E1E21F13D3FD00207E06 /* DL150PDFPort.framework in Frameworks */,
 				335725380C9B40490095FC3D /* DL150BIB.framework in Frameworks */,
 				335725390C9B40490095FC3D /* DL150BIBUtils.framework in Frameworks */,
+				7C58E1E81F13D6AA00207E06 /* DL150PDFSettings.framework in Frameworks */,
 				3357253A0C9B40490095FC3D /* DL150CoolType.framework in Frameworks */,
 				3357253C0C9B40490095FC3D /* DL150PDFL.framework in Frameworks */,
 				3E56134E0F8BF3B10094B7E7 /* DL150JP2KLib.framework in Frameworks */,
@@ -142,6 +148,8 @@
 		20286C29FDCF999611CA2CEA /* HelowrldX */ = {
 			isa = PBXGroup;
 			children = (
+				7C58E1E71F13D6AA00207E06 /* DL150PDFSettings.framework */,
+				7C58E1E11F13D3FD00207E06 /* DL150PDFPort.framework */,
 				7C0BA80F1F103AFF001195BA /* DL150PDFPort.framework */,
 				BA8E7EB50AD7027C00AD5ADC /* Precompiled Headers */,
 				BA8BFB7D0AC2F69500AF4E32 /* Configurations */,
