@@ -20,7 +20,7 @@
 #include "APDFLDoc.h"
 #include "InitializeLibrary.h"
 
-#define INPUT_LOC "../_Input/"
+#define INPUT_LOC "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "AddTriangularRedaction.pdf"
 #define DEF_OUTPUT "AddTriangularRedaction-out.pdf"
 
@@ -96,7 +96,7 @@ int main(int argc, char** argv)
         
         // Second quad represents triangle covering bottom right of page
 
-        topLeft.h = pageWidth / 2 + stripWidth / 2; // Calculate center of triangle's hypotenuse for 
+        topLeft.h = pageWidth / 2 + stripWidth / 2;     // Calculate center of triangle's hypotenuse for 
         topLeft.v = pageHeight / 2 - stripWidth / 2;    //   top left coordinate of second quad
         quad.tl = topLeft;                              // Set second quad's top left coordinate
 
