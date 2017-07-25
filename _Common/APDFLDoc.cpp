@@ -50,19 +50,17 @@ APDFLDoc::APDFLDoc(wchar_t * nameOfDocument, bool repairDamagedFile)
 //==============================================================================================================================
 // Common constructor stuff.  Introduced to allow char* overload for constructor with minimal code rewriting
 //==============================================================================================================================
-void APDFLDoc::CommonConstruct(wchar_t* nameOfDocument, bool repairDamagedFile )
+void APDFLDoc::CommonConstruct(wchar_t* docName, bool repairDamagedFile )
 {
     initialize();                                                        
-    if (NULL == nameOfDocument)
+    if (NULL == docName)
     {
         return;
     }
 
-    wcscpy(this->nameOfDocument, nameOfDocument);                        //Set the nameOfDocument data member.
-
     DURING
         
-        setASPathName(this->nameOfDocument);                             //Set the ASPathName data member.
+        setASPathName(nameOfDocument);                             //Set the ASPathName data member.
 
         pdDoc = PDDocOpen(asPathName, NULL, NULL, repairDamagedFile);    //Open the PDF document.
 
@@ -82,15 +80,15 @@ void APDFLDoc::CommonConstruct(wchar_t* nameOfDocument, bool repairDamagedFile )
 // Constructor - This overload accepts an ordinary c-string for the file name
 //==============================================================================================================================
 
-APDFLDoc::APDFLDoc(const char * nameOfDocument, bool repairDamagedFile)
+APDFLDoc::APDFLDoc(const char * docName, bool repairDamagedFile)
 {
-    if ( nameOfDocument )
+    if ( docName )
     {
-        const size_t cSize = strlen(nameOfDocument) + 1;
+        const size_t cSize = strlen(docName) + 1;
         wchar_t* wc = new wchar_t[cSize];
         if ( wc )
         {
-            mbstowcs ( wc, nameOfDocument, cSize );
+            mbstowcs ( wc, docName, cSize );
         }
         CommonConstruct ( wc, repairDamagedFile );
         if ( wc )
@@ -190,7 +188,7 @@ ASErrorCode APDFLDoc::setASPathName(wchar_t * pathToCreate)
 {
     //Check to make sure there is room for path before copy
     if (wcslen(pathToCreate) <= MAX_PATH_LENGTH)
-        wcscpy(this->nameOfDocument, pathToCreate);
+        wcscpy(nameOfDocument, pathToCreate);
     else
     {
         std::wcerr << L"Failed to create path, please check length of path name." << std::endl;
@@ -203,7 +201,7 @@ ASErrorCode APDFLDoc::setASPathName(wchar_t * pathToCreate)
 
         //Determine size of wchar_t on system and get the ASText
         if (sizeof(wchar_t) == 2)
-            textToCreatePath = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*> (nameOfDocument), kUTF16HostEndian);
+            textToCreatePath = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(nameOfDocument), kUTF16HostEndian);
         else
             textToCreatePath = ASTextFromUnicode(reinterpret_cast<ASUTF16Val*>(nameOfDocument), kUTF32HostEndian);
 
