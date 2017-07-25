@@ -41,9 +41,9 @@ APDFLDoc::APDFLDoc()
 // and the bool repairDamagedFile determines whether to repair (true) or not (false) a damaged file.
 //==============================================================================================================================
 
-APDFLDoc::APDFLDoc(wchar_t * nameOfDocument, bool repairDamagedFile)
+APDFLDoc::APDFLDoc(wchar_t * docName, bool repairDamagedFile)
 {
-    CommonConstruct ( nameOfDocument, repairDamagedFile );
+    CommonConstruct ( docName, repairDamagedFile );
 }
 
 
@@ -60,7 +60,7 @@ void APDFLDoc::CommonConstruct(wchar_t* docName, bool repairDamagedFile )
 
     DURING
         
-        setASPathName(nameOfDocument);                             //Set the ASPathName data member.
+        setASPathName(docName);                             //Set the ASPathName data member.
 
         pdDoc = PDDocOpen(asPathName, NULL, NULL, repairDamagedFile);    //Open the PDF document.
 
