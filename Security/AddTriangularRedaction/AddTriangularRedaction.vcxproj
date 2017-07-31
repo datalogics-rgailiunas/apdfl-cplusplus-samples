@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{CB9E6C09-C2F2-4639-A66A-A930B706980C}</ProjectGuid>
+    <ProjectGuid>{7DCC48B1-285D-4653-99AD-B707BEBBCB1C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BlankSample</RootNamespace>
     <ProjectName>AddTriangularRedaction</ProjectName>
