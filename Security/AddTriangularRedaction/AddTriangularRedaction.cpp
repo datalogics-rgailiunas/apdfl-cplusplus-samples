@@ -6,11 +6,13 @@
 //
 // The AddTriangularRedaction sample redacts each page of a document with
 // two full-page triangles, leaving only a narrow diagonal strip across each page. 
-// Text found within the triangular shapes is removed from the document, and white
+// Text found within the triangular shapes is removed from the document, and gray
 // redaction triangles are added.
 //
 // Command-line:  <input-file> <output-file>    (Both optional)
 //
+// For more detail see the description of the AddTriangleRedaction sample program on our Developer’s site,
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples/#addtriangularredaction
 
 
 #include <iostream>
@@ -52,13 +54,13 @@ int main(int argc, char** argv)
     // Iterate through each page in the PDDoc
     for (ASInt32 pageNum = 0; pageNum < (PDDocGetNumPages(document.getPDDoc())); ++pageNum)
     {
-        PDPage pdPage = document.getPage(pageNum);      // Get current page
+        PDPage pdPage = document.getPage(pageNum);          // Get current page
         ASFixedRect bounds;
-        PDPageGetCropBox(pdPage, &bounds);              // Get crop box of page
+        PDPageGetCropBox(pdPage, &bounds);                  // Get crop box of page
 
-        ASFixed pageWidth = bounds.right;               // Get page width
-        ASFixed pageHeight = bounds.top;                // Get page height
-        ASFixed stripWidth = ASFloatToFixed(75);        // Set distance between triangles
+        ASFixed pageWidth = bounds.right - bounds.left;     // Get page width
+        ASFixed pageHeight = bounds.top - bounds.bottom;    // Get page height
+        ASFixed stripWidth = fixedSeventyTwo + fixedThree;  // Set distance between triangles
 
         std::wcout << L"Page " << pageNum << std::endl;
 
@@ -72,47 +74,51 @@ int main(int argc, char** argv)
         // First quad represents triangle covering top left of page
 
         ASFixedPoint topLeft;
-        topLeft.h = FloatToASFixed(0);
-        topLeft.v = pageHeight;
-        quad.br = topLeft;                              // Set first quad's top left coordinate
+        topLeft.h = bounds.left;
+        topLeft.v = bounds.bottom + pageHeight;
+        quad.br = topLeft;                                  // Set first quad's top left coordinate
 
         ASFixedPoint topRight;
-        topRight.h = pageWidth - stripWidth;            // Include offset for space between triangles
-        topRight.v = pageHeight;
-        quad.tr = topRight;                             // Set first quad's top right coordinate
+        topRight.h = bounds.left + pageWidth - stripWidth;  // Include offset for space between triangles
+        topRight.v = bounds.bottom + pageHeight;
+        quad.tr = topRight;                                 // Set first quad's top right coordinate
 
         ASFixedPoint bottomRight;
-        bottomRight.h = pageWidth / 2 - stripWidth / 2; // Calculate center of triangle's hypotenuse for 
-        bottomRight.v = pageHeight / 2 + stripWidth / 2;//   bottom right coordinate of first quad
-        quad.tl = bottomRight;                          // Set first quad's bottom right coordinate
+        bottomRight.h = bounds.left +
+            ASFixedMul(pageWidth - stripWidth, fixedHalf);  // Calculate center of triangle's hypotenuse for 
+        bottomRight.v = bounds.bottom +
+            ASFixedMul(pageHeight + stripWidth, fixedHalf); //   bottom right coordinate of first quad
+        quad.tl = bottomRight;                              // Set first quad's bottom right coordinate
 
         ASFixedPoint bottomLeft;
-        bottomLeft.h = FloatToASFixed(0);
-        bottomLeft.v = stripWidth;
-        quad.bl = bottomLeft;                           // Set first quad's bottom left coordinate
+        bottomLeft.h = bounds.bottom;
+        bottomLeft.v = bounds.left + stripWidth;
+        quad.bl = bottomLeft;                               // Set first quad's bottom left coordinate
 
-        quadVector.push_back(quad);                     // Store first quad in vector
+        quadVector.push_back(quad);                         // Store first quad in vector
 
 
         // Second quad represents triangle covering bottom right of page
 
-        topLeft.h = pageWidth / 2 + stripWidth / 2;     // Calculate center of triangle's hypotenuse for 
-        topLeft.v = pageHeight / 2 - stripWidth / 2;    //   top left coordinate of second quad
-        quad.tl = topLeft;                              // Set second quad's top left coordinate
+        topLeft.h = bounds.left +
+            ASFixedMul(pageWidth + stripWidth, fixedHalf);  // Calculate center of triangle's hypotenuse for 
+        topLeft.v = bounds.bottom +
+            ASFixedMul(pageHeight - stripWidth, fixedHalf); //   top left coordinate of second quad
+        quad.tl = topLeft;                                  // Set second quad's top left coordinate
 
-        topRight.h = pageWidth;
-        topRight.v = pageHeight - stripWidth;
-        quad.tr = topRight;                             // Set second quad's top right coordinate
+        topRight.h = bounds.left + pageWidth;
+        topRight.v = bounds.bottom + pageHeight - stripWidth;
+        quad.tr = topRight;                                 // Set second quad's top right coordinate
 
-        bottomRight.h = pageWidth;
-        bottomRight.v = FloatToASFixed(0);
-        quad.br = bottomRight;                          // Set second quad's bottom right coordinate
+        bottomRight.h = bounds.left + pageWidth;
+        bottomRight.v = bounds.bottom;
+        quad.br = bottomRight;                              // Set second quad's bottom right coordinate
 
-        bottomLeft.h = stripWidth;
-        bottomLeft.v = FloatToASFixed(0);
-        quad.bl = bottomLeft;                           // Set second quad's bottom left coordinate
+        bottomLeft.h = bounds.left + stripWidth;
+        bottomLeft.v = bounds.bottom;
+        quad.bl = bottomLeft;                               // Set second quad's bottom left coordinate
 
-        quadVector.push_back(quad);                     // Store second quad in vector
+        quadVector.push_back(quad);                         // Store second quad in vector
 
 
         // Step 3) Create and apply the redactions. The redaction configurations are set, the 
@@ -130,9 +136,9 @@ int main(int argc, char** argv)
         redactParams->numQuads = quadVector.size();             // Number of entries in the vector or array
         redactParams->colorVal = &cvRec;
         redactParams->colorVal->space = PDDeviceRGB;            // Set device color space to RGB
-        redactParams->colorVal->value[0] = FloatToASFixed(1.0); // The redaction box will be set to white
-        redactParams->colorVal->value[1] = FloatToASFixed(1.0);
-        redactParams->colorVal->value[2] = FloatToASFixed(1.0);
+        redactParams->colorVal->value[0] = fixedHalf;           // The redaction box will be set to 50% gray
+        redactParams->colorVal->value[1] = fixedHalf;
+        redactParams->colorVal->value[2] = fixedHalf;
         redactParams->horizAlign = kPDHorizLeft;                // Horizontal alignment of the text when generating the redaction mark
         redactParams->overlayText = NULL;                       // Overlay text may be used to replace the underlying content
 
