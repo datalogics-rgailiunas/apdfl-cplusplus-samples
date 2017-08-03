@@ -11,7 +11,7 @@
 //
 // Command-line:  <input-file> <output-file>    (Both optional)
 //
-// For more detail see the description of the AddTriangleRedaction sample program on our Developer’s site,
+// For more detail see the description of the AddTriangularRedaction sample program on our Developer’s site,
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples/#addtriangularredaction
 
 
@@ -76,7 +76,7 @@ int main(int argc, char** argv)
         ASFixedPoint topLeft;
         topLeft.h = bounds.left;
         topLeft.v = bounds.bottom + pageHeight;
-        quad.br = topLeft;                                  // Set first quad's top left coordinate
+        quad.tl = topLeft;                                  // Set first quad's top left coordinate
 
         ASFixedPoint topRight;
         topRight.h = bounds.left + pageWidth - stripWidth;  // Include offset for space between triangles
@@ -88,11 +88,11 @@ int main(int argc, char** argv)
             ASFixedMul(pageWidth - stripWidth, fixedHalf);  // Calculate center of triangle's hypotenuse for 
         bottomRight.v = bounds.bottom +
             ASFixedMul(pageHeight + stripWidth, fixedHalf); //   bottom right coordinate of first quad
-        quad.tl = bottomRight;                              // Set first quad's bottom right coordinate
+        quad.br = bottomRight;                              // Set first quad's bottom right coordinate
 
         ASFixedPoint bottomLeft;
-        bottomLeft.h = bounds.bottom;
-        bottomLeft.v = bounds.left + stripWidth;
+        bottomLeft.h = bounds.left;
+        bottomLeft.v = bounds.bottom + stripWidth;
         quad.bl = bottomLeft;                               // Set first quad's bottom left coordinate
 
         quadVector.push_back(quad);                         // Store first quad in vector
