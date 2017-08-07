@@ -47,6 +47,7 @@ SAMPLES = Annotations/CreateAnnotations \
           Security/AESEncryption \
           Security/AddPassword \
           Security/AddRedaction \
+          Security/AddTriangularRedaction \
           Security/EncryptDocument \
           Security/LockDocument \
           Security/SetUniquePermissions \
