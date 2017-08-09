@@ -85,6 +85,13 @@ void EmbedSysFontForFontEntry(struct _t_pdfUsedFont *fontEntry, PDDoc pdDoc)
 {
 DURING
     fontEntry->pdeFont = PDEFontCreateFromCosObj(&(fontEntry->fontCosObj) );
+
+    // If there is a Cmap, acquire it
+    PDEFontAttrs attrs;
+    memset (&attrs, 0, sizeof (attrs));
+    PDEFontGetAttrs (fontEntry->pdeFont, &attrs, sizeof (attrs));
+    PDSysEncoding sysEnc = PDSysEncodingCreateFromCMapName (attrs.encoding);
+
     fontEntry->pdSysFont = PDFindSysFontForPDEFont(fontEntry->pdeFont, kPDSysFontMatchNameAndCharSet);
 
     // If the font is not found on the system, sysFont will be 0.
@@ -96,9 +103,10 @@ DURING
      
     PDEFontSetSysFont(fontEntry->pdeFont, fontEntry->pdSysFont);
 
-    PDEFontAttrs attrs;
-    memset(&attrs, 0, sizeof(attrs));
-    PDSysFontGetAttrs(fontEntry->pdSysFont, &attrs, sizeof(PDEFontAttrs));
+    // If there was a Cmap, set it as the sysencoding
+    if (sysEnc)
+        PDEFontSetSysEncoding (fontEntry->pdeFont, sysEnc);
+
     if (attrs.cantEmbed != 0)
     {
         std::cout << "Font " <<  ASAtomGetString(attrs.name) << " cannot be embedded" << std::endl;
@@ -108,7 +116,11 @@ DURING
         if (PDEFontIsMultiByte(fontEntry->pdeFont))
         {
             // Subset embed font
-            PDEFont pdeFont = PDEFontCreateFromSysFont(fontEntry->pdSysFont, kPDEFontCreateEmbedded | kPDEFontCreateSubset);
+            PDEFont pdeFont;
+            if (sysEnc)
+                pdeFont = PDEFontCreateFromSysFontAndEncoding (fontEntry->pdSysFont, sysEnc, attrs.name, kPDEFontCreateEmbedded | kPDEFontCreateSubset);
+            else
+                pdeFont = PDEFontCreateFromSysFont(fontEntry->pdSysFont, kPDEFontCreateEmbedded | kPDEFontCreateSubset);
             PDEFontSubsetNow(fontEntry->pdeFont, PDDocGetCosDoc(pdDoc));
 
             PDERelease((PDEObject)pdeFont);
@@ -122,6 +134,9 @@ DURING
             PDERelease((PDEObject)pdeFont);
         }
     }
+
+    if (sysEnc)
+        PDERelease ((PDEObject)sysEnc);
     
 HANDLER
     APDFLib::displayError(ERRORCODE);
