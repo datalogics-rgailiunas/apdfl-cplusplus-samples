@@ -134,6 +134,9 @@ DURING
             PDERelease((PDEObject)pdeFont);
         }
     }
+
+    if (sysEnc)
+        PDERelease ((PDEObject)sysEnc);
     
 HANDLER
     APDFLib::displayError(ERRORCODE);
