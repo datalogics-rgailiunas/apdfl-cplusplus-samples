@@ -48,6 +48,7 @@ private:
 
     PDEImageAttrs       SetImageAttrs(ASFixedRect scaledDestRect, ASInt32 bpc);
     PDEFilterArray      SetFilter(const char *filterName);
+    PDEFilterArray      SetDCTFilterParams(CosDoc cosDoc);
     ASFixedMatrix       SetImageMatrix(PDEImageAttrs attrs, float resolution);
     ASFixedMatrix       SetScaleMatrix(float resolution);
     ASFixedRect         SetPageRect(ASFixedRect	destRect);
@@ -67,6 +68,6 @@ public:
 
     char*               GetImageBuffer();
     ASInt32             GetImageBufferSize();
-    PDEImage            MakePDEImage();
+    PDEImage            MakePDEImage(PDDoc outDoc);
     ASFixedRect         GetImageRect();
 };
