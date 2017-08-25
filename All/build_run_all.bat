@@ -26,7 +26,6 @@ REM ***
 REM ***   ARGUMENT      EFFECT
 REM ***   -noRun        Don't run the samples, just build them.
 REM ***   -release      Build Release configuration instead of Debug configuration.
-REM ***   -64-bit       Build the 64-bit version instead of 32-bit version.
 REM ***
 REM *** Steps:
 REM *** 1) Initialize.
@@ -89,7 +88,15 @@ REM *************************************************
 REM *** Initialize environment variables, enable delayed expansion.
 SETLOCAL EnableDelayedExpansion  
 REM *** Filename of All project.
-SET ALL_DL_SLN=All_Datalogics_32Bit.sln
+IF EXIST "All_Datalogics_32Bit.sln" (
+  REM Do a 32-bit build
+  SET ALL_DL_SLN=All_Datalogics_32Bit.sln
+  SET ARCH=Win32
+) ELSE (
+  REM Do a 64-bit build
+  SET ALL_DL_SLN=All_Datalogics_64Bit.sln
+  SET ARCH=x64
+)
 
 REM ************* Initialize variables which track our progress ******************
 REM *** The number of samples that failed to build.
@@ -113,8 +120,6 @@ REM *** The configuration to use.
 SET STAGE=Debug
 REM *** Only build the samples, don't run them.
 SET ONLY_BUILD=N
-REM *** Build 32-Bit by default.
-SET ARCH=Win32
 
 :AcceptCommands
 REM *** Iterate through arguments, changing settings when needed.
@@ -126,11 +131,6 @@ IF /i "%1"=="-release" (
 ) 
 IF /i "%1"=="-noRun" (
 	SET ONLY_BUILD=Y
-)
-
-IF /i "%1"=="-64-bit" (
-	SET ALL_DL_SLN=All_Datalogics_64Bit.sln
-	SET ARCH=x64
 )
 SHIFT
 GOTO AcceptCommands
