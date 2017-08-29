@@ -26,7 +26,7 @@ RenderPage::RenderPage(PDPage &pdPage, const char *colorSpace, const char *filte
 
     //If you are using a decode filter such as FlateDecode, the filterArray values will be set here
     filterArray = SetFilter(filterName);
-
+    
     //Set resolution.  The default resolution is 72 units per inch.  Thus a value of 72.0 is the same
     //  To double the resolution, for example, you would set the value to 144.0.
     resolution = SetResolution(inResolution);
@@ -115,10 +115,11 @@ ASFixedRect RenderPage::GetImageRect()
     return pageRect;
 }
 
-PDEImage RenderPage::MakePDEImage()
+PDEImage RenderPage::MakePDEImage(PDDoc outDoc)
 {
     //Prepare the image attributes
-    attrs = SetImageAttrs(scaledDestRect, bpc);
+    if (filterArray.spec[0].name == ASAtomFromString("DCTDecode"))
+        SetDCTFilterParams(PDDocGetCosDoc(outDoc));
 
     //Create the image matrix using the height/width attributes and apply the resolution.
     imageMatrix = SetImageMatrix(attrs, resolution);
@@ -157,6 +158,29 @@ PDEFilterArray RenderPage::SetFilter(const char *filterName)
         filterArray.numFilters = 1;
         filterArray.spec[0].name = ASAtomFromString(filterName);
     }
+    return filterArray;
+}
+
+PDEFilterArray RenderPage::SetDCTFilterParams(CosDoc cosDoc)
+{
+    // Create a new Cos dictionary
+    CosObj dictParams = CosNewDict(cosDoc, false, 4);
+
+    // Populate the dictionary with required entries to do JPEG compression
+    // (only Columns, Rows, and the number of color dimensions needed for sraight JPEG)
+    CosDictPut(dictParams, ASAtomFromString("Columns"),
+        CosNewInteger(cosDoc, false, attrs.width));
+    CosDictPut(dictParams, ASAtomFromString("Rows"),
+        CosNewInteger(cosDoc, false, attrs.height));
+    CosDictPut(dictParams, ASAtomFromString("Colors"),
+        CosNewInteger(cosDoc, false, PDEColorSpaceGetNumComps(cs)));
+
+    filterArray.numFilters = 1;
+    filterArray.spec[0].encodeParms = dictParams;
+    filterArray.spec[0].decodeParms = CosNewNull();
+
+    PDERelease(reinterpret_cast<PDEObject>(cs));
+
     return filterArray;
 }
 
