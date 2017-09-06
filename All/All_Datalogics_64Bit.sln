@@ -111,8 +111,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CalcImageDPI", "..\Images\C
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreateImageWithTransparency", "..\Images\CreateImageWithTransparency\CreateImageWithTransparency.vcxproj", "{314BB4FB-91EE-49B8-A18A-8D996E5B75D2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Separations", "..\Images\CreateSeparations\CreateSeparations.vcxproj", "{9E815E2B-9D2E-4814-9FEE-F8919CEB3787}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CountColorsInDoc", "..\InformationExtraction\CountColorsInDoc\CountColorsInDoc.vcxproj", "{23A89145-EE66-47A2-9BAF-2536CD858442}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PostscriptInjection", "..\Printing\PostScriptInjection\PostscriptInjection.vcxproj", "{A7B05FFC-9850-420B-B70F-1C96EF998CEB}"
@@ -128,6 +126,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddTriangularRedaction", "..\Security\AddTriangularRedaction\AddTriangularRedaction.vcxproj", "{7DCC48B1-285D-4653-99AD-B707BEBBCB1C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OutputPreview", "..\Images\OutputPreview\OutputPreview.vcxproj", "{2E9645DE-DE90-4CCB-9AF6-073032EF73CC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreateSeparations", "..\Images\CreateSeparations\CreateSeparations.vcxproj", "{9E815E2B-9D2E-4814-9FEE-F8919CEB3787}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -347,10 +347,6 @@ Global
 		{314BB4FB-91EE-49B8-A18A-8D996E5B75D2}.Debug|x64.Build.0 = Debug|x64
 		{314BB4FB-91EE-49B8-A18A-8D996E5B75D2}.Release|x64.ActiveCfg = Release|x64
 		{314BB4FB-91EE-49B8-A18A-8D996E5B75D2}.Release|x64.Build.0 = Release|x64
-		{9E815E2B-9D2E-4814-9FEE-F8919CEB3787}.Debug|x64.ActiveCfg = Debug|x64
-		{9E815E2B-9D2E-4814-9FEE-F8919CEB3787}.Debug|x64.Build.0 = Debug|x64
-		{9E815E2B-9D2E-4814-9FEE-F8919CEB3787}.Release|x64.ActiveCfg = Release|x64
-		{9E815E2B-9D2E-4814-9FEE-F8919CEB3787}.Release|x64.Build.0 = Release|x64
 		{23A89145-EE66-47A2-9BAF-2536CD858442}.Debug|x64.ActiveCfg = Debug|x64
 		{23A89145-EE66-47A2-9BAF-2536CD858442}.Debug|x64.Build.0 = Debug|x64
 		{23A89145-EE66-47A2-9BAF-2536CD858442}.Release|x64.ActiveCfg = Release|x64
@@ -383,6 +379,10 @@ Global
 		{2E9645DE-DE90-4CCB-9AF6-073032EF73CC}.Debug|x64.Build.0 = Debug|x64
 		{2E9645DE-DE90-4CCB-9AF6-073032EF73CC}.Release|x64.ActiveCfg = Release|x64
 		{2E9645DE-DE90-4CCB-9AF6-073032EF73CC}.Release|x64.Build.0 = Release|x64
+		{9E815E2B-9D2E-4814-9FEE-F8919CEB3787}.Debug|x64.ActiveCfg = Debug|x64
+		{9E815E2B-9D2E-4814-9FEE-F8919CEB3787}.Debug|x64.Build.0 = Debug|x64
+		{9E815E2B-9D2E-4814-9FEE-F8919CEB3787}.Release|x64.ActiveCfg = Release|x64
+		{9E815E2B-9D2E-4814-9FEE-F8919CEB3787}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
