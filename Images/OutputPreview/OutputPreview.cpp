@@ -23,6 +23,8 @@
 // document, and includes an indication of how much of the page each colorant covers. The process and spot color
 // plates will be rendered in the specified colorant, or its conversion to CMYK, in the case of spot colors.
 
+#include <math.h>
+#include <stdio.h>
 #include <string>
 #include <vector>
 
