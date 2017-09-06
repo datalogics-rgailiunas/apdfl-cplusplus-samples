@@ -230,6 +230,11 @@ cd ../../Images/FindImageResolutions
 ./FindImageResolutions-${stage}.app/Contents/MacOS/FindImageResolutions-${stage}
 echo ""
 
+echo Running sample OutputPreview
+cd ../../Images/OutputPreview
+./OutputPreview-${stage}.app/Contents/MacOS/OutputPreview-${stage}
+echo ""
+
 # InformationExtraction
 
 echo Running sample CountColorsInDoc
