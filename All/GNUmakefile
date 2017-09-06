@@ -41,6 +41,7 @@ SAMPLES = Annotations/CreateAnnotations \
           Images/CreateImageWithTransparency \
           Images/CreateSeparations \
           Images/CalcImageDPI \
+          Images/OutputPreview \
           InformationExtraction/CountColorsInDoc \
           InformationExtraction/ExtractDocumentInfo \
           Printing/PostScriptInjection \
