@@ -33,6 +33,7 @@
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
 #include "CosCalls.h"
+#include <math.h>
 
 
 // Resolution of image desired for plates. 
