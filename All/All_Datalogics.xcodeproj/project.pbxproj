@@ -13,6 +13,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				54A240FE1F61BCD50035CB41 /* PBXTargetDependency */,
 				7C201C511F0FDBE70026F486 /* PBXTargetDependency */,
 				7C201C531F0FDBE70026F486 /* PBXTargetDependency */,
 				9F6648471E5CE98E00DF496B /* PBXTargetDependency */,
@@ -77,6 +78,20 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXContainerItemProxy section */
+		54A240FD1F61BCD50035CB41 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 54E10DBF1F61B5E900147917 /* OutputPreview.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = OutputPreview;
+		};
+		54E10DC31F61B5EA00147917 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 54E10DBF1F61B5E900147917 /* OutputPreview.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = OutputPreview;
+		};
 		7C201C501F0FDBE70026F486 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7C658AAE1F0D966900B03491 /* ConvertToPDFX.xcodeproj */;
@@ -878,6 +893,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		54E10DBF1F61B5E900147917 /* OutputPreview.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OutputPreview.xcodeproj; path = ../Images/OutputPreview/OutputPreview.xcodeproj; sourceTree = "<group>"; };
 		7C658AAE1F0D966900B03491 /* ConvertToPDFX.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ConvertToPDFX.xcodeproj; path = ../DocumentConversion/ConvertToPDFX/ConvertToPDFX.xcodeproj; sourceTree = "<group>"; };
 		7CF311A01F0D95CF004CC903 /* ConvertToPDFA.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ConvertToPDFA.xcodeproj; path = ../DocumentConversion/ConvertToPDFA/ConvertToPDFA.xcodeproj; sourceTree = "<group>"; };
 		9F5049531E5CA2F700C113B1 /* AlternateFileSystem.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AlternateFileSystem.xcodeproj; path = ../FileSystem/AlternateFileSystem/AlternateFileSystem.xcodeproj; sourceTree = "<group>"; };
@@ -938,6 +954,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		54E10DC01F61B5E900147917 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				54E10DC41F61B5EA00147917 /* OutputPreview-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		7C658AAF1F0D966900B03491 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1397,6 +1421,7 @@
 		BAAE8A280ADC6237005A7834 = {
 			isa = PBXGroup;
 			children = (
+				54E10DBF1F61B5E900147917 /* OutputPreview.xcodeproj */,
 				7C658AAE1F0D966900B03491 /* ConvertToPDFX.xcodeproj */,
 				7CF311A01F0D95CF004CC903 /* ConvertToPDFA.xcodeproj */,
 				9F6647D21E5CE63D00DF496B /* WebOptimizedPDF.xcodeproj */,
@@ -1663,6 +1688,10 @@
 					ProjectRef = 9F8EE2361E5CA970004E294B /* OpenEncrypted.xcodeproj */;
 				},
 				{
+					ProductGroup = 54E10DC01F61B5E900147917 /* Products */;
+					ProjectRef = 54E10DBF1F61B5E900147917 /* OutputPreview.xcodeproj */;
+				},
+				{
 					ProductGroup = 9F8EE1AC1E5CA458004E294B /* Products */;
 					ProjectRef = 9F8EE1AB1E5CA458004E294B /* PDFMakeOCGVisible.xcodeproj */;
 				},
@@ -1715,6 +1744,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		54E10DC41F61B5EA00147917 /* OutputPreview-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "OutputPreview-Debug.app";
+			remoteRef = 54E10DC31F61B5EA00147917 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		7C658AB41F0D966900B03491 /* ConvertToPDFX-Debug.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -2117,6 +2153,11 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXTargetDependency section */
+		54A240FE1F61BCD50035CB41 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = OutputPreview;
+			targetProxy = 54A240FD1F61BCD50035CB41 /* PBXContainerItemProxy */;
+		};
 		7C201C511F0FDBE70026F486 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ConvertToPDFX;
