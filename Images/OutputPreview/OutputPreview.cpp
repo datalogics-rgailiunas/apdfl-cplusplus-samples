@@ -464,6 +464,9 @@ void WriteSeparationImage (PageInfo *pageInfo, PDDoc outputDoc, int separationNu
     PDEColorSpace cs = pageInfo->spotColors[separationNumber];
     AddImageToDoc (pageInfo, outputDoc, cs, buffer, (pageInfo->cols * pageInfo->rows), 1, colorantName, coverage);
 
+    // Free the separation bitmap
+    ASfree (buffer);
+
     return;
 }
 
