@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8D0C4E890486CD37000505A6"
-               BuildableName = "All_Datalogics-Debug.app"
+               BlueprintIdentifier = "BAAE8A360ADC6251005A7834"
+               BuildableName = "All_Datalogics"
                BlueprintName = "All_Datalogics"
                ReferencedContainer = "container:All_Datalogics.xcodeproj">
             </BuildableReference>
@@ -32,8 +32,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8D0C4E890486CD37000505A6"
-            BuildableName = "All_Datalogics-Debug.app"
+            BlueprintIdentifier = "BAAE8A360ADC6251005A7834"
+            BuildableName = "All_Datalogics"
             BlueprintName = "All_Datalogics"
             ReferencedContainer = "container:All_Datalogics.xcodeproj">
          </BuildableReference>
@@ -55,8 +55,8 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8D0C4E890486CD37000505A6"
-            BuildableName = "All_Datalogics-Debug.app"
+            BlueprintIdentifier = "BAAE8A360ADC6251005A7834"
+            BuildableName = "All_Datalogics"
             BlueprintName = "All_Datalogics"
             ReferencedContainer = "container:All_Datalogics.xcodeproj">
          </BuildableReference>
@@ -74,8 +74,8 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8D0C4E890486CD37000505A6"
-            BuildableName = "All_Datalogics-Debug.app"
+            BlueprintIdentifier = "BAAE8A360ADC6251005A7834"
+            BuildableName = "All_Datalogics"
             BlueprintName = "All_Datalogics"
             ReferencedContainer = "container:All_Datalogics.xcodeproj">
          </BuildableReference>

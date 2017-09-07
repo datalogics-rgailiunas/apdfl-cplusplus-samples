@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8D0C4E890486CD37000505A6"
-               BuildableName = "HelloJapan-Debug.app"
-               BlueprintName = "HelloJapan"
-               ReferencedContainer = "container:HelloJapan.xcodeproj">
+               BuildableName = "helloJapan-Debug.app"
+               BlueprintName = "helloJapan"
+               ReferencedContainer = "container:helloJapan.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8D0C4E890486CD37000505A6"
-            BuildableName = "HelloJapan-Debug.app"
-            BlueprintName = "HelloJapan"
-            ReferencedContainer = "container:HelloJapan.xcodeproj">
+            BuildableName = "helloJapan-Debug.app"
+            BlueprintName = "helloJapan"
+            ReferencedContainer = "container:helloJapan.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8D0C4E890486CD37000505A6"
-            BuildableName = "HelloJapan-Debug.app"
-            BlueprintName = "HelloJapan"
-            ReferencedContainer = "container:HelloJapan.xcodeproj">
+            BuildableName = "helloJapan-Debug.app"
+            BlueprintName = "helloJapan"
+            ReferencedContainer = "container:helloJapan.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8D0C4E890486CD37000505A6"
-            BuildableName = "HelloJapan-Debug.app"
-            BlueprintName = "HelloJapan"
-            ReferencedContainer = "container:HelloJapan.xcodeproj">
+            BuildableName = "helloJapan-Debug.app"
+            BlueprintName = "helloJapan"
+            ReferencedContainer = "container:helloJapan.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
