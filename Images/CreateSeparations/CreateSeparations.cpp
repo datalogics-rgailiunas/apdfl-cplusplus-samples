@@ -60,7 +60,7 @@ typedef struct pageInfo
     // Width and Depth in pixels
     ASInt32                     rows;
     ASInt32                     cols;
-    ASInt32                     rowWidth;
+    ASUns32                     rowWidth;
 
     // Referenced from drawParams;
     ASRealRect                  drawWindow;
