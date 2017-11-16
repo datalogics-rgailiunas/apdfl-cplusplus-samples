@@ -87,7 +87,7 @@ int main (int argc, char **argv)
         std::wcout << L"Sending to the printer." << std::endl;
 
         //=====================================================================================================================
-        // Step 3) Open the Print Dialog UI and gather user input
+        // Step 3) Establish printer destination
         //=====================================================================================================================
 #ifdef MAC_PLATFORM
         /* Leaving all fields at thier default settings will print 
@@ -99,12 +99,25 @@ int main (int argc, char **argv)
         userParams.printAnnots = false; 
         userParams.psLevel = 3;
         userParams.binaryOK = true;
-        userParams.emitHalfTones = false;
+        userParams.emitHalftones = false;
         userParams.reverse = false;         /* print pages in reverse order */
         userParams.doOPP = false;
 
-        userparams.printSettings = NULL;        /* Pointer to a PMPrintSettings */
-        userParams.pageForms = NULL;            /* Pointer to a PMPageFormat */
+        PMPrintSession printSession;
+        PMPrintSettings printSettings;
+        PMPageFormat pageFormat;
+
+        PMCreateSession (&printSession);
+
+        PMCreatePrintSettings (&printSettings);
+        PMSessionDefaultPrintSettings (printSession, printSettings);
+
+        PMCreatePageFormat (&pageFormat);
+        PMSessionDefaultPageFormat (printSession, pageFormat);
+
+        userParams.printSession = printSession;     /* Pointer to a PMPrintSession */
+        userParams.printSettings = printSettings;   /* Pointer to a PMPrintSettings */
+        userParams.pageFormat = pageFormat;         /* Pointer to a PMPageFormat */
 
 #endif
 #ifdef WIN_ENV
