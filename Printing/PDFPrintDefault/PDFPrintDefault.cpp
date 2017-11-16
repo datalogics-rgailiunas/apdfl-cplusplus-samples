@@ -212,13 +212,23 @@ int main (int argc, char **argv)
         std::wcout << L"Closing documents and cleaning up." << std::endl;
 
         // Cleanup and free memory
-        DisposePDPrintParams(&psParams);
 
+#ifdef WIN_ENV
         // NOTE: if we set the value of userParams.inFileName to &path, 
         //       set it back to null here, or we will attempt tofree it in
         //       the dispose logic.
         if (userParams.inFileName)
             userParams.inFileName = NULL;
+#endif
+
+#ifdef MAC_PLATFORM
+        /* clean up printsettings */
+        PMRelease (printSession);
+        PMRelease (printSettings);
+        PMRelease (pageFormat);
+#endif
+
+        DisposePDPrintParams(&psParams);
         DisposePDFLPrintUserParams(&userParams);
 
         PDDocClose(inDoc);                                // Close the input document
