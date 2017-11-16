@@ -55,6 +55,9 @@ int main (int argc, char **argv)
         PDFLPrintUserParamsRec userParams;
         SetupPDFLPrintUserParams (&userParams);
 
+        // Link print params to userParams
+        userParams.printParams = &psParams;
+
         // Override defaults with specifics for this sample
         userParams.emitToFile = false;                    // Print to printer
         userParams.emitToPrinter = true;
