@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{757D7956-3DF0-4657-9F1F-FBA28E12FC19}</ProjectGuid>
+    <ProjectGuid>{2DD18C42-8F5F-4741-9B3E-65B48D8C61AA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BlankSample</RootNamespace>
     <ProjectName>PDFPrintDefault</ProjectName>
