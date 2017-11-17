@@ -36,7 +36,6 @@ int main (int argc, char **argv)
         //=====================================================================================================================
         char inPath[2048];
 
-
         // If a file name is not specified on the command line, use the default name
         if (argc < 2)
             strcpy (inPath, defaultDocument);
@@ -83,9 +82,6 @@ int main (int argc, char **argv)
         userParams.dontEmitListLen = 0;
         userParams.dontEmitList = NULL;
 
-        // This sample always sends output to the printer 
-        std::wcout << L"Sending to the printer." << std::endl;
-
         //=====================================================================================================================
         // Step 3) Establish printer destination
         //=====================================================================================================================
@@ -103,21 +99,13 @@ int main (int argc, char **argv)
         userParams.reverse = false;         /* print pages in reverse order */
         userParams.doOPP = false;
 
-        PMPrintSession printSession;
-        PMPrintSettings printSettings;
-        PMPageFormat pageFormat;
+        NSPrintInfo *thePrintInfo = [NSPrintInfo sharedPrintInfo];
+        userParams.printSession = (PMPrintSession)[thePrintInfo PMPrintSession];      /* Pointer to a PMPrintSession */
+        userParams.printSettings = (PMPrintSettings)[thePrintInfo PMPrintSettings];   /* Pointer to a PMPrintSettings */
+        userParams.pageFormat = (PMPageFormat)[thePrintInfo PMPageFormat];            /* Pointer to a PMPageFormat */
 
-        PMCreateSession (&printSession);
-
-        PMCreatePrintSettings (&printSettings);
-        PMSessionDefaultPrintSettings (printSession, printSettings);
-
-        PMCreatePageFormat (&pageFormat);
-        PMSessionDefaultPageFormat (printSession, pageFormat);
-
-        userParams.printSession = printSession;     /* Pointer to a PMPrintSession */
-        userParams.printSettings = printSettings;   /* Pointer to a PMPrintSettings */
-        userParams.pageFormat = pageFormat;         /* Pointer to a PMPageFormat */
+        const char *name = thePrintInfo.printer.name.cString;
+        std::cout << "Sending to the printer " << name << std::endl;
 
 #endif
 #ifdef WIN_ENV
@@ -190,11 +178,13 @@ int main (int argc, char **argv)
         userParams.transQuality = 5;
         userParams.forceGDIPrint = false;   /* When true, we will print via the GDI interface, even if the selected printer supports postscript. */
 
-
+        std::cout << "Sending to the printer " << userParams.deviceNameW << std::endl;
 #endif
 #ifdef UNIX_ENV
         // print to the printer lp0, suppress reporting job number to stdout.
         userParams.command = "lp -s"
+
+        std::cout << "Sending to the printer LP0." << std::endl;
 #endif
         //=====================================================================================================================
         // Step 4) Write to printer or file and clean up
@@ -219,13 +209,6 @@ int main (int argc, char **argv)
         //       the dispose logic.
         if (userParams.inFileName)
             userParams.inFileName = NULL;
-#endif
-
-#ifdef MAC_PLATFORM
-        /* clean up printsettings */
-        PMRelease (printSession);
-        PMRelease (printSettings);
-        PMRelease (pageFormat);
 #endif
 
         DisposePDPrintParams(&psParams);

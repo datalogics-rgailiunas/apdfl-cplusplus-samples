@@ -72,37 +72,24 @@ int main (int argc, char **argv)
         //=====================================================================================================================
 #ifdef MAC_PLATFORM
         /* set up dialog, and handle print settings */
-        PMPrintSession printSession;
-        PMPrintSettings printSettings;
-        PMPageFormat pageFormat;
         Boolean accepted = true;
-
-        PMCreateSession (&printSession);
-
-        PMCreatePrintSettings (&printSettings);
-        PMSessionDefaultPrintSettings (printSession, printSettings);
-
-        PMCreatePageFormat (&pageFormat);
-        PMSessionDefaultPageFormat (printSession, pageFormat);
 
         NSPrintInfo *thePrintInfo = [NSPrintInfo sharedPrintInfo];
 
         [NSApplication sharedApplication];
         NSPrintPanel *printPanel = [NSPrintPanel printPanel];
         NSInteger result = [printPanel runModalWithPrintInfo: thePrintInfo];
-        printSession = (PMPrintSession)[thePrintInfo PMPrintSession];
-        pageFormat = (PMPageFormat)[thePrintInfo PMPageFormat];
-        printSettings = (PMPrintSettings)[thePrintInfo PMPrintSettings];
 
-        userParams.printSession = printSession;
-        userParams.printSettings = printSettings;
-        userParams.pageFormat = pageFormat;
+
+        userParams.printSession = (PMPrintSession)[thePrintInfo PMPrintSession];
+        userParams.printSettings = (PMPrintSettings)[thePrintInfo PMPrintSettings];
+        userParams.pageFormat = (PMPageFormat)[thePrintInfo PMPageFormat];
         UInt32 first, last, numCopies;
-        PMGetFirstPage (printSettings, &first);
+        PMGetFirstPage (userParams.printSettings, &first);
         userParams.startPage = first - 1; /* mac defines first page as 1, PDFL as 0 */
-        PMGetLastPage (printSettings, &last);
+        PMGetLastPage (userParams.printSettings, &last);
         userParams.endPage = last; /* endPage is not inclusive. */
-        PMGetCopies (printSettings, &numCopies);
+        PMGetCopies (userParams.printSettings, &numCopies);
         userParams.nCopies = numCopies;
 
         if (!accepted)
@@ -110,7 +97,10 @@ int main (int argc, char **argv)
             std::wcout << L"Unable to access printer." <<std::endl;
             return (-1);
         }
-        std::wcout << L"Sending to the printer." << std::endl;
+
+        const char *name = thePrintInfo.printer.name.cString;
+
+        std::cout << "Sending to the printer " << name << std::endl;
 #else
         PRINTDLGW printDialog;
 
@@ -181,7 +171,7 @@ int main (int argc, char **argv)
             }
             else
             {
-                std::wcout << L"Sending to the printer." << std::endl;
+                std::wcout << L"Sending to the printer." << userParams.deviceNameW << std::endl;
             }
         }
 #endif
@@ -203,13 +193,6 @@ int main (int argc, char **argv)
         // Cleanup and free memory
         DisposePDPrintParams(&psParams);
         DisposePDFLPrintUserParams(&userParams);
-
-#ifdef MAC_PLATFORM
-        /* clean up printsettings */
-        PMRelease (printSession);
-        PMRelease (printSettings);
-        PMRelease (pageFormat);
-#endif
 
         PDDocClose(inDoc);                                // Close the input document
 

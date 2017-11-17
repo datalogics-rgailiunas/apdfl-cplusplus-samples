@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D80F4E11FBF645200D84920 /* SetupPrintParams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1D80F4DF1FBF645200D84920 /* SetupPrintParams.cpp */; };
+		1D80F4E21FBF645200D84920 /* SetupPrintParams.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D80F4E01FBF645200D84920 /* SetupPrintParams.h */; };
+		1D80F4E41FBF65CC00D84920 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D80F4E31FBF65CC00D84920 /* AppKit.framework */; };
 		2E21C0651C8DD3BB00018A6D /* PDFLPrecompile.pch in Headers */ = {isa = PBXBuildFile; fileRef = 2E21C0641C8DD3BB00018A6D /* PDFLPrecompile.pch */; };
 		2E21C06E1C8DD3FD00018A6D /* APDFLDoc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E21C06A1C8DD3FD00018A6D /* APDFLDoc.cpp */; };
 		2E21C06F1C8DD3FD00018A6D /* APDFLDoc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E21C06B1C8DD3FD00018A6D /* APDFLDoc.h */; };
@@ -181,6 +184,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1D80F4DF1FBF645200D84920 /* SetupPrintParams.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SetupPrintParams.cpp; path = ../../_Common/SetupPrintParams.cpp; sourceTree = "<group>"; };
+		1D80F4E01FBF645200D84920 /* SetupPrintParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetupPrintParams.h; path = ../../_Common/SetupPrintParams.h; sourceTree = "<group>"; };
+		1D80F4E31FBF65CC00D84920 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		20286C33FDCF999611CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		2E21C0611C8DD3AE00018A6D /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Common.xcconfig; path = ../../dlutils/MacSDKConfigurations/Common.xcconfig; sourceTree = "<group>"; };
 		2E21C0621C8DD3AE00018A6D /* Project_debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Project_debug.xcconfig; path = ../../dlutils/MacSDKConfigurations/Project_debug.xcconfig; sourceTree = "<group>"; };
@@ -329,6 +335,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D80F4E41FBF65CC00D84920 /* AppKit.framework in Frameworks */,
 				8D0C4E920486CD37000505A6 /* Foundation.framework in Frameworks */,
 				BA2E45960888421A0081FD28 /* ApplicationServices.framework in Frameworks */,
 				BA568C160A47467400825A50 /* CoreServices.framework in Frameworks */,
@@ -361,6 +368,9 @@
 		20286C29FDCF999611CA2CEA /* HelowrldX */ = {
 			isa = PBXGroup;
 			children = (
+				1D80F4E31FBF65CC00D84920 /* AppKit.framework */,
+				1D80F4DF1FBF645200D84920 /* SetupPrintParams.cpp */,
+				1D80F4E01FBF645200D84920 /* SetupPrintParams.h */,
 				BA8E7EB50AD7027C00AD5ADC /* Precompiled Headers */,
 				BA3D8BB90B652F530079A6FB /* Headers */,
 				BA8BFB7D0AC2F69500AF4E32 /* Configurations */,
@@ -611,6 +621,7 @@
 				BA3D8C590B652F6E0079A6FB /* PEErrorASF.h in Headers */,
 				BA3D8C5A0B652F6E0079A6FB /* PEVers.h in Headers */,
 				BA3D8C5B0B652F6E0079A6FB /* PDSysFT.h in Headers */,
+				1D80F4E21FBF645200D84920 /* SetupPrintParams.h in Headers */,
 				BA3D8C5C0B652F6E0079A6FB /* PDSysFontExpT.h in Headers */,
 				BA3D8C5D0B652F6E0079A6FB /* PDSReadCalls.h in Headers */,
 				BA3D8C5E0B652F6E0079A6FB /* PDSExpT.h in Headers */,
@@ -731,6 +742,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA64AAB20B5829E00026827E /* PDFLInitHFT.c in Sources */,
+				1D80F4E11FBF645200D84920 /* SetupPrintParams.cpp in Sources */,
 				2E21C06E1C8DD3FD00018A6D /* APDFLDoc.cpp in Sources */,
 				2E21C0841C8DD7DE00018A6D /* PDFPrintDefault.cpp in Sources */,
 				2E21C0701C8DD3FD00018A6D /* InitializeLibrary.cpp in Sources */,
