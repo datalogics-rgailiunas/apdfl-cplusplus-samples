@@ -19,12 +19,10 @@
 #include <sys/stat.h>
 #endif
 
+#define defaultDocument "../../../../Resources/Sample_Input/printpdf.pdf"
 
 int main (int argc, char **argv)
 {
-    //Paths to input and output documents.
-    wchar_t* inPath = L"../../../../Resources/Sample_Input/printpdf.pdf";
-
     APDFLib lib;                                      // Initialize the Adobe PDF Library
     ASErrorCode errCode = 0;                          // This will catch error codes thrown during library usage
 
@@ -36,6 +34,13 @@ int main (int argc, char **argv)
         //=====================================================================================================================
         // Step 1) Open the input PDF
         //=====================================================================================================================
+        char inPath[2048];
+
+        // If a file name is not specified on the command line, use the default name
+        if (argc < 2)
+            strcpy (inPath, defaultDocument);
+        else
+            strcpy (inPath, argv[1]);
 
         std::wcout << L"Opening the input document - " << inPath << std::endl;
 
