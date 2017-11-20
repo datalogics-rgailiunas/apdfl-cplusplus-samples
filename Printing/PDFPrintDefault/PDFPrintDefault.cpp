@@ -1,11 +1,11 @@
-// Copyright (c) 2016, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
 //
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 // This sample allows a user to send a PDF document to a printer, using a Windows print interface. 
 //
-// For more detail see the description of the PDFPrintGUI sample program on our Developer’s site, 
-// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#pdfprintgui
+// For more detail see the description of the PDFPrintDefault sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#pdfprintdefault
 
 /* Printing Support */
 #include "InitializeLibrary.h"
@@ -70,7 +70,7 @@ int main (int argc, char **argv)
 
         // All platforms require start and end pages, and number of copies
         userParams.startPage = 0;                       /* Start with the first page */
-        userParams.endPage = PDDocGetNumPages(inDoc);   /* end with the last. */
+        userParams.endPage = PDDocGetNumPages(inDoc)-1;   /* end with the last. */
         userParams.nCopies = 1;                         /* Always one copy */
 
         // All platforms allow specification of paper width and height.
