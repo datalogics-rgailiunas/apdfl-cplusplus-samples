@@ -86,9 +86,9 @@ int main (int argc, char **argv)
         userParams.pageFormat = (PMPageFormat)[thePrintInfo PMPageFormat];
         UInt32 first, last, numCopies;
         PMGetFirstPage (userParams.printSettings, &first);
-        userParams.startPage = first - 1; /* mac defines first page as 1, PDFL as 0 */
+        userParams.startPage = first;
         PMGetLastPage (userParams.printSettings, &last);
-        userParams.endPage = last-1;
+        userParams.endPage = last;
         PMGetCopies (userParams.printSettings, &numCopies);
         userParams.nCopies = numCopies;
 
