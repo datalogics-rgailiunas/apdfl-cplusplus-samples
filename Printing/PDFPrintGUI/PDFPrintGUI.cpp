@@ -88,7 +88,7 @@ int main (int argc, char **argv)
         PMGetFirstPage (userParams.printSettings, &first);
         userParams.startPage = first - 1; /* mac defines first page as 1, PDFL as 0 */
         PMGetLastPage (userParams.printSettings, &last);
-        userParams.endPage = last; /* endPage is not inclusive. */
+        userParams.endPage = last-1;
         PMGetCopies (userParams.printSettings, &numCopies);
         userParams.nCopies = numCopies;
 
@@ -99,7 +99,6 @@ int main (int argc, char **argv)
         }
 
         const char *name = thePrintInfo.printer.name.cString;
-
         std::cout << "Sending to the printer " << name << std::endl;
 #else
         PRINTDLGW printDialog;
