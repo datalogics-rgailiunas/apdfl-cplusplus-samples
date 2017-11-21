@@ -78,7 +78,7 @@ int main (int argc, char **argv)
 
         [NSApplication sharedApplication];
         NSPrintPanel *printPanel = [NSPrintPanel printPanel];
-        NSInteger result = [printPanel runModalWithPrintInfo: thePrintInfo];
+        accepted = [printPanel runModalWithPrintInfo: thePrintInfo];
 
 
         userParams.printSession = (PMPrintSession)[thePrintInfo PMPrintSession];
@@ -94,7 +94,7 @@ int main (int argc, char **argv)
 
         if (!accepted)
         {
-            std::wcout << L"Unable to access printer." <<std::endl;
+            std::wcout << L"Print Canceled by user" <<std::endl;
             return (-1);
         }
 
