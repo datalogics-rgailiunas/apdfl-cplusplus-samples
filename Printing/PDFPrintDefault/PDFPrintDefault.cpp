@@ -1,11 +1,11 @@
-// Copyright (c) 2016, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
 //
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 // This sample allows a user to send a PDF document to a printer, using a Windows print interface. 
 //
-// For more detail see the description of the PDFPrintGUI sample program on our Developer’s site, 
-// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#pdfprintgui
+// For more detail see the description of the PDFPrintDefault sample program on our Developer’s site, 
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#pdfprintdefault
 
 /* Printing Support */
 #include "InitializeLibrary.h"
@@ -35,7 +35,6 @@ int main (int argc, char **argv)
         // Step 1) Open the input PDF
         //=====================================================================================================================
         char inPath[2048];
-
 
         // If a file name is not specified on the command line, use the default name
         if (argc < 2)
@@ -71,7 +70,7 @@ int main (int argc, char **argv)
 
         // All platforms require start and end pages, and number of copies
         userParams.startPage = 0;                       /* Start with the first page */
-        userParams.endPage = PDDocGetNumPages(inDoc);   /* end with the last. */
+        userParams.endPage = PDDocGetNumPages(inDoc)-1;   /* end with the last. */
         userParams.nCopies = 1;                         /* Always one copy */
 
         // All platforms allow specification of paper width and height.
@@ -82,9 +81,6 @@ int main (int argc, char **argv)
         // This list is generally empty 
         userParams.dontEmitListLen = 0;
         userParams.dontEmitList = NULL;
-
-        // This sample always sends output to the printer 
-        std::wcout << L"Sending to the printer." << std::endl;
 
         //=====================================================================================================================
         // Step 3) Establish printer destination
@@ -103,21 +99,13 @@ int main (int argc, char **argv)
         userParams.reverse = false;         /* print pages in reverse order */
         userParams.doOPP = false;
 
-        PMPrintSession printSession;
-        PMPrintSettings printSettings;
-        PMPageFormat pageFormat;
+        NSPrintInfo *thePrintInfo = [NSPrintInfo sharedPrintInfo];
+        userParams.printSession = (PMPrintSession)[thePrintInfo PMPrintSession];      /* Pointer to a PMPrintSession */
+        userParams.printSettings = (PMPrintSettings)[thePrintInfo PMPrintSettings];   /* Pointer to a PMPrintSettings */
+        userParams.pageFormat = (PMPageFormat)[thePrintInfo PMPageFormat];            /* Pointer to a PMPageFormat */
 
-        PMCreateSession (&printSession);
-
-        PMCreatePrintSettings (&printSettings);
-        PMSessionDefaultPrintSettings (printSession, printSettings);
-
-        PMCreatePageFormat (&pageFormat);
-        PMSessionDefaultPageFormat (printSession, pageFormat);
-
-        userParams.printSession = printSession;     /* Pointer to a PMPrintSession */
-        userParams.printSettings = printSettings;   /* Pointer to a PMPrintSettings */
-        userParams.pageFormat = pageFormat;         /* Pointer to a PMPageFormat */
+        const char *name = thePrintInfo.printer.name.cString;
+        std::cout << "Sending to the printer " << name << std::endl;
 
 #endif
 #ifdef WIN_ENV
@@ -190,11 +178,13 @@ int main (int argc, char **argv)
         userParams.transQuality = 5;
         userParams.forceGDIPrint = false;   /* When true, we will print via the GDI interface, even if the selected printer supports postscript. */
 
-
+        std::cout << "Sending to the printer " << userParams.deviceNameW << std::endl;
 #endif
 #ifdef UNIX_ENV
         // print to the printer lp0, suppress reporting job number to stdout.
         userParams.command = "lp -s"
+
+        std::cout << "Sending to the printer LP0." << std::endl;
 #endif
         //=====================================================================================================================
         // Step 4) Write to printer or file and clean up
@@ -219,13 +209,6 @@ int main (int argc, char **argv)
         //       the dispose logic.
         if (userParams.inFileName)
             userParams.inFileName = NULL;
-#endif
-
-#ifdef MAC_PLATFORM
-        /* clean up printsettings */
-        PMRelease (printSession);
-        PMRelease (printSettings);
-        PMRelease (pageFormat);
 #endif
 
         DisposePDPrintParams(&psParams);

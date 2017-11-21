@@ -7,15 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D80F4E11FBF645200D84920 /* SetupPrintParams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1D80F4DF1FBF645200D84920 /* SetupPrintParams.cpp */; };
-		1D80F4E21FBF645200D84920 /* SetupPrintParams.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D80F4E01FBF645200D84920 /* SetupPrintParams.h */; };
-		1D80F4E41FBF65CC00D84920 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D80F4E31FBF65CC00D84920 /* AppKit.framework */; };
 		2E21C0651C8DD3BB00018A6D /* PDFLPrecompile.pch in Headers */ = {isa = PBXBuildFile; fileRef = 2E21C0641C8DD3BB00018A6D /* PDFLPrecompile.pch */; };
+		2E21C0691C8DD3D500018A6D /* AddTriangularRedaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E21C0681C8DD3D500018A6D /* AddTriangularRedaction.cpp */; };
 		2E21C06E1C8DD3FD00018A6D /* APDFLDoc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E21C06A1C8DD3FD00018A6D /* APDFLDoc.cpp */; };
 		2E21C06F1C8DD3FD00018A6D /* APDFLDoc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E21C06B1C8DD3FD00018A6D /* APDFLDoc.h */; };
 		2E21C0701C8DD3FD00018A6D /* InitializeLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E21C06C1C8DD3FD00018A6D /* InitializeLibrary.cpp */; };
 		2E21C0711C8DD3FD00018A6D /* InitializeLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E21C06D1C8DD3FD00018A6D /* InitializeLibrary.h */; };
-		2E21C0841C8DD7DE00018A6D /* PDFPrintDefault.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E21C0831C8DD7DE00018A6D /* PDFPrintDefault.cpp */; };
 		335725340C9B40490095FC3D /* DL150ACE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252A0C9B40480095FC3D /* DL150ACE.framework */; };
 		335725350C9B40490095FC3D /* DL150AGM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252B0C9B40480095FC3D /* DL150AGM.framework */; };
 		335725360C9B40490095FC3D /* DL150ARE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252C0C9B40480095FC3D /* DL150ARE.framework */; };
@@ -41,6 +38,10 @@
 		3E56135B0F8BF3DD0094B7E7 /* ICUConverter.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613530F8BF3C70094B7E7 /* ICUConverter.framework */; };
 		3E56135C0F8BF3E30094B7E7 /* ICUData.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613560F8BF3CC0094B7E7 /* ICUData.framework */; };
 		8D0C4E920486CD37000505A6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Foundation.framework */; };
+		BA2A0C1D0B6537A8007BB524 /* extrURI.h in Headers */ = {isa = PBXBuildFile; fileRef = BA2A0C180B6537A8007BB524 /* extrURI.h */; };
+		BA2A0C1E0B6537A8007BB524 /* macUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = BA2A0C190B6537A8007BB524 /* macUtils.h */; };
+		BA2A0C1F0B6537A8007BB524 /* MyPDFLibUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = BA2A0C1A0B6537A8007BB524 /* MyPDFLibUtils.h */; };
+		BA2A0C210B6537A8007BB524 /* SDKThreads.h in Headers */ = {isa = PBXBuildFile; fileRef = BA2A0C1C0B6537A8007BB524 /* SDKThreads.h */; };
 		BA2E45960888421A0081FD28 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2E45950888421A0081FD28 /* ApplicationServices.framework */; };
 		BA3D8C2B0B652F6E0079A6FB /* ToolkitInitEASF.h in Headers */ = {isa = PBXBuildFile; fileRef = BA3D8BBB0B652F6E0079A6FB /* ToolkitInitEASF.h */; };
 		BA3D8C2C0B652F6E0079A6FB /* XtnMgrEASF.h in Headers */ = {isa = PBXBuildFile; fileRef = BA3D8BBC0B652F6E0079A6FB /* XtnMgrEASF.h */; };
@@ -184,21 +185,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1D80F4DF1FBF645200D84920 /* SetupPrintParams.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SetupPrintParams.cpp; path = ../../_Common/SetupPrintParams.cpp; sourceTree = "<group>"; };
-		1D80F4E01FBF645200D84920 /* SetupPrintParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetupPrintParams.h; path = ../../_Common/SetupPrintParams.h; sourceTree = "<group>"; };
-		1D80F4E31FBF65CC00D84920 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		20286C33FDCF999611CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		2E21C0611C8DD3AE00018A6D /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Common.xcconfig; path = ../../dlutils/MacSDKConfigurations/Common.xcconfig; sourceTree = "<group>"; };
 		2E21C0621C8DD3AE00018A6D /* Project_debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Project_debug.xcconfig; path = ../../dlutils/MacSDKConfigurations/Project_debug.xcconfig; sourceTree = "<group>"; };
 		2E21C0631C8DD3AE00018A6D /* Project_release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Project_release.xcconfig; path = ../../dlutils/MacSDKConfigurations/Project_release.xcconfig; sourceTree = "<group>"; };
 		2E21C0641C8DD3BB00018A6D /* PDFLPrecompile.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDFLPrecompile.pch; path = ../../dlutils/PDFLPrecompile.pch; sourceTree = "<group>"; };
-		2E21C0661C8DD3CC00018A6D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../Samples/scrumpy/Info.plist; sourceTree = "<group>"; };
-		2E21C0671C8DD3CC00018A6D /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = ../../Samples/lumpy/InfoPlist.strings; sourceTree = "<group>"; };
+		2E21C0661C8DD3CC00018A6D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../dlutils/Info.plist; sourceTree = "<group>"; };
+		2E21C0671C8DD3CC00018A6D /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = ../../dlutils/InfoPlist.strings; sourceTree = "<group>"; };
+		2E21C0681C8DD3D500018A6D /* AddTriangularRedaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AddTriangularRedaction.cpp; sourceTree = "<group>"; };
 		2E21C06A1C8DD3FD00018A6D /* APDFLDoc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = APDFLDoc.cpp; path = ../../_Common/APDFLDoc.cpp; sourceTree = "<group>"; };
 		2E21C06B1C8DD3FD00018A6D /* APDFLDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APDFLDoc.h; path = ../../_Common/APDFLDoc.h; sourceTree = "<group>"; };
 		2E21C06C1C8DD3FD00018A6D /* InitializeLibrary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InitializeLibrary.cpp; path = ../../_Common/InitializeLibrary.cpp; sourceTree = "<group>"; };
 		2E21C06D1C8DD3FD00018A6D /* InitializeLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InitializeLibrary.h; path = ../../_Common/InitializeLibrary.h; sourceTree = "<group>"; };
-		2E21C0831C8DD7DE00018A6D /* PDFPrintDefault.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PDFPrintDefault.cpp; sourceTree = "<group>"; };
 		3357252A0C9B40480095FC3D /* DL150ACE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150ACE.framework; path = ../../../Binaries/DL150ACE.framework; sourceTree = SOURCE_ROOT; };
 		3357252B0C9B40480095FC3D /* DL150AGM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150AGM.framework; path = ../../../Binaries/DL150AGM.framework; sourceTree = SOURCE_ROOT; };
 		3357252C0C9B40480095FC3D /* DL150ARE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150ARE.framework; path = ../../../Binaries/DL150ARE.framework; sourceTree = SOURCE_ROOT; };
@@ -211,6 +209,10 @@
 		3E5613500F8BF3B90094B7E7 /* DL150AdobeXMP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150AdobeXMP.framework; path = ../../../Binaries/DL150AdobeXMP.framework; sourceTree = SOURCE_ROOT; };
 		3E5613530F8BF3C70094B7E7 /* ICUConverter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ICUConverter.framework; path = ../../../Binaries/ICUConverter.framework; sourceTree = SOURCE_ROOT; };
 		3E5613560F8BF3CC0094B7E7 /* ICUData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ICUData.framework; path = ../../../Binaries/ICUData.framework; sourceTree = SOURCE_ROOT; };
+		BA2A0C180B6537A8007BB524 /* extrURI.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; name = extrURI.h; path = ../utils/extrURI.h; sourceTree = SOURCE_ROOT; };
+		BA2A0C190B6537A8007BB524 /* macUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; name = macUtils.h; path = ../utils/macUtils.h; sourceTree = SOURCE_ROOT; };
+		BA2A0C1A0B6537A8007BB524 /* MyPDFLibUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; name = MyPDFLibUtils.h; path = ../utils/MyPDFLibUtils.h; sourceTree = SOURCE_ROOT; };
+		BA2A0C1C0B6537A8007BB524 /* SDKThreads.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; name = SDKThreads.h; path = ../utils/SDKThreads.h; sourceTree = SOURCE_ROOT; };
 		BA2E45950888421A0081FD28 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		BA3D8BBB0B652F6E0079A6FB /* ToolkitInitEASF.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; name = ToolkitInitEASF.h; path = ../../../Include/Headers/ToolkitInitEASF.h; sourceTree = SOURCE_ROOT; };
 		BA3D8BBC0B652F6E0079A6FB /* XtnMgrEASF.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; name = XtnMgrEASF.h; path = ../../../Include/Headers/XtnMgrEASF.h; sourceTree = SOURCE_ROOT; };
@@ -326,7 +328,7 @@
 		BA3D8C2A0B652F6E0079A6FB /* AcroColorProcs.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; name = AcroColorProcs.h; path = ../../../Include/Headers/AcroColorProcs.h; sourceTree = SOURCE_ROOT; };
 		BA568C150A47467400825A50 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		BA64AAB10B5829E00026827E /* PDFLInitHFT.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = PDFLInitHFT.c; path = ../../../Include/Source/PDFLInitHFT.c; sourceTree = SOURCE_ROOT; };
-		BAAFDE0808980F3600470124 /* PDFPrintDefault-Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PDFPrintDefault-Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAAFDE0808980F3600470124 /* AddTriangularRedaction-Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AddTriangularRedaction-Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAB910C20B582A3000C283C9 /* PDFLInitCommon.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = PDFLInitCommon.c; path = ../../../Include/Source/PDFLInitCommon.c; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -335,7 +337,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D80F4E41FBF65CC00D84920 /* AppKit.framework in Frameworks */,
 				8D0C4E920486CD37000505A6 /* Foundation.framework in Frameworks */,
 				BA2E45960888421A0081FD28 /* ApplicationServices.framework in Frameworks */,
 				BA568C160A47467400825A50 /* CoreServices.framework in Frameworks */,
@@ -360,7 +361,7 @@
 		195DF8CFFE9D517E11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BAAFDE0808980F3600470124 /* PDFPrintDefault-Debug.app */,
+				BAAFDE0808980F3600470124 /* AddTriangularRedaction-Debug.app */,
 			);
 			name = Products;
 			sourceTree = SOURCE_ROOT;
@@ -368,9 +369,6 @@
 		20286C29FDCF999611CA2CEA /* HelowrldX */ = {
 			isa = PBXGroup;
 			children = (
-				1D80F4E31FBF65CC00D84920 /* AppKit.framework */,
-				1D80F4DF1FBF645200D84920 /* SetupPrintParams.cpp */,
-				1D80F4E01FBF645200D84920 /* SetupPrintParams.h */,
 				BA8E7EB50AD7027C00AD5ADC /* Precompiled Headers */,
 				BA3D8BB90B652F530079A6FB /* Headers */,
 				BA8BFB7D0AC2F69500AF4E32 /* Configurations */,
@@ -385,11 +383,11 @@
 		20286C2AFDCF999611CA2CEA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				2E21C0831C8DD7DE00018A6D /* PDFPrintDefault.cpp */,
 				2E21C06A1C8DD3FD00018A6D /* APDFLDoc.cpp */,
 				2E21C06B1C8DD3FD00018A6D /* APDFLDoc.h */,
 				2E21C06C1C8DD3FD00018A6D /* InitializeLibrary.cpp */,
 				2E21C06D1C8DD3FD00018A6D /* InitializeLibrary.h */,
+				2E21C0681C8DD3D500018A6D /* AddTriangularRedaction.cpp */,
 				BAB910C20B582A3000C283C9 /* PDFLInitCommon.c */,
 				BA64AAB10B5829E00026827E /* PDFLInitHFT.c */,
 			);
@@ -408,6 +406,10 @@
 		BA3D8BB90B652F530079A6FB /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				BA2A0C180B6537A8007BB524 /* extrURI.h */,
+				BA2A0C190B6537A8007BB524 /* macUtils.h */,
+				BA2A0C1A0B6537A8007BB524 /* MyPDFLibUtils.h */,
+				BA2A0C1C0B6537A8007BB524 /* SDKThreads.h */,
 				BA3D8BBB0B652F6E0079A6FB /* ToolkitInitEASF.h */,
 				BA3D8BBC0B652F6E0079A6FB /* XtnMgrEASF.h */,
 				BA3D8BBD0B652F6E0079A6FB /* XtnMgrE.h */,
@@ -621,7 +623,6 @@
 				BA3D8C590B652F6E0079A6FB /* PEErrorASF.h in Headers */,
 				BA3D8C5A0B652F6E0079A6FB /* PEVers.h in Headers */,
 				BA3D8C5B0B652F6E0079A6FB /* PDSysFT.h in Headers */,
-				1D80F4E21FBF645200D84920 /* SetupPrintParams.h in Headers */,
 				BA3D8C5C0B652F6E0079A6FB /* PDSysFontExpT.h in Headers */,
 				BA3D8C5D0B652F6E0079A6FB /* PDSReadCalls.h in Headers */,
 				BA3D8C5E0B652F6E0079A6FB /* PDSExpT.h in Headers */,
@@ -687,15 +688,19 @@
 				BA3D8C980B652F6E0079A6FB /* PDFLRequir.h in Headers */,
 				BA3D8C990B652F6E0079A6FB /* AcroColorHFT.h in Headers */,
 				BA3D8C9A0B652F6E0079A6FB /* AcroColorProcs.h in Headers */,
+				BA2A0C1D0B6537A8007BB524 /* extrURI.h in Headers */,
+				BA2A0C1E0B6537A8007BB524 /* macUtils.h in Headers */,
+				BA2A0C1F0B6537A8007BB524 /* MyPDFLibUtils.h in Headers */,
+				BA2A0C210B6537A8007BB524 /* SDKThreads.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8D0C4E890486CD37000505A6 /* PDFPrintDefault */ = {
+		8D0C4E890486CD37000505A6 /* AddTriangularRedaction */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BACCD184089AA4370006D315 /* Build configuration list for PBXNativeTarget "PDFPrintDefault" */;
+			buildConfigurationList = BACCD184089AA4370006D315 /* Build configuration list for PBXNativeTarget "AddTriangularRedaction" */;
 			buildPhases = (
 				BA3D8D0B0B652F7E0079A6FB /* Headers */,
 				8D0C4E8F0486CD37000505A6 /* Sources */,
@@ -706,10 +711,10 @@
 			);
 			dependencies = (
 			);
-			name = PDFPrintDefault;
+			name = AddTriangularRedaction;
 			productInstallPath = "$(HOME)/Applications";
 			productName = HelowrldX;
-			productReference = BAAFDE0808980F3600470124 /* PDFPrintDefault-Debug.app */;
+			productReference = BAAFDE0808980F3600470124 /* AddTriangularRedaction-Debug.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -720,7 +725,7 @@
 			attributes = {
 				LastUpgradeCheck = 0450;
 			};
-			buildConfigurationList = BACCD188089AA4370006D315 /* Build configuration list for PBXProject "PDFPrintDefault" */;
+			buildConfigurationList = BACCD188089AA4370006D315 /* Build configuration list for PBXProject "AddTriangularRedaction" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -731,7 +736,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D0C4E890486CD37000505A6 /* PDFPrintDefault */,
+				8D0C4E890486CD37000505A6 /* AddTriangularRedaction */,
 			);
 		};
 /* End PBXProject section */
@@ -742,9 +747,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA64AAB20B5829E00026827E /* PDFLInitHFT.c in Sources */,
-				1D80F4E11FBF645200D84920 /* SetupPrintParams.cpp in Sources */,
+				2E21C0691C8DD3D500018A6D /* AddTriangularRedaction.cpp in Sources */,
 				2E21C06E1C8DD3FD00018A6D /* APDFLDoc.cpp in Sources */,
-				2E21C0841C8DD7DE00018A6D /* PDFPrintDefault.cpp in Sources */,
 				2E21C0701C8DD3FD00018A6D /* InitializeLibrary.cpp in Sources */,
 				BAB910C30B582A3000C283C9 /* PDFLInitCommon.c in Sources */,
 			);
@@ -768,7 +772,6 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../Binaries\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../Binaries\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../Binaries\"";
-				INFOPLIST_FILE = ../../dlutils/Info.plist;
 			};
 			name = Release;
 		};
@@ -795,7 +798,6 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../Binaries\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../Binaries\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../Binaries\"";
-				INFOPLIST_FILE = ../../dlutils/Info.plist;
 			};
 			name = Debug;
 		};
@@ -810,7 +812,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BACCD184089AA4370006D315 /* Build configuration list for PBXNativeTarget "PDFPrintDefault" */ = {
+		BACCD184089AA4370006D315 /* Build configuration list for PBXNativeTarget "AddTriangularRedaction" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BACCD187089AA4370006D315 /* Debug */,
@@ -819,7 +821,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		BACCD188089AA4370006D315 /* Build configuration list for PBXProject "PDFPrintDefault" */ = {
+		BACCD188089AA4370006D315 /* Build configuration list for PBXProject "AddTriangularRedaction" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BACCD18B089AA4370006D315 /* Debug */,
