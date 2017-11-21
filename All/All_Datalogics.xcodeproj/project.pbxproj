@@ -61,14 +61,6 @@
 				9F8422941E5CAE14001E30FB /* PBXTargetDependency */,
 				9F8422961E5CAE14001E30FB /* PBXTargetDependency */,
 				9F8422981E5CAE14001E30FB /* PBXTargetDependency */,
-				9F84229A1E5CAE14001E30FB /* PBXTargetDependency */,
-				9F84229C1E5CAE14001E30FB /* PBXTargetDependency */,
-				9F84229E1E5CAE14001E30FB /* PBXTargetDependency */,
-				9F8422A01E5CAE14001E30FB /* PBXTargetDependency */,
-				9F8422A21E5CAE14001E30FB /* PBXTargetDependency */,
-				9F8422A41E5CAE14001E30FB /* PBXTargetDependency */,
-				9F8422A61E5CAE14001E30FB /* PBXTargetDependency */,
-				9F8422A81E5CAE14001E30FB /* PBXTargetDependency */,
 				9F8422581E5CADFC001E30FB /* PBXTargetDependency */,
 			);
 			name = All_Datalogics;
@@ -90,6 +82,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
 			remoteInfo = PDFPrintGUI;
+		};
+		1D80FC081FC49B6C00D84920 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1D80FC041FC49B6C00D84920 /* AddTriangularRedaction.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddTriangularRedaction;
 		};
 		54A240FD1F61BCD50035CB41 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -293,62 +292,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
 			remoteInfo = AddText;
-		};
-		9F8422991E5CAE14001E30FB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9F8EE2421E5CA980004E294B /* ValidateSignatures.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = ValidateSignatures;
-		};
-		9F84229B1E5CAE14001E30FB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9F8EE23C1E5CA978004E294B /* SetUniquePermissions.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = SetUniquePermissions;
-		};
-		9F84229D1E5CAE14001E30FB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9F8EE2361E5CA970004E294B /* OpenEncrypted.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = OpenEncrypted;
-		};
-		9F84229F1E5CAE14001E30FB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9F8EE2301E5CA964004E294B /* LockDocument.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = LockDocument;
-		};
-		9F8422A11E5CAE14001E30FB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9F8EE22A1E5CA95C004E294B /* EncryptDocument.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = EncryptDocument;
-		};
-		9F8422A31E5CAE14001E30FB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9F8EE2241E5CA955004E294B /* AESEncryption.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = AESEncryption;
-		};
-		9F8422A51E5CAE14001E30FB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9F8EE21E1E5CA94C004E294B /* AddRedaction.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = AddRedaction;
-		};
-		9F8422A71E5CAE14001E30FB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9F8EE2181E5CA940004E294B /* AddPassword.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = AddPassword;
 		};
 		9F8422AB1E5CAE20001E30FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -901,6 +844,7 @@
 /* Begin PBXFileReference section */
 		1D80F4971FBF4BAF00D84920 /* PDFPrintDefault.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PDFPrintDefault.xcodeproj; path = ../Printing/PDFPrintDefault/PDFPrintDefault.xcodeproj; sourceTree = "<group>"; };
 		1D80F49D1FBF4C8100D84920 /* PDFPrintGUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PDFPrintGUI.xcodeproj; path = ../Printing/PDFPrintGUI/PDFPrintGUI.xcodeproj; sourceTree = "<group>"; };
+		1D80FC041FC49B6C00D84920 /* AddTriangularRedaction.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddTriangularRedaction.xcodeproj; path = ../Security/AddTriangularRedaction/AddTriangularRedaction.xcodeproj; sourceTree = "<group>"; };
 		54E10DBF1F61B5E900147917 /* OutputPreview.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OutputPreview.xcodeproj; path = ../Images/OutputPreview/OutputPreview.xcodeproj; sourceTree = "<group>"; };
 		7C658AAE1F0D966900B03491 /* ConvertToPDFX.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ConvertToPDFX.xcodeproj; path = ../DocumentConversion/ConvertToPDFX/ConvertToPDFX.xcodeproj; sourceTree = "<group>"; };
 		7CF311A01F0D95CF004CC903 /* ConvertToPDFA.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ConvertToPDFA.xcodeproj; path = ../DocumentConversion/ConvertToPDFA/ConvertToPDFA.xcodeproj; sourceTree = "<group>"; };
@@ -974,6 +918,14 @@
 			isa = PBXGroup;
 			children = (
 				1D80F4A21FBF4C8200D84920 /* PDFPrintGUI-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1D80FC051FC49B6C00D84920 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D80FC091FC49B6C00D84920 /* AddTriangularRedaction-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1445,6 +1397,7 @@
 		BAAE8A280ADC6237005A7834 = {
 			isa = PBXGroup;
 			children = (
+				1D80FC041FC49B6C00D84920 /* AddTriangularRedaction.xcodeproj */,
 				1D80F49D1FBF4C8100D84920 /* PDFPrintGUI.xcodeproj */,
 				1D80F4971FBF4BAF00D84920 /* PDFPrintDefault.xcodeproj */,
 				54E10DBF1F61B5E900147917 /* OutputPreview.xcodeproj */,
@@ -1572,6 +1525,10 @@
 				{
 					ProductGroup = 9F8EE1E31E5CA8CE004E294B /* Products */;
 					ProjectRef = 9F8EE1E21E5CA8CE004E294B /* AddThumbnailsToPDF.xcodeproj */;
+				},
+				{
+					ProductGroup = 1D80FC051FC49B6C00D84920 /* Products */;
+					ProjectRef = 1D80FC041FC49B6C00D84920 /* AddTriangularRedaction.xcodeproj */;
 				},
 				{
 					ProductGroup = 9F8EE1821E5CA419004E294B /* Products */;
@@ -1790,6 +1747,13 @@
 			fileType = wrapper.application;
 			path = "PDFPrintGUI-Debug.app";
 			remoteRef = 1D80F4A11FBF4C8200D84920 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1D80FC091FC49B6C00D84920 /* AddTriangularRedaction-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddTriangularRedaction-Debug.app";
+			remoteRef = 1D80FC081FC49B6C00D84920 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		54E10DC41F61B5EA00147917 /* OutputPreview-Debug.app */ = {
@@ -2250,46 +2214,6 @@
 			isa = PBXTargetDependency;
 			name = AddText;
 			targetProxy = 9F8422971E5CAE14001E30FB /* PBXContainerItemProxy */;
-		};
-		9F84229A1E5CAE14001E30FB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ValidateSignatures;
-			targetProxy = 9F8422991E5CAE14001E30FB /* PBXContainerItemProxy */;
-		};
-		9F84229C1E5CAE14001E30FB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SetUniquePermissions;
-			targetProxy = 9F84229B1E5CAE14001E30FB /* PBXContainerItemProxy */;
-		};
-		9F84229E1E5CAE14001E30FB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = OpenEncrypted;
-			targetProxy = 9F84229D1E5CAE14001E30FB /* PBXContainerItemProxy */;
-		};
-		9F8422A01E5CAE14001E30FB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = LockDocument;
-			targetProxy = 9F84229F1E5CAE14001E30FB /* PBXContainerItemProxy */;
-		};
-		9F8422A21E5CAE14001E30FB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = EncryptDocument;
-			targetProxy = 9F8422A11E5CAE14001E30FB /* PBXContainerItemProxy */;
-		};
-		9F8422A41E5CAE14001E30FB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AESEncryption;
-			targetProxy = 9F8422A31E5CAE14001E30FB /* PBXContainerItemProxy */;
-		};
-		9F8422A61E5CAE14001E30FB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AddRedaction;
-			targetProxy = 9F8422A51E5CAE14001E30FB /* PBXContainerItemProxy */;
-		};
-		9F8422A81E5CAE14001E30FB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AddPassword;
-			targetProxy = 9F8422A71E5CAE14001E30FB /* PBXContainerItemProxy */;
 		};
 		9F8422AC1E5CAE20001E30FB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
