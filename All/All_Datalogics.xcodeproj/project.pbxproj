@@ -13,6 +13,9 @@
 			buildPhases = (
 			);
 			dependencies = (
+				1D80FE1C1FC4B87A00D84920 /* PBXTargetDependency */,
+				1D80FE1E1FC4B87A00D84920 /* PBXTargetDependency */,
+				1D80FE201FC4B87A00D84920 /* PBXTargetDependency */,
 				54A240FE1F61BCD50035CB41 /* PBXTargetDependency */,
 				7C201C511F0FDBE70026F486 /* PBXTargetDependency */,
 				7C201C531F0FDBE70026F486 /* PBXTargetDependency */,
@@ -78,6 +81,48 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXContainerItemProxy section */
+		1D80FE0D1FC4B72100D84920 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1D80FE091FC4B72000D84920 /* PDFPrintDefault.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = PDFPrintDefault;
+		};
+		1D80FE131FC4B73500D84920 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1D80FE0F1FC4B73500D84920 /* PDFPrintGUI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = PDFPrintGUI;
+		};
+		1D80FE191FC4B74900D84920 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1D80FE151FC4B74800D84920 /* AddTriangularRedaction.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddTriangularRedaction;
+		};
+		1D80FE1B1FC4B87A00D84920 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1D80FE151FC4B74800D84920 /* AddTriangularRedaction.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddTriangularRedaction;
+		};
+		1D80FE1D1FC4B87A00D84920 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1D80FE0F1FC4B73500D84920 /* PDFPrintGUI.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = PDFPrintGUI;
+		};
+		1D80FE1F1FC4B87A00D84920 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1D80FE091FC4B72000D84920 /* PDFPrintDefault.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = PDFPrintDefault;
+		};
 		54A240FD1F61BCD50035CB41 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 54E10DBF1F61B5E900147917 /* OutputPreview.xcodeproj */;
@@ -893,6 +938,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D80FE091FC4B72000D84920 /* PDFPrintDefault.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PDFPrintDefault.xcodeproj; path = ../Printing/PDFPrintDefault/PDFPrintDefault.xcodeproj; sourceTree = "<group>"; };
+		1D80FE0F1FC4B73500D84920 /* PDFPrintGUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PDFPrintGUI.xcodeproj; path = ../Printing/PDFPrintGUI/PDFPrintGUI.xcodeproj; sourceTree = "<group>"; };
+		1D80FE151FC4B74800D84920 /* AddTriangularRedaction.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddTriangularRedaction.xcodeproj; path = ../Security/AddTriangularRedaction/AddTriangularRedaction.xcodeproj; sourceTree = "<group>"; };
 		54E10DBF1F61B5E900147917 /* OutputPreview.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OutputPreview.xcodeproj; path = ../Images/OutputPreview/OutputPreview.xcodeproj; sourceTree = "<group>"; };
 		7C658AAE1F0D966900B03491 /* ConvertToPDFX.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ConvertToPDFX.xcodeproj; path = ../DocumentConversion/ConvertToPDFX/ConvertToPDFX.xcodeproj; sourceTree = "<group>"; };
 		7CF311A01F0D95CF004CC903 /* ConvertToPDFA.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ConvertToPDFA.xcodeproj; path = ../DocumentConversion/ConvertToPDFA/ConvertToPDFA.xcodeproj; sourceTree = "<group>"; };
@@ -954,6 +1002,30 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		1D80FE0A1FC4B72000D84920 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D80FE0E1FC4B72100D84920 /* PDFPrintDefault-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1D80FE101FC4B73500D84920 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D80FE141FC4B73500D84920 /* PDFPrintGUI-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1D80FE161FC4B74800D84920 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D80FE1A1FC4B74900D84920 /* AddTriangularRedaction-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		54E10DC01F61B5E900147917 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1421,6 +1493,9 @@
 		BAAE8A280ADC6237005A7834 = {
 			isa = PBXGroup;
 			children = (
+				1D80FE151FC4B74800D84920 /* AddTriangularRedaction.xcodeproj */,
+				1D80FE0F1FC4B73500D84920 /* PDFPrintGUI.xcodeproj */,
+				1D80FE091FC4B72000D84920 /* PDFPrintDefault.xcodeproj */,
 				54E10DBF1F61B5E900147917 /* OutputPreview.xcodeproj */,
 				7C658AAE1F0D966900B03491 /* ConvertToPDFX.xcodeproj */,
 				7CF311A01F0D95CF004CC903 /* ConvertToPDFA.xcodeproj */,
@@ -1546,6 +1621,10 @@
 				{
 					ProductGroup = 9F8EE1E31E5CA8CE004E294B /* Products */;
 					ProjectRef = 9F8EE1E21E5CA8CE004E294B /* AddThumbnailsToPDF.xcodeproj */;
+				},
+				{
+					ProductGroup = 1D80FE161FC4B74800D84920 /* Products */;
+					ProjectRef = 1D80FE151FC4B74800D84920 /* AddTriangularRedaction.xcodeproj */;
 				},
 				{
 					ProductGroup = 9F8EE1821E5CA419004E294B /* Products */;
@@ -1700,6 +1779,14 @@
 					ProjectRef = 9F8EE1DC1E5CA8BD004E294B /* PDFOptimizer.xcodeproj */;
 				},
 				{
+					ProductGroup = 1D80FE0A1FC4B72000D84920 /* Products */;
+					ProjectRef = 1D80FE091FC4B72000D84920 /* PDFPrintDefault.xcodeproj */;
+				},
+				{
+					ProductGroup = 1D80FE101FC4B73500D84920 /* Products */;
+					ProjectRef = 1D80FE0F1FC4B73500D84920 /* PDFPrintGUI.xcodeproj */;
+				},
+				{
 					ProductGroup = 9F8EE1B21E5CA460004E294B /* Products */;
 					ProjectRef = 9F8EE1B11E5CA460004E294B /* PDFUncompress.xcodeproj */;
 				},
@@ -1744,6 +1831,27 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		1D80FE0E1FC4B72100D84920 /* PDFPrintDefault-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "PDFPrintDefault-Debug.app";
+			remoteRef = 1D80FE0D1FC4B72100D84920 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1D80FE141FC4B73500D84920 /* PDFPrintGUI-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "PDFPrintGUI-Debug.app";
+			remoteRef = 1D80FE131FC4B73500D84920 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1D80FE1A1FC4B74900D84920 /* AddTriangularRedaction-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddTriangularRedaction-Debug.app";
+			remoteRef = 1D80FE191FC4B74900D84920 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		54E10DC41F61B5EA00147917 /* OutputPreview-Debug.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -2153,6 +2261,21 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXTargetDependency section */
+		1D80FE1C1FC4B87A00D84920 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddTriangularRedaction;
+			targetProxy = 1D80FE1B1FC4B87A00D84920 /* PBXContainerItemProxy */;
+		};
+		1D80FE1E1FC4B87A00D84920 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PDFPrintGUI;
+			targetProxy = 1D80FE1D1FC4B87A00D84920 /* PBXContainerItemProxy */;
+		};
+		1D80FE201FC4B87A00D84920 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PDFPrintDefault;
+			targetProxy = 1D80FE1F1FC4B87A00D84920 /* PBXContainerItemProxy */;
+		};
 		54A240FE1F61BCD50035CB41 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = OutputPreview;
