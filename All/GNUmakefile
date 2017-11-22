@@ -44,7 +44,6 @@ SAMPLES = Annotations/CreateAnnotations \
           Images/OutputPreview \
           InformationExtraction/CountColorsInDoc \
           InformationExtraction/ExtractDocumentInfo \
-          Printing/PDFPrintDefault \
           Printing/PostScriptInjection \
           Security/AESEncryption \
           Security/AddPassword \
