@@ -31,7 +31,7 @@
 #endif
 
 // Set this variable to 1 to send the output to a printer rather than to a file.
-#define PRINT_TO_PRINTER 1
+#define PRINT_TO_PRINTER 0
 
 #define INPUT_FILE "../../../../Resources/Sample_Input/CopyContent.pdf"
 #define OUTPUT_FILE "PostscriptInjection-out.ps"
