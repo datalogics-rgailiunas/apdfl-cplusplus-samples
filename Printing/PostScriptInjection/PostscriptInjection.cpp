@@ -24,6 +24,12 @@
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
 
+#ifdef MAC_PLATFORM
+#include "Cocoa/Cocoa.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#endif
+
 // Set this variable to 1 to send the output to a printer rather than to a file.
 #define PRINT_TO_PRINTER 1
 
@@ -49,7 +55,7 @@ int main (int argc, char *argv[])
     std::cout << "Reading " << csInputFileName.c_str() << ", injecting PostScript and saving as " 
               << csOutputFileName.c_str() << std::endl;
 #else
-    std::cout << "Reading " << csInputFileName.c_str () << ", injecting PostScript and Printing Too ";
+    std::cout << "Reading " << csInputFileName.c_str () << ", injecting PostScript and Printing To ";
 #endif
 
     int rc = printOnePDF(csInputFileName.c_str(), csOutputFileName.c_str());
@@ -326,7 +332,8 @@ END_HANDLER
     }
 #endif //End of ifdef WIN_ENV
 
-#ifdef MAC_ENV
+#ifdef MAC_PLATFORM
+    
     /* set up dialog, and handle print settings */
     Boolean accepted = true;
 
