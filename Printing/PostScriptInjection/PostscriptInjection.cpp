@@ -368,9 +368,8 @@ END_HANDLER
 
 #ifdef UNIX_ENV
     // print to the printer lp0, suppress reporting job number to stdout.
-    printParams.command = "lp -s"
-
-        std::cout << "LP0." << std::endl;
+    printParams.command = "lp -s";
+    std::cout << "LP0." << std::endl;
 #endif
 
 #else  //Print to a file
