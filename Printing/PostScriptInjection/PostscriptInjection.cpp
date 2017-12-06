@@ -286,8 +286,8 @@ END_HANDLER
         // Otherwise, the All was left selected and all pages will be printed.
         if (printDialog.Flags & PD_PAGENUMS)
         {
-            psParams.ranges[0].startPage = printDialog.nFromPage - 1;          // Specify starting page
-            psParams.ranges[0].endPage = printDialog.nToPage - 1;              // Specify ending page
+            printParams.startPage = printDialog.nFromPage - 1;          // Specify starting page
+            printParams.endPage = printDialog.nToPage - 1;              // Specify ending page
         }
 
         // Check to see if "Print to a file" has been selected.
