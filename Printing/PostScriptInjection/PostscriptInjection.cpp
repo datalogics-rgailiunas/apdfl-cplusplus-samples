@@ -220,6 +220,7 @@ END_HANDLER
     printParams.printParams = &psParams;
     printParams.size = sizeof(PDFLPrintUserParamsRec);
     printParams.nCopies = 1;
+    printParams.emitToFile = true;          // emitToFile produces generic PS, not tied to a printer PPD.
 
     // A few parameters are treated differently under Unix.
 #if UNIX_ENV
@@ -241,6 +242,8 @@ END_HANDLER
     // of the source file), the program will send the content to the printer.  Otherwise,
     // the program generates a PostScript file.
 #if PRINT_TO_PRINTER
+    printParams.emitToPrinter = true;       // emitToPrinter, for Mac and Windows, tailors PS to a specific PPD.
+    printParams.emitToFile = false;
 #ifdef WIN_ENV
     PRINTDLGW printDialog;
 
@@ -295,7 +298,7 @@ END_HANDLER
         // returned dmFileName which will be returned as "FILE:".  No need to change any other
         // APDFL parameters such as emitToFile or emitToPrinter.  Windows takes care of
         // prompting for the output file and saves to the file instead of sending it
-        // to the printer.
+        // to the printer. This will save PS tailored to the selected printers PPD.
         if (printDialog.Flags & PD_PRINTTOFILE)
         {
             size_t lenFileName = dmFileName.length ();
