@@ -90,7 +90,16 @@ DURING
     PDEFontAttrs attrs;
     memset (&attrs, 0, sizeof (attrs));
     PDEFontGetAttrs (fontEntry->pdeFont, &attrs, sizeof (attrs));
-    PDSysEncoding sysEnc = PDSysEncodingCreateFromCMapName (attrs.encoding);
+
+    PDSysEncoding sysEnc = NULL;
+    if (attrs.type == ASAtomFromString("Type0"))
+    {
+        sysEnc = PDSysEncodingCreateFromCMapName(attrs.encoding);
+    }
+    else
+    {
+        sysEnc = PDSysEncodingCreateFromBaseName(attrs.encoding, NULL);
+    }
 
     fontEntry->pdSysFont = PDFindSysFontForPDEFont(fontEntry->pdeFont, kPDSysFontMatchNameAndCharSet);
 
