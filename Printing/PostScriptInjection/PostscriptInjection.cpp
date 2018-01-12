@@ -235,6 +235,12 @@ END_HANDLER
     printParams.shrinkToFit = true;
     printParams.startPage = 0;
     printParams.endPage = PDDocGetNumPages(inputPDDoc) - 1;
+    PDPageRange pdrange;
+    pdrange.startPage = 0;
+    pdrange.endPage = PDDocGetNumPages (inputPDDoc) - 1;
+    pdrange.pageSpec = PDAllPages;
+    psParams.ranges = &pdrange;
+    psParams.numRanges = 1;
 #endif
 
     ASFile pFile = 0;
@@ -291,6 +297,8 @@ END_HANDLER
         {
             printParams.startPage = printDialog.nFromPage - 1;          // Specify starting page
             printParams.endPage = printDialog.nToPage - 1;              // Specify ending page
+            pdrange.startPage = printParams.startPage;
+            pdrange.endPage = printParams.endPage;
         }
 
         // Check to see if "Print to a file" has been selected.
@@ -352,11 +360,14 @@ END_HANDLER
     printParams.pageFormat = (PMPageFormat)[thePrintInfo PMPageFormat];
     UInt32 first, last, numCopies;
     PMGetFirstPage (printParams.printSettings, &first);
-    printParams.startPage = first;
+    printParams.startPage = first - 1;
     PMGetLastPage (printParams.printSettings, &last);
-    printParams.endPage = last;
+    printParams.endPage = last - 1;
     PMGetCopies (printParams.printSettings, &numCopies);
     printParams.nCopies = numCopies;
+
+    pdrange.startPage = printParams.startPage;
+    pdrange.endPage = printParams.endPage;
 
     if (!accepted)
     {
