@@ -100,6 +100,7 @@ DURING
     {
         PDRedactParams redactParams;
         PDRedactParamsRec rpRec;
+        memset ((char *)&rpRec, 0, sizeof (PDRedactParamsRec));
         redactParams = &rpRec;
 
         PDColorValueRec cvRec;
