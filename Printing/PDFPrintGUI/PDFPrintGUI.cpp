@@ -95,6 +95,9 @@ int main (int argc, char **argv)
         if (!accepted)
         {
             std::wcout << L"Print Canceled by user" <<std::endl;
+            DisposePDPrintParams(&psParams);
+            DisposePDFLPrintUserParams(&userParams);
+            PDDocClose(inDoc);
             return (-1);
         }
 
@@ -170,8 +173,15 @@ int main (int argc, char **argv)
             }
             else
             {
-                std::wcout << L"Sending to the printer." << userParams.deviceNameW << std::endl;
+                std::wcout << L"Sending to the printer." << std::endl;
             }
+        }
+        else{
+            std::wcout << L"Print Canceled by user" <<std::endl;
+            DisposePDPrintParams(&psParams);
+            DisposePDFLPrintUserParams(&userParams);
+            PDDocClose(inDoc);
+            return (-1);
         }
 #endif
         //=====================================================================================================================
