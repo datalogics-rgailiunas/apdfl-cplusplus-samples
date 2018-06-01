@@ -23,6 +23,13 @@
 // document, and includes an indication of how much of the page each colorant covers. The process and spot color
 // plates will be rendered in the specified colorant, or its conversion to CMYK, in the case of spot colors.
 
+// NOTE 2:
+// When a page uses translucent ink, that page may not be accurately rendered as a deviceN bitmap. 
+// This is is because a page with translucent ink may require an alpha value for each colorant at 
+// each pixel, but a deviceN bitmap may have only a single alpha value for all colorants at a 
+// given pixel. Tis sample treats that restriction by rendering a page with translucent ink to a 
+// CMYK bitmap, and provindg a deviceN image from that bitmap.
+
 #include <math.h>
 #include <stdio.h>
 #include <string>
@@ -49,7 +56,7 @@
 // Default sample input and output
 // (Can be overridden on command line as "CreateSeparations inputfilename outputfilename").
 #define INPUT_LOC "../../../../Resources/Sample_Input/"
-#define DEF_INPUT "RenderPage.pdf"
+#define DEF_INPUT "With_Transparency.pdf"
 #define DEF_OUTPUT "Out.pdf"
 
 // This is a structure used to carry information between functions, so as to lower the requirements 
@@ -89,7 +96,7 @@ typedef struct pageInfo
 
 
 void FillPageInfo (PageInfo *pageInfo, PDPage page);
-void WriteCMYKImage (PageInfo *pageInfo, PDDoc outputDoc);
+void WriteCMYKImage(PageInfo *pageInfo, PDDoc outputDoc, bool forDeviceN = false);
 void WriteDeviceNImage (PageInfo *pageInfo, PDDoc outputDoc);
 void WriteSeparationImage (PageInfo *pageInfo, PDDoc outputDoc, int separationNumber);
 void AddImageToDoc (PageInfo *pageInfo, PDDoc outputDoc, PDEColorSpace color, char *buffer, 
@@ -334,8 +341,25 @@ void FillPageInfo (PageInfo *pageInfo, PDPage page)
 }
 
 // Draw the page to CMYK, and insert into the destination document.
-void WriteCMYKImage (PageInfo *pageInfo, PDDoc outputDoc)
-{ 
+// ( forDeviceN == true means the function was called from
+//   WriteDeviceNImage() when page uses translucent ink )
+void WriteCMYKImage (PageInfo *pageInfo, PDDoc outputDoc, bool forDeviceN)
+{
+    char labelDeviceN[] = "DeviceN";
+    char labelDeviceN2[] = "(use CMYK: has translucent)";
+    char labelDeviceCMYK[] = "CMYK";
+    char *label, *label2;
+
+    if (forDeviceN)
+    {
+    	label = labelDeviceN;
+    	label2 = labelDeviceN2;
+    }
+    else {
+    	label = labelDeviceCMYK;
+    	label2 = NULL;
+    }
+
     // First, draw the image to a buffer using PDDrawContentsToMemoryWithParams
     // All of the params relevant to positioning and scaling the page are already set. 
     // Here, we need to set color space to CMYK
@@ -364,7 +388,7 @@ void WriteCMYKImage (PageInfo *pageInfo, PDDoc outputDoc)
     PDEColorSpace cmyk = PDEColorSpaceCreateFromName (ASAtomFromString ("DeviceCMYK"));
 
     // Add the image to the output document
-    AddImageToDoc (pageInfo, outputDoc, cmyk, pageInfo->drawParams.buffer, pageInfo->drawParams.bufferSize, 4, "CMYK");
+    AddImageToDoc (pageInfo, outputDoc, cmyk, pageInfo->drawParams.buffer, pageInfo->drawParams.bufferSize, 4, label, label2);
 
     // Release the color space
     PDERelease ((PDEObject)cmyk);
@@ -375,6 +399,13 @@ void WriteCMYKImage (PageInfo *pageInfo, PDDoc outputDoc)
 // Create the separations as a DeviceN bitmap
 void WriteDeviceNImage (PageInfo *pageInfo, PDDoc outputDoc)
 {
+    if (PDPageHasTransparency(pageInfo->page, false))
+    {
+        // has translucent ink
+        WriteCMYKImage(pageInfo, outputDoc, true);
+        return;
+    }
+
     // First, draw the image to a buffer using PDDrawContentsToMemoryWithParams
     // All of the params relevant to positioning and scaling the page are already set. 
     // Here, we need to set color space to DeviceN
