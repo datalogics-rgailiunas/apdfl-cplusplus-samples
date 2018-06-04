@@ -25,10 +25,10 @@
 
 // NOTE 2:
 // When a page uses translucent ink, that page may not be accurately rendered as a deviceN bitmap. 
-// This is is because a page with translucent ink may require an alpha value for each colorant at 
+// This is because a page with translucent ink may require an alpha value for each colorant at 
 // each pixel, but a deviceN bitmap may have only a single alpha value for all colorants at a 
-// given pixel. Tis sample treats that restriction by rendering a page with translucent ink to a 
-// CMYK bitmap, and provindg a deviceN image from that bitmap.
+// given pixel. This sample treats that restriction by rendering a page with translucent ink to a 
+// CMYK bitmap, and providing a deviceN image from that bitmap.
 
 #include <math.h>
 #include <stdio.h>
