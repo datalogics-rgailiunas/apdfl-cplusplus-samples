@@ -697,7 +697,7 @@ PDEColorSpace CreateSpotColorSpace (PageInfo *pageInfo, PDPageInk ink)
     PDEColorSpace result;
 
     // Set up to create a new separation color space
-    PDEColorSpaceStruct    colorSpace;
+    PDEColorSpaceStruct	colorSpace;
     PDESeparationColorData color;
     colorSpace.sep = &color;
 
