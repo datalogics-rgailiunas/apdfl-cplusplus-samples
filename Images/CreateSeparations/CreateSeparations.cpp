@@ -262,9 +262,8 @@ void FillPageInfo (PageInfo *pageInfo, PDPage page)
     pageInfo->drawParams.asRealDestRect = &pageInfo->drawWindow;
     pageInfo->drawParams.bpc = 8;
 
-    // If we want to control other effects during rendering, it can be done here. In general though
-    //   only lazyErase is used.
-    pageInfo->drawParams.flags = kPDPageDoLazyErase;
+    // If we want to control other effects during rendering, it can be done here.
+    pageInfo->drawParams.flags = kPDPageDoLazyErase | kPDPageUseAnnotFaces;
 
     // When doing separations, we NEVER want Anti-Aliasing!
     pageInfo->drawParams.smoothFlags = 0;
