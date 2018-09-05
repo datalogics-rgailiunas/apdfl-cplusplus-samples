@@ -5,7 +5,7 @@
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 // The TextSelectEnum sample demonstrates how the Library is able to select all of the 
-// text present in an area of the page.. 
+// text present in an area of the page. 
 //
 // Command-line:  <output-file>     (Optional)
 //
@@ -87,8 +87,8 @@ DURING
     PDTextSelectEnumTextUCS (selection, enumSelectedTextUCS, &words);
 
     //Step 3) Release the source resources
-    //  (NOTE: Do NOT close the source document. We need t to continue to 
-    //   exsist to give meaning to the PDFonts, referenced in the runs.
+    //  (NOTE: Do NOT close the source document. We need to continue to 
+    //   exist to give meaning to the PDFonts, referenced in the runs.
     PDPageRelease (page);
 
 
@@ -109,7 +109,7 @@ DURING
         if (Baseline < indents)
         {
             // If we go off the bottom of the page, 
-            //   Finish the current page, and start a new page
+            //   finish the current page, and start a new page
             PDPageSetPDEContent (page, 0);
             PDPageReleasePDEContent (page, 0);
             PDPageRelease (page);
