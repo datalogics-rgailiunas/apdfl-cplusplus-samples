@@ -25,7 +25,7 @@
 
 #define RESOLUTION  300.0         // Other common choices might be 72.0, 150.0, 200.0, 300.0, or 600.0
 #define COLORSPACE  "DeviceRGB"   // Typically this, DeviceGray or DeviceCMYK
-#define FILTER      "DCTDecode"	  //"FlateDecode" // Could also be ASCIIHexDecode, LZWDecode, DCTDecode
+#define FILTER      "FlateDecode"	  //"FlateDecode" // Could also be ASCIIHexDecode, LZWDecode, DCTDecode
 #define BPC         8             // This must be 8 for DeviceRGB and DeviceCYMK, 
                                   //  1, 8, or 24 for DeviceGray
 
@@ -62,7 +62,7 @@ DURING
     // The call to MakePDEImage synthesizes a PDEImage object from the rasterized PDF page
     // created in the constructor, suitable for placing onto a PDF page.
     PDEContentAddElem(content, 0, 
-        reinterpret_cast<PDEElement>(drawPage.MakePDEImage(outDoc.getPDDoc())));
+        reinterpret_cast<PDEElement>(drawPage.GetPDEImage(outDoc.getPDDoc())));
     
     PDPageSetPDEContentCanRaise(outputPDPage, 0);
     PDPageReleasePDEContent(outputPDPage, 0);
