@@ -19,15 +19,15 @@ ASAtom RenderPage::sDeviceGray_K;
 
 // These are utility routines to convert Rects and Matrices between ASDouble and
 // ASReal, and ASFixed.
-// ASFixed was the original method of specifing "real" numbers in APDFL. It is still widly present in aPDFL interfaces, though it is 
+// ASFixed was the original method of specifing "real" numbers in APDFL. It is still widly present in APDFL interfaces, though it is 
 //   limited by both it's resolution (0.0001 typically) and it range (+- 32767). There is a full complement of methods for combining
 //   matrices, and transforming and comparing rectangles. Internal to APDFL, ASFixed is now seldom used.
-// ASReal was introduced into APDFL later. It is implmented as a float, and it does not have the full 
+// ASReal was introduced into APDFL later. It is implemented as a float, and it does not have the full 
 //   complement of transform methods. It is used here because it is needed in the interface to PDPageDrawContentsToMemoryWithParams.
 // ASDouble was introduced most recently. It has a full complement of transformation methods. Many interfaces to APDFL have been updated
 //   (Generally by the addition of "Ex" to the interface name) to provide/accepts such values.
 //
-//  However, conversion between these forms is not always supplied. These routines providfe the conversions needed for this sample.
+//  However, conversion between these forms is not always supplied. These routines provided the conversions needed for this sample.
 void ASDoubleRectToASReal (ASRealRect &out, ASDoubleRect &in)
 {
     out.left = in.left;
@@ -74,7 +74,7 @@ void ASDoubleToFixedRect (ASFixedRect &out, ASDoubleRect &in)
 
 // This both constructs the RenderPage object, and creates the page rendering. 
 //  The rendered page can be accessed as a bitmap via the methods GetImageBuffer() and GetImageSize, or as a PDEImage, 
-//  via the method GetPDEImage(). The PDEImage creation will be defered until it is requested.
+//  via the method GetPDEImage(). The PDEImage creation will be deferred until it is requested.
 RenderPage::RenderPage(PDPage &pdPage, const char *colorSpace, const char *filterName, ASInt32 inBPC, double inResolution)
 {
     // Set up the static colorspace atoms
@@ -162,13 +162,13 @@ RenderPage::RenderPage(PDPage &pdPage, const char *colorSpace, const char *filte
 
     // The DoLazyErase flag is usually, if not always turned on, UseAnnotFaces will cause annotations
     // in the page to be displayed, and kPDPageDsiplayOverprintPreview will display the page showing 
-    // overprinting. The precise meaning of these flags, as well as others that mey be used here, can be
+    // overprinting. The precise meaning of these flags, as well as others that may be used here, can be
     // seen in the defintion of PDPageDrawFlags
     drawParams.flags = kPDPageDoLazyErase | kPDPageUseAnnotFaces | kPDPageDisplayOverPrintPreview;
 
     // This is a bit clumsy, because features were added over time. The matrices and rectangles in this
     // interface use ASReal as thier base, rather than ASDouble. But there is not a complete set of 
-    // concatination and transformation methods for ASReal. So we generally generate the matrix and 
+    // concatenation and transformation methods for ASReal. So we generally generate the matrix and 
     // rectangle values using ASDouble, and convert to ASReal. 
     ASRealRect realDestRect;
     ASRealRect realUpdateRect;
@@ -190,7 +190,7 @@ RenderPage::RenderPage(PDPage &pdPage, const char *colorSpace, const char *filte
 
     //Allocate the buffer for storing the rendered page content
     // It is important that ALL of the flags and options used in the actual draw be set the same here!
-    // Calling this interface with drawparms.bufferSize or drawParams.buffer equal to zero will return the size of the buffer
+    // Calling this interface with drawParms.bufferSize or drawParams.buffer equal to zero will return the size of the buffer
     //   needed to contain this image. This is the most certain way to get the correct buffer size. If we call this routine with a buffer
     //   that is not large enough to contain the image, we will not draw the image, but will simply, silently, return the size of the buffer
     //   needed!

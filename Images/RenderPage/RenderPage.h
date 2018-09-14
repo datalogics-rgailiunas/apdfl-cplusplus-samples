@@ -47,7 +47,7 @@ private:
     char*               buffer; 
     char*               colorSpace;
     char*               filterName;
-    float               resolution;
+    double               resolution;
 
     PDEFilterArray      SetDCTFilterParams(CosDoc cosDoc);
     ASAtom              SetColorSpace(const char *colorSpace);
