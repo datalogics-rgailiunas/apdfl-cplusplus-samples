@@ -75,7 +75,7 @@ void ASDoubleToFixedRect (ASFixedRect &out, ASDoubleRect &in)
 // This both constructs the RenderPage object, and creates the page rendering. 
 //  The rendered page can be accessed as a bitmap via the methods GetImageBuffer() and GetImageSize, or as a PDEImage, 
 //  via the method GetPDEImage(). The PDEImage creation will be deferred until it is requested.
-RenderPage::RenderPage (PDPage &pdPage, const char *colorSpace, const char *filterName, ASInt32 inBPC, double inResolution)
+RenderPage::RenderPage(PDPage &pdPage, const char *colorSpace, const char *filterName, ASInt32 inBPC, double inResolution)
 {
     // Set up the static colorspace atoms
     sDeviceRGB_K = ASAtomFromString("DeviceRGB");
@@ -124,7 +124,7 @@ RenderPage::RenderPage (PDPage &pdPage, const char *colorSpace, const char *filt
     ASFixedMatrixToASDouble (matrix, pageFixedMatrix);
 
 
-    //Gets the media box for a page. The Media Box reflets the entire contents of the page.
+    //Gets the media box for a page. The Media Box reflects the entire contents of the page.
     ASFixedRect pageFixedRect;
     PDPageGetMediaBox (pdPage, &pageFixedRect);
     ASFixedRectToASDouble (pageRect, pageFixedRect);
