@@ -23,7 +23,7 @@
 #include <vector>
 
 #define DIR_LOC "../../../../Resources/Sample_Input/"
-#define DEF_INPUT "TextSearch.pdf"
+#define DEF_INPUT "TextSelectEnum.pdf"
 #define DEF_OUTPUT "TextSelectEnum-out.pdf"
 
 // A structure to hold the information returned by text select enum
@@ -95,11 +95,12 @@ DURING
 
     // Step 4) Create an output document, and write each run to one line of that document,
     // using the same size and color as the original font, but using a single unicode based 
-    // font. The general case of converting a PDFont to a writable PDEFont, is very complex, 
+    // font. The general case of converting a PDFont to a writable PDEFont is very complex, 
     // and not a suitable subject for this example.
     //
-    // For this example, I will use Arial Unicode MS Regular, which is included on all windows
-    // platforms. 
+    // This sample will use Arial Unicode MS. Itis available on all windows platforms. If used
+    // outside of windows, this should be replaced with an appropriate "wide" unicode font. 
+    // (For example Code2000, or Bitstream Cyberbit).
     PDDoc outDoc = PDDocCreate ();
     CosDoc cosDoc = PDDocGetCosDoc (outDoc);
 
