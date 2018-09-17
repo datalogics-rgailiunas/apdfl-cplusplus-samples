@@ -75,7 +75,7 @@ void ASDoubleToFixedRect (ASFixedRect &out, ASDoubleRect &in)
 // This both constructs the RenderPage object, and creates the page rendering. 
 //  The rendered page can be accessed as a bitmap via the methods GetImageBuffer() and GetImageSize, or as a PDEImage, 
 //  via the method GetPDEImage(). The PDEImage creation will be deferred until it is requested.
-RenderPage::RenderPage(PDPage &pdPage, const char *colorSpace, const char *filterName, ASInt32 inBPC, double inResolution)
+RenderPage::RenderPage (PDPage &pdPage, const char *colorSpace, const char *filterName, ASInt32 inBPC, double inResolution)
 {
     // Set up the static colorspace atoms
     sDeviceRGB_K = ASAtomFromString("DeviceRGB");
@@ -124,10 +124,28 @@ RenderPage::RenderPage(PDPage &pdPage, const char *colorSpace, const char *filte
     ASFixedMatrixToASDouble (matrix, pageFixedMatrix);
 
 
-    //Gets the crop box for a page. The crop box is the region of the page to display and print
+    //Gets the media box for a page. The Media Box reflets the entire contents of the page.
     ASFixedRect pageFixedRect;
-    PDPageGetCropBox (pdPage, &pageFixedRect);
+    PDPageGetMediaBox (pdPage, &pageFixedRect);
     ASFixedRectToASDouble (pageRect, pageFixedRect);
+
+    // We want to display the page upright, regardless of how it was imaged. 
+    // The matrix returned by PDPageGetFlippedMatrix will include the rotation
+    // applied to the page (as will PDPageGetDefaultMatrix). However, the rectangle
+    // returned by PDPageGetMediaBox will not be rotated. So if the page is rotated
+    // 90 or 270 degrees, we need to swap those sides here.
+    PDRotate rotation = PDPageGetRotate (pdPage);
+    if ((rotation == 90) || (rotation == 270))
+    {
+        // If the page is rotated 90 or 270 degrees,
+        // Swap width and depth.
+        ASFixed saveLeft = pageRect.left;
+        ASFixed saveRight = pageRect.right;
+        pageRect.left = pageRect.bottom;
+        pageRect.right = pageRect.top;
+        pageRect.bottom = saveLeft;
+        pageRect.top = saveRight;
+    }
 
     //Set page coordinates/rectangle to crop box for PDDocCreatePage
     // The destination rectangle should be considered to be in pixels.
@@ -171,11 +189,13 @@ RenderPage::RenderPage(PDPage &pdPage, const char *colorSpace, const char *filte
     // concatenation and transformation methods for ASReal. So we generally generate the matrix and 
     // rectangle values using ASDouble, and convert to ASReal. 
     ASRealRect realDestRect;
+    ASDoubleRect doubleUpdateRect;
     ASRealRect realUpdateRect;
     ASRealMatrix realMatrix;
     ASDoubleRectToASReal (realDestRect, scaledDestRect);
-    ASDoubleRectToASReal (realUpdateRect, pageRect);
-    ASDoubleMatrixToASReal (realMatrix, scaleMatrix);
+    ASFixedRectToASDouble (doubleUpdateRect, pageFixedRect);    // This rectangle, the portion of the page to display, 
+    ASDoubleRectToASReal (realUpdateRect, doubleUpdateRect);    // Must NOT be swapped to reflect page rotation.
+    ASDoubleMatrixToASReal (realMatrix, matrix);
     drawParams.asRealDestRect = &realDestRect;               // This is where the image is drawn on the resultant bitmap.
                                                              //   It is generally set at 0, 0 and width/height in pixels.
     drawParams.asRealUpdateRect = &realUpdateRect;           // This is the portion of the document to be drawn. If omitted, 
@@ -284,20 +304,10 @@ PDEImage RenderPage::GetPDEImage(PDDoc outDoc)
         SetDCTFilterParams(PDDocGetCosDoc(outDoc));
 
     //Create the image matrix using the height/width attributes and apply the resolution.
-    //  Most images have been created with the origin in the top left corner. APDFL, however, 
-    //  considers an image as being placed at it's bottom left corner. We correct for that here
-    //  by inverting the vertical drawing direction (matrix.d is a negative value), and displacing
-    //  the first line drawn to the top of the image rendering area (matrix.v is the height of the image).
-    //
-    //  In the case at hand, we are both creating and consuming the image in a single application, so we 
-    //  could have avoided both of these transforms, and created the image from the bottom up. But if we 
-    //  do that, and save the image, most image tools will see the image as inverted. And if we use an
-    //  image that is not created by APDFL, it will likely be displayed inverted in APDFL. So this sample
-    //  has chosen to do both inversions, and carry and image in the more widely preferred origin.
+    
     imageMatrix.a = attrs.width / (resolution / 72.0);
-    imageMatrix.d = -attrs.height / (resolution / 72.0);
-    imageMatrix.b = imageMatrix.c = imageMatrix.h = 0;
-    imageMatrix.v = attrs.height / (resolution / 72.0);
+    imageMatrix.d = attrs.height / (resolution / 72.0);
+    imageMatrix.b = imageMatrix.c = imageMatrix.h = imageMatrix.v = 0;
 
     // Create an image XObject from the bitmap buffer to embed in the output document
     image = PDEImageCreateInCosDocEx ( &attrs, 
