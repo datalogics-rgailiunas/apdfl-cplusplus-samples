@@ -19,31 +19,31 @@ ASAtom RenderPage::sDeviceGray_K;
 
 // These are utility routines to convert Rects and Matrices between ASDouble and
 // ASReal, and ASFixed.
-// ASFixed was the original method of specifing "real" numbers in APDFL. It is still widly present in APDFL interfaces, though it is 
+// ASFixed was the original method of specifing "real" numbers in APDFL. It is still widely present in APDFL interfaces, though it is 
 //   limited by both it's resolution (0.0001 typically) and it range (+- 32767). There is a full complement of methods for combining
 //   matrices, and transforming and comparing rectangles. Internal to APDFL, ASFixed is now seldom used.
 // ASReal was introduced into APDFL later. It is implemented as a float, and it does not have the full 
 //   complement of transform methods. It is used here because it is needed in the interface to PDPageDrawContentsToMemoryWithParams.
 // ASDouble was introduced most recently. It has a full complement of transformation methods. Many interfaces to APDFL have been updated
-//   (Generally by the addition of "Ex" to the interface name) to provide/accepts such values.
+//   (Generally by the addition of "Ex" to the interface name) to provide/accept such values.
 //
 //  However, conversion between these forms is not always supplied. These routines provided the conversions needed for this sample.
 void ASDoubleRectToASReal (ASRealRect &out, ASDoubleRect &in)
 {
-    out.left = in.left;
-    out.right = in.right;
-    out.top = in.top;
-    out.bottom = in.bottom;
+    out.left = (ASReal)in.left;
+    out.right = (ASReal)in.right;
+    out.top = (ASReal)in.top;
+    out.bottom = (ASReal)in.bottom;
 }
 
 void ASDoubleMatrixToASReal (ASRealMatrix &out, ASDoubleMatrix &in)
 {
-    out.a = in.a;
-    out.b = in.b;
-    out.c = in.c;
-    out.d = in.d;
-    out.tx = in.h;
-    out.ty = in.v;
+    out.a = (ASReal)in.a;
+    out.b = (ASReal)in.b;
+    out.c = (ASReal)in.c;
+    out.d = (ASReal)in.d;
+    out.tx = (ASReal)in.h;
+    out.ty = (ASReal)in.v;
 }
 
 void ASFixedRectToASDouble (ASDoubleRect &out, ASFixedRect &in)
@@ -73,7 +73,7 @@ void ASDoubleToFixedRect (ASFixedRect &out, ASDoubleRect &in)
 }
 
 // This both constructs the RenderPage object, and creates the page rendering. 
-//  The rendered page can be accessed as a bitmap via the methods GetImageBuffer() and GetImageSize, or as a PDEImage, 
+//  The rendered page can be accessed as a bitmap via the methods GetImageBuffer() and GetImageBufferSize(), or as a PDEImage, 
 //  via the method GetPDEImage(). The PDEImage creation will be deferred until it is requested.
 RenderPage::RenderPage(PDPage &pdPage, const char *colorSpace, const char *filterName, ASInt32 inBPC, double inResolution)
 {
@@ -81,8 +81,6 @@ RenderPage::RenderPage(PDPage &pdPage, const char *colorSpace, const char *filte
     sDeviceRGB_K = ASAtomFromString("DeviceRGB");
     sDeviceCMYK_K = ASAtomFromString("DeviceCMYK");
     sDeviceGray_K = ASAtomFromString("DeviceGray");
-
-    image = NULL;
 
     //If you are using a decode filter such as FlateDecode, the filterArray values will be set here
     memset (&filterArray, 0, sizeof (PDEFilterArray));
@@ -98,9 +96,8 @@ RenderPage::RenderPage(PDPage &pdPage, const char *colorSpace, const char *filte
     //  support different horiziontal and vertical resolutions. APDFL, can easily support them by using a 
     //  different scale factor in the scale matrix "a" (horiziontal) and "d" (vertical) members. The scale 
     //  factors are simply (72.0 / resolution).
-    if (inResolution <= 0.0)
-        resolution = 72.0;
-    else
+    ASDouble resolution = 72.0;
+    if (inResolution > 0.0)
         resolution = inResolution;
 
     //Get the colorspace atom, set the number of components per colorspace
@@ -113,54 +110,85 @@ RenderPage::RenderPage(PDPage &pdPage, const char *colorSpace, const char *filte
     //The size of each color component to be represented in the image.
     bpc = SetBPC(inBPC);
 
-    //Gets the matrix that transforms user space coordinates to rotated and cropped coordinates.
+    // Set up attributes for the PDEImage to be made by GetPDEImage
+    //   Height and Width in pixels will be added as they are known.
+    memset (&attrs, 0, sizeof (PDEImageAttrs));
+    attrs.flags = kPDEImageExternal;
+    attrs.bitsPerComponent = bpc;
+
+    //Get the matrix that transforms user space coordinates to rotated and cropped coordinates.
     //  In PDF, the normal origin of an image is the lower left corner of the image, with 
     //  position increasing in number up and to the right. This would be obtained using 
     //  PDPageGetDefaultMatrix. However, most image formats prefer an origin of the top left 
     //  corner. Drawing the image left to right, top to bottom. The interface PDPageGetFlippedMatrix
     //  will obtain a matrix to draw the page in this order.
-    ASFixedMatrix pageFixedMatrix;
-    PDPageGetFlippedMatrix (pdPage, &pageFixedMatrix);
-    ASFixedMatrixToASDouble (matrix, pageFixedMatrix);
+    // NOTE: Both of these matrix accessors presume that the image begin drawm is the "cropped" image
+    //  of the page, and they will have the transform elements set to place the lower left hand corner
+    //  of the cropped page in the lower left hand corner of the image. This assumption is not always
+    //  how an application may wish to render a page. If your application wishes to render a different
+    //  area of the page, then you may want to modify, or generate, both the matrix and the page size
+    //  below to achive a different effect.
+    ASFixedMatrix cropFixedMatrix;
+    ASDoubleMatrix cropMatrix;
+    PDPageGetFlippedMatrix (pdPage, &cropFixedMatrix);
+    ASFixedMatrixToASDouble (cropMatrix, cropFixedMatrix);
 
 
-    //Gets the media box for a page. The Media Box reflects the entire contents of the page.
-    ASFixedRect pageFixedRect;
-    PDPageGetMediaBox (pdPage, &pageFixedRect);
-    ASFixedRectToASDouble (pageRect, pageFixedRect);
+    //Gets the Cropped Page Size/Location for a given page. 
+    //  The Crop Box reflects the visible contents of the page. It may often be displaced from the 
+    // media origin of the page. In this sample, the displacement of the cropped area of the page is
+    // included automatically in the matrix obtained above
+    ASFixedRect cropFixedRect;
+    PDPageGetCropBox (pdPage, &cropFixedRect);
+
+    // The user may ask for the size of the image in PDF units.
+    // "Normalize" the crop box to a zero/zero origin to obtain it's
+    // size in PDF units.
+    imageSize.left = imageSize.bottom = 0;
+    imageSize.right = cropFixedRect.right - cropFixedRect.left;
+    imageSize.top = cropFixedRect.top - cropFixedRect.bottom;
 
     // We want to display the page upright, regardless of how it was imaged. 
-    // The matrix returned by PDPageGetFlippedMatrix will include the rotation
-    // applied to the page (as will PDPageGetDefaultMatrix). However, the rectangle
+    // The matrix returned by PDPageGetFlippedMatrix() will include the rotation
+    // applied to the page (as will PDPageGetDefaultMatrix()). However, the rectangle
     // returned by PDPageGetMediaBox will not be rotated. So if the page is rotated
     // 90 or 270 degrees, we need to swap those sides here.
     PDRotate rotation = PDPageGetRotate (pdPage);
     if ((rotation == 90) || (rotation == 270))
     {
-        // If the page is rotated 90 or 270 degrees,
-        // Swap width and depth.
-        ASFixed saveLeft = pageRect.left;
-        ASFixed saveRight = pageRect.right;
-        pageRect.left = pageRect.bottom;
-        pageRect.right = pageRect.top;
-        pageRect.bottom = saveLeft;
-        pageRect.top = saveRight;
+        ASFixed save = imageSize.top;
+        imageSize.top = imageSize.right;
+        imageSize.right = save;
     }
 
-    //Set page coordinates/rectangle to crop box for PDDocCreatePage
-    // The destination rectangle should be considered to be in pixels.
-    // Here, we will round up to include the last partial pixel
-    destRect.left = destRect.bottom = 0;
-    destRect.right = floor ((pageRect.right - pageRect.left) + 0.5);
-    destRect.top = floor ((pageRect.top - pageRect.bottom) + 0.5);
+    // Convert to ASDouble values for computations
+    ASDoubleRect cropRect;
+    ASFixedRectToASDouble (cropRect, imageSize);
 
-    //Set the scale matrix that will be concatenated to the user space matrix
+    // The destination rectangle is in Pixels, while all other measurements
+    // till now are in PDF Units (1/72 of an inch). If we set the PDEImageAttrs
+    // width and depth here, we can use the results to form a Destination Rectangle
+    // NOTE: This is where we apply the resolution to convert from Points to Pixels.
+    //  We round up to include space for partial pixels at the edges.
+    attrs.width = (ASInt32)floor (((cropRect.right * resolution) / 72.0) + 0.5);
+    attrs.height = (ASInt32)floor (((cropRect.top * resolution) / 72.0) + 0.5);
+
+    // Set up the destinantion rectangle. 
+    // This is a description of the image in pixels, so it will always
+    // have it's origin at 0,0.
+    ASRealRect destRect;
+    destRect.left = destRect.bottom = 0;
+    destRect.right = (ASReal)attrs.width;
+    destRect.top = (ASReal)attrs.height;
+
+    //Create the scale matrix that will be concatenated to the user space matrix
+    ASDoubleMatrix scaleMatrix;
     scaleMatrix.a = scaleMatrix.d = resolution / 72.0;
     scaleMatrix.b = scaleMatrix.c = scaleMatrix.h = scaleMatrix.v = 0;
 
     //Apply the scale to the default matrix
-    ASDoubleMatrixConcat(&matrix, &scaleMatrix, &matrix);
-    ASDoubleMatrixTransformRect(&scaledDestRect, &scaleMatrix, &destRect);
+    ASDoubleMatrixConcat(&cropMatrix, &scaleMatrix, &cropMatrix);
+
 
     // "Best Practice" is to use PDPageDrawContentsToMemoryWithParams, as it allows
     // the matrix and rects to be specified in floating point, eliminating the need
@@ -188,19 +216,17 @@ RenderPage::RenderPage(PDPage &pdPage, const char *colorSpace, const char *filte
     // interface use ASReal as thier base, rather than ASDouble. But there is not a complete set of 
     // concatenation and transformation methods for ASReal. So we generally generate the matrix and 
     // rectangle values using ASDouble, and convert to ASReal. 
-    ASRealRect realDestRect;
     ASDoubleRect doubleUpdateRect;
     ASRealRect realUpdateRect;
-    ASRealMatrix realMatrix;
-    ASDoubleRectToASReal (realDestRect, scaledDestRect);
-    ASFixedRectToASDouble (doubleUpdateRect, pageFixedRect);    // This rectangle, the portion of the page to display, 
-    ASDoubleRectToASReal (realUpdateRect, doubleUpdateRect);    // Must NOT be swapped to reflect page rotation.
-    ASDoubleMatrixToASReal (realMatrix, matrix);
-    drawParams.asRealDestRect = &realDestRect;               // This is where the image is drawn on the resultant bitmap.
+    ASRealMatrix realCropMatrix;
+    ASFixedRectToASDouble (doubleUpdateRect, cropFixedRect);    // This rectangle, the portion of the page to display,
+    ASDoubleRectToASReal (realUpdateRect, doubleUpdateRect);    //   must NOT be swapped to reflect page rotation.
+    ASDoubleMatrixToASReal (realCropMatrix, cropMatrix);
+    drawParams.asRealDestRect = &destRect;                   // This is where the image is drawn on the resultant bitmap.
                                                              //   It is generally set at 0, 0 and width/height in pixels.
     drawParams.asRealUpdateRect = &realUpdateRect;           // This is the portion of the document to be drawn. If omitted, 
                                                              // it will be the document media box, which is generally what is wanted.
-    drawParams.asRealMatrix = &realMatrix;                   // This is the scale factor of the page from points to pixels, and the
+    drawParams.asRealMatrix = &realCropMatrix;               // This is the scale factor of the page from points to pixels, and the
                                                              // displacement of the lower left hand corner of the area of the page
                                                              // to be rendered.
 
@@ -238,12 +264,6 @@ RenderPage::RenderPage(PDPage &pdPage, const char *colorSpace, const char *filte
     // Render page content to the bitmap buffer
     PDPageDrawContentsToMemoryWithParams (pdPage, &drawParams);
 
-    // Set up attributes for the PDEImage to be made by GetPDEImage
-    memset (&attrs, 0, sizeof (PDEImageAttrs));
-    attrs.flags = kPDEImageExternal;
-    attrs.height = floor (abs ((scaledDestRect.top - scaledDestRect.bottom) + 0.5));
-    attrs.width = floor (abs ((scaledDestRect.right - scaledDestRect.left) + 0.5));
-    attrs.bitsPerComponent = bpc;
 
     // The bitmap data generated by PDPageDrawContentsToWindow uses 32-bit aligned rows. 
     // The PDF image operator expects, however, 8-bit aligned image rows. 
@@ -268,9 +288,6 @@ RenderPage::~RenderPage()
         ASfree (buffer);
     buffer = NULL;
 
-    if (image != NULL)
-        PDERelease(reinterpret_cast<PDEObject>(image));
-
     PDERelease(reinterpret_cast<PDEObject>(cs));
 }
 
@@ -284,43 +301,38 @@ ASInt32 RenderPage::GetImageBufferSize()
     return bufferSize;
 }
 
-ASFixedRect RenderPage::GetImageRect()
+ASFixedRect RenderPage::GetImageSize()
 {
-    ASFixedRect fixedRect;
-    ASDoubleToFixedRect (fixedRect, pageRect);
-    return fixedRect;
+    return imageSize;
 }
 
 PDEImage RenderPage::GetPDEImage(PDDoc outDoc)
 {
-    // If we have already created the image, simply return it.
-    if (image != NULL)
-        return image;
-
-    // When we are encoding in DCT, we need some additional information 
-    // in the filter. This information was not available when we original created
-    // the filter. So we add this now.
+    // When we are encoding in DCT, we need to know the height and
+    // width of the image in pixels, and the document we will be 
+    // writing the PDE Image into. This is not known before now,
+    // so we will it in when we create the image.
     if (filterArray.spec[0].name == ASAtomFromString("DCTDecode"))
         SetDCTFilterParams(PDDocGetCosDoc(outDoc));
 
     //Create the image matrix using the height/width attributes and apply the resolution.
-    
-    imageMatrix.a = attrs.width / (resolution / 72.0);
-    imageMatrix.d = attrs.height / (resolution / 72.0);
+    ASDoubleMatrix imageMatrix;
+    imageMatrix.a = ASFixedToFloat (imageSize.right);
+    imageMatrix.d = ASFixedToFloat (imageSize.top);
     imageMatrix.b = imageMatrix.c = imageMatrix.h = imageMatrix.v = 0;
 
     // Create an image XObject from the bitmap buffer to embed in the output document
-    image = PDEImageCreateInCosDocEx ( &attrs, 
-                                        sizeof(attrs),
-                                        &imageMatrix, 
-                                        0,
-                                        cs, 
-                                        NULL,
-                                        &filterArray, 
-                                        0,
-                                        (unsigned char*) buffer, 
-                                        bufferSize,
-                                        PDDocGetCosDoc (outDoc));
+    PDEImage image = PDEImageCreateInCosDocEx ( &attrs, 
+                                                sizeof(attrs),
+                                                &imageMatrix, 
+                                                0,
+                                                cs, 
+                                                NULL,
+                                                &filterArray, 
+                                                0,
+                                                (unsigned char*) buffer, 
+                                                bufferSize,
+                                                PDDocGetCosDoc (outDoc));
 
     return image;
 }
