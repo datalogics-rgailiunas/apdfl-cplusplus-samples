@@ -311,7 +311,7 @@ PDEImage RenderPage::GetPDEImage(PDDoc outDoc)
     // When we are encoding in DCT, we need to know the height and
     // width of the image in pixels, and the document we will be 
     // writing the PDE Image into. This is not known before now,
-    // so we will do it just before creating theimage.
+    // so we will do it just before creating the image.
     if (filterArray.spec[0].name == ASAtomFromString("DCTDecode"))
         SetDCTFilterParams(PDDocGetCosDoc(outDoc));
 
