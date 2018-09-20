@@ -98,7 +98,7 @@ DURING
     // font. The general case of converting a PDFont to a writable PDEFont is very complex, 
     // and not a suitable subject for this example.
     //
-    // This sample will use Arial Unicode MS. Itis available on all windows platforms. If used
+    // This sample will use Arial Unicode MS. It is available on all windows platforms. If used
     // outside of windows, this should be replaced with an appropriate "wide" unicode font. 
     // (For example Code2000, or Bitstream Cyberbit).
     PDDoc outDoc = PDDocCreate ();
