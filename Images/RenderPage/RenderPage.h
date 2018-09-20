@@ -28,18 +28,9 @@ class RenderPage
 {
 private:
     PDPage              pdPage;
-    PDEImage            image; 
     PDEImageAttrs       attrs;
     PDEColorSpace       cs;
     PDEFilterArray      filterArray;
-    // It is "Best Practice" to use ASDouble or ASReal matrices and rectangles in rendering pages. 
-    // This avoids the issue of ASFixed overflow in larger, or higher resolution, images. 
-    ASDoubleMatrix      matrix;
-    ASDoubleMatrix      scaleMatrix;
-    ASDoubleMatrix      imageMatrix;
-    ASDoubleRect        destRect;
-    ASDoubleRect        scaledDestRect;
-    ASDoubleRect        pageRect;
     ASAtom              csAtom;
     ASInt32             nComps;
     ASInt32             bufferSize;
@@ -47,7 +38,8 @@ private:
     char*               buffer; 
     char*               colorSpace;
     char*               filterName;
-    double               resolution;
+
+    ASFixedRect         imageSize;      // This will carry the image size in PDF units.
 
     PDEFilterArray      SetDCTFilterParams(CosDoc cosDoc);
     ASAtom              SetColorSpace(const char *colorSpace);
@@ -64,5 +56,5 @@ public:
     char*               GetImageBuffer();
     ASInt32             GetImageBufferSize();
     PDEImage            GetPDEImage(PDDoc outDoc);
-    ASFixedRect         GetImageRect();
+    ASFixedRect         GetImageSize();
 };
