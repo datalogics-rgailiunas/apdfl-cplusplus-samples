@@ -122,7 +122,7 @@ RenderPage::RenderPage(PDPage &pdPage, const char *colorSpace, const char *filte
     //  PDPageGetDefaultMatrix. However, most image formats prefer an origin of the top left 
     //  corner. Drawing the image left to right, top to bottom. The interface PDPageGetFlippedMatrix
     //  will obtain a matrix to draw the page in this order.
-    // NOTE: Both of these matrix accessors presume that the image begin drawm is the "cropped" image
+    // NOTE: Both of these matrix accessors presume that the image begin drawn is the "cropped" image
     //  of the page, and they will have the transform elements set to place the lower left hand corner
     //  of the cropped page in the lower left hand corner of the image. This assumption is not always
     //  how an application may wish to render a page. If your application wishes to render a different
@@ -311,7 +311,7 @@ PDEImage RenderPage::GetPDEImage(PDDoc outDoc)
     // When we are encoding in DCT, we need to know the height and
     // width of the image in pixels, and the document we will be 
     // writing the PDE Image into. This is not known before now,
-    // so we will it in when we create the image.
+    // so we will do it just before creating theimage.
     if (filterArray.spec[0].name == ASAtomFromString("DCTDecode"))
         SetDCTFilterParams(PDDocGetCosDoc(outDoc));
 
