@@ -113,7 +113,7 @@ DURING
     PDSysFont sysFont = PDFindSysFont (&fontAttrs, sizeof (PDEFontAttrs), 0);
     PDSysEncoding  sysEnc = PDSysEncodingCreateFromCMapName (ASAtomFromString ("Identity-H"));
     PDEFont pdeFont = PDEFontCreateFromSysFontAndEncodingInCosDoc (sysFont, sysEnc, fontAttrs.name, kPDEFontCreateEmbedded | kPDEFontWillSubset | kPDEFontCreateToUnicode, cosDoc);
-
+    PDERelease ((PDEObject)sysEnc);
 
     // Create a page to contain the text
     ASFixedRect newPageSize = { 0, FloatToASFixed (11.0 * 72), FloatToASFixed (8.5 * 72.0), 0 };
