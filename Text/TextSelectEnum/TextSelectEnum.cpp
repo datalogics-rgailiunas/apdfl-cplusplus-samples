@@ -12,6 +12,17 @@
 // For more detail see the description of the UnicodeText sample program on our Developer’s site, 
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#TextSelectEnum
 
+// NOTE:
+//  This sample displays the extracted text in an output page, using a Unicode Font. As supplied, it uses 
+//  "ArialUnicodeMS", which is avialable on all windows platforms, but is not avialable on other platforms.
+//  The user should supply a font which he is fairly certain will contain all of the characters present in the
+//  selected range of text in the input document used. 
+//  The "wide" Unicode fonts Code2000, or Bitstream Cyberbit, For example.
+//
+//  The name of the selected font should replace ArialUnicodeMS, in the following define
+#define Output_Font "ArialUnicodeMS"
+
+
 #include "APDFLDoc.h"
 #include "InitializeLibrary.h"
 #include "DLExtrasCalls.h"
@@ -107,7 +118,7 @@ DURING
     // Create a font to use to display the text
     PDEFontAttrs fontAttrs;
     memset (&fontAttrs, 0, sizeof (fontAttrs));
-    fontAttrs.name = ASAtomFromString ("ArialUnicodeMS");
+    fontAttrs.name = ASAtomFromString (Output_Font);
     fontAttrs.type = ASAtomFromString ("Type0");
 
     PDSysFont sysFont = PDFindSysFont (&fontAttrs, sizeof (PDEFontAttrs), 0);
