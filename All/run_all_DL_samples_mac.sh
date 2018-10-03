@@ -313,10 +313,6 @@ cd ../../Text/AddText
 ./AddText-${stage}.app/Contents/MacOS/AddText-${stage}
 echo ""
 
-echo Running sample TextSelectEnum
-cd ../../Text/AddText
-./TextSelectEnum-${stage}.app/Contents/MacOS/TextSelectEnum-${stage}
-echo ""
 
 echo Running sample UnicodeText
 cd ../../Text/UnicodeText

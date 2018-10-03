@@ -120,8 +120,7 @@ declare -a DL_SAMPLE_LIST=( \
   "Text/AddText" \
   "Text/UnicodeText" \
   "Text/HelloJapan" \
-  "Text/TextSearch" \
-  "Text/TextSelectEnum" 
+  "Text/TextSearch" 
 )
 
 cd ..
