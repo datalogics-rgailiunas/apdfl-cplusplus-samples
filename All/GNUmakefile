@@ -58,7 +58,7 @@ SAMPLES = Annotations/CreateAnnotations \
           Text/ExtractText \
           Text/AddText \
           Text/HelloJapan \
-          Text/TextSearch  
+          Text/TextSearch
 
 ifeq ($(OS), i80386linux)
 	# SAMPLES += FlattenTransparency XPStoPDF PDFOptimizer
