@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "26CF0167853B25304E429DC6C1A1F5B283F58683",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "641432DA260C58059B2A5E75D08EAFD59DEDBB28" : 0,
+    "26CF0167853B25304E429DC6C1A1F5B283F58683" : 0,
+    "5F5108B97721714628967949DB3E04301A0683F3" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "00B1C654-53F1-47F3-B4D5-A503022492DA",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "641432DA260C58059B2A5E75D08EAFD59DEDBB28" : "",
+    "26CF0167853B25304E429DC6C1A1F5B283F58683" : "DLSamples\/",
+    "5F5108B97721714628967949DB3E04301A0683F3" : ".."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "All_Datalogics",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "All\/All_Datalogics.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:datalogics-mjm\/apdfl-samples",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "26CF0167853B25304E429DC6C1A1F5B283F58683"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "octocat.dlogics.com:mjm\/apdfl-sandbox.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5F5108B97721714628967949DB3E04301A0683F3"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "octocat.dlogics.com:mjm\/pdfl15_all",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "641432DA260C58059B2A5E75D08EAFD59DEDBB28"
+    }
+  ]
+}
