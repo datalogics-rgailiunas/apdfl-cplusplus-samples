@@ -57,6 +57,7 @@ SAMPLES = Annotations/CreateAnnotations \
           Text/InsertHeadFoot \
           Text/ExtractText \
           Text/AddText \
+          Text/TextSelectEnum \
           Text/HelloJapan \
           Text/TextSearch
 

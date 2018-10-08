@@ -14,13 +14,15 @@
 
 // NOTE:
 //  This sample displays the extracted text in an output page, using a Unicode Font. As supplied, it uses 
-//  "ArialUnicodeMS", which is avialable on all windows platforms, but is not avialable on other platforms.
-//  The user should supply a font which he is fairly certain will contain all of the characters present in the
-//  selected range of text in the input document used. 
-//  The "wide" Unicode fonts Code2000, or Bitstream Cyberbit, For example.
+//  "AdobeMyungjoStd-Medium", which is available in our distributed resources. With the supplied document, 
+//  this font will have two undefined glyphs (A japanese character, and the "e grave").
 //
-//  The name of the selected font should replace ArialUnicodeMS, in the following define
-#define Output_Font "ArialUnicodeMS"
+//  The user should supply a font which he is fairly certain will contain all of the characters present in the
+//  selected range of text in the input document used. When the range of characters is not know, use a "wide" 
+//  Unicode font, such as ArialUnicodeMS, Code2000, or Bitstream Cyberbit.
+//
+//  The name of the selected font should replace AdobeMyungjoStd-Medium, in the following define
+#define Output_Font "AdobeMyungjoStd-Medium"
 
 
 #include "APDFLDoc.h"
@@ -109,9 +111,9 @@ DURING
     // font. The general case of converting a PDFont to a writable PDEFont is very complex, 
     // and not a suitable subject for this example.
     //
-    // This sample will use Arial Unicode MS. It is available on all windows platforms. If used
-    // outside of windows, this should be replaced with an appropriate "wide" unicode font. 
-    // (For example Code2000, or Bitstream Cyberbit).
+    // This sample will use AdobeMyungjoStd-Medium. It is available in the distributed resources
+    // file. It should be replaced with a font which covers the unicode ranges of the input 
+    // documents text.
     PDDoc outDoc = PDDocCreate ();
     CosDoc cosDoc = PDDocGetCosDoc (outDoc);
 
