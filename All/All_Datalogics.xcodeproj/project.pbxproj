@@ -74,7 +74,6 @@
 				9F8422A61E5CAE14001E30FB /* PBXTargetDependency */,
 				9F8422A81E5CAE14001E30FB /* PBXTargetDependency */,
 				9F8422581E5CADFC001E30FB /* PBXTargetDependency */,
-				1D0349AF2163C390004CED35 /* PBXTargetDependency */,
 			);
 			name = All_Datalogics;
 			productName = All_Datalogics_debug;
