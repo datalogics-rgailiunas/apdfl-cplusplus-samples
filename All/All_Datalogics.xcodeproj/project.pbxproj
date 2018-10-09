@@ -13,6 +13,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				1D11FA9C216CFEAE001A38A7 /* PBXTargetDependency */,
 				1D80FE1C1FC4B87A00D84920 /* PBXTargetDependency */,
 				1D80FE1E1FC4B87A00D84920 /* PBXTargetDependency */,
 				1D80FE201FC4B87A00D84920 /* PBXTargetDependency */,
@@ -86,6 +87,13 @@
 			containerPortal = 1D0349AF2163C390004CED35 /* TextSelectEnum.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = TextSelectEnum;
+		};
+		1D11FA9B216CFEAE001A38A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1D0349AF2163C390004CED35 /* TextSelectEnum.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
 			remoteInfo = TextSelectEnum;
 		};
 		1D80FE0D1FC4B72100D84920 /* PBXContainerItemProxy */ = {
@@ -2289,6 +2297,11 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXTargetDependency section */
+		1D11FA9C216CFEAE001A38A7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TextSelectEnum;
+			targetProxy = 1D11FA9B216CFEAE001A38A7 /* PBXContainerItemProxy */;
+		};
 		1D80FE1C1FC4B87A00D84920 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = AddTriangularRedaction;
