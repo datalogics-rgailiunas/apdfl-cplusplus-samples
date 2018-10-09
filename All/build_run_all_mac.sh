@@ -117,10 +117,12 @@ declare -a DL_SAMPLE_LIST=( \
   "Security/ValidateSignatures" \
   "Text/InsertHeadFoot" \
   "Text/ExtractText" \
+  "Text/TextSelectEnum" \
   "Text/AddText" \
   "Text/UnicodeText" \
   "Text/HelloJapan" \
-  "Text/TextSearch"
+  "Text/TextSearch" \
+  "Text/TextSelectEnum"
 )
 
 cd ..

@@ -13,6 +13,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				1D11FA9C216CFEAE001A38A7 /* PBXTargetDependency */,
 				1D80FE1C1FC4B87A00D84920 /* PBXTargetDependency */,
 				1D80FE1E1FC4B87A00D84920 /* PBXTargetDependency */,
 				1D80FE201FC4B87A00D84920 /* PBXTargetDependency */,
@@ -81,6 +82,20 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXContainerItemProxy section */
+		1D0349B32163C391004CED35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1D0349AF2163C390004CED35 /* TextSelectEnum.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = TextSelectEnum;
+		};
+		1D11FA9B216CFEAE001A38A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1D0349AF2163C390004CED35 /* TextSelectEnum.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = TextSelectEnum;
+		};
 		1D80FE0D1FC4B72100D84920 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1D80FE091FC4B72000D84920 /* PDFPrintDefault.xcodeproj */;
@@ -938,6 +953,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D0349AF2163C390004CED35 /* TextSelectEnum.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TextSelectEnum.xcodeproj; path = ../Text/TextSelectEnum/TextSelectEnum.xcodeproj; sourceTree = "<group>"; };
 		1D80FE091FC4B72000D84920 /* PDFPrintDefault.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PDFPrintDefault.xcodeproj; path = ../Printing/PDFPrintDefault/PDFPrintDefault.xcodeproj; sourceTree = "<group>"; };
 		1D80FE0F1FC4B73500D84920 /* PDFPrintGUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PDFPrintGUI.xcodeproj; path = ../Printing/PDFPrintGUI/PDFPrintGUI.xcodeproj; sourceTree = "<group>"; };
 		1D80FE151FC4B74800D84920 /* AddTriangularRedaction.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddTriangularRedaction.xcodeproj; path = ../Security/AddTriangularRedaction/AddTriangularRedaction.xcodeproj; sourceTree = "<group>"; };
@@ -1002,6 +1018,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		1D0349B02163C390004CED35 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D0349B42163C391004CED35 /* TextSelectEnum-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		1D80FE0A1FC4B72000D84920 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1493,6 +1517,7 @@
 		BAAE8A280ADC6237005A7834 = {
 			isa = PBXGroup;
 			children = (
+				1D0349AF2163C390004CED35 /* TextSelectEnum.xcodeproj */,
 				1D80FE151FC4B74800D84920 /* AddTriangularRedaction.xcodeproj */,
 				1D80FE0F1FC4B73500D84920 /* PDFPrintGUI.xcodeproj */,
 				1D80FE091FC4B72000D84920 /* PDFPrintDefault.xcodeproj */,
@@ -1811,6 +1836,10 @@
 					ProjectRef = 9F8EE2601E5CA9D2004E294B /* TextSearch.xcodeproj */;
 				},
 				{
+					ProductGroup = 1D0349B02163C390004CED35 /* Products */;
+					ProjectRef = 1D0349AF2163C390004CED35 /* TextSelectEnum.xcodeproj */;
+				},
+				{
 					ProductGroup = 9F8EE2671E5CA9DA004E294B /* Products */;
 					ProjectRef = 9F8EE2661E5CA9DA004E294B /* UnicodeText.xcodeproj */;
 				},
@@ -1831,6 +1860,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		1D0349B42163C391004CED35 /* TextSelectEnum-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "TextSelectEnum-Debug.app";
+			remoteRef = 1D0349B32163C391004CED35 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		1D80FE0E1FC4B72100D84920 /* PDFPrintDefault-Debug.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -2261,6 +2297,11 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXTargetDependency section */
+		1D11FA9C216CFEAE001A38A7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TextSelectEnum;
+			targetProxy = 1D11FA9B216CFEAE001A38A7 /* PBXContainerItemProxy */;
+		};
 		1D80FE1C1FC4B87A00D84920 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = AddTriangularRedaction;

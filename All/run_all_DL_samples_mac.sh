@@ -328,6 +328,11 @@ cd ../../Text/TextSearch
 ./TextSearch-${stage}.app/Contents/MacOS/TextSearch-${stage}
 echo ""
 
+echo Running sample TextSelectEnum
+cd ../../Text/TextSelectEnum
+./TextSelectEnum-${stage}.app/Contents/MacOS/TextSelectEnum-${stage}
+echo ""
+
 
 echo All Datalogics samples are finished running.
 
