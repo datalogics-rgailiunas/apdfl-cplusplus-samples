@@ -114,7 +114,7 @@ void APDFLDoc::initialize()
 // saveDoc() - This overload accepts a non-wide path name, then passes through to the real function
 //==============================================================================================================================
 
-ASErrorCode APDFLDoc::saveDoc(const char* pathToSaveDoc, PDSaveFlags saveFlags)
+ASErrorCode APDFLDoc::saveDoc(const char* pathToSaveDoc, PDSaveFlags saveFlags, PDSaveFlags2 saveFlags2)
 {
     wchar_t* wc = NULL;
     if ( pathToSaveDoc )
@@ -126,7 +126,7 @@ ASErrorCode APDFLDoc::saveDoc(const char* pathToSaveDoc, PDSaveFlags saveFlags)
             mbstowcs ( wc, pathToSaveDoc, cSize );
         }
     }
-    ASErrorCode rc = saveDoc(wc, saveFlags);
+    ASErrorCode rc = saveDoc(wc, saveFlags, saveFlags2);
     if ( wc )
     {
         delete [] wc;
@@ -140,7 +140,7 @@ ASErrorCode APDFLDoc::saveDoc(const char* pathToSaveDoc, PDSaveFlags saveFlags)
 // flags may be specified.
 //==============================================================================================================================
 
-ASErrorCode APDFLDoc::saveDoc(wchar_t * pathToSaveDoc, PDSaveFlags saveFlags)
+ASErrorCode APDFLDoc::saveDoc(wchar_t * pathToSaveDoc, PDSaveFlags saveFlags, PDSaveFlags2 saveFlags2)
 {
 
     DURING
@@ -159,9 +159,18 @@ ASErrorCode APDFLDoc::saveDoc(wchar_t * pathToSaveDoc, PDSaveFlags saveFlags)
         else
             setASPathName(nameOfDocument);          //Overwrite the original document if it hasn't been set.
         
+
+        PDDocSaveParamsRec saveParamsRec;
+        memset(&saveParamsRec, 0, sizeof(PDDocSaveParamsRec));
+
+        saveParamsRec.size = sizeof(PDDocSaveParamsRec);
+        saveParamsRec.newPath = asPathName;
+        saveParamsRec.saveFlags = saveFlags;
+        saveParamsRec.saveFlags2 = saveFlags2;
+
         //Error Checking: Ensure document has a page before saving.
         if (PDDocGetNumPages(pdDoc) > 0)
-            PDDocSave(pdDoc, saveFlags, asPathName, NULL, NULL, NULL);
+            PDDocSaveWithParams(pdDoc, &saveParamsRec);
         else
         {
             std::wcerr << L"Failed to save document ensure PDDoc has pages. " << std::endl;
