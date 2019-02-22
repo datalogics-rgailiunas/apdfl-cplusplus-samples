@@ -112,7 +112,7 @@ DURING
 
     // The second page of the document uses a different font,
     // KozMinPr6N-Regular. This is a CIDType2 font, or a glyph ID-based font.
-    pdPage = PDDocCreatePage(pdDoc, PDBeforeFirstPage, mediaBox);
+    pdPage = PDDocCreatePage(pdDoc, PDDocGetNumPages(pdDoc)-1, mediaBox);
     pdeContent = PDPageAcquirePDEContent(pdPage, NULL);    
     memset(&pdeFontAttrs, 0, sizeof(pdeFontAttrs));
     pdeFontAttrs.name = ASAtomFromString( csFont2.c_str() ); 
