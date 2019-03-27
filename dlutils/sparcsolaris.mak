@@ -19,8 +19,8 @@ CXXFLAGS = $(CCFLAGS)
 LD = $(CXX)
 LDFLAGS = -g -xtarget=ultra2 -xarch=sparcvis -m64 -mt -L$(PDFL_PATH)
 
-LIBS = -lDL150pdfl -lDL150CoolType -lDL150AGM -lDL150BIB -lDL150ACE -lDL150ARE \
-	   -lDL150BIBUtils -lDL150JP2K -lDL150AdobeXMP -lDL150AXE8SharedExpat \
+LIBS = -lDL180pdfl -lDL180CoolType -lDL180AGM -lDL180BIB -lDL180ACE -lDL180ARE \
+	   -lDL180BIBUtils -lDL180JP2K -lDL180AdobeXMP -lDL180AXE8SharedExpat \
 	   -licucnv -licudata -lpthread -lsocket -lnsl -lc -lm
 
 else  # 32-bit w/ gcc
@@ -32,8 +32,8 @@ CXXFLAGS = $(CCFLAGS)
 LD = $(CXX)
 LDFLAGS = -g -L$(PDFL_PATH)
 
-LIBS = -lDL150pdfl -lDL150CoolType -lDL150AGM -lDL150BIB -lDL150ACE -lDL150ARE \
-	   -lDL150BIBUtils -lDL150JP2K -lDL150AdobeXMP -lDL150AXE8SharedExpat \
+LIBS = -lDL180pdfl -lDL180CoolType -lDL180AGM -lDL180BIB -lDL180ACE -lDL180ARE \
+	   -lDL180BIBUtils -lDL180JP2K -lDL180AdobeXMP -lDL180AXE8SharedExpat \
 	   -licucnv -licudata -lpthread -lsocket -lnsl -lc -lm
 
 endif

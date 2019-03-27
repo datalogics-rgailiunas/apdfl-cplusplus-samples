@@ -33,16 +33,16 @@ class GCCAIXHelper
         :hAXE(NULL), hXMP(NULL), hJP2K(NULL), hBIBUt(NULL), hBIB(NULL),
         hACE(NULL), hARE(NULL), hAGM(NULL), hCT(NULL), hPDFL(NULL)
         {
-            if (!(hAXE = dlopen("libDL150AXE8SharedExpat.so", RTLD_NOW | RTLD_GLOBAL)))
-                if (!(hXMP = dlopen("libDL150AdobeXMP.so", RTLD_NOW | RTLD_GLOBAL)))
-                    if (!(hJP2K = dlopen("libDL150JP2K.so", RTLD_NOW | RTLD_GLOBAL)))
-                        if (!(hBIBUt = dlopen("libDL150BIBUtils.so", RTLD_NOW | RTLD_GLOBAL)))
-                            if (!(hBIB = dlopen("libDL150BIB.so", RTLD_NOW | RTLD_GLOBAL)))
-                                if (!(hACE = dlopen("libDL150ACE.so", RTLD_NOW | RTLD_GLOBAL)))
-                                    if (!(hARE = dlopen("libDL150ARE.so", RTLD_NOW | RTLD_GLOBAL)))
-                                        if (!(hAGM = dlopen("libDL150AGM.so", RTLD_NOW | RTLD_GLOBAL)))
-                                            if (!(hCT = dlopen("libDL150CoolType.so", RTLD_NOW | RTLD_GLOBAL)))
-                                                hPDFL = dlopen("libDL150pdfl.so", RTLD_NOW | RTLD_GLOBAL);
+            if (!(hAXE = dlopen("libDL180AXE8SharedExpat.so", RTLD_NOW | RTLD_GLOBAL)))
+                if (!(hXMP = dlopen("libDL180AdobeXMP.so", RTLD_NOW | RTLD_GLOBAL)))
+                    if (!(hJP2K = dlopen("libDL180JP2K.so", RTLD_NOW | RTLD_GLOBAL)))
+                        if (!(hBIBUt = dlopen("libDL180BIBUtils.so", RTLD_NOW | RTLD_GLOBAL)))
+                            if (!(hBIB = dlopen("libDL180BIB.so", RTLD_NOW | RTLD_GLOBAL)))
+                                if (!(hACE = dlopen("libDL180ACE.so", RTLD_NOW | RTLD_GLOBAL)))
+                                    if (!(hARE = dlopen("libDL180ARE.so", RTLD_NOW | RTLD_GLOBAL)))
+                                        if (!(hAGM = dlopen("libDL180AGM.so", RTLD_NOW | RTLD_GLOBAL)))
+                                            if (!(hCT = dlopen("libDL180CoolType.so", RTLD_NOW | RTLD_GLOBAL)))
+                                                hPDFL = dlopen("libDL180pdfl.so", RTLD_NOW | RTLD_GLOBAL);
         }
     ~GCCAIXHelper()
         {
@@ -74,7 +74,7 @@ class GCCAIXHelper
 class APDFLib
 {
 public:
-    APDFLib(wchar_t* dl150Dir = NULL);                //Constructor initializes APDFL and sets the path to DL150PDFL.dll to dl150Dir. If NULL is passed, defaults to ../../../Binaries. dl150Dir should be a relative path.
+    APDFLib(wchar_t* dlDir = NULL);                //Constructor initializes APDFL and sets the path to DL180PDFL.dll to dlDir. If NULL is passed, defaults to ../../../Binaries. dlDir should be a relative path.
     ~APDFLib();                                       //Destructor terminates APDFL.
 
     ASInt32 getInitError();                           //Reports whether an error happened during initialization and returns that error.
@@ -89,7 +89,7 @@ private:
 
     void fillDirectories();                           //Sets directory information for our PDFLDataRec.
 #if WIN_PLATFORM
-    HINSTANCE loadDFL150PDFL(wchar_t* relativeDir);   //Loads the DL150PDFL library dynamically.
+    HINSTANCE loadDFL180PDFL(wchar_t* relativeDir);   //Loads the DL180PDFL library dynamically.
 #endif
 
     ASUTF16Val* fontDirList[NUM_FONTS];               //List of font directories we'll include during initialization.              //TODO: platform divergences

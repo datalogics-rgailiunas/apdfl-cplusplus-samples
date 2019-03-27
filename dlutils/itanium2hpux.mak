@@ -21,9 +21,9 @@ LDFLAGS += -mlp64
 endif
 
 CXXFLAGS = ${CCFLAGS} -Wno-ctor-dtor-privacy
-LIBS = -L$(PDFL_PATH) -lDL150ACE -lDL150AGM -lDL150ARE \
- 	   -lDL150AXE8SharedExpat -lDL150AdobeXMP -lDL150BIB \
- 	   -lDL150BIBUtils -lDL150CoolType -lDL150JP2K -lDL150pdfl \
+LIBS = -L$(PDFL_PATH) -lDL180ACE -lDL180AGM -lDL180ARE \
+ 	   -lDL180AXE8SharedExpat -lDL180AdobeXMP -lDL180BIB \
+ 	   -lDL180BIBUtils -lDL180CoolType -lDL180JP2K -lDL180pdfl \
  	   -lc -lpthread -lm
 
 
@@ -51,6 +51,6 @@ CXXFLAGS = $(CCFLAGS)
 LD = $(CXX)
 LDFLAGS = ${TARGET_CPU_FLAGS} -g -mt -Wl,+vnoshlibunsats
 
-LIBS = -L$(PDFL_PATH) -lDL150pdfl
+LIBS = -L$(PDFL_PATH) -lDL180pdfl
 
 endif

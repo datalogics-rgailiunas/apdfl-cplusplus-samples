@@ -14,32 +14,32 @@
 		2E79A4951C8F76610087ECBC /* InitializeLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E79A4911C8F76610087ECBC /* InitializeLibrary.h */; };
 		3E0AD2450F8D4FC000C8F266 /* ICUData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E0AD2430F8D4FC000C8F266 /* ICUData.framework */; };
 		3E0AD2460F8D4FC000C8F266 /* ICUConverter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E0AD2440F8D4FC000C8F266 /* ICUConverter.framework */; };
-		3E0AD24E0F8D4FCC00C8F266 /* ICUData.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E0AD2430F8D4FC000C8F266 /* ICUData.framework */; };
-		3E0AD24F0F8D4FCC00C8F266 /* ICUConverter.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E0AD2440F8D4FC000C8F266 /* ICUConverter.framework */; };
+		3E0AD24E0F8D4FCC00C8F266 /* ICUData.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E0AD2430F8D4FC000C8F266 /* ICUData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		3E0AD24F0F8D4FCC00C8F266 /* ICUConverter.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E0AD2440F8D4FC000C8F266 /* ICUConverter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3EAC820A109783B2000210E9 /* FlattenTransparency.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC8209109783B2000210E9 /* FlattenTransparency.cpp */; };
 		8D0C4E920486CD37000505A6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Foundation.framework */; };
-		B010FF6111BEEFF900819751 /* DL150ACE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF6011BEEFF900819751 /* DL150ACE.framework */; };
-		B010FF6311BEEFF900819751 /* DL150AdobeXMP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF6211BEEFF900819751 /* DL150AdobeXMP.framework */; };
-		B010FF6511BEEFF900819751 /* DL150AGM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF6411BEEFF900819751 /* DL150AGM.framework */; };
-		B010FF6711BEEFF900819751 /* DL150ARE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF6611BEEFF900819751 /* DL150ARE.framework */; };
-		B010FF6911BEEFF900819751 /* DL150AXE8SharedExpat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF6811BEEFF900819751 /* DL150AXE8SharedExpat.framework */; };
-		B010FF6B11BEEFF900819751 /* DL150BIB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF6A11BEEFF900819751 /* DL150BIB.framework */; };
-		B010FF6D11BEEFF900819751 /* DL150BIBUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF6C11BEEFF900819751 /* DL150BIBUtils.framework */; };
-		B010FF6F11BEEFF900819751 /* DL150CoolType.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF6E11BEEFF900819751 /* DL150CoolType.framework */; };
-		B010FF7111BEEFF900819751 /* DL150JP2KLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF7011BEEFF900819751 /* DL150JP2KLib.framework */; };
-		B010FF7311BEEFF900819751 /* DL150PDFL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF7211BEEFF900819751 /* DL150PDFL.framework */; };
-		B010FF7F11BEF0C300819751 /* DL150PDFPort.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF7E11BEF0C300819751 /* DL150PDFPort.framework */; };
-		B0E40FEB11C935C9002B64A9 /* DL150ACE.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF6011BEEFF900819751 /* DL150ACE.framework */; };
-		B0E40FEC11C935C9002B64A9 /* DL150AdobeXMP.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF6211BEEFF900819751 /* DL150AdobeXMP.framework */; };
-		B0E40FED11C935C9002B64A9 /* DL150AGM.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF6411BEEFF900819751 /* DL150AGM.framework */; };
-		B0E40FEE11C935C9002B64A9 /* DL150ARE.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF6611BEEFF900819751 /* DL150ARE.framework */; };
-		B0E40FEF11C935C9002B64A9 /* DL150AXE8SharedExpat.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF6811BEEFF900819751 /* DL150AXE8SharedExpat.framework */; };
-		B0E40FF011C935C9002B64A9 /* DL150BIB.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF6A11BEEFF900819751 /* DL150BIB.framework */; };
-		B0E40FF111C935C9002B64A9 /* DL150BIBUtils.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF6C11BEEFF900819751 /* DL150BIBUtils.framework */; };
-		B0E40FF211C935C9002B64A9 /* DL150CoolType.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF6E11BEEFF900819751 /* DL150CoolType.framework */; };
-		B0E40FF311C935C9002B64A9 /* DL150JP2KLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF7011BEEFF900819751 /* DL150JP2KLib.framework */; };
-		B0E40FF411C935C9002B64A9 /* DL150PDFL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF7211BEEFF900819751 /* DL150PDFL.framework */; };
-		B0E40FF511C935C9002B64A9 /* DL150PDFPort.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF7E11BEF0C300819751 /* DL150PDFPort.framework */; };
+		B010FF6111BEEFF900819751 /* DL180ACE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF6011BEEFF900819751 /* DL180ACE.framework */; };
+		B010FF6311BEEFF900819751 /* DL180AdobeXMP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF6211BEEFF900819751 /* DL180AdobeXMP.framework */; };
+		B010FF6511BEEFF900819751 /* DL180AGM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF6411BEEFF900819751 /* DL180AGM.framework */; };
+		B010FF6711BEEFF900819751 /* DL180ARE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF6611BEEFF900819751 /* DL180ARE.framework */; };
+		B010FF6911BEEFF900819751 /* DL180AXE8SharedExpat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF6811BEEFF900819751 /* DL180AXE8SharedExpat.framework */; };
+		B010FF6B11BEEFF900819751 /* DL180BIB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF6A11BEEFF900819751 /* DL180BIB.framework */; };
+		B010FF6D11BEEFF900819751 /* DL180BIBUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF6C11BEEFF900819751 /* DL180BIBUtils.framework */; };
+		B010FF6F11BEEFF900819751 /* DL180CoolType.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF6E11BEEFF900819751 /* DL180CoolType.framework */; };
+		B010FF7111BEEFF900819751 /* DL180JP2K.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF7011BEEFF900819751 /* DL180JP2K.framework */; };
+		B010FF7311BEEFF900819751 /* DL180PDFL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF7211BEEFF900819751 /* DL180PDFL.framework */; };
+		B010FF7F11BEF0C300819751 /* DL180PDFPort.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF7E11BEF0C300819751 /* DL180PDFPort.framework */; };
+		B0E40FEB11C935C9002B64A9 /* DL180ACE.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF6011BEEFF900819751 /* DL180ACE.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		B0E40FEC11C935C9002B64A9 /* DL180AdobeXMP.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF6211BEEFF900819751 /* DL180AdobeXMP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		B0E40FED11C935C9002B64A9 /* DL180AGM.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF6411BEEFF900819751 /* DL180AGM.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		B0E40FEE11C935C9002B64A9 /* DL180ARE.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF6611BEEFF900819751 /* DL180ARE.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		B0E40FEF11C935C9002B64A9 /* DL180AXE8SharedExpat.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF6811BEEFF900819751 /* DL180AXE8SharedExpat.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		B0E40FF011C935C9002B64A9 /* DL180BIB.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF6A11BEEFF900819751 /* DL180BIB.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		B0E40FF111C935C9002B64A9 /* DL180BIBUtils.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF6C11BEEFF900819751 /* DL180BIBUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		B0E40FF211C935C9002B64A9 /* DL180CoolType.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF6E11BEEFF900819751 /* DL180CoolType.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		B0E40FF311C935C9002B64A9 /* DL180JP2K.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF7011BEEFF900819751 /* DL180JP2K.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		B0E40FF411C935C9002B64A9 /* DL180PDFL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF7211BEEFF900819751 /* DL180PDFL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		B0E40FF511C935C9002B64A9 /* DL180PDFPort.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF7E11BEF0C300819751 /* DL180PDFPort.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		BA0654DB0AC34D340029CB3D /* PDFLInitCommon.c in Sources */ = {isa = PBXBuildFile; fileRef = BA0654DA0AC34D340029CB3D /* PDFLInitCommon.c */; };
 		BA2E45960888421A0081FD28 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2E45950888421A0081FD28 /* ApplicationServices.framework */; };
 		BA568C160A47467400825A50 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA568C150A47467400825A50 /* CoreServices.framework */; };
@@ -165,17 +165,17 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B0E40FEB11C935C9002B64A9 /* DL150ACE.framework in CopyFiles */,
-				B0E40FEC11C935C9002B64A9 /* DL150AdobeXMP.framework in CopyFiles */,
-				B0E40FED11C935C9002B64A9 /* DL150AGM.framework in CopyFiles */,
-				B0E40FEE11C935C9002B64A9 /* DL150ARE.framework in CopyFiles */,
-				B0E40FEF11C935C9002B64A9 /* DL150AXE8SharedExpat.framework in CopyFiles */,
-				B0E40FF011C935C9002B64A9 /* DL150BIB.framework in CopyFiles */,
-				B0E40FF111C935C9002B64A9 /* DL150BIBUtils.framework in CopyFiles */,
-				B0E40FF211C935C9002B64A9 /* DL150CoolType.framework in CopyFiles */,
-				B0E40FF311C935C9002B64A9 /* DL150JP2KLib.framework in CopyFiles */,
-				B0E40FF411C935C9002B64A9 /* DL150PDFL.framework in CopyFiles */,
-				B0E40FF511C935C9002B64A9 /* DL150PDFPort.framework in CopyFiles */,
+				B0E40FEB11C935C9002B64A9 /* DL180ACE.framework in CopyFiles */,
+				B0E40FEC11C935C9002B64A9 /* DL180AdobeXMP.framework in CopyFiles */,
+				B0E40FED11C935C9002B64A9 /* DL180AGM.framework in CopyFiles */,
+				B0E40FEE11C935C9002B64A9 /* DL180ARE.framework in CopyFiles */,
+				B0E40FEF11C935C9002B64A9 /* DL180AXE8SharedExpat.framework in CopyFiles */,
+				B0E40FF011C935C9002B64A9 /* DL180BIB.framework in CopyFiles */,
+				B0E40FF111C935C9002B64A9 /* DL180BIBUtils.framework in CopyFiles */,
+				B0E40FF211C935C9002B64A9 /* DL180CoolType.framework in CopyFiles */,
+				B0E40FF311C935C9002B64A9 /* DL180JP2K.framework in CopyFiles */,
+				B0E40FF411C935C9002B64A9 /* DL180PDFL.framework in CopyFiles */,
+				B0E40FF511C935C9002B64A9 /* DL180PDFPort.framework in CopyFiles */,
 				3E0AD24E0F8D4FCC00C8F266 /* ICUData.framework in CopyFiles */,
 				3E0AD24F0F8D4FCC00C8F266 /* ICUConverter.framework in CopyFiles */,
 			);
@@ -198,17 +198,17 @@
 		3E0AD2430F8D4FC000C8F266 /* ICUData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ICUData.framework; path = ../../../Binaries/ICUData.framework; sourceTree = SOURCE_ROOT; };
 		3E0AD2440F8D4FC000C8F266 /* ICUConverter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ICUConverter.framework; path = ../../../Binaries/ICUConverter.framework; sourceTree = SOURCE_ROOT; };
 		3EAC8209109783B2000210E9 /* FlattenTransparency.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = FlattenTransparency.cpp; sourceTree = SOURCE_ROOT; };
-		B010FF6011BEEFF900819751 /* DL150ACE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150ACE.framework; path = ../../../Binaries/DL150ACE.framework; sourceTree = "<group>"; };
-		B010FF6211BEEFF900819751 /* DL150AdobeXMP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150AdobeXMP.framework; path = ../../../Binaries/DL150AdobeXMP.framework; sourceTree = "<absolute>"; };
-		B010FF6411BEEFF900819751 /* DL150AGM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150AGM.framework; path = ../../../Binaries/DL150AGM.framework; sourceTree = "<absolute>"; };
-		B010FF6611BEEFF900819751 /* DL150ARE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150ARE.framework; path = ../../../Binaries/DL150ARE.framework; sourceTree = "<absolute>"; };
-		B010FF6811BEEFF900819751 /* DL150AXE8SharedExpat.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150AXE8SharedExpat.framework; path = ../../../Binaries/DL150AXE8SharedExpat.framework; sourceTree = "<absolute>"; };
-		B010FF6A11BEEFF900819751 /* DL150BIB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150BIB.framework; path = ../../../Binaries/DL150BIB.framework; sourceTree = "<absolute>"; };
-		B010FF6C11BEEFF900819751 /* DL150BIBUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150BIBUtils.framework; path = ../../../Binaries/DL150BIBUtils.framework; sourceTree = "<absolute>"; };
-		B010FF6E11BEEFF900819751 /* DL150CoolType.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150CoolType.framework; path = ../../../Binaries/DL150CoolType.framework; sourceTree = "<absolute>"; };
-		B010FF7011BEEFF900819751 /* DL150JP2KLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150JP2KLib.framework; path = ../../../Binaries/DL150JP2KLib.framework; sourceTree = "<absolute>"; };
-		B010FF7211BEEFF900819751 /* DL150PDFL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150PDFL.framework; path = ../../../Binaries/DL150PDFL.framework; sourceTree = "<absolute>"; };
-		B010FF7E11BEF0C300819751 /* DL150PDFPort.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150PDFPort.framework; path = ../../../Binaries/DL150PDFPort.framework; sourceTree = "<absolute>"; };
+		B010FF6011BEEFF900819751 /* DL180ACE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180ACE.framework; path = ../../../Binaries/DL180ACE.framework; sourceTree = "<group>"; };
+		B010FF6211BEEFF900819751 /* DL180AdobeXMP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180AdobeXMP.framework; path = ../../../Binaries/DL180AdobeXMP.framework; sourceTree = "<absolute>"; };
+		B010FF6411BEEFF900819751 /* DL180AGM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180AGM.framework; path = ../../../Binaries/DL180AGM.framework; sourceTree = "<absolute>"; };
+		B010FF6611BEEFF900819751 /* DL180ARE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180ARE.framework; path = ../../../Binaries/DL180ARE.framework; sourceTree = "<absolute>"; };
+		B010FF6811BEEFF900819751 /* DL180AXE8SharedExpat.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180AXE8SharedExpat.framework; path = ../../../Binaries/DL180AXE8SharedExpat.framework; sourceTree = "<absolute>"; };
+		B010FF6A11BEEFF900819751 /* DL180BIB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180BIB.framework; path = ../../../Binaries/DL180BIB.framework; sourceTree = "<absolute>"; };
+		B010FF6C11BEEFF900819751 /* DL180BIBUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180BIBUtils.framework; path = ../../../Binaries/DL180BIBUtils.framework; sourceTree = "<absolute>"; };
+		B010FF6E11BEEFF900819751 /* DL180CoolType.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180CoolType.framework; path = ../../../Binaries/DL180CoolType.framework; sourceTree = "<absolute>"; };
+		B010FF7011BEEFF900819751 /* DL180JP2K.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180JP2K.framework; path = ../../../Binaries/DL180JP2K.framework; sourceTree = "<absolute>"; };
+		B010FF7211BEEFF900819751 /* DL180PDFL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180PDFL.framework; path = ../../../Binaries/DL180PDFL.framework; sourceTree = "<absolute>"; };
+		B010FF7E11BEF0C300819751 /* DL180PDFPort.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180PDFPort.framework; path = ../../../Binaries/DL180PDFPort.framework; sourceTree = "<absolute>"; };
 		BA0654DA0AC34D340029CB3D /* PDFLInitCommon.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = PDFLInitCommon.c; path = ../../../Include/Source/PDFLInitCommon.c; sourceTree = SOURCE_ROOT; };
 		BA2E45950888421A0081FD28 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		BA568C150A47467400825A50 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
@@ -338,17 +338,17 @@
 				BA568C160A47467400825A50 /* CoreServices.framework in Frameworks */,
 				3E0AD2450F8D4FC000C8F266 /* ICUData.framework in Frameworks */,
 				3E0AD2460F8D4FC000C8F266 /* ICUConverter.framework in Frameworks */,
-				B010FF6111BEEFF900819751 /* DL150ACE.framework in Frameworks */,
-				B010FF6311BEEFF900819751 /* DL150AdobeXMP.framework in Frameworks */,
-				B010FF6511BEEFF900819751 /* DL150AGM.framework in Frameworks */,
-				B010FF6711BEEFF900819751 /* DL150ARE.framework in Frameworks */,
-				B010FF6911BEEFF900819751 /* DL150AXE8SharedExpat.framework in Frameworks */,
-				B010FF6B11BEEFF900819751 /* DL150BIB.framework in Frameworks */,
-				B010FF6D11BEEFF900819751 /* DL150BIBUtils.framework in Frameworks */,
-				B010FF6F11BEEFF900819751 /* DL150CoolType.framework in Frameworks */,
-				B010FF7111BEEFF900819751 /* DL150JP2KLib.framework in Frameworks */,
-				B010FF7311BEEFF900819751 /* DL150PDFL.framework in Frameworks */,
-				B010FF7F11BEF0C300819751 /* DL150PDFPort.framework in Frameworks */,
+				B010FF6111BEEFF900819751 /* DL180ACE.framework in Frameworks */,
+				B010FF6311BEEFF900819751 /* DL180AdobeXMP.framework in Frameworks */,
+				B010FF6511BEEFF900819751 /* DL180AGM.framework in Frameworks */,
+				B010FF6711BEEFF900819751 /* DL180ARE.framework in Frameworks */,
+				B010FF6911BEEFF900819751 /* DL180AXE8SharedExpat.framework in Frameworks */,
+				B010FF6B11BEEFF900819751 /* DL180BIB.framework in Frameworks */,
+				B010FF6D11BEEFF900819751 /* DL180BIBUtils.framework in Frameworks */,
+				B010FF6F11BEEFF900819751 /* DL180CoolType.framework in Frameworks */,
+				B010FF7111BEEFF900819751 /* DL180JP2K.framework in Frameworks */,
+				B010FF7311BEEFF900819751 /* DL180PDFL.framework in Frameworks */,
+				B010FF7F11BEF0C300819751 /* DL180PDFPort.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,17 +408,17 @@
 				BA2E45950888421A0081FD28 /* ApplicationServices.framework */,
 				3E0AD2430F8D4FC000C8F266 /* ICUData.framework */,
 				3E0AD2440F8D4FC000C8F266 /* ICUConverter.framework */,
-				B010FF6011BEEFF900819751 /* DL150ACE.framework */,
-				B010FF6211BEEFF900819751 /* DL150AdobeXMP.framework */,
-				B010FF6411BEEFF900819751 /* DL150AGM.framework */,
-				B010FF6611BEEFF900819751 /* DL150ARE.framework */,
-				B010FF6811BEEFF900819751 /* DL150AXE8SharedExpat.framework */,
-				B010FF6A11BEEFF900819751 /* DL150BIB.framework */,
-				B010FF6C11BEEFF900819751 /* DL150BIBUtils.framework */,
-				B010FF6E11BEEFF900819751 /* DL150CoolType.framework */,
-				B010FF7011BEEFF900819751 /* DL150JP2KLib.framework */,
-				B010FF7211BEEFF900819751 /* DL150PDFL.framework */,
-				B010FF7E11BEF0C300819751 /* DL150PDFPort.framework */,
+				B010FF6011BEEFF900819751 /* DL180ACE.framework */,
+				B010FF6211BEEFF900819751 /* DL180AdobeXMP.framework */,
+				B010FF6411BEEFF900819751 /* DL180AGM.framework */,
+				B010FF6611BEEFF900819751 /* DL180ARE.framework */,
+				B010FF6811BEEFF900819751 /* DL180AXE8SharedExpat.framework */,
+				B010FF6A11BEEFF900819751 /* DL180BIB.framework */,
+				B010FF6C11BEEFF900819751 /* DL180BIBUtils.framework */,
+				B010FF6E11BEEFF900819751 /* DL180CoolType.framework */,
+				B010FF7011BEEFF900819751 /* DL180JP2K.framework */,
+				B010FF7211BEEFF900819751 /* DL180PDFL.framework */,
+				B010FF7E11BEF0C300819751 /* DL180PDFPort.framework */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -713,6 +713,7 @@
 		20286C28FDCF999611CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0940;
 			};
 			buildConfigurationList = BACCD188089AA4370006D315 /* Build configuration list for PBXProject "FlattenTransparency" */;
 			compatibilityVersion = "Xcode 2.4";
@@ -750,6 +751,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2E79A48B1C8F75D80087ECBC /* Project_release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
@@ -774,6 +776,30 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2E79A48B1C8F75D80087ECBC /* Project_release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
 			};
 			name = Release;
 		};
@@ -781,6 +807,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2E79A48A1C8F75D80087ECBC /* Project_debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
@@ -805,6 +832,32 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2E79A48A1C8F75D80087ECBC /* Project_debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};

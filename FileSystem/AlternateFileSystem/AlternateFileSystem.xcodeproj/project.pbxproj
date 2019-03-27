@@ -13,28 +13,28 @@
 		2E21C0701C8DD3FD00018A6D /* InitializeLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E21C06C1C8DD3FD00018A6D /* InitializeLibrary.cpp */; };
 		2E21C0711C8DD3FD00018A6D /* InitializeLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E21C06D1C8DD3FD00018A6D /* InitializeLibrary.h */; };
 		2E21C0841C8DD7DE00018A6D /* AlternateFileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E21C0831C8DD7DE00018A6D /* AlternateFileSystem.cpp */; };
-		335725340C9B40490095FC3D /* DL150ACE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252A0C9B40480095FC3D /* DL150ACE.framework */; };
-		335725350C9B40490095FC3D /* DL150AGM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252B0C9B40480095FC3D /* DL150AGM.framework */; };
-		335725360C9B40490095FC3D /* DL150ARE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252C0C9B40480095FC3D /* DL150ARE.framework */; };
-		335725370C9B40490095FC3D /* DL150AXE8SharedExpat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252D0C9B40480095FC3D /* DL150AXE8SharedExpat.framework */; };
-		335725380C9B40490095FC3D /* DL150BIB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252E0C9B40480095FC3D /* DL150BIB.framework */; };
-		335725390C9B40490095FC3D /* DL150BIBUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252F0C9B40480095FC3D /* DL150BIBUtils.framework */; };
-		3357253A0C9B40490095FC3D /* DL150CoolType.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 335725300C9B40480095FC3D /* DL150CoolType.framework */; };
-		3357253C0C9B40490095FC3D /* DL150PDFL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 335725320C9B40480095FC3D /* DL150PDFL.framework */; };
-		335725480C9B40500095FC3D /* DL150ACE.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3357252A0C9B40480095FC3D /* DL150ACE.framework */; };
-		335725490C9B40500095FC3D /* DL150AGM.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3357252B0C9B40480095FC3D /* DL150AGM.framework */; };
-		3357254A0C9B40500095FC3D /* DL150ARE.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3357252C0C9B40480095FC3D /* DL150ARE.framework */; };
-		3357254B0C9B40500095FC3D /* DL150AXE8SharedExpat.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3357252D0C9B40480095FC3D /* DL150AXE8SharedExpat.framework */; };
-		3357254C0C9B40500095FC3D /* DL150BIB.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3357252E0C9B40480095FC3D /* DL150BIB.framework */; };
-		3357254D0C9B40500095FC3D /* DL150BIBUtils.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3357252F0C9B40480095FC3D /* DL150BIBUtils.framework */; };
-		3357254E0C9B40500095FC3D /* DL150CoolType.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 335725300C9B40480095FC3D /* DL150CoolType.framework */; };
-		335725500C9B40500095FC3D /* DL150PDFL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 335725320C9B40480095FC3D /* DL150PDFL.framework */; };
-		3E56134E0F8BF3B10094B7E7 /* DL150JP2KLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E56134D0F8BF3B10094B7E7 /* DL150JP2KLib.framework */; };
-		3E5613510F8BF3B90094B7E7 /* DL150AdobeXMP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5613500F8BF3B90094B7E7 /* DL150AdobeXMP.framework */; };
+		335725340C9B40490095FC3D /* DL180ACE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252A0C9B40480095FC3D /* DL180ACE.framework */; };
+		335725350C9B40490095FC3D /* DL180AGM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252B0C9B40480095FC3D /* DL180AGM.framework */; };
+		335725360C9B40490095FC3D /* DL180ARE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252C0C9B40480095FC3D /* DL180ARE.framework */; };
+		335725370C9B40490095FC3D /* DL180AXE8SharedExpat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252D0C9B40480095FC3D /* DL180AXE8SharedExpat.framework */; };
+		335725380C9B40490095FC3D /* DL180BIB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252E0C9B40480095FC3D /* DL180BIB.framework */; };
+		335725390C9B40490095FC3D /* DL180BIBUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357252F0C9B40480095FC3D /* DL180BIBUtils.framework */; };
+		3357253A0C9B40490095FC3D /* DL180CoolType.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 335725300C9B40480095FC3D /* DL180CoolType.framework */; };
+		3357253C0C9B40490095FC3D /* DL180PDFL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 335725320C9B40480095FC3D /* DL180PDFL.framework */; };
+		335725480C9B40500095FC3D /* DL180ACE.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3357252A0C9B40480095FC3D /* DL180ACE.framework */; };
+		335725490C9B40500095FC3D /* DL180AGM.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3357252B0C9B40480095FC3D /* DL180AGM.framework */; };
+		3357254A0C9B40500095FC3D /* DL180ARE.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3357252C0C9B40480095FC3D /* DL180ARE.framework */; };
+		3357254B0C9B40500095FC3D /* DL180AXE8SharedExpat.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3357252D0C9B40480095FC3D /* DL180AXE8SharedExpat.framework */; };
+		3357254C0C9B40500095FC3D /* DL180BIB.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3357252E0C9B40480095FC3D /* DL180BIB.framework */; };
+		3357254D0C9B40500095FC3D /* DL180BIBUtils.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3357252F0C9B40480095FC3D /* DL180BIBUtils.framework */; };
+		3357254E0C9B40500095FC3D /* DL180CoolType.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 335725300C9B40480095FC3D /* DL180CoolType.framework */; };
+		335725500C9B40500095FC3D /* DL180PDFL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 335725320C9B40480095FC3D /* DL180PDFL.framework */; };
+		3E56134E0F8BF3B10094B7E7 /* DL180JP2K.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E56134D0F8BF3B10094B7E7 /* DL180JP2K.framework */; };
+		3E5613510F8BF3B90094B7E7 /* DL180AdobeXMP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5613500F8BF3B90094B7E7 /* DL180AdobeXMP.framework */; };
 		3E5613540F8BF3C70094B7E7 /* ICUConverter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5613530F8BF3C70094B7E7 /* ICUConverter.framework */; };
 		3E5613570F8BF3CC0094B7E7 /* ICUData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5613560F8BF3CC0094B7E7 /* ICUData.framework */; };
-		3E5613590F8BF3D60094B7E7 /* DL150JP2KLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E56134D0F8BF3B10094B7E7 /* DL150JP2KLib.framework */; };
-		3E56135A0F8BF3DA0094B7E7 /* DL150AdobeXMP.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613500F8BF3B90094B7E7 /* DL150AdobeXMP.framework */; };
+		3E5613590F8BF3D60094B7E7 /* DL180JP2K.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E56134D0F8BF3B10094B7E7 /* DL180JP2K.framework */; };
+		3E56135A0F8BF3DA0094B7E7 /* DL180AdobeXMP.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613500F8BF3B90094B7E7 /* DL180AdobeXMP.framework */; };
 		3E56135B0F8BF3DD0094B7E7 /* ICUConverter.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613530F8BF3C70094B7E7 /* ICUConverter.framework */; };
 		3E56135C0F8BF3E30094B7E7 /* ICUData.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613560F8BF3CC0094B7E7 /* ICUData.framework */; };
 		8D0C4E920486CD37000505A6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Foundation.framework */; };
@@ -164,16 +164,16 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				335725480C9B40500095FC3D /* DL150ACE.framework in CopyFiles */,
-				335725490C9B40500095FC3D /* DL150AGM.framework in CopyFiles */,
-				3357254A0C9B40500095FC3D /* DL150ARE.framework in CopyFiles */,
-				3357254B0C9B40500095FC3D /* DL150AXE8SharedExpat.framework in CopyFiles */,
-				3357254C0C9B40500095FC3D /* DL150BIB.framework in CopyFiles */,
-				3357254D0C9B40500095FC3D /* DL150BIBUtils.framework in CopyFiles */,
-				3357254E0C9B40500095FC3D /* DL150CoolType.framework in CopyFiles */,
-				3E5613590F8BF3D60094B7E7 /* DL150JP2KLib.framework in CopyFiles */,
-				3E56135A0F8BF3DA0094B7E7 /* DL150AdobeXMP.framework in CopyFiles */,
-				335725500C9B40500095FC3D /* DL150PDFL.framework in CopyFiles */,
+				335725480C9B40500095FC3D /* DL180ACE.framework in CopyFiles */,
+				335725490C9B40500095FC3D /* DL180AGM.framework in CopyFiles */,
+				3357254A0C9B40500095FC3D /* DL180ARE.framework in CopyFiles */,
+				3357254B0C9B40500095FC3D /* DL180AXE8SharedExpat.framework in CopyFiles */,
+				3357254C0C9B40500095FC3D /* DL180BIB.framework in CopyFiles */,
+				3357254D0C9B40500095FC3D /* DL180BIBUtils.framework in CopyFiles */,
+				3357254E0C9B40500095FC3D /* DL180CoolType.framework in CopyFiles */,
+				3E5613590F8BF3D60094B7E7 /* DL180JP2K.framework in CopyFiles */,
+				3E56135A0F8BF3DA0094B7E7 /* DL180AdobeXMP.framework in CopyFiles */,
+				335725500C9B40500095FC3D /* DL180PDFL.framework in CopyFiles */,
 				3E56135B0F8BF3DD0094B7E7 /* ICUConverter.framework in CopyFiles */,
 				3E56135C0F8BF3E30094B7E7 /* ICUData.framework in CopyFiles */,
 			);
@@ -194,16 +194,16 @@
 		2E21C06C1C8DD3FD00018A6D /* InitializeLibrary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InitializeLibrary.cpp; path = ../../_Common/InitializeLibrary.cpp; sourceTree = "<group>"; };
 		2E21C06D1C8DD3FD00018A6D /* InitializeLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InitializeLibrary.h; path = ../../_Common/InitializeLibrary.h; sourceTree = "<group>"; };
 		2E21C0831C8DD7DE00018A6D /* AlternateFileSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AlternateFileSystem.cpp; sourceTree = "<group>"; };
-		3357252A0C9B40480095FC3D /* DL150ACE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150ACE.framework; path = ../../../Binaries/DL150ACE.framework; sourceTree = SOURCE_ROOT; };
-		3357252B0C9B40480095FC3D /* DL150AGM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150AGM.framework; path = ../../../Binaries/DL150AGM.framework; sourceTree = SOURCE_ROOT; };
-		3357252C0C9B40480095FC3D /* DL150ARE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150ARE.framework; path = ../../../Binaries/DL150ARE.framework; sourceTree = SOURCE_ROOT; };
-		3357252D0C9B40480095FC3D /* DL150AXE8SharedExpat.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150AXE8SharedExpat.framework; path = ../../../Binaries/DL150AXE8SharedExpat.framework; sourceTree = SOURCE_ROOT; };
-		3357252E0C9B40480095FC3D /* DL150BIB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150BIB.framework; path = ../../../Binaries/DL150BIB.framework; sourceTree = SOURCE_ROOT; };
-		3357252F0C9B40480095FC3D /* DL150BIBUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150BIBUtils.framework; path = ../../../Binaries/DL150BIBUtils.framework; sourceTree = SOURCE_ROOT; };
-		335725300C9B40480095FC3D /* DL150CoolType.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150CoolType.framework; path = ../../../Binaries/DL150CoolType.framework; sourceTree = SOURCE_ROOT; };
-		335725320C9B40480095FC3D /* DL150PDFL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150PDFL.framework; path = ../../../Binaries/DL150PDFL.framework; sourceTree = SOURCE_ROOT; };
-		3E56134D0F8BF3B10094B7E7 /* DL150JP2KLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150JP2KLib.framework; path = ../../../Binaries/DL150JP2KLib.framework; sourceTree = SOURCE_ROOT; };
-		3E5613500F8BF3B90094B7E7 /* DL150AdobeXMP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL150AdobeXMP.framework; path = ../../../Binaries/DL150AdobeXMP.framework; sourceTree = SOURCE_ROOT; };
+		3357252A0C9B40480095FC3D /* DL180ACE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180ACE.framework; path = ../../../Binaries/DL180ACE.framework; sourceTree = SOURCE_ROOT; };
+		3357252B0C9B40480095FC3D /* DL180AGM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180AGM.framework; path = ../../../Binaries/DL180AGM.framework; sourceTree = SOURCE_ROOT; };
+		3357252C0C9B40480095FC3D /* DL180ARE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180ARE.framework; path = ../../../Binaries/DL180ARE.framework; sourceTree = SOURCE_ROOT; };
+		3357252D0C9B40480095FC3D /* DL180AXE8SharedExpat.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180AXE8SharedExpat.framework; path = ../../../Binaries/DL180AXE8SharedExpat.framework; sourceTree = SOURCE_ROOT; };
+		3357252E0C9B40480095FC3D /* DL180BIB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180BIB.framework; path = ../../../Binaries/DL180BIB.framework; sourceTree = SOURCE_ROOT; };
+		3357252F0C9B40480095FC3D /* DL180BIBUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180BIBUtils.framework; path = ../../../Binaries/DL180BIBUtils.framework; sourceTree = SOURCE_ROOT; };
+		335725300C9B40480095FC3D /* DL180CoolType.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180CoolType.framework; path = ../../../Binaries/DL180CoolType.framework; sourceTree = SOURCE_ROOT; };
+		335725320C9B40480095FC3D /* DL180PDFL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180PDFL.framework; path = ../../../Binaries/DL180PDFL.framework; sourceTree = SOURCE_ROOT; };
+		3E56134D0F8BF3B10094B7E7 /* DL180JP2K.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180JP2K.framework; path = ../../../Binaries/DL180JP2K.framework; sourceTree = SOURCE_ROOT; };
+		3E5613500F8BF3B90094B7E7 /* DL180AdobeXMP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180AdobeXMP.framework; path = ../../../Binaries/DL180AdobeXMP.framework; sourceTree = SOURCE_ROOT; };
 		3E5613530F8BF3C70094B7E7 /* ICUConverter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ICUConverter.framework; path = ../../../Binaries/ICUConverter.framework; sourceTree = SOURCE_ROOT; };
 		3E5613560F8BF3CC0094B7E7 /* ICUData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ICUData.framework; path = ../../../Binaries/ICUData.framework; sourceTree = SOURCE_ROOT; };
 		A0F1C22C1DDF53A700E45833 /* AlternateFileSystemTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AlternateFileSystemTest.cpp; sourceTree = "<group>"; };
@@ -334,16 +334,16 @@
 				8D0C4E920486CD37000505A6 /* Foundation.framework in Frameworks */,
 				BA2E45960888421A0081FD28 /* ApplicationServices.framework in Frameworks */,
 				BA568C160A47467400825A50 /* CoreServices.framework in Frameworks */,
-				335725340C9B40490095FC3D /* DL150ACE.framework in Frameworks */,
-				335725350C9B40490095FC3D /* DL150AGM.framework in Frameworks */,
-				335725360C9B40490095FC3D /* DL150ARE.framework in Frameworks */,
-				335725370C9B40490095FC3D /* DL150AXE8SharedExpat.framework in Frameworks */,
-				335725380C9B40490095FC3D /* DL150BIB.framework in Frameworks */,
-				335725390C9B40490095FC3D /* DL150BIBUtils.framework in Frameworks */,
-				3357253A0C9B40490095FC3D /* DL150CoolType.framework in Frameworks */,
-				3357253C0C9B40490095FC3D /* DL150PDFL.framework in Frameworks */,
-				3E56134E0F8BF3B10094B7E7 /* DL150JP2KLib.framework in Frameworks */,
-				3E5613510F8BF3B90094B7E7 /* DL150AdobeXMP.framework in Frameworks */,
+				335725340C9B40490095FC3D /* DL180ACE.framework in Frameworks */,
+				335725350C9B40490095FC3D /* DL180AGM.framework in Frameworks */,
+				335725360C9B40490095FC3D /* DL180ARE.framework in Frameworks */,
+				335725370C9B40490095FC3D /* DL180AXE8SharedExpat.framework in Frameworks */,
+				335725380C9B40490095FC3D /* DL180BIB.framework in Frameworks */,
+				335725390C9B40490095FC3D /* DL180BIBUtils.framework in Frameworks */,
+				3357253A0C9B40490095FC3D /* DL180CoolType.framework in Frameworks */,
+				3357253C0C9B40490095FC3D /* DL180PDFL.framework in Frameworks */,
+				3E56134E0F8BF3B10094B7E7 /* DL180JP2K.framework in Frameworks */,
+				3E5613510F8BF3B90094B7E7 /* DL180AdobeXMP.framework in Frameworks */,
 				3E5613540F8BF3C70094B7E7 /* ICUConverter.framework in Frameworks */,
 				3E5613570F8BF3CC0094B7E7 /* ICUData.framework in Frameworks */,
 			);
@@ -520,16 +520,16 @@
 		BA7F63E60A53393300BFE059 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				3357252A0C9B40480095FC3D /* DL150ACE.framework */,
-				3357252B0C9B40480095FC3D /* DL150AGM.framework */,
-				3357252C0C9B40480095FC3D /* DL150ARE.framework */,
-				3357252D0C9B40480095FC3D /* DL150AXE8SharedExpat.framework */,
-				3357252E0C9B40480095FC3D /* DL150BIB.framework */,
-				3357252F0C9B40480095FC3D /* DL150BIBUtils.framework */,
-				335725300C9B40480095FC3D /* DL150CoolType.framework */,
-				3E56134D0F8BF3B10094B7E7 /* DL150JP2KLib.framework */,
-				335725320C9B40480095FC3D /* DL150PDFL.framework */,
-				3E5613500F8BF3B90094B7E7 /* DL150AdobeXMP.framework */,
+				3357252A0C9B40480095FC3D /* DL180ACE.framework */,
+				3357252B0C9B40480095FC3D /* DL180AGM.framework */,
+				3357252C0C9B40480095FC3D /* DL180ARE.framework */,
+				3357252D0C9B40480095FC3D /* DL180AXE8SharedExpat.framework */,
+				3357252E0C9B40480095FC3D /* DL180BIB.framework */,
+				3357252F0C9B40480095FC3D /* DL180BIBUtils.framework */,
+				335725300C9B40480095FC3D /* DL180CoolType.framework */,
+				3E56134D0F8BF3B10094B7E7 /* DL180JP2K.framework */,
+				335725320C9B40480095FC3D /* DL180PDFL.framework */,
+				3E5613500F8BF3B90094B7E7 /* DL180AdobeXMP.framework */,
 				3E5613530F8BF3C70094B7E7 /* ICUConverter.framework */,
 				3E5613560F8BF3CC0094B7E7 /* ICUData.framework */,
 				BA568C150A47467400825A50 /* CoreServices.framework */,

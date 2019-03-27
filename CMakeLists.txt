@@ -18,4 +18,3 @@ install(DIRECTORY    ${CMAKE_CURRENT_SOURCE_DIR}/_Input/
         USE_SOURCE_PERMISSIONS
         PATTERN "CMakeLists.txt" EXCLUDE
         )
-        )
