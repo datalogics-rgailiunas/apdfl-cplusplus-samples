@@ -20,9 +20,9 @@
 #endif
 //========================================================================================================
 //Constructor:
-//initializes APDFL and does not default the DL150PDFL.dll directory. dl150Dir should be a relative path.
+//initializes APDFL and does not default the DL180PDFL.dll directory. dlDir should be a relative path.
 //========================================================================================================
-APDFLib::APDFLib(wchar_t* dl150Dir)
+APDFLib::APDFLib(wchar_t* dlDir)
 #if AIX_GCC_COMPAT
     :gccHelp()
 #endif
@@ -30,10 +30,10 @@ APDFLib::APDFLib(wchar_t* dl150Dir)
     initValid = false;                            //Whether the initialization succeeded.
 
 #ifdef WIN_PLATFORM
-    if (dl150Dir == NULL)
-        dl150Dir = L"..\\..\\..\\Binaries";               //The default DL150PDFL.lib directory.
+    if (dlDir == NULL)
+        dlDir = L"..\\..\\..\\Binaries";               //The default DL180PDFL.lib directory.
 
-    HINSTANCE dllInst = loadDFL150PDFL (dl150Dir);
+    HINSTANCE dllInst = loadDFL180PDFL(dlDir);
     if (dllInst == 0)
     {
         initValid = false;
@@ -78,47 +78,47 @@ ASInt32 APDFLib::getInitError()
 
 //========================================================================================================
 //ASInt32 function:
-//Loads the DL150PDFL library dynamically.
+//Loads the DL180PDFL library dynamically.
 //========================================================================================================
 #ifdef WIN_PLATFORM
-HINSTANCE APDFLib::loadDFL150PDFL (wchar_t* relativeDir)
+HINSTANCE APDFLib::loadDFL180PDFL(wchar_t* relativeDir)
 {
     //Prepare to find the full path name.
     const int bufsize = 4096;                     //The size of the buffer we'll write the path to.
     TCHAR pathBuffer[bufsize] = TEXT("");         //The buffer we'll write the path to.
     TCHAR** lppPart = { NULL };                   //Recieves the address of the final name component.
 
-    GetFullPathName (relativeDir,                 //Turn the relative path into an absolute path.
+    GetFullPathNameW(relativeDir,                 //Turn the relative path into an absolute path.
                      bufsize,
                      pathBuffer,
                      lppPart);
 
-    SetDllDirectory(pathBuffer);                  //Add the path to the DLL directory.
+    SetDllDirectoryW(pathBuffer);                  //Add the path to the DLL directory.
 
     //Ensure we have read and write access to it.
     int access = _waccess(pathBuffer, 06);
     if (EACCES == access)
     {
-        std::wcout << L"DL150PDFL.dll : ACCESS DENIED" << std::endl;
+        std::wcout << L"DL180PDFL.dll : ACCESS DENIED" << std::endl;
         return 0;
     }
     if (ENOENT == access)
     {
-        std::wcout << L"DL150PDFL.dll : COULD NOT LOCATE FILE" << std::endl;
+        std::wcout << L"DL180PDFL.dll : COULD NOT LOCATE FILE" << std::endl;
         return 0;
     }
 
     if (EINVAL == access)
     {
-        std::wcout << L"DL150PDFL.dll : INVALID PARAMETER" << std::endl;
+        std::wcout << L"DL180PDFL.dll : INVALID PARAMETER" << std::endl;
         return 0;
     }
 
-    return (LoadLibrary(L"DL150PDFL.dll"));
+    return (LoadLibrary(L"DL180PDFL.dll"));
 }
 #endif
 #ifndef WIN_PLATFORM
-size_t strnlen_safe (const char *str, size_t maxSize)
+size_t strnlen_safe(const char *str, size_t maxSize)
 {
 	if(!str)	return 0;
 	size_t n;

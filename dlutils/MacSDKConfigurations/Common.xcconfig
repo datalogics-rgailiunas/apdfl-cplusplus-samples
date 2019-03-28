@@ -17,7 +17,7 @@ FRAMEWORK_SEARCH_PATHS = ../../../Binaries
 LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks"
 
 // Define frameworks to link here, rather than by including references in the project.
-DL_PDFL_FRAMEWORKS = -framework DL150ACE -framework DL150AGM -framework DL150ARE -framework DL150AXE8SharedExpat -framework DL150BIB -framework DL150BIBUtils -framework DL150CoolType -framework DL150JP2KLib -framework DL150AdobeXMP -framework DL150PDFL
+DL_PDFL_FRAMEWORKS = -framework DL180ACE -framework DL180AGM -framework DL180ARE -framework DL180AXE8SharedExpat -framework DL180BIB -framework DL180BIBUtils -framework DL180CoolType -framework DL180JP2K -framework DL180AdobeXMP -framework DL180PDFL
 
 // Common Header search paths for all targets
 HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) ../../dlutils ../../../Include/Headers
