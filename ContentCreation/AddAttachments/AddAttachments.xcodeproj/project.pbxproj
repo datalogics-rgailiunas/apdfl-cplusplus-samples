@@ -33,12 +33,14 @@
 		335726B70C9B41AE0095FC3D /* DL180PDFL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 335726970C9B41A70095FC3D /* DL180PDFL.framework */; };
 		3E0AD23E0F8D4FAA00C8F266 /* DL180JP2K.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E0AD23D0F8D4FAA00C8F266 /* DL180JP2K.framework */; };
 		3E0AD2410F8D4FAF00C8F266 /* DL180AdobeXMP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E0AD2400F8D4FAF00C8F266 /* DL180AdobeXMP.framework */; };
-		3E0AD2450F8D4FC000C8F266 /* ICUData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E0AD2430F8D4FC000C8F266 /* ICUData.framework */; };
-		3E0AD2460F8D4FC000C8F266 /* ICUConverter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E0AD2440F8D4FC000C8F266 /* ICUConverter.framework */; };
-		3E0AD24E0F8D4FCC00C8F266 /* ICUData.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E0AD2430F8D4FC000C8F266 /* ICUData.framework */; };
-		3E0AD24F0F8D4FCC00C8F266 /* ICUConverter.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E0AD2440F8D4FC000C8F266 /* ICUConverter.framework */; };
 		3E0AD2500F8D4FD200C8F266 /* DL180JP2K.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E0AD23D0F8D4FAA00C8F266 /* DL180JP2K.framework */; };
 		3E0AD2510F8D4FD700C8F266 /* DL180AdobeXMP.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E0AD2400F8D4FAF00C8F266 /* DL180AdobeXMP.framework */; };
+		54A9B8022269152F0039EB0A /* libicudata.40.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 54A9B7FE2269152E0039EB0A /* libicudata.40.0.dylib */; };
+		54A9B8032269152F0039EB0A /* libicucnv.40.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 54A9B7FF2269152E0039EB0A /* libicucnv.40.0.dylib */; };
+		54A9B8042269153F0039EB0A /* libicucnv.40.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 54A9B7FF2269152E0039EB0A /* libicucnv.40.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		54A9B8052269153F0039EB0A /* libicucnv.40.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 54A9B7FC2269152E0039EB0A /* libicucnv.40.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		54A9B8062269153F0039EB0A /* libicudata.40.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 54A9B7FE2269152E0039EB0A /* libicudata.40.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		54A9B8072269153F0039EB0A /* libicudata.40.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 54A9B7FD2269152E0039EB0A /* libicudata.40.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		8D0C4E920486CD37000505A6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Foundation.framework */; };
 		BA2E45960888421A0081FD28 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2E45950888421A0081FD28 /* ApplicationServices.framework */; };
 		BA568C160A47467400825A50 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA568C150A47467400825A50 /* CoreServices.framework */; };
@@ -164,17 +166,19 @@
 			dstSubfolderSpec = 10;
 			files = (
 				335726AF0C9B41AE0095FC3D /* DL180ACE.framework in CopyFiles */,
+				54A9B8052269153F0039EB0A /* libicucnv.40.dylib in CopyFiles */,
 				335726B00C9B41AE0095FC3D /* DL180AGM.framework in CopyFiles */,
 				335726B10C9B41AE0095FC3D /* DL180ARE.framework in CopyFiles */,
+				54A9B8062269153F0039EB0A /* libicudata.40.0.dylib in CopyFiles */,
 				335726B20C9B41AE0095FC3D /* DL180AXE8SharedExpat.framework in CopyFiles */,
 				335726B30C9B41AE0095FC3D /* DL180BIB.framework in CopyFiles */,
 				335726B40C9B41AE0095FC3D /* DL180BIBUtils.framework in CopyFiles */,
 				335726B50C9B41AE0095FC3D /* DL180CoolType.framework in CopyFiles */,
 				3E0AD2500F8D4FD200C8F266 /* DL180JP2K.framework in CopyFiles */,
 				3E0AD2510F8D4FD700C8F266 /* DL180AdobeXMP.framework in CopyFiles */,
+				54A9B8042269153F0039EB0A /* libicucnv.40.0.dylib in CopyFiles */,
 				335726B70C9B41AE0095FC3D /* DL180PDFL.framework in CopyFiles */,
-				3E0AD24E0F8D4FCC00C8F266 /* ICUData.framework in CopyFiles */,
-				3E0AD24F0F8D4FCC00C8F266 /* ICUConverter.framework in CopyFiles */,
+				54A9B8072269153F0039EB0A /* libicudata.40.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,8 +209,10 @@
 		335726970C9B41A70095FC3D /* DL180PDFL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180PDFL.framework; path = ../../../Binaries/DL180PDFL.framework; sourceTree = SOURCE_ROOT; };
 		3E0AD23D0F8D4FAA00C8F266 /* DL180JP2K.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180JP2K.framework; path = ../../../Binaries/DL180JP2K.framework; sourceTree = SOURCE_ROOT; };
 		3E0AD2400F8D4FAF00C8F266 /* DL180AdobeXMP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180AdobeXMP.framework; path = ../../../Binaries/DL180AdobeXMP.framework; sourceTree = SOURCE_ROOT; };
-		3E0AD2430F8D4FC000C8F266 /* ICUData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ICUData.framework; path = ../../../Binaries/ICUData.framework; sourceTree = SOURCE_ROOT; };
-		3E0AD2440F8D4FC000C8F266 /* ICUConverter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ICUConverter.framework; path = ../../../Binaries/ICUConverter.framework; sourceTree = SOURCE_ROOT; };
+		54A9B7FC2269152E0039EB0A /* libicucnv.40.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucnv.40.dylib; path = ../../../Binaries/libicucnv.40.dylib; sourceTree = SOURCE_ROOT; };
+		54A9B7FD2269152E0039EB0A /* libicudata.40.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicudata.40.dylib; path = ../../../Binaries/libicudata.40.dylib; sourceTree = SOURCE_ROOT; };
+		54A9B7FE2269152E0039EB0A /* libicudata.40.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicudata.40.0.dylib; path = ../../../Binaries/libicudata.40.0.dylib; sourceTree = SOURCE_ROOT; };
+		54A9B7FF2269152E0039EB0A /* libicucnv.40.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucnv.40.0.dylib; path = ../../../Binaries/libicucnv.40.0.dylib; sourceTree = SOURCE_ROOT; };
 		BA2E45950888421A0081FD28 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		BA568C150A47467400825A50 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		BAACDA390B7A4C4800A6A6EC /* PDFXEASF.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PDFXEASF.h; path = ../../../Include/Headers/PDFXEASF.h; sourceTree = SOURCE_ROOT; };
@@ -331,6 +337,7 @@
 			files = (
 				8D0C4E920486CD37000505A6 /* Foundation.framework in Frameworks */,
 				BA2E45960888421A0081FD28 /* ApplicationServices.framework in Frameworks */,
+				54A9B8032269152F0039EB0A /* libicucnv.40.0.dylib in Frameworks */,
 				BA568C160A47467400825A50 /* CoreServices.framework in Frameworks */,
 				335726990C9B41A70095FC3D /* DL180ACE.framework in Frameworks */,
 				3357269A0C9B41A80095FC3D /* DL180AGM.framework in Frameworks */,
@@ -338,12 +345,11 @@
 				3357269C0C9B41A80095FC3D /* DL180AXE8SharedExpat.framework in Frameworks */,
 				3357269D0C9B41A80095FC3D /* DL180BIB.framework in Frameworks */,
 				3357269E0C9B41A80095FC3D /* DL180BIBUtils.framework in Frameworks */,
+				54A9B8022269152F0039EB0A /* libicudata.40.0.dylib in Frameworks */,
 				3357269F0C9B41A80095FC3D /* DL180CoolType.framework in Frameworks */,
 				335726A10C9B41A80095FC3D /* DL180PDFL.framework in Frameworks */,
 				3E0AD23E0F8D4FAA00C8F266 /* DL180JP2K.framework in Frameworks */,
 				3E0AD2410F8D4FAF00C8F266 /* DL180AdobeXMP.framework in Frameworks */,
-				3E0AD2450F8D4FC000C8F266 /* ICUData.framework in Frameworks */,
-				3E0AD2460F8D4FC000C8F266 /* ICUConverter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +404,10 @@
 		BA7F63E60A53393300BFE059 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				54A9B7FF2269152E0039EB0A /* libicucnv.40.0.dylib */,
+				54A9B7FC2269152E0039EB0A /* libicucnv.40.dylib */,
+				54A9B7FE2269152E0039EB0A /* libicudata.40.0.dylib */,
+				54A9B7FD2269152E0039EB0A /* libicudata.40.dylib */,
 				3357268F0C9B41A70095FC3D /* DL180ACE.framework */,
 				335726900C9B41A70095FC3D /* DL180AGM.framework */,
 				335726910C9B41A70095FC3D /* DL180ARE.framework */,
@@ -411,8 +421,6 @@
 				BA568C150A47467400825A50 /* CoreServices.framework */,
 				20286C33FDCF999611CA2CEA /* Foundation.framework */,
 				BA2E45950888421A0081FD28 /* ApplicationServices.framework */,
-				3E0AD2430F8D4FC000C8F266 /* ICUData.framework */,
-				3E0AD2440F8D4FC000C8F266 /* ICUConverter.framework */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -756,7 +764,7 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../Binaries\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../Binaries\"";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER =../../dlutils/PDFLPrecompile.pch;
+				GCC_PREFIX_HEADER = ../../dlutils/PDFLPrecompile.pch;
 				INFOPLIST_FILE = ../../dlutils/Info.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)-$(CONFIGURATION)";
 				SHARED_PRECOMPS_DIR = "$(SRCROOT)/Build/pch";
@@ -770,7 +778,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER =../../dlutils/PDFLPrecompile.pch;
+				GCC_PREFIX_HEADER = ../../dlutils/PDFLPrecompile.pch;
 				HEADER_SEARCH_PATHS = (
 					../../dlutils,
 					../../../Include/Headers,
@@ -796,7 +804,7 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../Binaries\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../Binaries\"";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER =../../dlutils/PDFLPrecompile.pch;
+				GCC_PREFIX_HEADER = ../../dlutils/PDFLPrecompile.pch;
 				INFOPLIST_FILE = ../../dlutils/Info.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)-$(CONFIGURATION)";
 				SHARED_PRECOMPS_DIR = "$(SRCROOT)/Build/pch";
@@ -810,7 +818,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER =../../dlutils/PDFLPrecompile.pch;
+				GCC_PREFIX_HEADER = ../../dlutils/PDFLPrecompile.pch;
 				INFOPLIST_FILE = ../../dlutils/Info.plist;
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = "$(SRCROOT)/Build/pch";
