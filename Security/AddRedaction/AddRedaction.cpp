@@ -129,7 +129,7 @@ DURING
         redactParams->textColor = &textCVRec;   
         redactParams->textColor->space = PDDeviceGray;              // Draw the overlay text in white
         redactParams->textColor->value[0] = fixedOne;
-        redactParams->textFontName = "CourierStd";                  // Draw the overlay text using CourierStd font
+        strcpy(redactParams->textFontName, "CourierStd");                  // Draw the overlay text using CourierStd font
         redactParams->textSize = FloatToASFixed (10.0);             // Draw the text size as 10 point (nominally, may
                                                                     // be reduced is ScaleToFit is true).
         redactParams->repeat = true;                                // Draw the text in each quad, repeating to fill the quad

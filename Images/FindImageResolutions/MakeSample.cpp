@@ -83,7 +83,6 @@ typedef ASInt8    CHAR;
 typedef ASInt16   SHORT;
 typedef ASInt32   LONG;
 typedef ASUns32   DWORD;
-typedef ASUns32   BOOL;
 typedef ASUns8    BYTE;
 typedef ASUns16   WORD;
 typedef float     FLOAT;

@@ -36,7 +36,6 @@ void SetupPDFXProcessorParams(PDFProcessorPDFXConvertParams userParams);
 int main(int argc, char **argv)
 {
     PDFProcessorPDFXConversionOption convertOption;
-    char *outputPathName;
 
     /* Step 1) Select conversion option */
     if (argc < 2)
@@ -44,25 +43,21 @@ int main(int argc, char **argv)
         std::cout << "PDF Conversion Standard not specified or unknown, defaulting to PDFX1a2001." << std::endl;
 
         convertOption = kPDFProcessorConvertToPDFX1a2001;
-        outputPathName = DEF_OUTPUT;
     }
     else if (argc > 2 && (!strcmp(argv[2], "PDFX1a2001") || !strcmp(argv[2], "PDFX1A2001")))
     {
         convertOption = kPDFProcessorConvertToPDFX1a2001;
 
-        outputPathName = DEF_OUTPUT;
     }
     else if (argc > 2 && (!strcmp(argv[2], "PDFX32003")))
     {
         convertOption = kPDFProcessorConvertToPDFX32003;
         
-        outputPathName = DEF_OUTPUT;
     }
     else
     {
         std::cout << "PDF Conversion Standard not specified or unknown, defaulting to PDFX1a2001." << std::endl;
         convertOption = kPDFProcessorConvertToPDFX1a2001;
-        outputPathName = DEF_OUTPUT;
     }
 
     APDFLib lib;
@@ -76,8 +71,8 @@ int main(int argc, char **argv)
     
     std::string csInputFileName ( argc > 1 ? argv[1] : DIR_LOC DEF_INPUT );
     std::string csOutputFileName ( DEF_OUTPUT );
-    std::cout << "Will convert " << csInputFileName.c_str() << " to a PDF/X compliant PDF named "
-              << csOutputFileName.c_str() << std::endl;
+    std::cout << "Will convert " << csInputFileName << " to a PDF/X compliant PDF named "
+              << csOutputFileName << std::endl;
 
 DURING
     gPDFProcessorHFT = InitPDFProcessorHFT;
@@ -107,11 +102,11 @@ DURING
 
         if(res)
         {
-            std::cout << "File " << csInputFileName.c_str() << " has been successfully Converted." << std::endl;
+            std::cout << "File " << csInputFileName << " has been successfully Converted." << std::endl;
         }
         else
         {
-            std::cout << "Conversion of file " << csInputFileName.c_str() << " has failed..." << std::endl;
+            std::cout << "Conversion of file " << csInputFileName << " has failed..." << std::endl;
         }
 
         // Cleanup and free memory

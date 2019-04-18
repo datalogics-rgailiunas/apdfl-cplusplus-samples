@@ -316,8 +316,7 @@ ASInt32    altFSGetPos (MDFile File, ASUns32 *Pos)
     if (!File)
         return 1;
 
-    if (altFileHandle->Position >= 0)
-        *Pos = (ASInt32) altFileHandle->Position;
+    *Pos = (ASInt32) altFileHandle->Position;
 
     return 0;
 }
@@ -369,7 +368,7 @@ ASSize_t altFSRead (void *Buffer, ASSize_t Size, ASSize_t Count, MDFile File, AS
     }
     altFile = altFileHandle->File;
 
-    if (altFileHandle->Position > altFile->CurrentSize || Count < 0 || Size < 0)
+    if (altFileHandle->Position > altFile->CurrentSize || Size < 0)
     {
         // End of file
         *Error = 12;

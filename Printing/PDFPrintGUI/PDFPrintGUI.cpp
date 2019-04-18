@@ -101,7 +101,7 @@ int main (int argc, char **argv)
             return (-1);
         }
 
-        const char *name = thePrintInfo.printer.name.cString;
+        const char *name = thePrintInfo.printer.name.UTF8String;
         std::cout << "Sending to the printer " << name << std::endl;
 #else
         PRINTDLGW printDialog;
