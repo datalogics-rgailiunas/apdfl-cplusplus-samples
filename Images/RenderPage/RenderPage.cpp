@@ -305,7 +305,7 @@ char * RenderPage::GetImageBuffer()
     return buffer;
 }
 
-ASInt32 RenderPage::GetImageBufferSize()
+ASSize_t RenderPage::GetImageBufferSize()
 {
     return bufferSize;
 }
