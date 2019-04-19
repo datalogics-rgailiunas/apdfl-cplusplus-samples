@@ -1,17 +1,20 @@
-// Copyright (c) 2015-2016, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2015-2019, Datalogics, Inc. All rights reserved.
 //
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 
-// Build for standard 32/64 bit arches
-ARCHS = $(ARCHS_STANDARD_32_64_BIT)
+// Build for standard 64 bit architecture
+ARCHS = x86_64
+   
+// Set deployment target to 10.9.
+MACOSX_DEPLOYMENT_TARGET = 10.9;
 
-// Set deployment target to 10.5.
-// This is the minimum required version for 64-bit support.
-MACOSX_DEPLOYMENT_TARGET = 10.7;
+// Use the new runtime library
+CLANG_CXX_LIBRARY = libc++;
 
 // Library search paths for all targets
 FRAMEWORK_SEARCH_PATHS = ../../../Binaries
+LIBRARY_SEARCH_PATHS = ../../../Binaries
 
 // Add an rpath setting to allow us to use @rpath in the APDFL Frameworks
 LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks"

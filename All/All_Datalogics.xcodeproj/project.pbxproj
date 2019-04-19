@@ -62,7 +62,6 @@
 				9F8422BA1E5CAE20001E30FB /* PBXTargetDependency */,
 				9F8422BC1E5CAE20001E30FB /* PBXTargetDependency */,
 				9F8422901E5CAE14001E30FB /* PBXTargetDependency */,
-				9F8422921E5CAE14001E30FB /* PBXTargetDependency */,
 				9F8422941E5CAE14001E30FB /* PBXTargetDependency */,
 				9F8422961E5CAE14001E30FB /* PBXTargetDependency */,
 				9F8422981E5CAE14001E30FB /* PBXTargetDependency */,
@@ -144,6 +143,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
 			remoteInfo = OutputPreview;
+		};
+		54A9B65D226906FD0039EB0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE25A1E5CA9C9004E294B /* InsertHeadFoot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = InsertHeadFoot;
 		};
 		54E10DC31F61B5EA00147917 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -312,13 +318,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
 			remoteInfo = TextSearch;
-		};
-		9F8422911E5CAE14001E30FB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9F8EE25A1E5CA9C9004E294B /* InsertHeadFoot.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = InsertHeadFoot;
 		};
 		9F8422931E5CAE14001E30FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -929,13 +928,6 @@
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
 			remoteInfo = helloJapan;
 		};
-		9F8EE25E1E5CA9CA004E294B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9F8EE25A1E5CA9C9004E294B /* InsertHeadFoot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = InsertHeadFoot;
-		};
 		9F8EE2641E5CA9D3004E294B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9F8EE2601E5CA9D2004E294B /* TextSearch.xcodeproj */;
@@ -1046,6 +1038,14 @@
 			isa = PBXGroup;
 			children = (
 				1D80FE1A1FC4B74900D84920 /* AddTriangularRedaction-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		54A9B65A226906FD0039EB0A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				54A9B65E226906FD0039EB0A /* InsertHeadFoot-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1490,14 +1490,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9F8EE25B1E5CA9C9004E294B /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9F8EE25F1E5CA9CA004E294B /* InsertHeadFoot-Debug.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		9F8EE2611E5CA9D2004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1772,7 +1764,7 @@
 					ProjectRef = 9F8EE1991E5CA43F004E294B /* importPages.xcodeproj */;
 				},
 				{
-					ProductGroup = 9F8EE25B1E5CA9C9004E294B /* Products */;
+					ProductGroup = 54A9B65A226906FD0039EB0A /* Products */;
 					ProjectRef = 9F8EE25A1E5CA9C9004E294B /* InsertHeadFoot.xcodeproj */;
 				},
 				{
@@ -1886,6 +1878,13 @@
 			fileType = wrapper.application;
 			path = "AddTriangularRedaction-Debug.app";
 			remoteRef = 1D80FE191FC4B74900D84920 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		54A9B65E226906FD0039EB0A /* InsertHeadFoot-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "InsertHeadFoot-Debug.app";
+			remoteRef = 54A9B65D226906FD0039EB0A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		54E10DC41F61B5EA00147917 /* OutputPreview-Debug.app */ = {
@@ -2273,13 +2272,6 @@
 			remoteRef = 9F8EE2581E5CA9C1004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9F8EE25F1E5CA9CA004E294B /* InsertHeadFoot-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "InsertHeadFoot-Debug.app";
-			remoteRef = 9F8EE25E1E5CA9CA004E294B /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		9F8EE2651E5CA9D3004E294B /* TextSearch-Debug.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -2346,11 +2338,6 @@
 			isa = PBXTargetDependency;
 			name = TextSearch;
 			targetProxy = 9F84228F1E5CAE14001E30FB /* PBXContainerItemProxy */;
-		};
-		9F8422921E5CAE14001E30FB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = InsertHeadFoot;
-			targetProxy = 9F8422911E5CAE14001E30FB /* PBXContainerItemProxy */;
 		};
 		9F8422941E5CAE14001E30FB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

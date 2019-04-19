@@ -104,7 +104,7 @@ int main (int argc, char **argv)
         userParams.printSettings = (PMPrintSettings)[thePrintInfo PMPrintSettings];   /* Pointer to a PMPrintSettings */
         userParams.pageFormat = (PMPageFormat)[thePrintInfo PMPageFormat];            /* Pointer to a PMPageFormat */
 
-        const char *name = thePrintInfo.printer.name.cString;
+        const char *name = thePrintInfo.printer.name.UTF8String;
         std::cout << "Sending to the printer " << name << std::endl;
 
 #endif

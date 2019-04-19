@@ -36,7 +36,6 @@ void SetupPDFAProcessorParams(PDFProcessorPDFAConvertParams userParams);
 int main(int argc, char **argv)
 {
     PDFProcessorPDFAConversionOption convertOption;
-    char *outputPathName;
 
     /* Step 1) Select conversion option */
     if (argc < 2)
@@ -44,7 +43,6 @@ int main(int argc, char **argv)
         std::cout << "PDF Conversion Standard not specified or unknown, defaulting to PDFA1bRGB." << std::endl;
 
         convertOption = kPDFProcessorConvertToPDFA1bRGB;
-        outputPathName = DEF_OUTPUT;
     }
     else if (argc > 2 && (!strcmp(argv[2], "PDFA1b") || !strcmp(argv[2], "PDFA1B")))
     {
@@ -63,7 +61,6 @@ int main(int argc, char **argv)
         {
             convertOption = kPDFProcessorConvertToPDFA1bRGB;
         }
-        outputPathName = DEF_OUTPUT;
     }
     else if (argc > 2 && (!strcmp(argv[2], "PDFA1a") || !strcmp(argv[2], "PDFA1A")))
     {
@@ -82,13 +79,11 @@ int main(int argc, char **argv)
         {
             convertOption = kPDFProcessorConvertToPDFA1aRGB;
         }
-        outputPathName = DEF_OUTPUT;
     }
     else
     {
         std::cout << "PDF Conversion Standard not specified or unknown, defaulting to PDFA1bRGB." << std::endl;
         convertOption = kPDFProcessorConvertToPDFA1bRGB;
-        outputPathName = DEF_OUTPUT;
     }
 
     APDFLib lib;

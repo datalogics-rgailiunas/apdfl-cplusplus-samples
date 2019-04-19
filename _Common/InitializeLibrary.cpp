@@ -49,7 +49,7 @@ APDFLib::APDFLib(wchar_t* dlDir)
     fillDirectories();                            //Set the directory inclusion data.
 
 #ifdef LOAD_PLUGIN
-	pdflData.pluginDirList[0] = "../../../Binaries"; /* specify plugin path */
+	strcpy(pdflData.pluginDirList[0], "../../../Binaries"); /* specify plugin path */
 #endif
 #ifdef WIN_PLATFORM
     pdflData.inst = dllInst;
