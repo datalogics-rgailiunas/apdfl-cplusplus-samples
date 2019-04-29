@@ -240,8 +240,6 @@ void APDFLib::fillDirectories()
 	CFBundleRef bundleRef = CFBundleGetMainBundle();
 	CFURLRef baseURL = CFBundleCopyBundleURL(bundleRef);
 	CFURLRef resourceURL = CFURLCreateWithFileSystemPathRelativeToBase (kCFAllocatorDefault,
-																		// DLADD: RickK 03Jan2008 - Changed all resource paths to go up one directory
-																		// DLADD: further and include APDFL in the path.
 																		CFSTR("../../../../Resources/"),
 																		kCFURLPOSIXPathStyle, true, baseURL);
 	CFURLGetFileSystemRepresentation (resourceURL, true, (unsigned char*)resourceDirectory, MAX_PATH);
@@ -259,12 +257,12 @@ void APDFLib::fillDirectories()
 		strcat_safe(fontPath[ i ], sizeof(fontPath[ i ]), SUB_RESOURCE_DIR[ i ]);
 	}
 
-	for( int i = 0; i < NO_OF_RESOURCE_DIR; i++ ) {
-		tmpP[i] = (char*)malloc(sizeof(char)*MAX_PATH);
-		strncpy_safe(tmpP[ i ], MAX_PATH, fontPath[ i ], sizeof(fontPath[ i ]));
-	}
-	pluginDirList[0] = (ASUTF16Val*)tmpP;
-	pdflData.pluginDirList = (char**)pluginDirList;
+
+	pdflData.pluginDirList = (char**)malloc( NUM_PLUGIN_DIRS * sizeof(char *));
+    for(int i=0; i < NUM_PLUGIN_DIRS; ++i) {
+        pdflData.pluginDirList[i] = (char *)malloc(sizeof(char)*MAX_PATH);
+    }
+    strncpy_safe(pdflData.pluginDirList[0], MAX_PATH, "../../../Binaries\0\0", 19);
 	pdflData.pluginDirListLen = NUM_PLUGIN_DIRS;
 #endif
 #ifdef UNIX_PLATFORM
