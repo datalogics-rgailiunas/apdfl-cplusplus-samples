@@ -259,10 +259,10 @@ void APDFLib::fillDirectories()
 
 
 	pdflData.pluginDirList = (char**)malloc( NUM_PLUGIN_DIRS * sizeof(char *));
-    for(int i=0; i < NUM_PLUGIN_DIRS; ++i) {
-        pdflData.pluginDirList[i] = (char *)malloc(sizeof(char)*MAX_PATH);
-    }
-    strncpy_safe(pdflData.pluginDirList[0], MAX_PATH, "../../../Binaries\0\0", 19);
+	for(int i=0; i < NUM_PLUGIN_DIRS; ++i) {
+		pdflData.pluginDirList[i] = (char *)malloc(sizeof(char)*MAX_PATH);
+	}
+	strncpy_safe(pdflData.pluginDirList[0], MAX_PATH, "../../../Binaries\0\0", 19);
 	pdflData.pluginDirListLen = NUM_PLUGIN_DIRS;
 #endif
 #ifdef UNIX_PLATFORM
