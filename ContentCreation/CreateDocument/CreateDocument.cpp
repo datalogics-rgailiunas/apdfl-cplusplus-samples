@@ -12,6 +12,7 @@
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#createdocument
 
 #include <string>
+#include <cstdlib>
 
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"

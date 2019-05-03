@@ -13,6 +13,7 @@
 
 #include "APDFLDoc.h"
 #include <cstring>
+#include <cstdlib>
 
 //==============================================================================================================================
 // Default Constructor - This creates a new PDDoc object. This object will be automatically freed in the APDFLDoc's destructor.
