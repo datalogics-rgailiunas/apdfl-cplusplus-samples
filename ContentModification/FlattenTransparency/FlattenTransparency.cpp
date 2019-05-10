@@ -43,6 +43,8 @@ int main(int argc, char **argv) {
               << csOutputFileName.c_str() << std::endl;
 
     PDFlattenerUserParamsRec flattenParams;
+	memset(&flattenParams, 0, sizeof(PDFlattenerUserParamsRec));
+    flattenParams.size = sizeof(PDFlattenerUserParamsRec);
 
     DURING
 
@@ -59,8 +61,6 @@ int main(int argc, char **argv) {
         if (0 == errCode) {
 
             // Step 1) Configure the PDFlattener parameters.
-            memset(&flattenParams, 0, sizeof(PDFlattenerUserParamsRec));
-            flattenParams.size = sizeof(PDFlattenerUserParamsRec);
 
             // Appearance options
 

@@ -88,14 +88,17 @@ REM *************************************************
 REM *** Initialize environment variables, enable delayed expansion.
 SETLOCAL EnableDelayedExpansion  
 REM *** Filename of All project.
-IF EXIST "All_Datalogics_32Bit.sln" (
-  REM Do a 32-bit build
-  SET ALL_DL_SLN=All_Datalogics_32Bit.sln
-  SET ARCH=Win32
-) ELSE (
+REM  VS_ARCH is passed to the Visual Studio initialization routine, vcvarsamd64_x86.bat.
+if /i "%2" == "-64-bit" (
   REM Do a 64-bit build
   SET ALL_DL_SLN=All_Datalogics_64Bit.sln
   SET ARCH=x64
+  SET VS_ARCH=x64
+) ELSE (
+  REM Do a 32-bit build
+  SET ALL_DL_SLN=All_Datalogics_32Bit.sln
+  SET ARCH=Win32
+  SET VS_ARCH=x86
 )
 
 REM ************* Initialize variables which track our progress ******************
@@ -138,8 +141,7 @@ GOTO AcceptCommands
 :ArgumentsEnd
 
 REM *** Set up the visual studio environment.
-IF "%VS120COMNTOOLS%" == "" GOTO Usage
-CALL "%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat" x86
+CALL "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Auxiliary\Build\vcvarsamd64_x86.bat" %VS_ARCH%
 IF "%VSINSTALLDIR%" == "" GOTO Usage
 
 REM *************************************************
@@ -377,7 +379,7 @@ ECHO =====================================
 GOTO End
 
 :Usage
-ECHO You must have Visual Studio 2013 installed to use this executable.
+ECHO You must have Visual Studio 2017 installed to use this executable.
 GOTO End
 
 :MustIncludeFiles
