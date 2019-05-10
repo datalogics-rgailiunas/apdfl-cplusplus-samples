@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
               << csOutputFileName.c_str() << std::endl;
 
     PDFlattenerUserParamsRec flattenParams;
-	memset(&flattenParams, 0, sizeof(PDFlattenerUserParamsRec));
+    memset(&flattenParams, 0, sizeof(PDFlattenerUserParamsRec));
     flattenParams.size = sizeof(PDFlattenerUserParamsRec);
 
     DURING

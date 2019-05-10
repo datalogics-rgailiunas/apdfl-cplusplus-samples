@@ -1,6 +1,6 @@
 
 ################################################################################
-# Install resources into "dist" for APDFL 15
+# Install resources into "dist" for APDFL 18
 ################################################################################
 
 set(DL_SAMPLES Sample_Source)
