@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddWatermark", "AddWatermark.vcxproj", "{5D04558C-183A-4ECC-80C8-542A9FDD72D2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddWatermark", "AddWatermark.vcxproj", "{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,12 +11,15 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5D04558C-183A-4ECC-80C8-542A9FDD72D2}.Debug|Win32.ActiveCfg = Debug|Win32
-		{5D04558C-183A-4ECC-80C8-542A9FDD72D2}.Debug|Win32.Build.0 = Debug|Win32
-		{5D04558C-183A-4ECC-80C8-542A9FDD72D2}.Release|Win32.ActiveCfg = Release|Win32
-		{5D04558C-183A-4ECC-80C8-542A9FDD72D2}.Release|Win32.Build.0 = Release|Win32
+		{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}.Debug|Win32.Build.0 = Debug|Win32
+		{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}.Release|Win32.ActiveCfg = Release|Win32
+		{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7DF94183-67AA-4F68-9C83-B50BFEAD26C4}
 	EndGlobalSection
 EndGlobal
