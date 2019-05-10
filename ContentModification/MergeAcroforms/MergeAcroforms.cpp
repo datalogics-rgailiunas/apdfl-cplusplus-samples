@@ -17,6 +17,7 @@
 // from the input PDF document to the Acroforms dictionary in the output document.
 //
 
+#include <cstdlib>
 #include "PEWCalls.h"
 #include "PERCalls.h"
 #include "CosCalls.h"
