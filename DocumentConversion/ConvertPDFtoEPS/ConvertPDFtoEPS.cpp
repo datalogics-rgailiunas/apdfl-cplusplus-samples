@@ -80,7 +80,7 @@ int main(int argc, char **argv) {
             // Create EPS document from the current page
             PDFLPrintDoc(inDoc, &userParams);
 
-            // Safely close and realease all files and objects
+            // Safely close and release all files and objects
             ASStmClose(printStm);
             ASFileFlush(outFile);
             ASFileClose(outFile);
