@@ -34,21 +34,14 @@
 		3E5613590F8BF3D60094B7E7 /* DL180JP2K.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E56134D0F8BF3B10094B7E7 /* DL180JP2K.framework */; };
 		3E56135A0F8BF3DA0094B7E7 /* DL180AdobeXMP.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613500F8BF3B90094B7E7 /* DL180AdobeXMP.framework */; };
 		54311F4C22B19323004343E3 /* DL180PDFPort.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54311F4B22B19323004343E3 /* DL180PDFPort.framework */; };
-		54311F4E22B19346004343E3 /* DL180PDFPort.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 54311F4B22B19323004343E3 /* DL180PDFPort.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		54311F5122B193AB004343E3 /* DL180pdfsettings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54311F4F22B193A1004343E3 /* DL180pdfsettings.framework */; };
-		54311F5222B193AB004343E3 /* DL180pdfsettings.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 54311F4F22B193A1004343E3 /* DL180pdfsettings.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		54311F4E22B19346004343E3 /* DL180PDFPort.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 54311F4B22B19323004343E3 /* DL180PDFPort.framework */; };
 		5431217322B19D6C004343E3 /* DL180pdfsettings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5431217122B19D6C004343E3 /* DL180pdfsettings.framework */; };
-		5431217422B19D6C004343E3 /* DL180PDFPort.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5431217222B19D6C004343E3 /* DL180PDFPort.framework */; };
-		5431217522B19D74004343E3 /* DL180PDFPort.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5431217222B19D6C004343E3 /* DL180PDFPort.framework */; };
-		5431217622B19D74004343E3 /* DL180PDFPort.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5431217222B19D6C004343E3 /* DL180PDFPort.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5431217722B19D74004343E3 /* DL180pdfsettings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5431217122B19D6C004343E3 /* DL180pdfsettings.framework */; };
-		5431217822B19D74004343E3 /* DL180pdfsettings.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5431217122B19D6C004343E3 /* DL180pdfsettings.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		54A9B4CD2268F66D0039EB0A /* ../../../Binaries/libicudata.40.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 54A9B4C92268F66D0039EB0A /* ../../../Binaries/libicudata.40.0.dylib */; };
-		54A9B4CE2268F66D0039EB0A /* ../../../Binaries/libicucnv.40.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 54A9B4CA2268F66D0039EB0A /* ../../../Binaries/libicucnv.40.0.dylib */; };
-		54A9B4CF2268F6850039EB0A /* ../../../Binaries/libicucnv.40.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 54A9B4CA2268F66D0039EB0A /* ../../../Binaries/libicucnv.40.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		54A9B4D02268F6850039EB0A /* ../../../Binaries/libicudata.40.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 54A9B4C92268F66D0039EB0A /* ../../../Binaries/libicudata.40.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		54A9B4D12268F6970039EB0A /* ../../../Binaries/libicucnv.40.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 54A9B4C72268F66C0039EB0A /* ../../../Binaries/libicucnv.40.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		54A9B4D22268F6970039EB0A /* ../../../Binaries/libicudata.40.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 54A9B4C82268F66D0039EB0A /* ../../../Binaries/libicudata.40.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		5431217822B19D74004343E3 /* DL180pdfsettings.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5431217122B19D6C004343E3 /* DL180pdfsettings.framework */; };
+		54A9B4CF2268F6850039EB0A /* ../../../Binaries/libicucnv.40.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 54A9B4CA2268F66D0039EB0A /* ../../../Binaries/libicucnv.40.0.dylib */; };
+		54A9B4D02268F6850039EB0A /* ../../../Binaries/libicudata.40.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 54A9B4C92268F66D0039EB0A /* ../../../Binaries/libicudata.40.0.dylib */; };
+		54A9B4D12268F6970039EB0A /* ../../../Binaries/libicucnv.40.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 54A9B4C72268F66C0039EB0A /* ../../../Binaries/libicucnv.40.dylib */; };
+		54A9B4D22268F6970039EB0A /* ../../../Binaries/libicudata.40.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 54A9B4C82268F66D0039EB0A /* ../../../Binaries/libicudata.40.dylib */; };
 		8D0C4E920486CD37000505A6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Foundation.framework */; };
 		BA2A0C1D0B6537A8007BB524 /* extrURI.h in Headers */ = {isa = PBXBuildFile; fileRef = BA2A0C180B6537A8007BB524 /* extrURI.h */; };
 		BA2A0C1E0B6537A8007BB524 /* macUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = BA2A0C190B6537A8007BB524 /* macUtils.h */; };
@@ -180,7 +173,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				335725480C9B40500095FC3D /* DL180ACE.framework in CopyFiles */,
-				5431217622B19D74004343E3 /* DL180PDFPort.framework in CopyFiles */,
 				335725490C9B40500095FC3D /* DL180AGM.framework in CopyFiles */,
 				3357254A0C9B40500095FC3D /* DL180ARE.framework in CopyFiles */,
 				54A9B4D12268F6970039EB0A /* ../../../Binaries/libicucnv.40.dylib in CopyFiles */,
@@ -190,7 +182,6 @@
 				3357254E0C9B40500095FC3D /* DL180CoolType.framework in CopyFiles */,
 				54311F4E22B19346004343E3 /* DL180PDFPort.framework in CopyFiles */,
 				3E5613590F8BF3D60094B7E7 /* DL180JP2K.framework in CopyFiles */,
-				54311F5222B193AB004343E3 /* DL180pdfsettings.framework in CopyFiles */,
 				5431217822B19D74004343E3 /* DL180pdfsettings.framework in CopyFiles */,
 				3E56135A0F8BF3DA0094B7E7 /* DL180AdobeXMP.framework in CopyFiles */,
 				54A9B4D02268F6850039EB0A /* ../../../Binaries/libicudata.40.0.dylib in CopyFiles */,
@@ -226,9 +217,7 @@
 		3E56134D0F8BF3B10094B7E7 /* DL180JP2K.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180JP2K.framework; path = ../../../Binaries/DL180JP2K.framework; sourceTree = SOURCE_ROOT; };
 		3E5613500F8BF3B90094B7E7 /* DL180AdobeXMP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180AdobeXMP.framework; path = ../../../Binaries/DL180AdobeXMP.framework; sourceTree = SOURCE_ROOT; };
 		54311F4B22B19323004343E3 /* DL180PDFPort.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180PDFPort.framework; path = ../../../Binaries/DL180PDFPort.framework; sourceTree = "<group>"; };
-		54311F4F22B193A1004343E3 /* DL180pdfsettings.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180pdfsettings.framework; path = ../../../Binaries/DL180pdfsettings.framework; sourceTree = "<group>"; };
 		5431217122B19D6C004343E3 /* DL180pdfsettings.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180pdfsettings.framework; path = ../../../Binaries/DL180pdfsettings.framework; sourceTree = "<group>"; };
-		5431217222B19D6C004343E3 /* DL180PDFPort.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180PDFPort.framework; path = ../../../Binaries/DL180PDFPort.framework; sourceTree = "<group>"; };
 		54A9B4C72268F66C0039EB0A /* ../../../Binaries/libicucnv.40.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = ../../../Binaries/libicucnv.40.dylib; sourceTree = SOURCE_ROOT; };
 		54A9B4C82268F66D0039EB0A /* ../../../Binaries/libicudata.40.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = ../../../Binaries/libicudata.40.dylib; sourceTree = SOURCE_ROOT; };
 		54A9B4C92268F66D0039EB0A /* ../../../Binaries/libicudata.40.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = ../../../Binaries/libicudata.40.0.dylib; sourceTree = SOURCE_ROOT; };
@@ -363,7 +352,6 @@
 			files = (
 				8D0C4E920486CD37000505A6 /* Foundation.framework in Frameworks */,
 				BA2E45960888421A0081FD28 /* ApplicationServices.framework in Frameworks */,
-				54A9B4CE2268F66D0039EB0A /* ../../../Binaries/libicucnv.40.0.dylib in Frameworks */,
 				BA568C160A47467400825A50 /* CoreServices.framework in Frameworks */,
 				335725340C9B40490095FC3D /* DL180ACE.framework in Frameworks */,
 				335725350C9B40490095FC3D /* DL180AGM.framework in Frameworks */,
@@ -373,14 +361,10 @@
 				5431217722B19D74004343E3 /* DL180pdfsettings.framework in Frameworks */,
 				335725390C9B40490095FC3D /* DL180BIBUtils.framework in Frameworks */,
 				54311F4C22B19323004343E3 /* DL180PDFPort.framework in Frameworks */,
-				54A9B4CD2268F66D0039EB0A /* ../../../Binaries/libicudata.40.0.dylib in Frameworks */,
 				5431217322B19D6C004343E3 /* DL180pdfsettings.framework in Frameworks */,
 				3357253A0C9B40490095FC3D /* DL180CoolType.framework in Frameworks */,
-				5431217422B19D6C004343E3 /* DL180PDFPort.framework in Frameworks */,
 				3357253C0C9B40490095FC3D /* DL180PDFL.framework in Frameworks */,
 				3E56134E0F8BF3B10094B7E7 /* DL180JP2K.framework in Frameworks */,
-				54311F5122B193AB004343E3 /* DL180pdfsettings.framework in Frameworks */,
-				5431217522B19D74004343E3 /* DL180PDFPort.framework in Frameworks */,
 				3E5613510F8BF3B90094B7E7 /* DL180AdobeXMP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -559,8 +543,6 @@
 		BA7F63E60A53393300BFE059 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				5431217222B19D6C004343E3 /* DL180PDFPort.framework */,
-				54311F4F22B193A1004343E3 /* DL180pdfsettings.framework */,
 				54311F4B22B19323004343E3 /* DL180PDFPort.framework */,
 				5431217122B19D6C004343E3 /* DL180pdfsettings.framework */,
 				54A9B4CA2268F66D0039EB0A /* ../../../Binaries/libicucnv.40.0.dylib */,
@@ -759,7 +741,7 @@
 		20286C28FDCF999611CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0940;
 			};
 			buildConfigurationList = BACCD188089AA4370006D315 /* Build configuration list for PBXProject "FlattenAnnotations" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -817,6 +799,30 @@
 			baseConfigurationReference = 2E21C0631C8DD3AE00018A6D /* Project_release.xcconfig */;
 			buildSettings = {
 				CLANG_LINK_OBJC_RUNTIME = NO;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
 			};
 			name = Release;
 		};
@@ -844,6 +850,32 @@
 			baseConfigurationReference = 2E21C0621C8DD3AE00018A6D /* Project_debug.xcconfig */;
 			buildSettings = {
 				CLANG_LINK_OBJC_RUNTIME = NO;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
