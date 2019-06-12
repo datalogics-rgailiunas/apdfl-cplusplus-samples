@@ -33,6 +33,8 @@
 		3E5613510F8BF3B90094B7E7 /* DL180AdobeXMP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5613500F8BF3B90094B7E7 /* DL180AdobeXMP.framework */; };
 		3E5613590F8BF3D60094B7E7 /* DL180JP2K.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E56134D0F8BF3B10094B7E7 /* DL180JP2K.framework */; };
 		3E56135A0F8BF3DA0094B7E7 /* DL180AdobeXMP.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5613500F8BF3B90094B7E7 /* DL180AdobeXMP.framework */; };
+		54311FC322B195FC004343E3 /* DL180pdfsettings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54311FC122B195FC004343E3 /* DL180pdfsettings.framework */; };
+		54311FC422B195FC004343E3 /* DL180PDFPort.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54311FC222B195FC004343E3 /* DL180PDFPort.framework */; };
 		54A9B5752268FB030039EB0A /* libicudata.40.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 54A9B5712268FB030039EB0A /* libicudata.40.0.dylib */; };
 		54A9B5762268FB030039EB0A /* libicucnv.40.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 54A9B5722268FB030039EB0A /* libicucnv.40.0.dylib */; };
 		54A9B5772268FB1E0039EB0A /* libicucnv.40.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 54A9B5722268FB030039EB0A /* libicucnv.40.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -95,6 +97,8 @@
 		335725320C9B40480095FC3D /* DL180PDFL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180PDFL.framework; path = ../../../Binaries/DL180PDFL.framework; sourceTree = SOURCE_ROOT; };
 		3E56134D0F8BF3B10094B7E7 /* DL180JP2K.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180JP2K.framework; path = ../../../Binaries/DL180JP2K.framework; sourceTree = SOURCE_ROOT; };
 		3E5613500F8BF3B90094B7E7 /* DL180AdobeXMP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180AdobeXMP.framework; path = ../../../Binaries/DL180AdobeXMP.framework; sourceTree = SOURCE_ROOT; };
+		54311FC122B195FC004343E3 /* DL180pdfsettings.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180pdfsettings.framework; path = ../../../Binaries/DL180pdfsettings.framework; sourceTree = "<group>"; };
+		54311FC222B195FC004343E3 /* DL180PDFPort.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180PDFPort.framework; path = ../../../Binaries/DL180PDFPort.framework; sourceTree = "<group>"; };
 		54A9B56F2268FB020039EB0A /* libicucnv.40.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucnv.40.dylib; path = ../../../Binaries/libicucnv.40.dylib; sourceTree = SOURCE_ROOT; };
 		54A9B5702268FB020039EB0A /* libicudata.40.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicudata.40.dylib; path = ../../../Binaries/libicudata.40.dylib; sourceTree = SOURCE_ROOT; };
 		54A9B5712268FB030039EB0A /* libicudata.40.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicudata.40.0.dylib; path = ../../../Binaries/libicudata.40.0.dylib; sourceTree = SOURCE_ROOT; };
@@ -112,6 +116,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D0C4E920486CD37000505A6 /* Foundation.framework in Frameworks */,
+				54311FC422B195FC004343E3 /* DL180PDFPort.framework in Frameworks */,
 				BA2E45960888421A0081FD28 /* ApplicationServices.framework in Frameworks */,
 				BA568C160A47467400825A50 /* CoreServices.framework in Frameworks */,
 				54A9B5752268FB030039EB0A /* libicudata.40.0.dylib in Frameworks */,
@@ -121,6 +126,7 @@
 				335725370C9B40490095FC3D /* DL180AXE8SharedExpat.framework in Frameworks */,
 				335725380C9B40490095FC3D /* DL180BIB.framework in Frameworks */,
 				335725390C9B40490095FC3D /* DL180BIBUtils.framework in Frameworks */,
+				54311FC322B195FC004343E3 /* DL180pdfsettings.framework in Frameworks */,
 				3357253A0C9B40490095FC3D /* DL180CoolType.framework in Frameworks */,
 				54A9B5762268FB030039EB0A /* libicucnv.40.0.dylib in Frameworks */,
 				3357253C0C9B40490095FC3D /* DL180PDFL.framework in Frameworks */,
@@ -179,6 +185,8 @@
 		BA7F63E60A53393300BFE059 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				54311FC222B195FC004343E3 /* DL180PDFPort.framework */,
+				54311FC122B195FC004343E3 /* DL180pdfsettings.framework */,
 				54A9B5722268FB030039EB0A /* libicucnv.40.0.dylib */,
 				54A9B56F2268FB020039EB0A /* libicucnv.40.dylib */,
 				54A9B5712268FB030039EB0A /* libicudata.40.0.dylib */,
