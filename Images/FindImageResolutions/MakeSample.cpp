@@ -66,10 +66,10 @@ ImageDesc ImageTable[] = {
     {"DuckyFiles/GeneralDucky.jpg", {0, 16666, 18199, 8}}, // DPI2400
     {"DuckyFiles/CamoDucky.jpg", {0, 2083, 2275, 8}},      // DPI300bg
     {"DuckyFiles/ShadowDucky.bmp", {0, 2083, 2275, 8}},    // DPI300Mask
-    {NULL},                                                // DPI300bgStencil
-    {NULL},                                                // DPI300sMask
-    {NULL},                                                // DPI300bgSmask
-    {NULL}                                                 // DPI300SMForm
+    {"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", {0, 0, 0, 0}},        // DPI300bgStencil
+    {"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", {0, 0, 0, 0}},        // DPI300sMask
+    {"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", {0, 0, 0, 0}},        // DPI300bgSmask
+    {"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", {0, 0, 0, 0}}         // DPI300SMForm
 };
 #define ImageTableSize (sizeof(ImageTable) / sizeof(ImageDesc))
 
