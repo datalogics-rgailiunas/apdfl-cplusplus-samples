@@ -15,9 +15,7 @@
 		3EAC820A109783B2000210E9 /* FlattenTransparency.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC8209109783B2000210E9 /* FlattenTransparency.cpp */; };
 		543120E322B19B5E004343E3 /* DL180pdfsettings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 543120E122B19B5E004343E3 /* DL180pdfsettings.framework */; };
 		543120E422B19B5E004343E3 /* DL180PDFPort.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 543120E222B19B5E004343E3 /* DL180PDFPort.framework */; };
-		543120E522B19B69004343E3 /* DL180PDFPort.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 543120E222B19B5E004343E3 /* DL180PDFPort.framework */; };
 		543120E622B19B69004343E3 /* DL180PDFPort.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 543120E222B19B5E004343E3 /* DL180PDFPort.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		543120E722B19B69004343E3 /* DL180pdfsettings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 543120E122B19B5E004343E3 /* DL180pdfsettings.framework */; };
 		543120E822B19B69004343E3 /* DL180pdfsettings.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 543120E122B19B5E004343E3 /* DL180pdfsettings.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		54A9B7A2226913260039EB0A /* libicudata.40.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 54A9B79E226913260039EB0A /* libicudata.40.0.dylib */; };
 		54A9B7A3226913260039EB0A /* libicucnv.40.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 54A9B79F226913260039EB0A /* libicucnv.40.0.dylib */; };
@@ -36,7 +34,6 @@
 		B010FF6F11BEEFF900819751 /* DL180CoolType.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF6E11BEEFF900819751 /* DL180CoolType.framework */; };
 		B010FF7111BEEFF900819751 /* DL180JP2K.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF7011BEEFF900819751 /* DL180JP2K.framework */; };
 		B010FF7311BEEFF900819751 /* DL180PDFL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF7211BEEFF900819751 /* DL180PDFL.framework */; };
-		B010FF7F11BEF0C300819751 /* DL180PDFPort.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B010FF7E11BEF0C300819751 /* DL180PDFPort.framework */; };
 		B0E40FEB11C935C9002B64A9 /* DL180ACE.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF6011BEEFF900819751 /* DL180ACE.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		B0E40FEC11C935C9002B64A9 /* DL180AdobeXMP.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF6211BEEFF900819751 /* DL180AdobeXMP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		B0E40FED11C935C9002B64A9 /* DL180AGM.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF6411BEEFF900819751 /* DL180AGM.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -47,7 +44,6 @@
 		B0E40FF211C935C9002B64A9 /* DL180CoolType.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF6E11BEEFF900819751 /* DL180CoolType.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		B0E40FF311C935C9002B64A9 /* DL180JP2K.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF7011BEEFF900819751 /* DL180JP2K.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		B0E40FF411C935C9002B64A9 /* DL180PDFL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF7211BEEFF900819751 /* DL180PDFL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		B0E40FF511C935C9002B64A9 /* DL180PDFPort.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B010FF7E11BEF0C300819751 /* DL180PDFPort.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		BA0654DB0AC34D340029CB3D /* PDFLInitCommon.c in Sources */ = {isa = PBXBuildFile; fileRef = BA0654DA0AC34D340029CB3D /* PDFLInitCommon.c */; };
 		BA2E45960888421A0081FD28 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2E45950888421A0081FD28 /* ApplicationServices.framework */; };
 		BA568C160A47467400825A50 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA568C150A47467400825A50 /* CoreServices.framework */; };
@@ -189,7 +185,6 @@
 				543120E822B19B69004343E3 /* DL180pdfsettings.framework in CopyFiles */,
 				54A9B7A42269133A0039EB0A /* libicucnv.40.0.dylib in CopyFiles */,
 				B0E40FF411C935C9002B64A9 /* DL180PDFL.framework in CopyFiles */,
-				B0E40FF511C935C9002B64A9 /* DL180PDFPort.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,7 +219,6 @@
 		B010FF6E11BEEFF900819751 /* DL180CoolType.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180CoolType.framework; path = ../../../Binaries/DL180CoolType.framework; sourceTree = "<absolute>"; };
 		B010FF7011BEEFF900819751 /* DL180JP2K.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180JP2K.framework; path = ../../../Binaries/DL180JP2K.framework; sourceTree = "<absolute>"; };
 		B010FF7211BEEFF900819751 /* DL180PDFL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180PDFL.framework; path = ../../../Binaries/DL180PDFL.framework; sourceTree = "<absolute>"; };
-		B010FF7E11BEF0C300819751 /* DL180PDFPort.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DL180PDFPort.framework; path = ../../../Binaries/DL180PDFPort.framework; sourceTree = "<absolute>"; };
 		BA0654DA0AC34D340029CB3D /* PDFLInitCommon.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = PDFLInitCommon.c; path = ../../../Include/Source/PDFLInitCommon.c; sourceTree = SOURCE_ROOT; };
 		BA2E45950888421A0081FD28 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		BA568C150A47467400825A50 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
@@ -363,12 +357,9 @@
 				B010FF6D11BEEFF900819751 /* DL180BIBUtils.framework in Frameworks */,
 				B010FF6F11BEEFF900819751 /* DL180CoolType.framework in Frameworks */,
 				543120E322B19B5E004343E3 /* DL180pdfsettings.framework in Frameworks */,
-				543120E722B19B69004343E3 /* DL180pdfsettings.framework in Frameworks */,
-				543120E522B19B69004343E3 /* DL180PDFPort.framework in Frameworks */,
 				543120E422B19B5E004343E3 /* DL180PDFPort.framework in Frameworks */,
 				B010FF7111BEEFF900819751 /* DL180JP2K.framework in Frameworks */,
 				B010FF7311BEEFF900819751 /* DL180PDFL.framework in Frameworks */,
-				B010FF7F11BEF0C300819751 /* DL180PDFPort.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,7 +433,6 @@
 				B010FF6E11BEEFF900819751 /* DL180CoolType.framework */,
 				B010FF7011BEEFF900819751 /* DL180JP2K.framework */,
 				B010FF7211BEEFF900819751 /* DL180PDFL.framework */,
-				B010FF7E11BEF0C300819751 /* DL180PDFPort.framework */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
