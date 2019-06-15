@@ -157,6 +157,13 @@ cd ../../ContentModification/EmbedFonts
 ./EmbedFonts-${stage}.app/Contents/MacOS/EmbedFonts-${stage}
 echo ""
 
+# Display
+
+echo Running sample DisplayPDEContent
+cd ../../Display/DisplayPDEContent
+./DisplayPDEContent-${stage}.app/Contents/MacOS/DisplayPDEContent-${stage}
+echo ""
+
 # DocumentOptimization
 
 echo Running sample PDFOptimizer
@@ -254,6 +261,11 @@ cd ../../Printing/PostScriptInjection
 ./PostScriptInjection-${stage}.app/Contents/MacOS/PostScriptInjection-${stage}
 echo ""
 
+echo Running sample PDFPrintDefault
+cd ../../Printing/PDFPrintDefault
+./PDFPrintDefault-${stage}.app/Contents/MacOS/PDFPrintDefault-${stage}
+echo ""
+
 # Security
 
 echo Running sample AESEncryption
@@ -269,6 +281,11 @@ echo ""
 echo Running sample AddRedaction
 cd ../../Security/AddRedaction
 ./AddRedaction-${stage}.app/Contents/MacOS/AddRedaction-${stage}
+echo ""
+
+echo Running sample AddTriangularRedaction
+cd ../../Security/AddTriangularRedaction
+./AddTriangularRedaction-${stage}.app/Contents/MacOS/AddTriangularRedaction-${stage}
 echo ""
 
 echo Running sample EncryptDocument
