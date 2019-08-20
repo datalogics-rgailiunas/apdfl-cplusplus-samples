@@ -20,4 +20,4 @@ CXXFLAGS = $(CCFLAGS)
 LDFLAGS = $(ARCH_FLAGS) -L$(PDFL_PATH)
 LIBS = -lDL180pdfl -lDL180CoolType -lDL180AGM -lDL180BIB -lDL180ACE -lDL180ARE \
 	   -lDL180BIBUtils -lDL180JP2K -lDL180AdobeXMP -lDL180AXE8SharedExpat \
-	   -licucnv -licudata -lpthread
+	   -licuuc -licudata -lpthread

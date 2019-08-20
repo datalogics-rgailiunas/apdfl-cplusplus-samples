@@ -21,7 +21,7 @@ LDFLAGS = -g -xtarget=ultra2 -xarch=sparcvis -m64 -mt -L$(PDFL_PATH)
 
 LIBS = -lDL180pdfl -lDL180CoolType -lDL180AGM -lDL180BIB -lDL180ACE -lDL180ARE \
 	   -lDL180BIBUtils -lDL180JP2K -lDL180AdobeXMP -lDL180AXE8SharedExpat \
-	   -licucnv -licudata -lpthread -lsocket -lnsl -lc -lm
+	   -licuuc -licudata -lpthread -lsocket -lnsl -lc -lm
 
 else  # 32-bit w/ gcc
 CC = /usr/gcc/4.8/bin/gcc
@@ -34,6 +34,6 @@ LDFLAGS = -g -L$(PDFL_PATH)
 
 LIBS = -lDL180pdfl -lDL180CoolType -lDL180AGM -lDL180BIB -lDL180ACE -lDL180ARE \
 	   -lDL180BIBUtils -lDL180JP2K -lDL180AdobeXMP -lDL180AXE8SharedExpat \
-	   -licucnv -licudata -lpthread -lsocket -lnsl -lc -lm
+	   -licuuc -licudata -lpthread -lsocket -lnsl -lc -lm
 
 endif
