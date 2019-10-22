@@ -92,10 +92,12 @@ IF EXIST "All_Datalogics_32Bit.sln" (
   REM Do a 32-bit build
   SET ALL_DL_SLN=All_Datalogics_32Bit.sln
   SET ARCH=Win32
+  SET VS_ARCH=x86
 ) ELSE (
   REM Do a 64-bit build
   SET ALL_DL_SLN=All_Datalogics_64Bit.sln
   SET ARCH=x64
+
 )
 
 REM ************* Initialize variables which track our progress ******************
