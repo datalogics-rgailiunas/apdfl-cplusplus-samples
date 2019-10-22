@@ -88,17 +88,14 @@ REM *************************************************
 REM *** Initialize environment variables, enable delayed expansion.
 SETLOCAL EnableDelayedExpansion  
 REM *** Filename of All project.
-REM  VS_ARCH is passed to the Visual Studio initialization routine, vcvarsamd64_x86.bat.
-if /i "%2" == "-64-bit" (
-  REM Do a 64-bit build
-  SET ALL_DL_SLN=All_Datalogics_64Bit.sln
-  SET ARCH=x64
-  SET VS_ARCH=x64
-) ELSE (
+IF EXIST "All_Datalogics_32Bit.sln" (
   REM Do a 32-bit build
   SET ALL_DL_SLN=All_Datalogics_32Bit.sln
   SET ARCH=Win32
-  SET VS_ARCH=x86
+) ELSE (
+  REM Do a 64-bit build
+  SET ALL_DL_SLN=All_Datalogics_64Bit.sln
+  SET ARCH=x64
 )
 
 REM ************* Initialize variables which track our progress ******************
