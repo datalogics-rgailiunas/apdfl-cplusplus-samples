@@ -12,11 +12,10 @@ UTIL = ../../dlutils
 COMMON_OBJS = PDFLInitCommon.o PDFLInitHFT.o InitializeLibrary.o APDFLDoc.o
 
 INCLUDE = ../../../Include/Headers
-DLI_INCLUDE = ../../../DLI/Include
 SOURCE=../../../Include/Source
 COMMON=../../_Common
 
-include $(UTIL)/$(OS).mak
+include $(UTIL)/$(subst _64,,$(OS)).mak
 include ../../All/paths.rel
 
 default: $(SAMPNAME)
@@ -34,11 +33,9 @@ $(SAMPNAME) : $(COMMON_OBJS) $(OTHER_OBJS)
 # And, the '.c' files have to be compiled using the C++ compiler.
 ##
 
-#LeonidK 15SEP2016: instead of CFLAGS it should be CXXFLAGS
 PDFLInitCommon.o : $(SOURCE)/PDFLInitCommon.c
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
-#LeonidK 15SEP2016: instead of CFLAGS it should be CXXFLAGS
 PDFLInitHFT.o : $(SOURCE)/PDFLInitHFT.c
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
