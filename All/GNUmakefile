@@ -5,7 +5,7 @@ ifeq ($(PLATFORM), )
 endif
 
 do_pdfl_samples: build_pdfl_samples run_pdfl_samples $(REDIRECT2)
-          
+
 SAMPLES = Annotations/CreateAnnotations \
           Annotations/FlattenAnnotations \
           ContentCreation/AddArt \
@@ -22,60 +22,58 @@ SAMPLES = Annotations/CreateAnnotations \
           ContentModification/AddDocumentInformation \
           ContentModification/AddLinks \
           ContentModification/AddPageNumbers \
+          ContentModification/AddWatermark \
           ContentModification/AttachMimeToPDF \
+          ContentModification/EmbedFonts \
+          ContentModification/FlattenTransparency \
+          ContentModification/ImportPages \
           ContentModification/MergeAcroforms \
           ContentModification/MergeDocuments \
           ContentModification/PDFMakeOCGVisible \
           ContentModification/PDFUncompress \
           ContentModification/SplitPDF \
-          ContentModification/ImportPages \
-          ContentModification/AddWatermark \
-          ContentModification/EmbedFonts \
           Display/DisplayPDEContent \
-          DocumentOptimization/WebOptimizedPDF \
           DocumentConversion/ConvertPDFtoEPS \
           DocumentConversion/ConvertPDFtoPostscript \
+          DocumentConversion/ConvertToPDFA \
+          DocumentConversion/ConvertToPDFX \
+          DocumentOptimization/PDFOptimizer \
+          DocumentOptimization/WebOptimizedPDF \
           FileSystem/AlternateFileSystem \
           Images/AddThumbnailsToPDF \
-          Images/RenderPage \
+          Images/CalcImageDPI \
           Images/CreateImageWithTransparency \
           Images/CreateSeparations \
-          Images/CalcImageDPI \
+          Images/FindImageResolutions \
           Images/OutputPreview \
+          Images/RenderPage \
           InformationExtraction/CountColorsInDoc \
           InformationExtraction/ExtractDocumentInfo \
           Printing/PostScriptInjection \
-          Security/AESEncryption \
           Security/AddPassword \
           Security/AddRedaction \
           Security/AddTriangularRedaction \
+          Security/AESEncryption \
           Security/EncryptDocument \
           Security/LockDocument \
-          Security/SetUniquePermissions \
           Security/OpenEncrypted \
+          Security/SetUniquePermissions \
           Security/ValidateSignatures \
-          Text/InsertHeadFoot \
-          Text/ExtractText \
           Text/AddText \
-          Text/TextSelectEnum \
+          Text/ExtractText \
           Text/HelloJapan \
-          Text/TextSearch
+          Text/InsertHeadFoot \
+          Text/TextSearch \
+          Text/TextSelectEnum \
+          Text/UnicodeText
 
-ifeq ($(OS), i80386linux)
-	# SAMPLES += FlattenTransparency XPStoPDF PDFOptimizer
-	SAMPLES += ContentModification/FlattenTransparency  DocumentOptimization/PDFOptimizer  DocumentConversion/ConvertToPDFA  DocumentConversion/ConvertToPDFX
+
+ifeq ($(findstring i80386linux, $(OS)), )
+    SAMPLES +=  DocumentConversion/XPStoPDF
 endif
 
-ifeq ($(OS), sparcsolaris)
-    ifneq ($(BUILD_64_BIT), true)
-        SAMPLES +=  ContentModification/FlattenTransparency DocumentConversion/XPStoPDF Images/FindImageResolutions Text/UnicodeText DocumentConversion/ConvertToPDFA  DocumentConversion/ConvertToPDFX
-    endif
-else
-    SAMPLES += Images/FindImageResolutions Text/UnicodeText
-endif
-
-ifeq ($(OS), intelsolaris)
-	SAMPLES += ContentModification/FlattenTransparency  DocumentConversion/ConvertToPDFA  DocumentConversion/ConvertToPDFX
+ifeq ($(findstring solaris,$(OS)), )
+    SAMPLES +=  DocumentConversion/XPStoPDF
 endif
 
 build_pdfl_samples: 
@@ -89,9 +87,7 @@ endif
 
 run_pdfl_samples:
 	set -e; \
-	export LD_LIBRARY_PATH=$(LIBPATHS):$$LD_LIBRARY_PATH; \
 	export LIBPATH=$(LIBPATHS):$$LIBPATH; \
-	export SHLIB_PATH=$(LIBPATHS):$$SHLIB_PATH; \
 	export; \
 	for target in $(SAMPLES); do \
 		echo "Running DL Sample $$target"; \
