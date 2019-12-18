@@ -13,6 +13,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				3CD2DDAB23AA7C5100549266 /* PBXTargetDependency */,
 				1D11FA9C216CFEAE001A38A7 /* PBXTargetDependency */,
 				1D80FE1C1FC4B87A00D84920 /* PBXTargetDependency */,
 				1D80FE1E1FC4B87A00D84920 /* PBXTargetDependency */,
@@ -136,6 +137,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
 			remoteInfo = PDFPrintDefault;
+		};
+		3CD2DDAA23AA7C5100549266 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F8EE25A1E5CA9C9004E294B /* InsertHeadFoot.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = InsertHeadFoot;
 		};
 		54A240FD1F61BCD50035CB41 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2308,6 +2316,11 @@
 			isa = PBXTargetDependency;
 			name = PDFPrintDefault;
 			targetProxy = 1D80FE1F1FC4B87A00D84920 /* PBXContainerItemProxy */;
+		};
+		3CD2DDAB23AA7C5100549266 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = InsertHeadFoot;
+			targetProxy = 3CD2DDAA23AA7C5100549266 /* PBXContainerItemProxy */;
 		};
 		54A240FE1F61BCD50035CB41 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
