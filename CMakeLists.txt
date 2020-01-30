@@ -36,7 +36,7 @@ elseif(UTIL_PLAT MATCHES "Mac")
             USE_SOURCE_PERMISSIONS
             PATTERN ".git*" EXCLUDE PATTERN "_Input" EXCLUDE PATTERN "CMakeLists.txt" EXCLUDE
             PATTERN "*Bit*.*" EXCLUDE PATTERN "*Makefile*" EXCLUDE PATTERN "*.bat" EXCLUDE 
-            PATTERN "*.rel*" EXCLUDE PATTERN "*.mak" EXCLUDE PATTERN "*.vcxproj* " EXCLUDE
+            PATTERN "*.rel*" EXCLUDE PATTERN "*.mak" EXCLUDE PATTERN "*.vcxproj*" EXCLUDE
             )
 else()
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
