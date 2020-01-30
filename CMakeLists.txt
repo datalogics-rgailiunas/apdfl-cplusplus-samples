@@ -45,6 +45,6 @@ else()
             PATTERN ".git*" EXCLUDE PATTERN "_Input" EXCLUDE PATTERN "CMakeLists.txt" EXCLUDE
             PATTERN "*.xcodeproj" EXCLUDE PATTERN "*.bat*" EXCLUDE PATTERN "*Mac*" EXCLUDE
             PATTERN "*.plist" EXCLUDE PATTERN "*.strings*" EXCLUDE PATTERN "*.sh*" EXCLUDE
-            PATTERN "*Bit*.*" EXCLUDE PATTERN "*.vcxproj* " EXCLUDE
+            PATTERN "*Bit*.*" EXCLUDE PATTERN "*.vcxproj*" EXCLUDE
             )
 endif()
