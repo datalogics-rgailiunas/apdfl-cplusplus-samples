@@ -19,7 +19,7 @@ if(UTIL_PLAT MATCHES "x64")
             PATTERN "*32Bit*.*" EXCLUDE PATTERN "*.sh" EXCLUDE PATTERN "*Makefile*" EXCLUDE
             PATTERN "*.xcodeproj" EXCLUDE PATTERN "*.rel*" EXCLUDE PATTERN "*Mac*" EXCLUDE
             PATTERN "*.plist" EXCLUDE PATTERN "*.strings*" EXCLUDE PATTERN "dlutils" EXCLUDE
-            PATTERN "*.mak" EXCLUDE PATTERN "README.md" EXCLUDE
+            PATTERN "*.mak" EXCLUDE PATTERN "README.md" EXCLUDE 
             )
 elseif(UTIL_PLAT MATCHES "Win32")
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
@@ -38,7 +38,7 @@ elseif(UTIL_PLAT MATCHES "Mac")
             PATTERN ".git*" EXCLUDE PATTERN "_Input" EXCLUDE PATTERN "CMakeLists.txt" EXCLUDE
             PATTERN "*Bit*.*" EXCLUDE PATTERN "*Makefile*" EXCLUDE PATTERN "*.bat" EXCLUDE 
             PATTERN "*.rel*" EXCLUDE PATTERN "*.mak" EXCLUDE PATTERN "*.vcxproj*" EXCLUDE
-            PATTERN "README.md" EXCLUDE
+            PATTERN "README.md" EXCLUDE PATTERN "PDFViewer" EXCLUDE
             )
 else()
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
@@ -48,5 +48,6 @@ else()
             PATTERN "*.xcodeproj" EXCLUDE PATTERN "*.bat*" EXCLUDE PATTERN "*Mac*" EXCLUDE
             PATTERN "*.plist" EXCLUDE PATTERN "*.strings*" EXCLUDE PATTERN "*.sh*" EXCLUDE
             PATTERN "*Bit*.*" EXCLUDE PATTERN "*.vcxproj*" EXCLUDE PATTERN "README.md" EXCLUDE
+            PATTERN "PDFPrintGUI" EXCLUDE PATTERN "PDFViewer" EXCLUDE
             )
 endif()
