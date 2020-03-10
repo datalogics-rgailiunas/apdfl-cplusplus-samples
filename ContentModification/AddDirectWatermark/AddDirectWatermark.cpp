@@ -8,7 +8,7 @@
 // The resulting document is saved encrypted, with only view and Print permissions. The font used to render the watermark
 // will be fully embedded in the output document. 
 //
-//  When a watermark is created using the watermark annotation, it is quite easy to remove it (Simply remove the annotation). When it is 
+//  When a watermark is created using the watermark annotation, it is quite easy to remove it (simply remove the annotation). When it is 
 //  embedded in the page content, it becomes a great deal harder to remove. If the document is also encrypted to prevent changes, it becomes
 //  very difficult indeed to locate and remove the watermark.
 //
@@ -79,9 +79,9 @@ typedef struct copyStreamInfo
 
 
 /* This routine will copy the COS content of the page into a single new stream, and 
-** append the water mark to the end of that stream. It will add the COS font created from the 
+** append the watermark to the end of that stream. It will add the COS font created from the 
 ** PDEFont to the page resources as "Fnt1", and, if a ExtGState is needed, it will add that to the 
-** page resources as "Exg1".
+** page resources as "EXg1".
 **
 ** The first half is the actual stream to stream copy procedure. The second sets up for it, including the 
 ** creation of the watermark content
@@ -143,6 +143,9 @@ ASTCount CopyStreamAddingWatermark(char *data, ASTArraySize nData, void *clientD
         bytesRead += bytesRead2;
     }
 
+    /* Close the last stream */
+    ASStmClose(info->currentStream);
+
     /* Just for safety sake. If the page content is empty, we will not include the 
     ** water mark. So mae sure we do NOT return zero here, and include the water mark text if we were going to return 0
     */
@@ -183,7 +186,7 @@ void  AddWatermarkToPage(CosObj cosPage, ASDoubleMatrix matrix, char *text, CosO
     }
 
     /* Create the command string to draw the watermark
-    ** I am allocating a bubber MUCH, MUCH larger than I should ever need!
+    ** I am allocating a buffer MUCH, MUCH larger than I should ever need!
     */
     char watermark[4096];
     char work[1024];
@@ -229,7 +232,7 @@ void  AddWatermarkToPage(CosObj cosPage, ASDoubleMatrix matrix, char *text, CosO
 
     CosObj opacityGS = CosNewNull();
 
-    /* If fill or stroke opacity is not 1.0, create an extGState , and reference it here
+    /* If fill or stroke opacity is not 1.0, create an extGState, and reference it here
     */
     if (textOpacity != 1.0)
     {
@@ -264,6 +267,9 @@ void  AddWatermarkToPage(CosObj cosPage, ASDoubleMatrix matrix, char *text, CosO
     CosObj attributesDict = CosNewDict(cosDoc, false, 2);
     CosDictPutKeyString(attributesDict, "Filter", CosNewName(cosDoc, false, ASAtomFromString("FlateDecode")));
     CosObj newContent = CosNewStream(cosDoc, true, oldCosStream, 0, true, attributesDict, CosNewNull(), -1);
+
+    /* Free the stream */
+    ASStmClose(oldCosStream);
 
     /* Replace the page contents */
     CosDictPutKeyString(cosPage, "Contents", newContent);
@@ -422,7 +428,7 @@ int main(int argc, char **argv) {
         APDFLDoc inDoc(csInputFileName.c_str(), true);
 
         /* Get the PDDoc, as we will need it a lot */
-    PDDoc pdDoc = inDoc.getPDDoc();
+        PDDoc pdDoc = inDoc.getPDDoc();
 
         /* Create a PDETExtObject to render the text we want to see in the document.
         ** We are going to use this to obtain the width and height of the watermark
@@ -469,7 +475,7 @@ int main(int argc, char **argv) {
         */
         PDERelease((PDEObject)textItem);
 
-        /* Make a copy of the PDEFOnt's COS Obj in the destination document, as a 
+        /* Make a copy of the PDEFont's COS Obj in the destination document, as a 
         ** fully embedded font
         */
         PDEFontEmbedNow(pdeFont, PDDocGetCosDoc(pdDoc));
@@ -551,7 +557,7 @@ int main(int argc, char **argv) {
         PDDocSetNewCryptHandler(pdDoc, ASAtomFromString("Standard"));
         securityData = (StdSecurityData)PDDocNewSecurityData(pdDoc);
         securityData->size = sizeof(StdSecurityDataRec);
-        /* Specifically allow the document to be printed, BUt pretty much nothing else */
+        /* Specifically allow the document to be printed, But pretty much nothing else */
         securityData->perms |= pdPrivPermAccessible | pdPermPrint;
 
         PDDocSetNewSecurityData(pdDoc, (void *)securityData);
