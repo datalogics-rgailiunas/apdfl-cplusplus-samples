@@ -22,7 +22,7 @@
     <ProjectGuid>{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BlankSample</RootNamespace>
-    <ProjectName>AddDirectWatermark</ProjectName>
+    <ProjectName>AddTextWatermark</ProjectName>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -158,7 +158,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AddDirectWatermark.cpp" />
+    <ClCompile Include="AddTextWatermark.cpp" />
     <ClCompile Include="..\..\_Common\APDFLDoc.cpp" />
     <ClCompile Include="..\..\_Common\InitializeLibrary.cpp" />
     <ClCompile Include="..\..\..\Include\Source\PDFLInitCommon.c" />

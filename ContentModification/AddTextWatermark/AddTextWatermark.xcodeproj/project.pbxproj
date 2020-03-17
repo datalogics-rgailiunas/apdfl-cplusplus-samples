@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2E21C0651C8DD3BB00018A6D /* PDFLPrecompile.pch in Headers */ = {isa = PBXBuildFile; fileRef = 2E21C0641C8DD3BB00018A6D /* PDFLPrecompile.pch */; };
-		2E21C0691C8DD3D500018A6D /* AddDirectWatermark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E21C0681C8DD3D500018A6D /* AddDirectWatermark.cpp */; };
+		2E21C0691C8DD3D500018A6D /* AddTextWatermark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E21C0681C8DD3D500018A6D /* AddTextWatermark.cpp */; };
 		2E21C06E1C8DD3FD00018A6D /* APDFLDoc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E21C06A1C8DD3FD00018A6D /* APDFLDoc.cpp */; };
 		2E21C06F1C8DD3FD00018A6D /* APDFLDoc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E21C06B1C8DD3FD00018A6D /* APDFLDoc.h */; };
 		2E21C0701C8DD3FD00018A6D /* InitializeLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E21C06C1C8DD3FD00018A6D /* InitializeLibrary.cpp */; };
@@ -204,7 +204,7 @@
 		2E21C0641C8DD3BB00018A6D /* PDFLPrecompile.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDFLPrecompile.pch; path = ../../dlutils/PDFLPrecompile.pch; sourceTree = "<group>"; };
 		2E21C0661C8DD3CC00018A6D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../dlutils/Info.plist; sourceTree = "<group>"; };
 		2E21C0671C8DD3CC00018A6D /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = ../../dlutils/InfoPlist.strings; sourceTree = "<group>"; };
-		2E21C0681C8DD3D500018A6D /* AddDirectWatermark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AddDirectWatermark.cpp; sourceTree = "<group>"; };
+		2E21C0681C8DD3D500018A6D /* AddTextWatermark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AddTextWatermark.cpp; sourceTree = "<group>"; };
 		2E21C06A1C8DD3FD00018A6D /* APDFLDoc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = APDFLDoc.cpp; path = ../../_Common/APDFLDoc.cpp; sourceTree = "<group>"; };
 		2E21C06B1C8DD3FD00018A6D /* APDFLDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APDFLDoc.h; path = ../../_Common/APDFLDoc.h; sourceTree = "<group>"; };
 		2E21C06C1C8DD3FD00018A6D /* InitializeLibrary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InitializeLibrary.cpp; path = ../../_Common/InitializeLibrary.cpp; sourceTree = "<group>"; };
@@ -344,7 +344,7 @@
 		BA3D8C2A0B652F6E0079A6FB /* AcroColorProcs.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; name = AcroColorProcs.h; path = ../../../Include/Headers/AcroColorProcs.h; sourceTree = SOURCE_ROOT; };
 		BA568C150A47467400825A50 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		BA64AAB10B5829E00026827E /* PDFLInitHFT.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = PDFLInitHFT.c; path = ../../../Include/Source/PDFLInitHFT.c; sourceTree = SOURCE_ROOT; };
-		BAAFDE0808980F3600470124 /* AddDirectWatermark-Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AddDirectWatermark-Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAAFDE0808980F3600470124 /* AddTextWatermark-Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AddTextWatermark-Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAB910C20B582A3000C283C9 /* PDFLInitCommon.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = PDFLInitCommon.c; path = ../../../Include/Source/PDFLInitCommon.c; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -381,7 +381,7 @@
 		195DF8CFFE9D517E11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BAAFDE0808980F3600470124 /* AddDirectWatermark-Debug.app */,
+				BAAFDE0808980F3600470124 /* AddTextWatermark-Debug.app */,
 			);
 			name = Products;
 			sourceTree = SOURCE_ROOT;
@@ -407,7 +407,7 @@
 				2E21C06B1C8DD3FD00018A6D /* APDFLDoc.h */,
 				2E21C06C1C8DD3FD00018A6D /* InitializeLibrary.cpp */,
 				2E21C06D1C8DD3FD00018A6D /* InitializeLibrary.h */,
-				2E21C0681C8DD3D500018A6D /* AddDirectWatermark.cpp */,
+				2E21C0681C8DD3D500018A6D /* AddTextWatermark.cpp */,
 				BAB910C20B582A3000C283C9 /* PDFLInitCommon.c */,
 				BA64AAB10B5829E00026827E /* PDFLInitHFT.c */,
 			);
@@ -722,9 +722,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8D0C4E890486CD37000505A6 /* AddDirectWatermark */ = {
+		8D0C4E890486CD37000505A6 /* AddTextWatermark */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BACCD184089AA4370006D315 /* Build configuration list for PBXNativeTarget "AddDirectWatermark" */;
+			buildConfigurationList = BACCD184089AA4370006D315 /* Build configuration list for PBXNativeTarget "AddTextWatermark" */;
 			buildPhases = (
 				BA3D8D0B0B652F7E0079A6FB /* Headers */,
 				8D0C4E8F0486CD37000505A6 /* Sources */,
@@ -735,10 +735,10 @@
 			);
 			dependencies = (
 			);
-			name = AddDirectWatermark;
+			name = AddTextWatermark;
 			productInstallPath = "$(HOME)/Applications";
 			productName = HelowrldX;
-			productReference = BAAFDE0808980F3600470124 /* AddDirectWatermark-Debug.app */;
+			productReference = BAAFDE0808980F3600470124 /* AddTextWatermark-Debug.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -749,7 +749,7 @@
 			attributes = {
 				LastUpgradeCheck = 0450;
 			};
-			buildConfigurationList = BACCD188089AA4370006D315 /* Build configuration list for PBXProject "AddDirectWatermark" */;
+			buildConfigurationList = BACCD188089AA4370006D315 /* Build configuration list for PBXProject "AddTextWatermark" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -760,7 +760,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D0C4E890486CD37000505A6 /* AddDirectWatermark */,
+				8D0C4E890486CD37000505A6 /* AddTextWatermark */,
 			);
 		};
 /* End PBXProject section */
@@ -771,7 +771,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA64AAB20B5829E00026827E /* PDFLInitHFT.c in Sources */,
-				2E21C0691C8DD3D500018A6D /* AddDirectWatermark.cpp in Sources */,
+				2E21C0691C8DD3D500018A6D /* AddTextWatermark.cpp in Sources */,
 				2E21C06E1C8DD3FD00018A6D /* APDFLDoc.cpp in Sources */,
 				2E21C0701C8DD3FD00018A6D /* InitializeLibrary.cpp in Sources */,
 				BAB910C30B582A3000C283C9 /* PDFLInitCommon.c in Sources */,
@@ -838,7 +838,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BACCD184089AA4370006D315 /* Build configuration list for PBXNativeTarget "AddDirectWatermark" */ = {
+		BACCD184089AA4370006D315 /* Build configuration list for PBXNativeTarget "AddTextWatermark" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BACCD187089AA4370006D315 /* Debug */,
@@ -847,7 +847,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		BACCD188089AA4370006D315 /* Build configuration list for PBXProject "AddDirectWatermark" */ = {
+		BACCD188089AA4370006D315 /* Build configuration list for PBXProject "AddTextWatermark" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BACCD18B089AA4370006D315 /* Debug */,

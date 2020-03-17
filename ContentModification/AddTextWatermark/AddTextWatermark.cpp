@@ -18,8 +18,8 @@
 //
 // Command-line:   <input-file-name> <output-file-name> <Watermark text string> <font name> <Text Color> <Text Opacity> <Stroke Color> <Stroke Opacity> (All optional)
 //
-// For more detail see the description of the AddWatermark sample program on our Developer’s site,
-// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addDirectwatermark
+// For more detail see the description of the AddTextWatermark sample program on our Developer’s site,
+// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#AddTextWatermark
 
 
 
