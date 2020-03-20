@@ -39,6 +39,9 @@
 **
 */
 
+#include <cstdio>
+#include <cmath>
+
 #include "APDFLDoc.h"
 #include "InitializeLibrary.h"
 
@@ -52,6 +55,10 @@
 #ifdef WIN_PLATFORM
 #include "io.h"
 #define access _access
+#endif
+
+#ifdef UNIX_PLATFORM
+#include <unistd.h>
 #endif
 
 #define INPUT_LOC "../../../../Resources/Sample_Input/"
