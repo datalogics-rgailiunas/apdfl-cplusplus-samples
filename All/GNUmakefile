@@ -22,7 +22,7 @@ SAMPLES = Annotations/CreateAnnotations \
           ContentModification/AddDocumentInformation \
           ContentModification/AddLinks \
           ContentModification/AddPageNumbers \
-          ContentModification/AddWatermark \
+          ContentModification/AddTextWatermark \
           ContentModification/AttachMimeToPDF \
           ContentModification/EmbedFonts \
           ContentModification/FlattenTransparency \

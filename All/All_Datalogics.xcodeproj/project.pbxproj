@@ -13,6 +13,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				3C14A7F72425262F0013FA32 /* PBXTargetDependency */,
 				3CD2DDAB23AA7C5100549266 /* PBXTargetDependency */,
 				1D11FA9C216CFEAE001A38A7 /* PBXTargetDependency */,
 				1D80FE1C1FC4B87A00D84920 /* PBXTargetDependency */,
@@ -34,7 +35,6 @@
 				9F8422F81E5CAE47001E30FB /* PBXTargetDependency */,
 				9F8422D21E5CAE39001E30FB /* PBXTargetDependency */,
 				9F8422D41E5CAE39001E30FB /* PBXTargetDependency */,
-				9F8422D61E5CAE39001E30FB /* PBXTargetDependency */,
 				9F8422D81E5CAE39001E30FB /* PBXTargetDependency */,
 				9F8422DA1E5CAE39001E30FB /* PBXTargetDependency */,
 				9F8422DC1E5CAE39001E30FB /* PBXTargetDependency */,
@@ -137,6 +137,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
 			remoteInfo = PDFPrintDefault;
+		};
+		3C14A7F62425262F0013FA32 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C181B722425239C00770C5E /* AddTextWatermark.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddTextWatermark;
+		};
+		3C181B762425239D00770C5E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C181B722425239C00770C5E /* AddTextWatermark.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddTextWatermark;
 		};
 		3CD2DDAA23AA7C5100549266 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -558,13 +572,6 @@
 			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
 			remoteInfo = AttachMimeToPDF;
 		};
-		9F8422D51E5CAE39001E30FB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9F8EE1811E5CA419004E294B /* AddWatermark.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = AddWatermark;
-		};
 		9F8422D71E5CAE39001E30FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9F8EE17B1E5CA40C004E294B /* AddPageNumbers.xcodeproj */;
@@ -697,13 +704,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
 			remoteInfo = AddPageNumbers;
-		};
-		9F8EE1851E5CA419004E294B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9F8EE1811E5CA419004E294B /* AddWatermark.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = AddWatermark;
 		};
 		9F8EE18B1E5CA425004E294B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -957,6 +957,7 @@
 		1D80FE091FC4B72000D84920 /* PDFPrintDefault.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PDFPrintDefault.xcodeproj; path = ../Printing/PDFPrintDefault/PDFPrintDefault.xcodeproj; sourceTree = "<group>"; };
 		1D80FE0F1FC4B73500D84920 /* PDFPrintGUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PDFPrintGUI.xcodeproj; path = ../Printing/PDFPrintGUI/PDFPrintGUI.xcodeproj; sourceTree = "<group>"; };
 		1D80FE151FC4B74800D84920 /* AddTriangularRedaction.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddTriangularRedaction.xcodeproj; path = ../Security/AddTriangularRedaction/AddTriangularRedaction.xcodeproj; sourceTree = "<group>"; };
+		3C181B722425239C00770C5E /* AddTextWatermark.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddTextWatermark.xcodeproj; path = ../ContentModification/AddTextWatermark/AddTextWatermark.xcodeproj; sourceTree = "<group>"; };
 		54E10DBF1F61B5E900147917 /* OutputPreview.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OutputPreview.xcodeproj; path = ../Images/OutputPreview/OutputPreview.xcodeproj; sourceTree = "<group>"; };
 		7C658AAE1F0D966900B03491 /* ConvertToPDFX.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ConvertToPDFX.xcodeproj; path = ../DocumentConversion/ConvertToPDFX/ConvertToPDFX.xcodeproj; sourceTree = "<group>"; };
 		7CF311A01F0D95CF004CC903 /* ConvertToPDFA.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ConvertToPDFA.xcodeproj; path = ../DocumentConversion/ConvertToPDFA/ConvertToPDFA.xcodeproj; sourceTree = "<group>"; };
@@ -978,7 +979,6 @@
 		9F6647D21E5CE63D00DF496B /* WebOptimizedPDF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WebOptimizedPDF.xcodeproj; path = ../DocumentOptimization/WebOptimizedPDF/WebOptimizedPDF.xcodeproj; sourceTree = "<group>"; };
 		9F8EE1661E5CA403004E294B /* AddLinks.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddLinks.xcodeproj; path = ../ContentModification/AddLinks/AddLinks.xcodeproj; sourceTree = "<group>"; };
 		9F8EE17B1E5CA40C004E294B /* AddPageNumbers.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddPageNumbers.xcodeproj; path = ../ContentModification/AddPageNumbers/AddPageNumbers.xcodeproj; sourceTree = "<group>"; };
-		9F8EE1811E5CA419004E294B /* AddWatermark.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddWatermark.xcodeproj; path = ../ContentModification/AddWatermark/AddWatermark.xcodeproj; sourceTree = "<group>"; };
 		9F8EE1871E5CA425004E294B /* AttachMimeToPDF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AttachMimeToPDF.xcodeproj; path = ../ContentModification/AttachMimeToPDF/AttachMimeToPDF.xcodeproj; sourceTree = "<group>"; };
 		9F8EE18D1E5CA42C004E294B /* EmbedFonts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EmbedFonts.xcodeproj; path = ../ContentModification/EmbedFonts/EmbedFonts.xcodeproj; sourceTree = "<group>"; };
 		9F8EE1931E5CA435004E294B /* FlattenTransparency.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FlattenTransparency.xcodeproj; path = ../ContentModification/FlattenTransparency/FlattenTransparency.xcodeproj; sourceTree = "<group>"; };
@@ -1046,6 +1046,14 @@
 			isa = PBXGroup;
 			children = (
 				1D80FE1A1FC4B74900D84920 /* AddTriangularRedaction-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3C181B732425239C00770C5E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3C181B772425239D00770C5E /* AddTextWatermark-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1222,14 +1230,6 @@
 			isa = PBXGroup;
 			children = (
 				9F8EE1801E5CA40D004E294B /* AddPageNumbers-Debug.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		9F8EE1821E5CA419004E294B /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9F8EE1861E5CA419004E294B /* AddWatermark-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1517,6 +1517,7 @@
 		BAAE8A280ADC6237005A7834 = {
 			isa = PBXGroup;
 			children = (
+				3C181B722425239C00770C5E /* AddTextWatermark.xcodeproj */,
 				1D0349AF2163C390004CED35 /* TextSelectEnum.xcodeproj */,
 				1D80FE151FC4B74800D84920 /* AddTriangularRedaction.xcodeproj */,
 				1D80FE0F1FC4B73500D84920 /* PDFPrintGUI.xcodeproj */,
@@ -1561,7 +1562,6 @@
 				9F8EE1931E5CA435004E294B /* FlattenTransparency.xcodeproj */,
 				9F8EE18D1E5CA42C004E294B /* EmbedFonts.xcodeproj */,
 				9F8EE1871E5CA425004E294B /* AttachMimeToPDF.xcodeproj */,
-				9F8EE1811E5CA419004E294B /* AddWatermark.xcodeproj */,
 				9F8EE17B1E5CA40C004E294B /* AddPageNumbers.xcodeproj */,
 				9F8EE1661E5CA403004E294B /* AddLinks.xcodeproj */,
 				9F5049A71E5CA3E500C113B1 /* AddDocumentInformation.xcodeproj */,
@@ -1644,16 +1644,16 @@
 					ProjectRef = 9F8EE2481E5CA99E004E294B /* AddText.xcodeproj */;
 				},
 				{
+					ProductGroup = 3C181B732425239C00770C5E /* Products */;
+					ProjectRef = 3C181B722425239C00770C5E /* AddTextWatermark.xcodeproj */;
+				},
+				{
 					ProductGroup = 9F8EE1E31E5CA8CE004E294B /* Products */;
 					ProjectRef = 9F8EE1E21E5CA8CE004E294B /* AddThumbnailsToPDF.xcodeproj */;
 				},
 				{
 					ProductGroup = 1D80FE161FC4B74800D84920 /* Products */;
 					ProjectRef = 1D80FE151FC4B74800D84920 /* AddTriangularRedaction.xcodeproj */;
-				},
-				{
-					ProductGroup = 9F8EE1821E5CA419004E294B /* Products */;
-					ProjectRef = 9F8EE1811E5CA419004E294B /* AddWatermark.xcodeproj */;
 				},
 				{
 					ProductGroup = 9F8EE2251E5CA955004E294B /* Products */;
@@ -1888,6 +1888,13 @@
 			remoteRef = 1D80FE191FC4B74900D84920 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		3C181B772425239D00770C5E /* AddTextWatermark-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddTextWatermark-Debug.app";
+			remoteRef = 3C181B762425239D00770C5E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		54A9B65E226906FD0039EB0A /* InsertHeadFoot-Debug.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -2040,13 +2047,6 @@
 			fileType = wrapper.application;
 			path = "AddPageNumbers-Debug.app";
 			remoteRef = 9F8EE17F1E5CA40D004E294B /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9F8EE1861E5CA419004E294B /* AddWatermark-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "AddWatermark-Debug.app";
-			remoteRef = 9F8EE1851E5CA419004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9F8EE18C1E5CA425004E294B /* AttachMimeToPDF-Debug.app */ = {
@@ -2317,6 +2317,11 @@
 			name = PDFPrintDefault;
 			targetProxy = 1D80FE1F1FC4B87A00D84920 /* PBXContainerItemProxy */;
 		};
+		3C14A7F72425262F0013FA32 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddTextWatermark;
+			targetProxy = 3C14A7F62425262F0013FA32 /* PBXContainerItemProxy */;
+		};
 		3CD2DDAB23AA7C5100549266 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = InsertHeadFoot;
@@ -2516,11 +2521,6 @@
 			isa = PBXTargetDependency;
 			name = AttachMimeToPDF;
 			targetProxy = 9F8422D31E5CAE39001E30FB /* PBXContainerItemProxy */;
-		};
-		9F8422D61E5CAE39001E30FB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AddWatermark;
-			targetProxy = 9F8422D51E5CAE39001E30FB /* PBXContainerItemProxy */;
 		};
 		9F8422D81E5CAE39001E30FB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

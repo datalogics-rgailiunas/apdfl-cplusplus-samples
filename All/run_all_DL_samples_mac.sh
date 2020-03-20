@@ -147,9 +147,9 @@ cd ../../ContentModification/ImportPages
 ./ImportPages-${stage}.app/Contents/MacOS/ImportPages-${stage}
 echo ""
 
-echo Running sample AddWatermark
-cd ../../ContentModification/AddWatermark
-./AddWatermark-${stage}.app/Contents/MacOS/AddWatermark-${stage}
+echo Running sample AddTextWatermark
+cd ../../ContentModification/AddTextWatermark
+./AddTextWatermark-${stage}.app/Contents/MacOS/AddTextWatermark-${stage}
 echo ""
 
 echo Running sample EmbedFonts
