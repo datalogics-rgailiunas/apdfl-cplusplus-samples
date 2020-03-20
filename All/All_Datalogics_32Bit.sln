@@ -45,8 +45,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TextSearch", "..\Text\TextS
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractText", "..\Text\ExtractText\ExtractText.vcxproj", "{2E8F147F-1CB9-4345-9CBE-EE28312F224D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddWatermark", "..\ContentModification\AddWatermark\AddWatermark.vcxproj", "{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreateAnnotations", "..\Annotations\CreateAnnotations\CreateAnnotations.vcxproj", "{F3E1C9B0-D3D9-4BE1-AE20-AFAC2C5B9131}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreateLayers", "..\ContentCreation\CreateLayers\CreateLayers.vcxproj", "{51C87E29-66CD-4887-AFD7-3F83CB86A306}"
@@ -132,6 +130,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PDFPrintDefault", "..\Printing\PDFPrintDefault\PDFPrintDefault.vcxproj", "{2DD18C42-8F5F-4741-9B3E-65B48D8C61AA}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TextSelectEnum", "..\Text\TextSelectEnum\TextSelectEnum.vcxproj", "{70DC7A8A-3F4A-43CF-9DE2-A9C477121319}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddTextWatermark", "..\ContentModification\AddTextWatermark\AddTextWatermark.vcxproj", "{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -223,10 +223,6 @@ Global
 		{2E8F147F-1CB9-4345-9CBE-EE28312F224D}.Debug|Win32.Build.0 = Debug|Win32
 		{2E8F147F-1CB9-4345-9CBE-EE28312F224D}.Release|Win32.ActiveCfg = Release|Win32
 		{2E8F147F-1CB9-4345-9CBE-EE28312F224D}.Release|Win32.Build.0 = Release|Win32
-		{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}.Debug|Win32.ActiveCfg = Debug|Win32
-		{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}.Debug|Win32.Build.0 = Debug|Win32
-		{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}.Release|Win32.ActiveCfg = Release|Win32
-		{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}.Release|Win32.Build.0 = Release|Win32
 		{F3E1C9B0-D3D9-4BE1-AE20-AFAC2C5B9131}.Debug|Win32.ActiveCfg = Debug|Win32
 		{F3E1C9B0-D3D9-4BE1-AE20-AFAC2C5B9131}.Debug|Win32.Build.0 = Debug|Win32
 		{F3E1C9B0-D3D9-4BE1-AE20-AFAC2C5B9131}.Release|Win32.ActiveCfg = Release|Win32
@@ -395,6 +391,10 @@ Global
 		{70DC7A8A-3F4A-43CF-9DE2-A9C477121319}.Debug|Win32.Build.0 = Debug|Win32
 		{70DC7A8A-3F4A-43CF-9DE2-A9C477121319}.Release|Win32.ActiveCfg = Release|Win32
 		{70DC7A8A-3F4A-43CF-9DE2-A9C477121319}.Release|Win32.Build.0 = Release|Win32
+		{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}.Debug|Win32.Build.0 = Debug|Win32
+		{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}.Release|Win32.ActiveCfg = Release|Win32
+		{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

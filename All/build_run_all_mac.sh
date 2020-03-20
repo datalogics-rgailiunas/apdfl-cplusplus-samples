@@ -88,7 +88,7 @@ declare -a DL_SAMPLE_LIST=( \
   "ContentModification/PDFUncompress" \
   "ContentModification/SplitPDF" \
   "ContentModification/ImportPages" \
-  "ContentModification/AddWatermark" \
+  "ContentModification/AddTextWatermark" \
   "ContentModification/EmbedFonts" \
   "DocumentOptimization/PDFOptimizer" \
   "DocumentOptimization/WebOptimizedPDF" \
