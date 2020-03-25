@@ -13,7 +13,7 @@ endif
 ifeq ($(BUILD_64_BIT), true)
 CC = /opt/developerstudio12.6/bin/cc
 CXX = /opt/developerstudio12.6/bin/CC
-CCFLAGS  = -g $(PDF_FDIR_DEF) -DNO_PRAGMA_ONCE -DUNIX_PLATFORM=1 -DUNIX_ENV=1 $(DEBUG) -DPRODUCT=\"HFTLibrary.h\" -DPLATFORM=\"UnixPlatform.h\" -D_REENTRANT -xtarget=ultra2 -xarch=sparcvis -m64 -mt
+CCFLAGS  = -g $(PDF_FDIR_DEF) -DNO_PRAGMA_ONCE -DUNIX_PLATFORM=1 -DUNIX_ENV=1 $(DEBUG) -DPRODUCT=\"HFTLibrary.h\" -DPLATFORM=\"UnixPlatform.h\" -D_REENTRANT -m64 -mt
 CCFLAGS += -DPDFL_SDK_SAMPLE -DPI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6 -DTOOLKIT
 CXXFLAGS = $(CCFLAGS)
 LD = $(CXX)
