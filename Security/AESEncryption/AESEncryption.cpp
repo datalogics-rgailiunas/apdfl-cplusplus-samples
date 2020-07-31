@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
         PDDoc pdDoc = apdflDoc.getPDDoc();
 
         // Prepare the security data structure
-        StdSecurityData volatile securityData = NULL;
+        StdSecurityData securityData = NULL;
         PDDocSetNewCryptHandler(pdDoc, ASAtomFromString("Standard"));
         securityData = (StdSecurityData)PDDocNewSecurityData(pdDoc);
         securityData->size = sizeof(StdSecurityDataRec);
@@ -58,6 +58,7 @@ int main(int argc, char *argv[]) {
         // Save file
         apdflDoc.saveDoc(csOutputFile.c_str(), PDSaveFull | PDSaveLinearized);
 
+        ASfree(securityData);
     HANDLER
         APDFLib::displayError(ERRORCODE);
         return ERRORCODE;

@@ -57,6 +57,9 @@ int main(int argc, char **argv) {
                                          APDFLDoc::GetHostUnicodeFormat());
 
         PDDocSetInfoAsASText(pdDoc, key, value); // Insert the document information.
+        // Free up resources.
+        ASTextDestroy(key);
+        ASTextDestroy(value);
 
         // Create unicode strings for inserting the document's Author into the document.
         key = ASTextFromUnicode(reinterpret_cast<const ASUTF16Val *>(L"Author"),

@@ -111,7 +111,7 @@ void DisplayPath(PDEPath Path, ASFixedMatrix *Matrix, PDEGraphicState *GState, A
         Outputter::Inst()->GetOfs() << oss.str().c_str() << std::endl;
         Index += Increment;
     }
-
+    ASfree(PathData);
     Outputter::Inst()->Outdent();
     Outputter::Inst()->GetOfs() << "} End Path Content\n";
 }

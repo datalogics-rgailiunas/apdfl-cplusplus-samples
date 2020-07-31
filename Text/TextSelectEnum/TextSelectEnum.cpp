@@ -99,6 +99,7 @@ int main(int argc, char **argv) {
         // Step 3) Release the source resources
         //  (NOTE: Do NOT close the source document. We need to continue to
         //   exist to give meaning to the PDFonts, referenced in the runs.
+        PDTextSelectDestroy(selection);
         PDPageRelease(page);
 
         // Step 4) Create an output document, and write each run to one line of that document,
@@ -202,6 +203,7 @@ int main(int argc, char **argv) {
             PDERelease((PDEObject)text);
             PDERelease((PDEObject)gState.fillColorSpec.space);
             PDERelease((PDEObject)gState.strokeColorSpec.space);
+            ASTextDestroy(run.text);
         }
 
         // Finish the last page

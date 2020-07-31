@@ -56,6 +56,8 @@ int main(int argc, char **argv) {
 
         ASFileSysReleasePath(NULL, outPathName);
 
+        PDDocOptimizeReleaseParams(optParams);
+
         PDDocClose(inDoc);
 
     HANDLER

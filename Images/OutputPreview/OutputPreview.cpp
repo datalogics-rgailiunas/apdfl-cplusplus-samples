@@ -189,6 +189,10 @@ int main(int argc, char *argv[]) {
                 // Divide the DeviceN image into separations, and write each to the output document
                 for (int color = 0; color < pageInfo.numberOfColorants; color++)
                     WriteSeparationImage(&pageInfo, outputDoc, color);
+
+                // Release the buffer for the last bitmap drawn
+                if (pageInfo.drawParams.buffer != NULL)
+                    ASfree(pageInfo.drawParams.buffer);
             }
 
             // Release the page.
@@ -199,10 +203,6 @@ int main(int argc, char *argv[]) {
         PDERelease((PDEObject)pageInfo.textFont);
         PDERelease((PDEObject)pageInfo.textGState.fillColorSpec.space);
         PDERelease((PDEObject)pageInfo.textGState.strokeColorSpec.space);
-
-        // Release the buffer for the last bitmap drawn
-        if (pageInfo.drawParams.buffer != NULL)
-            ASfree(pageInfo.drawParams.buffer);
 
         // Release the final DeviceN color space
         if (pageInfo.deviceNspace)
