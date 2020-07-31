@@ -357,9 +357,6 @@ void WriteDeviceNImage(PageInfo *pageInfo, PDDoc outputDoc) {
     // NOTE: We do not here render the DeviceN bitmap to an image. The construction of the DeviceN color space needed to do so
     // is quite complex, and for prepartion of printing plates, this is not needed!. If you do wish to directly render this
     // bitmap, in "true colors", see the example "OutputPreview" which contains a sample for creating such color spaces.
-    if (pageInfo->drawParams.buffer != NULL)
-        ASfree(pageInfo->drawParams.buffer);
-    pageInfo->drawParams.buffer = NULL;
 
     return;
 }
