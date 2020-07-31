@@ -63,6 +63,7 @@ int main(int argc, char **argv) {
             char *infoString = ASTextGetPDTextCopy(infoText, 0);
             ofs << keyNames[i].c_str() << ": " << infoString << std::endl;
             // Delete text objects, no longer in use
+            ASTextDestroy(infoText);
             ASTextDestroy(keyText);
             ASfree(infoString);
         }

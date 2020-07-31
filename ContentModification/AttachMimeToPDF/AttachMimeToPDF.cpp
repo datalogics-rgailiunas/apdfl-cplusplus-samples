@@ -82,8 +82,11 @@ int main(int argc, char *argv[]) {
         }
 
         int nameLen;
-        char *pdWorkName = ASTextGetPDTextCopy(ASTextFromEncoded(WorkString, 0), &nameLen);
+        ASText wrkTxt = ASTextFromEncoded(WorkString, 0);
+        char *pdWorkName = ASTextGetPDTextCopy(wrkTxt, &nameLen);
         CosObj cosattachName = CosNewString(cosPDFDoc, false, pdWorkName, nameLen);
+        ASTextDestroy(wrkTxt);
+        ASfree(pdWorkName);
 
         PDNameTreePut(nameTree, cosattachName, PDFileAttachmentGetCosObj(attachment));
 
