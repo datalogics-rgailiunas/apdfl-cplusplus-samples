@@ -181,10 +181,9 @@ int main(int argc, char **argv) {
 #endif
 #ifdef UNIX_ENV
         // print to the printer lp0, suppress reporting job number to stdout.
-        userParams.command = "lp -s"
+        userParams.command = "lp -s";
 
-                             std::cout
-                             << "Sending to the printer LP0." << std::endl;
+        std::cout << "Sending to the printer LP0." << std::endl;
 #endif
         //=====================================================================================================================
         // Step 4) Write to printer or file and clean up
