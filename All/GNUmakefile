@@ -87,7 +87,7 @@ endif
 
 run_pdfl_samples:
 	set -e; \
-	export LIBPATH=$(LIBPATHS):$$LIBPATH; \
+	export LD_LIBRARY_PATH=$(LIBPATHS):$$LD_LIBRARY_PATH; \
 	export; \
 	for target in $(SAMPLES); do \
 		echo "Running DL Sample $$target"; \
