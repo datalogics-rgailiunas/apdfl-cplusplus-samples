@@ -1,4 +1,4 @@
-@ECHO OFF
+@ECHO ON
 REM ***
 REM ***  Copyright (c) 2015, Datalogics, Inc. All rights reserved.
 REM ***
