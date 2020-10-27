@@ -562,8 +562,8 @@ ASPathName altFSCreatePathName(ASAtom PathType, const void *Path, const void *Mu
 }
 
 ASPathName altFSAcquirePath(ASPathName Path, ASFileSys Sys) {
-    /* The ASPAthName input does NOT belong to this file system, but rather to a second file system
-    ** Convert the name to a string, and set that string as the new pathin this file system
+    /* The ASPathName input does NOT belong to this file system, but rather to a second file system
+    ** Convert the name to a string, and set that string as the new path in this file system
     */
     ASPlatformPath platformPath;
     ASInt32 length = ASFileSysAcquirePlatformPath(Sys, Path, ASAtomFromString("Cstring"), &platformPath);
