@@ -24,6 +24,7 @@
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#alternatefilesystem
 
 #include "ASCalls.h"
+#include "PDFLCalls.h"
 
 #include <cstdio>
 #include <cstring>
@@ -585,7 +586,6 @@ ASInt32 altFSAcquirePlatformPath(ASPathName path, ASAtom platformPathType, ASPla
     ** So again,we will use the native file system to do this conversion
     */
     ASPathName nativePath = ASFileSysAcquireFileSysPath(&altFSRec, path, nativeFileSys);
-    ASPlatformPath platformNative;
     ASInt32 length =
         ASFileSysAcquirePlatformPath(nativeFileSys, nativePath, ASAtomFromString("Cstring"), platformPath);
     return (length);
