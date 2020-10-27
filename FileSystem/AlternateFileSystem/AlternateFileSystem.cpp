@@ -54,6 +54,7 @@ typedef struct _altFSFileHandle altFSFileHandle;
 static ASFileSysRec altFSRec;
 static ASBool altFSRecDefined = FALSE;
 static altFSFile *altFileRoot = NULL;
+static ASFileSys nativeFileSys = NULL;
 
 const char *MFSPathToCString(ASPathName inASPath) {
     char *inSpec = (char *)inASPath;
@@ -288,7 +289,8 @@ ASInt32 altFSGetPos(MDFile File, ASUns32 *Pos) {
     if (!File)
         return 1;
 
-    *Pos = (ASInt32)altFileHandle->Position;
+    if (altFileHandle->Position >= 0)
+        *Pos = (ASInt32)altFileHandle->Position;
 
     return 0;
 }
@@ -336,7 +338,7 @@ ASSize_t altFSRead(void *Buffer, ASSize_t Size, ASSize_t Count, MDFile File, ASI
     }
     altFile = altFileHandle->File;
 
-    if (altFileHandle->Position > altFile->CurrentSize || Size < 0) {
+    if (altFileHandle->Position > altFile->CurrentSize || Count < 0 || Size < 0) {
         // End of file
         *Error = 12;
         return 0;
@@ -424,12 +426,43 @@ ASInt32 altFSGetName(ASPathName Path, char *Name, ASInt32 Max) {
 ASPathName altFSGetTempPathName(ASPathName Path) {
     static int tmpFCounter = 0;
 
-    char *outPath = (char *)ASmalloc(24); // Enough for the prefix + counter
+    char workPath[2048];
+    workPath[0] = 0;
+#ifdef WIN32
+#define pathSep '\\'
+#else
+#define pathSep '/'
+#endif
+
+    /* If a sibling path is defined, append the generated name to it*/
+    ASPathName tempPath = NULL;
+    if (Path)
+        tempPath = Path;
+
+    /* Otherwise, If the user has set a default path for temp files for this
+    ** file system, retrieve it and append the file name to it
+    */
+    else
+        ASPathName tempPath = ASFileSysGetDefaultTempPath(&altFSRec);
+
+    if (tempPath) {
+        strcat(workPath, (char *)tempPath);
+        if (workPath[strlen(workPath) - 1] != pathSep) {
+            workPath[strlen(workPath) + 1] = 0;
+            workPath[strlen(workPath)] = pathSep;
+        }
+    }
+
+    sprintf(workPath, "%sTmpFile%d", workPath, tmpFCounter++);
+
+    char *outPath = (char *)ASmalloc(strlen(workPath) + 1); // Enough for the prefix + counter
     if (!outPath)
         ASRaise(genErrNoMemory);
-    sprintf(outPath, "TmpFile%d", tmpFCounter++);
+    strcpy(outPath, workPath);
 
     return (ASPathName)outPath;
+
+#undef pathSep
 }
 
 ASPathName altFSCopyPathName(ASPathName Path) {
@@ -506,21 +539,60 @@ ASUns32 altFSStatus(MDFile File) {
 ASPathName altFSCreatePathName(ASAtom PathType, const void *Path, const void *MustBeZero) {
     char *TempPath;
 
-    TempPath = (char *)ASmalloc(sizeof(char) * (strlen((const char *)Path) + 1));
+    /* The path to be created is fairly complex, depending on the pathType
+    ** Rather than recreating all of the complexity of the handling of various types,
+    ** use the native file system to build the path, then extract it's platform path
+    ** and use that to build this file systems ASPathName
+    */
+    ASPathName nativePath = ASFileSysCreatePathName(nativeFileSys, PathType, Path, MustBeZero);
+    ASPlatformPath platformPath;
+    ASInt32 length = ASFileSysAcquirePlatformPath(nativeFileSys, nativePath,
+                                                  ASAtomFromString("Cstring"), &platformPath);
+    char *pathText = ASPlatformPathGetCstringPtr(platformPath);
+
+    TempPath = (char *)ASmalloc(strlen(pathText) + 1);
     if (!TempPath)
         ASRaise(genErrNoMemory);
 
-    strcpy(TempPath, (const char *)Path);
+    strcpy(TempPath, (const char *)pathText);
+
+    ASFileSysReleasePlatformPath(nativeFileSys, platformPath);
+
     return ASPathName(TempPath);
 }
 
 ASPathName altFSAcquirePath(ASPathName Path, ASFileSys Sys) {
-    char *TempPath = (char *)ASmalloc(sizeof(char) * (strlen((const char *)Path) + 1));
+    /* The ASPathName input does NOT belong to this file system, but rather to a second file system
+    ** Convert the name to a string, and set that string as the new path in this file system
+    */
+    ASPlatformPath platformPath;
+    ASInt32 length = ASFileSysAcquirePlatformPath(Sys, Path, ASAtomFromString("Cstring"), &platformPath);
+    char *pathText = ASPlatformPathGetCstringPtr(platformPath);
+
+    char *TempPath = (char *)ASmalloc(strlen(pathText) + 1);
     if (!TempPath)
         ASRaise(genErrNoMemory);
 
-    strcpy(TempPath, (const char *)Path);
+    strcpy(TempPath, (const char *)pathText);
+
+    ASFileSysReleasePlatformPath(nativeFileSys, platformPath);
+
     return ASPathName(TempPath);
+}
+
+ASInt32 altFSAcquirePlatformPath(ASPathName path, ASAtom platformPathType, ASPlatformPath *platformPath) {
+    /* We do not want to duplicate the complexity of the path type logic here
+    ** So again,we will use the native file system to do this conversion
+    */
+    ASPathName nativePath = ASFileSysAcquireFileSysPath(&altFSRec, path, nativeFileSys);
+    ASPlatformPath platformNative;
+    ASInt32 length =
+        ASFileSysAcquirePlatformPath(nativeFileSys, nativePath, ASAtomFromString("Cstring"), platformPath);
+    return (length);
+}
+
+void altFSReleasePlatformPath(ASPlatformPath platformPath) {
+    ASFileSysReleasePlatformPath(nativeFileSys, platformPath);
 }
 
 // Set up the structure of function calls to the Alternate File System
@@ -558,6 +630,11 @@ int defineAltFileSys() {
         altFSRec.getStatus = altFSStatus;
         altFSRec.createPathName = altFSCreatePathName;
         altFSRec.acquireFileSysPath = altFSAcquirePath;
+        altFSRec.acquirePlatformPath = altFSAcquirePlatformPath;
+        altFSRec.releasePlatformPath = altFSReleasePlatformPath;
+
+        /* Save the orignal "native" file system */
+        nativeFileSys = ASGetDefaultFileSys();
     }
     altFSRecDefined = TRUE;
 
