@@ -26,18 +26,18 @@
 // Some notes on this file systems behaviour
 //
 //  All file reads and writes will occur as simple memory access.
-//  A file may have a "name" of the empty string (""). Such a file will exist in memmory only, and never be saved or
+//  A file may have a "name" of the empty string (""). Such a file will exist in memory only, and never be saved or
 //   initialized from a disk file
-//  If a files name is NOT the empty string, then, at open time, if the file is read and not create, we will use the
+//  If a files name is NOT the empty string, then, at open time, if the file mode is read and not create, we will use the
 //    native file system to read the entire file into memory, in a single read. At close time, if the file is opened for write, we will copy the entire
-//    contents of the file to a disc file of the given name, using the native file system. we will free the in-memory copy of
+//    contents of the file to a disk file of the given name, using the native file system. we will free the in-memory copy of
 //    that file regardless of open mode.
 //  Any file may be reopened after closing using the ASFileReopen() interface. If the file name is the empty string, the in-memory copy of the
-//     file remains and is resused. If the file string is not empty, and the file is reopened for read, and not create, we will reload the file.
+//     file remains and is reused. If the file string is not empty, and the file mode is reopened for read, and not create, we will reload the file.
 //  The ASFileSysRemove will free the memory buffer and destroy the internal "directory" for any file. For files with non-empty names, it will also
-//     remove the file from the disc, using the native file system, if the open mode included ASFILE_TEMPORARY.
+//     remove the file from the disk, using the native file system, if the open mode included ASFILE_TEMPORARY.
 //
-//  The ASPathName object used here will be an ASText with the DI Represntation of the file path carried in it. This should provide complete support
+//  The ASPathName object used here will be an ASText with the DI Representation of the file path carried in it. This should provide complete support
 //     for unicode file names.
 
 #include "ASCalls.h"
@@ -109,7 +109,7 @@ altFSFile *findAltFSFile(ASPathName Path) {
     if (!ASTextCmp(emptyPath, (ASText)Path))
         return 0;
 
-    /* Locate the file in the file systemthat has the same name as the
+    /* Locate the file in the file system that has the same name as the
     ** requested file
     */
     for (altFile = altFileRoot; altFile; altFile = altFile->Next) {
@@ -193,7 +193,7 @@ ASInt32 altFSOpen(ASPathName Path, ASUns16 Flags, MDFile *File) {
 
     ASText emptyText = ASTextNew();
 
-    // If a file in read mode, and not to be created, with no data
+    // If a file is in read mode, and not to be created, with no data
     // currently associated with the file, the program reads the
     // corresponding file on the disk as the initial data, using the native file system. If the file
     // is only opening in write mode, don't bother reading it.
@@ -207,7 +207,7 @@ ASInt32 altFSOpen(ASPathName Path, ASUns16 Flags, MDFile *File) {
 #if MAC_PLATFORM
         pathType = ASAtomFromString("POSIXPath"); /*  For MAC, we need the POSIX path */
 #else
-        pathType = ASAtomFromString("Cstring"); /* For windows and Unix, a simple CString path (Which may be utf8 */
+        pathType = ASAtomFromString("Cstring"); /* For windows and Unix, a simple CString path (Which may be UTF-8) */
 #endif // MAC_PLATFORM
 
         ASErrorCode errNum = ASFileSysAcquirePlatformPath(&altFSRec, Path, pathType, &platformPath);
@@ -238,7 +238,7 @@ ASInt32 altFSOpen(ASPathName Path, ASUns16 Flags, MDFile *File) {
                 altFile->CurrentSize = fread(altFile->Buffer, 1, (ASTArraySize)size, nativeFile);
                 fclose(nativeFile);
             }
-        } /* If file did not exists, initialize it as an empty file */
+        } /* If file did not exist, initialize it as an empty file */
     }
     ASTextDestroy(emptyText);
 
@@ -271,7 +271,7 @@ ASInt32 altFSClose(MDFile File) {
 #if MAC_PLATFORM
         pathType = ASAtomFromString("POSIXPath"); /*  For MAC, we need the POSIX path */
 #else
-        pathType = ASAtomFromString("Cstring"); /* For windows and Unix, a simple CString path (Which may be utf8 */
+        pathType = ASAtomFromString("Cstring"); /* For windows and Unix, a simple CString path (Which may be UTF-8) */
 #endif // MAC_PLATFORM
         ASErrorCode errNum =
             ASFileSysAcquirePlatformPath(&altFSRec, (ASPathName)altFile->Name, pathType, &platformPath);
@@ -289,7 +289,7 @@ ASInt32 altFSClose(MDFile File) {
             if (nativeFile)
                 fwrite(altFile->Buffer, 1, (size_t)altFile->CurrentSize, nativeFile);
             fclose(nativeFile);
-        } /* If file did not exists and cannot be created, do not save it */
+        } /* If file did not exist and cannot be created, do not save it */
     }
 
     ASTextDestroy(emptyText);
@@ -426,7 +426,7 @@ ASErrorCode altFSSetEOF(MDFile File, ASUns32 Pos) {
     return 0;
 }
 
-// Get the position (offset) from the beginning of the file of the EOF marker.
+// Get the position (offset) from the beginning of the file to the EOF marker.
 ASErrorCode altFSGetEOF64(MDFile File, ASFilePos64 *Pos) {
     altFSFileHandle *altFileHandle = (altFSFileHandle *)File;
     altFSFile *altFile;
@@ -439,7 +439,7 @@ ASErrorCode altFSGetEOF64(MDFile File, ASFilePos64 *Pos) {
     return 0;
 }
 
-// Get the position (offset) from the beginning of the file of the EOF marker.
+// Get the position (offset) from the beginning of the file to the EOF marker.
 ASErrorCode altFSGetEOF(MDFile File, ASUns32 *Pos) {
     altFSFileHandle *altFileHandle = (altFSFileHandle *)File;
     altFSFile *altFile;
@@ -561,7 +561,7 @@ ASInt32 altFSGetName(ASPathName Path, char *Name, ASInt32 Max) {
     return length < Max ? length : Max;
 }
 
-/* Generate a termproary file name, using the user provided 
+/* Generate a temporary file name, using the user provided 
 ** temporary file path name, or the user supplied sibling path
 */
 ASPathName altFSGetTempPathName(ASPathName Path) {
@@ -572,7 +572,7 @@ ASPathName altFSGetTempPathName(ASPathName Path) {
     workPath[1] = 0;
     workPath[2] = 0;
     workPath[3] = 0;
-    wchar_t pathSep = L'/'; /* Because the path we are working with is a DI path, the seprator is ALWAYS a forward slash! */
+    wchar_t pathSep = L'/'; /* Because the path we are working with is a DI path, the separator is ALWAYS a forward slash! */
 
     /* If a sibling path is defined, append the generated name to it*/
     ASPathName tempPath = NULL;
@@ -614,7 +614,7 @@ ASPathName altFSGetTempPathName(ASPathName Path) {
     return (ASPathName)outPath;
 }
 
-/* Create a copty of the ASPAthName */
+/* Create a copy of the ASPAthName */
 ASPathName altFSCopyPathName(ASPathName Path) {
 
     if (!Path)
@@ -627,7 +627,7 @@ ASPathName altFSCopyPathName(ASPathName Path) {
 /* Create a PDDocEncoded DI Path for the ASPathName */
 char *altFSDIPathFromPath(ASPathName Path, ASPathName Relative) {
 
-    /* Use the native file system to convert the name to a DI Path,combiing with the sibling path */
+    /* Use the native file system to convert the name to a DI Path,combining with the sibling path */
     ASPathName nativePath = ASFileSysAcquireFileSysPath(&altFSRec, Path, nativeFileSys);
     ASPathName nativeRelative = NULL;
     if (Relative != NULL)
@@ -643,7 +643,7 @@ char *altFSDIPathFromPath(ASPathName Path, ASPathName Relative) {
 /* Create an ASText of the DIPath of the specified ASPathName*/
 ASErrorCode altFSDIPathFromPathEx(ASPathName path, ASPathName relativeToThisPath, ASText diPathText) {
 
-    /* Use the native file system to convert the name to a DI Path, combining withthe sibling path */
+    /* Use the native file system to convert the name to a DI Path, combining with the sibling path */
     ASPathName nativePath = ASFileSysAcquireFileSysPath(&altFSRec, path, nativeFileSys);
     ASPathName nativeRelative = ASFileSysAcquireFileSysPath(&altFSRec, relativeToThisPath, nativeFileSys);
     ASErrorCode error = ASFileSysDIPathFromPathEx(nativeFileSys, nativePath, nativeRelative, diPathText);
@@ -687,7 +687,7 @@ ASPathName altFSCreatePathName(ASAtom PathType, const void *Path, const void *Mu
     /* The path to be created is fairly complex, depending on the pathType
     ** Rather than recreating all of the complexity of the handling of various types,
     ** use the native file system to build the path, then extract it's DI path and use that
-    ** as this file systems ASPathName
+    ** as this file system's ASPathName
     */
     ASPathName nativePath = ASFileSysCreatePathName(nativeFileSys, PathType, Path, MustBeZero);
     ASText diPath = ASTextNew();
@@ -697,7 +697,7 @@ ASPathName altFSCreatePathName(ASAtom PathType, const void *Path, const void *Mu
     return ASPathName(diPath);
 }
 
-/* Convert an ASPathName from this file system, into some other file systems ASPathName */
+/* Convert an ASPathName from this file system, into some other file system's ASPathName */
 ASPathName altFSAcquireFileSysPath(ASPathName Path, ASFileSys Sys) {
 
     if (Path == NULL)
@@ -714,7 +714,7 @@ ASPathName altFSAcquireFileSysPath(ASPathName Path, ASFileSys Sys) {
 /* Acquire the Platform Path Structure for this ASPathName */
 ASInt32 altFSAcquirePlatformPath(ASPathName path, ASAtom platformPathType, ASPlatformPath *platformPath) {
     /* We do not want to duplicate the complexity of the path type logic here
-    ** So again,we will use the native file system to do this conversion
+    ** So again, we will use the native file system to do this conversion
     */
     ASPathName nativePath = ASFileSysAcquireFileSysPath(&altFSRec, path, nativeFileSys);
     ASInt32 length = ASFileSysAcquirePlatformPath(nativeFileSys, nativePath, platformPathType, platformPath);
@@ -774,10 +774,10 @@ int defineAltFileSys() {
         memset(&altFSRec, 0, sizeof(ASFileSysRec));
 
         /* This is the complete ASFileSysRec, as of 11/3/2020
-        ** Enrties set to NULL are entries that are not needed for
+        ** Entries set to NULL are entries that are not needed for
         ** this specific file system.
         **
-        ** THese are re-ordered from the actual defintion to show logical
+        ** These are re-ordered from the actual definition to show logical
         ** groupings of interfaces
         **
         ** Note that new entries may be added at any time,
