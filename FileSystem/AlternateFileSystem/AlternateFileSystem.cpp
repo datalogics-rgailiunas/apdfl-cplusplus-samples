@@ -301,12 +301,15 @@ ASMDFile altFSReopen(ASMDFile f, ASFileMode newMode, ASErrorCode *error) {
     altFSFileHandle *altFileHandle = (altFSFileHandle *)f;
 
     if (!f)
+    {
+        *error - 1;
         return f;
+    }
 
     altFileHandle->Position = 0;
     altFileHandle->Flags |= newMode;
 
-    error = 0;
+    *error = 0;
 
     return (f);
 }
@@ -708,7 +711,7 @@ ASPathName altFSAcquireFileSysPath(ASPathName Path, ASFileSys Sys) {
     */
     ASPathName newPath = ASFileSysCreatePathFromDIPathText(Sys, (ASText)Path, NULL);
 
-    return ((ASPathName)newPath);
+    return (newPath);
 }
 
 /* Acquire the Platform Path Structure for this ASPathName */
