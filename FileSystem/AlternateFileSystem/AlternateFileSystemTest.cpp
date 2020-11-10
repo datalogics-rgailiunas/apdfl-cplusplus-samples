@@ -64,7 +64,13 @@ int main(int argc, char *argv[]) {
     DURING
         // Create asPathName with an Alternate FileSystem.
         asPathName =
-            ASFileSysCreatePathName(asFileSys, ASAtomFromString("Cstring"), csInputFile.c_str(), 0);
+            ASFileSysCreatePathName(asFileSys, ASAtomFromString(
+#if MAC_ENV
+                                                                "POSIXPath"
+#else
+                                                                "Cstring"
+#endif
+                                                                ), csInputFile.c_str(), 0);
 
         // Open pdDocIn from asPathName.
         pdDocIn = PDDocOpen(asPathName, asFileSys, NULL, true);
