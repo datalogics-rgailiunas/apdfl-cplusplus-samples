@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
 
             // Insert the current page into the new document
             PDDocInsertPages(outDoc.getPDDoc(), PDBeforeFirstPage, document.getPDDoc(), page, 1,
-                             NULL, NULL, NULL, NULL, NULL);
+                             PDInsertDoNotResolveInvalidStructureParentReferences, NULL, NULL, NULL, NULL);
 
             // Cook up the file name, and save
             std::ostringstream ossFile;
