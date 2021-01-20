@@ -68,11 +68,7 @@ SAMPLES = Annotations/CreateAnnotations \
           Text/UnicodeText
 
 
-ifeq ($(findstring i80386linux, $(OS)), )
-    SAMPLES +=  DocumentConversion/XPStoPDF
-endif
-
-ifeq ($(findstring solaris,$(OS)), )
+ifeq ($(findstring rs6000aix,$(OS)), )
     SAMPLES +=  DocumentConversion/XPStoPDF
 endif
 
