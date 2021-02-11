@@ -3,9 +3,16 @@
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 
+//  Disable code signing
+CODE_SIGN_IDENTITY = ;
+CODE_SIGN_STYILE = Manual;
+DEVELOPMENT_TEAM = ;
+PROVISIONING_PROFILE_SPECIFIER = ;
+PRODUCT_BUNDLE_IDENTIFIER = "$(name)";
+
 // Build for standard 64 bit architecture
 ARCHS = x86_64
-   
+
 // Set deployment target to 10.9.
 MACOSX_DEPLOYMENT_TARGET = 10.9;
 

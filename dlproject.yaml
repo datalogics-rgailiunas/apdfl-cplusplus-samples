@@ -1,0 +1,103 @@
+# Config file for the project. Used by the Invoke tasks, primarily.
+config:
+    # Basic configuration variables
+    global:
+        # Base configurations, may be overridden by platform
+
+        # Conan configuration. `conan config install` installs configuration file from this URL.
+        # See: https://docs.conan.io/en/latest/reference/commands/consumer/config.html#conan-config-install
+        # This is usually a pointer to a Git repo, from which it clones the default branch
+        config_url: git@octocat.dlogics.com:datalogics/conan-config.git
+
+        # Conan profile that's used to configure the compiler
+        # default is the profile Conan makes in the user's home directory
+        profile: default
+
+        # Multiple build configurations in the IDE
+        multi: false
+
+        # Regex that indicates a release branch
+        stable_branch_pattern: release-.*
+
+        # Which dependencies are built
+        build:
+            - missing
+
+        # If these patterns match a dependency package reference, that package is forced to be built.
+        force_build_patterns: []
+
+        # Defaults for most invoke tasks in this project, see below for
+        # exceptions. These apply to tasks that have these arguments.
+        #
+        # The defaults are only applied if the flag is not mentioned at all on the command line.
+        invoke_task_defaults:
+            # Types to build. We agreed that for APDFL and DLE, Debug and Release would be the default.
+            build_type:
+                - Release
+            # And we agreed that 64-bit only would be the default.
+            bits:
+                - "64"
+
+        # Specific defaults for the export-package task, since that task generally
+        # does not package Debug builds
+        export_package_task_defaults:
+            # Types to build. For exporting, we only make Release packages.
+            build_type:
+                - Release
+            # And we agreed that 64-bit only would be the default.
+            bits:
+                - "64"
+
+    # Configs based on platform information
+    #
+    # Keys can be (and are merged in this order)
+    #
+    # system
+    # system-machine
+    # system-version
+    # system-version-machine
+    #
+    # Where:
+    #   system is macos, windows, or the name of the linux distribution (redhat includes centos)
+    #   version is the major version number (major.minor on macos)
+    #   machine is the processor architecture, i.e. x86_64
+    #
+    # items from global and modify them here.
+    # When merging:
+    #     Dictionary keys override the base
+    #     Lists are appended
+
+    macos:
+        profile: apple-clang-10.0-macos-10.9
+
+    ubuntu-aarch64:
+        profile: gcc-9.3-arm64-linux
+
+    redhat:
+        # Use the LLVM toolset on Linux
+        profile: llvm-toolset-7
+
+        # Force building certain references when the binaries may not be
+        # reliable upstream.
+        # Note the ability to use the username/channel;
+        # when these are uploaded to datalogics/stable, they don't need to
+        # be rebuilt.
+        # force_build_patterns:
+        #     - boost_*/*@bincrafters/stable
+
+        # boost_build has to be built because of glibc incompatibilities
+        # build:
+        #     - boost_build
+    aix-powerpc:
+        profile: gcc-8-aix71-64
+
+    windows:
+        profile: visual-studio-15
+
+    sunos-sparc:
+        profile: gcc-9-sparc-solaris
+
+    byhost:
+        # Configs based on hostname.
+        # These are applied last. Consider this for only the most extreme cases
+        kamcentos6:

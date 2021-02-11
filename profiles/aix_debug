@@ -1,0 +1,3 @@
+include(aix71_build)
+[settings]
+build_type=Debug

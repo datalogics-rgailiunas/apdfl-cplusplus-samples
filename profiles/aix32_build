@@ -1,0 +1,17 @@
+include(gcc-8-aix71-32)
+[options]
+boost:without_context=True
+boost:without_coroutine=True
+boost:without_exception=True
+boost:without_fiber=True
+boost:without_graph=True
+boost:without_graph_parallel=True
+boost:without_iostreams=True
+boost:without_log=True
+boost:without_math=True
+boost:without_mpi=True
+boost:without_system=True
+boost:without_wave=True
+[env]
+PATH=[/opt/cmake-3.18/bin]
+
