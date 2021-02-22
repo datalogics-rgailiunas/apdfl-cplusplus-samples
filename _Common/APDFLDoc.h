@@ -56,9 +56,9 @@ class APDFLDoc {
     }; // Returns a reference to the PDDoc that was created or opened.
 
     ASErrorCode saveDoc(wchar_t * = NULL, PDSaveFlags = PDSaveFull | PDSaveLinearized,
-                        PDSaveFlags2 saveFlags2 = 0); // Used to save the document, may be provided a path and PDSaveFlags.
+                        PDSaveFlags2 saveFlags2 = PDSaveAddFlate); // Used to save the document, may be provided a path and PDSaveFlags.
     ASErrorCode saveDoc(const char *,
-                        PDSaveFlags = PDSaveFull | PDSaveLinearized, PDSaveFlags2 saveFlags2 = 0); // Used to save the document to a specified non-wide string, may be provided PDSaveFlags.
+                        PDSaveFlags = PDSaveFull | PDSaveLinearized, PDSaveFlags2 saveFlags2 = PDSaveAddFlate); // Used to save the document to a specified non-wide string, may be provided PDSaveFlags.
 
     ~APDFLDoc(); // Destructor frees up resources.
 
