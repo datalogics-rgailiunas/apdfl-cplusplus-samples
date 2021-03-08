@@ -1,0 +1,3 @@
+include(armv8linux_build)
+[settings]
+build_type=Debug

@@ -1,0 +1,4 @@
+include(visual-studio-15)
+[settings]
+build_type=Debug
+compiler.runtime=MDd
