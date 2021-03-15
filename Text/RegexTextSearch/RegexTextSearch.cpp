@@ -117,6 +117,11 @@ int main(int argc, char *argv[]) {
                 PDPage pdPage = document.getPage(wordRec.pageNum);
                 AnnotateWord(wordRec.word, pdPage, pdColorValue);
 
+                // Uncomment these lines if you wish to print matches to the screen
+                // char str[100];
+                // PDWordGetString(wordRec.word, str, 100);
+                // std::cout << str << std::endl;
+
                 PDPageRelease(pdPage);
             }
         }
