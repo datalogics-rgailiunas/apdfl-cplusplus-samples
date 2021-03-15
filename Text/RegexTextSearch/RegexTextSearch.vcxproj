@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{CA4E530D-DAC1-4CAB-8C14-4B1B7EB4FFC6}</ProjectGuid>
+    <ProjectGuid>{8D7DCD93-AE4D-4C33-84A6-74E2F1DE8A4A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BlankSample</RootNamespace>
     <ProjectName>RegexTextSearch</ProjectName>
