@@ -13,6 +13,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				19D966FD260147D600CEFA65 /* PBXTargetDependency */,
 				3C14A7F72425262F0013FA32 /* PBXTargetDependency */,
 				3CD2DDAB23AA7C5100549266 /* PBXTargetDependency */,
 				1D11FA9C216CFEAE001A38A7 /* PBXTargetDependency */,
@@ -82,6 +83,13 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXContainerItemProxy section */
+		19D966FC260147D600CEFA65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 19DA95CF25FFFD3C00E62F2C /* RegexTextSearch.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = RegexTextSearch;
+		};
 		19DA95D325FFFD3C00E62F2C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 19DA95CF25FFFD3C00E62F2C /* RegexTextSearch.xcodeproj */;
@@ -2325,6 +2333,11 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXTargetDependency section */
+		19D966FD260147D600CEFA65 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RegexTextSearch;
+			targetProxy = 19D966FC260147D600CEFA65 /* PBXContainerItemProxy */;
+		};
 		1D11FA9C216CFEAE001A38A7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = TextSelectEnum;
