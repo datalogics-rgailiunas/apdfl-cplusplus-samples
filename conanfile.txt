@@ -1,5 +1,5 @@
 [requires]
-adobe_pdf_library/18.LATEST@datalogics/nightly
+adobe_pdf_library/18.LATEST@datalogics/feature
 apdfl-resources/18.LATEST@datalogics/stable
 
 [generators]
