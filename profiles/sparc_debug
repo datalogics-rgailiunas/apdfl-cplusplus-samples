@@ -1,0 +1,4 @@
+include(sparc64_build)
+[settings]
+build_type=Debug
+

@@ -1,0 +1,3 @@
+include(gcc-9.3-arm64-linux)
+[env]
+PATH=[/opt/cmake-3.18/bin]
