@@ -13,6 +13,7 @@
 // For more detail see the description of the AddRegexRedaction sample program on our Developer’s site,
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addregexredaction
 
+#include <map>
 #include "APDFLDoc.h"
 #include "InitializeLibrary.h"
 #include "DLExtrasCalls.h"
@@ -48,7 +49,7 @@ int main(int argc, char **argv) {
 
         // Step 1) Use DocTextFinder to locate matches that will be redacted and save their locations.
 
-        std::vector<ASFixedQuad> quadVector;
+        std::map<ASInt32, std::vector<ASFixedQuad>> pageQuadMap;
 
         // Set the default word finder settings.
         PDWordFinderConfigRec wfConfig;
@@ -78,13 +79,13 @@ int main(int argc, char **argv) {
 
                 ASFixedQuad tempQuad;
                 PDWordGetNthQuad(wordRec.word, 0, &tempQuad);
-                quadVector.push_back(tempQuad);
+                pageQuadMap[wordRec.pageNum].push_back(tempQuad);
             }
         }
 
         // Step 2) Create and apply the redactions.
 
-        if (quadVector.size() > 0) {
+        if (pageQuadMap.size() > 0) {
             PDRedactParams redactParams;
             PDRedactParamsRec rpRec;
             memset((char *)&rpRec, 0, sizeof(PDRedactParamsRec));
@@ -129,12 +130,22 @@ int main(int argc, char **argv) {
             redactParams->borderColor = &borderCVRec; // Set the color to draw the border around each quad,
             redactParams->borderColor->space = PDDeviceGray; // in the unredacted appearance.
 
-            redactParams->pageNum = 0; // The page that the redaction will be applied to.
-            redactParams->redactQuads = &quadVector.front(); // The vector or array holding the quads.
-            redactParams->numQuads = quadVector.size(); // The number of entries in the vector or array.
+            // Count how many words will be removed.
+            size_t numOfWordsRemoved = 0;
 
-            // Create the redaction annotation. At this point the text HAS NOT been redacted.
-            PDAnnot redactAnnot = PDDocCreateRedaction(document.getPDDoc(), redactParams);
+            std::map<ASInt32, std::vector<ASFixedQuad>>::iterator iter;
+
+            // Pass the page numbers and quads of all the matches to redactParams and create the redactions.
+            for (iter = pageQuadMap.begin(); iter != pageQuadMap.end(); ++iter) {
+                redactParams->pageNum = iter->first; // The page that the redaction will be applied to.
+                redactParams->redactQuads = &(iter->second).front(); // The vector or array holding the quads.
+                redactParams->numQuads = (iter->second).size(); // The number of entries in the vector or array.
+
+                numOfWordsRemoved += (iter->second).size();
+
+                // Create the redaction annotation. At this point the text HAS NOT been redacted.
+                PDAnnot redactAnnot = PDDocCreateRedaction(document.getPDDoc(), redactParams);
+            }
 
             // Save the document with the redactions created, but not applied.
             document.saveDoc(csOutputUnredactedFileName.c_str(), true);
@@ -143,7 +154,7 @@ int main(int argc, char **argv) {
             // words are merely _marked for redaction_, but not removed!
             PDDocApplyRedactions(document.getPDDoc(), NULL);
 
-            std::cout << quadVector.size() << " words have been permanently removed... " << std::endl;
+            std::cout << numOfWordsRemoved << " words have been permanently removed... " << std::endl;
         } else {
             std::cout << "No words were matched, no redactions needed." << std::endl;
         }
