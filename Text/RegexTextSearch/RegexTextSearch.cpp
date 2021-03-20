@@ -49,38 +49,12 @@ int main(int argc, char *argv[]) {
 
         APDFLDoc document(csInputFileName.c_str(), true);
 
-        // Step 1) Set up the word finder configuration record.
+        // Step 1) Set up the word finder configuration to use the default settings.
 
         PDWordFinderConfigRec wfConfig;
 
         memset(&wfConfig, 0, sizeof(wfConfig));           // Always do this!
         wfConfig.recSize = sizeof(PDWordFinderConfigRec); //...and this!
-
-        wfConfig.disableTaggedPDF = true; // Treat this as a non-tagged PDF document.
-        wfConfig.noXYSort = true;         // Don't generate an XY-ordered word list.
-        wfConfig.preserveSpaces = true;   // Preserve spaces during word breaking.
-        wfConfig.noLigatureExp = false; // Enable expansion of ligatures using the default ligatures.
-        wfConfig.noEncodingGuess = true; // Disable guessing encoding of fonts with unknown/custom encoding.
-        wfConfig.unknownToStdEnc = false;   // Don't assume all fonts are Standard Roman.
-                                            //   Setting to true overrides noEncodingGuess.
-        wfConfig.ignoreCharGaps = false;    // Convert large character gaps to spaces.
-        wfConfig.ignoreLineGaps = false;    // Treat vertical movements as line breaks.
-        wfConfig.noAnnots = true;           // Don't extract from annotations.
-        wfConfig.noHyphenDetection = false; // Don't differentiate between hard and soft hyphens.
-        wfConfig.trustNBSpace = false; // Don't differentiate between breaking and non-breaking spaces.
-        wfConfig.noExtCharOffset = false; // If client doesn't have a need for detailed character
-                                          //   offset information set to true for improvement in efficiency.
-        wfConfig.noStyleInfo = false;  // Set to true if client doesn't have a need for style
-                                       //   information for improvement in efficiency.
-        wfConfig.decomposeTbl = NULL;  // Table may be used to expand unicode ligatures
-                                       //   not in the default list.
-        wfConfig.decomposeTblSize = 0; // Not using decomposeTbl, so the size is 0.
-        wfConfig.charTypeTbl = NULL;   // Custom table to enhance word breaking quality.
-        wfConfig.charTypeTblSize = 0;  // Unused, so the size will be 0.
-        wfConfig.preserveRedundantChars = false; // May be used to preserve overlapping redundant
-                                                 //   characters in some PDF documents.
-        wfConfig.disableCharReordering = false;  // Used in cases where the PDF page has heavily
-                                                 //   overlapped character bounding boxes.
 
         // Step 2) Fill in color information for highlighting text. In this case, our color will be set to orange.
 
