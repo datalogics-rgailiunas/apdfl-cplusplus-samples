@@ -97,7 +97,7 @@ int main(int argc, char *argv[]) {
                 AnnotateWord(wordRec.word, pdPage, pdColorValue);
 
                 // Uncomment this line if you wish to print matches to the screen
-                std::cout << phraseBuf << std::endl;
+                // std::cout << phraseBuf << std::endl;
 
                 PDPageRelease(pdPage);
             }
