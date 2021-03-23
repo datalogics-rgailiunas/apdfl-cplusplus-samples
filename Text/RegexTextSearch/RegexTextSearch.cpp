@@ -22,7 +22,12 @@
 #define DIR_LOC "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "TextSearch.pdf"
 #define DEF_OUTPUT "RegexTextSearch-out.pdf"
+
+#ifdef UNIX_PLATFORM
+#define DEF_SEARCH_REGEX "[Tt]he"
+#else
 #define DEF_SEARCH_REGEX R"([Tt]he)"
+#endif
 
 static void ApplyQuadsToAnnot(PDAnnot, ASFixedQuad *, ASArraySize);
 static void AnnotateWord(PDWord, PDPage, PDColorValue);
@@ -91,10 +96,8 @@ int main(int argc, char *argv[]) {
                 PDPage pdPage = document.getPage(wordRec.pageNum);
                 AnnotateWord(wordRec.word, pdPage, pdColorValue);
 
-                // Uncomment these lines if you wish to print matches to the screen
-                // char str[100];
-                // PDWordGetString(wordRec.word, str, 100);
-                // std::cout << str << std::endl;
+                // Uncomment this line if you wish to print matches to the screen
+                std::cout << phraseBuf << std::endl;
 
                 PDPageRelease(pdPage);
             }
