@@ -22,7 +22,12 @@
 #define DEF_INPUT "AddRedaction.pdf"
 #define DEF_OUTPUT "AddRegexRedaction-out.pdf"
 #define DEF_UNREDACTED_OUTPUT "AddRegexRedaction-NotApplied-out.pdf"
+
+#ifdef UNIX_PLATFORM
+#define DEF_SEARCH_REGEX "[Nn]avigation|screen"
+#else
 #define DEF_SEARCH_REGEX R"([Nn]avigation|screen)"
+#endif
 
 int main(int argc, char **argv) {
     ASErrorCode errCode = 0;
