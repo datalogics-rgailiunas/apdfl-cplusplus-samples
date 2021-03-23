@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
 
         // Step 1) Use DocTextFinder to locate matches that will be redacted and save their locations.
 
-        std::map<ASInt32, std::vector<ASFixedQuad>> pageQuadMap;
+        std::map<ASInt32, std::vector<ASFixedQuad> > pageQuadMap;
 
         // Set the default word finder settings.
         PDWordFinderConfigRec wfConfig;
@@ -138,7 +138,7 @@ int main(int argc, char **argv) {
             // Count how many words will be removed.
             size_t numOfWordsRemoved = 0;
 
-            std::map<ASInt32, std::vector<ASFixedQuad>>::iterator iter;
+            std::map<ASInt32, std::vector<ASFixedQuad> >::iterator iter;
 
             // Pass the page numbers and quads of all the matches to redactParams and create the redactions.
             for (iter = pageQuadMap.begin(); iter != pageQuadMap.end(); ++iter) {
