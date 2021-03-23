@@ -65,7 +65,8 @@ SAMPLES = Annotations/CreateAnnotations \
           Text/InsertHeadFoot \
           Text/TextSearch \
           Text/TextSelectEnum \
-          Text/UnicodeText
+          Text/UnicodeText \
+          Text/RegexTextSearch
 
 
 ifeq ($(findstring rs6000aix,$(OS)), )

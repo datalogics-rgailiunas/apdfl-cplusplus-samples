@@ -13,6 +13,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				19D966FD260147D600CEFA65 /* PBXTargetDependency */,
 				3C14A7F72425262F0013FA32 /* PBXTargetDependency */,
 				3CD2DDAB23AA7C5100549266 /* PBXTargetDependency */,
 				1D11FA9C216CFEAE001A38A7 /* PBXTargetDependency */,
@@ -82,6 +83,20 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXContainerItemProxy section */
+		19D966FC260147D600CEFA65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 19DA95CF25FFFD3C00E62F2C /* RegexTextSearch.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = RegexTextSearch;
+		};
+		19DA95D325FFFD3C00E62F2C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 19DA95CF25FFFD3C00E62F2C /* RegexTextSearch.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = RegexTextSearch;
+		};
 		1D0349B32163C391004CED35 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1D0349AF2163C390004CED35 /* TextSelectEnum.xcodeproj */;
@@ -953,6 +968,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		19DA95CF25FFFD3C00E62F2C /* RegexTextSearch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RegexTextSearch.xcodeproj; path = ../Text/RegexTextSearch/RegexTextSearch.xcodeproj; sourceTree = "<group>"; };
 		1D0349AF2163C390004CED35 /* TextSelectEnum.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TextSelectEnum.xcodeproj; path = ../Text/TextSelectEnum/TextSelectEnum.xcodeproj; sourceTree = "<group>"; };
 		1D80FE091FC4B72000D84920 /* PDFPrintDefault.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PDFPrintDefault.xcodeproj; path = ../Printing/PDFPrintDefault/PDFPrintDefault.xcodeproj; sourceTree = "<group>"; };
 		1D80FE0F1FC4B73500D84920 /* PDFPrintGUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PDFPrintGUI.xcodeproj; path = ../Printing/PDFPrintGUI/PDFPrintGUI.xcodeproj; sourceTree = "<group>"; };
@@ -1018,6 +1034,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		19DA95D025FFFD3C00E62F2C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				19DA95D425FFFD3C00E62F2C /* RegexTextSearch-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		1D0349B02163C390004CED35 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1517,6 +1541,7 @@
 		BAAE8A280ADC6237005A7834 = {
 			isa = PBXGroup;
 			children = (
+				19DA95CF25FFFD3C00E62F2C /* RegexTextSearch.xcodeproj */,
 				3C181B722425239C00770C5E /* AddTextWatermark.xcodeproj */,
 				1D0349AF2163C390004CED35 /* TextSelectEnum.xcodeproj */,
 				1D80FE151FC4B74800D84920 /* AddTriangularRedaction.xcodeproj */,
@@ -1820,6 +1845,10 @@
 					ProjectRef = 9F8EE2121E5CA92C004E294B /* PostscriptInjection.xcodeproj */;
 				},
 				{
+					ProductGroup = 19DA95D025FFFD3C00E62F2C /* Products */;
+					ProjectRef = 19DA95CF25FFFD3C00E62F2C /* RegexTextSearch.xcodeproj */;
+				},
+				{
 					ProductGroup = 9F8EE2011E5CA90D004E294B /* Products */;
 					ProjectRef = 9F8EE2001E5CA90D004E294B /* RenderPage.xcodeproj */;
 				},
@@ -1860,6 +1889,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		19DA95D425FFFD3C00E62F2C /* RegexTextSearch-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "RegexTextSearch-Debug.app";
+			remoteRef = 19DA95D325FFFD3C00E62F2C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		1D0349B42163C391004CED35 /* TextSelectEnum-Debug.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -2297,6 +2333,11 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXTargetDependency section */
+		19D966FD260147D600CEFA65 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RegexTextSearch;
+			targetProxy = 19D966FC260147D600CEFA65 /* PBXContainerItemProxy */;
+		};
 		1D11FA9C216CFEAE001A38A7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = TextSelectEnum;
