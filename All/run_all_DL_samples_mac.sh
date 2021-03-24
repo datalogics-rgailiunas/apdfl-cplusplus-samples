@@ -313,6 +313,11 @@ cd ../../Security/ValidateSignatures
 ./ValidateSignatures-${stage}.app/Contents/MacOS/ValidateSignatures-${stage}
 echo ""
 
+echo Running sample AddRegexRedaction
+cd ../../Security/AddRegexRedaction
+./AddRegexRedaction-${stage}.app/Contents/MacOS/AddRegexRedaction-${stage}
+echo ""
+
 # Text
 
 echo Running sample InsertHeadFoot

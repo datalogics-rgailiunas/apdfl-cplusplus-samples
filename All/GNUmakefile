@@ -59,6 +59,7 @@ SAMPLES = Annotations/CreateAnnotations \
           Security/OpenEncrypted \
           Security/SetUniquePermissions \
           Security/ValidateSignatures \
+          Security/AddRegexRedaction \
           Text/AddText \
           Text/ExtractText \
           Text/HelloJapan \
