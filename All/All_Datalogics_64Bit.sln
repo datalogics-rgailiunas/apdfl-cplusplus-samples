@@ -131,7 +131,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PDFPrintDefault", "..\Print
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TextSelectEnum", "..\Text\TextSelectEnum\TextSelectEnum.vcxproj", "{70DC7A8A-3F4A-43CF-9DE2-A9C477121319}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddRegexRedaction", "..\Security\AddRegexRedaction\AddRegexRedaction.vcxproj", "{CB9E6C09-C2F2-4639-A66A-A930B706980C}"
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddTextWatermark", "..\ContentModification\AddTextWatermark\AddTextWatermark.vcxproj", "{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RegexTextSearch", "..\Text\RegexTextSearch\RegexTextSearch.vcxproj", "{8D7DCD93-AE4D-4C33-84A6-74E2F1DE8A4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -395,6 +399,10 @@ Global
 		{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}.Debug|x64.Build.0 = Debug|x64
 		{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}.Release|x64.ActiveCfg = Release|x64
 		{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}.Release|x64.Build.0 = Release|x64
+		{8D7DCD93-AE4D-4C33-84A6-74E2F1DE8A4A}.Debug|x64.ActiveCfg = Debug|x64
+		{8D7DCD93-AE4D-4C33-84A6-74E2F1DE8A4A}.Debug|x64.Build.0 = Debug|x64
+		{8D7DCD93-AE4D-4C33-84A6-74E2F1DE8A4A}.Release|x64.ActiveCfg = Release|x64
+		{8D7DCD93-AE4D-4C33-84A6-74E2F1DE8A4A}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

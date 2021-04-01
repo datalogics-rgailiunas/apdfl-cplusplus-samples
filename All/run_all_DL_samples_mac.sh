@@ -313,6 +313,11 @@ cd ../../Security/ValidateSignatures
 ./ValidateSignatures-${stage}.app/Contents/MacOS/ValidateSignatures-${stage}
 echo ""
 
+echo Running sample AddRegexRedaction
+cd ../../Security/AddRegexRedaction
+./AddRegexRedaction-${stage}.app/Contents/MacOS/AddRegexRedaction-${stage}
+echo ""
+
 # Text
 
 echo Running sample InsertHeadFoot
@@ -348,6 +353,11 @@ echo ""
 echo Running sample TextSelectEnum
 cd ../../Text/TextSelectEnum
 ./TextSelectEnum-${stage}.app/Contents/MacOS/TextSelectEnum-${stage}
+echo ""
+
+echo Running sample RegexTextSearch
+cd ../../Text/RegexTextSearch
+./RegexTextSearch-${stage}.app/Contents/MacOS/RegexTextSearch-${stage}
 echo ""
 
 

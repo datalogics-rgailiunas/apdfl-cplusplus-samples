@@ -8,9 +8,9 @@
 // document that matches a user-supplied regular expression. When the sample finds the text it
 // highlights each example and saves the file as an output document.
 //
-// Command-line:   <input-file> <output-file> <search-regular-expression>    (All optional)
+// Command-line:   <input-file> <output-file> (All optional)
 //
-// For more detail see the description of the RegexTextSearch sample program on our Developer’s site,
+// For more detail see the description of the RegexTextSearch sample program on our Developer's site,
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#regextextsearch
 
 #include <iostream>
@@ -20,13 +20,26 @@
 #include "DLExtrasCalls.h"
 
 #define DIR_LOC "../../../../Resources/Sample_Input/"
-#define DEF_INPUT "TextSearch.pdf"
+#define DEF_INPUT "RegexTextSearch.pdf"
 #define DEF_OUTPUT "RegexTextSearch-out.pdf"
 
-#ifdef UNIX_PLATFORM
-#define DEF_SEARCH_REGEX "[Tt]he"
+#define _countof(array) (sizeof(array) / sizeof(array[0]))
+
+// If compiler supports C++11 or greater, then a raw string can be used.
+#if __cplusplus >= 201103L
+// Phone numbers
+#define DEF_SEARCH_REGEX LR"((1-)?(\()?\d{3}(\))?(\s)?(-)?\d{3}-\d{4})"
+// Email addresses
+//#define DEF_SEARCH_REGEX LR"(\b[\w.!#$%&'*+\/=?^`{|}~-]+@[\w-]+(?:\.[\w-]+)*\b)"
+// URLs
+//#define DEF_SEARCH_REGEX LR"((https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}))"
 #else
-#define DEF_SEARCH_REGEX R"([Tt]he)"
+// Phone numbers
+#define DEF_SEARCH_REGEX L"(1-)?(\\()?\\d{3}(\\))?(\\s)?(-)?\\d{3}-\\d{4}"
+// Email addresses
+//#define DEF_SEARCH_REGEX L"\\b[\\w.!#$%&'*+\\/=?^`{|}~-]+@[\\w-]+(?:\\.[\\w-]+)*\\b"
+// URLs
+//#define DEF_SEARCH_REGEX L"(https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})"
 #endif
 
 static void ApplyQuadsToAnnot(PDAnnot, ASFixedQuad *, ASArraySize);
@@ -44,7 +57,8 @@ int main(int argc, char *argv[]) {
 
     std::string csInputFileName(argc > 1 ? argv[1] : DIR_LOC DEF_INPUT);
     std::string csOutputFileName(argc > 2 ? argv[2] : DEF_OUTPUT);
-    std::string csSearchRegex(argc > 3 ? argv[3] : DEF_SEARCH_REGEX);
+
+    std::wstring csSearchRegex = DEF_SEARCH_REGEX;
     std::cout << "Will search " << csInputFileName.c_str() << " for all occurrences of "
               << "the regular expression \"" << csSearchRegex.c_str() << "\"," << std::endl
               << "highlight them all, "
@@ -54,12 +68,15 @@ int main(int argc, char *argv[]) {
 
         APDFLDoc document(csInputFileName.c_str(), true);
 
-        // Step 1) Set up the word finder configuration to use the default settings.
+        // Step 1) Set up the word finder configuration.
 
         PDWordFinderConfigRec wfConfig;
 
         memset(&wfConfig, 0, sizeof(wfConfig));           // Always do this!
         wfConfig.recSize = sizeof(PDWordFinderConfigRec); //...and this!
+
+        // Need to set this to true so phrases will be concatenated properly
+        wfConfig.noHyphenDetection = true;
 
         // Step 2) Fill in color information for highlighting text. In this case, our color will be set to orange.
 
@@ -77,7 +94,7 @@ int main(int argc, char *argv[]) {
         PDDocTextFinderAcquireMatchList(matchFinder, document.getPDDoc(), PDAllPages, NULL,
                                         csSearchRegex.c_str(), &numberOfMatches);
 
-        char phraseBuf[256];
+        wchar_t phraseBuf[256];
         ASInt32 numberOfWords = 0;
         PDDocTextFinderWordMatchRec wordRec;
 
@@ -86,7 +103,10 @@ int main(int argc, char *argv[]) {
 
             // Get the match
             memset(phraseBuf, 0, sizeof(phraseBuf));
-            PDDocTextFinderGetNthMatch(matchFinder, matchInstance, phraseBuf, sizeof(phraseBuf), &numberOfWords);
+            PDDocTextFinderGetNthMatch(matchFinder, matchInstance, phraseBuf, _countof(phraseBuf), &numberOfWords);
+
+            // Uncomment this line if you wish to print matches to the screen
+            //std::wcout << phraseBuf << std::endl;
 
             // Examine each word of the match and highlight it
             for (ASInt32 wordInstance = 0; wordInstance < numberOfWords; ++wordInstance) {
@@ -95,9 +115,6 @@ int main(int argc, char *argv[]) {
                 // The PDPage object will be needed for adding the highlight annotation
                 PDPage pdPage = document.getPage(wordRec.pageNum);
                 AnnotateWord(wordRec.word, pdPage, pdColorValue);
-
-                // Uncomment this line if you wish to print matches to the screen
-                // std::cout << phraseBuf << std::endl;
 
                 PDPageRelease(pdPage);
             }
