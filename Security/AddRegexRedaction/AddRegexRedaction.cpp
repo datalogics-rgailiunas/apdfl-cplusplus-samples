@@ -8,7 +8,7 @@
 // redacted in a PDF document when given a user-supplied regular expression. The text is
 // permanently removed from the document.
 //
-// Command-line:  <input-file> <output-file> <unredacted-output-file> (Optional)
+// Command-line:  <input-file> <output-file> <unredacted-output-file> <search-regular-expression> (Optional)
 //
 // For more detail see the description of the AddRegexRedaction sample program on our Developer's site,
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addregexredaction
@@ -23,23 +23,24 @@
 #define DEF_OUTPUT "AddRegexRedaction-out.pdf"
 #define DEF_UNREDACTED_OUTPUT "AddRegexRedaction-NotApplied-out.pdf"
 
-#define _countof(array) (sizeof(array) / sizeof(array[0]))
 
 // If compiler supports C++11 or greater, then a raw string can be used.
+// Un-comment only one of the given regular expressions to see the results
+// properly displayed in the output document.
 #if __cplusplus >= 201103L
 // Phone numbers
-#define DEF_SEARCH_REGEX LR"((1-)?(\()?\d{3}(\))?(\s)?(-)?\d{3}-\d{4})"
+#define DEF_SEARCH_REGEX R"((1-)?(\()?\d{3}(\))?(\s)?(-)?\d{3}-\d{4})"
 // Email addresses
-//#define DEF_SEARCH_REGEX LR"(\b[\w.!#$%&'*+\/=?^`{|}~-]+@[\w-]+(?:\.[\w-]+)*\b)"
+//#define DEF_SEARCH_REGEX R"(\b[\w.!#$%&'*+\/=?^`{|}~-]+@[\w-]+(?:\.[\w-]+)*\b)"
 // URLs
-//#define DEF_SEARCH_REGEX LR"((https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}))"
+//#define DEF_SEARCH_REGEX R"((https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}))"
 #else
 // Phone numbers
-#define DEF_SEARCH_REGEX L"(1-)?(\\()?\\d{3}(\\))?(\\s)?(-)?\\d{3}-\\d{4}"
+#define DEF_SEARCH_REGEX "(1-)?(\\()?\\d{3}(\\))?(\\s)?(-)?\\d{3}-\\d{4}"
 // Email addresses
-//#define DEF_SEARCH_REGEX L"\\b[\\w.!#$%&'*+\\/=?^`{|}~-]+@[\\w-]+(?:\\.[\\w-]+)*\\b"
+//#define DEF_SEARCH_REGEX "\\b[\\w.!#$%&'*+\\/=?^`{|}~-]+@[\\w-]+(?:\\.[\\w-]+)*\\b"
 // URLs
-//#define DEF_SEARCH_REGEX L"(https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})"
+//#define DEF_SEARCH_REGEX "(https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})"
 #endif
 
 int main(int argc, char **argv) {
@@ -55,10 +56,10 @@ int main(int argc, char **argv) {
     std::string csInputFileName(argc > 1 ? argv[1] : INPUT_LOC DEF_INPUT);
     std::string csOutputFileName(argc > 2 ? argv[2] : DEF_OUTPUT);
     std::string csOutputUnredactedFileName(argc > 3 ? argv[3] : DEF_UNREDACTED_OUTPUT);
+    std::string csSearchRegex(argc > 4 ? argv[4] : DEF_SEARCH_REGEX);
 
-    std::wstring csSearchRegex = DEF_SEARCH_REGEX;
     std::cout << "Redacting regular expression matches for \"";
-    std::wcout << DEF_SEARCH_REGEX;
+    std::cout << csSearchRegex.c_str();
     std::cout << "\" from " << csInputFileName.c_str() << ", saving to " << csOutputFileName.c_str()
               << std::endl;
 
@@ -66,7 +67,7 @@ int main(int argc, char **argv) {
 
         APDFLDoc document(csInputFileName.c_str(), true);
 
-        // Step 1) Use DocTextFinder to locate matches that will be redacted and save their locations.
+        // Step 1) Use DocTextFinder to locate matches that will be redacted and save their quad locations.
 
         std::map<ASInt32, std::vector<ASFixedQuad> > pageQuadMap;
 
@@ -75,34 +76,24 @@ int main(int argc, char **argv) {
         memset(&wfConfig, 0, sizeof(PDWordFinderConfigRec));
         wfConfig.recSize = sizeof(PDWordFinderConfigRec);
 
-        // Need to set this to true so phrases will be concatenated properly
-        wfConfig.noHyphenDetection = true;
-
         // Create the DocTextFinder object and use it to find matches.
-        ASInt32 numberOfMatches = 0;
-        PDDocTextFinder matchFinder = PDDocTextFinderCreate(WF_LATEST_VERSION, false, &wfConfig);
-        PDDocTextFinderAcquireMatchList(matchFinder, document.getPDDoc(), PDAllPages, NULL,
-                                        csSearchRegex.c_str(), &numberOfMatches);
-
-        wchar_t phraseBuf[256];
-        ASInt32 numberOfWords = 0;
-        PDDocTextFinderWordMatchRec wordRec;
+        PDDocTextFinder matchFinder = PDDocTextFinderCreate(&wfConfig);
+        PDDocTextFinderMatchList matchList = PDDocTextFinderAcquireMatchList(
+            matchFinder, document.getPDDoc(), PDAllPages, NULL, csSearchRegex.c_str());
 
         // Iterate over the matches that were found by DocTextFinder.
-        for (ASInt32 matchInstance = 0; matchInstance < numberOfMatches; ++matchInstance) {
+        for (ASUns32 matchInstance = 0; matchInstance < matchList.numMatches; ++matchInstance) {
 
             // Get the match.
-            memset(phraseBuf, 0, sizeof(phraseBuf));
-            PDDocTextFinderGetNthMatch(matchFinder, matchInstance, phraseBuf, _countof(phraseBuf), &numberOfWords);
+            PDDocTextFinderMatchListRec match = matchList.matches[matchInstance];
 
-            // Examine each word of the match and store the quad location.
-            for (ASInt32 wordInstance = 0; wordInstance < numberOfWords; ++wordInstance) {
-                wordRec = PDDocTextFinderGetMatchNthWord(matchFinder, matchInstance, wordInstance);
-
-                ASFixedQuad tempQuad;
-                PDWordGetNthQuad(wordRec.word, 0, &tempQuad);
-                pageQuadMap[wordRec.pageNum].push_back(tempQuad);
+            // Store the quad location and the page it was located on.
+            for (ASUns32 quadInstance = 0; quadInstance < match.numQuads; ++quadInstance) {
+                pageQuadMap[match.quads[quadInstance].pageNum].push_back(match.quads[quadInstance].boundingQuad);
             }
+
+            // Uncomment this line if you wish to print matches to the screen
+            //std::cout << match.phrase << std::endl;
         }
 
         // Step 2) Create and apply the redactions.
