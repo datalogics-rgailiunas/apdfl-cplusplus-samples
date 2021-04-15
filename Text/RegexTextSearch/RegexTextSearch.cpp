@@ -24,7 +24,7 @@
 #define DEF_OUTPUT "RegexTextSearch-out.pdf"
 
 // If compiler supports C++11 or greater, then a raw string can be used.
-// Un-comment only one of the given regular expressions to see the results
+// Uncomment only one of the given regular expressions to see the results
 // properly displayed in the output document.
 #if __cplusplus >= 201103L
 // Phone numbers
@@ -92,7 +92,7 @@ int main(int argc, char *argv[]) {
         // Iterate over the matches that were found by DocTextFinder
         for (ASUns32 matchInstance = 0; matchInstance < matchList.numMatches; ++matchInstance) {
 
-            PDDocTextFinderMatchListRec match = matchList.matches[matchInstance];
+            PDDocTextFinderMatchRec match = matchList.matches[matchInstance];
 
             for (ASUns32 quadInstance = 0; quadInstance < match.numQuads; ++quadInstance) {
                 // The PDPage object will be needed for adding the highlight annotation
@@ -105,8 +105,13 @@ int main(int argc, char *argv[]) {
             //std::cout << match.phrase << std::endl;
         }
 
-        PDDocTextFinderDestroy(matchFinder);
         document.saveDoc(csOutputFileName.c_str());
+
+        // Release this and re-use the matchFinder object
+        // before doing additional searches with it.  Otherwise,
+        // destroying it will be sufficient.
+        PDDocTextFinderReleaseMatchList(matchFinder);
+        PDDocTextFinderDestroy(matchFinder);
 
     HANDLER
         errCode = ERRORCODE;
@@ -123,7 +128,7 @@ void ApplyQuadsToAnnot(PDAnnot annot, ASFixedQuad *quads, ASArraySize numQuads) 
     CosObj coAnnot = PDAnnotGetCosObj(annot);
     CosDoc coDoc = CosObjGetDoc(coAnnot);
     CosObj coQuads = CosNewArray(coDoc, false, numQuads * 8);
-    static ASAtom atQP = ASAtomFromString("QuadPoints");
+    ASAtom atQP = ASAtomFromString("QuadPoints");
 
     for (ASUns32 i = 0, n = 0; i < numQuads; ++i) {
         CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].bl.h));
@@ -140,7 +145,7 @@ void ApplyQuadsToAnnot(PDAnnot annot, ASFixedQuad *quads, ASArraySize numQuads) 
 }
 
 void AnnotateMatch(ASFixedQuad quad, PDPage p, PDColorValue c) {
-    static ASAtom atH = ASAtomFromString("Highlight");
+    ASAtom atH = ASAtomFromString("Highlight");
 
     // A value of -2 adds the annotation to the end of the page's annotation array
     ASInt32 addAfterCode = -2;

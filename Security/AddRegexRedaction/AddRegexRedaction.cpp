@@ -25,7 +25,7 @@
 
 
 // If compiler supports C++11 or greater, then a raw string can be used.
-// Un-comment only one of the given regular expressions to see the results
+// Uncomment only one of the given regular expressions to see the results
 // properly displayed in the output document.
 #if __cplusplus >= 201103L
 // Phone numbers
@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
         for (ASUns32 matchInstance = 0; matchInstance < matchList.numMatches; ++matchInstance) {
 
             // Get the match.
-            PDDocTextFinderMatchListRec match = matchList.matches[matchInstance];
+            PDDocTextFinderMatchRec match = matchList.matches[matchInstance];
 
             // Store the quad location and the page it was located on.
             for (ASUns32 quadInstance = 0; quadInstance < match.numQuads; ++quadInstance) {
@@ -107,56 +107,38 @@ int main(int argc, char **argv) {
             PDColorValueRec cvRec;
             PDColorValueRec borderCVRec;
             PDColorValueRec fillCVRec;
-            PDColorValueRec textCVRec;
 
             redactParams->size = sizeof(PDRedactParamsRec);
             redactParams->colorVal = &cvRec;
-            redactParams->colorVal->space = PDDeviceRGB; // Set device color space to RGB.
-            redactParams->colorVal->value[0] = FloatToASFixed(0.0); // The redaction box will be set to black.
+            redactParams->colorVal->space = PDDeviceRGB;             // Set device color space to RGB.
+            redactParams->colorVal->value[0] = FloatToASFixed(0.0);  // The redaction box will be set to black.
             redactParams->colorVal->value[1] = FloatToASFixed(0.0);
             redactParams->colorVal->value[2] = FloatToASFixed(0.0);
-            redactParams->horizAlign = kPDHorizCenter; // Horizontal alignment of the text when
-                                                       // generating the redaction mark.
-
-            // Describe the appearance of the text that is drawn to overlay the quads, when they are
-            // redacted, or when they are viewed as if redacted.
-            redactParams->overlayText = ASTextFromPDText(" Redacted "); // Overlay text may be used to overprint
-                                                                        // the redacted areas.
-            redactParams->textColor = &textCVRec;
-            redactParams->textColor->space = PDDeviceGray; // Draw the overlay text in white.
-            redactParams->textColor->value[0] = fixedOne;
-            redactParams->textFontName = "CourierStd"; // Draw the overlay text using CourierStd font.
-            redactParams->textSize = FloatToASFixed(10.0); // Draw the text size as 10 point (nominally, may
-                                                           // be reduced if ScaleToFit is true).
-            redactParams->repeat = true; // Draw the text in each quad, repeating to fill the quad.
-            redactParams->scaleToFit = true; // Reduce text size if needed, to fit the quad.
+            redactParams->horizAlign = kPDHorizCenter;               // Horizontal alignment of the text when
+                                                                     // generating the redaction mark.
 
             // Describe the appearance of the quads when they are drawn prior to redaction.
-            redactParams->fillColor = &fillCVRec; // In the "normal" or "unredacted" appearance, fill each
-            redactParams->fillColor->space = PDDeviceRGB; // quad with this color, at the specified opacity.
+            redactParams->fillColor = &fillCVRec;                    // In the "normal" or "unredacted" appearance, fill each
+            redactParams->fillColor->space = PDDeviceRGB;            // quad with this color, at the specified opacity.
             redactParams->fillColor->value[0] = FloatToASFixed(1.0);
             redactParams->fillColor->value[1] =
-                FloatToASFixed(0.0); // In this case, 25% red. Note that if opacity is set
+                FloatToASFixed(0.0);                                 // In this case, 0% red. Note that if opacity is set
             redactParams->fillColor->value[2] =
-                FloatToASFixed(0.0); // to 0, there will be no visible color, and if opacity
-            redactParams->fillOpacity = FloatToASFixed(0.25); // is set to 1, the underlaying text cannot be seen.
-            redactParams->borderColor = &borderCVRec; // Set the color to draw the border around each quad,
-            redactParams->borderColor->space = PDDeviceGray; // in the unredacted appearance.
-
-            // Count how many words will be removed.
-            size_t numOfWordsRemoved = 0;
+                FloatToASFixed(0.0);                                 // to 0, there will be no visible color, and if opacity
+            redactParams->fillOpacity = FloatToASFixed(0.25);        // is set to 1, any underlaying text that is applied cannot be seen.
+            redactParams->borderColor = &borderCVRec;                // Set the color to draw the border around each quad,
+            redactParams->borderColor->space = PDDeviceGray;         // in the unredacted appearance.
 
             std::map<ASInt32, std::vector<ASFixedQuad> >::iterator iter;
 
             // Pass the page numbers and quads of all the matches to redactParams and create the redactions.
             for (iter = pageQuadMap.begin(); iter != pageQuadMap.end(); ++iter) {
-                redactParams->pageNum = iter->first; // The page that the redaction will be applied to.
+                redactParams->pageNum = iter->first;                 // The page that the redaction will be applied to.
                 redactParams->redactQuads = &(iter->second).front(); // The vector or array holding the quads.
-                redactParams->numQuads = (iter->second).size(); // The number of entries in the vector or array.
+                redactParams->numQuads = (iter->second).size();      // The number of entries in the vector or array.
 
-                numOfWordsRemoved += (iter->second).size();
-
-                // Create the redaction annotation. At this point the text HAS NOT been redacted.
+                // Create the redaction annotation. At this point, the redaction has been created,
+                // but the redaction has not been 'applied' yet permanently redacting the content.
                 PDAnnot redactAnnot = PDDocCreateRedaction(document.getPDDoc(), redactParams);
             }
 
@@ -167,13 +149,17 @@ int main(int argc, char **argv) {
             // words are merely _marked for redaction_, but not removed!
             PDDocApplyRedactions(document.getPDDoc(), NULL);
 
-            std::cout << numOfWordsRemoved << " words have been permanently removed... " << std::endl;
         } else {
             std::cout << "No words were matched, no redactions needed." << std::endl;
         }
 
-        PDDocTextFinderDestroy(matchFinder);
         document.saveDoc(csOutputFileName.c_str(), true);
+
+        // Release this and re-use the matchFinder object
+        // before doing additional searches with it.  Otherwise,
+        // destroying it will be sufficient.
+        PDDocTextFinderReleaseMatchList(matchFinder);
+        PDDocTextFinderDestroy(matchFinder);
 
     HANDLER
         errCode = ERRORCODE;
