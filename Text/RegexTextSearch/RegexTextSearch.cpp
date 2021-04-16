@@ -67,12 +67,13 @@ int main(int argc, char *argv[]) {
 
         APDFLDoc document(csInputFileName.c_str(), true);
 
-        // Step 1) Set up the word finder configuration to use the default settings.
-
+        // Step 1) Setup the word finder configuration.
         PDWordFinderConfigRec wfConfig;
-
         memset(&wfConfig, 0, sizeof(wfConfig));           // Always do this!
         wfConfig.recSize = sizeof(PDWordFinderConfigRec); //...and this!
+
+        // Need to set this to true so phrases will be concatenated properly
+        wfConfig.noHyphenDetection = true;
 
         // Step 2) Fill in color information for highlighting text. In this case, our color will be set to orange.
 
