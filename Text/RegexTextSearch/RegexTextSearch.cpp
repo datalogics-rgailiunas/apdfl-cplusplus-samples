@@ -10,7 +10,7 @@
 //
 // Command-line:   <input-file> <output-file> <search-regular-expression>    (All optional)
 //
-// For more detail see the description of the RegexTextSearch sample program on our Developer’s site,
+// For more detail see the description of the RegexTextSearch sample program on our Developer's site,
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#regextextsearch
 
 #include <iostream>
@@ -20,17 +20,30 @@
 #include "DLExtrasCalls.h"
 
 #define DIR_LOC "../../../../Resources/Sample_Input/"
-#define DEF_INPUT "TextSearch.pdf"
+#define DEF_INPUT "RegexTextSearch.pdf"
 #define DEF_OUTPUT "RegexTextSearch-out.pdf"
 
-#ifdef UNIX_PLATFORM
-#define DEF_SEARCH_REGEX "[Tt]he"
+// If compiler supports C++11 or greater, then a raw string can be used.
+// Uncomment only one of the given regular expressions to see the results
+// properly displayed in the output document.
+#if __cplusplus >= 201103L
+// Phone numbers
+#define DEF_SEARCH_REGEX R"((1-)?(\()?\d{3}(\))?(\s)?(-)?\d{3}-\d{4})"
+// Email addresses
+//#define DEF_SEARCH_REGEX R"(\b[\w.!#$%&'*+\/=?^`{|}~-]+@[\w-]+(?:\.[\w-]+)*\b)"
+// URLs
+//#define DEF_SEARCH_REGEX R"((https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}))"
 #else
-#define DEF_SEARCH_REGEX R"([Tt]he)"
+// Phone numbers
+#define DEF_SEARCH_REGEX "(1-)?(\\()?\\d{3}(\\))?(\\s)?(-)?\\d{3}-\\d{4}"
+// Email addresses
+//#define DEF_SEARCH_REGEX "\\b[\\w.!#$%&'*+\\/=?^`{|}~-]+@[\\w-]+(?:\\.[\\w-]+)*\\b"
+// URLs
+//#define DEF_SEARCH_REGEX "(https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})"
 #endif
 
 static void ApplyQuadsToAnnot(PDAnnot, ASFixedQuad *, ASArraySize);
-static void AnnotateWord(PDWord, PDPage, PDColorValue);
+static void AnnotateMatch(ASFixedQuad, PDPage, PDColorValue);
 
 int main(int argc, char *argv[]) {
     APDFLib libInit;
@@ -72,39 +85,33 @@ int main(int argc, char *argv[]) {
 
         // Step 3) Search for the text that matches the regular expression and highlight all occurrences.
 
-        ASInt32 numberOfMatches = 0;
-        PDDocTextFinder matchFinder = PDDocTextFinderCreate(WF_LATEST_VERSION, false, &wfConfig);
-        PDDocTextFinderAcquireMatchList(matchFinder, document.getPDDoc(), PDAllPages, NULL,
-                                        csSearchRegex.c_str(), &numberOfMatches);
-
-        char phraseBuf[256];
-        ASInt32 numberOfWords = 0;
-        PDDocTextFinderWordMatchRec wordRec;
+        PDDocTextFinder matchFinder = PDDocTextFinderCreate(&wfConfig);
+        PDDocTextFinderMatchList matchList = PDDocTextFinderAcquireMatchList(
+            matchFinder, document.getPDDoc(), PDAllPages, NULL, csSearchRegex.c_str());
 
         // Iterate over the matches that were found by DocTextFinder
-        for (ASInt32 matchInstance = 0; matchInstance < numberOfMatches; ++matchInstance) {
+        for (ASUns32 matchInstance = 0; matchInstance < matchList.numMatches; ++matchInstance) {
 
-            // Get the match
-            memset(phraseBuf, 0, sizeof(phraseBuf));
-            PDDocTextFinderGetNthMatch(matchFinder, matchInstance, phraseBuf, sizeof(phraseBuf), &numberOfWords);
+            PDDocTextFinderMatchRec match = matchList.matches[matchInstance];
 
-            // Examine each word of the match and highlight it
-            for (ASInt32 wordInstance = 0; wordInstance < numberOfWords; ++wordInstance) {
-                wordRec = PDDocTextFinderGetMatchNthWord(matchFinder, matchInstance, wordInstance);
-
+            for (ASUns32 quadInstance = 0; quadInstance < match.numQuads; ++quadInstance) {
                 // The PDPage object will be needed for adding the highlight annotation
-                PDPage pdPage = document.getPage(wordRec.pageNum);
-                AnnotateWord(wordRec.word, pdPage, pdColorValue);
-
-                // Uncomment this line if you wish to print matches to the screen
-                // std::cout << phraseBuf << std::endl;
-
+                PDPage pdPage = document.getPage(match.quads[quadInstance].pageNum);
+                AnnotateMatch(match.quads[quadInstance].boundingQuad, pdPage, pdColorValue);
                 PDPageRelease(pdPage);
             }
+
+            // Uncomment this line if you wish to print matches to the screen
+            //std::cout << match.phrase << std::endl;
         }
 
-        PDDocTextFinderDestroy(matchFinder);
         document.saveDoc(csOutputFileName.c_str());
+
+        // Release this and re-use the matchFinder object
+        // before doing additional searches with it.  Otherwise,
+        // destroying it will be sufficient.
+        PDDocTextFinderReleaseMatchList(matchFinder);
+        PDDocTextFinderDestroy(matchFinder);
 
     HANDLER
         errCode = ERRORCODE;
@@ -121,7 +128,7 @@ void ApplyQuadsToAnnot(PDAnnot annot, ASFixedQuad *quads, ASArraySize numQuads) 
     CosObj coAnnot = PDAnnotGetCosObj(annot);
     CosDoc coDoc = CosObjGetDoc(coAnnot);
     CosObj coQuads = CosNewArray(coDoc, false, numQuads * 8);
-    static ASAtom atQP = ASAtomFromString("QuadPoints");
+    ASAtom atQP = ASAtomFromString("QuadPoints");
 
     for (ASUns32 i = 0, n = 0; i < numQuads; ++i) {
         CosArrayPut(coQuads, n++, CosNewFixed(coDoc, false, quads[i].bl.h));
@@ -137,27 +144,24 @@ void ApplyQuadsToAnnot(PDAnnot annot, ASFixedQuad *quads, ASArraySize numQuads) 
     CosDictPut(coAnnot, atQP, coQuads);
 }
 
-void AnnotateWord(PDWord w, PDPage p, PDColorValue c) {
-    static ASAtom atH = ASAtomFromString("Highlight");
+void AnnotateMatch(ASFixedQuad quad, PDPage p, PDColorValue c) {
+    ASAtom atH = ASAtomFromString("Highlight");
 
     // A value of -2 adds the annotation to the end of the page's annotation array
     ASInt32 addAfterCode = -2;
 
     // Coordinates of the annotation
-    ASFixedQuad tempQuad;
-    PDWordGetNthQuad(w, 0, &tempQuad);
-
     ASFixedRect annotationRect;
-    annotationRect.left = tempQuad.bl.h;
-    annotationRect.top = tempQuad.tr.v;
-    annotationRect.right = tempQuad.tr.h;
-    annotationRect.bottom = tempQuad.bl.v;
+    annotationRect.left = quad.bl.h;
+    annotationRect.top = quad.tr.v;
+    annotationRect.right = quad.tr.h;
+    annotationRect.bottom = quad.bl.v;
 
     // Create the annotation
     PDAnnot highlight = PDPageCreateAnnot(p, atH, &annotationRect);
 
     // Set its coordinates and color
-    ApplyQuadsToAnnot(highlight, &tempQuad, 1);
+    ApplyQuadsToAnnot(highlight, &quad, 1);
     PDAnnotSetColor(highlight, c);
 
     PDPageAddAnnot(p, addAfterCode, highlight);

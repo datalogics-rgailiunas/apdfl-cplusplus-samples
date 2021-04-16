@@ -115,6 +115,7 @@ declare -a DL_SAMPLE_LIST=( \
   "Security/SetUniquePermissions" \
   "Security/OpenEncrypted" \
   "Security/ValidateSignatures" \
+  "Security/AddRegexRedaction" \
   "Text/InsertHeadFoot" \
   "Text/ExtractText" \
   "Text/TextSelectEnum" \
@@ -122,7 +123,8 @@ declare -a DL_SAMPLE_LIST=( \
   "Text/UnicodeText" \
   "Text/HelloJapan" \
   "Text/TextSearch" \
-  "Text/TextSelectEnum"
+  "Text/TextSelectEnum" \
+  "Text/RegexTextSearch"
 )
 
 cd ..
