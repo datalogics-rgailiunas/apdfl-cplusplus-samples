@@ -10,6 +10,12 @@ install(DIRECTORY    ${CMAKE_CURRENT_SOURCE_DIR}/_Input/
         USE_SOURCE_PERMISSIONS
         PATTERN "CMakeLists.txt" EXCLUDE
         PATTERN "README.md" EXCLUDE
+        PATTERN "conanfile.txt" EXCLUDE
+        PATTERN "dlproject.yaml" EXCLUDE
+        PATTERN "Jenkinsfile" EXCLUDE
+        PATTERN "mkenv.py" EXCLUDE
+        PATTERN "requirements.in" EXCLUDE
+        PATTERN "profiles" EXCLUDE
         )
 if(UTIL_PLAT MATCHES "x64")
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
