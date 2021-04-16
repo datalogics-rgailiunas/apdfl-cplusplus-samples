@@ -224,7 +224,7 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% InformationExtraction\ExtractDocumentInfo"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FileSystem\AlternateFileSystem"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
 REM *** The total number of DL samples. This must be accurate!
-SET /A "NUM_DL_SAMPLES=60"
+SET /A "NUM_DL_SAMPLES=62"
 
 REM *** Di iterates over Datalogics samples. Do not change this value.
 SET /A "Di=0"

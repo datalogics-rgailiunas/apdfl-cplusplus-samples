@@ -108,9 +108,7 @@ int main(int argc, char *argv[]) {
 
         document.saveDoc(csOutputFileName.c_str());
 
-        // Release this and re-use the matchFinder object
-        // before doing additional searches with it.  Otherwise,
-        // destroying it will be sufficient.
+        // Release resources here.
         PDDocTextFinderReleaseMatchList(matchFinder);
         PDDocTextFinderDestroy(matchFinder);
 
