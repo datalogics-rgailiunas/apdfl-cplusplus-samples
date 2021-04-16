@@ -71,10 +71,13 @@ int main(int argc, char **argv) {
 
         std::map<ASInt32, std::vector<ASFixedQuad> > pageQuadMap;
 
-        // Set the default word finder settings.
+        // Setup the word finder configuration.
         PDWordFinderConfigRec wfConfig;
-        memset(&wfConfig, 0, sizeof(PDWordFinderConfigRec));
-        wfConfig.recSize = sizeof(PDWordFinderConfigRec);
+        memset(&wfConfig, 0, sizeof(wfConfig));           // Always do this!
+        wfConfig.recSize = sizeof(PDWordFinderConfigRec); //...and this!
+
+        // Need to set this to true so phrases will be concatenated properly
+        wfConfig.noHyphenDetection = true;
 
         // Create the DocTextFinder object and use it to find matches.
         PDDocTextFinder matchFinder = PDDocTextFinderCreate(&wfConfig);
@@ -155,9 +158,7 @@ int main(int argc, char **argv) {
 
         document.saveDoc(csOutputFileName.c_str(), true);
 
-        // Release this and re-use the matchFinder object
-        // before doing additional searches with it.  Otherwise,
-        // destroying it will be sufficient.
+        // Release resources here.
         PDDocTextFinderReleaseMatchList(matchFinder);
         PDDocTextFinderDestroy(matchFinder);
 

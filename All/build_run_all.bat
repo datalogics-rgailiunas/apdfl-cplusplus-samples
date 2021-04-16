@@ -156,7 +156,7 @@ REM *** 3) Decide which samples to run.
 REM *************************************************
 
 REM *** The total number of samples. This must be accurate!
-SET /A "NUM_SAMPLES=55"
+SET /A "NUM_SAMPLES=57"
 
 REM *** Datalogics Samples.
 SET "DL_SAMPLE_LIST=("
