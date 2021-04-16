@@ -10,12 +10,6 @@ install(DIRECTORY    ${CMAKE_CURRENT_SOURCE_DIR}/_Input/
         USE_SOURCE_PERMISSIONS
         PATTERN "CMakeLists.txt" EXCLUDE
         PATTERN "README.md" EXCLUDE
-        PATTERN "conanfile.txt" EXCLUDE
-        PATTERN "dlproject.yaml" EXCLUDE
-        PATTERN "Jenkinsfile" EXCLUDE
-        PATTERN "mkenv.py" EXCLUDE
-        PATTERN "requirements.in" EXCLUDE
-        PATTERN "profiles" EXCLUDE
         )
 if(UTIL_PLAT MATCHES "x64")
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
@@ -26,6 +20,9 @@ if(UTIL_PLAT MATCHES "x64")
             PATTERN "*.xcodeproj" EXCLUDE PATTERN "*.rel*" EXCLUDE PATTERN "*Mac*" EXCLUDE
             PATTERN "*.plist" EXCLUDE PATTERN "*.strings*" EXCLUDE PATTERN "dlutils" EXCLUDE
             PATTERN "*.mak" EXCLUDE PATTERN "README.md" EXCLUDE 
+            PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
+            PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE
+            PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
             )
 elseif(UTIL_PLAT MATCHES "Win32")
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
@@ -36,6 +33,9 @@ elseif(UTIL_PLAT MATCHES "Win32")
             PATTERN "*.xcodeproj" EXCLUDE PATTERN "*.rel*" EXCLUDE PATTERN "*Mac*" EXCLUDE
             PATTERN "*.plist" EXCLUDE PATTERN "*.strings*" EXCLUDE PATTERN "dlutils" EXCLUDE
             PATTERN "*.mak" EXCLUDE PATTERN "README.md" EXCLUDE
+            PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
+            PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE
+            PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
             )
 elseif(UTIL_PLAT MATCHES "Mac")
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
@@ -45,6 +45,9 @@ elseif(UTIL_PLAT MATCHES "Mac")
             PATTERN "*Bit*.*" EXCLUDE PATTERN "*Makefile*" EXCLUDE PATTERN "*.bat" EXCLUDE 
             PATTERN "*.rel*" EXCLUDE PATTERN "*.mak" EXCLUDE PATTERN "*.vcxproj*" EXCLUDE
             PATTERN "README.md" EXCLUDE PATTERN "PDFViewer" EXCLUDE
+            PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
+            PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE
+            PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
             )
 else()
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
@@ -55,5 +58,8 @@ else()
             PATTERN "*.plist" EXCLUDE PATTERN "*.strings*" EXCLUDE PATTERN "*.sh*" EXCLUDE
             PATTERN "*Bit*.*" EXCLUDE PATTERN "*.vcxproj*" EXCLUDE PATTERN "README.md" EXCLUDE
             PATTERN "PDFPrintGUI" EXCLUDE PATTERN "PDFViewer" EXCLUDE
+            PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
+            PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE
+            PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
             )
 endif()
