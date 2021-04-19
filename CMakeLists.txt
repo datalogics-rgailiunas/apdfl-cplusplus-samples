@@ -21,7 +21,7 @@ if(UTIL_PLAT MATCHES "x64")
             PATTERN "*.plist" EXCLUDE PATTERN "*.strings*" EXCLUDE PATTERN "dlutils" EXCLUDE
             PATTERN "*.mak" EXCLUDE PATTERN "README.md" EXCLUDE 
             PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
-            PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE
+            PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE PATTERN "utils" EXCLUDE
             PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
             )
 elseif(UTIL_PLAT MATCHES "Win32")
@@ -34,7 +34,7 @@ elseif(UTIL_PLAT MATCHES "Win32")
             PATTERN "*.plist" EXCLUDE PATTERN "*.strings*" EXCLUDE PATTERN "dlutils" EXCLUDE
             PATTERN "*.mak" EXCLUDE PATTERN "README.md" EXCLUDE
             PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
-            PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE
+            PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE PATTERN "utils" EXCLUDE
             PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
             )
 elseif(UTIL_PLAT MATCHES "Mac")
@@ -46,7 +46,7 @@ elseif(UTIL_PLAT MATCHES "Mac")
             PATTERN "*.rel*" EXCLUDE PATTERN "*.mak" EXCLUDE PATTERN "*.vcxproj*" EXCLUDE
             PATTERN "README.md" EXCLUDE PATTERN "PDFViewer" EXCLUDE
             PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
-            PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE
+            PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE PATTERN "utils" EXCLUDE
             PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
             )
 else()
@@ -59,7 +59,7 @@ else()
             PATTERN "*Bit*.*" EXCLUDE PATTERN "*.vcxproj*" EXCLUDE PATTERN "README.md" EXCLUDE
             PATTERN "PDFPrintGUI" EXCLUDE PATTERN "PDFViewer" EXCLUDE
             PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
-            PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE
+            PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE PATTERN "utils" EXCLUDE
             PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
             )
 endif()
