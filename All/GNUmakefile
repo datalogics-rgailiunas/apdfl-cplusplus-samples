@@ -59,16 +59,18 @@ SAMPLES = Annotations/CreateAnnotations \
           Security/OpenEncrypted \
           Security/SetUniquePermissions \
           Security/ValidateSignatures \
-          Security/AddRegexRedaction \
           Text/AddText \
           Text/ExtractText \
           Text/HelloJapan \
           Text/InsertHeadFoot \
           Text/TextSearch \
           Text/TextSelectEnum \
-          Text/UnicodeText \
-          Text/RegexTextSearch
+          Text/UnicodeText
 
+ifneq ($(findstring i80386linux,$(OS)), )
+    SAMPLES += Security/AddRegexRedaction
+    SAMPLES += Text/RegexTextSearch
+endif
 
 ifeq ($(findstring rs6000aix,$(OS)), )
     SAMPLES +=  DocumentConversion/XPStoPDF
