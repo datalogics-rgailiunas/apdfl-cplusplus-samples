@@ -124,7 +124,8 @@ declare -a DL_SAMPLE_LIST=( \
   "Text/HelloJapan" \
   "Text/TextSearch" \
   "Text/TextSelectEnum" \
-  "Text/RegexTextSearch"
+  "Text/RegexTextSearch" \
+  "Text/RegexExtractText"
 )
 
 cd ..

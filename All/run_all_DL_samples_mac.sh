@@ -360,6 +360,10 @@ cd ../../Text/RegexTextSearch
 ./RegexTextSearch-${stage}.app/Contents/MacOS/RegexTextSearch-${stage}
 echo ""
 
+echo Running sample RegexExtractText
+cd ../../Text/RegexExtractText
+./RegexExtractText-${stage}.app/Contents/MacOS/RegexExtractText-${stage}
+echo ""
 
 echo All Datalogics samples are finished running.
 
