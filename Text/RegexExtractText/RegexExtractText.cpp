@@ -97,7 +97,7 @@ int main(int argc, char *argv[]) {
             PDDocTextFinderMatchRec match = matchList.matches[matchInstance];
 
             // Set the match phrase in the JSON object.
-            matchObject["match phrase"] = match.phrase;
+            matchObject["match-phrase"] = match.phrase;
 
             for (ASUns32 quadInstance = 0; quadInstance < match.numQuads; ++quadInstance) {
 
@@ -115,11 +115,11 @@ int main(int argc, char *argv[]) {
                 double bottom_right_y = ASFixedToFloat(match.quads[quadInstance].boundingQuad.br.v);
 
                 // Set the quad's page number in a JSON object.
-                json tempQuadPageInformation = {"page number", match.quads[quadInstance].pageNum};
+                json tempQuadPageInformation = {"page-number", match.quads[quadInstance].pageNum};
 
                 // Set the quad's location in a JSON object.
                 json tempQuadInformation = {
-                    "quad location",
+                    "quad-location",
                     {{"top-left", {{"x", top_left_x}, {"y", top_left_y}}},
                      {"bottom-left", {{"x", bottom_left_x}, {"y", bottom_left_y}}},
                      {"top-right", {{"x", top_right_x}, {"y", top_right_y}}},
@@ -130,7 +130,7 @@ int main(int argc, char *argv[]) {
             }
 
             // Set the match's quad information in the matchObject.
-            matchObject["match quads"] = matchQuadInformation;
+            matchObject["match-quads"] = matchQuadInformation;
 
             result.push_back(matchObject);
         }
