@@ -83,7 +83,7 @@ int main(int argc, char *argv[]) {
         // Step 2) Search for the text that matches the regular expression and add to JSON array that we will print to a file later.
         PDDocTextFinder matchFinder = PDDocTextFinderCreate(&wfConfig);
         PDDocTextFinderMatchList matchList = PDDocTextFinderAcquireMatchList(
-            matchFinder, document.getPDDoc(), PDAllPages, NULL, csSearchRegex.c_str());
+            matchFinder, document.getPDDoc(), PDAllPages, 0, csSearchRegex.c_str());
 
         // Iterate over the matches that were found by PDDocTextFinder.
         for (ASUns32 matchInstance = 0; matchInstance < matchList.numMatches; ++matchInstance) {

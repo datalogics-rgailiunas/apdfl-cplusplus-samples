@@ -88,7 +88,7 @@ int main(int argc, char *argv[]) {
 
         PDDocTextFinder matchFinder = PDDocTextFinderCreate(&wfConfig);
         PDDocTextFinderMatchList matchList = PDDocTextFinderAcquireMatchList(
-            matchFinder, document.getPDDoc(), PDAllPages, NULL, csSearchRegex.c_str());
+            matchFinder, document.getPDDoc(), PDAllPages, 0, csSearchRegex.c_str());
 
         // Iterate over the matches that were found by DocTextFinder
         for (ASUns32 matchInstance = 0; matchInstance < matchList.numMatches; ++matchInstance) {
