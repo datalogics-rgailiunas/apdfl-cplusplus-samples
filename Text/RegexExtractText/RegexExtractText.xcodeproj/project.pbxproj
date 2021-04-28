@@ -198,7 +198,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		19FABE0C2632229500CF522F /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = json.hpp; path = ../../_Common/json.hpp; sourceTree = "<group>"; };
+		19FABE0C2632229500CF522F /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = json.hpp; path = ../../_Common/ThirdParty/json.hpp; sourceTree = "<group>"; };
 		20286C33FDCF999611CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		2E21C0611C8DD3AE00018A6D /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Common.xcconfig; path = ../../dlutils/MacSDKConfigurations/Common.xcconfig; sourceTree = "<group>"; };
 		2E21C0621C8DD3AE00018A6D /* Project_debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Project_debug.xcconfig; path = ../../dlutils/MacSDKConfigurations/Project_debug.xcconfig; sourceTree = "<group>"; };

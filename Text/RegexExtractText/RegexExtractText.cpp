@@ -20,7 +20,7 @@
 #include "APDFLDoc.h"
 #include "CosCalls.h"
 #include "DLExtrasCalls.h"
-#include "json.hpp"
+#include "ThirdParty/json.hpp"
 
 #define DIR_LOC "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "RegexExtractText.pdf"
@@ -136,8 +136,8 @@ int main(int argc, char *argv[]) {
         }
 
         // Step 3) Write the match information to the output JSON file.
-        std::ofstream f(csOutputFileName, std::ios_base::trunc | std::ios_base::out);
-        f << std::setw(4) << result;
+        std::ofstream jsonOutputFileStream(csOutputFileName, std::ios_base::trunc | std::ios_base::out);
+        jsonOutputFileStream << std::setw(4) << result;
 
         // Release resources here.
         PDDocTextFinderReleaseMatchList(matchFinder);
