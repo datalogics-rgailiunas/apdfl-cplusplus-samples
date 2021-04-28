@@ -20,7 +20,12 @@
 #include "APDFLDoc.h"
 #include "CosCalls.h"
 #include "DLExtrasCalls.h"
+
+#ifdef MAC_PLATFORM
+#include "../../_Common/ThirdParty/json.hpp"
+#else
 #include "ThirdParty/json.hpp"
+#endif
 
 #define DIR_LOC "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "RegexExtractText.pdf"
