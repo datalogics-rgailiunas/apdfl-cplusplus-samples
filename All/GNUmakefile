@@ -70,6 +70,7 @@ SAMPLES = Annotations/CreateAnnotations \
 ifneq ($(findstring i80386linux,$(OS)), )
     SAMPLES += Security/AddRegexRedaction
     SAMPLES += Text/RegexTextSearch
+    SAMPLES += Text/RegexExtractText
 endif
 
 ifeq ($(findstring rs6000aix,$(OS)), )

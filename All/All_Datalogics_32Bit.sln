@@ -137,6 +137,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddTextWatermark", "..\Cont
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RegexTextSearch", "..\Text\RegexTextSearch\RegexTextSearch.vcxproj", "{CA4E530D-DAC1-4CAB-8C14-4B1B7EB4FFC6}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RegexExtractText", "..\Text\RegexExtractText\RegexExtractText.vcxproj", "{8D7DCD93-AE4D-4C33-84A6-74E2F1DE8A4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -399,6 +401,10 @@ Global
 		{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}.Debug|Win32.Build.0 = Debug|Win32
 		{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}.Release|Win32.ActiveCfg = Release|Win32
 		{CCB809B8-E529-42BA-BD0D-41644CC3AAEF}.Release|Win32.Build.0 = Release|Win32
+		{8D7DCD93-AE4D-4C33-84A6-74E2F1DE8A4A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8D7DCD93-AE4D-4C33-84A6-74E2F1DE8A4A}.Debug|Win32.Build.0 = Debug|Win32
+		{8D7DCD93-AE4D-4C33-84A6-74E2F1DE8A4A}.Release|Win32.ActiveCfg = Release|Win32
+		{8D7DCD93-AE4D-4C33-84A6-74E2F1DE8A4A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

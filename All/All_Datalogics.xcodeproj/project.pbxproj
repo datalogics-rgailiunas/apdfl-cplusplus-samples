@@ -13,6 +13,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				19FABEDA2632287E00CF522F /* PBXTargetDependency */,
 				19D966FD260147D600CEFA65 /* PBXTargetDependency */,
 				19D9667D2601366A00CEFA65 /* PBXTargetDependency */,
 				3C14A7F72425262F0013FA32 /* PBXTargetDependency */,
@@ -84,6 +85,20 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXContainerItemProxy section */
+		19D9667A260135FC00CEFA65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 19D96676260135FC00CEFA65 /* AddRegexRedaction.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BAAFDE0808980F3600470124;
+			remoteInfo = AddRegexRedaction;
+		};
+		19D9667C2601366A00CEFA65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 19D96676260135FC00CEFA65 /* AddRegexRedaction.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
+			remoteInfo = AddRegexRedaction;
+		};
 		19D966FC260147D600CEFA65 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 19DA95CF25FFFD3C00E62F2C /* RegexTextSearch.xcodeproj */;
@@ -98,19 +113,19 @@
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
 			remoteInfo = RegexTextSearch;
 		};
-		19D9667A260135FC00CEFA65 /* PBXContainerItemProxy */ = {
+		19FABE522632272900CF522F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 19D96676260135FC00CEFA65 /* AddRegexRedaction.xcodeproj */;
+			containerPortal = 19FABE4E2632272800CF522F /* RegexExtractText.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = AddRegexRedaction;
+			remoteInfo = RegexExtractText;
 		};
-		19D9667C2601366A00CEFA65 /* PBXContainerItemProxy */ = {
+		19FABED92632287E00CF522F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 19D96676260135FC00CEFA65 /* AddRegexRedaction.xcodeproj */;
+			containerPortal = 19FABE4E2632272800CF522F /* RegexExtractText.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = AddRegexRedaction;
+			remoteInfo = RegexExtractText;
 		};
 		1D0349B32163C391004CED35 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -983,8 +998,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		19DA95CF25FFFD3C00E62F2C /* RegexTextSearch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RegexTextSearch.xcodeproj; path = ../Text/RegexTextSearch/RegexTextSearch.xcodeproj; sourceTree = "<group>"; };
 		19D96676260135FC00CEFA65 /* AddRegexRedaction.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddRegexRedaction.xcodeproj; path = ../Security/AddRegexRedaction/AddRegexRedaction.xcodeproj; sourceTree = "<group>"; };
+		19DA95CF25FFFD3C00E62F2C /* RegexTextSearch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RegexTextSearch.xcodeproj; path = ../Text/RegexTextSearch/RegexTextSearch.xcodeproj; sourceTree = "<group>"; };
+		19FABE4E2632272800CF522F /* RegexExtractText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RegexExtractText.xcodeproj; path = ../Text/RegexExtractText/RegexExtractText.xcodeproj; sourceTree = "<group>"; };
 		1D0349AF2163C390004CED35 /* TextSelectEnum.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TextSelectEnum.xcodeproj; path = ../Text/TextSelectEnum/TextSelectEnum.xcodeproj; sourceTree = "<group>"; };
 		1D80FE091FC4B72000D84920 /* PDFPrintDefault.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PDFPrintDefault.xcodeproj; path = ../Printing/PDFPrintDefault/PDFPrintDefault.xcodeproj; sourceTree = "<group>"; };
 		1D80FE0F1FC4B73500D84920 /* PDFPrintGUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PDFPrintGUI.xcodeproj; path = ../Printing/PDFPrintGUI/PDFPrintGUI.xcodeproj; sourceTree = "<group>"; };
@@ -1050,6 +1066,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		19D96677260135FC00CEFA65 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				19D9667B260135FC00CEFA65 /* AddRegexRedaction-Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		19DA95D025FFFD3C00E62F2C /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1058,10 +1082,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		19D96677260135FC00CEFA65 /* Products */ = {
+		19FABE4F2632272800CF522F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				19D9667B260135FC00CEFA65 /* AddRegexRedaction-Debug.app */,
+				19FABE532632272900CF522F /* RegexExtractText-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1565,6 +1589,7 @@
 		BAAE8A280ADC6237005A7834 = {
 			isa = PBXGroup;
 			children = (
+				19FABE4E2632272800CF522F /* RegexExtractText.xcodeproj */,
 				19DA95CF25FFFD3C00E62F2C /* RegexTextSearch.xcodeproj */,
 				19D96676260135FC00CEFA65 /* AddRegexRedaction.xcodeproj */,
 				3C181B722425239C00770C5E /* AddTextWatermark.xcodeproj */,
@@ -1874,6 +1899,10 @@
 					ProjectRef = 9F8EE2121E5CA92C004E294B /* PostscriptInjection.xcodeproj */;
 				},
 				{
+					ProductGroup = 19FABE4F2632272800CF522F /* Products */;
+					ProjectRef = 19FABE4E2632272800CF522F /* RegexExtractText.xcodeproj */;
+				},
+				{
 					ProductGroup = 19DA95D025FFFD3C00E62F2C /* Products */;
 					ProjectRef = 19DA95CF25FFFD3C00E62F2C /* RegexTextSearch.xcodeproj */;
 				},
@@ -1918,6 +1947,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		19D9667B260135FC00CEFA65 /* AddRegexRedaction-Debug.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "AddRegexRedaction-Debug.app";
+			remoteRef = 19D9667A260135FC00CEFA65 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		19DA95D425FFFD3C00E62F2C /* RegexTextSearch-Debug.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -1925,11 +1961,11 @@
 			remoteRef = 19DA95D325FFFD3C00E62F2C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		19D9667B260135FC00CEFA65 /* AddRegexRedaction-Debug.app */ = {
+		19FABE532632272900CF522F /* RegexExtractText-Debug.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = "AddRegexRedaction-Debug.app";
-			remoteRef = 19D9667A260135FC00CEFA65 /* PBXContainerItemProxy */;
+			path = "RegexExtractText-Debug.app";
+			remoteRef = 19FABE522632272900CF522F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		1D0349B42163C391004CED35 /* TextSelectEnum-Debug.app */ = {
@@ -2369,15 +2405,20 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXTargetDependency section */
+		19D9667D2601366A00CEFA65 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AddRegexRedaction;
+			targetProxy = 19D9667C2601366A00CEFA65 /* PBXContainerItemProxy */;
+		};
 		19D966FD260147D600CEFA65 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = RegexTextSearch;
 			targetProxy = 19D966FC260147D600CEFA65 /* PBXContainerItemProxy */;
 		};
-		19D9667D2601366A00CEFA65 /* PBXTargetDependency */ = {
+		19FABEDA2632287E00CF522F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = AddRegexRedaction;
-			targetProxy = 19D9667C2601366A00CEFA65 /* PBXContainerItemProxy */;
+			name = RegexExtractText;
+			targetProxy = 19FABED92632287E00CF522F /* PBXContainerItemProxy */;
 		};
 		1D11FA9C216CFEAE001A38A7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
