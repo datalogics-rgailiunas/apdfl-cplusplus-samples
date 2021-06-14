@@ -1,3 +1,11 @@
-include(gcc-9.3-arm64-linux)
+[settings]
+os=Linux
+os_build=Linux
+arch=armv8
+arch_build=armv8
+compiler=gcc
+compiler.version=4.8
+compiler.libcxx=libstdc++
+build_type=Release
 [env]
-PATH=[/opt/cmake-3.18/bin]
+PATH=[/opt/cmake-3.19/bin]
