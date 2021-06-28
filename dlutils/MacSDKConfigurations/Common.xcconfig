@@ -11,7 +11,7 @@ PROVISIONING_PROFILE_SPECIFIER = ;
 PRODUCT_BUNDLE_IDENTIFIER = "$(name)";
 
 // Build for standard 64 bit architecture
-ARCHS = x86_64
+ARCHS = x86_64, arm64
 
 // Set deployment target to 10.9.
 MACOSX_DEPLOYMENT_TARGET = 10.9;
