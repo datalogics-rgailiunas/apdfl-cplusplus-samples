@@ -37,7 +37,7 @@ elseif(UTIL_PLAT MATCHES "Win32")
             PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE PATTERN "utils" EXCLUDE
             PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
             )
-elseif(UTIL_PLAT MATCHES "Mac" OR UTIL_PLAT MATCHES "armv8mac_64")
+elseif(UTIL_PLAT MATCHES "Mac")
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
             DESTINATION ${INSTALL_SAMPLEDIR}/${DL_SAMPLES}
             USE_SOURCE_PERMISSIONS
