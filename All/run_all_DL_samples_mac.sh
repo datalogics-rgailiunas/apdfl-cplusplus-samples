@@ -308,11 +308,6 @@ cd ../../Security/OpenEncrypted
 ./OpenEncrypted-${stage}.app/Contents/MacOS/OpenEncrypted-${stage}
 echo ""
 
-echo Running sample ValidateSignatures
-cd ../../Security/ValidateSignatures
-./ValidateSignatures-${stage}.app/Contents/MacOS/ValidateSignatures-${stage}
-echo ""
-
 echo Running sample AddRegexRedaction
 cd ../../Security/AddRegexRedaction
 ./AddRegexRedaction-${stage}.app/Contents/MacOS/AddRegexRedaction-${stage}

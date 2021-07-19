@@ -407,13 +407,6 @@
 			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
 			remoteInfo = AddText;
 		};
-		9F8422991E5CAE14001E30FB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9F8EE2421E5CA980004E294B /* ValidateSignatures.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = ValidateSignatures;
-		};
 		9F84229B1E5CAE14001E30FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9F8EE23C1E5CA978004E294B /* SetUniquePermissions.xcodeproj */;
@@ -953,13 +946,6 @@
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
 			remoteInfo = SetUniquePermissions;
 		};
-		9F8EE2461E5CA980004E294B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9F8EE2421E5CA980004E294B /* ValidateSignatures.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = ValidateSignatures;
-		};
 		9F8EE24C1E5CA99E004E294B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9F8EE2481E5CA99E004E294B /* AddText.xcodeproj */;
@@ -1056,7 +1042,6 @@
 		9F8EE2301E5CA964004E294B /* LockDocument.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LockDocument.xcodeproj; path = ../Security/LockDocument/LockDocument.xcodeproj; sourceTree = "<group>"; };
 		9F8EE2361E5CA970004E294B /* OpenEncrypted.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OpenEncrypted.xcodeproj; path = ../Security/OpenEncrypted/OpenEncrypted.xcodeproj; sourceTree = "<group>"; };
 		9F8EE23C1E5CA978004E294B /* SetUniquePermissions.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SetUniquePermissions.xcodeproj; path = ../Security/SetUniquePermissions/SetUniquePermissions.xcodeproj; sourceTree = "<group>"; };
-		9F8EE2421E5CA980004E294B /* ValidateSignatures.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ValidateSignatures.xcodeproj; path = ../Security/ValidateSignatures/ValidateSignatures.xcodeproj; sourceTree = "<group>"; };
 		9F8EE2481E5CA99E004E294B /* AddText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddText.xcodeproj; path = ../Text/AddText/AddText.xcodeproj; sourceTree = "<group>"; };
 		9F8EE24E1E5CA9AB004E294B /* ExtractText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ExtractText.xcodeproj; path = ../Text/ExtractText/ExtractText.xcodeproj; sourceTree = "<group>"; };
 		9F8EE2541E5CA9C0004E294B /* helloJapan.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = helloJapan.xcodeproj; path = ../Text/helloJapan/helloJapan.xcodeproj; sourceTree = "<group>"; };
@@ -1538,14 +1523,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9F8EE2431E5CA980004E294B /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9F8EE2471E5CA980004E294B /* ValidateSignatures-Debug.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		9F8EE2491E5CA99E004E294B /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1607,7 +1584,6 @@
 				9F8EE2541E5CA9C0004E294B /* helloJapan.xcodeproj */,
 				9F8EE24E1E5CA9AB004E294B /* ExtractText.xcodeproj */,
 				9F8EE2481E5CA99E004E294B /* AddText.xcodeproj */,
-				9F8EE2421E5CA980004E294B /* ValidateSignatures.xcodeproj */,
 				9F8EE23C1E5CA978004E294B /* SetUniquePermissions.xcodeproj */,
 				9F8EE2361E5CA970004E294B /* OpenEncrypted.xcodeproj */,
 				9F8EE2301E5CA964004E294B /* LockDocument.xcodeproj */,
@@ -1929,10 +1905,6 @@
 				{
 					ProductGroup = 9F8EE2671E5CA9DA004E294B /* Products */;
 					ProjectRef = 9F8EE2661E5CA9DA004E294B /* UnicodeText.xcodeproj */;
-				},
-				{
-					ProductGroup = 9F8EE2431E5CA980004E294B /* Products */;
-					ProjectRef = 9F8EE2421E5CA980004E294B /* ValidateSignatures.xcodeproj */;
 				},
 				{
 					ProductGroup = 9F6647D31E5CE63D00DF496B /* Products */;
@@ -2360,13 +2332,6 @@
 			remoteRef = 9F8EE2401E5CA978004E294B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9F8EE2471E5CA980004E294B /* ValidateSignatures-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "ValidateSignatures-Debug.app";
-			remoteRef = 9F8EE2461E5CA980004E294B /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		9F8EE24D1E5CA99E004E294B /* AddText-Debug.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -2494,11 +2459,6 @@
 			isa = PBXTargetDependency;
 			name = AddText;
 			targetProxy = 9F8422971E5CAE14001E30FB /* PBXContainerItemProxy */;
-		};
-		9F84229A1E5CAE14001E30FB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ValidateSignatures;
-			targetProxy = 9F8422991E5CAE14001E30FB /* PBXContainerItemProxy */;
 		};
 		9F84229C1E5CAE14001E30FB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

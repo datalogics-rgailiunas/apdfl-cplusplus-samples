@@ -81,8 +81,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PDFOptimizer", "..\Document
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AESEncryption", "..\Security\AESEncryption\AESEncryption.vcxproj", "{14A4AE0F-0FE2-4DF1-895E-EFE26B9884EA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ValidateSignatures", "..\Security\ValidateSignatures\ValidateSignatures.vcxproj", "{FA60EB13-27C0-4C03-99CD-F40E5EA6A3E9}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreateBookmarks", "..\ContentCreation\CreateBookmarks\CreateBookmarks.vcxproj", "{F8DAE1E5-FBB4-4D01-A7D4-780999124B98}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractFonts", "..\ContentExtraction\ExtractFonts\ExtractFonts.vcxproj", "{DFCE18D6-018A-4CB7-B3DE-5AFE98E3C8A8}"
