@@ -1,0 +1,5 @@
+include(armv8mac_build)
+[settings]
+build_type=Debug
+
+
