@@ -10,7 +10,10 @@ class Env(object):
         if system == 'windows':
             return 'windows'
         elif system == 'darwin':
-            return 'macos'
+            if platform.processor().lower() == 'arm':
+                return 'armv8mac'
+            else:
+                return 'macos'
         os_str = os.getenv('OS')
         if os_str is not None:
             return os_str
@@ -41,6 +44,8 @@ class Env(object):
             folder = 'aix' if build_64_bit else 'aix32'
         elif os_str == 'macos':
             folder = 'mac'
+        elif os_str == 'armv8mac':
+            folder = 'armv8mac'
         else:
             folder = os_str
         suffix = '_debug' if build_type == 'Debug' else '_build'

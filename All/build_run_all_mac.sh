@@ -54,7 +54,7 @@ do
 done
 
 echo "Configuration: "$STAGE
-xcodebuild -project All_Datalogics.xcodeproj -target All_Datalogics -configuration $STAGE
+xcodebuild -project All_Datalogics.xcodeproj -target All_Datalogics -configuration $STAGE CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 echo $?
 if [ "$?" -eq "0" ]; then
     echo "All Sample" $STAGE $ARCH "Build Success"
