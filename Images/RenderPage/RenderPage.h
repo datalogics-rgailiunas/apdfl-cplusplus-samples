@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2017-2021, Datalogics, Inc. All rights reserved.
 //
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
@@ -44,6 +44,8 @@ class RenderPage {
     ASInt32 SetBPC(ASInt32 bitsPerComp);
 
     static ASAtom sDeviceRGB_K;
+    static ASAtom sDeviceRGBA_K;
+    static ASAtom sDeviceCMYKA_K;
     static ASAtom sDeviceCMYK_K;
     static ASAtom sDeviceGray_K;
 
