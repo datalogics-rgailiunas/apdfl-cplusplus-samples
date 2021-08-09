@@ -485,6 +485,10 @@ void AnalyzePDEContent(PDEContent Content, ASFixedMatrix *Matrix) {
             DisplayEndGroup();
             break;
 
+        //Reserved for Internal Use
+        case kPDEGraphicFont:
+            break;
+
         // These should never occur in content
         default:
         case kPDEXObject:
