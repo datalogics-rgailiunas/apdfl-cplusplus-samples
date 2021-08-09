@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2007-2017, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2007-2021, Datalogics, Inc. All rights reserved.
 //
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
@@ -23,12 +23,14 @@
 #define DEF_INPUT "RenderPage.pdf"
 #define DEF_OUTPUT "RenderPage-out.pdf"
 
-#define RESOLUTION 300.0       // Other common choices might be 72.0, 150.0, 200.0, 300.0, or 600.0
-#define COLORSPACE "DeviceRGB" // Typically this, DeviceGray or DeviceCMYK
-#define FILTER "FlateDecode"   //"FlateDecode" // Could also be ASCIIHexDecode, LZWDecode, DCTDecode
-#define BPC                                                                                        \
-    8 // This must be 8 for DeviceRGB and DeviceCYMK,
-      //  1, 8, or 24 for DeviceGray
+#define RESOLUTION 300.0 // Other common choices might be 72.0, 150.0, 200.0, 300.0, or 600.0
+#define FILTER "FlateDecode"
+#define BPC 8 // This must be 8 for DeviceRGB and DeviceCMYK, 1, 8, or 24 for DeviceGray
+#define COLORSPACE "DeviceRGB" // Typically this, DeviceGray, or DeviceCMYK
+// DeviceRGBA is a special colorspace known to PDFL Rendering that can be used to produce a RGBA Bitmap (RGB + Alpha or 32-bit),
+// which is output in this sample as a RGB Image with a Soft Mask set on the page of a PDF
+// DeviceCMYKA is a special colorspace known to PDFL Rendering that can be used to produce a CMYKA Bitmap (CMYK + Alpha or 40-bit)
+// which is output in this sample as a CMYK Image with a Soft Mask set on the page of a PDF
 
 int main(int argc, char **argv) {
     ASErrorCode errCode = 0;
