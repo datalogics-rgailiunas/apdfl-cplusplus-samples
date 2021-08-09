@@ -156,7 +156,7 @@ REM *** 3) Decide which samples to run.
 REM *************************************************
 
 REM *** The total number of samples. This must be accurate!
-SET /A "NUM_SAMPLES=58"
+SET /A "NUM_SAMPLES=57"
 
 REM *** Datalogics Samples.
 SET "DL_SAMPLE_LIST=("
@@ -215,7 +215,6 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Security\EncryptDocument"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Security\LockDocument"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Security\SetUniquePermissions"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Security\OpenEncrypted"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Security\ValidateSignatures"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Security\AddRegexRedaction"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentExtraction\CopyContent"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentExtraction\ExtractAttachments"
