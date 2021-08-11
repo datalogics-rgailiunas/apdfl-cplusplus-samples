@@ -12,7 +12,7 @@ PRODUCT_BUNDLE_IDENTIFIER = "$(name)";
 
 // Build for native architecture
 VALID_ARCHS = x86_64 arm64
-ARCHS = $(NATIVE_ARCH)
+ARCHS = $(NATIVE_ARCH_ACTUAL)
 
 // Set deployment target to 10.9.
 MACOSX_DEPLOYMENT_TARGET = 10.9;
