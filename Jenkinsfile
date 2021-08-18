@@ -67,6 +67,23 @@ pipeline {
                             }
                         }
                     }
+                    stage('Clean') {
+                        steps {
+                            echo "Bootstrap ${NODE}"
+                            script {
+                                if (isUnix()) {
+                                    sh """. ${ENV_LOC[NODE]}/bin/activate
+                                       unset LIBPATH
+                                          invoke distclean
+                                    """
+                                } else {
+                                    bat """CALL ${ENV_LOC[NODE]}\\Scripts\\activate
+                                          invoke distclean
+                                    """
+                                }
+                            }
+                        }
+                    }
                     stage('Bootstrap') {
                         steps {
                             echo "Bootstrap ${NODE}"
