@@ -43,8 +43,31 @@ pipeline {
                 }
                 environment {
                     CONAN_USER_HOME = "${WORKSPACE}"
+                    CONAN_NON_INTERACTIVE = '1'
+                    CONAN_PRINT_RUN_COMMANDS = '1'
+                    // Disable FileTracker on Windows, which can give FTK1011 on long path names
+                    TRACKFILEACCESS = 'false'
+                    // Disable node reuse, which gives intermittent build errors on Windows
+                    MSBUILDDISABLENODEREUSE = '1'
                 }
                 stages {
+                    stage('Remove Conan local cache') {
+                        when {
+                            not {
+                                changeRequest()
+                            }
+                        }
+                        steps {
+                            echo "Remove Conan local cache ${NODE}"
+                            script {
+                                if (isUnix()) {
+                                    sh "rm -rf ${WORKSPACE}/.conan"
+                                } else {
+                                    bat "if exist ${WORKSPACE}\\.conan\\ rmdir/s/q ${WORKSPACE}\\.conan"
+                                }
+                            }
+                        }
+                    }
                     stage('Set-Up Environment') {
                         steps {
                             echo "Set-Up Environment ${NODE}"
