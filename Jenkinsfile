@@ -67,6 +67,23 @@ pipeline {
                             }
                         }
                     }
+                    stage('Clean') {
+                        steps {
+                            echo "Bootstrap ${NODE}"
+                            script {
+                                if (isUnix()) {
+                                    sh """. ${ENV_LOC[NODE]}/bin/activate
+                                       unset LIBPATH
+                                          invoke distclean
+                                    """
+                                } else {
+                                    bat """CALL ${ENV_LOC[NODE]}\\Scripts\\activate
+                                          invoke distclean
+                                    """
+                                }
+                            }
+                        }
+                    }
                     stage('Bootstrap') {
                         steps {
                             echo "Bootstrap ${NODE}"
@@ -105,4 +122,25 @@ pipeline {
             }
         }
     }
+    post {
+        unsuccessful {
+            script {
+                    if (env.CHANGE_ID == null) {  // i.e. not a pull request; those notify in GitHub
+                        slackSend(channel: "#apdfl-18",
+                                message: "Unsuccessful build: ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)",
+                                color: "danger")
+                    }
+                }
+            }
+            fixed {
+                script {
+                    if (env.CHANGE_ID == null) {  // i.e. not a pull request; those notify in GitHub
+                        slackSend(channel: "#apdfl-18",
+                                message: "Build is now working: ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)",
+                                color: "good")
+                }
+            }
+        }
+    }
 }
+

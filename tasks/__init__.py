@@ -2,11 +2,21 @@ import os
 import shutil
 import platform
 import re
+import fnmatch
 from dl_conan_build_tools.tasks import conan
 from dl_conan_build_tools.config import get_config
 from invoke import Collection, task, runners
 from invoke.tasks import Task
 from utils import env
+
+@task
+def distclean(ctx):
+    """Clean up the project to its pristine distribution state. Undoes the effects of bootstrap."""
+    for file in os.listdir('.'):
+        if fnmatch.fnmatch(file, '*_build*'):
+            print('Removing ', file)
+            shutil.rmtree(file)
+
 
 def noerr_mkdir(dirname):
     try:

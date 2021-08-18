@@ -18,7 +18,7 @@ join = os.path.join
 lower_node = platform.node().split('.')[0].lower().replace(' ', '-')
 # See https://stackoverflow.com/a/10839538, but use ASCII letters
 allowed = string.digits + string.ascii_letters + '-_'
-HOME_DIR = join(HERE, 'python-env-dlsamp-%s' % ''.join(filter(allowed.__contains__, lower_node)))
+HOME_DIR = join(HERE, 'python-env-%s' % ''.join(filter(allowed.__contains__, lower_node)))
 
 
 def install_project_requirements(output_route):
@@ -80,8 +80,9 @@ def install_project_requirements(output_route):
         raise
 
     print('Packages up to date...')
-    activate_cmd = (f' . .{HOME_DIR}/bin/activate\n' if not windows() else
-                    f' {HOME_DIR}\\Scripts\\activate.bat\n')
+    venv_dir = f'{HOME_DIR[HOME_DIR.find("python-env-"):]}'
+    activate_cmd = (f' . ./{venv_dir}/bin/activate\n' if not windows() else
+                    f' {venv_dir}\\Scripts\\activate.bat\n')
     print('\n Now activate the virtual environment with:\n    ' + activate_cmd)
 
 
