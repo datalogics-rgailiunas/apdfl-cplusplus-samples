@@ -20,7 +20,7 @@ include ../../All/paths.rel
 
 default: $(SAMPNAME)
 
-CPPFLAGS = -I. -I$(INCLUDE) -I$(DLI_INCLUDE) -I$(UTIL) -I$(COMMON)
+CPPFLAGS = -I. -I$(INCLUDE) -I$(UTIL) -I$(COMMON)
 CFLAGS = $(CCFLAGS)
 
 $(SAMPNAME) : $(COMMON_OBJS) $(OTHER_OBJS)
