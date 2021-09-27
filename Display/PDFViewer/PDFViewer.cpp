@@ -1221,9 +1221,9 @@ void CPDFViewerView::SetPage(ASUns32 page) {
 
     /* Get the page size in Points
      */
-    ASFixedRect mediaF;
-    PDPageGetMediaBox(pDoc->Page, &mediaF);
-    ASFixedToDoubleRect(&PageSize, &mediaF);
+    ASFixedRect cropF;
+    PDPageGetCropBox(pDoc->Page, &cropF);
+    ASFixedToDoubleRect(&PageSize, &cropF);
 
     /* Reset view to show page full size,
     ** in portrait orientation
