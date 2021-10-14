@@ -276,7 +276,7 @@ void APDFLib::fillDirectories() {
 // Utility method, may be used to print APDFL errors to the terminal.
 //========================================================================================================
 /* static */ void APDFLib::displayError(ASErrorCode errCode) {
-    if (errCode == 0)
+    if (errCode == 0 || GetHFTLocations() == NULL)
         return;
 
     char errStr[250];
