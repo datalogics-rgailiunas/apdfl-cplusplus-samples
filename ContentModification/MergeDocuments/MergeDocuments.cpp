@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2017-2021, Datalogics, Inc. All rights reserved.
 //
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
@@ -41,12 +41,14 @@ int main(int argc, char **argv) {
         APDFLDoc doc2(csInputFileName2.c_str(), true);
 
         // Insert doc2's pages into doc1.
-        //    Here, we've stated PDLastPage, which adds the pages just before the last page of the target.
-        //    If we specify PDBeforeFirstPage instead, doc2's pages will be inserted at the head of doc1.
-        PDDocInsertPages(doc1.getPDDoc(), PDLastPage, doc2.getPDDoc(), 0, PDAllPages, PDInsertAll,
+        // PDLastPage adds the pages after the last page of the Target Document.
+        PDDocInsertPages(doc1.getPDDoc(), PDLastPage, doc2.getPDDoc(), 0, PDAllPages, PDInsertBookmarks | PDInsertThreads |
+                         // For best performance processing large documents, set the following flags.
+                         PDInsertDoNotMergeFonts | PDInsertDoNotResolveInvalidStructureParentReferences | PDInsertDoNotRemovePageInheritance,
                          NULL, NULL, NULL, NULL);
 
-        doc1.saveDoc(csOutputFileName.c_str(), PDSaveFull | PDSaveLinearized, PDSaveCompressed);
+        // For best performance processing large documents, set the following flags.
+        doc1.saveDoc(csOutputFileName.c_str(), PDSaveFull | PDSaveLinearizedNoOptimizeFonts, PDSaveCompressed);
 
     HANDLER
         errCode = ERRORCODE;
