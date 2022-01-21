@@ -40,6 +40,7 @@ class RenderPage {
     ASFixedRect imageSize; // This will carry the image size in PDF units.
 
     PDEFilterArray SetDCTFilterParams(CosDoc cosDoc);
+    PDEFilterArray SetCCITTFaxFilterParams(CosDoc cosDoc);
     ASAtom SetColorSpace(const char *colorSpace);
     ASInt32 SetBPC(ASInt32 bitsPerComp);
 
