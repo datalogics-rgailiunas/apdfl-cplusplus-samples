@@ -358,20 +358,6 @@
 			remoteGlobalIDString = BAAFDE0808980F3600470124;
 			remoteInfo = AddDocumentInformation;
 		};
-		9F6647D61E5CE63E00DF496B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9F6647D21E5CE63D00DF496B /* WebOptimizedPDF.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BAAFDE0808980F3600470124;
-			remoteInfo = WebOptimizedPDF;
-		};
-		9F6648461E5CE98E00DF496B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9F6647D21E5CE63D00DF496B /* WebOptimizedPDF.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D0C4E890486CD37000505A6;
-			remoteInfo = WebOptimizedPDF;
-		};
 		9F8422571E5CADFC001E30FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9F8EE2661E5CA9DA004E294B /* UnicodeText.xcodeproj */;
@@ -1010,7 +996,6 @@
 		9F50499B1E5CA3AF00C113B1 /* ExtractFonts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ExtractFonts.xcodeproj; path = ../ContentExtraction/ExtractFonts/ExtractFonts.xcodeproj; sourceTree = "<group>"; };
 		9F5049A11E5CA3BF00C113B1 /* AddBookmarks.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddBookmarks.xcodeproj; path = ../ContentModification/AddBookmarks/AddBookmarks.xcodeproj; sourceTree = "<group>"; };
 		9F5049A71E5CA3E500C113B1 /* AddDocumentInformation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddDocumentInformation.xcodeproj; path = ../ContentModification/AddDocumentInformation/AddDocumentInformation.xcodeproj; sourceTree = "<group>"; };
-		9F6647D21E5CE63D00DF496B /* WebOptimizedPDF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WebOptimizedPDF.xcodeproj; path = ../DocumentOptimization/WebOptimizedPDF/WebOptimizedPDF.xcodeproj; sourceTree = "<group>"; };
 		9F8EE1661E5CA403004E294B /* AddLinks.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddLinks.xcodeproj; path = ../ContentModification/AddLinks/AddLinks.xcodeproj; sourceTree = "<group>"; };
 		9F8EE17B1E5CA40C004E294B /* AddPageNumbers.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AddPageNumbers.xcodeproj; path = ../ContentModification/AddPageNumbers/AddPageNumbers.xcodeproj; sourceTree = "<group>"; };
 		9F8EE1871E5CA425004E294B /* AttachMimeToPDF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AttachMimeToPDF.xcodeproj; path = ../ContentModification/AttachMimeToPDF/AttachMimeToPDF.xcodeproj; sourceTree = "<group>"; };
@@ -1263,14 +1248,6 @@
 			isa = PBXGroup;
 			children = (
 				9F5049AC1E5CA3E600C113B1 /* AddDocumentInformation-Debug.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		9F6647D31E5CE63D00DF496B /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9F6647D71E5CE63E00DF496B /* WebOptimizedPDF-Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1577,7 +1554,6 @@
 				54E10DBF1F61B5E900147917 /* OutputPreview.xcodeproj */,
 				7C658AAE1F0D966900B03491 /* ConvertToPDFX.xcodeproj */,
 				7CF311A01F0D95CF004CC903 /* ConvertToPDFA.xcodeproj */,
-				9F6647D21E5CE63D00DF496B /* WebOptimizedPDF.xcodeproj */,
 				9F8EE2661E5CA9DA004E294B /* UnicodeText.xcodeproj */,
 				9F8EE2601E5CA9D2004E294B /* TextSearch.xcodeproj */,
 				9F8EE25A1E5CA9C9004E294B /* InsertHeadFoot.xcodeproj */,
@@ -1906,10 +1882,6 @@
 					ProductGroup = 9F8EE2671E5CA9DA004E294B /* Products */;
 					ProjectRef = 9F8EE2661E5CA9DA004E294B /* UnicodeText.xcodeproj */;
 				},
-				{
-					ProductGroup = 9F6647D31E5CE63D00DF496B /* Products */;
-					ProjectRef = 9F6647D21E5CE63D00DF496B /* WebOptimizedPDF.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
@@ -2106,13 +2078,6 @@
 			fileType = wrapper.application;
 			path = "AddDocumentInformation-Debug.app";
 			remoteRef = 9F5049AB1E5CA3E600C113B1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9F6647D71E5CE63E00DF496B /* WebOptimizedPDF-Debug.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "WebOptimizedPDF-Debug.app";
-			remoteRef = 9F6647D61E5CE63E00DF496B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9F8EE1701E5CA403004E294B /* AddLinks-Debug.app */ = {
@@ -2429,11 +2394,6 @@
 			isa = PBXTargetDependency;
 			name = ConvertToPDFA;
 			targetProxy = 7C201C521F0FDBE70026F486 /* PBXContainerItemProxy */;
-		};
-		9F6648471E5CE98E00DF496B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = WebOptimizedPDF;
-			targetProxy = 9F6648461E5CE98E00DF496B /* PBXContainerItemProxy */;
 		};
 		9F8422581E5CADFC001E30FB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

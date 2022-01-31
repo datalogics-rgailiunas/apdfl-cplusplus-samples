@@ -171,11 +171,6 @@ cd ../../DocumentOptimization/PDFOptimizer
 ./PDFOptimizer-${stage}.app/Contents/MacOS/PDFOptimizer-${stage}
 echo ""
 
-echo Running sample WebOptimizedPDF
-cd ../../DocumentOptimization/WebOptimizedPDF
-./WebOptimizedPDF-${stage}.app/Contents/MacOS/WebOptimizedPDF-${stage}
-echo ""
-
 # DocumentConversion
 
 echo Running sample ConvertPDFtoEPS
