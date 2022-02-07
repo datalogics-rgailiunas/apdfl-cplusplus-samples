@@ -23,8 +23,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SetUniquePermissions", "..\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SplitPDF", "..\ContentModification\SplitPDF\SplitPDF.vcxproj", "{BF3F5105-EBCC-448A-8262-53DE2A125F54}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WebOptimizedPDF", "..\DocumentOptimization\WebOptimizedPDF\WebOptimizedPDF.vcxproj", "{C7F0D2BF-4259-4B2C-BD59-0B7DCD9A15D5}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenEncrypted", "..\Security\OpenEncrypted\OpenEncrypted.vcxproj", "{91EBC49E-1D24-46E9-A465-696C1EBA3F23}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddArt", "..\ContentCreation\AddArt\AddArt.vcxproj", "{5D04558C-183A-4ECC-80C8-542A9FDD72D2}"

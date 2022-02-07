@@ -38,7 +38,6 @@ SAMPLES = Annotations/CreateAnnotations \
           DocumentConversion/ConvertToPDFA \
           DocumentConversion/ConvertToPDFX \
           DocumentOptimization/PDFOptimizer \
-          DocumentOptimization/WebOptimizedPDF \
           FileSystem/AlternateFileSystem \
           Images/AddThumbnailsToPDF \
           Images/CalcImageDPI \

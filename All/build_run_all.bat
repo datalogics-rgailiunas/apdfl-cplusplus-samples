@@ -1,6 +1,6 @@
 @ECHO ON
 REM ***
-REM ***  Copyright (c) 2015, Datalogics, Inc. All rights reserved.
+REM ***  Copyright (c) 2015-2022, Datalogics, Inc. All rights reserved.
 REM ***
 
 REM **********************************************************************************************************************
@@ -156,7 +156,7 @@ REM *** 3) Decide which samples to run.
 REM *************************************************
 
 REM *** The total number of samples. This must be accurate!
-SET /A "NUM_SAMPLES=57"
+SET /A "NUM_SAMPLES=56"
 
 REM *** Datalogics Samples.
 SET "DL_SAMPLE_LIST=("
@@ -164,7 +164,6 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Annotations\CreateAnnotations"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Annotations\FlattenAnnotations"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Printing\PostScriptInjection"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentOptimization\PDFOptimizer"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentOptimization\WebOptimizedPDF"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\AddBookmarks"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\AddDocumentInformation"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\AddLinks"

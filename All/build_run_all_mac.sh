@@ -1,6 +1,6 @@
 #!/bin/bash
 ## ***
-## ***  Copyright (c) 2015-2016, Datalogics, Inc. All rights reserved.
+## ***  Copyright (c) 2015-2022, Datalogics, Inc. All rights reserved.
 ## ***
 
 ## **********************************************************************************************************************
@@ -91,7 +91,6 @@ declare -a DL_SAMPLE_LIST=( \
   "ContentModification/AddTextWatermark" \
   "ContentModification/EmbedFonts" \
   "DocumentOptimization/PDFOptimizer" \
-  "DocumentOptimization/WebOptimizedPDF" \
   "DocumentConversion/ConvertToPDFA" \
   "DocumentConversion/ConvertToPDFX" \
   "DocumentConversion/ConvertPDFtoEPS" \
