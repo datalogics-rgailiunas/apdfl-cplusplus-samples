@@ -58,7 +58,7 @@ pipeline {
                             }
                         }
                         steps {
-                            echo "Remove Conan local cache ${NODE}"
+                            echo "Remove Conan local cache ${NODE} ${BITS}"
                             script {
                                 if (isUnix()) {
                                     sh "rm -rf ${WORKSPACE}/.conan"
@@ -70,17 +70,17 @@ pipeline {
                     }
                     stage('Set-Up Environment') {
                         steps {
-                            echo "Set-Up Environment ${NODE}"
+                            echo "Set-Up Environment ${NODE} ${BITS}"
                             script {
                                 if (isUnix()) {
                                     sh 'LIBPATH="" python3 mkenv.py --verbose'
-                                    ENV_LOC[NODE] = sh (
+                                    ENV_LOC["${NODE}_${BITS}"] = sh (
                                         script: 'LIBPATH="" python3 mkenv.py --env-name',
                                         returnStdout: true
                                     ).trim()
                                 } else {
                                     bat 'python mkenv.py --verbose'
-                                    ENV_LOC[NODE] = bat (
+                                    ENV_LOC["${NODE}_${BITS}"] = bat (
                                         // The @ prevents Windows from echoing the command itself into the stdout,
                                         // which would corrupt the value of the returned data.
                                         script: '@python mkenv.py --env-name',
@@ -92,15 +92,15 @@ pipeline {
                     }
                     stage('Clean') {
                         steps {
-                            echo "Bootstrap ${NODE}"
+                            echo "Bootstrap ${NODE} ${BITS}"
                             script {
                                 if (isUnix()) {
-                                    sh """. ${ENV_LOC[NODE]}/bin/activate
+                                    sh """. ${ENV_LOC["${NODE}_${BITS}"]}/bin/activate
                                        unset LIBPATH
                                           invoke distclean
                                     """
                                 } else {
-                                    bat """CALL ${ENV_LOC[NODE]}\\Scripts\\activate
+                                    bat """CALL ${ENV_LOC["${NODE}_${BITS}"]}\\Scripts\\activate
                                           invoke distclean
                                     """
                                 }
@@ -109,15 +109,15 @@ pipeline {
                     }
                     stage('Bootstrap') {
                         steps {
-                            echo "Bootstrap ${NODE}"
+                            echo "Bootstrap ${NODE} ${BITS}"
                             script {
                                 if (isUnix()) {
-                                    sh """. ${ENV_LOC[NODE]}/bin/activate
+                                    sh """. ${ENV_LOC["${NODE}_${BITS}"]}/bin/activate
                                        unset LIBPATH
                                           invoke bootstrap --bits=${BITS} --update
                                     """
                                 } else {
-                                    bat """CALL ${ENV_LOC[NODE]}\\Scripts\\activate
+                                    bat """CALL ${ENV_LOC["${NODE}_${BITS}"]}\\Scripts\\activate
                                           invoke bootstrap --bits=${BITS} --update
                                     """
                                 }
@@ -126,15 +126,15 @@ pipeline {
                     }
                     stage('Build') {
                         steps {
-                            echo "Build ${NODE}"
+                            echo "Build ${NODE} ${BITS}"
                             script {
                                 if (isUnix()) {
-                                    sh """. ${ENV_LOC[NODE]}/bin/activate
+                                    sh """. ${ENV_LOC["${NODE}_${BITS}"]}/bin/activate
                                        unset LIBPATH
                                           invoke build --bits=${BITS}
                                     """
                                 } else {
-                                    bat """CALL ${ENV_LOC[NODE]}\\Scripts\\activate
+                                    bat """CALL ${ENV_LOC["${NODE}_${BITS}"]}\\Scripts\\activate
                                           invoke build --bits=${BITS}
                                     """
                                 }
