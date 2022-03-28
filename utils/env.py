@@ -13,7 +13,7 @@ class Env(object):
             if platform.processor().lower() == 'arm':
                 return 'armv8mac'
             else:
-                return 'macos'
+                return 'mac-x86-64'
         os_str = os.getenv('OS')
         if os_str is not None:
             return os_str
