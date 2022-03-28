@@ -25,7 +25,6 @@
 #include "APDFLDoc.h"
 
 #ifdef MAC_PLATFORM
-#include "Cocoa/Cocoa.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #endif
