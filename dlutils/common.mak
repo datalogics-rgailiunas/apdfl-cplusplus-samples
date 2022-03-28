@@ -18,7 +18,7 @@ COMMON=../../_Common
 ifeq ($(findstring mac,$(OS)), )
 include $(UTIL)/$(subst _64,,$(OS)).mak
 else
-include $(UTIL)/$(subst -x86-64,,$(OS)).mak
+include $(UTIL)/$(OS).mak
 endif
 include ../../All/paths.rel
 
