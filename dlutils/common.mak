@@ -15,11 +15,7 @@ INCLUDE = ../../../Include/Headers
 SOURCE=../../../Include/Source
 COMMON=../../_Common
 
-ifeq ($(findstring mac,$(OS)), )
 include $(UTIL)/$(subst _64,,$(OS)).mak
-else
-include $(UTIL)/$(OS).mak
-endif
 include ../../All/paths.rel
 
 default: $(SAMPNAME)
