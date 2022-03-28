@@ -42,8 +42,8 @@ elseif(UTIL_PLAT MATCHES "Mac" OR UTIL_PLAT MATCHES "armv8mac_64")
             DESTINATION ${INSTALL_SAMPLEDIR}/${DL_SAMPLES}
             USE_SOURCE_PERMISSIONS
             PATTERN ".git*" EXCLUDE PATTERN "_Input" EXCLUDE PATTERN "CMakeLists.txt" EXCLUDE
-            PATTERN "*Bit*.*" EXCLUDE PATTERN "*Makefile*" EXCLUDE PATTERN "*.bat" EXCLUDE 
-            PATTERN "*.rel*" EXCLUDE PATTERN "*.mak" EXCLUDE PATTERN "*.vcxproj*" EXCLUDE
+            PATTERN "*Bit*.*" EXCLUDE PATTERN "*.bat" EXCLUDE PATTERN "*.vcxproj*" EXCLUDE
+            PATTERN "*.sh" EXCLUDE
             PATTERN "README.md" EXCLUDE PATTERN "PDFViewer" EXCLUDE
             PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
             PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE PATTERN "utils" EXCLUDE

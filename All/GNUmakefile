@@ -72,7 +72,9 @@ ifneq ($(findstring i80386linux,$(OS)), )
 endif
 
 ifeq ($(findstring rs6000aix,$(OS)), )
+ifeq ($(findstring mac,$(OS)), )
     SAMPLES +=  DocumentConversion/XPStoPDF
+endif
 endif
 
 build_pdfl_samples: 
