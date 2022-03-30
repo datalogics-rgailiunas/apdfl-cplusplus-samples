@@ -81,10 +81,9 @@ def build(ctx, build_type='Release', bits='64'):
     with ctx.cd(os.path.join(install_folder, 'CPlusPlus', 'Sample_Source', 'All')):
         shell_env = {'BUILD_64_BIT': str(is_64_bit).lower()}
         if profset.os.find('mac') > -1:
-            cmd = "./build_run_all_mac.sh"
-            if build_type == 'Release':
-                cmd += " -release"
-            ctx.run(cmd)
+            shell_env.update({'STAGE': build_type.lower(), 'OS': profset.os})
+            print(shell_env)
+            ctx.run('gnumake', env=shell_env, echo=True)
         elif profset.os == 'windows':
             cmd = ".\\build_run_all.bat"
             if build_type == 'Release':
