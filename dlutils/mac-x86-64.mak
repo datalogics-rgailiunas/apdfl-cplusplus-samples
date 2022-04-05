@@ -4,7 +4,7 @@ CXX = /usr/bin/clang++
 FRAMEWORK_PATH=$(PDFL_PATH)
 
 ifeq ($(STAGE), debug)
-    DEBUG=-DDEBUG -D_DEBUG
+    DEBUG=-DDEBUG -D_DEBUG -fpascal-strings
 else
     DEBUG=-DNDEBUG
 endif
