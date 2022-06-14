@@ -14,8 +14,8 @@
 // For this sample, we will consider a Word to be in the target area if the
 // midpoint of any of it's quads intersects the target area
 //
-// Command-line:    <input-pdf>  <output-name>  <target_left>  <target_bottom>  <target_right>  <target_top>
-// (All optional)
+// Command-line:    <input-pdf>  <output-name>  <target_left>  <target_bottom>  <target_right>
+// <target_top> (All optional)
 //
 // For more detail see the description of the ExtractText sample program on our Developer’s site,
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#extracttext
@@ -75,52 +75,59 @@ int main(int argc, char **argv) {
         PDWordFinder wordFinder =
             PDDocCreateWordFinderEx(inAPDoc.getPDDoc(), WF_LATEST_VERSION, true, &wfConfig);
 
-        // Step 2) Acquire the Words on a specific page
-        ASInt32 pageNum = 0;
+        // Step 2) Acquire the Words on each page
         ASInt32 numWords;
         PDWord wordArray;
 
-        PDWordFinderAcquireWordList(wordFinder, pageNum, &wordArray, NULL, NULL, &numWords);
+        ASInt32 numPages = PDDocGetNumPages(inAPDoc.getPDDoc());
+        for (ASInt32 pageNum = 0; pageNum < numPages; ++pageNum) {
 
-        std::cout << "Extracting a region of words on page " << pageNum << " of "
-                  << csInputFileName.c_str() << "and saving to " << csOutputFileName.c_str() << std::endl;
+            PDWordFinderAcquireWordList(wordFinder, pageNum, &wordArray, NULL, NULL, &numWords);
 
+            std::cout << "Extracting a region of words on page " << pageNum << " of "
+                      << csInputFileName.c_str() << " and saving to " << csOutputFileName.c_str()
+                      << std::endl;
 
-        // Step 3) Select Words in the specified region
-        for (ASInt32 index = 0; index < numWords; ++index) {
-            ASFixedQuad wordQuad;
+            // Step 3) Select the Words in the specified region
+            for (ASInt32 wordNum = 0; wordNum < numWords; ++wordNum) {
 
-            PDWord pdWord = PDWordFinderGetNthWord(wordFinder, index);
+                ASFixedQuad wordQuad;
 
-            // A Word typically has only 1 quad, but can have more than one for hyphenated words, words on a curve, etc.
-            for (int i = 0; i < PDWordGetNumQuads(pdWord); i++) {
+                PDWord pdWord = PDWordFinderGetNthWord(wordFinder, wordNum);
+                ASInt32 numQuads = PDWordGetNumQuads(pdWord);
 
-                PDWordGetNthQuad(pdWord, i, &wordQuad);
+                // A Word typically has only 1 quad, but can have more than one for hyphenated words, words on a curve, etc.
+                for (ASInt32 quadNum = 0; quadNum < numQuads; ++quadNum) {
 
-                //Criteria : If the midpoint of any of it's quads intersects the target area
-                ASFixed centerH = (wordQuad.bl.h + wordQuad.br.h + wordQuad.tr.h + wordQuad.tl.h) / 4;
-                ASFixed centerV = (wordQuad.bl.v + wordQuad.br.v + wordQuad.tr.v + wordQuad.tl.v) / 4;
+                    PDWordGetNthQuad(pdWord, quadNum, &wordQuad);
 
-                if ((centerH >= userTargetRegionFixedL && centerH <= userTargetRegionFixedR) &&
-                    (centerV >= userTargetRegionFixedB && centerV <= userTargetRegionFixedT)) {
-                    ASText asTextWord = ASTextNew();
-                    PDWordGetASText(pdWord, 0, asTextWord);
+                    // Criteria: If the midpoint of any of it's quads intersects the target area
+                    ASFixed centerH = (wordQuad.bl.h + wordQuad.br.h + wordQuad.tr.h + wordQuad.tl.h) / 4;
+                    ASFixed centerV = (wordQuad.bl.v + wordQuad.br.v + wordQuad.tr.v + wordQuad.tl.v) / 4;
 
-                    // Get the endian neutral UTF-8 string.
-                    ASUTF8Val *utf8String = reinterpret_cast<ASUTF8Val *>(ASTextGetUnicodeCopy(asTextWord, kUTF8));
+                    if ((centerH >= userTargetRegionFixedL && centerH <= userTargetRegionFixedR) &&
+                        (centerV >= userTargetRegionFixedB && centerV <= userTargetRegionFixedT)) {
+                        ASText asTextWord = ASTextNew();
+                        PDWordGetASText(pdWord, 0, asTextWord);
 
-                    // Put this Word that is within our region in the output document
-                    outputFile << utf8String << std::endl;
-                    ASTextDestroy(asTextWord);
-                    ASfree(utf8String);
+                        // Get the endian neutral UTF-8 string.
+                        ASUTF8Val *utf8String =
+                            reinterpret_cast<ASUTF8Val *>(ASTextGetUnicodeCopy(asTextWord, kUTF8));
+
+                        // Put this Word that is within our region in the output document
+                        outputFile << utf8String << std::endl;
+                        ASTextDestroy(asTextWord);
+                        ASfree(utf8String);
+                    }
                 }
             }
+            // Free the Word list for this page
+            PDWordFinderReleaseWordList(wordFinder, pageNum);
         }
 
         // Close any remaining resources.
         // APDFLDoc's destructor will take care of closing the documents.
         outputFile.close();
-        PDWordFinderReleaseWordList(wordFinder, pageNum);
         PDWordFinderDestroy(wordFinder);
 
     HANDLER
