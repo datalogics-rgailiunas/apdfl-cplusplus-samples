@@ -162,11 +162,13 @@
     <ClCompile Include="..\..\_Common\InitializeLibrary.cpp" />
     <ClCompile Include="..\..\..\Include\Source\PDFLInitCommon.c" />
     <ClCompile Include="..\..\..\Include\Source\PDFLInitHFT.c" />
+    <ClCompile Include="..\..\_Common\TextExtract.cpp" />
     <ClCompile Include="ExtractTextByRegion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\_Common\APDFLDoc.h" />
     <ClInclude Include="..\..\_Common\InitializeLibrary.h" />
+    <ClInclude Include="..\..\_Common\TextExtract.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

@@ -4,37 +4,30 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// This sample extracts text from a specific target area of a page in a PDF
+// This sample extracts text from a specific region of a page in a PDF
 // document and saves the text to a file.
 //
-// There are different options for determining whether a Word is in the target area:
-//   * if the complete Word fits within the target area
-//   * if any part of the Word fits within the target area
-//   * if the midpoint of the Word fits within the target area
-// For this sample, we will consider a Word to be in the target area if the
-// midpoint of any of it's quads intersects the target area
-//
-// Command-line:    <input-pdf>  <output-name>  <target_left>  <target_bottom>  <target_right>
-// <target_top> (All optional)
-//
-// For more detail see the description of the ExtractText sample program on our Developer’s site,
-// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#extracttext
+// For more detail see the description of the ExtractTextByRegion sample program on our Developer’s
+// site, http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples
 
 #include <fstream>
 #include <string>
 
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
+#include "TextExtract.h"
 
 const char *DEF_INPUT = "../../../../Resources/Sample_Input/ExtractTextByRegion.pdf";
 const char *DEF_OUTPUT = "ExtractTextByRegion-out.txt";
 
-// Default specified region to extract text in points (origin of the page is bottom left)
-// (0,0,200,792) is a rectangle encompassing the left side of the page
-const float DEF_LEFT = 0;    // left
-const float DEF_BOTTOM = 0;  // bottom
-const float DEF_RIGHT = 200; // right
-const float DEF_TOP = 792;   // top
+// Rectangular region to extract text in points (origin of the page is bottom left)
+// (545,576,694,710) is a rectangle encompassing the invoice entry for this sample.
+const float DEF_LEFT = 545;   // left
+const float DEF_RIGHT = 576;  // right
+const float DEF_BOTTOM = 694; // bottom
+const float DEF_TOP = 710;    // top
+
+bool CheckWithinRegion(ASFixedQuad wordQuad);
 
 int main(int argc, char **argv) {
 
@@ -47,88 +40,26 @@ int main(int argc, char **argv) {
         return libInit.getInitError();
     }
 
-    // Capture command line arguments if given.
-    // Otherwise, use defaults.
-    std::string csInputFileName(argc > 1 ? argv[1] : DEF_INPUT);
-    std::string csOutputFileName(argc > 2 ? argv[2] : DEF_OUTPUT);
-
-    float userTargetRegionL(argc > 6 ? atoi(argv[3]) : DEF_LEFT);
-    float userTargetRegionB(argc > 6 ? atoi(argv[4]) : DEF_BOTTOM);
-    float userTargetRegionR(argc > 6 ? atoi(argv[5]) : DEF_RIGHT);
-    float userTargetRegionT(argc > 6 ? atoi(argv[6]) : DEF_TOP);
-
-    // Need to convert the region to ASFixed for APDFL
-    ASFixed userTargetRegionFixedL = FloatToASFixed(userTargetRegionL);
-    ASFixed userTargetRegionFixedB = FloatToASFixed(userTargetRegionB);
-    ASFixed userTargetRegionFixedR = FloatToASFixed(userTargetRegionR);
-    ASFixed userTargetRegionFixedT = FloatToASFixed(userTargetRegionT);
-
     DURING
 
-        APDFLDoc inAPDoc(csInputFileName.c_str(), true);
-        std::ofstream outputFile(csOutputFileName.c_str());
+        APDFLDoc inAPDoc(DEF_INPUT, true);
+        std::ofstream outputFile(DEF_OUTPUT);
 
-        // Step 1) Use PDWordfinder to find all the Words in our input document
-        PDWordFinderConfigRec wfConfig;
-        memset(&wfConfig, 0, sizeof(PDWordFinderConfigRec));
-        wfConfig.recSize = sizeof(PDWordFinderConfigRec);
-        PDWordFinder wordFinder =
-            PDDocCreateWordFinderEx(inAPDoc.getPDDoc(), WF_LATEST_VERSION, true, &wfConfig);
+        TextExtract textExtract(inAPDoc.getPDDoc());
 
-        // Step 2) Acquire the Words on each page
-        ASInt32 numWords;
-        PDWord wordArray;
+        std::vector<PDTextAndQuadsExtractRec> extractedText = textExtract.GetTextAndQuads();
 
-        ASInt32 numPages = PDDocGetNumPages(inAPDoc.getPDDoc());
-        for (ASInt32 pageNum = 0; pageNum < numPages; ++pageNum) {
+        for (ASInt32 textIndex = 0; textIndex < extractedText.size(); ++textIndex) {
+            for (ASInt32 quadIndex = 0; quadIndex < extractedText[textIndex].boundingQuads.size(); ++quadIndex) {
 
-            PDWordFinderAcquireWordList(wordFinder, pageNum, &wordArray, NULL, NULL, &numWords);
-
-            std::cout << "Extracting a region of words on page " << pageNum << " of "
-                      << csInputFileName.c_str() << " and saving to " << csOutputFileName.c_str()
-                      << std::endl;
-
-            // Step 3) Select the Words in the specified region
-            for (ASInt32 wordNum = 0; wordNum < numWords; ++wordNum) {
-
-                ASFixedQuad wordQuad;
-
-                PDWord pdWord = PDWordFinderGetNthWord(wordFinder, wordNum);
-                ASInt32 numQuads = PDWordGetNumQuads(pdWord);
-
-                // A Word typically has only 1 quad, but can have more than one for hyphenated words, words on a curve, etc.
-                for (ASInt32 quadNum = 0; quadNum < numQuads; ++quadNum) {
-
-                    PDWordGetNthQuad(pdWord, quadNum, &wordQuad);
-
-                    // Criteria: If the midpoint of any of it's quads intersects the target area
-                    ASFixed centerH = (wordQuad.bl.h + wordQuad.br.h + wordQuad.tr.h + wordQuad.tl.h) / 4;
-                    ASFixed centerV = (wordQuad.bl.v + wordQuad.br.v + wordQuad.tr.v + wordQuad.tl.v) / 4;
-
-                    if ((centerH >= userTargetRegionFixedL && centerH <= userTargetRegionFixedR) &&
-                        (centerV >= userTargetRegionFixedB && centerV <= userTargetRegionFixedT)) {
-                        ASText asTextWord = ASTextNew();
-                        PDWordGetASText(pdWord, 0, asTextWord);
-
-                        // Get the endian neutral UTF-8 string.
-                        ASUTF8Val *utf8String =
-                            reinterpret_cast<ASUTF8Val *>(ASTextGetUnicodeCopy(asTextWord, kUTF8));
-
-                        // Put this Word that is within our region in the output document
-                        outputFile << utf8String << std::endl;
-                        ASTextDestroy(asTextWord);
-                        ASfree(utf8String);
-                    }
+                ASFixedQuad wordQuad = extractedText[textIndex].boundingQuads[quadIndex];
+                if (CheckWithinRegion(wordQuad)) {
+                    // Put this Word that meets our criteria in the output document
+                    outputFile << extractedText[textIndex].text << std::endl;
                 }
             }
-            // Free the Word list for this page
-            PDWordFinderReleaseWordList(wordFinder, pageNum);
         }
-
-        // Close any remaining resources.
-        // APDFLDoc's destructor will take care of closing the documents.
         outputFile.close();
-        PDWordFinderDestroy(wordFinder);
 
     HANDLER
         errCode = ERRORCODE;
@@ -137,3 +68,23 @@ int main(int argc, char **argv) {
 
     return errCode;
 };
+
+// For this sample, we will consider a Word to be in the region of interest if the
+// complete Word fits within the specified rectangular box
+bool CheckWithinRegion(ASFixedQuad wordQuad) {
+
+    // Need to convert the region to ASFixed for comparison
+    ASFixed userTargetRegionFixedL = FloatToASFixed(DEF_LEFT);
+    ASFixed userTargetRegionFixedB = FloatToASFixed(DEF_BOTTOM);
+    ASFixed userTargetRegionFixedR = FloatToASFixed(DEF_RIGHT);
+    ASFixed userTargetRegionFixedT = FloatToASFixed(DEF_TOP);
+
+    if (wordQuad.bl.h >= userTargetRegionFixedL && wordQuad.br.h <= userTargetRegionFixedR &&
+        wordQuad.tl.h >= userTargetRegionFixedL && wordQuad.tr.h <= userTargetRegionFixedR &&
+        wordQuad.bl.v >= userTargetRegionFixedB && wordQuad.tl.v <= userTargetRegionFixedT &&
+        wordQuad.br.v >= userTargetRegionFixedB && wordQuad.tr.v <= userTargetRegionFixedT) {
+
+        return true;
+    }
+    return false;
+}
