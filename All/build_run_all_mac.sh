@@ -123,7 +123,10 @@ declare -a DL_SAMPLE_LIST=( \
   "Text/TextSearch" \
   "Text/TextSelectEnum" \
   "Text/RegexTextSearch" \
-  "Text/RegexExtractText"
+  "Text/RegexExtractText" \
+  "Text/ExtractTextByPatternMatch" \
+  "Text/ExtractTextByRegion" \
+  "Text/ExtractTextFromMultiRegions"
 )
 
 cd ..

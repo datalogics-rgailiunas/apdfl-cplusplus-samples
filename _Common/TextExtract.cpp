@@ -50,7 +50,6 @@ void TextExtract::SetupWordFinderParams() {
     wfConfig.decomposeTblSize = 0;
     wfConfig.charTypeTbl = NULL;
     wfConfig.charTypeTblSize = 0;
-    ;
     wfConfig.preserveRedundantChars = false;
     wfConfig.disableCharReordering = false;
     wfConfig.noSkewedQuads = false;

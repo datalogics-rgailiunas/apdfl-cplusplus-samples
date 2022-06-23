@@ -50,14 +50,19 @@ int main(int argc, char **argv) {
         std::vector<PDTextAndQuadsExtractRec> extractedText = textExtract.GetTextAndQuads();
 
         for (ASInt32 textIndex = 0; textIndex < extractedText.size(); ++textIndex) {
+
+            bool allQuadsWithinRegion = true;
+            // A Word typically has only 1 quad, but can have more than one for hyphenated words, words on a curve, etc.
             for (ASInt32 quadIndex = 0; quadIndex < extractedText[textIndex].boundingQuads.size(); ++quadIndex) {
 
                 ASFixedQuad wordQuad = extractedText[textIndex].boundingQuads[quadIndex];
-                if (CheckWithinRegion(wordQuad)) {
-                    // Put this Word that meets our criteria in the output document
-                    outputFile << extractedText[textIndex].text << std::endl;
+                if (!CheckWithinRegion(wordQuad)) {
+                    allQuadsWithinRegion = false;
                 }
             }
+            if (allQuadsWithinRegion)
+                // Put this Word that meets our criteria in the output document
+                outputFile << extractedText[textIndex].text << std::endl;
         }
         outputFile.close();
 

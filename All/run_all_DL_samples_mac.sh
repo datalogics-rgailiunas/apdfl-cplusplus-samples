@@ -355,5 +355,20 @@ cd ../../Text/RegexExtractText
 ./RegexExtractText-${stage}.app/Contents/MacOS/RegexExtractText-${stage}
 echo ""
 
+echo Running sample ExtractTextByPatternMatch
+cd ../../Text/ExtractTextByPatternMatch
+./ExtractTextByPatternMatch-${stage}.app/Contents/MacOS/ExtractTextByPatternMatch-${stage}
+echo ""
+
+echo Running sample ExtractTextByRegion
+cd ../../Text/ExtractTextByRegion
+./ExtractTextByRegion-${stage}.app/Contents/MacOS/ExtractTextByRegion-${stage}
+echo ""
+
+echo Running sample ExtractTextFromMultiRegions
+cd ../../Text/ExtractTextFromMultiRegions
+./ExtractTextFromMultiRegions-${stage}.app/Contents/MacOS/ExtractTextFromMultiRegions-${stage}
+echo ""
+
 echo All Datalogics samples are finished running.
 

@@ -135,6 +135,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RegexTextSearch", "..\Text\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RegexExtractText", "..\Text\RegexExtractText\RegexExtractText.vcxproj", "{8D7DCD93-AE4D-4C33-84A6-74E2F1DE8A4A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractTextByPatternMatch", "..\Text\ExtractTextByPatternMatch\ExtractTextByPatternMatch.vcxproj", "{39C2FB34-1490-4C14-BDF0-70FE2DAD0E3A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractTextFromMultiRegions", "..\Text\ExtractTextFromMultiRegions\ExtractTextFromMultiRegions.vcxproj", "{D7847A57-5282-4F56-A66D-B3DB5F45A86C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractTextByRegion", "..\Text\ExtractTextByRegion\ExtractTextByRegion.vcxproj", "{369A6BBA-0260-4EB7-93F8-218D88C0F7E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -401,6 +407,18 @@ Global
 		{8D7DCD93-AE4D-4C33-84A6-74E2F1DE8A4A}.Debug|x64.Build.0 = Debug|x64
 		{8D7DCD93-AE4D-4C33-84A6-74E2F1DE8A4A}.Release|x64.ActiveCfg = Release|x64
 		{8D7DCD93-AE4D-4C33-84A6-74E2F1DE8A4A}.Release|x64.Build.0 = Release|x64
+		{39C2FB34-1490-4C14-BDF0-70FE2DAD0E3A}.Debug|x64.ActiveCfg = Debug|x64
+		{39C2FB34-1490-4C14-BDF0-70FE2DAD0E3A}.Debug|x64.Build.0 = Debug|x64
+		{39C2FB34-1490-4C14-BDF0-70FE2DAD0E3A}.Release|x64.ActiveCfg = Release|x64
+		{39C2FB34-1490-4C14-BDF0-70FE2DAD0E3A}.Release|x64.Build.0 = Release|x64
+		{D7847A57-5282-4F56-A66D-B3DB5F45A86C}.Debug|x64.ActiveCfg = Debug|x64
+		{D7847A57-5282-4F56-A66D-B3DB5F45A86C}.Debug|x64.Build.0 = Debug|x64
+		{D7847A57-5282-4F56-A66D-B3DB5F45A86C}.Release|x64.ActiveCfg = Release|x64
+		{D7847A57-5282-4F56-A66D-B3DB5F45A86C}.Release|x64.Build.0 = Release|x64
+		{369A6BBA-0260-4EB7-93F8-218D88C0F7E1}.Debug|x64.ActiveCfg = Debug|x64
+		{369A6BBA-0260-4EB7-93F8-218D88C0F7E1}.Debug|x64.Build.0 = Debug|x64
+		{369A6BBA-0260-4EB7-93F8-218D88C0F7E1}.Release|x64.ActiveCfg = Release|x64
+		{369A6BBA-0260-4EB7-93F8-218D88C0F7E1}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
