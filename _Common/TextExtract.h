@@ -65,11 +65,11 @@ private:
 public:
     TextExtract(PDDoc inPDoc);
     ~TextExtract();
-    std::vector<PDTextExtractRec> TextExtract::GetText();
-    std::vector<PDTextExtractRec> TextExtract::GetText(ASInt32 pageNum);
-    std::vector<PDTextAndQuadsExtractRec> TextExtract::GetTextAndQuads();
-    std::vector<PDTextAndQuadsExtractRec> TextExtract::GetTextAndQuads(ASInt32 pageNum);
-    void TextExtract::SetupWordFinderParams();
+    std::vector<PDTextExtractRec> GetText();
+    std::vector<PDTextExtractRec> GetText(ASInt32 pageNum);
+    std::vector<PDTextAndQuadsExtractRec> GetTextAndQuads();
+    std::vector<PDTextAndQuadsExtractRec> GetTextAndQuads(ASInt32 pageNum);
+    void SetupWordFinderParams();
 };
 
 #endif
