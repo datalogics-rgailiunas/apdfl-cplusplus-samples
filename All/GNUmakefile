@@ -63,14 +63,17 @@ SAMPLES = Annotations/CreateAnnotations \
           Text/InsertHeadFoot \
           Text/TextSearch \
           Text/TextSelectEnum \
-          Text/UnicodeText \
-          Text/ExtractTextByRegion
+          Text/UnicodeText
 
 ifneq ($(findstring i80386linux,$(OS)), )
     SAMPLES += Security/AddRegexRedaction
     SAMPLES += Text/RegexTextSearch
     SAMPLES += Text/RegexExtractText
     SAMPLES += Text/ExtractTextByPatternMatch
+endif
+
+ifeq ($(findstring rs6000aix,$(OS)), )
+    SAMPLES +=  Text/ExtractTextByRegion
 endif
 
 ifeq ($(findstring rs6000aix,$(OS)), )
