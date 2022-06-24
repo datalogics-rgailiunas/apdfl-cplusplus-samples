@@ -45,6 +45,9 @@ InitializeLibrary.o : $(COMMON)/InitializeLibrary.cpp
 APDFLDoc.o : $(COMMON)/APDFLDoc.cpp
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
+TextExtract.o : $(COMMON)/TextExtract.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
 clean:
 	$(RM) *.o $(UTIL)/*.o core out.* $(SAMPNAME) 
 
