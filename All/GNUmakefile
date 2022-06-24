@@ -64,8 +64,7 @@ SAMPLES = Annotations/CreateAnnotations \
           Text/TextSearch \
           Text/TextSelectEnum \
           Text/UnicodeText \
-          Text/ExtractTextByRegion \
-          Text/ExtractTextFromMultiRegions
+          Text/ExtractTextByRegion
 
 ifneq ($(findstring i80386linux,$(OS)), )
     SAMPLES += Security/AddRegexRedaction

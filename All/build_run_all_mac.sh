@@ -125,8 +125,7 @@ declare -a DL_SAMPLE_LIST=( \
   "Text/RegexTextSearch" \
   "Text/RegexExtractText" \
   "Text/ExtractTextByPatternMatch" \
-  "Text/ExtractTextByRegion" \
-  "Text/ExtractTextFromMultiRegions"
+  "Text/ExtractTextByRegion"
 )
 
 cd ..
