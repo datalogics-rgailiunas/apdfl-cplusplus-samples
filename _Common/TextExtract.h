@@ -28,19 +28,10 @@
 // These are samples of what can be done.
 enum regexEnum { PHONE_PATTERN, EMAIL_PATTERN, URL_PATTERN };
 
-#if __cplusplus >= 201103L
-static std::map< regexEnum, const char * > regexPattern = {
-   {PHONE_PATTERN, R"((1-)?(\()?\d{3}(\))?(\s)?(-)?\d{3}-\d{4})"},
-   {EMAIL_PATTERN, R"(\b[\w.!#$%&'*+\/=?^`{|}~-]+@[\w-]+(?:\.[\w-]+)*\b)"},
-   {URL_PATTERN, R"((https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}))"}
-};
-#else
-static std::map< regexEnum, const char * > regexPattern = {
-   {PHONE_PATTERN, "(1-)?(\\()?\\d{3}(\\))?(\\s)?(-)?\\d{3}-\\d{4}"},
-   {EMAIL_PATTERN, "\\b[\\w.!#$%&'*+\\/=?^`{|}~-]+@[\\w-]+(?:\\.[\\w-]+)*\\b"},
-   {URL_PATTERN, "(https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})"}
-};
-#endif
+static std::map<regexEnum, const char *> regexPattern = {
+    {PHONE_PATTERN, R"((1-)?(\()?\d{3}(\))?(\s)?(-)?\d{3}-\d{4})"},
+    {EMAIL_PATTERN, R"(\b[\w.!#$%&'*+\/=?^`{|}~-]+@[\w-]+(?:\.[\w-]+)*\b)"},
+    {URL_PATTERN, R"((https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}))"}};
 
 /** Structure representing only the text  */
 typedef struct {
@@ -55,14 +46,14 @@ typedef struct {
 
 class TextExtract {
 
-private:
-    PDDoc pDoc;
+  private:
+    PDDoc pDoc = nullptr;
     PDWordFinderConfigRec wfConfig;
     PDWordFinder wordFinder;
-    ASInt32 numWords;
+    ASInt32 numWords = 0;
     PDWord wordArray;
 
-public:
+  public:
     TextExtract(PDDoc inPDoc);
     ~TextExtract();
     std::vector<PDTextExtractRec> GetText();

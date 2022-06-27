@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
     END_HANDLER
 
     return errCode;
-};
+}
 
 // For this sample, we will consider a Word to be in the region of interest if the
 // complete Word fits within the specified rectangular box
