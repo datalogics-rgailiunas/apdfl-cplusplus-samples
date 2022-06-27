@@ -139,6 +139,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractTextByPatternMatch",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractTextByRegion", "..\Text\ExtractTextByRegion\ExtractTextByRegion.vcxproj", "{369A6BBA-0260-4EB7-93F8-218D88C0F7E1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractTextFromMultiRegions", "..\Text\ExtractTextFromMultiRegions\ExtractTextFromMultiRegions.vcxproj", "{D7847A57-5282-4F56-A66D-B3DB5F45A86C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -413,6 +415,10 @@ Global
 		{369A6BBA-0260-4EB7-93F8-218D88C0F7E1}.Debug|x64.Build.0 = Debug|x64
 		{369A6BBA-0260-4EB7-93F8-218D88C0F7E1}.Release|x64.ActiveCfg = Release|x64
 		{369A6BBA-0260-4EB7-93F8-218D88C0F7E1}.Release|x64.Build.0 = Release|x64
+		{D7847A57-5282-4F56-A66D-B3DB5F45A86C}.Debug|x64.ActiveCfg = Debug|x64
+		{D7847A57-5282-4F56-A66D-B3DB5F45A86C}.Debug|x64.Build.0 = Debug|x64
+		{D7847A57-5282-4F56-A66D-B3DB5F45A86C}.Release|x64.ActiveCfg = Release|x64
+		{D7847A57-5282-4F56-A66D-B3DB5F45A86C}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
