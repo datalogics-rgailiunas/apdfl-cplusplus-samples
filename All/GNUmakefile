@@ -74,7 +74,6 @@ endif
 
 ifeq ($(findstring rs6000aix,$(OS)), )
     SAMPLES +=  Text/ExtractTextByRegion
-    SAMPLES +=  Text/ExtractTextFromMultiRegions
 endif
 
 ifeq ($(findstring rs6000aix,$(OS)), )

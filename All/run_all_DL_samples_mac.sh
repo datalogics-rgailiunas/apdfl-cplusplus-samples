@@ -365,10 +365,5 @@ cd ../../Text/ExtractTextByRegion
 ./ExtractTextByRegion-${stage}.app/Contents/MacOS/ExtractTextByRegion-${stage}
 echo ""
 
-echo Running sample ExtractTextFromMultiRegions
-cd ../../Text/ExtractTextFromMultiRegions
-./ExtractTextFromMultiRegions-${stage}.app/Contents/MacOS/ExtractTextFromMultiRegions-${stage}
-echo ""
-
 echo All Datalogics samples are finished running.
 
