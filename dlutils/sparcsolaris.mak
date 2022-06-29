@@ -11,8 +11,7 @@ endif
 
 
 ifeq ($(BUILD_64_BIT), true)
-CC = /bin/gcc
-CXX = /bin/g++
+
 CCFLAGS  = -g $(PDF_FDIR_DEF) -DNO_PRAGMA_ONCE -DUNIX_PLATFORM=1 -DUNIX_ENV=1 $(DEBUG) -DPRODUCT=\"HFTLibrary.h\" -DPLATFORM=\"UnixPlatform.h\" -D_REENTRANT -m64 -Wno-multichar
 CCFLAGS += -DPDFL_SDK_SAMPLE -DPI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6 -DTOOLKIT
 CXXFLAGS = $(CCFLAGS)
@@ -24,8 +23,7 @@ LIBS = -lDL180pdfl -lDL180CoolType -lDL180AGM -lDL180BIB -lDL180ACE -lDL180ARE \
 	   -licuuc -licudata -lpthread -lsocket -lnsl -lc -lm
 
 else  # 32-bit w/ gcc
-CC = /bin/gcc
-CXX = /bin/g++
+
 CCFLAGS  = -g -m32 $(PDF_FDIR_DEF) -DUNIX_PLATFORM=1 -DUNIX_ENV=1 $(DEBUG) -DPRODUCT=\"HFTLibrary.h\" -DPLATFORM=\"UnixPlatform.h\" -D_REENTRANT -Wno-multichar
 CCFLAGS += -DPDFL_SDK_SAMPLE -DPI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6 -DTOOLKIT
 CXXFLAGS = $(CCFLAGS)

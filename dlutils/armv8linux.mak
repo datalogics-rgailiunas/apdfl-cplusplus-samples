@@ -1,5 +1,4 @@
-CC =g++
-CXX = $(CC)
+CC=$(CXX)
 
 ifeq ($(STAGE), debug)
     DEBUG=-DDEBUG -D_DEBUG

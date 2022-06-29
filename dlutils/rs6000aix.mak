@@ -1,12 +1,10 @@
 # Change these to match your local environment
 ifeq ($(USE_GCC), true)
-CC=/opt/freeware/bin/gcc
-CXX=/opt/freeware/bin/g++
+
 EXTRA_LIBS=-ldl
 else
 # DLADD RobB 16Jun2016 - Use IBM XL C/C++ 13.1 for APDFL 15
-CC=/opt/IBM/xlC/13.1.3/bin/xlc_r
-CXX=/opt/IBM/xlC/13.1.3/bin/xlC_r
+
 endif
 
 ifeq ($(STAGE), debug)
