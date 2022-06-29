@@ -79,7 +79,9 @@ def build(ctx, build_type='Release', bits='64'):
     is_64_bit = bits == '64'
     install_folder = profset.install_folder(build_type, is_64_bit)
     with ctx.cd(os.path.join(install_folder, 'CPlusPlus', 'Sample_Source', 'All')):
-        shell_env = {'BUILD_64_BIT': str(is_64_bit).lower()}
+        shell_env = {'BUILD_64_BIT': str(is_64_bit).lower(),
+                     'PATH': '/opt/freeware/bin:%s' % os.getenv('PATH'),
+        }
         if profset.os.find('mac') > -1:
             shell_env.update({'STAGE': build_type.lower(), 'OS': profset.os})
             print(shell_env)
