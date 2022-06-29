@@ -12,6 +12,4 @@ boost:without_math=True
 boost:without_mpi=True
 boost:without_system=True
 boost:without_wave=True
-[env]
-PATH=[/opt/cmake-3.18/bin]
 
