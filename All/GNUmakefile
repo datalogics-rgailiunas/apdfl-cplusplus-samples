@@ -59,6 +59,7 @@ SAMPLES = Annotations/CreateAnnotations \
           Security/SetUniquePermissions \
           Text/AddText \
           Text/ExtractText \
+          Text/ExtractAcroFormFieldData \
           Text/HelloJapan \
           Text/InsertHeadFoot \
           Text/TextSearch \

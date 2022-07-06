@@ -13,17 +13,29 @@
 
 #include "TextExtract.h"
 #include <vector>
+#include <sstream>
+
+static void enumerateField(CosObj fieldObj, std::string prefix, std::vector<PDAcroFormExtractRec> &returnText);
 
 //==============================================================================================================================
 // Default Constructor - This creates a new TextExtract object.
 //==============================================================================================================================
 
-TextExtract::TextExtract(PDDoc inPDoc) {
+TextExtract::TextExtract(PDDoc inPDoc,  bool useWordFinder) {
     pDoc = inPDoc;
-    void SetupWordFinderParams();
-    wordFinder = PDDocCreateWordFinderEx(inPDoc, WF_LATEST_VERSION, true, &wfConfig);
+    if (useWordFinder)
+    {
+        void SetupWordFinderParams();
+        wordFinder = PDDocCreateWordFinderEx(inPDoc, WF_LATEST_VERSION, true, &wfConfig);
+    }
     numWords = 0;
 }
+
+//==============================================================================================================================
+// ~TextExtract() - Releases resources if they haven't already been freed.
+//==============================================================================================================================
+
+TextExtract::~TextExtract() { PDWordFinderDestroy(wordFinder); }
 
 //==============================================================================================================================
 // SetupWordFinderParams() - Setup params for WordFinder.  User can modify based on needs.
@@ -192,7 +204,73 @@ std::vector<PDTextAndQuadsExtractRec> TextExtract::GetTextAndQuads(ASInt32 pageN
 }
 
 //==============================================================================================================================
-// ~TextExtract() - Releases resources if they haven't already been freed.
+// GetAcroFormFieldData() - Gets the AcroForm field data.
 //==============================================================================================================================
 
-TextExtract::~TextExtract() { PDWordFinderDestroy(wordFinder); }
+std::vector<PDAcroFormExtractRec> TextExtract::GetAcroFormFieldData() {
+    std::vector<PDAcroFormExtractRec> returnText;
+    CosObj rootObj = CosDocGetRoot(PDDocGetCosDoc(pDoc));
+    CosObj acroFormObj = CosDictGet(rootObj, ASAtomFromString("AcroForm"));
+    if (CosObjGetType(acroFormObj) == CosNull) {
+        return returnText;
+    } else {
+        CosObj fieldsObj = CosDictGet(acroFormObj, ASAtomFromString("Fields"));
+        if ((CosObjGetType(fieldsObj) != CosArray) || (CosArrayLength(fieldsObj) == 0)) {
+            return returnText;
+        } else {
+            for (ASInt32 fieldIndex = 0; fieldIndex < CosArrayLength(fieldsObj); ++fieldIndex) {
+                CosObj fieldObj = CosArrayGet(fieldsObj, fieldIndex);
+                enumerateField(fieldObj, "", returnText);
+            }
+        }
+    }
+    return returnText;
+}
+
+static void enumerateField(CosObj fieldObj, std::string prefix, std::vector<PDAcroFormExtractRec> &returnText) {
+
+    std::string field_name;
+    ASTCount textLength;
+
+    if (CosObjGetType(fieldObj) == CosDict) {
+        if (CosDictKnown(fieldObj, ASAtomFromString("T"))) {
+            CosObj entryObj = CosDictGet(fieldObj, ASAtomFromString("T"));
+            if (CosObjGetType(entryObj) == CosString) {
+                std::string name_part(CosStringValue(entryObj, &textLength));
+                if (prefix == "") {
+                    field_name = name_part;
+                }
+                else {
+                    std::ostringstream stringStream;
+                    stringStream << prefix << "." << name_part;
+                    field_name = stringStream.str();
+                }
+                // Process the Kids
+                CosObj kidsObj = CosDictGet(fieldObj, ASAtomFromString("Kids"));
+                if (CosObjGetType(kidsObj) == CosArray) {
+                    for (ASInt32 kidIndex = 0; kidIndex < CosArrayLength(kidsObj); ++kidIndex) {
+                        CosObj fieldObj = CosArrayGet(kidsObj, kidIndex);
+                        enumerateField(fieldObj, field_name, returnText);
+                    }
+                }
+
+                // Process this node
+                CosObj nameObj = CosDictGet(fieldObj, ASAtomFromString("FT"));
+                if (CosObjGetType(nameObj) == CosName) {
+                    if (CosNameValue(nameObj) == ASAtomFromString("Tx")) {
+                        PDAcroFormExtractRec record;
+                        record.fieldName = field_name;
+                        if (CosDictKnown(fieldObj, ASAtomFromString("V"))) {
+                            CosObj entryValueObj = CosDictGet(fieldObj, ASAtomFromString("V"));
+                            std::string textString(CosStringValue(entryValueObj, &textLength));
+                            ASText asText = ASTextFromSizedPDText(textString.c_str(), textLength);
+                            char *textStr = reinterpret_cast<char *>(ASTextGetUnicodeCopy(asText, kUTF8));
+                            record.text = textStr;
+                        }
+                        returnText.emplace_back(record);
+                    }
+                }
+            }
+        }
+    }
+}

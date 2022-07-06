@@ -365,5 +365,9 @@ cd ../../Text/ExtractTextByRegion
 ./ExtractTextByRegion-${stage}.app/Contents/MacOS/ExtractTextByRegion-${stage}
 echo ""
 
+echo Running sample ExtractAcroFormFieldData
+cd ../../Text/ExtractAcroFormFieldData
+./ExtractAcroFormFieldData-${stage}.app/Contents/MacOS/ExtractAcroFormFieldData-${stage}
+echo ""
 echo All Datalogics samples are finished running.
 

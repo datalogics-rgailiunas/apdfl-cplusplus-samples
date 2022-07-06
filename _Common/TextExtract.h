@@ -16,6 +16,7 @@
 
 #include "PDCalls.h"
 #include "ASCalls.h"
+#include "CosCalls.h"
 #include "ASExtraCalls.h"
 
 #include <string>
@@ -44,6 +45,12 @@ typedef struct {
     std::vector<ASFixedQuad> boundingQuads;
 } PDTextAndQuadsExtractRec;
 
+/** Structure representing the AcroForm text and the field names */
+typedef struct {
+    std::string text;
+    std::string fieldName;
+} PDAcroFormExtractRec;
+
 class TextExtract {
 
   private:
@@ -54,12 +61,13 @@ class TextExtract {
     PDWord wordArray;
 
   public:
-    TextExtract(PDDoc inPDoc);
+    TextExtract(PDDoc inPDoc, bool useWordFinder = true);
     ~TextExtract();
     std::vector<PDTextExtractRec> GetText();
     std::vector<PDTextExtractRec> GetText(ASInt32 pageNum);
     std::vector<PDTextAndQuadsExtractRec> GetTextAndQuads();
     std::vector<PDTextAndQuadsExtractRec> GetTextAndQuads(ASInt32 pageNum);
+    std::vector<PDAcroFormExtractRec> GetAcroFormFieldData();
     void SetupWordFinderParams();
 };
 
