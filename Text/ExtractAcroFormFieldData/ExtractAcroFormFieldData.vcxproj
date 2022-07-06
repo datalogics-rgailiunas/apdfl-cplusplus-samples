@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{369A6BBA-0260-4EB7-93F8-218D88C0F7E1}</ProjectGuid>
+    <ProjectGuid>{94548DD9-07E2-4369-99E1-DAB154831ACE}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BlankSample</RootNamespace>
     <ProjectName>ExtractAcroFormFieldData</ProjectName>
