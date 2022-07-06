@@ -56,9 +56,9 @@ class TextExtract {
   private:
     PDDoc pDoc = nullptr;
     PDWordFinderConfigRec wfConfig;
-    PDWordFinder wordFinder;
+    PDWordFinder wordFinder = nullptr;
     ASInt32 numWords = 0;
-    PDWord wordArray;
+    PDWord wordArray = nullptr;
 
   public:
     TextExtract(PDDoc inPDoc, bool useWordFinder = true);

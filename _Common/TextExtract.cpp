@@ -35,7 +35,12 @@ TextExtract::TextExtract(PDDoc inPDoc,  bool useWordFinder) {
 // ~TextExtract() - Releases resources if they haven't already been freed.
 //==============================================================================================================================
 
-TextExtract::~TextExtract() { PDWordFinderDestroy(wordFinder); }
+TextExtract::~TextExtract() {
+    if (wordFinder != nullptr)
+    {
+        PDWordFinderDestroy(wordFinder);
+    }
+}
 
 //==============================================================================================================================
 // SetupWordFinderParams() - Setup params for WordFinder.  User can modify based on needs.
