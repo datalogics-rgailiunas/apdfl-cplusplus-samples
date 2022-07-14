@@ -26,7 +26,7 @@ TextExtract::TextExtract(PDDoc inPDoc,  bool useWordFinder) {
     if (useWordFinder)
     {
         void SetupWordFinderParams();
-        wordFinder = PDDocCreateWordFinderEx(inPDoc, WF_LATEST_VERSION, true, &wfConfig);
+        wordFinder = PDDocCreateWordFinderEx(pDoc, WF_LATEST_VERSION, true, &wfConfig);
     }
     numWords = 0;
 }
@@ -278,4 +278,39 @@ static void enumerateField(CosObj fieldObj, std::string prefix, std::vector<PDAc
             }
         }
     }
+}
+
+//==============================================================================================================================
+// GetAnnotationText() - Gets the Annotation text.
+//==============================================================================================================================
+
+std::vector<PDAnnotationExtractRec> TextExtract::GetAnnotationText() {
+    std::vector<PDAnnotationExtractRec> returnText;
+
+    ASInt32 numPages = PDDocGetNumPages(pDoc);
+    const size_t buffersize = 1000;
+    static char contentBuffer[buffersize];
+    for (ASInt32 pageNum = 0; pageNum < numPages; ++pageNum) {
+        PDPage annotPage = PDDocAcquirePage(pDoc, pageNum);
+
+        int numAnnots = PDPageGetNumAnnots(annotPage);
+
+        // Extract each annotation's text content (if any)
+        for (int annotIndex = 0; annotIndex < numAnnots; ++annotIndex) {
+
+            PDAnnot annotation = PDPageGetAnnot(annotPage, annotIndex);
+            ASAtom subtype = PDAnnotGetSubtype(annotation);
+
+            if (subtype == ASAtomFromString("Text") || subtype == ASAtomFromString("FreeText")) {
+                PDTextAnnot nextAsText = CastToPDTextAnnot(annotation);
+                PDTextAnnotGetContents(nextAsText, contentBuffer, buffersize);
+                PDAnnotationExtractRec record;
+                record.type = ASAtomGetString(subtype);
+                record.text = contentBuffer;
+                returnText.emplace_back(record);
+            }
+        }
+        PDPageRelease(annotPage);
+    }
+    return returnText;
 }

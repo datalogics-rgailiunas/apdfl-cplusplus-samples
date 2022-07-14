@@ -27,12 +27,24 @@
 // https://cplusplus.com/reference/regex/ECMAScript/
 
 // These are samples of what can be done.
-enum regexEnum { PHONE_PATTERN, EMAIL_PATTERN, URL_PATTERN };
+enum regexEnum {
+    PHONE_PATTERN,
+    EMAIL_PATTERN,
+    URL_PATTERN,
+    JAPANESE_PATTERN,
+    FRENCH_PATTERN,
+    KOREAN_PATTERN,
+    RUSSIAN_PATTERN
+};
 
 static std::map<regexEnum, const char *> regexPattern = {
     {PHONE_PATTERN, R"((1-)?(\()?\d{3}(\))?(\s)?(-)?\d{3}-\d{4})"},
     {EMAIL_PATTERN, R"(\b[\w.!#$%&'*+\/=?^`{|}~-]+@[\w-]+(?:\.[\w-]+)*\b)"},
-    {URL_PATTERN, R"((https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}))"}};
+    {URL_PATTERN, R"((https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}))"},
+    {JAPANESE_PATTERN, R"(『世界人権宣言』)"},
+    {FRENCH_PATTERN, R"(Déclaration universelle des droits de l'homme)"},
+    {KOREAN_PATTERN, R"(세 계 인 권 선 언)"},
+    {RUSSIAN_PATTERN, R"(Всеобщая декларация прав человека)"}};
 
 /** Structure representing only the text  */
 typedef struct {
@@ -45,11 +57,17 @@ typedef struct {
     std::vector<ASFixedQuad> boundingQuads;
 } PDTextAndQuadsExtractRec;
 
-/** Structure representing the AcroForm text and the field names */
+/** Structure representing the AcroForm text info */
 typedef struct {
     std::string text;
     std::string fieldName;
 } PDAcroFormExtractRec;
+
+/** Structure representing the Annotation text info */
+typedef struct {
+    std::string type;
+    std::string text;
+} PDAnnotationExtractRec;
 
 class TextExtract {
 
@@ -68,6 +86,7 @@ class TextExtract {
     std::vector<PDTextAndQuadsExtractRec> GetTextAndQuads();
     std::vector<PDTextAndQuadsExtractRec> GetTextAndQuads(ASInt32 pageNum);
     std::vector<PDAcroFormExtractRec> GetAcroFormFieldData();
+    std::vector<PDAnnotationExtractRec> GetAnnotationText();
     void SetupWordFinderParams();
 };
 
