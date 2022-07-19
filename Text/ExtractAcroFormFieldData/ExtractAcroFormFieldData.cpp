@@ -7,7 +7,7 @@
 //  This sample extracts text from the AcroForm fields in a PDF
 //  document and saves the text to a file.
 //
-// For more detail see the description of the ExtractTextByRegion sample program on our Developer’s
+// For more detail see the description of the ExtractAcroFormFieldData sample program on our Developer’s
 // site, http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples
 
 #include <fstream>
@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
         json result = json::array();
 
         // Create the TextExtract object
-        TextExtract textExtract(inAPDoc.getPDDoc(), false);
+        TextExtract textExtract(inAPDoc.getPDDoc());
 
         std::vector<PDAcroFormExtractRec> extractedText = textExtract.GetAcroFormFieldData();
 

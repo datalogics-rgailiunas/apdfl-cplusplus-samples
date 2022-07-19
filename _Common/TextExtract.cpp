@@ -15,20 +15,16 @@
 #include <vector>
 #include <sstream>
 
-static void enumerateField(CosObj fieldObj, std::string prefix, std::vector<PDAcroFormExtractRec> &returnText);
+static void EnumerateAcroFormField(CosObj fieldObj, std::string prefix, std::vector<PDAcroFormExtractRec> &returnText);
 
 //==============================================================================================================================
 // Default Constructor - This creates a new TextExtract object.
 //==============================================================================================================================
 
-TextExtract::TextExtract(PDDoc inPDoc,  bool useWordFinder) {
+TextExtract::TextExtract(PDDoc inPDoc) {
     pDoc = inPDoc;
-    if (useWordFinder)
-    {
-        void SetupWordFinderParams();
-        wordFinder = PDDocCreateWordFinderEx(pDoc, WF_LATEST_VERSION, true, &wfConfig);
-    }
-    numWords = 0;
+    void SetupWordFinderParams();
+    wordFinder = PDDocCreateWordFinderEx(pDoc, WF_LATEST_VERSION, true, &wfConfig);
 }
 
 //==============================================================================================================================
@@ -36,8 +32,7 @@ TextExtract::TextExtract(PDDoc inPDoc,  bool useWordFinder) {
 //==============================================================================================================================
 
 TextExtract::~TextExtract() {
-    if (wordFinder != nullptr)
-    {
+    if (wordFinder != nullptr) {
         PDWordFinderDestroy(wordFinder);
     }
 }
@@ -84,23 +79,9 @@ std::vector<PDTextExtractRec> TextExtract::GetText() {
     ASInt32 numPages = PDDocGetNumPages(pDoc);
 
     for (ASInt32 pageNum = 0; pageNum < numPages; ++pageNum) {
-        PDWordFinderAcquireWordList(wordFinder, pageNum, &wordArray, NULL, NULL, &numWords);
-        for (ASInt32 wordNum = 0; wordNum < numWords; ++wordNum) {
-
-            PDWord pdWord = PDWordFinderGetNthWord(wordFinder, wordNum);
-            ASText asTextWord = ASTextNew();
-            PDWordGetASText(pdWord, 0, asTextWord);
-
-            // Get the endian neutral UTF-8 string.
-            ASUTF8Val *utf8String = reinterpret_cast<ASUTF8Val *>(ASTextGetUnicodeCopy(asTextWord, kUTF8));
-
-            PDTextExtractRec record;
-            record.text = reinterpret_cast<char *>(utf8String);
-            ASTextDestroy(asTextWord);
-            ASfree(utf8String);
-            returnText.emplace_back(record);
-        }
-        PDWordFinderReleaseWordList(wordFinder, pageNum);
+        std::vector<PDTextExtractRec> pageText = GetText(pageNum);
+        returnText.insert(returnText.end(), std::make_move_iterator(pageText.begin()),
+                          std::make_move_iterator(pageText.end()));
     }
     return returnText;
 }
@@ -132,55 +113,30 @@ std::vector<PDTextExtractRec> TextExtract::GetText(ASInt32 pageNum) {
 }
 
 //==============================================================================================================================
-// GetTextAndQuads() - Gets the text and quad info for the entire document.
+// GetTextAndDetails() - Gets the text and detail info for the entire document.
 //==============================================================================================================================
 
-std::vector<PDTextAndQuadsExtractRec> TextExtract::GetTextAndQuads() {
-    std::vector<PDTextAndQuadsExtractRec> returnText;
+std::vector<PDTextAndDetailsExtractRec> TextExtract::GetTextAndDetails() {
+    std::vector<PDTextAndDetailsExtractRec> returnText;
 
     ASInt32 numPages = PDDocGetNumPages(pDoc);
 
     for (ASInt32 pageNum = 0; pageNum < numPages; ++pageNum) {
-        PDWordFinderAcquireWordList(wordFinder, pageNum, &wordArray, NULL, NULL, &numWords);
-        for (ASInt32 wordNum = 0; wordNum < numWords; ++wordNum) {
-
-            PDWord pdWord = PDWordFinderGetNthWord(wordFinder, wordNum);
-            ASText asTextWord = ASTextNew();
-            PDWordGetASText(pdWord, 0, asTextWord);
-
-            // Get the endian neutral UTF-8 string.
-            ASUTF8Val *utf8String = reinterpret_cast<ASUTF8Val *>(ASTextGetUnicodeCopy(asTextWord, kUTF8));
-
-            PDTextAndQuadsExtractRec record;
-            record.text = reinterpret_cast<char *>(utf8String);
-            ASTextDestroy(asTextWord);
-            ASfree(utf8String);
-
-            ASInt32 numQuads = PDWordGetNumQuads(pdWord);
-
-            // A Word typically has only 1 quad, but can have more than one for hyphenated words, words on a curve, etc.
-            for (ASInt32 quadNum = 0; quadNum < numQuads; ++quadNum) {
-                ASFixedQuad wordQuad;
-                PDWordGetNthQuad(pdWord, quadNum, &wordQuad);
-                record.boundingQuads.emplace_back(wordQuad);
-            }
-            returnText.emplace_back(record);
-        }
-        PDWordFinderReleaseWordList(wordFinder, pageNum);
+        std::vector<PDTextAndDetailsExtractRec> pageText = GetTextAndDetails(pageNum);
+        returnText.insert(returnText.end(), std::make_move_iterator(pageText.begin()),
+            std::make_move_iterator(pageText.end()));
     }
     return returnText;
 }
 
 //==============================================================================================================================
-// GetTextAndQuads() - Gets the text and quad info for a specific page.
+// GetTextAndDetails() - Gets the text and detail info for a specific page.
 //==============================================================================================================================
 
-std::vector<PDTextAndQuadsExtractRec> TextExtract::GetTextAndQuads(ASInt32 pageNum) {
-    std::vector<PDTextAndQuadsExtractRec> returnText;
+std::vector<PDTextAndDetailsExtractRec> TextExtract::GetTextAndDetails(ASInt32 pageNum) {
+    std::vector<PDTextAndDetailsExtractRec> returnText;
     PDWordFinderAcquireWordList(wordFinder, pageNum, &wordArray, NULL, NULL, &numWords);
     for (ASInt32 wordNum = 0; wordNum < numWords; ++wordNum) {
-
-        ASFixedQuad wordQuad;
 
         PDWord pdWord = PDWordFinderGetNthWord(wordFinder, wordNum);
         ASText asTextWord = ASTextNew();
@@ -189,7 +145,7 @@ std::vector<PDTextAndQuadsExtractRec> TextExtract::GetTextAndQuads(ASInt32 pageN
         // Get the endian neutral UTF-8 string.
         ASUTF8Val *utf8String = reinterpret_cast<ASUTF8Val *>(ASTextGetUnicodeCopy(asTextWord, kUTF8));
 
-        PDTextAndQuadsExtractRec record;
+        PDTextAndDetailsExtractRec record;
         record.text = reinterpret_cast<char *>(utf8String);
         ASTextDestroy(asTextWord);
         ASfree(utf8String);
@@ -199,8 +155,71 @@ std::vector<PDTextAndQuadsExtractRec> TextExtract::GetTextAndQuads(ASInt32 pageN
         // A Word typically has only 1 quad, but can have more than one for hyphenated words, words on a curve, etc.
         for (ASInt32 quadNum = 0; quadNum < numQuads; ++quadNum) {
 
+            ASFixedQuad wordQuad;
             PDWordGetNthQuad(pdWord, quadNum, &wordQuad);
-            record.boundingQuads.emplace_back(wordQuad);
+            DLQuadFloat floatQuad;
+            floatQuad.bl.h = ASFixedToFloat(wordQuad.bl.h);
+            floatQuad.br.h = ASFixedToFloat(wordQuad.br.h);
+            floatQuad.tl.h = ASFixedToFloat(wordQuad.tl.h);
+            floatQuad.tr.h = ASFixedToFloat(wordQuad.tr.h);
+
+            floatQuad.bl.v = ASFixedToFloat(wordQuad.bl.v);
+            floatQuad.br.v = ASFixedToFloat(wordQuad.br.v);
+            floatQuad.tl.v = ASFixedToFloat(wordQuad.tl.v);
+            floatQuad.tr.v = ASFixedToFloat(wordQuad.tr.v);
+            record.boundingQuads.emplace_back(floatQuad);
+        }
+
+        PDStyle pdStyle;
+        ASInt16 transTbl[100];
+        PDColorValueRec pdStyleColor;
+
+        ASInt16 iRet = PDWordGetStyleTransition(pdWord, transTbl, 100);
+        if (iRet) {
+            for (int i = 0; i < iRet; ++i) {
+                DLStyle dlstyle;
+                pdStyle = PDWordGetNthCharStyle(wordFinder, pdWord, i);
+                PDStyleGetColor(pdStyle, &pdStyleColor);
+                switch (pdStyleColor.space) {
+                case PDDeviceGray:
+                    dlstyle.colorValues.DLSpace = "DeviceGray";
+                    break;
+                case PDDeviceRGB:
+                    dlstyle.colorValues.DLSpace = "DeviceRGB";
+                    break;
+                case PDDeviceCMYK:
+                    dlstyle.colorValues.DLSpace = "DeviceCMYK";
+                    break;
+                default:
+                    dlstyle.colorValues.DLSpace = "Invalid";
+                }
+
+                dlstyle.colorValues.DLColor[0] = pdStyleColor.value[0];
+                dlstyle.colorValues.DLColor[1] = pdStyleColor.value[1];
+                dlstyle.colorValues.DLColor[2] = pdStyleColor.value[2];
+                dlstyle.colorValues.DLColor[3] = pdStyleColor.value[3];
+
+                dlstyle.fontsize = ASFixedToFloat(PDStyleGetFontSize(pdStyle));
+
+                PDFont pdFont = PDStyleGetFont(pdStyle);
+                char fontNameBuf[PSNAMESIZE];
+                PDFontGetName(pdFont, fontNameBuf, PSNAMESIZE);
+                ASBool fontEmbedded = PDFontIsEmbedded(pdFont);
+                ASBool fontSubset = false;
+                char *fontNameStart = 0;
+                // Subset test: a font was subset if the 7th character is '+' (a plus-sign),
+                // according to Acrobat/Reader and industry norms.
+                if (fontEmbedded) {
+                    if ((strlen(fontNameBuf)) > 7 && (fontNameBuf[6] == '+'))
+                        fontSubset = true;
+                }
+                if (fontSubset)
+                    fontNameStart = fontNameBuf + 7; // skip the "ABCDEF+"
+                else
+                    fontNameStart = fontNameBuf;
+                dlstyle.fontname = fontNameStart;
+                record.styles.emplace_back(dlstyle);
+            }
         }
         returnText.emplace_back(record);
     }
@@ -225,14 +244,14 @@ std::vector<PDAcroFormExtractRec> TextExtract::GetAcroFormFieldData() {
         } else {
             for (ASInt32 fieldIndex = 0; fieldIndex < CosArrayLength(fieldsObj); ++fieldIndex) {
                 CosObj fieldObj = CosArrayGet(fieldsObj, fieldIndex);
-                enumerateField(fieldObj, "", returnText);
+                EnumerateAcroFormField(fieldObj, "", returnText);
             }
         }
     }
     return returnText;
 }
 
-static void enumerateField(CosObj fieldObj, std::string prefix, std::vector<PDAcroFormExtractRec> &returnText) {
+static void EnumerateAcroFormField(CosObj fieldObj, std::string prefix, std::vector<PDAcroFormExtractRec> &returnText) {
 
     std::string field_name;
     ASTCount textLength;
@@ -244,8 +263,7 @@ static void enumerateField(CosObj fieldObj, std::string prefix, std::vector<PDAc
                 std::string name_part(CosStringValue(entryObj, &textLength));
                 if (prefix == "") {
                     field_name = name_part;
-                }
-                else {
+                } else {
                     std::ostringstream stringStream;
                     stringStream << prefix << "." << name_part;
                     field_name = stringStream.str();
@@ -255,7 +273,7 @@ static void enumerateField(CosObj fieldObj, std::string prefix, std::vector<PDAc
                 if (CosObjGetType(kidsObj) == CosArray) {
                     for (ASInt32 kidIndex = 0; kidIndex < CosArrayLength(kidsObj); ++kidIndex) {
                         CosObj fieldObj = CosArrayGet(kidsObj, kidIndex);
-                        enumerateField(fieldObj, field_name, returnText);
+                        EnumerateAcroFormField(fieldObj, field_name, returnText);
                     }
                 }
 

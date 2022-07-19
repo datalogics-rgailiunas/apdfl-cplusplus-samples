@@ -27,7 +27,7 @@ const float DEF_RIGHT = 576;  // right
 const float DEF_BOTTOM = 694; // bottom
 const float DEF_TOP = 710;    // top
 
-bool CheckWithinRegion(ASFixedQuad wordQuad);
+bool CheckWithinRegion(DLQuadFloat wordQuad);
 
 int main(int argc, char **argv) {
 
@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
 
         TextExtract textExtract(inAPDoc.getPDDoc());
 
-        std::vector<PDTextAndQuadsExtractRec> extractedText = textExtract.GetTextAndQuads();
+        std::vector<PDTextAndDetailsExtractRec> extractedText = textExtract.GetTextAndDetails();
 
         for (ASInt32 textIndex = 0; textIndex < extractedText.size(); ++textIndex) {
 
@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
             // A Word typically has only 1 quad, but can have more than one for hyphenated words, words on a curve, etc.
             for (ASInt32 quadIndex = 0; quadIndex < extractedText[textIndex].boundingQuads.size(); ++quadIndex) {
 
-                ASFixedQuad wordQuad = extractedText[textIndex].boundingQuads[quadIndex];
+                DLQuadFloat wordQuad = extractedText[textIndex].boundingQuads[quadIndex];
                 if (!CheckWithinRegion(wordQuad)) {
                     allQuadsWithinRegion = false;
                 }
@@ -76,18 +76,12 @@ int main(int argc, char **argv) {
 
 // For this sample, we will consider a Word to be in the region of interest if the
 // complete Word fits within the specified rectangular box
-bool CheckWithinRegion(ASFixedQuad wordQuad) {
+bool CheckWithinRegion(DLQuadFloat wordQuad) {
 
-    // Need to convert the region to ASFixed for comparison
-    ASFixed userTargetRegionFixedL = FloatToASFixed(DEF_LEFT);
-    ASFixed userTargetRegionFixedB = FloatToASFixed(DEF_BOTTOM);
-    ASFixed userTargetRegionFixedR = FloatToASFixed(DEF_RIGHT);
-    ASFixed userTargetRegionFixedT = FloatToASFixed(DEF_TOP);
-
-    if (wordQuad.bl.h >= userTargetRegionFixedL && wordQuad.br.h <= userTargetRegionFixedR &&
-        wordQuad.tl.h >= userTargetRegionFixedL && wordQuad.tr.h <= userTargetRegionFixedR &&
-        wordQuad.bl.v >= userTargetRegionFixedB && wordQuad.tl.v <= userTargetRegionFixedT &&
-        wordQuad.br.v >= userTargetRegionFixedB && wordQuad.tr.v <= userTargetRegionFixedT) {
+    if (wordQuad.bl.h >= DEF_LEFT && wordQuad.br.h <= DEF_RIGHT &&
+        wordQuad.tl.h >= DEF_LEFT && wordQuad.tr.h <= DEF_RIGHT &&
+        wordQuad.bl.v >= DEF_BOTTOM && wordQuad.tl.v <= DEF_TOP &&
+        wordQuad.br.v >= DEF_BOTTOM && wordQuad.tr.v <= DEF_TOP) {
 
         return true;
     }

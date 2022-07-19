@@ -46,16 +46,37 @@ static std::map<regexEnum, const char *> regexPattern = {
     {KOREAN_PATTERN, R"(세 계 인 권 선 언)"},
     {RUSSIAN_PATTERN, R"(Всеобщая декларация прав человека)"}};
 
+typedef struct {
+    float h;
+    float v;
+} DLPointFloat, *DLPointFloatP;
+
+typedef struct {
+    DLPointFloat tl, tr, bl, br;
+} DLQuadFloat, *DLQuadFloatP;
+
+typedef struct {
+    std::string DLSpace;
+    int DLColor[4];
+} DLColorValue, *DLColorValueP;
+
+typedef struct {
+    float fontsize;
+    std::string fontname;
+    DLColorValue colorValues;
+} DLStyle, *DLStyleP;
+
 /** Structure representing only the text  */
 typedef struct {
     std::string text;
 } PDTextExtractRec;
 
-/** Structure representing the text and the quads */
+/** Structure representing the text and details */
 typedef struct {
     std::string text;
-    std::vector<ASFixedQuad> boundingQuads;
-} PDTextAndQuadsExtractRec;
+    std::vector<DLQuadFloat> boundingQuads;
+    std::vector<DLStyle> styles;
+} PDTextAndDetailsExtractRec;
 
 /** Structure representing the AcroForm text info */
 typedef struct {
@@ -79,12 +100,12 @@ class TextExtract {
     PDWord wordArray = nullptr;
 
   public:
-    TextExtract(PDDoc inPDoc, bool useWordFinder = true);
+    TextExtract(PDDoc inPDoc);
     ~TextExtract();
     std::vector<PDTextExtractRec> GetText();
     std::vector<PDTextExtractRec> GetText(ASInt32 pageNum);
-    std::vector<PDTextAndQuadsExtractRec> GetTextAndQuads();
-    std::vector<PDTextAndQuadsExtractRec> GetTextAndQuads(ASInt32 pageNum);
+    std::vector<PDTextAndDetailsExtractRec> GetTextAndDetails();
+    std::vector<PDTextAndDetailsExtractRec> GetTextAndDetails(ASInt32 pageNum);
     std::vector<PDAcroFormExtractRec> GetAcroFormFieldData();
     std::vector<PDAnnotationExtractRec> GetAnnotationText();
     void SetupWordFinderParams();
