@@ -360,6 +360,11 @@ cd ../../Text/ExtractTextByPatternMatch
 ./ExtractTextByPatternMatch-${stage}.app/Contents/MacOS/ExtractTextByPatternMatch-${stage}
 echo ""
 
+echo Running sample ExtractCJKTextByPatternMatch
+cd ../../Text/ExtractCJKTextByPatternMatch
+./ExtractCJKTextByPatternMatch-${stage}.app/Contents/MacOS/ExtractCJKTextByPatternMatch-${stage}
+echo ""
+
 echo Running sample ExtractTextByRegion
 cd ../../Text/ExtractTextByRegion
 ./ExtractTextByRegion-${stage}.app/Contents/MacOS/ExtractTextByRegion-${stage}
@@ -369,5 +374,11 @@ echo Running sample ExtractAcroFormFieldData
 cd ../../Text/ExtractAcroFormFieldData
 ./ExtractAcroFormFieldData-${stage}.app/Contents/MacOS/ExtractAcroFormFieldData-${stage}
 echo ""
+
+echo Running sample ExtractTextFromAnnotations
+cd ../../Text/ExtractTextFromAnnotations
+./ExtractTextFromAnnotations-${stage}.app/Contents/MacOS/ExtractTextFromAnnotations-${stage}
+echo ""
+
 echo All Datalogics samples are finished running.
 

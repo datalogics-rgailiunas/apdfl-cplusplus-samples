@@ -176,9 +176,10 @@ std::vector<PDTextAndDetailsExtractRec> TextExtract::GetTextAndDetails(ASInt32 p
 
         ASInt16 iRet = PDWordGetStyleTransition(pdWord, transTbl, 100);
         if (iRet) {
-            for (int i = 0; i < iRet; ++i) {
+            for (int styleIndex = 0; styleIndex < iRet; ++styleIndex) {
                 DLStyle dlstyle;
-                pdStyle = PDWordGetNthCharStyle(wordFinder, pdWord, i);
+                dlstyle.charIndex = transTbl[styleIndex];
+                pdStyle = PDWordGetNthCharStyle(wordFinder, pdWord, styleIndex);
                 PDStyleGetColor(pdStyle, &pdStyleColor);
                 switch (pdStyleColor.space) {
                 case PDDeviceGray:

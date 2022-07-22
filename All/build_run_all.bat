@@ -194,7 +194,9 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Text\InsertHeadFoot"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Text\ExtractText"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Text\ExtractAcroFormFieldData"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Text\ExtractTextByPatternMatch"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Text\ExtractCJKTextByPatternMatch"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Text\ExtractTextByRegion"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Text\ExtractTextFromAnnotations"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Text\AddText"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Text\UnicodeText"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Text\HelloJapan"
@@ -226,7 +228,7 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% InformationExtraction\ExtractDocumentInfo"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FileSystem\AlternateFileSystem"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
 REM *** The total number of DL samples. This must be accurate!
-SET /A "NUM_DL_SAMPLES=65"
+SET /A "NUM_DL_SAMPLES=67"
 
 REM *** Di iterates over Datalogics samples. Do not change this value.
 SET /A "Di=0"

@@ -60,6 +60,8 @@ SAMPLES = Annotations/CreateAnnotations \
           Text/AddText \
           Text/ExtractText \
           Text/ExtractAcroFormFieldData \
+          Text/ExtractTextFromAnnotations \
+          Text/ExtractTextByRegion \
           Text/HelloJapan \
           Text/InsertHeadFoot \
           Text/TextSearch \
@@ -71,6 +73,7 @@ ifneq ($(findstring i80386linux,$(OS)), )
     SAMPLES += Text/RegexTextSearch
     SAMPLES += Text/RegexExtractText
     SAMPLES += Text/ExtractTextByPatternMatch
+    SAMPLES += Text/ExtractCJKTextByPatternMatch
 endif
 
 ifeq ($(findstring rs6000aix,$(OS)), )

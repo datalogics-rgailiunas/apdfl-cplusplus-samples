@@ -61,6 +61,7 @@ typedef struct {
 } DLColorValue, *DLColorValueP;
 
 typedef struct {
+    int charIndex;
     float fontsize;
     std::string fontname;
     DLColorValue colorValues;

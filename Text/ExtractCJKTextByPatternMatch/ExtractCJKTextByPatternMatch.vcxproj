@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{39C2FB34-1490-4C14-BDF0-70FE2DAD0E3A}</ProjectGuid>
+    <ProjectGuid>{B771E984-28C1-4AA5-A314-55990D911D47}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BlankSample</RootNamespace>
     <ProjectName>ExtractTextByPatternMatch</ProjectName>

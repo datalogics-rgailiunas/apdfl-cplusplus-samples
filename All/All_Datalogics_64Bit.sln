@@ -141,6 +141,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractTextByRegion", "..\T
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractAcroFormFieldData", "..\Text\ExtractAcroFormFieldData\ExtractAcroFormFieldData.vcxproj", "{94548DD9-07E2-4369-99E1-DAB154831ACE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractTextByPatternMatch", "..\Text\ExtractCJKTextByPatternMatch\ExtractCJKTextByPatternMatch.vcxproj", "{B771E984-28C1-4AA5-A314-55990D911D47}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractTextFromAnnotations", "..\Text\ExtractTextFromAnnotations\ExtractTextFromAnnotations.vcxproj", "{297E1C66-E057-418A-BE8A-CEDC21C05B6F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExtractTextPreservingStyleAndPositionInfo", "..\Text\ExtractTextPreservingStyleAndPositionInfo\ExtractTextPreservingStyleAndPositionInfo.vcxproj", "{FABA1884-726F-4017-A31A-1A3045EED832}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -419,6 +425,18 @@ Global
 		{94548DD9-07E2-4369-99E1-DAB154831ACE}.Debug|x64.Build.0 = Debug|x64
 		{94548DD9-07E2-4369-99E1-DAB154831ACE}.Release|x64.ActiveCfg = Release|x64
 		{94548DD9-07E2-4369-99E1-DAB154831ACE}.Release|x64.Build.0 = Release|x64
+		{B771E984-28C1-4AA5-A314-55990D911D47}.Debug|x64.ActiveCfg = Debug|x64
+		{B771E984-28C1-4AA5-A314-55990D911D47}.Debug|x64.Build.0 = Debug|x64
+		{B771E984-28C1-4AA5-A314-55990D911D47}.Release|x64.ActiveCfg = Release|x64
+		{B771E984-28C1-4AA5-A314-55990D911D47}.Release|x64.Build.0 = Release|x64
+		{297E1C66-E057-418A-BE8A-CEDC21C05B6F}.Debug|x64.ActiveCfg = Debug|x64
+		{297E1C66-E057-418A-BE8A-CEDC21C05B6F}.Debug|x64.Build.0 = Debug|x64
+		{297E1C66-E057-418A-BE8A-CEDC21C05B6F}.Release|x64.ActiveCfg = Release|x64
+		{297E1C66-E057-418A-BE8A-CEDC21C05B6F}.Release|x64.Build.0 = Release|x64
+		{FABA1884-726F-4017-A31A-1A3045EED832}.Debug|x64.ActiveCfg = Debug|x64
+		{FABA1884-726F-4017-A31A-1A3045EED832}.Debug|x64.Build.0 = Debug|x64
+		{FABA1884-726F-4017-A31A-1A3045EED832}.Release|x64.ActiveCfg = Release|x64
+		{FABA1884-726F-4017-A31A-1A3045EED832}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

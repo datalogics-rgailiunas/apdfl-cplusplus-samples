@@ -125,8 +125,10 @@ declare -a DL_SAMPLE_LIST=( \
   "Text/RegexTextSearch" \
   "Text/RegexExtractText" \
   "Text/ExtractTextByPatternMatch" \
+  "Text/ExtractCJKTextByPatternMatch" \
   "Text/ExtractTextByRegion" \
-  "Text/ExtractAcroFormFieldData"
+  "Text/ExtractAcroFormFieldData" \
+  "Text/ExtractTextFromAnnotations"
 )
 
 cd ..
