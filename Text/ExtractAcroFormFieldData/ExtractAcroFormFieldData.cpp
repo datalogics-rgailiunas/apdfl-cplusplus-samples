@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
 
         std::vector<PDAcroFormExtractRec> extractedText = textExtract.GetAcroFormFieldData();
 
-        for (ASInt32 textIndex = 0; textIndex < extractedText.size(); ++textIndex)
+        for (size_t textIndex = 0; textIndex < extractedText.size(); ++textIndex)
         {
             json textObject = json::object();
 

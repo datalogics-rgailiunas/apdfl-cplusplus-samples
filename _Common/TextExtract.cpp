@@ -195,10 +195,10 @@ std::vector<PDTextAndDetailsExtractRec> TextExtract::GetTextAndDetails(ASInt32 p
                     dlstyle.colorValues.DLSpace = "Invalid";
                 }
 
-                dlstyle.colorValues.DLColor[0] = pdStyleColor.value[0];
-                dlstyle.colorValues.DLColor[1] = pdStyleColor.value[1];
-                dlstyle.colorValues.DLColor[2] = pdStyleColor.value[2];
-                dlstyle.colorValues.DLColor[3] = pdStyleColor.value[3];
+                dlstyle.colorValues.DLColor[0] = ASFixedToFloat(pdStyleColor.value[0]);
+                dlstyle.colorValues.DLColor[1] = ASFixedToFloat(pdStyleColor.value[1]);
+                dlstyle.colorValues.DLColor[2] = ASFixedToFloat(pdStyleColor.value[2]);
+                dlstyle.colorValues.DLColor[3] = ASFixedToFloat(pdStyleColor.value[3]);
 
                 dlstyle.fontsize = ASFixedToFloat(PDStyleGetFontSize(pdStyle));
 

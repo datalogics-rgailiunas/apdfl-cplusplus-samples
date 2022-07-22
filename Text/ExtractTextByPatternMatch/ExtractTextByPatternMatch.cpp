@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
 
         // Iterate over the matches that were found by PDDocTextFinder and print them out in the
         // output file.
-        for (ASUns32 matchInstance = 0; matchInstance < matchList.numMatches; ++matchInstance) {
+        for (size_t matchInstance = 0; matchInstance < matchList.numMatches; ++matchInstance) {
 
             PDDocTextFinderMatchRec match = matchList.matches[matchInstance];
 

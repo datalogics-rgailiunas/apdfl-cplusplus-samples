@@ -66,11 +66,11 @@ void SaveJson(std::vector<PDTextAndDetailsExtractRec> extractedText)
     // This array will hold the JSON stream that we will print to the output JSON file.
     json result = json::array();
 
-    for (ASInt32 textIndex = 0; textIndex < extractedText.size(); ++textIndex) {
+    for (size_t textIndex = 0; textIndex < extractedText.size(); ++textIndex) {
 
         json textObject = json::object();
         textObject["text"] = extractedText[textIndex].text;
-        for (int quadIndex = 0; quadIndex < extractedText[textIndex].boundingQuads.size(); ++quadIndex) {
+        for (size_t quadIndex = 0; quadIndex < extractedText[textIndex].boundingQuads.size(); ++quadIndex) {
             json quadPointValues = json::array();
             quadPointValues.push_back(std::to_string(extractedText[textIndex].boundingQuads[quadIndex].tl.h));
             quadPointValues.push_back(std::to_string(extractedText[textIndex].boundingQuads[quadIndex].tl.v));
@@ -93,14 +93,14 @@ void SaveJson(std::vector<PDTextAndDetailsExtractRec> extractedText)
             quadPointValues.clear();
         }
         json styles = json::array();
-        for (int styleIndex = 0; styleIndex < extractedText[textIndex].styles.size(); ++styleIndex) {
+        for (size_t styleIndex = 0; styleIndex < extractedText[textIndex].styles.size(); ++styleIndex) {
             json styleObject = json::object();
             styleObject["char-index"] = extractedText[textIndex].styles[styleIndex].charIndex;
             styleObject["font-name"] = extractedText[textIndex].styles[styleIndex].fontname;
             styleObject["font-size"] = std::to_string(extractedText[textIndex].styles[styleIndex].fontsize);
             styleObject["color-space"] = extractedText[textIndex].styles[styleIndex].colorValues.DLSpace;
             json colorValues = json::array();
-            for (int colorIndex = 0; colorIndex < 4; ++colorIndex) {
+            for (size_t colorIndex = 0; colorIndex < 4; ++colorIndex) {
                 colorValues.push_back(extractedText[textIndex].styles[styleIndex].colorValues.DLColor[colorIndex]);
             }
             styleObject["color-values"] = colorValues;
