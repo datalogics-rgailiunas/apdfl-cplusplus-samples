@@ -13,6 +13,7 @@
 
 #include <fstream>
 #include <string>
+#include <sstream>
 
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
@@ -61,6 +62,16 @@ int main(int argc, char **argv) {
     return errCode;
 }
 
+//  Helper function to set decimal precision in JSON file
+std::string to_string_with_precision(float a_value, const int n = 2)
+{
+    std::ostringstream out;
+    out.precision(n);
+    out << std::fixed << a_value;
+    return out.str();
+}
+
+// Create JSON file of results
 void SaveJson(std::vector<PDTextAndDetailsExtractRec> extractedText)
 {
     // This array will hold the JSON stream that we will print to the output JSON file.
@@ -72,23 +83,23 @@ void SaveJson(std::vector<PDTextAndDetailsExtractRec> extractedText)
         textObject["text"] = extractedText[textIndex].text;
         for (size_t quadIndex = 0; quadIndex < extractedText[textIndex].boundingQuads.size(); ++quadIndex) {
             json quadPointValues = json::array();
-            quadPointValues.push_back(std::to_string(extractedText[textIndex].boundingQuads[quadIndex].tl.h));
-            quadPointValues.push_back(std::to_string(extractedText[textIndex].boundingQuads[quadIndex].tl.v));
+            quadPointValues.push_back(to_string_with_precision(extractedText[textIndex].boundingQuads[quadIndex].tl.h));
+            quadPointValues.push_back(to_string_with_precision(extractedText[textIndex].boundingQuads[quadIndex].tl.v));
             textObject["quad"]["top-left"] = quadPointValues;
             quadPointValues.clear();
 
-            quadPointValues.push_back(std::to_string(extractedText[textIndex].boundingQuads[quadIndex].tr.h));
-            quadPointValues.push_back(std::to_string(extractedText[textIndex].boundingQuads[quadIndex].tr.v));
+            quadPointValues.push_back(to_string_with_precision(extractedText[textIndex].boundingQuads[quadIndex].tr.h));
+            quadPointValues.push_back(to_string_with_precision(extractedText[textIndex].boundingQuads[quadIndex].tr.v));
             textObject["quad"]["top-right"] = quadPointValues;
             quadPointValues.clear();
 
-            quadPointValues.push_back(std::to_string(extractedText[textIndex].boundingQuads[quadIndex].bl.h));
-            quadPointValues.push_back(std::to_string(extractedText[textIndex].boundingQuads[quadIndex].bl.v));
+            quadPointValues.push_back(to_string_with_precision(extractedText[textIndex].boundingQuads[quadIndex].bl.h));
+            quadPointValues.push_back(to_string_with_precision(extractedText[textIndex].boundingQuads[quadIndex].bl.v));
             textObject["quad"]["bottom-left"] = quadPointValues;
             quadPointValues.clear();
 
-            quadPointValues.push_back(std::to_string(extractedText[textIndex].boundingQuads[quadIndex].br.h));
-            quadPointValues.push_back(std::to_string(extractedText[textIndex].boundingQuads[quadIndex].br.v));
+            quadPointValues.push_back(to_string_with_precision(extractedText[textIndex].boundingQuads[quadIndex].br.h));
+            quadPointValues.push_back(to_string_with_precision(extractedText[textIndex].boundingQuads[quadIndex].br.v));
             textObject["quad"]["bottom-right"] = quadPointValues;
             quadPointValues.clear();
         }
@@ -97,7 +108,7 @@ void SaveJson(std::vector<PDTextAndDetailsExtractRec> extractedText)
             json styleObject = json::object();
             styleObject["char-index"] = extractedText[textIndex].styles[styleIndex].charIndex;
             styleObject["font-name"] = extractedText[textIndex].styles[styleIndex].fontname;
-            styleObject["font-size"] = std::to_string(extractedText[textIndex].styles[styleIndex].fontsize);
+            styleObject["font-size"] = to_string_with_precision(extractedText[textIndex].styles[styleIndex].fontsize);
             styleObject["color-space"] = extractedText[textIndex].styles[styleIndex].colorValues.DLSpace;
             json colorValues = json::array();
             for (size_t colorIndex = 0; colorIndex < 4; ++colorIndex) {
