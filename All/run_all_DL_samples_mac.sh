@@ -370,6 +370,11 @@ cd ../../Text/ExtractTextByRegion
 ./ExtractTextByRegion-${stage}.app/Contents/MacOS/ExtractTextByRegion-${stage}
 echo ""
 
+echo Running sample ExtractTextFromMultiRegions
+cd ../../Text/ExtractTextFromMultiRegions
+./ExtractTextFromMultiRegions-${stage}.app/Contents/MacOS/ExtractTextFromMultiRegions-${stage}
+echo ""
+
 echo Running sample ExtractAcroFormFieldData
 cd ../../Text/ExtractAcroFormFieldData
 ./ExtractAcroFormFieldData-${stage}.app/Contents/MacOS/ExtractAcroFormFieldData-${stage}

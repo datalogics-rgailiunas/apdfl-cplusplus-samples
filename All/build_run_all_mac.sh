@@ -127,6 +127,7 @@ declare -a DL_SAMPLE_LIST=( \
   "Text/ExtractTextByPatternMatch" \
   "Text/ExtractCJKTextByPatternMatch" \
   "Text/ExtractTextByRegion" \
+  "Text/ExtractTextFromMultiRegions" \
   "Text/ExtractAcroFormFieldData" \
   "Text/ExtractTextFromAnnotations"
 )

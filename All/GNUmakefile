@@ -62,6 +62,7 @@ SAMPLES = Annotations/CreateAnnotations \
           Text/ExtractAcroFormFieldData \
           Text/ExtractTextFromAnnotations \
           Text/ExtractTextByRegion \
+          Text/ExtractTextFromMultiRegions \
           Text/HelloJapan \
           Text/InsertHeadFoot \
           Text/TextSearch \
