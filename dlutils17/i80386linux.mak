@@ -1,5 +1,10 @@
-CC = /opt/rh/llvm-toolset-7/root/usr/bin/clang
-CXX = /opt/rh/llvm-toolset-7/root/usr/bin/clang++
+ifeq ($(BUILD_64_BIT), true)
+    CC = LD_LIBRARY_PATH=/opt/rh/llvm-toolset-7.0/root/usr/lib64 /opt/rh/llvm-toolset-7.0/root/usr/bin/clang
+    CXX = LD_LIBRARY_PATH=/opt/rh/llvm-toolset-7.0/root/usr/lib64 /opt/rh/llvm-toolset-7.0/root/usr/bin/clang++
+else
+    CC = LD_LIBRARY_PATH=/opt/rh/llvm-toolset-7.0/root/usr/lib /opt/rh/llvm-toolset-7.0/root/usr/bin/clang
+    CXX = LD_LIBRARY_PATH=/opt/rh/llvm-toolset-7.0/root/usr/lib /opt/rh/llvm-toolset-7.0/root/usr/bin/clang++
+endif
 
 ifeq ($(STAGE), debug)
     DEBUG=-DDEBUG -D_DEBUG
@@ -20,4 +25,4 @@ CXXFLAGS = -std=c++17 $(CCFLAGS)
 LDFLAGS = $(ARCH_FLAGS) -Wl,-rpath,\$${ORIGIN}/$(PDFL_PATH) -L$(PDFL_PATH)
 LIBS = -lDL180pdfl -lDL180CoolType -lDL180AGM -lDL180BIB -lDL180ACE -lDL180ARE \
 	   -lDL180BIBUtils -lDL180JP2K -lDL180AdobeXMP -lDL180AXE8SharedExpat \
-	   -licuuc -licudata -lpthread
+	   -licuuc -licudata -lpthread -lstdc++fs
