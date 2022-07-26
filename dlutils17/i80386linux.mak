@@ -1,3 +1,5 @@
+CC = /opt/rh/llvm-toolset-7/root/usr/bin/clang
+CXX = /opt/rh/llvm-toolset-7/root/usr/bin/clang++
 
 ifeq ($(STAGE), debug)
     DEBUG=-DDEBUG -D_DEBUG
@@ -13,7 +15,7 @@ endif
 
 CCFLAGS  = $(ARCH_FLAGS) -g $(PDF_FDIR_DEF) -DNO_PRAGMA_ONCE -DUNIX_PLATFORM=1 -DUNIX_ENV=1 -DPRODUCT=\"HFTLibrary.h\" $(DEBUG) -D_REENTRANT -Wno-multichar -DPDFL_SDK_SAMPLE -DPI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6 -DTOOLKIT
 
-CXXFLAGS = -std=c++11 $(CCFLAGS)
+CXXFLAGS = -std=c++17 $(CCFLAGS)
 
 LDFLAGS = $(ARCH_FLAGS) -Wl,-rpath,\$${ORIGIN}/$(PDFL_PATH) -L$(PDFL_PATH)
 LIBS = -lDL180pdfl -lDL180CoolType -lDL180AGM -lDL180BIB -lDL180ACE -lDL180ARE \
