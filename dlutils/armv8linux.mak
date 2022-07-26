@@ -13,6 +13,7 @@ CCFLAGS += -DPDFL_SDK_SAMPLE -DPI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6 -DTOO
 
 CXXFLAGS = -std=c++17 $(CCFLAGS)
 CXXFLAGS += -Wno-write-strings
+CXXFLAGS += -std=c++11
 
 LD = $(CXX)
 
