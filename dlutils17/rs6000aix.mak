@@ -1,6 +1,6 @@
 # Change these to match your local environment
-CC = /opt/IBM/xlC/16.1.0/bin/xlclang
-CXX = /opt/IBM/xlC/16.1.0/bin/xlclang++
+CC = /opt/freeware/bin/gcc
+CXX = /opt/freeware/bin/g++
 
 EXTRA_LIBS=-ldl
 
