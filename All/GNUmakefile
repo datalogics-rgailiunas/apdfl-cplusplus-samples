@@ -77,9 +77,6 @@ ifneq ($(findstring i80386linux,$(OS)), )
     SAMPLES += Text/ExtractCJKTextByPatternMatch
 endif
 
-ifeq ($(findstring rs6000aix,$(OS)), )
-    SAMPLES +=  Text/ExtractTextByRegion
-endif
 
 ifeq ($(findstring rs6000aix,$(OS)), )
 ifeq ($(findstring mac,$(OS)), )

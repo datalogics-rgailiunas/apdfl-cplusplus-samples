@@ -16,8 +16,8 @@ CPP_DEFINES = $(PDF_FDIR_DEF) -DUNIX_PLATFORM=1 -DUNIX_ENV=1 -DPRODUCT=\"HFTLibr
  -DNO_PRAGMA_ONCE -DPDFL_SDK_SAMPLE -DPI_ACROCOLOR_VERSION=AcroColorHFT_VERSION_6
 
 
-CCFLAGS = -g -Wno-multichar -DAIX_GCC_COMPAT $(CPP_DEFINES) -D_ALL_SOURCE -D_POSIX_SOURCE $(DEBUG) -DRS6000AIX -pthread
-CXXFLAGS = -g -Wno-multichar -DAIX_GCC_COMPAT $(CPP_DEFINES) -D_ALL_SOURCE -D_POSIX_SOURCE $(DEBUG) -pthread
+CCFLAGS = -g -Wno-multichar -DAIX_GCC_COMPAT $(CPP_DEFINES) -D_ALL_SOURCE -D_POSIX_SOURCE $(DEBUG) -DRS6000AIX -pthread -std=c++17
+CXXFLAGS = -g -Wno-multichar -DAIX_GCC_COMPAT $(CPP_DEFINES) -D_ALL_SOURCE -D_POSIX_SOURCE $(DEBUG) -pthread -std=c++17
 
 # -bnoipath tells the loader to strip the absolute or relative path
 # information from the shared library name when it is added to the
@@ -32,4 +32,4 @@ CXXFLAGS += -maix64
 LDFLAGS += -maix64
 endif
 
-LIBS = -L$(PDFL_PATH) -lDL180pdfl -lDL180CoolType -lDL180AGM -lDL180BIB -lDL180ACE -lDL180ARE -lDL180BIBUtils -lDL180JP2K -lDL180AdobeXMP -lDL180AXE8SharedExpat -lpthread
+LIBS = -L$(PDFL_PATH) -lDL180pdfl -lDL180CoolType -lDL180AGM -lDL180BIB -lDL180ACE -lDL180ARE -lDL180BIBUtils -lDL180JP2K -lDL180AdobeXMP -lDL180AXE8SharedExpat -lpthread -lstdc++fs
