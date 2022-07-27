@@ -1,10 +1,5 @@
-ifeq ($(BUILD_64_BIT), true)
-    CC = LD_LIBRARY_PATH=/opt/rh/llvm-toolset-7.0/root/usr/lib64 /opt/rh/llvm-toolset-7.0/root/usr/bin/clang
-    CXX = LD_LIBRARY_PATH=/opt/rh/llvm-toolset-7.0/root/usr/lib64 /opt/rh/llvm-toolset-7.0/root/usr/bin/clang++
-else
-    CC = LD_LIBRARY_PATH=/opt/rh/llvm-toolset-7.0/root/usr/lib /opt/rh/llvm-toolset-7.0/root/usr/bin/clang
-    CXX = LD_LIBRARY_PATH=/opt/rh/llvm-toolset-7.0/root/usr/lib /opt/rh/llvm-toolset-7.0/root/usr/bin/clang++
-endif
+CC = LD_LIBRARY_PATH=/opt/rh/llvm-toolset-7.0/root/usr/lib64 /opt/rh/llvm-toolset-7.0/root/usr/bin/clang
+CXX = LD_LIBRARY_PATH=/opt/rh/llvm-toolset-7.0/root/usr/lib64 /opt/rh/llvm-toolset-7.0/root/usr/bin/clang++
 
 ifeq ($(STAGE), debug)
     DEBUG=-DDEBUG -D_DEBUG

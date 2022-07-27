@@ -51,6 +51,7 @@ SAMPLES = Annotations/CreateAnnotations \
           Printing/PostScriptInjection \
           Security/AddPassword \
           Security/AddRedaction \
+          Security/AddRegexRedaction \
           Security/AddTriangularRedaction \
           Security/AESEncryption \
           Security/EncryptDocument \
@@ -62,7 +63,10 @@ SAMPLES = Annotations/CreateAnnotations \
           Text/ExtractAcroFormFieldData \
           Text/ExtractTextFromAnnotations \
           Text/ExtractTextByRegion \
-          Text/ExtractTextFromMultiRegions \
+          Text/RegexTextSearch \
+          Text/RegexExtractText \
+          Text/ExtractTextByPatternMatch \
+          Text/ExtractCJKTextByPatternMatch \
           Text/HelloJapan \
           Text/InsertHeadFoot \
           Text/TextSearch \
@@ -70,11 +74,9 @@ SAMPLES = Annotations/CreateAnnotations \
           Text/UnicodeText
 
 ifneq ($(findstring i80386linux,$(OS)), )
-    SAMPLES += Security/AddRegexRedaction
-    SAMPLES += Text/RegexTextSearch
-    SAMPLES += Text/RegexExtractText
-    SAMPLES += Text/ExtractTextByPatternMatch
-    SAMPLES += Text/ExtractCJKTextByPatternMatch
+ifeq ($(BUILD_64_BIT), true)
+    SAMPLES += Text/ExtractTextFromMultiRegions
+endif
 endif
 
 
