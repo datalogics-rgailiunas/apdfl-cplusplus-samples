@@ -163,7 +163,7 @@ int main(int argc, char **argv) {
 
             numZoomBookmarks = 4;
             PDBookmark zoomBookmarks[] = {zoom100, zoom200, zoom800, zoom40};
-            ASFloat zoomFactors[] = {1.0, 2.0, 8.0, 0.40};
+            ASFloat zoomFactors[] = {1.0f, 2.0f, 8.0f, 0.40f};
 
             // Copy the attributes of the parent bookmark.
             ASInt32 pageNumber;

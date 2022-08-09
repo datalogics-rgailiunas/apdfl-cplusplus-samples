@@ -277,6 +277,8 @@ void WalkPDETree(PDEContent content, ColorsUsed *colors) {
             PDEContent content = PDEContainerGetContent((PDEContainer)elem);
             WalkPDETree(content, colors);
         } break;
+        default:
+            break;
         }
     }
     return;

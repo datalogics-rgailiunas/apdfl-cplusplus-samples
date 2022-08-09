@@ -294,7 +294,7 @@ void WriteCMYKImage(PageInfo *pageInfo, PDDoc outputDoc) {
 
     // Add the image to the output document
     AddImageToDoc(pageInfo, outputDoc, cmyk, pageInfo->drawParams.buffer,
-                  pageInfo->drawParams.bufferSize, 4, "CMYK");
+                  pageInfo->drawParams.bufferSize, 4, const_cast<char*>("CMYK"));
 
     // Release the color space
     PDERelease((PDEObject)cmyk);
