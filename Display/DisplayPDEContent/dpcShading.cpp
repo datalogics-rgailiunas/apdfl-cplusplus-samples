@@ -18,14 +18,11 @@
 #include "dpcOutput.h"
 
 static ASBool PdeClipenumProc(PDEElement Element, void *clientData) {
-    ASFixedMatrix fm1;
-    ASFixedMatrix m1, matrix;
-    PDEType Type;
-    ASBool HasGState;
-
     PDEGraphicState GState;
-    HasGState = PDEElementHasGState(Element, &GState, sizeof(PDEGraphicState));
+    ASBool HasGState = PDEElementHasGState(Element, &GState, sizeof(PDEGraphicState));
 
+    ASFixedMatrix fm1;
+    ASFixedMatrix matrix;
     PDEElementGetMatrix(Element, &fm1);
     if ((fixedZero == fm1.a) && (fixedZero == fm1.b) && (fixedZero == fm1.c) &&
         (fixedZero == fm1.d) && (fixedZero == fm1.h) && (fixedZero == fm1.v)) {
@@ -35,7 +32,7 @@ static ASBool PdeClipenumProc(PDEElement Element, void *clientData) {
         PDEElementGetMatrix(Element, &matrix);
     }
 
-    Type = (PDEType)PDEObjectGetType((PDEObject)Element);
+    PDEType Type = (PDEType)PDEObjectGetType((PDEObject)Element);
     switch (Type) {
     case kPDEText:
         // Display a complete text object

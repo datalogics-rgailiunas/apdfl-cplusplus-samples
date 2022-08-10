@@ -18,8 +18,13 @@
 #include "ASCalls.h"
 #include "ASExtraCalls.h"
 
-#include <iostream>
 #include <vector>
+#include <exception>
+
+#if defined(WIN_ENV)
+// turn off a misleading windows-specific warning
+#pragma warning( disable : 4290 )
+#endif
 
 class APDFLDoc {
 
@@ -27,7 +32,7 @@ class APDFLDoc {
     static const unsigned MAX_PATH_LENGTH = 1024; // Private data members assosciated with the document.
     wchar_t nameOfDocument[MAX_PATH_LENGTH];
 
-    volatile ASPathName asPathName;
+    ASPathName asPathName;
     ASErrorCode errorCode;
 
     void initialize(); // Called in constructor to initialize some data members.
@@ -39,7 +44,7 @@ class APDFLDoc {
     APDFLDoc &operator=(const APDFLDoc &); // in order to prevent shallow copies of objects.
 
   public:
-    volatile PDDoc pdDoc; // Made public so it can be accessed directly.
+    PDDoc pdDoc = nullptr; // Made public so it can be accessed directly.
 
     APDFLDoc(wchar_t *, bool doRepairDamagedFile);    // Constructor used to open a document.
     APDFLDoc(const char *, bool doRepairDamagedFile); // Constructor used to open a document.
@@ -51,16 +56,16 @@ class APDFLDoc {
     ASErrorCode insertPage(const ASInt16 &width, const ASInt16 &height, ASInt32); // Inserts a page into the document.
     PDPage getPage(ASInt32); // Returns the specified PDPage, the first page is 0.
 
-    volatile PDDoc &getPDDoc() {
-        return pdDoc;
-    }; // Returns a reference to the PDDoc that was created or opened.
+     PDDoc getPDDoc() {
+         return pdDoc;
+     }; // Returns the PDDoc that was created or opened.
 
     ASErrorCode saveDoc(wchar_t * = NULL, PDSaveFlags = PDSaveFull | PDSaveLinearized,
                         PDSaveFlags2 saveFlags2 = PDSaveAddFlate); // Used to save the document, may be provided a path and PDSaveFlags.
     ASErrorCode saveDoc(const char *,
                         PDSaveFlags = PDSaveFull | PDSaveLinearized, PDSaveFlags2 saveFlags2 = PDSaveAddFlate); // Used to save the document to a specified non-wide string, may be provided PDSaveFlags.
 
-    ~APDFLDoc(); // Destructor frees up resources.
+    ~APDFLDoc() throw(std::exception); // Destructor frees up resources.
 
     static ASPathName makePath(const char *path); // Provide functionality for device independent path construction
     static ASPathName makePath(const wchar_t *path);

@@ -275,7 +275,7 @@ PDEText clickMeTextMaker(double xPos, double yPos) {
                  kPDETextRun, // kPDETextRun or kPDETextChar for text runs or text characters.
                  0,           // The index after which to add the text run.
                  (Uns8 *)textToDisplay.c_str(), // Text to add.
-                 textToDisplay.length(),        // Length of text.
+                 static_cast<ASInt32>(textToDisplay.length()),        // Length of text.
                  courierFont,                   // Font to apply to text.
                  &gState, sizeof(gState), // PDEGraphicState and its size. Contains attributes of the text object.
                  &tState, 0,  // Text state and its size .Contains attributes of the text object.

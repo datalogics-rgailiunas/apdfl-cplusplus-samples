@@ -77,12 +77,12 @@ int main(int argc, char **argv) {
                                     "and PDEFont.";
 
         PDEGraphicState gState;
-        memset(&gState, NULL, sizeof(gState));
+        memset(&gState, 0, sizeof(gState));
 
         PDEDefaultGState(&gState, sizeof(gState)); // Set the graphics state to default values
 
         PDETextState tState;
-        memset(&tState, NULL, sizeof(tState));
+        memset(&tState, 0, sizeof(tState));
 
         // Transformation matrix for text which determines location of the text on page.
         ASDoubleMatrix textMatrix;

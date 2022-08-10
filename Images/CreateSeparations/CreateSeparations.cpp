@@ -79,7 +79,7 @@ void WriteCMYKImage(PageInfo *pageInfo, PDDoc outputDoc);
 void WriteDeviceNImage(PageInfo *pageInfo, PDDoc outputDoc);
 void WriteSeparationImage(PageInfo *pageInfo, PDDoc outputDoc, int separationNumber);
 void AddImageToDoc(PageInfo *pageInfo, PDDoc outputDoc, PDEColorSpace color, char *buffer,
-                   size_t bufferSize, ASInt16 channels, char *Name, ASBool invertColor = false);
+                   size_t bufferSize, ASInt16 channels, const char *Name, ASBool invertColor = false);
 //
 // The main process will intialize the library, open the input document, create the output document,
 // and initialize the communication structure. Then, for each page, it will render the page to CMYK, and insert
@@ -294,7 +294,7 @@ void WriteCMYKImage(PageInfo *pageInfo, PDDoc outputDoc) {
 
     // Add the image to the output document
     AddImageToDoc(pageInfo, outputDoc, cmyk, pageInfo->drawParams.buffer,
-                  pageInfo->drawParams.bufferSize, 4, "CMYK");
+                  pageInfo->drawParams.bufferSize, 4, const_cast<char*>("CMYK"));
 
     // Release the color space
     PDERelease((PDEObject)cmyk);
@@ -385,7 +385,7 @@ void WriteSeparationImage(PageInfo *pageInfo, PDDoc outputDoc, int separationNum
 
 // Add a bitmap to the output document, as a single page, the size of the image, in that document.
 void AddImageToDoc(PageInfo *pageInfo, PDDoc outputDoc, PDEColorSpace space, char *buffer,
-                   size_t bufferSize, ASInt16 channels, char *Name, ASBool invertColor) {
+                   size_t bufferSize, ASInt16 channels, const char *Name, ASBool invertColor) {
     // If the image row size is greater than the packed row size,
     // pack the image here.
     // Since it will always be smaller than the original image, we can pack it in place
