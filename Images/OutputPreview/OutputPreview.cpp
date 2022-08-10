@@ -110,7 +110,7 @@ void WriteCMYKImage(PageInfo *pageInfo, PDDoc outputDoc);
 void WriteDeviceNImage(PageInfo *pageInfo, PDDoc outputDoc);
 void WriteSeparationImage(PageInfo *pageInfo, PDDoc outputDoc, int separationNumber);
 void AddImageToDoc(PageInfo *pageInfo, PDDoc outputDoc, PDEColorSpace color, char *buffer,
-                   size_t bufferSize, ASInt16 channels, char *Name, char *Info = NULL);
+                   size_t bufferSize, ASInt16 channels, const char *Name, const char *Info = NULL);
 ASBool CollectInkInfo(PDPageInk ink, void *clientData);
 PDEColorSpace CreateProcessColorSpace(PageInfo *pageInfo, PDPageInk ink);
 PDEColorSpace CreateSpotColorSpace(PageInfo *pageInfo, PDPageInk ink);

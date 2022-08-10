@@ -21,6 +21,11 @@
 #include <vector>
 #include <exception>
 
+#if defined(WIN_ENV)
+// turn off a misleading windows-specific warning
+#pragma warning( disable : 4290 )
+#endif
+
 class APDFLDoc {
 
   private:

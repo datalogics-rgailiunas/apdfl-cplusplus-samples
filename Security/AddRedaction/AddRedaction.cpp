@@ -110,7 +110,7 @@ int main(int argc, char **argv) {
             redactParams->size = sizeof(PDRedactParamsRec);
             redactParams->pageNum = 0; // The page that the redaction will be applied to.
             redactParams->redactQuads = &quadVector.front(); // The vector or array holding the quads.
-            redactParams->numQuads = quadVector.size(); // The number of entries in the vector or array.
+            redactParams->numQuads = static_cast<ASInt32>(quadVector.size()); // The number of entries in the vector or array.
             redactParams->colorVal = &cvRec;
             redactParams->colorVal->space = PDDeviceRGB;            // Set device color space to RGB
             redactParams->colorVal->value[0] = FloatToASFixed(0.0); // The redaction box will be set to black.
