@@ -332,7 +332,7 @@ ASErrorCode APDFLDoc::printErrorHandlerMessage() {
 // ~APDFLDoc() - Releases resources if they haven't already been freed.
 //==============================================================================================================================
 
-APDFLDoc::~APDFLDoc() throw(std::exception) {
+APDFLDoc::~APDFLDoc() noexcept(false) {
     DURING
 
         if (pdDoc != NULL) // Close the PDDoc
