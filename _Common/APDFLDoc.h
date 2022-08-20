@@ -65,7 +65,7 @@ class APDFLDoc {
     ASErrorCode saveDoc(const char *,
                         PDSaveFlags = PDSaveFull | PDSaveLinearized, PDSaveFlags2 saveFlags2 = PDSaveAddFlate); // Used to save the document to a specified non-wide string, may be provided PDSaveFlags.
 
-    ~APDFLDoc() throw(std::exception); // Destructor frees up resources.
+    ~APDFLDoc() noexcept(false); // Destructor frees up resources.
 
     static ASPathName makePath(const char *path); // Provide functionality for device independent path construction
     static ASPathName makePath(const wchar_t *path);

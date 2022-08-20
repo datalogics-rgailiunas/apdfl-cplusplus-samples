@@ -6,7 +6,7 @@ ifeq ($(OS), )
 $(error Need to set the OS environment variable)
 endif
 
-UTIL = ../../dlutils
+UTIL = ../../dlutils17
 # 26Aug2009 - Give each sample a copy of the common modules
 # since plugin samples compile these differently
 COMMON_OBJS = PDFLInitCommon.o PDFLInitHFT.o InitializeLibrary.o APDFLDoc.o

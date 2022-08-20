@@ -355,5 +355,35 @@ cd ../../Text/RegexExtractText
 ./RegexExtractText-${stage}.app/Contents/MacOS/RegexExtractText-${stage}
 echo ""
 
+echo Running sample ExtractTextByPatternMatch
+cd ../../Text/ExtractTextByPatternMatch
+./ExtractTextByPatternMatch-${stage}.app/Contents/MacOS/ExtractTextByPatternMatch-${stage}
+echo ""
+
+echo Running sample ExtractCJKTextByPatternMatch
+cd ../../Text/ExtractCJKTextByPatternMatch
+./ExtractCJKTextByPatternMatch-${stage}.app/Contents/MacOS/ExtractCJKTextByPatternMatch-${stage}
+echo ""
+
+echo Running sample ExtractTextByRegion
+cd ../../Text/ExtractTextByRegion
+./ExtractTextByRegion-${stage}.app/Contents/MacOS/ExtractTextByRegion-${stage}
+echo ""
+
+echo Running sample ExtractTextFromMultiRegions
+cd ../../Text/ExtractTextFromMultiRegions
+./ExtractTextFromMultiRegions-${stage}.app/Contents/MacOS/ExtractTextFromMultiRegions-${stage}
+echo ""
+
+echo Running sample ExtractAcroFormFieldData
+cd ../../Text/ExtractAcroFormFieldData
+./ExtractAcroFormFieldData-${stage}.app/Contents/MacOS/ExtractAcroFormFieldData-${stage}
+echo ""
+
+echo Running sample ExtractTextFromAnnotations
+cd ../../Text/ExtractTextFromAnnotations
+./ExtractTextFromAnnotations-${stage}.app/Contents/MacOS/ExtractTextFromAnnotations-${stage}
+echo ""
+
 echo All Datalogics samples are finished running.
 
