@@ -57,7 +57,7 @@ typedef struct {
 
 typedef struct {
     std::string DLSpace;
-    int DLColor[4];
+    float DLColor[4];
 } DLColorValue, *DLColorValueP;
 
 typedef struct {
