@@ -1,7 +1,31 @@
-#  Makefile to build DL samples 
+#  Makefile to build DL samples
 
-ifeq ($(PLATFORM), )
+ifeq ($(OS), )
   PLATFORM = $(shell uname)
+  MACHINE = $(shell uname -m)
+  BUILD_64_BIT="true"
+  ifeq ($(PLATFORM),"Linux")
+    ifeq ($(MACHINE),"x86_64")
+      OS = "i80386linux"
+    endif
+    ifeq ($(MACHINE),"aarch64")
+      OS = "armv8linux"
+    endif
+  endif
+  ifeq ($(PLATFORM),"Darwin")
+    ifeq ($(MACHINE),"x86_64")
+      OS = "mac-x86-64"
+    endif
+    ifeq ($(MACHINE),"aarch64")
+      OS = "arm64"
+    endif
+  endif
+  ifeq ($(PLATFORM),"AIX")
+    OS = "rs6000aix"
+  endif
+  ifeq ($(PLATFORM),"sun4v")
+    OS = "sparcsolaris"
+  endif
 endif
 
 do_pdfl_samples: build_pdfl_samples run_pdfl_samples $(REDIRECT2)
@@ -86,7 +110,7 @@ ifeq ($(findstring mac,$(OS)), )
 endif
 endif
 
-build_pdfl_samples: 
+build_pdfl_samples:
 	for target in $(SAMPLES); do \
 		(cd ../$$target && $(MAKE)); \
 	done;
@@ -105,7 +129,7 @@ run_pdfl_samples:
 		(cd ../$$target && (./$$NAME $(REDIRECT))) ;\
 		echo ; \
 	done; \
-	echo ; 
+	echo ;
 
 clean:
 	rm -f *.o *.out out.* ../dlutils/*.o; \
