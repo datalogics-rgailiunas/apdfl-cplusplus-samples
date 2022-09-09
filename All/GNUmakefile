@@ -16,14 +16,14 @@ ifeq ($(OS), )
     ifeq ($(MACHINE), x86_64)
       OS=mac-x86-64
     endif
-    ifeq ($(MACHINE), aarch64)
+    ifeq ($(MACHINE), arm64)
       OS=armv8mac
     endif
   endif
   ifeq ($(PLATFORM), AIX)
     OS=rs6000aix
   endif
-  ifeq ($(PLATFORM), sun4v)
+  ifeq ($(PLATFORM), SunOS)
     OS=sparcsolaris
   endif
 endif
