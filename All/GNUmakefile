@@ -3,30 +3,31 @@
 ifeq ($(OS), )
   PLATFORM = $(shell uname)
   MACHINE = $(shell uname -m)
-  BUILD_64_BIT="true"
-  ifeq ($(PLATFORM),"Linux")
-    ifeq ($(MACHINE),"x86_64")
-      OS = "i80386linux"
+  BUILD_64_BIT=true
+  ifeq ($(PLATFORM), Linux)
+    ifeq ($(MACHINE), x86_64)
+      OS=i80386linux
     endif
-    ifeq ($(MACHINE),"aarch64")
-      OS = "armv8linux"
-    endif
-  endif
-  ifeq ($(PLATFORM),"Darwin")
-    ifeq ($(MACHINE),"x86_64")
-      OS = "mac-x86-64"
-    endif
-    ifeq ($(MACHINE),"aarch64")
-      OS = "arm64"
+    ifeq ($(MACHINE), aarch64)
+      OS=armv8linux
     endif
   endif
-  ifeq ($(PLATFORM),"AIX")
-    OS = "rs6000aix"
+  ifeq ($(PLATFORM), Darwin)
+    ifeq ($(MACHINE), x86_64)
+      OS=mac-x86-64
+    endif
+    ifeq ($(MACHINE), aarch64)
+      OS=armv8mac
+    endif
   endif
-  ifeq ($(PLATFORM),"sun4v")
-    OS = "sparcsolaris"
+  ifeq ($(PLATFORM), AIX)
+    OS=rs6000aix
+  endif
+  ifeq ($(PLATFORM), sun4v)
+    OS=sparcsolaris
   endif
 endif
+
 
 do_pdfl_samples: build_pdfl_samples run_pdfl_samples $(REDIRECT2)
 
@@ -111,6 +112,12 @@ endif
 endif
 
 build_pdfl_samples:
+	$(info OS=$(OS))
+	$(info BUILD_64_BIT=$(BUILD_64_BIT))
+	set -e; \
+	export OS=$(OS) \
+	export BUILD_64_BIT=$(BUILD_64_BIT) \
+	export; \
 	for target in $(SAMPLES); do \
 		(cd ../$$target && $(MAKE)); \
 	done;

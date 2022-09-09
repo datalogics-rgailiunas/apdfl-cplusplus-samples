@@ -79,11 +79,13 @@ def build(ctx, build_type='Release', bits='64'):
     is_64_bit = bits == '64'
     install_folder = profset.install_folder(build_type, is_64_bit)
     with ctx.cd(os.path.join(install_folder, 'CPlusPlus', 'Sample_Source', 'All')):
-        shell_env = {'BUILD_64_BIT': str(is_64_bit).lower(),
-                     'PATH': '/opt/freeware/bin:%s' % os.getenv('PATH'),
-        }
+        shell_env = {'PATH': '/opt/freeware/bin:%s' % os.getenv('PATH')}
+        if not is_64_bit:
+            # set these explicitly for 32-bit platforms
+            shell_env.update({'BUILD_64_BIT': "false",
+                            'OS': profset.os})
         if profset.os.find('mac') > -1:
-            shell_env.update({'STAGE': build_type.lower(), 'OS': profset.os})
+            shell_env.update({'STAGE': build_type.lower()})
             print(shell_env)
             ctx.run('gnumake', env=shell_env, echo=True)
         elif profset.os == 'windows':
@@ -94,7 +96,7 @@ def build(ctx, build_type='Release', bits='64'):
                 ctx.run('del All_Datalogics_32Bit.sln', env=shell_env)
             ctx.run(cmd, env=shell_env)
         else:
-            shell_env.update({'STAGE': build_type.lower(), 'OS': profset.os})
+            shell_env.update({'STAGE': build_type.lower()})
             print(shell_env)
             ctx.run('gmake', env=shell_env, echo=True)
 
