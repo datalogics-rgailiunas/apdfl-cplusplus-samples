@@ -3,6 +3,34 @@
 .NOTPARALLEL:	dummy
 
 ifeq ($(OS), )
+  PLATFORM = $(shell uname)
+  MACHINE = $(shell uname -m)
+  BUILD_64_BIT=true
+  ifeq ($(PLATFORM), Linux)
+    ifeq ($(MACHINE), x86_64)
+      OS=i80386linux
+    endif
+    ifeq ($(MACHINE), aarch64)
+      OS=armv8linux
+    endif
+  endif
+  ifeq ($(PLATFORM), Darwin)
+    ifeq ($(MACHINE), x86_64)
+      OS=mac-x86-64
+    endif
+    ifeq ($(MACHINE), arm64)
+      OS=armv8mac
+    endif
+  endif
+  ifeq ($(PLATFORM), AIX)
+    OS=rs6000aix
+  endif
+  ifeq ($(PLATFORM), SunOS)
+    OS=sparcsolaris
+  endif
+endif
+
+ifeq ($(OS), )
 $(error Need to set the OS environment variable)
 endif
 
