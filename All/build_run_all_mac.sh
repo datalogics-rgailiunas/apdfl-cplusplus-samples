@@ -69,6 +69,7 @@ declare -a DL_SAMPLE_LIST=( \
   "ContentCreation/AddArt" \
   "ContentCreation/AddAttachments" \
   "ContentCreation/AddContent" \
+  "ContentCreation/AddHeaderFooter" \
   "ContentCreation/CreateBookmarks" \
   "ContentCreation/CreateDocument" \
   "ContentCreation/CreateLayers" \

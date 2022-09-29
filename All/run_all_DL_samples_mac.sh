@@ -48,6 +48,11 @@ cd ../../ContentCreation/AddContent
 ./AddContent-${stage}.app/Contents/MacOS/AddContent-${stage}
 echo ""
 
+echo Running sample AddHeaderFooter
+cd ../../ContentCreation/AddHeaderFooter
+./AddHeaderFooter-${stage}.app/Contents/MacOS/AddHeaderFooter-${stage}
+echo ""
+
 echo Running sample CreateBookmarks
 cd ../../ContentCreation/CreateBookmarks
 ./CreateBookmarks-${stage}.app/Contents/MacOS/CreateBookmarks-${stage}

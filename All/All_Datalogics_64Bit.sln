@@ -27,6 +27,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenEncrypted", "..\Securit
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddArt", "..\ContentCreation\AddArt\AddArt.vcxproj", "{5D04558C-183A-4ECC-80C8-542A9FDD72D2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddHeaderFooter", "..\ContentCreation\AddHeaderFooter\AddHeaderFooter.vcxproj", "{82006940-7ECC-454B-A571-B3854C407D25}"
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddBookmarks", "..\ContentModification\AddBookmarks\AddBookmarks.vcxproj", "{A2575B7E-CCA9-42E4-8449-330BB89437AA}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddLinks", "..\ContentModification\AddLinks\AddLinks.vcxproj", "{939FEDCC-E180-47EB-8270-8ED8BD37BCDD}"
@@ -449,6 +451,10 @@ Global
 		{95225D56-B60F-4D96-B6DE-8C40491CBE14}.Debug|x64.Build.0 = Debug|x64
 		{95225D56-B60F-4D96-B6DE-8C40491CBE14}.Release|x64.ActiveCfg = Release|x64
 		{95225D56-B60F-4D96-B6DE-8C40491CBE14}.Release|x64.Build.0 = Release|x64
+		{82006940-7ECC-454B-A571-B3854C407D25}.Debug|x64.ActiveCfg = Debug|x64
+		{82006940-7ECC-454B-A571-B3854C407D25}.Debug|x64.Build.0 = Debug|x64
+		{82006940-7ECC-454B-A571-B3854C407D25}.Release|x64.ActiveCfg = Release|x64
+		{82006940-7ECC-454B-A571-B3854C407D25}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
