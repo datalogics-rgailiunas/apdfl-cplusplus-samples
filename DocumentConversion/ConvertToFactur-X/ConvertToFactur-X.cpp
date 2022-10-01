@@ -4,17 +4,17 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// ConvertToFactur-X converts the input PDF with the input Invoice XML to a Factur-X (aka ZUGFeRD v2.2) compliant PDF.
+// ConvertToFactur-X converts the input PDF with the input Invoice XML to a Factur-X (also known as ZUGFeRD v2.2) compliant PDF.
 //
-// Command-line:  <input-pdf> <relationship>
+// Command-line:  <input-pdf> [<relationship>]
 //
 //        For example, you might enter a command line statement that looks like this:
 //
-//        ConvertToFactur-X input-file.pdf factur-x.xml Alternative
+//        ConvertToFactur-X input-file.pdf Alternative
 //
-//        This statement provides the name of an input file and the relationship type.
+//        This statement provides the name of an input file and optionally the relationship type.
 //
-// NOTE: The input Invoice XML file needs to be Factur-X-compliant, PDFL does not create this for you and
+// NOTE: The input Invoice XML file needs to be Factur-X-compliant, APDFL does not create this for you and
 // does not ensure the XML is compliant either.
 //
 // For more detail see the description of the ConvertToFactur-X sample program on our Developer’s site, 
@@ -34,7 +34,7 @@
 //The Input XML must be named this way for it to be compliant
 #define DEF_INPUT_XML "factur-x.xml"
 
-// The type of Associated File Relationship specified, its Alternative in Germany, while Data or Source in France
+//The type of Associated File Relationship specified, it's Alternative in Germany, while Data or Source in France
 #define DEF_RELATIONSHIP "Alternative"
 
 //forward declarations
@@ -92,7 +92,7 @@ DURING
         xmlInvoiceFilePath = ASFileSysCreatePathName(NULL, ASAtomFromString("Cstring"), DEF_INPUT_XML, NULL);
 #else
         destFilePath = APDFLDoc::makePath (csOutputFileName.c_str() ;
-        xmlInvoiceFilePath = APDFLDoc::makePath(csInputInvoiceXMLFileName.c_str());
+        xmlInvoiceFilePath = APDFLDoc::makePath(DEF_INPUT_XML);
 #endif
 
         ASFile inputXMLInvoiceFile = NULL;
@@ -133,11 +133,15 @@ DURING
             else
             {
                 std::cout << "Conversion of file " << csInputFileName.c_str() << " has failed..." << std::endl;
+
+                errCode = -1;
             }
         }
         else
         {
             std::cout << "The Factur-X input XML file factur-x.xml could not be found." << std::endl;
+
+            errCode = -1;
         }
 
         // Cleanup resources
@@ -190,7 +194,7 @@ void AddInvoiceXMLAsAnAttachment(PDDoc doc, CosDoc cosDoc, ASFileSys fileSys, AS
         {
             ASText fileNameText = ASTextNew();
 
-            if (0 == ASFileSysGetNameFromPathAsASText(fileSys, xmlInvoiceFilePath, fileNameText))
+            if (ASFileSysGetNameFromPathAsASText(fileSys, xmlInvoiceFilePath, fileNameText) == 0)
             {
                 if (fileNameText && !ASTextIsEmpty(fileNameText))
                 {
