@@ -196,7 +196,7 @@ void AddInvoiceXMLAsAnAttachment(PDDoc doc, CosDoc cosDoc, ASFileSys fileSys, AS
 
             if (ASFileSysGetNameFromPathAsASText(fileSys, xmlInvoiceFilePath, fileNameText) == 0)
             {
-                if (fileNameText && !ASTextIsEmpty(fileNameText))
+                if (!ASTextIsEmpty(fileNameText))
                 {
                     ASTArraySize nameLen = 0;
                     char *fileNameString = ASTextGetPDTextCopy(fileNameText, &nameLen);
