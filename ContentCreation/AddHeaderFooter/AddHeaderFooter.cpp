@@ -7,7 +7,7 @@
 // This sample demonstrates creating a new PDF document with a Header and Footer.
 //
 //
-// For more detail see the description of the AddText sample program on our Developer’s site,
+// For more detail see the description of the AddHeaderFooter sample program on our Developer’s site,
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addheaderfooter
 
 #include "PSFCalls.h"
@@ -28,6 +28,7 @@ static double MeasureTextWidth(PDEFont pdeFont, double fontSize, ASUns8* textStr
 
     double widthEMs = PDEFontSumWidths(pdeFont, textString, strlen((const char*)textString));
 
+    // Convert from Glyph space to Text Space
     textWidth = (widthEMs / 1000) * fontSize;
 
     return textWidth;
