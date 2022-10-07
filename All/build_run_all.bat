@@ -208,6 +208,7 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Text\RegexExtractText"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentCreation\AddArt"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentCreation\AddAttachments"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentCreation\AddContent"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentCreation\AddHeaderFooter"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentCreation\CreateBookmarks"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentCreation\CreateDocument"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentCreation\CreateLayers"
@@ -229,7 +230,7 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% InformationExtraction\ExtractDocumentInfo"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FileSystem\AlternateFileSystem"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
 REM *** The total number of DL samples. This must be accurate!
-SET /A "NUM_DL_SAMPLES=68"
+SET /A "NUM_DL_SAMPLES=69"
 
 REM *** Di iterates over Datalogics samples. Do not change this value.
 SET /A "Di=0"
