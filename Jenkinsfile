@@ -49,12 +49,16 @@ pipeline {
                     TRACKFILEACCESS = 'false'
                     // Disable node reuse, which gives intermittent build errors on Windows
                     MSBUILDDISABLENODEREUSE = '1'
+                    SKIPPLATFORM = setSkipPlatform(NODE)
                 }
                 stages {
                     stage('Remove Conan local cache') {
                         when {
-                            not {
-                                changeRequest()
+                            anyOf {
+                                not {
+                                    changeRequest()
+                                }
+                                expression { "${SKIPPLATFORM}" == 'false' }
                             }
                         }
                         steps {
@@ -69,6 +73,9 @@ pipeline {
                         }
                     }
                     stage('Set-Up Environment') {
+                        when {
+                            expression { "${SKIPPLATFORM}" == 'false' }
+                            }
                         steps {
                             echo "Set-Up Environment ${NODE} ${BITS}"
                             script {
@@ -91,6 +98,9 @@ pipeline {
                         }
                     }
                     stage('Clean') {
+                        when {
+                            expression { "${SKIPPLATFORM}" == 'false' }
+                            }
                         steps {
                             echo "Bootstrap ${NODE} ${BITS}"
                             script {
@@ -108,6 +118,9 @@ pipeline {
                         }
                     }
                     stage('Bootstrap') {
+                        when {
+                            expression { "${SKIPPLATFORM}" == 'false' }
+                        }
                         steps {
                             echo "Bootstrap ${NODE} ${BITS}"
                             script {
@@ -125,6 +138,9 @@ pipeline {
                         }
                     }
                     stage('Build') {
+                        when {
+                            expression { "${SKIPPLATFORM}" == 'false' }
+                        }
                         steps {
                             echo "Build ${NODE} ${BITS}"
                             script {
@@ -167,3 +183,13 @@ pipeline {
     }
 }
 
+//AIX will only run if specific from the platform filter in the Jenkins UI.
+def setSkipPlatform(String node) {
+    if ("${node}" == 'aix-apdfl-samples') {
+        if (params.PLATFORM_FILTER == 'aix-apdfl-samples') {
+            return 'false'
+        }
+        return 'true'
+    }
+    return 'false'
+}
