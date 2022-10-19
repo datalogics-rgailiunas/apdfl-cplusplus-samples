@@ -55,10 +55,11 @@ pipeline {
                     stage('Remove Conan local cache') {
                         when {
                             anyOf {
+                                expression { "${SKIPPLATFORM}" == 'false' }
                                 not {
                                     changeRequest()
                                 }
-                                expression { "${SKIPPLATFORM}" == 'false' }
+
                             }
                         }
                         steps {
