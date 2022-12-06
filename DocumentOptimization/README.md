@@ -1,2 +1,2 @@
 ## ***PDFOptimizer***
-Optimizes a PDF document which can make it smaller in size, and load faster in a web browser.
+Demonstrates the use of PDFOptimizer. This compresses a PDF document to make it smaller so it's easier to process and download.

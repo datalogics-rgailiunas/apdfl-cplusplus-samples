@@ -11,4 +11,4 @@ The Adobe PDF Library (APDFL) is an Application Programming Interface (API) desi
 ## ***The Sample Programs***
 The Adobe PDF Library is a C/C++ interface. It provides a set of sample C++ program files, stored under /CPlusPlus/Sample_Source.
 
-Many of these sample programs automatically generate an output file or set of files.  These output files, generally PDF or graphics files (JPG or BMP), are stored in the directory where the application has been run. If you run a sample program a second or third time, it will overwrite any output files that were created and stored earlier.  However, if you run a sample program, generate a PDF output file, and then open that PDF file and try to run that sample program again, you will see an error message.  The program will not be able to overwrite an existing output file if that file is currently open in Adobe Reader or Adobe Acrobat.
+Many of these sample programs automatically generate an output file or set of files.  These output files, generally PDF or graphics files (JPG or BMP), are stored in the directory where the application has been run.
