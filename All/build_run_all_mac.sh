@@ -1,6 +1,6 @@
 #!/bin/bash
 ## ***
-## ***  Copyright (c) 2015-2022, Datalogics, Inc. All rights reserved.
+## ***  Copyright (c) 2015-2023, Datalogics, Inc. All rights reserved.
 ## ***
 
 ## **********************************************************************************************************************
