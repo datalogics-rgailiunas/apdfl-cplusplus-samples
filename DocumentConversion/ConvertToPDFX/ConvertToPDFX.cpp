@@ -16,7 +16,7 @@
 //
 //        This statement provides the name of an input file and specifies the PDF/X-4 format (default).
 //
-// For more detail see the description of the ConvertToPDFX sample program on our Developer�s site,
+// For more detail see the description of the ConvertToPDFX sample program on our Developer's site,
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#converttopdfx
 
 #include <string>
