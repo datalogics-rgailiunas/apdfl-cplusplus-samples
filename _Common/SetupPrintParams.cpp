@@ -322,8 +322,7 @@ void SetupPDFLPrintUserParams(PDFLPrintUserParams userParams) {
 
 #endif
 
-    userParams->transQuality = 5; // Echoes the attribute transparencyQuality in the PDPrintParamsRec.
-                                      // Controls how the flattener will remove transparency from a page.
+    userParams->transQuality = 5; // Controls how the flattener will remove transparency from a page.
 
     userParams->paperWidth =
         kPDPrintUseMediaBox; // Used to select paper.  The value kPDPrintUseMediaBox will cause the
