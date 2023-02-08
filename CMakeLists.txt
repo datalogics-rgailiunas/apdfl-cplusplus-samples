@@ -22,6 +22,7 @@ if(UTIL_PLAT MATCHES "x64")
             PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
             PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE PATTERN "utils" EXCLUDE
             PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
+            PATTERN "Public_Repo_Update.py" EXCLUDE
             )
 elseif(UTIL_PLAT MATCHES "Win32")
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
@@ -35,6 +36,7 @@ elseif(UTIL_PLAT MATCHES "Win32")
             PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
             PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE PATTERN "utils" EXCLUDE
             PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
+            PATTERN "Public_Repo_Update.py" EXCLUDE
             )
 elseif(UTIL_PLAT MATCHES "Mac" OR UTIL_PLAT MATCHES "armv8mac_64")
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
@@ -47,6 +49,7 @@ elseif(UTIL_PLAT MATCHES "Mac" OR UTIL_PLAT MATCHES "armv8mac_64")
             PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
             PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE PATTERN "utils" EXCLUDE
             PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
+            PATTERN "Public_Repo_Update.py" EXCLUDE
             )
 else()
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
@@ -60,5 +63,6 @@ else()
             PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
             PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE PATTERN "utils" EXCLUDE
             PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
+            PATTERN "Public_Repo_Update.py" EXCLUDE
             )
 endif()
