@@ -3,6 +3,7 @@ import shutil
 from shutil import ignore_patterns
 from git import Repo
 
+PATHSEP = os.path.sep
 print('Cloning apdfl-samples....')
 Repo.clone_from('git@octocat.dlogics.com:datalogics/apdfl-samples.git', 'apdfl-samples', branch='develop-18')
 print('Cloning DLE....')
@@ -16,7 +17,7 @@ for root, dirs, files in os.walk(source):
     dirs[:] = [d for d in dirs if not d.startswith('_Input')]
     for file in files:
         if file.endswith(".cpp") or file.endswith(".h") or file.endswith(".md"):
-            source_dir = root.split('apdfl-samples\\')
+            source_dir = root.split(f'apdfl-samples{PATHSEP}')
             if source_dir.__len__() > 1:
                 dest_dir = os.path.join('CPlusPlus', 'Sample_Source', source_dir[1])
             else:
@@ -38,7 +39,7 @@ source = os.path.join('dle', 'Samples', 'DotNetFramework')
 for root, dirs, files in os.walk(source):
     for file in files:
         if file.endswith(".cs") or file.endswith(".md"):
-            source_dir = root.split('dle\\Samples\\DotNetFramework\\')
+            source_dir = root.split(f'dle{PATHSEP}Samples{PATHSEP}DotNetFramework{PATHSEP}')
             if source_dir.__len__() > 1:
                 dest_dir = os.path.join('DotNETFramework', 'Sample_Source', source_dir[1])
             else:
@@ -54,7 +55,7 @@ source = os.path.join('dle', 'Samples', 'DotNet')
 for root, dirs, files in os.walk(source):
     for file in files:
         if file.endswith(".cs") or file.endswith(".md"):
-            source_dir = root.split('dle\\Samples\\DotNet\\')
+            source_dir = root.split(f'dle{PATHSEP}Samples{PATHSEP}DotNet{PATHSEP}')
             if source_dir.__len__() > 1:
                 dest_dir = os.path.join('DotNET', 'Sample_Source', source_dir[1])
             else:
@@ -70,7 +71,7 @@ source = os.path.join('dle', 'Samples', 'Java')
 for root, dirs, files in os.walk(source):
     for file in files:
         if file.endswith(".java") or file.endswith(".md"):
-            source_dir = root.split('dle\\Samples\\Java\\src\\main\\java\\com\\datalogics\\pdfl\\samples\\')
+            source_dir = root.split(f'dle{PATHSEP}Samples{PATHSEP}Java{PATHSEP}src{PATHSEP}main{PATHSEP}java{PATHSEP}com{PATHSEP}datalogics{PATHSEP}pdfl{PATHSEP}samples{PATHSEP}')
             if file.endswith(".md"):
                 if source_dir.__len__() > 1:
                     dest_dir = os.path.join('Java', 'Sample_Source', source_dir[1])
