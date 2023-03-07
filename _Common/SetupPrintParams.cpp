@@ -39,7 +39,7 @@ void SetupPDPrintParams(PDPrintParams psParams) {
                                // duplex is true, and number of pages is odd.)
     psParams->doOPP = false; // When true, CMYK colors will “mix” in the manner of the OP blending model.
     psParams->transparencyQuality =
-        100; // Echoed in PDFLPrintUserParams as the transQuaility attribute.
+        100; // Echoed in PDFLPrintUserParams as the transQuality attribute.
                // Used to establish how much time/resources should be applied to flattening
                // transparency while printing the page. At the lowest values, this will
                // basically render all transparent areas as bitmaps.
