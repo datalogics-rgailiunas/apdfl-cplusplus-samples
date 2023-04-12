@@ -4,15 +4,7 @@
 // For complete copyright information, refer to:
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// ConvertToOffice converts the input PDF to a PDF/A compliant PDF.
-//
-// Command-line:  <input-pdf> <office-document>
-//
-//        For example, you might enter a command line statement that looks like this:
-//
-//        ConvertToOffice input-file.pdf outputfile.docx
-//
-//        This statement provides the name of an input file and specifies the output offile file.
+// ConvertToOffice converts sample PDF documents to Office Documents.
 //
 // For more detail see the description of the ConvertToOffice sample program on our Developer's site,
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#converttooffice
