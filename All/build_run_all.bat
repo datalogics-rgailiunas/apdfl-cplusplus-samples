@@ -179,6 +179,7 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\ImportPages"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\AddTextWatermark"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\EmbedFonts"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentConversion\ConvertPDFtoEPS"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentConversion\ConvertToOffice"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentConversion\ConvertToPDFA"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentConversion\ConvertToPDFX"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentConversion\ConvertPDFtoPostscript"
@@ -230,7 +231,7 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% InformationExtraction\ExtractDocumentInfo"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FileSystem\AlternateFileSystem"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
 REM *** The total number of DL samples. This must be accurate!
-SET /A "NUM_DL_SAMPLES=69"
+SET /A "NUM_DL_SAMPLES=70"
 
 REM *** Di iterates over Datalogics samples. Do not change this value.
 SET /A "Di=0"
