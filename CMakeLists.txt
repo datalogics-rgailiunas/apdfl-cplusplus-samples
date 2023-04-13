@@ -46,6 +46,10 @@ elseif(UTIL_PLAT MATCHES "Mac" OR UTIL_PLAT MATCHES "armv8mac_64")
             PATTERN "*Bit*.*" EXCLUDE PATTERN "*.bat" EXCLUDE PATTERN "*.vcxproj*" EXCLUDE
             PATTERN "*.sh" EXCLUDE
             PATTERN "PDFViewer" EXCLUDE
+            PATTERN "ConvertToOffice" EXCLUDE
+            PATTERN "_Input/Word.pdf" EXCLUDE
+            PATTERN "_Input/Excel.pdf" EXCLUDE
+            PATTERN "_Input/PowerPoint.pdf" EXCLUDE
             PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
             PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE PATTERN "utils" EXCLUDE
             PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
@@ -60,6 +64,10 @@ else()
             PATTERN "*.plist" EXCLUDE PATTERN "*.strings*" EXCLUDE PATTERN "*.sh*" EXCLUDE
             PATTERN "*Bit*.*" EXCLUDE PATTERN "*.vcxproj*" EXCLUDE
             PATTERN "PDFPrintGUI" EXCLUDE PATTERN "PDFViewer" EXCLUDE
+            PATTERN "ConvertToOffice" EXCLUDE
+            PATTERN "_Input/Word.pdf" EXCLUDE
+            PATTERN "_Input/Excel.pdf" EXCLUDE
+            PATTERN "_Input/PowerPoint.pdf" EXCLUDE
             PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
             PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE PATTERN "utils" EXCLUDE
             PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
