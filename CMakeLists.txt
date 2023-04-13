@@ -5,11 +5,23 @@
 
 set(DL_SAMPLES Sample_Source)
 
+if (NOT (UTIL_PLAT MATCHES "x64") AND NOT (UTIL_PLAT MATCHES "Win32"))
+install(DIRECTORY    ${CMAKE_CURRENT_SOURCE_DIR}/_Input/
+        DESTINATION  "${INSTALL_RESOURCEDIR}/Sample_Input"
+        USE_SOURCE_PERMISSIONS
+        PATTERN "CMakeLists.txt" EXCLUDE
+        PATTERN "Word.pdf" EXCLUDE
+        PATTERN "Excel.pdf" EXCLUDE
+        PATTERN "PowerPoint.pdf" EXCLUDE
+        )
+else()
 install(DIRECTORY    ${CMAKE_CURRENT_SOURCE_DIR}/_Input/
         DESTINATION  "${INSTALL_RESOURCEDIR}/Sample_Input"
         USE_SOURCE_PERMISSIONS
         PATTERN "CMakeLists.txt" EXCLUDE
         )
+endif()
+
 if(UTIL_PLAT MATCHES "x64")
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
             DESTINATION ${INSTALL_SAMPLEDIR}/${DL_SAMPLES}
@@ -18,7 +30,7 @@ if(UTIL_PLAT MATCHES "x64")
             PATTERN "*32Bit*.*" EXCLUDE PATTERN "*.sh" EXCLUDE PATTERN "*Makefile*" EXCLUDE
             PATTERN "*.xcodeproj" EXCLUDE PATTERN "*.rel*" EXCLUDE PATTERN "*Mac*" EXCLUDE
             PATTERN "*.plist" EXCLUDE PATTERN "*.strings*" EXCLUDE PATTERN "dlutils" EXCLUDE
-            PATTERN "*.mak" EXCLUDE 
+            PATTERN "*.mak" EXCLUDE
             PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
             PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE PATTERN "utils" EXCLUDE
             PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
@@ -47,9 +59,6 @@ elseif(UTIL_PLAT MATCHES "Mac" OR UTIL_PLAT MATCHES "armv8mac_64")
             PATTERN "*.sh" EXCLUDE
             PATTERN "PDFViewer" EXCLUDE
             PATTERN "ConvertToOffice" EXCLUDE
-            PATTERN "_Input/Word.pdf" EXCLUDE
-            PATTERN "_Input/Excel.pdf" EXCLUDE
-            PATTERN "_Input/PowerPoint.pdf" EXCLUDE
             PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
             PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE PATTERN "utils" EXCLUDE
             PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
@@ -65,9 +74,6 @@ else()
             PATTERN "*Bit*.*" EXCLUDE PATTERN "*.vcxproj*" EXCLUDE
             PATTERN "PDFPrintGUI" EXCLUDE PATTERN "PDFViewer" EXCLUDE
             PATTERN "ConvertToOffice" EXCLUDE
-            PATTERN "_Input/Word.pdf" EXCLUDE
-            PATTERN "_Input/Excel.pdf" EXCLUDE
-            PATTERN "_Input/PowerPoint.pdf" EXCLUDE
             PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
             PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE PATTERN "utils" EXCLUDE
             PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
