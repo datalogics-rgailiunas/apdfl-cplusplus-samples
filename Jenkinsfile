@@ -3,6 +3,9 @@ pipeline {
     parameters {
         choice(name: 'PLATFORM_FILTER', choices: ['all', 'mac-apdfl-samples', 'mac-arm-apdfl-samples', 'linux-armv8-apdfl-samples', 'sparcsolaris-apdfl-samples', 'linux-apdfl-samples', 'windows-apdfl-samples'], description: 'Run on specific platform')
     }
+    options{
+        timeout(time: 1, unit: "HOURS")
+    }
     agent none
     triggers {
         // From the doc: @midnight actually means some time between 12:00 AM and 2:59 AM.
