@@ -1,8 +1,8 @@
-// Copyright (c) 2023, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2016, Datalogics, Inc. All rights reserved.
 //
 // http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
-// This sample allows a user to send a PDF document to a printer, using a Windows or Mac print interface.
+// This sample allows a user to send a PDF document to a printer, using a Windows print interface.
 //
 // For more detail see the description of the PDFPrintGUI sample program on our Developer’s site,
 // http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#pdfprintgui
