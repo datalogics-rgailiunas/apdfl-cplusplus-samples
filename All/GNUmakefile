@@ -85,26 +85,21 @@ SAMPLES = Annotations/CreateAnnotations \
           Security/OpenEncrypted \
           Security/SetUniquePermissions \
           Text/AddText \
-          Text/ExtractText \
           Text/ExtractAcroFormFieldData \
-          Text/ExtractTextFromAnnotations \
-          Text/ExtractTextByRegion \
-          Text/RegexTextSearch \
-          Text/RegexExtractText \
-          Text/ExtractTextByPatternMatch \
           Text/ExtractCJKTextByPatternMatch \
+          Text/ExtractText \
+          Text/ExtractTextByPatternMatch \
+          Text/ExtractTextByRegion \
+          Text/ExtractTextFromAnnotations \
+          Text/ExtractTextFromMultiRegions \
+          Text/ExtractTextPreservingStyleAndPositionInfo \
           Text/HelloJapan \
           Text/InsertHeadFoot \
+          Text/RegexTextSearch \
+          Text/RegexExtractText \
           Text/TextSearch \
           Text/TextSelectEnum \
           Text/UnicodeText
-
-ifneq ($(findstring i80386linux,$(OS)), )
-ifeq ($(BUILD_64_BIT), true)
-    SAMPLES += Text/ExtractTextFromMultiRegions
-endif
-endif
-
 
 ifeq ($(findstring rs6000aix,$(OS)), )
 ifeq ($(findstring mac,$(OS)), )
