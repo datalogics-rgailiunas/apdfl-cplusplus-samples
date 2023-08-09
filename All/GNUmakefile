@@ -107,6 +107,13 @@ ifeq ($(findstring mac,$(OS)), )
 endif
 endif
 
+BUILD_ONLY_SAMPLES = $(SAMPLES)
+
+ifneq ($(findstring mac,$(OS)), )
+    BUILD_ONLY_SAMPLES += Printing/PDFPrintDefault
+    BUILD_ONLY_SAMPLES += Printing/PDFPrintGUI
+endif
+
 build_pdfl_samples:
 	$(info OS=$(OS))
 	$(info BUILD_64_BIT=$(BUILD_64_BIT))
@@ -114,7 +121,7 @@ build_pdfl_samples:
 	export OS=$(OS) \
 	export BUILD_64_BIT=$(BUILD_64_BIT) \
 	export; \
-	for target in $(SAMPLES); do \
+	for target in $(BUILD_ONLY_SAMPLES); do \
 		(cd ../$$target && $(MAKE)); \
 	done;
 
@@ -136,6 +143,6 @@ run_pdfl_samples:
 
 clean:
 	rm -f *.o *.out out.* ../dlutils/*.o; \
-	for target in $(SAMPLES); do \
+	for target in $(BUILD_ONLY_SAMPLES); do \
 		(cd ../$$target && $(MAKE) clean); \
 	done;
