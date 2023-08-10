@@ -79,6 +79,7 @@ pipeline {
                             expression { "${SKIPPLATFORM}" == 'false' }
                             }
                         steps {
+                            printPlatformNameInStep()
                             echo "Set-Up Environment ${NODE} ${BITS}"
                             script {
                                 if (isUnix()) {
@@ -194,4 +195,12 @@ def setSkipPlatform(String node) {
         return 'true'
     }
     return 'false'
+}
+
+void printPlatformNameInStep() {
+    script {
+        stage("${node} - ${bits}") {
+            echo "Building: ${node}"
+        }
+    }
 }
