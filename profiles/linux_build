@@ -1,4 +1,4 @@
-include(llvm-toolset-7)
+include(llvm-toolset-7-cppstd-14)
 [env]
 PATH=[/opt/cmake-3.17/bin]
 

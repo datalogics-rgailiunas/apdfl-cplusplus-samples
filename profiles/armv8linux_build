@@ -1,11 +1,3 @@
-[settings]
-os=Linux
-os_build=Linux
-arch=armv8
-arch_build=armv8
-compiler=gcc
-compiler.version=4.8
-compiler.libcxx=libstdc++
-build_type=Release
+include(llvm-toolset-7.0-armv8-cppstd-14)
 [env]
 PATH=[/opt/cmake-3.19/bin]
