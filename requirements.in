@@ -1,4 +1,4 @@
-dl_conan_build_tools==3.60.0
+dl_conan_build_tools
 invoke
 pipdeptree
 
