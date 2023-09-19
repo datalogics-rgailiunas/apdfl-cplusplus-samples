@@ -60,6 +60,7 @@ SAMPLES = Annotations/CreateAnnotations \
           ContentModification/SplitPDF \
           Display/DisplayPDEContent \
           DocumentConversion/ConvertPDFtoEPS \
+          DocumentConversion/ConvertToOffice \
           DocumentConversion/ConvertPDFtoPostscript \
           DocumentConversion/ConvertToPDFA \
           DocumentConversion/ConvertToPDFX \
