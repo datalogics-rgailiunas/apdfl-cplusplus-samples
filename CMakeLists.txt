@@ -64,6 +64,20 @@ elseif(UTIL_PLAT MATCHES "Mac" OR UTIL_PLAT MATCHES "armv8mac_64")
             PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
             PATTERN "Public_Repo_Update.py" EXCLUDE
             )
+elseif(UTIL_PLAT MATCHES "i80386linux_64" OR UTIL_PLAT MATCHES "armv8linux_64")
+    install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
+            DESTINATION ${INSTALL_SAMPLEDIR}/${DL_SAMPLES}
+            USE_SOURCE_PERMISSIONS
+            PATTERN ".git*" EXCLUDE PATTERN "_Input" EXCLUDE PATTERN "CMakeLists.txt" EXCLUDE
+            PATTERN "*.xcodeproj" EXCLUDE PATTERN "*.bat*" EXCLUDE PATTERN "*Mac*" EXCLUDE
+            PATTERN "*.plist" EXCLUDE PATTERN "*.strings*" EXCLUDE PATTERN "*.sh*" EXCLUDE
+            PATTERN "*Bit*.*" EXCLUDE PATTERN "*.vcxproj*" EXCLUDE
+            PATTERN "PDFPrintGUI" EXCLUDE PATTERN "PDFViewer" EXCLUDE
+            PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
+            PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE PATTERN "utils" EXCLUDE
+            PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
+            PATTERN "Public_Repo_Update.py" EXCLUDE
+            )
 else()
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
             DESTINATION ${INSTALL_SAMPLEDIR}/${DL_SAMPLES}
