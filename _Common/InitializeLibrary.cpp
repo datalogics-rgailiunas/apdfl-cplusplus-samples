@@ -267,6 +267,9 @@ void APDFLib::fillDirectories() {
     pdflData.cMapDirectory = (char *)fontDirList[1];
     pdflData.unicodeDirectory = (char *)"../../../../Resources/Unicode";
 
+    // Set the OfficeMetrics directory.
+    pdflData.officeMetricsDirectory = (char *)"../../../../Resources/OfficeMetrics";
+
     // Set the plugin
     pluginDirList[0] = (ASUTF16Val *)"../../../Binaries";
     pdflData.pluginDirList = (char **)pluginDirList;
