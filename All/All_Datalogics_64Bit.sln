@@ -155,6 +155,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConvertToFactur-X", "..\Doc
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConvertToOffice", "..\DocumentConversion\ConvertToOffice\ConvertToOffice.vcxproj", "{23109389-CC9E-400D-B55D-BCFE2A705A29}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImageExport", "..\Images\ImageExport\ImageExport.vcxproj", "{602EB9F5-A4F1-4A97-B88B-098EEF3F2600}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImageImport", "..\Images\ImageImport\ImageImport.vcxproj", "{C2FDB39D-49DA-4237-BC31-85284AAFE6BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -461,6 +465,14 @@ Global
 		{23109389-CC9E-400D-B55D-BCFE2A705A29}.Debug|x64.Build.0 = Debug|x64
 		{23109389-CC9E-400D-B55D-BCFE2A705A29}.Release|x64.ActiveCfg = Release|x64
 		{23109389-CC9E-400D-B55D-BCFE2A705A29}.Release|x64.Build.0 = Release|x64
+        {602EB9F5-A4F1-4A97-B88B-098EEF3F2600}.Debug|x64.ActiveCfg = Debug|x64
+        {602EB9F5-A4F1-4A97-B88B-098EEF3F2600}.Debug|x64.Build.0 = Debug|x64
+        {602EB9F5-A4F1-4A97-B88B-098EEF3F2600}.Release|x64.ActiveCfg = Release|x64
+        {602EB9F5-A4F1-4A97-B88B-098EEF3F2600}.Release|x64.Build.0 = Release|x64
+        {C2FDB39D-49DA-4237-BC31-85284AAFE6BC}.Debug|x64.ActiveCfg = Debug|x64
+        {C2FDB39D-49DA-4237-BC31-85284AAFE6BC}.Debug|x64.Build.0 = Debug|x64
+        {C2FDB39D-49DA-4237-BC31-85284AAFE6BC}.Release|x64.ActiveCfg = Release|x64
+        {C2FDB39D-49DA-4237-BC31-85284AAFE6BC}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
