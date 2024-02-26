@@ -103,6 +103,8 @@ declare -a DL_SAMPLE_LIST=( \
   "Images/CreateSeparations" \
   "Images/CalcImageDPI" \
   "Images/FindImageResolutions" \
+  "Images/ImageExport" \
+  "Images/ImageImport" \
   "Images/OutputPreview" \
   "InformationExtraction/CountColorsInDoc" \
   "InformationExtraction/ExtractDocumentInfo" \

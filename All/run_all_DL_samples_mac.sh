@@ -242,6 +242,16 @@ cd ../../Images/OutputPreview
 ./OutputPreview-${stage}.app/Contents/MacOS/OutputPreview-${stage}
 echo ""
 
+echo Running sample ImageExport
+cd ../../Images/ImageExport
+./ImageExport-${stage}.app/Contents/MacOS/ImageExport-${stage}
+echo ""
+
+echo Running sample ImageImport
+cd ../../Images/ImageImport
+./ImageImport-${stage}.app/Contents/MacOS/ImageImport-${stage}
+echo ""
+
 # InformationExtraction
 
 echo Running sample CountColorsInDoc

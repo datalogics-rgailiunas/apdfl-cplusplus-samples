@@ -71,6 +71,8 @@ SAMPLES = Annotations/CreateAnnotations \
           Images/CreateImageWithTransparency \
           Images/CreateSeparations \
           Images/FindImageResolutions \
+          Images/ImageExport \
+          Images/ImageImport \
           Images/OutputPreview \
           Images/RenderPage \
           InformationExtraction/CountColorsInDoc \

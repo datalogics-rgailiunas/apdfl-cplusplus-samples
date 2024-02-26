@@ -191,6 +191,8 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Images\CreateSeparations"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Images\CalcImageDPI"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Images\FindImageResolutions"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Images\OutputPreview"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Images\ImageExport"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Images\ImageImport"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Text\InsertHeadFoot"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Text\ExtractText"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Text\ExtractAcroFormFieldData"
@@ -231,7 +233,7 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% InformationExtraction\ExtractDocumentInfo"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FileSystem\AlternateFileSystem"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
 REM *** The total number of DL samples. This must be accurate!
-SET /A "NUM_DL_SAMPLES=70"
+SET /A "NUM_DL_SAMPLES=72"
 
 REM *** Di iterates over Datalogics samples. Do not change this value.
 SET /A "Di=0"
