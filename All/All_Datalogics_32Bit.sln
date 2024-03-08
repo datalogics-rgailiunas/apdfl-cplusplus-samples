@@ -29,6 +29,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddArt", "..\ContentCreatio
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddBookmarks", "..\ContentModification\AddBookmarks\AddBookmarks.vcxproj", "{A2575B7E-CCA9-42E4-8449-330BB89437AA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddQRCode", "..\ContentModification\AddQRCode\AddQRCode.vcxproj", "{604701C2-60BD-4BBE-BB5A-572FCF13140B}}"
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddLinks", "..\ContentModification\AddLinks\AddLinks.vcxproj", "{939FEDCC-E180-47EB-8270-8ED8BD37BCDD}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddPageNumbers", "..\ContentModification\AddPageNumbers\AddPageNumbers.vcxproj", "{4184B1FF-6865-439F-89B3-7FAAC161E0DF}"
@@ -217,6 +219,10 @@ Global
 		{A2575B7E-CCA9-42E4-8449-330BB89437AA}.Debug|Win32.Build.0 = Debug|Win32
 		{A2575B7E-CCA9-42E4-8449-330BB89437AA}.Release|Win32.ActiveCfg = Release|Win32
 		{A2575B7E-CCA9-42E4-8449-330BB89437AA}.Release|Win32.Build.0 = Release|Win32
+		{604701C2-60BD-4BBE-BB5A-572FCF13140B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{604701C2-60BD-4BBE-BB5A-572FCF13140B}.Debug|Win32.Build.0 = Debug|Win32
+		{604701C2-60BD-4BBE-BB5A-572FCF13140B}.Release|Win32.ActiveCfg = Release|Win32
+		{604701C2-60BD-4BBE-BB5A-572FCF13140B}.Release|Win32.Build.0 = Release|Win32
 		{939FEDCC-E180-47EB-8270-8ED8BD37BCDD}.Debug|Win32.ActiveCfg = Debug|Win32
 		{939FEDCC-E180-47EB-8270-8ED8BD37BCDD}.Debug|Win32.Build.0 = Debug|Win32
 		{939FEDCC-E180-47EB-8270-8ED8BD37BCDD}.Release|Win32.ActiveCfg = Release|Win32

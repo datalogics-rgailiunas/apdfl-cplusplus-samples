@@ -165,6 +165,7 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Annotations\FlattenAnnotations"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Printing\PostScriptInjection"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentOptimization\PDFOptimizer"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\AddBookmarks"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\AddQRCode"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\AddDocumentInformation"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\AddLinks"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\AddPageNumbers"
@@ -233,7 +234,7 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% InformationExtraction\ExtractDocumentInfo"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FileSystem\AlternateFileSystem"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
 REM *** The total number of DL samples. This must be accurate!
-SET /A "NUM_DL_SAMPLES=72"
+SET /A "NUM_DL_SAMPLES=73"
 
 REM *** Di iterates over Datalogics samples. Do not change this value.
 SET /A "Di=0"

@@ -45,6 +45,7 @@ SAMPLES = Annotations/CreateAnnotations \
           ContentExtraction/ExtractAttachments \
           ContentExtraction/ExtractFonts \
           ContentModification/AddBookmarks \
+          ContentModification/AddQRCode \
           ContentModification/AddDocumentInformation \
           ContentModification/AddLinks \
           ContentModification/AddPageNumbers \

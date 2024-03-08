@@ -97,6 +97,11 @@ cd ../../ContentModification/AddBookmarks
 ./AddBookmarks-${stage}.app/Contents/MacOS/AddBookmarks-${stage}
 echo ""
 
+echo Running sample AddQRCode
+cd ../../ContentModification/AddQRCode
+./AddQRCode-${stage}.app/Contents/MacOS/AddQRCode-${stage}
+echo ""
+
 echo Running sample AddDocumentInformation
 cd ../../ContentModification/AddDocumentInformation
 ./AddDocumentInformation-${stage}.app/Contents/MacOS/AddDocumentInformation-${stage}
