@@ -31,6 +31,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddHeaderFooter", "..\Conte
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddBookmarks", "..\ContentModification\AddBookmarks\AddBookmarks.vcxproj", "{A2575B7E-CCA9-42E4-8449-330BB89437AA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddQRCode", "..\ContentModification\AddQRCode\AddQRCode.vcxproj", "{604701C2-60BD-4BBE-BB5A-572FCF13140B}}"
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddLinks", "..\ContentModification\AddLinks\AddLinks.vcxproj", "{939FEDCC-E180-47EB-8270-8ED8BD37BCDD}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddPageNumbers", "..\ContentModification\AddPageNumbers\AddPageNumbers.vcxproj", "{4184B1FF-6865-439F-89B3-7FAAC161E0DF}"
@@ -217,6 +219,10 @@ Global
 		{A2575B7E-CCA9-42E4-8449-330BB89437AA}.Debug|x64.Build.0 = Debug|x64
 		{A2575B7E-CCA9-42E4-8449-330BB89437AA}.Release|x64.ActiveCfg = Release|x64
 		{A2575B7E-CCA9-42E4-8449-330BB89437AA}.Release|x64.Build.0 = Release|x64
+		{604701C2-60BD-4BBE-BB5A-572FCF13140B}.Debug|x64.ActiveCfg = Debug|x64
+		{604701C2-60BD-4BBE-BB5A-572FCF13140B}.Debug|x64.Build.0 = Debug|x64
+		{604701C2-60BD-4BBE-BB5A-572FCF13140B}.Release|x64.ActiveCfg = Release|x64
+		{604701C2-60BD-4BBE-BB5A-572FCF13140B}.Release|x64.Build.0 = Release|x64
 		{939FEDCC-E180-47EB-8270-8ED8BD37BCDD}.Debug|x64.ActiveCfg = Debug|x64
 		{939FEDCC-E180-47EB-8270-8ED8BD37BCDD}.Debug|x64.Build.0 = Debug|x64
 		{939FEDCC-E180-47EB-8270-8ED8BD37BCDD}.Release|x64.ActiveCfg = Release|x64

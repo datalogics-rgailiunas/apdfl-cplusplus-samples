@@ -78,6 +78,7 @@ declare -a DL_SAMPLE_LIST=( \
   "ContentExtraction/ExtractAttachments" \
   "ContentExtraction/ExtractFonts" \
   "ContentModification/AddBookmarks" \
+  "ContentModification/AddQRCode" \
   "ContentModification/AddDocumentInformation" \
   "ContentModification/AddLinks" \
   "ContentModification/AddPageNumbers" \
