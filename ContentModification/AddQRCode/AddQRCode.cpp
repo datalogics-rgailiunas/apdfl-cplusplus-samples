@@ -11,6 +11,7 @@
 #include "PERCalls.h"
 #include "PagePDECntCalls.h"
 #include "ASCalls.h"
+#include "DLExtrasCalls.h"
 
 #define INPUT_LOC "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "AddContent.pdf"
@@ -34,7 +35,7 @@ int main(int argc, char **argv) {
 
     DURING
         APDFLDoc APDoc(csInputFileName.c_str(), true);
-        PDDoc mydoc = APDoc.getPDDoc();
+        PDDoc inDoc = APDoc.getPDDoc();
 
         ASFixedRect cropBox;
         memset(&cropBox, 0, sizeof(ASFixedRect));
@@ -49,16 +50,10 @@ int main(int argc, char **argv) {
 
         PDPageAddQRBarcode(inPage, text, 72.0, ASFixedToFloat(cropBox.top) - 1.5 * 72.0, 72.0, 72.0);
 
-
-        ASPathName outPath = wcharToASPath(OUTPUT_NAME);
-
-        PDDocSave(inDoc, PDSaveFull | PDSaveCollectGarbage, outPath, NULL, NULL, NULL);
-
         APDoc.saveDoc(csOutputFileName.c_str());
 
         ASTextDestroy(text);
         PDPageRelease(inPage);
-        ASFileSysReleasePath(NULL, outPath);
     HANDLER
         errCode = ERRORCODE;
         lib.displayError(errCode);
