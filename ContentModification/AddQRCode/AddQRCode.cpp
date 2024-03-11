@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
         return errCode;
     }
 
-    std::string csSearchWord(argc > 1 ? argv[1] : DEF_ENCODED_TEXT);
+    std::string csEncodedText(argc > 1 ? argv[1] : DEF_ENCODED_TEXT);
     std::string csInputFileName(argc > 2 ? argv[2] : INPUT_LOC DEF_INPUT);
     std::string csOutputFileName(argc > 3 ? argv[3] : DEF_OUTPUT);
 
@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
 
         PDPageGetCropBox(inPage, &cropBox);
 
-        ASUTF16Val *ucs = (ASUTF16Val*)csSearchWord.c_str();
+        ASUTF16Val *ucs = (ASUTF16Val*)csEncodedText.c_str();
 
         ASText text = ASTextFromUnicode(ucs, kUTF8);
 
