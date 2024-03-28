@@ -1,8 +1,5 @@
 //
-// Copyright (c) 2017-2021, Datalogics, Inc. All rights reserved.
-//
-// For complete copyright information, refer to:
-// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
+// Copyright (c) 2017-2023, Datalogics, Inc. All rights reserved.
 //
 // Sample: RenderPage
 //
@@ -39,6 +36,7 @@ class RenderPage {
 
     ASFixedRect imageSize; // This will carry the image size in PDF units.
 
+    PDEFilterArray SetFlateFilterParams(CosDoc cosDoc);
     PDEFilterArray SetDCTFilterParams(CosDoc cosDoc);
     PDEFilterArray SetCCITTFaxFilterParams(CosDoc cosDoc);
     ASAtom SetColorSpace(const char *colorSpace);
