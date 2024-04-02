@@ -82,13 +82,6 @@ int main(int argc, char **argv) {
         DLPDEImageRotate(clone, 90);
         DLPDEImageScale(clone, 0.5, 0.5);
 
-        // Color convert the image to a grayscale version.
-        PDEImage grayscaleImage =
-            DLColorConvertPDEImage(&doc, clone, AC_Profile_DotGain30, AC_Saturation, true);
-        DLPDEImageTranslate(grayscaleImage, -72, -72);
-        DLPDEImageRotate(grayscaleImage, 180);
-        DLPDEImageScale(grayscaleImage, 0.5, 0.5);
-
         // Create a copy of the cloned PDEImage, but with a new DPI.
         DLPDEImageExportParams exportParams = DLPDEImageGetExportParams();
         PDEImage newRezImage = DLCreateResampledPDEImage(clone, &exportParams, 16);
@@ -102,7 +95,6 @@ int main(int argc, char **argv) {
         PDEContent content = PDPageAcquirePDEContent(page, 0);
         PDEContentAddElem(content, 0, reinterpret_cast<PDEElement>(newImage));
         PDEContentAddElem(content, 1, reinterpret_cast<PDEElement>(clone));
-        PDEContentAddElem(content, 2, reinterpret_cast<PDEElement>(newRezImage));
         PDEContentAddElem(content, 3, reinterpret_cast<PDEElement>(grayscaleImage));
 
         // Set the PDEContent into the page and release it after it is used.
@@ -117,7 +109,6 @@ int main(int argc, char **argv) {
         // Release remaining resources when no longer needed.
         PDERelease(reinterpret_cast<PDEObject>(newImage));
         PDERelease(reinterpret_cast<PDEObject>(clone));
-        PDERelease(reinterpret_cast<PDEObject>(newRezImage));
         PDERelease(reinterpret_cast<PDEObject>(grayscaleImage));
         ASFileSysReleasePath(NULL, sInput);
         ASFileSysReleasePath(NULL, sOutput);
