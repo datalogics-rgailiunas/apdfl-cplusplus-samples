@@ -72,8 +72,8 @@ class GCCAIXHelper {
 #endif // AIX_GCC_COMPAT
 class APDFLib {
   public:
-    APDFLib(wchar_t *dlDir = NULL); // Constructor initializes APDFL and sets the path to DL180PDFL.dll to dlDir. If NULL is passed, defaults to ../../../Binaries. dlDir should be a relative path.
-    ~APDFLib();                     // Destructor terminates APDFL.
+    APDFLib(wchar_t *dl180Dir = NULL, int flags = 0); // Constructor initializes APDFL and sets the path to DL180PDFL.dll to dl180Dir. If NULL is passed, defaults to ../../../Binaries. dl180Dir should be a relative path.
+    ~APDFLib();                                       // Destructor terminates APDFL.
 
     ASInt32 getInitError(); // Reports whether an error happened during initialization and returns that error.
     ASBool isValid() { return initValid; }; // Returns true if the library initialized successfully.
