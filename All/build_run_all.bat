@@ -140,7 +140,7 @@ GOTO AcceptCommands
 :ArgumentsEnd
 
 REM *** Set up the visual studio environment.
-CALL "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Auxiliary\Build\vcvarsamd64_x86.bat" %VS_ARCH%
+CALL "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Auxiliary\Build\vcvarsamd64_x86.bat" %VS_ARCH%
 IF "%VSINSTALLDIR%" == "" GOTO Usage
 
 REM *************************************************
