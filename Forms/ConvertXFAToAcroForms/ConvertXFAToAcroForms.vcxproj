@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -19,10 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{6A66FE38-DE3E-4283-AFD2-E0AF50CD8BBD}</ProjectGuid>
+    <ProjectGuid>{17E5E1FD-6C0D-4E9D-9C66-D69535EB4E7E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BlankSample</RootNamespace>
-    <ProjectName>AddQRCode</ProjectName>
+    <ProjectName>ConvertXFAToAcroForms</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -158,7 +158,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AddQRCode.cpp" />
+    <ClCompile Include="ConvertXFAToAcroForms.cpp" />
     <ClCompile Include="..\..\_Common\APDFLDoc.cpp" />
     <ClCompile Include="..\..\_Common\InitializeLibrary.cpp" />
     <ClCompile Include="..\..\..\Include\Source\PDFLInitCommon.c" />
