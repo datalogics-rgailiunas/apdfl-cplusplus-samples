@@ -111,6 +111,15 @@ ifeq ($(findstring mac,$(OS)), )
 endif
 endif
 
+ifneq ($(findstring linux,$(OS)), )
+ifneq ($(findstring true,$(BUILD_64_BIT)), )
+    SAMPLES += Forms/ConvertXFAToAcroForms
+    SAMPLES += Forms/ExportFormsData
+    SAMPLES += Forms/FlattenForms
+    SAMPLES += Forms/ImportFormsData
+endif
+endif
+
 BUILD_ONLY_SAMPLES = $(SAMPLES)
 
 ifneq ($(findstring mac,$(OS)), )
