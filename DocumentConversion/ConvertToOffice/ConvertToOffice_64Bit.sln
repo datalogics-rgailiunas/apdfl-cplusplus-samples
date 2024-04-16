@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.572
+# Visual Studio 16
+VisualStudioVersion = 16.0.34407.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{69A76CB8-CBBC-48DC-993C-3B5BC6CE9380}") = "ConvertToOffice", "ConvertToOffice.vcxproj", "{23109389-CC9E-400D-B55D-BCFE2A705A29}"
 EndProject

@@ -210,10 +210,7 @@ int main(int argc, char *argv[]) {
 
                 // Release the buffer for the last bitmap drawn
                 if (pageInfo.drawParams.buffer != NULL)
-                {
                     ASfree(pageInfo.drawParams.buffer);
-                    pageInfo.drawParams.buffer = NULL;
-                }
             }
 
             // Release the page.
@@ -319,9 +316,9 @@ void FillPageInfo(PageInfo *pageInfo, PDPage page) {
     pageInfo->drawParams.asRealDestRect = &pageInfo->drawWindow;
     pageInfo->drawParams.bpc = 8;
 
-    // Because Spot Colorants may only be part of Annotation appearances, to do a proper DeviceN rendering
-    // of all colorants this needs to be set.
-    pageInfo->drawParams.flags = kPDPageDoLazyErase | kPDPageUseAnnotFaces;
+    // If we want to control other effects during rendering, it can be done here. In general though
+    //   only lazyErase is used.
+    pageInfo->drawParams.flags = kPDPageDoLazyErase;
 
     // When doing separations, we NEVER want Anti-Aliasing!
     pageInfo->drawParams.smoothFlags = 0;
