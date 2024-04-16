@@ -19,4 +19,12 @@ lib, *.lib* -> CPlusPlus/Binaries
 lib, *.a* -> CPlusPlus/Binaries
 lib, *.so* -> CPlusPlus/Binaries
 lib, *.ppi* -> CPlusPlus/Binaries
+formsextbin, *.dll* -> CPlusPlus/Binaries
+formsextbin, *.ppi* -> CPlusPlus/Binaries
+formsextlib, *.lib* -> CPlusPlus/Binaries
+formsextlib, *.a* -> CPlusPlus/Binaries
+formsextlib, *.so* -> CPlusPlus/Binaries
+formsextlib, *.ppi* -> CPlusPlus/Binaries
+formsextbin/JavaScripts, * -> CPlusPlus/Binaries/JavaScripts
+formsextbin/pdfplug_ins, * -> CPlusPlus/Binaries/pdfplug_ins
 Resources, * -> Resources
