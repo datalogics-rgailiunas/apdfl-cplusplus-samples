@@ -27,4 +27,6 @@ formsextlib, *.so* -> CPlusPlus/Binaries
 formsextlib, *.ppi* -> CPlusPlus/Binaries
 formsextbin/JavaScripts, * -> CPlusPlus/Binaries/JavaScripts
 formsextbin/pdfplug_ins, * -> CPlusPlus/Binaries/pdfplug_ins
+formsextlib/JavaScripts, * -> CPlusPlus/Binaries/JavaScripts
+formsextlib/pdfplug_ins, * -> CPlusPlus/Binaries/pdfplug_ins
 Resources, * -> Resources
