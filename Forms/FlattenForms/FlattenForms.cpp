@@ -1,8 +1,8 @@
 //
-// Copyright (c) 2019, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2024, Datalogics, Inc. All rights reserved.
 //
 // For complete copyright information, refer to:
-// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
+// https://www.datalogics.com/
 //
 // The FlattenForms sample demonstrates how to Flatten two types of forms fields:
 //
@@ -10,9 +10,6 @@
 //  - Flatten AcroForms to regular page content which converts AcroForm fields to regular page content and removes the AcroForm fields
 //
 // NOTE: The APDFL Forms Extension is available separately from APDFL.  Please contact Datalogics directly for more information about this extension.
-//
-// For more detail see the description of the FlattenForms sample program on our Developer’s site,
-// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#flattenforms
 
 #include <iostream>
 #include "InitializeLibrary.h"

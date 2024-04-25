@@ -1,8 +1,8 @@
 //
-// Copyright (c) 2019, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2024, Datalogics, Inc. All rights reserved.
 //
 // For complete copyright information, refer to:
-// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
+// https://www.datalogics.com/
 //
 // The ExportFormsData sample demonstrates how to Export forms data from XFA and AcroForms documents:
 //
@@ -10,9 +10,6 @@
 //  - Export data from an AcroForms document, the types supported include XFDF, FDF, or XML
 //
 // NOTE: The APDFL Forms Extension is available separately from APDFL.  Please contact Datalogics directly for more information about this extension.
-//
-// For more detail see the description of the ExportFormsData sample program on our Developer’s site,
-// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#exportformsdata
 
 #include <iostream>
 #include "InitializeLibrary.h"

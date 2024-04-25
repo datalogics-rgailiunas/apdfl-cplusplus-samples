@@ -1,8 +1,8 @@
 //
-// Copyright (c) 2019, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2024, Datalogics, Inc. All rights reserved.
 //
 // For complete copyright information, refer to:
-// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
+// https://www.datalogics.com/
 //
 // Command line argument:  (Optional) <input-file-name> <output-file-name>
 //
@@ -11,9 +11,6 @@
 //  - Converts XFA (Dynamic or Static) fields to AcroForms fields and removes XFA fields
 //
 // NOTE: The APDFL Forms Extension is available separately from APDFL.  Please contact Datalogics directly for more information about this extension.
-//
-// For more detail see the description of the ConvertXFAToAcroForms sample program on our Developer’s site,
-// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#convertxfatoacroforms
 
 #include <iostream>
 #include "InitializeLibrary.h"
