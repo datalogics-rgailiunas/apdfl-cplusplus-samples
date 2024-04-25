@@ -22,7 +22,7 @@
 // Constructor:
 // initializes APDFL and does not default the DL180PDFL.dll directory. dlDir should be a relative path.
 //========================================================================================================
-APDFLib::APDFLib(wchar_t *dlDir)
+APDFLib::APDFLib(wchar_t *dlDir, int flags)
 #if AIX_GCC_COMPAT
     : gccHelp()
 #endif
@@ -53,6 +53,9 @@ APDFLib::APDFLib(wchar_t *dlDir)
 #ifdef WIN_PLATFORM
     pdflData.inst = dllInst;
 #endif
+
+    pdflData.flags = flags;
+
     initError = PDFLInitHFT(&pdflData); // Initialize the library.
     if (initError == 0)                 // If initError is 0, initialization succeeded.
         initValid = true;

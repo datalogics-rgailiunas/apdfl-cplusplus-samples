@@ -140,7 +140,7 @@ GOTO AcceptCommands
 :ArgumentsEnd
 
 REM *** Set up the visual studio environment.
-CALL "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Auxiliary\Build\vcvarsamd64_x86.bat" %VS_ARCH%
+CALL "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Auxiliary\Build\vcvarsamd64_x86.bat" %VS_ARCH%
 IF "%VSINSTALLDIR%" == "" GOTO Usage
 
 REM *************************************************
@@ -232,9 +232,18 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentExtraction\ExtractFonts"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% InformationExtraction\CountColorsInDoc"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% InformationExtraction\ExtractDocumentInfo"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FileSystem\AlternateFileSystem"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
+
 REM *** The total number of DL samples. This must be accurate!
-SET /A "NUM_DL_SAMPLES=73"
+SET /A "NUM_DL_SAMPLES=72"
+
+REM *** Include FormsExtension samples only in x64
+IF %ARCH% EQU x64 (
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Forms\ConvertXFAToAcroForms Forms\ExportFormsData Forms\FlattenForms Forms\ImportFormsData"
+SET /A "NUM_DL_SAMPLES=%NUM_DL_SAMPLES% + 4"
+)
+
+REM *** Close the sample list
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
 
 REM *** Di iterates over Datalogics samples. Do not change this value.
 SET /A "Di=0"
