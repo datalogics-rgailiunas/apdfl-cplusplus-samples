@@ -1,13 +1,8 @@
 //
-// Copyright (c) 2007-2021, Datalogics, Inc. All rights reserved.
-//
-// For complete copyright information, refer to:
-// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
+// Copyright (c) 2007-2024, Datalogics, Inc. All rights reserved.
 //
 // The RenderPage sample program shows how to render a PDF document page to memory.
 //
-// For more detail see the description of the RenderPage sample program on our Developer’s site,
-// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#renderpage
 
 #include "RenderPage.h"
 #include <math.h>
@@ -297,11 +292,10 @@ ASSize_t RenderPage::GetImageBufferSize() { return bufferSize; }
 ASFixedRect RenderPage::GetImageSize() { return imageSize; }
 
 PDEImage RenderPage::GetPDEImage(PDDoc outDoc) {
-    // When we are encoding in DCT, we need to know the height and
-    // width of the image in pixels, and the document we will be
-    // writing the PDE Image into. This is not known before now,
-    // so we will do it just before creating the image.
-    if (filterArray.spec[0].name == ASAtomFromString("DCTDecode")) {
+    if (filterArray.spec[0].name == ASAtomFromString("FlateDecode")) {
+        SetFlateFilterParams(PDDocGetCosDoc(outDoc));
+    }
+    else if (filterArray.spec[0].name == ASAtomFromString("DCTDecode")) {
         SetDCTFilterParams(PDDocGetCosDoc(outDoc));
     }
     else if (filterArray.spec[0].name == ASAtomFromString("CCITTFaxDecode")) {
@@ -406,12 +400,26 @@ PDEImage RenderPage::GetPDEImage(PDDoc outDoc) {
     return image;
 }
 
+PDEFilterArray RenderPage::SetFlateFilterParams(CosDoc cosDoc) {
+    // Create a new Cos dictionary
+    CosObj dictParams = CosNewDict(cosDoc, false, 1);
+
+    //Set Effort to 6 for best performance/compression balance
+    CosDictPut(dictParams, ASAtomFromString("Effort"), CosNewInteger(cosDoc, false, 6));
+
+    filterArray.numFilters = 1;
+    filterArray.spec[0].encodeParms = dictParams;
+    filterArray.spec[0].decodeParms = CosNewNull();
+
+    return filterArray;
+}
+
 PDEFilterArray RenderPage::SetDCTFilterParams(CosDoc cosDoc) {
     // Create a new Cos dictionary
     CosObj dictParams = CosNewDict(cosDoc, false, 4);
 
     // Populate the dictionary with required entries to do JPEG compression
-    // (only Columns, Rows, and the number of color dimensions needed for sraight JPEG)
+    // (only Columns, Rows, and the number of color dimensions needed for straight JPEG)
     CosDictPut(dictParams, ASAtomFromString("Columns"), CosNewInteger(cosDoc, false, attrs.width));
     CosDictPut(dictParams, ASAtomFromString("Rows"), CosNewInteger(cosDoc, false, attrs.height));
     CosDictPut(dictParams, ASAtomFromString("Colors"), CosNewInteger(cosDoc, false, nComps));
