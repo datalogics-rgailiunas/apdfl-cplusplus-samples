@@ -1,15 +1,11 @@
 //
-// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2017-2024, Datalogics, Inc. All rights reserved.
 //
-// For complete copyright information, refer to:
-// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 // This sample program uses the PDFlattener plugin to flatten a PDF input document.
 //
 // Command-line:  <input-file>  <output-file>       (Both optional)
 //
-// For more detail see the description of the FlattenTransparency sample program on our Developer’s site,
-// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#flattentransparency
 
 #include <iomanip>
 

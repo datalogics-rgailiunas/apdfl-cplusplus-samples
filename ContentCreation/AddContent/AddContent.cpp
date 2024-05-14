@@ -1,15 +1,10 @@
 //
-// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
-//
-// For complete copyright information, refer to:
-// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
+// Copyright (c) 2017-2024, Datalogics, Inc. All rights reserved.
 //
 // AddContent adds several elements to a blank PDF input document, including text and a rectangle.
 //
 // Command-line:  <input-file> <output-file>   (both optional)
 //
-// For more detail see the description of the AddContent sample program on our Developer’s site,
-// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addcontent
 
 #include <iostream>
 

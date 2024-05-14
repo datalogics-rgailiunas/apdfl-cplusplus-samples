@@ -1,7 +1,7 @@
 /*
-// Copyright 2016, Datalogics, Inc. All rights reserved.
+// Copyright 2016-2024, Datalogics, Inc. All rights reserved.
 //
-// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
+
 //
 // Setup default print parameters for samples.
 */

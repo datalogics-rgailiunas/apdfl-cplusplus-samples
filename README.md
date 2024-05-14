@@ -1,7 +1,6 @@
-![Datalogics Adobe PDF Library](https://www.datalogics.com/wp-content/uploads/2022/09/Datalogics-Logo-1-e1664565864201.png)
+![Datalogics Adobe PDF Library](https://raw.github.com/datalogics/dl-icons/develop/DLBanner_Nuget.png)
 
-[Datalogics](https://www.datalogics.com)&nbsp;|&nbsp; [Free Trial Download](https://www.datalogics.com/adobe-pdf-library/) &nbsp;|&nbsp; [Documentation](https://dev.datalogics.com/) &nbsp;|&nbsp; [Support](https://www.datalogics.com/tech-support-pdfs/) &nbsp;|&nbsp;[NuGet](https://www.nuget.org/profiles/Datalogics)
-
+[Support](https://www.datalogics.com/tech-support-pdfs/) &nbsp; | &nbsp; [Documentation](https://docs.datalogics.com/apdfl18/CPlusPlus/index.html) &nbsp; | &nbsp; [Release Notes](https://docs.datalogics.com/apdfl18/Release_Notes.html) &nbsp; | &nbsp;[Homepage](https://www.datalogics.com)
 <br>
 
 # C++ Sample Programs

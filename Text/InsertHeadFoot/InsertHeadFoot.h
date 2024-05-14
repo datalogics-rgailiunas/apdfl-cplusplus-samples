@@ -1,10 +1,6 @@
 //
-// Copyright (c) 2007-2017, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2007-2024, Datalogics, Inc. All rights reserved.
 //
-// For complete copyright information, see:
-// http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
-//
-// File InsertHeadFoot.h
 //
 
 #define ALLOC_INCREMENT 8192

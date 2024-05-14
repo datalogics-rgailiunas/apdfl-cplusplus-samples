@@ -1,14 +1,10 @@
 //
-// Copyright (c) 2023, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2023-2024, Datalogics, Inc. All rights reserved.
 //
-// For complete copyright information, refer to:
-// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 // This sample extracts text from a specific region of a page in a PDF
 // document and saves the text to a file.
 //
-// For more detail see the description of the ExtractTextByRegion sample program on our Developer’s
-// site, http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples
 
 #include <fstream>
 #include <string>

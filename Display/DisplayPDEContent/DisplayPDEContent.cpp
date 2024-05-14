@@ -1,8 +1,5 @@
 //
-// Copyright (c) 2008-2017, Datalogics, Inc. All rights reserved.
-//
-// For complete copyright information, see:
-// http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
+// Copyright (c) 2008-2024, Datalogics, Inc. All rights reserved.
 //
 // This program generates an output text file that lists details regarding the PDE content on every page
 // in an input PDF document. The PDFEdit Layer (PDE) of the Adobe Acrobat API contains classes that provide

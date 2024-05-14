@@ -1,8 +1,6 @@
 //
-// Copyright (c) 2015-2017, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2015-2024, Datalogics, Inc. All rights reserved.
 //
-// For complete copyright information, refer to:
-// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 // This sample program demonstrates how to add a file attachment to a PDF document, and
 // then save the updated file. If you run this program and then open the PDF output document
@@ -14,8 +12,6 @@
 // format, but it also applies to other protocols like HTTP, and the MIME standard is used to
 // define the types of files that can be attached to a PDF document.
 //
-// For more detail see the description of the AttachMimeToPDF sample program on our Developer’s site,
-// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#attachmimetopdf
 
 #include <cstdio>
 

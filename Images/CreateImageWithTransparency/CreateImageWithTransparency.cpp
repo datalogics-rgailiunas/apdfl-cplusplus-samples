@@ -1,8 +1,5 @@
 //
-// Copyright (c) 2010-2017, Datalogics, Inc. All rights reserved.
-//
-// For complete copyright information, see:
-// http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
+// Copyright (c) 2010-2024, Datalogics, Inc. All rights reserved.
 //
 // This sample shows how to create a transparency within a PDF document, in the form of a graphic
 // image with an art graphic layered on top. PDF files can have objects that are partially or fully
@@ -20,8 +17,6 @@
 //
 // CreateImageWithTransparency does not define an input file or an input directory.
 //
-// For more detail see the description of the CreateImageWithTransparency sample program on our Developer’s site,
-// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#createimagewithtransparency
 
 #include "PSFCalls.h"
 #include "PERCalls.h"
