@@ -1,14 +1,9 @@
 //
-// Copyright (c) 2023, Datalogics, Inc. All rights reserved.
-//
-// For complete copyright information, refer to:
-// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
+// Copyright (c) 2023-2024, Datalogics, Inc. All rights reserved.
 //
 // This sample demonstrates creating a new PDF document with a Header and Footer.
 //
 //
-// For more detail see the description of the AddHeaderFooter sample program on our Developer’s site,
-// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addheaderfooter
 
 #include "PSFCalls.h"
 #include "PERCalls.h"
@@ -68,7 +63,7 @@ int main(int argc, char **argv) {
         PDEFontAttrs fontAttrs;
         memset(&fontAttrs, 0, sizeof(PDEFontAttrs));
 
-        fontAttrs.name = ASAtomFromString("Times-Roman");
+        fontAttrs.name = ASAtomFromString("CourierStd");
 
         PDSysFont sysFont = PDFindSysFont(&fontAttrs, sizeof(fontAttrs), 0);
 

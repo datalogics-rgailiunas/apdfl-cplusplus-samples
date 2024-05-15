@@ -1,8 +1,8 @@
 //
-// Copyright (c) 2015-2017, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2015-2024, Datalogics, Inc. All rights reserved.
 //
-// For complete copyright information, refer to:
-// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
+
+
 //
 // Sample: FindImageResolutions - Create a list of all images in a document, and their parameters,
 //         with a sublist of instances where these images are displayed, and

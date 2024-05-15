@@ -1,8 +1,6 @@
 //
-// Copyright (c) 2015-2017, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2015-2024, Datalogics, Inc. All rights reserved.
 //
-// For complete copyright information, refer to:
-// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 // This sample creates a list of all of the images found within a PDF document. It also describes where
 // these images are found and the resolution for each one. The program will rotate any images it finds,
@@ -17,8 +15,6 @@
 // The output file does not include images present in the document but not referenced, or images that are soft
 // masks for use with transparencies.
 //
-// For more detail see the description of the FindImageResolutions sample program on our Developer’s site,
-// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#findimageresolutions
 
 #include <cmath>
 #include <iostream>

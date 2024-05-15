@@ -1,8 +1,6 @@
 //
-// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2017-2024, Datalogics, Inc. All rights reserved.
 //
-// For complete copyright information, refer to:
-// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 // The AddTriangularRedaction sample redacts each page of a document with
 // two full-page triangles, leaving only a narrow diagonal strip across each page.
@@ -11,8 +9,6 @@
 //
 // Command-line:  <input-file> <output-file>    (Both optional)
 //
-// For more detail see the description of the AddTriangularRedaction sample program on our Developer’s site,
-// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples/#addtriangularredaction
 
 #include <iostream>
 #include <string>

@@ -1,16 +1,12 @@
 //
-// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2017-2024, Datalogics, Inc. All rights reserved.
 //
-// For complete copyright information, refer to:
-// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 // The UnicodeText sample demonstrates how the Library works with Unicode text.
 // The sample converts hexadecimal characters into Unicode.
 //
 // Command-line:  <output-file>     (Optional)
 //
-// For more detail see the description of the UnicodeText sample program on our Developer’s site,
-// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#unicodetext
 
 #include "APDFLDoc.h"
 #include "InitializeLibrary.h"

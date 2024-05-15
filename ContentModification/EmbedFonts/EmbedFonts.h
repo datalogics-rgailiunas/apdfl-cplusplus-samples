@@ -1,9 +1,6 @@
 //
-// Copyright (c) 2010-2017, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2010-2024, Datalogics, Inc. All rights reserved.
 //
-// For complete copyright information, see:
-// http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
-// File:  EmbedFonts.h
 //
 
 #include <vector>

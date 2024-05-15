@@ -1,8 +1,5 @@
 //
-// Copyright (c) 2007-2017, Datalogics, Inc. All rights reserved.
-//
-// For complete copyright information, see:
-// http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
+// Copyright (c) 2007-2024, Datalogics, Inc. All rights reserved.
 //
 // This sample program demonstrates how to use the Adobe PDF Library to move all of the AcroForm
 // objects, namely forms fields and digital signatures, from one PDF document to another. AcroForm,

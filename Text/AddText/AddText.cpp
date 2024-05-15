@@ -1,15 +1,11 @@
 //
-// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2017-2024, Datalogics, Inc. All rights reserved.
 //
-// For complete copyright information, refer to:
-// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 // This sample demonstrates creating a new PDF document and adding text to the page, using a PDEFont element.
 //
 // Command-line:  <output-file>  <text-to-put-in-it>     (Both optional)
 //
-// For more detail see the description of the AddText sample program on our Developer’s site,
-// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#addtext
 
 #include <iostream>
 

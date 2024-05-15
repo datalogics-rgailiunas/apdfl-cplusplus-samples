@@ -1,8 +1,5 @@
 //
-// Copyright (c) 2007-2017, Datalogics, Inc. All rights reserved.
-//
-// For complete copyright information, see:
-// http://dev.datalogics.com/adobe-pdf-library/adobe-pdf-library-c-language-interface/license-for-downloaded-pdf-samples/
+// Copyright (c) 2007-2024, Datalogics, Inc. All rights reserved.
 //
 // This program makes the Optional Content Groups within a PDF document visible within a viewing application,
 // like Adobe Reader or Adobe Acrobat. The program finds any of these Optional Content Groups within the input

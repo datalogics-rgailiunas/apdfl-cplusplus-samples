@@ -1,15 +1,11 @@
 //
-// Copyright (c) 2017, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2017-2024, Datalogics, Inc. All rights reserved.
 //
-// For complete copyright information, refer to:
-// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 // The EncryptDocument encrypts a PDF document to secure it, and saves it with a password.
 //
 // Command-line:    <input-file>  <output-file>  <password>   (Optional)
 //
-// For more detail see the description of the EncryptDocument sample program on our Developer’s site,
-// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#encryptdocument
 
 #include <iostream>
 #include "ASExtraCalls.h"

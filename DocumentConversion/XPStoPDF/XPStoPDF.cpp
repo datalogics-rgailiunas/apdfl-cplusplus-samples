@@ -1,11 +1,8 @@
-// Copyright (c) 2015, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2015-2024, Datalogics, Inc. All rights reserved.
 //
-// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
 //
 // This sample demonstrates the XPS2PDF plugin, which converts a PDF document into an XPS document.
 //
-// For more detail see the description of the XPStoPDF sample program on our Developer’s site,
-// http://dev.datalogics.com/adobe-pdf-library/sample-program-descriptions/c1samples#xpstopdf
 
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"

@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundleGetInfoString</key>
-	<string>1.0, Copyright © 2015 - 2023 Datalogics Incorporated. All Rights Reserved.</string>
+	<string>1.0, Copyright © 2015 - 2024 Datalogics Incorporated. All Rights Reserved.</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>

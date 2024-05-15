@@ -1,6 +1,6 @@
-// Copyright (c) 2023, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2023-2024, Datalogics, Inc. All rights reserved.
 //
-// http://dev.datalogics.com/adobe-pdf-library/license-for-downloaded-pdf-samples/
+
 //
 //===============================================================================
 // Sample: TextExtract -This class is intended to assist with operations common to
