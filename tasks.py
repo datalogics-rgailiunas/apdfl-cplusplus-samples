@@ -46,12 +46,13 @@ def bootstrap(ctx, options=None, build_type='Release', bits='64', update=False, 
         conan.login(ctx)
     install_folder = profset.install_folder(build_type, build_64_bit=(bits == '64'))
     
+    igforms = 'Forms'
     if bits == '64':  # Only copy the 64-bit solution to the  64-bit staging area
         igpat = 'All_Datalogics_32Bit.sln'
-        igforms = ''
+        if profset.os == 'i80386linux' or profset.os == 'windows':
+            igforms = ''
     else:   # Only copy the 32-bit solution to the  32-bit staging area
         igpat = 'All_Datalogics*_64Bit.sln'
-        igforms = 'Forms'
     spat = shutil.ignore_patterns(
         install_folder, '.*', 'conan*', 'tasks', 'utils', 'python-env-*', igpat, igforms)
     sdir = os.path.join(install_folder, 'CPlusPlus', 'Sample_Source')
