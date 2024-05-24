@@ -111,6 +111,14 @@ ifeq ($(findstring mac,$(OS)), )
 endif
 endif
 
+PATH_TO_FORMS = ../Forms
+ifneq ("$(wildcard $(PATH_TO_FORMS))","")
+SAMPLES += Forms/ConvertXFAToAcroForms
+    SAMPLES += Forms/ExportFormsData
+    SAMPLES += Forms/FlattenForms
+    SAMPLES += Forms/ImportFormsData
+endif
+
 BUILD_ONLY_SAMPLES = $(SAMPLES)
 
 ifneq ($(findstring mac,$(OS)), )
