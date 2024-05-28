@@ -97,8 +97,8 @@ IF EXIST "All_Datalogics_32Bit.sln" (
   REM Do a 64-bit build
   SET ALL_DL_SLN=All_Datalogics_64Bit.sln
   SET ARCH=x64
-
 )
+SET ALL_DL_FE_SLN=All_DatalogicsFE_64Bit.sln
 
 REM ************* Initialize variables which track our progress ******************
 REM *** The number of samples that failed to build.
@@ -149,6 +149,9 @@ REM *************************************************
 
 ECHO #Building Datalogics samples...
 devenv %ALL_DL_SLN% /rebuild "%STAGE%|%ARCH%"
+IF EXIST %ALL_DL_FE_SLN% (
+  devenv %ALL_DL_FE_SLN% /rebuild "%STAGE%|%ARCH%"
+)
 ECHO.
 
 REM *************************************************
@@ -235,6 +238,12 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FileSystem\AlternateFileSystem"
 
 REM *** The total number of DL samples. This must be accurate!
 SET /A "NUM_DL_SAMPLES=72"
+
+REM *** Include FormsExtension
+IF EXIST %ALL_DL_FE_SLN% (
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Forms\ConvertXFAToAcroForms Forms\ExportFormsData Forms\FlattenForms Forms\ImportFormsData"
+SET /A "NUM_DL_SAMPLES=%NUM_DL_SAMPLES% + 4"
+)
 
 REM *** Close the sample list
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST%)"
