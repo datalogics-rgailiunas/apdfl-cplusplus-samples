@@ -1,0 +1,4 @@
+include(visual-studio-17-arm64-cppstd-14)
+[settings]
+build_type=Release
+compiler.runtime=MT

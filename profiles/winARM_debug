@@ -1,0 +1,4 @@
+include(winARM_build)
+[settings]
+build_type=Debug
+compiler.runtime=MDd
