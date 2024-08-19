@@ -34,7 +34,7 @@ pipeline {
                     exclude {
                         axis {
                             name 'NODE'
-                            values 'mac-apdfl-samples', 'mac-arm-apdfl-samples', 'linux-armv8-apdfl-samples'
+                            values 'mac-apdfl-samples', 'mac-arm-apdfl-samples', 'linux-armv8-apdfl-samples', 'windows-ARM-apdfl-samples'
                         }
                         axis {
                             name 'BITS'
