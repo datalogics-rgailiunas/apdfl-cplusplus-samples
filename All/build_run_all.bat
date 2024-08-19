@@ -93,7 +93,11 @@ IF EXIST "All_Datalogics_32Bit.sln" (
   SET ALL_DL_SLN=All_Datalogics_32Bit.sln
   SET ARCH=Win32
   SET VS_ARCH=x86
-) ELSE (
+)ELSE IF EXIST "All_Datalogics_ARM64.sln"( 
+  REM Do an arm64 build
+  SET ALL_DL_SLN=All_Datalogics_ARM64.sln
+  SET ARCH=armv8
+)ELSE (
   REM Do a 64-bit build
   SET ALL_DL_SLN=All_Datalogics_64Bit.sln
   SET ARCH=x64
