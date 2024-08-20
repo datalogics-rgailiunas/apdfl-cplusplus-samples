@@ -47,17 +47,19 @@ def bootstrap(ctx, options=None, build_type='Release', bits='64', update=False, 
     install_folder = profset.install_folder(build_type, build_64_bit=(bits == '64'))
     
     igforms = 'Forms'
+    igwinARM = 'All_Datalogics_ARM64.sln'
     if bits == '64':  # Only copy the 64-bit solution to the  64-bit staging area
         if profset.os == 'winARM':
-            igpat = 'All_Datalogics_32Bit.sln All_Datalogics*_64Bit.sln'
+            igpat = 'All_Datalogics_32Bit.sln'
+            igwinARM = 'All_Datalogics*_64Bit.sln'
         else:
-            igpat = 'All_Datalogics_32Bit.sln All_Datalogics_ARM64.sln'
+            igpat = 'All_Datalogics_32Bit.sln'
         if profset.os == 'i80386linux' or profset.os == 'windows' or profset.os == 'armv8linux':
             igforms = ''
     else:   # Only copy the 32-bit solution to the  32-bit staging area
-        igpat = 'All_Datalogics*_64Bit.sln All_Datalogics_ARM64.sln'
+        igpat = 'All_Datalogics*_64Bit.sln'
     spat = shutil.ignore_patterns(
-        install_folder, '.*', 'conan*', 'tasks', 'utils', 'python-env-*', igpat, igforms)
+        install_folder, '.*', 'conan*', 'tasks', 'utils', 'python-env-*', igpat, igwinARM, igforms)
     sdir = os.path.join(install_folder, 'CPlusPlus', 'Sample_Source')
     noerr_mkdir(sdir)
     shutil.copytree('.', sdir, ignore=spat, dirs_exist_ok=True)
