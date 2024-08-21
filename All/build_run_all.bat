@@ -88,22 +88,26 @@ REM *************************************************
 REM *** Initialize environment variables, enable delayed expansion.
 SETLOCAL EnableDelayedExpansion  
 REM *** Filename of All project.
-for /f %%a in ('wmic OS get OSArchitecture ^| findstr /r /v "^$"') do (set "WIN_ARCH=%%a")
-IF "%WIN_ARCH%"=="64-bit" (
-  REM Do a 64-bit build
-  SET ALL_DL_SLN=All_Datalogics_64Bit.sln
-  SET ARCH=x64
-  SET ALL_DL_FE_SLN=All_DatalogicsFE_64Bit.sln
-)
-IF "%WIN_ARCH%"=="32-bit" (
-  SET ALL_DL_SLN=All_Datalogics_32Bit.sln
-  SET ARCH=Win32
-  SET VS_ARCH=x86
-)
-IF "%WIN_ARCH%"=="ARM64" (
+FOR /f %%a IN ('wmic OS get OSArchitecture ^| findstr /r /v "^$"') DO SET "WIN_ARCH=%%a"
+IF NOT "x%WIN_ARCH:ARM=%"=="x%WIN_ARCH%" (
+  REM Do an arm64 build
   SET ALL_DL_SLN=All_Datalogics_ARM64.sln
   SET ARCH=armv8
+  SET VS_ARCH=ARM64
+) ELSE (
+  IF EXIST "All_Datalogics_32Bit.sln" (
+    REM Do a 32-bit build
+    SET ALL_DL_SLN=All_Datalogics_32Bit.sln
+    SET ARCH=Win32
+    SET VS_ARCH=x86
+  ) ELSE (
+    REM Do a 64-bit build
+    SET ALL_DL_SLN=All_Datalogics_64Bit.sln
+    SET ARCH=x64
+  )
 )
+SET ALL_DL_FE_SLN=All_DatalogicsFE_64Bit.sln
+
 REM ************* Initialize variables which track our progress ******************
 REM *** The number of samples that failed to build.
 SET /A "NUM_FAIL_BUILD=0"
@@ -144,10 +148,10 @@ GOTO AcceptCommands
 :ArgumentsEnd
 
 REM *** Set up the visual studio environment.
-IF EXIST "All_Datalogics_ARM64.sln" ( 
-    CALL "C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Auxiliary\Build\vcvarsamd64_arm64.bat" %VS_ARCH%
-)ELSE (
-    CALL "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Auxiliary\Build\vcvarsamd64_x86.bat" %VS_ARCH%
+IF "%ARCH%"=="armv8" (
+  CALL "C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Auxiliary\Build\vcvarsamd64_arm64.bat" %VS_ARCH%
+) ELSE (
+  CALL "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Auxiliary\Build\vcvarsamd64_x86.bat" %VS_ARCH%
 )
 IF "%VSINSTALLDIR%" == "" GOTO Usage
 

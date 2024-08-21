@@ -91,8 +91,11 @@ config:
     aix-powerpc:
         profile: gcc-8-aix71-64
 
-    windows:
-        profile: visual-studio-15
+    windows-x86_64:
+        profile: visual-studio-16
+
+    windows-arm64:
+        profile: visual-studio-17-arm64
 
     sunos-sparc:
         profile: gcc-9-sparc-solaris
