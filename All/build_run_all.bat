@@ -92,7 +92,7 @@ FOR /f %%a IN ('wmic OS get OSArchitecture ^| findstr /r /v "^$"') DO SET "WIN_A
 IF NOT "x%WIN_ARCH:ARM=%"=="x%WIN_ARCH%" (
   REM Do an arm64 build
   SET ALL_DL_SLN=All_Datalogics_ARM64.sln
-  SET ARCH=armv8
+  SET ARCH=ARM64
   SET VS_ARCH=ARM64
 ) ELSE (
   IF EXIST "All_Datalogics_32Bit.sln" (
@@ -148,7 +148,7 @@ GOTO AcceptCommands
 :ArgumentsEnd
 
 REM *** Set up the visual studio environment.
-IF "%ARCH%"=="armv8" (
+IF "%ARCH%"=="ARM64" (
   CALL "C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Auxiliary\Build\vcvarsamd64_arm64.bat" %VS_ARCH%
 ) ELSE (
   CALL "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Auxiliary\Build\vcvarsamd64_x86.bat" %VS_ARCH%
