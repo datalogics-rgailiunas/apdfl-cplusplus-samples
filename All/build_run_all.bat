@@ -195,7 +195,9 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\ImportPages"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\AddTextWatermark"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\EmbedFonts"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentConversion\ConvertPDFtoEPS"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentConversion\ConvertToOffice"
+IF NOT "%ARCH%"=="ARM64" (
+  SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentConversion\ConvertToOffice"
+)
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentConversion\ConvertToPDFA"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentConversion\ConvertToPDFX"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentConversion\ConvertPDFtoPostscript"
@@ -249,7 +251,12 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% InformationExtraction\ExtractDocumentInfo"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FileSystem\AlternateFileSystem"
 
 REM *** The total number of DL samples. This must be accurate!
-SET /A "NUM_DL_SAMPLES=72"
+IF NOT "%ARCH%"=="ARM64" (
+  SET /A "NUM_DL_SAMPLES=71"
+) ELSE (
+  SET /A "NUM_DL_SAMPLES=72"
+)
+
 
 REM *** Include FormsExtension
 IF EXIST %ALL_DL_FE_SLN% (
