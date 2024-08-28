@@ -88,15 +88,23 @@ REM *************************************************
 REM *** Initialize environment variables, enable delayed expansion.
 SETLOCAL EnableDelayedExpansion  
 REM *** Filename of All project.
-IF EXIST "All_Datalogics_32Bit.sln" (
-  REM Do a 32-bit build
-  SET ALL_DL_SLN=All_Datalogics_32Bit.sln
-  SET ARCH=Win32
-  SET VS_ARCH=x86
+FOR /f %%a IN ('wmic OS get OSArchitecture ^| findstr /r /v "^$"') DO SET "WIN_ARCH=%%a"
+IF NOT "x%WIN_ARCH:ARM=%"=="x%WIN_ARCH%" (
+  REM Do an arm64 build
+  SET ALL_DL_SLN=All_Datalogics_ARM64.sln
+  SET ARCH=ARM64
+  SET VS_ARCH=ARM64
 ) ELSE (
-  REM Do a 64-bit build
-  SET ALL_DL_SLN=All_Datalogics_64Bit.sln
-  SET ARCH=x64
+  IF EXIST "All_Datalogics_32Bit.sln" (
+    REM Do a 32-bit build
+    SET ALL_DL_SLN=All_Datalogics_32Bit.sln
+    SET ARCH=Win32
+    SET VS_ARCH=x86
+  ) ELSE (
+    REM Do a 64-bit build
+    SET ALL_DL_SLN=All_Datalogics_64Bit.sln
+    SET ARCH=x64
+  )
 )
 SET ALL_DL_FE_SLN=All_DatalogicsFE_64Bit.sln
 
@@ -140,7 +148,11 @@ GOTO AcceptCommands
 :ArgumentsEnd
 
 REM *** Set up the visual studio environment.
-CALL "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Auxiliary\Build\vcvarsamd64_x86.bat" %VS_ARCH%
+IF "%ARCH%"=="ARM64" (
+  CALL "C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Auxiliary\Build\vcvarsamd64_arm64.bat" %VS_ARCH%
+) ELSE (
+  CALL "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Auxiliary\Build\vcvarsamd64_x86.bat" %VS_ARCH%
+)
 IF "%VSINSTALLDIR%" == "" GOTO Usage
 
 REM *************************************************
@@ -183,7 +195,9 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\ImportPages"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\AddTextWatermark"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentModification\EmbedFonts"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentConversion\ConvertPDFtoEPS"
-SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentConversion\ConvertToOffice"
+IF NOT "%ARCH%"=="ARM64" (
+  SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentConversion\ConvertToOffice"
+)
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentConversion\ConvertToPDFA"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentConversion\ConvertToPDFX"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% DocumentConversion\ConvertPDFtoPostscript"
@@ -237,7 +251,12 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% InformationExtraction\ExtractDocumentInfo"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FileSystem\AlternateFileSystem"
 
 REM *** The total number of DL samples. This must be accurate!
-SET /A "NUM_DL_SAMPLES=72"
+IF NOT "%ARCH%"=="ARM64" (
+  SET /A "NUM_DL_SAMPLES=71"
+) ELSE (
+  SET /A "NUM_DL_SAMPLES=72"
+)
+
 
 REM *** Include FormsExtension
 IF EXIST %ALL_DL_FE_SLN% (

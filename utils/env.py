@@ -8,7 +8,10 @@ class Env(object):
     def os(self):
         system = platform.system().lower()
         if system == 'windows':
-            return 'windows'
+            if 'armv8' in platform.processor().lower():
+                return 'winARM'
+            else:
+                return 'windows'
         elif system == 'darwin':
             if platform.processor().lower() == 'arm':
                 return 'armv8mac'
@@ -36,6 +39,8 @@ class Env(object):
         os_str = self.os
         if os_str == 'windows':
             folder = 'win' if build_64_bit else 'win32'
+        elif os_str == 'winARM':
+            folder = 'winARM'
         elif os_str == 'i80386linux':
             folder = 'linux' if build_64_bit else 'linux32'
         elif os_str == 'sparcsolaris':

@@ -1,7 +1,7 @@
 def ENV_LOC=[:]
 pipeline {
     parameters {
-        choice(name: 'PLATFORM_FILTER', choices: ['all', 'mac-apdfl-samples', 'mac-arm-apdfl-samples', 'linux-armv8-apdfl-samples', 'sparcsolaris-apdfl-samples', 'linux-apdfl-samples', 'windows-apdfl-samples'], description: 'Run on specific platform')
+        choice(name: 'PLATFORM_FILTER', choices: ['all', 'mac-apdfl-samples', 'mac-arm-apdfl-samples', 'linux-armv8-apdfl-samples', 'sparcsolaris-apdfl-samples', 'linux-apdfl-samples', 'windows-apdfl-samples', 'windows-ARM-apdfl-samples'], description: 'Run on specific platform')
     }
     options{
         timeout(time: 1, unit: "HOURS")
@@ -23,7 +23,7 @@ pipeline {
                 axes {
                     axis {
                         name 'NODE'
-                        values 'mac-apdfl-samples', 'mac-arm-apdfl-samples', 'linux-armv8-apdfl-samples', 'sparcsolaris-apdfl-samples', 'windows-apdfl-samples', 'linux-apdfl-samples'
+                        values 'mac-apdfl-samples', 'mac-arm-apdfl-samples', 'linux-armv8-apdfl-samples', 'sparcsolaris-apdfl-samples', 'windows-apdfl-samples', 'windows-ARM-apdfl-samples', 'linux-apdfl-samples' 
                     }
                     axis {
                         name 'BITS'
@@ -34,7 +34,7 @@ pipeline {
                     exclude {
                         axis {
                             name 'NODE'
-                            values 'mac-apdfl-samples', 'mac-arm-apdfl-samples', 'linux-armv8-apdfl-samples'
+                            values 'mac-apdfl-samples', 'mac-arm-apdfl-samples', 'linux-armv8-apdfl-samples', 'windows-ARM-apdfl-samples'
                         }
                         axis {
                             name 'BITS'
