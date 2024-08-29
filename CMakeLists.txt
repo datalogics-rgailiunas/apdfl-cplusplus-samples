@@ -30,7 +30,7 @@ if(UTIL_PLAT MATCHES "x64")
             PATTERN "*32Bit*.*" EXCLUDE PATTERN "*.sh" EXCLUDE PATTERN "*Makefile*" EXCLUDE
             PATTERN "*.xcodeproj" EXCLUDE PATTERN "*.rel*" EXCLUDE PATTERN "*Mac*" EXCLUDE
             PATTERN "*.plist" EXCLUDE PATTERN "*.strings*" EXCLUDE PATTERN "dlutils" EXCLUDE
-            PATTERN "*.mak" EXCLUDE
+            PATTERN "*.mak" EXCLUDE PATTERN "*ARM64.*" EXCLUDE
             PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
             PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE PATTERN "utils" EXCLUDE
             PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
@@ -41,11 +41,10 @@ elseif(UTIL_PLAT MATCHES "ARM64")
             DESTINATION ${INSTALL_SAMPLEDIR}/${DL_SAMPLES}
             USE_SOURCE_PERMISSIONS
             PATTERN ".git*" EXCLUDE PATTERN "_Input" EXCLUDE PATTERN "CMakeLists.txt" EXCLUDE
-            PATTERN "*ARM64*.*" EXCLUDE PATTERN "*.sh" EXCLUDE PATTERN "*Makefile*" EXCLUDE
+            PATTERN "*Bit*.*" EXCLUDE PATTERN "*.sh" EXCLUDE PATTERN "*Makefile*" EXCLUDE
             PATTERN "*.xcodeproj" EXCLUDE PATTERN "*.rel*" EXCLUDE PATTERN "*Mac*" EXCLUDE
             PATTERN "*.plist" EXCLUDE PATTERN "*.strings*" EXCLUDE PATTERN "dlutils" EXCLUDE
             PATTERN "*.mak" EXCLUDE
-            PATTERN "ConvertToOffice" EXCLUDE
             PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
             PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE PATTERN "utils" EXCLUDE
             PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
@@ -59,7 +58,7 @@ elseif(UTIL_PLAT MATCHES "Win32")
             PATTERN "*64Bit*.*" EXCLUDE PATTERN "*.sh" EXCLUDE PATTERN "*Makefile*" EXCLUDE
             PATTERN "*.xcodeproj" EXCLUDE PATTERN "*.rel*" EXCLUDE PATTERN "*Mac*" EXCLUDE
             PATTERN "*.plist" EXCLUDE PATTERN "*.strings*" EXCLUDE PATTERN "dlutils" EXCLUDE
-            PATTERN "*.mak" EXCLUDE
+            PATTERN "*.mak" EXCLUDE PATTERN "*ARM64.*" EXCLUDE
             PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
             PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE PATTERN "utils" EXCLUDE
             PATTERN "requirements.in" EXCLUDE PATTERN "profiles" EXCLUDE PATTERN "tasks" EXCLUDE
@@ -71,7 +70,7 @@ elseif(UTIL_PLAT MATCHES "Mac" OR UTIL_PLAT MATCHES "armv8mac_64")
             USE_SOURCE_PERMISSIONS
             PATTERN ".git*" EXCLUDE PATTERN "_Input" EXCLUDE PATTERN "CMakeLists.txt" EXCLUDE
             PATTERN "*Bit*.*" EXCLUDE PATTERN "*.bat" EXCLUDE PATTERN "*.vcxproj*" EXCLUDE
-            PATTERN "*.sh" EXCLUDE
+            PATTERN "*.sh" EXCLUDE PATTERN "*ARM64.*" EXCLUDE
             PATTERN "PDFViewer" EXCLUDE
             PATTERN "ConvertToOffice" EXCLUDE
             PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
@@ -86,7 +85,7 @@ elseif(UTIL_PLAT MATCHES "i80386linux_64" OR UTIL_PLAT MATCHES "armv8linux_64")
             PATTERN ".git*" EXCLUDE PATTERN "_Input" EXCLUDE PATTERN "CMakeLists.txt" EXCLUDE
             PATTERN "*.xcodeproj" EXCLUDE PATTERN "*.bat*" EXCLUDE PATTERN "*Mac*" EXCLUDE
             PATTERN "*.plist" EXCLUDE PATTERN "*.strings*" EXCLUDE PATTERN "*.sh*" EXCLUDE
-            PATTERN "*Bit*.*" EXCLUDE PATTERN "*.vcxproj*" EXCLUDE
+            PATTERN "*Bit*.*" EXCLUDE PATTERN "*.vcxproj*" EXCLUDE PATTERN "*ARM64.*" EXCLUDE
             PATTERN "PDFPrintGUI" EXCLUDE PATTERN "PDFViewer" EXCLUDE
             PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
             PATTERN "Jenkinsfile" EXCLUDE PATTERN "mkenv.py" EXCLUDE PATTERN "utils" EXCLUDE
@@ -100,7 +99,7 @@ else()
             PATTERN ".git*" EXCLUDE PATTERN "_Input" EXCLUDE PATTERN "CMakeLists.txt" EXCLUDE
             PATTERN "*.xcodeproj" EXCLUDE PATTERN "*.bat*" EXCLUDE PATTERN "*Mac*" EXCLUDE
             PATTERN "*.plist" EXCLUDE PATTERN "*.strings*" EXCLUDE PATTERN "*.sh*" EXCLUDE
-            PATTERN "*Bit*.*" EXCLUDE PATTERN "*.vcxproj*" EXCLUDE
+            PATTERN "*Bit*.*" EXCLUDE PATTERN "*.vcxproj*" EXCLUDE PATTERN "*ARM64.*" EXCLUDE
             PATTERN "PDFPrintGUI" EXCLUDE PATTERN "PDFViewer" EXCLUDE
             PATTERN "ConvertToOffice" EXCLUDE
             PATTERN "conanfile.txt" EXCLUDE PATTERN "dlproject.yaml" EXCLUDE
