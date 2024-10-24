@@ -398,12 +398,6 @@
     <ClInclude Include="Resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\handcurs.cur" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="res\icon1.ico" />
-    <Image Include="res\icon2.ico" />
-    <Image Include="res\PDFLViewerDoc.ico" />
     <Image Include="res\PDFViewer.ico" />
     <Image Include="res\Toolbar.bmp" />
   </ItemGroup>
