@@ -1199,7 +1199,7 @@ void CPDFViewerView::SetRotate(ASDouble Angle) {
 
     /* Save old matrix, to allow for scroll position translate
      */
-    ASDoubleMatrix oldPageToScreen;// = { 1,0,0,1,0,0 };
+    ASDoubleMatrix oldPageToScreen;
     memmove(&oldPageToScreen, &PageToScreenMatrix, sizeof(ASDoubleMatrix));
 
     /* Recalculate to the page to screen metrics
