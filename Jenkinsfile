@@ -1,3 +1,4 @@
+@Library('jenkins-shared-libraries') _
 def ENV_LOC=[:]
 pipeline {
     parameters {
@@ -84,21 +85,7 @@ pipeline {
                             printPlatformNameInStep()
                             echo "Set-Up Environment ${NODE} ${BITS}"
                             script {
-                                if (isUnix()) {
-                                    sh 'LIBPATH="" python3 mkenv.py --verbose'
-                                    ENV_LOC["${NODE}_${BITS}"] = sh (
-                                        script: 'LIBPATH="" python3 mkenv.py --env-name',
-                                        returnStdout: true
-                                    ).trim()
-                                } else {
-                                    bat 'python mkenv.py --verbose'
-                                    ENV_LOC["${NODE}_${BITS}"] = bat (
-                                        // The @ prevents Windows from echoing the command itself into the stdout,
-                                        // which would corrupt the value of the returned data.
-                                        script: '@python mkenv.py --env-name',
-                                        returnStdout: true
-                                    ).trim()
-                                }
+                                ENV_LOC["${NODE}_${BITS}"] = mkenv()
                             }
                         }
                     }
