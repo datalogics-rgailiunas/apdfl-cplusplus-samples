@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2024, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2008-2025, Datalogics, Inc. All rights reserved.
 //
 
 #include <sstream>
@@ -65,8 +65,8 @@ static std::string DisplayTextState(PDETextState *State) {
     return oss.str();
 }
 
-void DisplayTextRun(PDEText Text, ASUns32 Run) {
-    ASFixedMatrix RunMatrix, TextMatrix;
+static void DisplayTextRun(PDEText Text, ASUns32 Run) {
+    ASDoubleMatrix RunMatrix, TextMatrix;
     ASFixedQuad TextQuad;
     PDETextState TextState;
     PDEGraphicState GState;
@@ -81,10 +81,10 @@ void DisplayTextRun(PDEText Text, ASUns32 Run) {
     char *FontName;
 
     PDETextGetGState(Text, kPDETextRun, Run, &GState, sizeof(PDEGraphicState));
-    PDETextGetMatrix(Text, kPDETextRun, Run, &RunMatrix);
+    PDETextGetMatrixEx(Text, kPDETextRun, Run, &RunMatrix);
     PDETextGetQuad(Text, kPDETextRun, Run, &TextQuad);
     PDETextGetState(Text, kPDETextRun, Run, &TextState, sizeof(TextState));
-    PDETextGetTextMatrix(Text, kPDETextRun, Run, &TextMatrix);
+    PDETextGetTextMatrixEx(Text, kPDETextRun, Run, &TextMatrix);
     PDETextGetAdvance(Text, kPDETextRun | kPDETextPageSpace, Run, &Advance);
 
     // Obtain the text in whatever encoding the font used
@@ -125,7 +125,7 @@ void DisplayTextRun(PDEText Text, ASUns32 Run) {
     ASfree(FontName);
 }
 
-void DisplayText(PDEText Text, ASFixedMatrix *Matrix, PDEGraphicState *GState, ASBool HasGState) {
+void DisplayText(PDEText Text, ASDoubleMatrix *Matrix, PDEGraphicState *GState, ASBool HasGState) {
     ASUns32 Runs = PDETextGetNumRuns(Text);
 
     Outputter::Inst()->GetOfs() << "Text Object: At " << DisplayMatrix(Matrix) << ", contains "

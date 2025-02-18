@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2024, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2008-2025, Datalogics, Inc. All rights reserved.
 //
 
 #include <sstream>
@@ -14,12 +14,12 @@
 #include "DisplayPDEContent.h"
 #include "dpcOutput.h"
 
-void DisplayPath(PDEPath Path, ASFixedMatrix *Matrix, PDEGraphicState *GState, ASBool HasGState) {
+void DisplayPath(PDEPath Path, ASDoubleMatrix *Matrix, PDEGraphicState *GState, ASBool HasGState) {
     PDEPathOpFlags PaintOp = (PDEPathOpFlags)PDEPathGetPaintOp(Path);
-    ASInt32 PathSize = PDEPathGetData(Path, NULL, 0);
-    ASInt32 *PathData = (ASInt32 *)ASmalloc(PathSize + 24); // Allow for me to read ahead, without crashing
+    ASInt32 PathSize = PDEPathGetDataFloat(Path, NULL, 0);
+    ASFloat *PathData = (ASFloat *)ASmalloc(PathSize + 24); // Allow for me to read ahead, without crashing
     ASInt32 DataSize = PathSize / 4;
-    PDEPathGetData(Path, PathData, PathSize);
+    PDEPathGetDataFloat(Path, PathData, PathSize);
 
     std::ostringstream oss;
 
@@ -53,19 +53,19 @@ void DisplayPath(PDEPath Path, ASFixedMatrix *Matrix, PDEGraphicState *GState, A
     while (1) {
         oss.str("");
         PDEPathElementType Operator;
-        ASFixedPoint One, Two, Three;
+        ASDoublePoint One = { 0,0 }, Two = { 0,0 },Three = { 0,0 };
         ASInt32 Increment;
 
         if (Index >= DataSize)
             break;
 
         Operator = (PDEPathElementType)PathData[Index];
-        One.h = (ASFixed)PathData[Index + 1];
-        One.v = (ASFixed)PathData[Index + 2];
-        Two.h = (ASFixed)PathData[Index + 3];
-        Two.v = (ASFixed)PathData[Index + 4];
-        Three.h = (ASFixed)PathData[Index + 5];
-        Three.v = (ASFixed)PathData[Index + 6];
+        One.h = (ASDouble)(ASFloat)PathData[Index + 1];
+        One.v = (ASDouble)(ASFloat)PathData[Index + 2];
+        Two.h = (ASDouble)(ASFloat)PathData[Index + 3];
+        Two.v = (ASDouble)(ASFloat)PathData[Index + 4];
+        Three.h = (ASDouble)(ASFloat)PathData[Index + 5];
+        Three.v = (ASDouble)(ASFloat)PathData[Index + 6];
 
         switch (Operator) {
         case kPDEMoveTo:
@@ -93,7 +93,7 @@ void DisplayPath(PDEPath Path, ASFixedMatrix *Matrix, PDEGraphicState *GState, A
             break;
         case kPDERect:
             oss << "Rectangle at  " << AppendPoint(&One, Matrix, true)
-                << "Width: " << DisplayFixed(&Two.h) << " Height: " << DisplayFixed(&Two.v);
+                << "Width: " << Two.h << " Height: " << Two.v;
             Increment = 5;
             break;
         case kPDEClosePath:

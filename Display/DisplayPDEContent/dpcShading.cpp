@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2024, Datalogics, Inc. All rights reserved.
+// Copyright (c) 2008-2025, Datalogics, Inc. All rights reserved.
 //
 
 #include <string>
@@ -19,14 +19,14 @@ static ASBool PdeClipenumProc(PDEElement Element, void *clientData) {
     ASBool HasGState = PDEElementHasGState(Element, &GState, sizeof(PDEGraphicState));
 
     ASFixedMatrix fm1;
-    ASFixedMatrix matrix;
+    ASDoubleMatrix matrix;
     PDEElementGetMatrix(Element, &fm1);
     if ((fixedZero == fm1.a) && (fixedZero == fm1.b) && (fixedZero == fm1.c) &&
         (fixedZero == fm1.d) && (fixedZero == fm1.h) && (fixedZero == fm1.v)) {
         // Invert zero matrix --> identity matrix
-        ASFixedMatrixInvert(&matrix, &fm1);
+        matrix = { 1,0,0,1,0,0 };
     } else {
-        PDEElementGetMatrix(Element, &matrix);
+        PDEElementGetMatrixEx(Element, &matrix);
     }
 
     PDEType Type = (PDEType)PDEObjectGetType((PDEObject)Element);
@@ -60,7 +60,7 @@ static void DisplayClip(PDEClip Clip) {
     }
 }
 
-void DisplayShading(PDEShading Shading, ASFixedMatrix *Matrix, PDEGraphicState *GState, ASBool HasGState) {
+void DisplayShading(PDEShading Shading, ASDoubleMatrix *Matrix, PDEGraphicState *GState, ASBool HasGState) {
     Outputter::Inst()->GetOfs() << "Shading op: At " << DisplayMatrix(Matrix).c_str() << std::endl;
     Outputter::Inst()->Indent();
 
