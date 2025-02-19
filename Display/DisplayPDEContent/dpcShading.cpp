@@ -29,16 +29,16 @@ static ASBool PdeClipenumProc(PDEElement Element, void *clientData) {
         PDEElementGetMatrixEx(Element, &matrix);
     }
 
-    PDEType Type = (PDEType)PDEObjectGetType((PDEObject)Element);
+    PDEType Type = static_cast<PDEType>(PDEObjectGetType((PDEObject)Element));
     switch (Type) {
     case kPDEText:
         // Display a complete text object
-        DisplayText((PDEText)Element, &matrix, &GState, HasGState);
+        DisplayText(reinterpret_cast<PDEText>(Element), &matrix, &GState, HasGState);
         break;
 
     case kPDEPath:
         // Display a complete path
-        DisplayPath((PDEPath)Element, &matrix, &GState, HasGState);
+        DisplayPath(reinterpret_cast<PDEPath>(Element), &matrix, &GState, HasGState);
         break;
     default:
         Outputter::Inst()->GetOfs() << "******* Unknown Clip Element. Type " << Type << std::endl;
@@ -54,7 +54,7 @@ static void DisplayClip(PDEClip Clip) {
         Outputter::Inst()->GetOfs() << "Begin Clip:\n";
         Outputter::Inst()->GetOfs() << "{\n";
         Outputter::Inst()->Indent();
-        PDEClipFlattenedEnumElems(Clip, (PDEClipEnumProc)PdeClipenumProc, NULL);
+        PDEClipFlattenedEnumElems(Clip, reinterpret_cast<PDEClipEnumProc>(PdeClipenumProc), NULL);
         Outputter::Inst()->Outdent();
         Outputter::Inst()->GetOfs() << "} End of Clip\n";
     }
@@ -74,7 +74,7 @@ void DisplayShading(PDEShading Shading, ASDoubleMatrix *Matrix, PDEGraphicState 
     if (HasGState)
         DisplayGraphicState(GState);
 
-    PDEClip clip = PDEElementGetClip((PDEElement)Shading);
+    PDEClip clip = PDEElementGetClip(reinterpret_cast<PDEElement>(Shading));
     if (clip)
         DisplayClip(clip);
 

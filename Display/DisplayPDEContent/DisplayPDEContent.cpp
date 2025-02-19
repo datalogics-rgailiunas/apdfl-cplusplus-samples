@@ -263,7 +263,7 @@ static void StartDisplayForm(PDEForm Form, ASDoubleMatrix *Matrix, PDEGraphicSta
     CosObj FormsObj, WorkObj;
     PDEFormGetCosObj(Form, &FormsObj);
     WorkObj = CosDictGet(FormsObj, ASAtomFromString("BBox"));
-    ASDoubleRect FormsBB;
+    ASDoubleRect FormsBB = { 0,0,0,0 };
     FormsBB.bottom = CosDoubleValue(CosArrayGet(WorkObj, 0));
     FormsBB.left = CosDoubleValue(CosArrayGet(WorkObj, 1));
     FormsBB.top = CosDoubleValue(CosArrayGet(WorkObj, 2));
@@ -404,14 +404,14 @@ void AnalyzePDEContent(PDEContent Content, ASDoubleMatrix *Matrix) {
         ASDoubleMatrixConcat(&PageMatrix, &ContentMatrix, Matrix);
 
         // Process the PDE element by type
-        PDEType Type = (PDEType)PDEObjectGetType((PDEObject)Element);
+        PDEType Type = static_cast<PDEType>(PDEObjectGetType(reinterpret_cast<PDEObject>(Element)));
         switch (Type) {
         case kPDEContent:
             // Display a content object
-            StartDisplayContent((PDEContent)Element, &PageMatrix, &GState, HasGState);
+            StartDisplayContent(reinterpret_cast<PDEContent>(Element), &PageMatrix, &GState, HasGState);
 
             // Analyze and display its content
-            AnalyzePDEContent((PDEContent)Element, &PageMatrix);
+            AnalyzePDEContent(reinterpret_cast<PDEContent>(Element), &PageMatrix);
 
             // Display end of a content object
             EndDisplayContent();
@@ -419,73 +419,73 @@ void AnalyzePDEContent(PDEContent Content, ASDoubleMatrix *Matrix) {
 
         case kPDEContainer:
             // Display a container object
-            StartDisplayContainer((PDEContainer)Element, &PageMatrix, &GState, HasGState);
+            StartDisplayContainer(reinterpret_cast<PDEContainer>(Element), &PageMatrix, &GState, HasGState);
 
             // Obtain, Analyze, and Display its content
             SubContent = PDEContainerGetContent((PDEContainer)Element);
             AnalyzePDEContent(SubContent, &PageMatrix);
 
             // Display the end of a container object
-            EndDisplayContainer((PDEContainer)Element, &PageMatrix, &GState, HasGState);
+            EndDisplayContainer(reinterpret_cast<PDEContainer>(Element), &PageMatrix, &GState, HasGState);
             break;
 
         case kPDEGroup:
             // Display a group object
-            StartDisplayGroup((PDEGroup)Element, &PageMatrix, &GState, HasGState);
+            StartDisplayGroup(reinterpret_cast<PDEGroup>(Element), &PageMatrix, &GState, HasGState);
 
             // Obtain, Analyze, and display its content
-            SubContent = PDEGroupGetContent((PDEGroup)Element);
+            SubContent = PDEGroupGetContent(reinterpret_cast<PDEGroup>(Element));
             AnalyzePDEContent(SubContent, &PageMatrix);
 
             // Display the end of a group object
-            EndDisplayGroup((PDEGroup)Element, &PageMatrix, &GState, HasGState);
+            EndDisplayGroup(reinterpret_cast<PDEGroup>(Element), &PageMatrix, &GState, HasGState);
             break;
 
         case kPDEText:
             // Display a complete text object
-            DisplayText((PDEText)Element, &PageMatrix, &GState, HasGState);
+            DisplayText(reinterpret_cast<PDEText>(Element), &PageMatrix, &GState, HasGState);
             break;
 
         case kPDEPath:
             // Display a complete path
-            DisplayPath((PDEPath)Element, &PageMatrix, &GState, HasGState);
+            DisplayPath(reinterpret_cast<PDEPath>(Element), &PageMatrix, &GState, HasGState);
             break;
 
         case kPDEImage:
             // Display an image object
-            DisplayImage((PDEImage)Element, &PageMatrix, &GState, HasGState);
+            DisplayImage(reinterpret_cast<PDEImage>(Element), &PageMatrix, &GState, HasGState);
             break;
 
         case kPDEShading:
             // Display the info for a Shading Operator
-            DisplayShading((PDEShading)Element, &PageMatrix, &GState, HasGState);
+            DisplayShading(reinterpret_cast<PDEShading>(Element), &PageMatrix, &GState, HasGState);
             break;
 
         case kPDEForm:
             // Display a forms object
-            StartDisplayForm((PDEForm)Element, &PageMatrix, &GState, HasGState);
+            StartDisplayForm(reinterpret_cast<PDEForm>(Element), &PageMatrix, &GState, HasGState);
 
             // Obtain, Analyze, and Display its content
-            SubContent = PDEFormGetContent((PDEForm)Element);
+            SubContent = PDEFormGetContent(reinterpret_cast<PDEForm>(Element));
             AnalyzePDEContent(SubContent, &PageMatrix);
 
             // Display the end of a form object
-            EndDisplayForm((PDEForm)Element, &PageMatrix, &GState, HasGState);
+            EndDisplayForm(reinterpret_cast<PDEForm>(Element), &PageMatrix, &GState, HasGState);
             break;
 
         case kPDEPS:
             // Display a Postscript Object
-            StartDisplayPostscript((PDEPS)Element, &PageMatrix, &GState, HasGState);
+            StartDisplayPostscript(reinterpret_cast<PDEPS>(Element), &PageMatrix, &GState, HasGState);
             break;
 
         case kPDEPlace:
             // Display a Place Object
-            DisplayPlace((PDEPlace)Element, &PageMatrix, &GState, HasGState);
+            DisplayPlace(reinterpret_cast<PDEPlace>(Element), &PageMatrix, &GState, HasGState);
             break;
 
         // These don't actually have content, but serve to group content in a stream
         case kPDEBeginContainer:
-            DisplayBeginContainer((PDEBeginContainer)Element, &PageMatrix, &GState, HasGState);
+            DisplayBeginContainer(reinterpret_cast<PDEBeginContainer>(Element), &PageMatrix, &GState, HasGState);
             break;
 
         case kPDEEndContainer:

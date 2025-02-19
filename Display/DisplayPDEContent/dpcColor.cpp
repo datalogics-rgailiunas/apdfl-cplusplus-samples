@@ -74,6 +74,7 @@ class CColorSpaces {
 std::string DisplayColor(PDEColorSpec *Color) {
     static CColorSpaces sColorSpaces;
     char Amount[20][20];
+    memset(&Amount, 0x0, sizeof(Amount));
     PDEColorSpace Space = Color->space;
     ASAtom SpaceName = PDEColorSpaceGetName(Space);
 

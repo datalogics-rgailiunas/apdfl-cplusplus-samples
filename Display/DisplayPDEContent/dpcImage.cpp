@@ -48,7 +48,7 @@ void DisplayImage(PDEImage Image, ASDoubleMatrix *Matrix, PDEGraphicState *GStat
 
     ASInt32 NumberOfFilters = PDEImageGetFilterArray(Image, NULL);
     PDEFilterArray *Filters =
-        (PDEFilterArray *)ASmalloc(sizeof(PDEFilterArray) + (NumberOfFilters * sizeof(PDEFilterSpec)));
+        static_cast<PDEFilterArray *>(ASmalloc(sizeof(PDEFilterArray) + (NumberOfFilters * sizeof(PDEFilterSpec))));
     NumberOfFilters = PDEImageGetFilterArray(Image, Filters);
     std::ostringstream ossFilter;
     if (NumberOfFilters > 1)
