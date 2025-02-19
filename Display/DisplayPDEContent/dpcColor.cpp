@@ -172,7 +172,7 @@ std::string DisplayColor(PDEColorSpec *Color) {
         oss << " Indexed Color space of " << IndexRange + 1 << " Value in "
             << BaseColorInfo.m_name.c_str() << ". Value " << Color->value.color[0] << " (";
 
-        ColorTable = (ASUns8 *)ASmalloc(Comps * (IndexRange + 1));
+        ColorTable = static_cast<ASUns8 *>(ASmalloc(Comps * (IndexRange + 1)));
         PDEColorSpaceGetCTable(Space, ColorTable);
         ColorBase = &ColorTable[static_cast<int>(ASFixedToFloat(Color->value.color[0])) * Comps];
         for (Index = 0; Index < Comps; Index++) {

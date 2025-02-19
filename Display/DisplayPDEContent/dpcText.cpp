@@ -88,7 +88,7 @@ static void DisplayTextRun(PDEText Text, ASUns32 Run) {
     PDETextGetAdvance(Text, kPDETextRun | kPDETextPageSpace, Run, &Advance);
 
     // Obtain the text in whatever encoding the font used
-    TextContent = (ASUns8 *)ASmalloc(NumBytes + 2);
+    TextContent = static_cast<ASUns8 *>(ASmalloc(NumBytes + 2));
     PDETextGetText(Text, kPDETextRun, Run, TextContent);
     TextContent[NumBytes] = TextContent[NumBytes + 1] = '\0';
 
@@ -96,16 +96,16 @@ static void DisplayTextRun(PDEText Text, ASUns32 Run) {
     PDEFontGetCosObj(Font, &COSFont);
     TranslationFont = PDFontFromCosObj(COSFont);
     UCSBytes = PDFontXlateToUCS(TranslationFont, TextContent, NumBytes, NULL, 0);
-    UCSText = (ASUns8 *)ASmalloc(UCSBytes + 2);
+    UCSText = static_cast<ASUns8 *>(ASmalloc(UCSBytes + 2));
     UCSBytes = PDFontXlateToUCS(TranslationFont, TextContent, NumBytes, UCSText, UCSBytes + 2);
 
-    ASText displayText = ASTextFromSizedUnicode((ASUTF16Val *)UCSText, kUTF16BigEndian, UCSBytes);
+    ASText displayText = ASTextFromSizedUnicode(reinterpret_cast<ASUTF16Val *>(UCSText), kUTF16BigEndian, UCSBytes);
     char *displayTextUTF8 = reinterpret_cast<char *>(ASTextGetUnicodeCopy(displayText, kUTF8));
     ASTextDestroy(displayText);
 
     ASText asFontName = ASTextNew();
     PDFontGetASTextName(TranslationFont, false, asFontName);
-    FontName = (char *)ASTextGetUnicodeCopy(asFontName, kUTF8);
+    FontName = reinterpret_cast<char *>(ASTextGetUnicodeCopy(asFontName, kUTF8));
     ASTextDestroy(asFontName);
 
     Outputter::Inst()->GetOfs() << "Text Run: At " << DisplayQuad(&TextQuad) << std::endl;

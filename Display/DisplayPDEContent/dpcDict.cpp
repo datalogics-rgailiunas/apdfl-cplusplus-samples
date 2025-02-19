@@ -29,7 +29,7 @@ typedef struct dict {
 } DICT;
 
 static ASBool CountCosDictEnumProc(CosObj obj, CosObj value, void *clientData) {
-    ASInt32 *Count = (ASInt32 *)clientData;
+    ASInt32* Count = reinterpret_cast<ASInt32*>(clientData);
 
     (*Count)++;
     return (true);

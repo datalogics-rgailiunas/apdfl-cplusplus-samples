@@ -15,9 +15,9 @@
 #include "dpcOutput.h"
 
 void DisplayPath(PDEPath Path, ASDoubleMatrix *Matrix, PDEGraphicState *GState, ASBool HasGState) {
-    PDEPathOpFlags PaintOp = (PDEPathOpFlags)PDEPathGetPaintOp(Path);
+    PDEPathOpFlags PaintOp = static_cast<PDEPathOpFlags>(PDEPathGetPaintOp(Path));
     ASInt32 PathSize = PDEPathGetDataFloat(Path, NULL, 0);
-    ASFloat *PathData = (ASFloat *)ASmalloc(PathSize + 24); // Allow for me to read ahead, without crashing
+    ASFloat *PathData = static_cast<ASFloat *>(ASmalloc(PathSize + 24)); // Allow for me to read ahead, without crashing
     ASInt32 DataSize = PathSize / 4;
     PDEPathGetDataFloat(Path, PathData, PathSize);
 
@@ -59,13 +59,13 @@ void DisplayPath(PDEPath Path, ASDoubleMatrix *Matrix, PDEGraphicState *GState, 
         if (Index >= DataSize)
             break;
 
-        Operator = (PDEPathElementType)PathData[Index];
-        One.h = (ASDouble)(ASFloat)PathData[Index + 1];
-        One.v = (ASDouble)(ASFloat)PathData[Index + 2];
-        Two.h = (ASDouble)(ASFloat)PathData[Index + 3];
-        Two.v = (ASDouble)(ASFloat)PathData[Index + 4];
-        Three.h = (ASDouble)(ASFloat)PathData[Index + 5];
-        Three.v = (ASDouble)(ASFloat)PathData[Index + 6];
+        Operator = static_cast<PDEPathElementType>(PathData[Index]);
+        One.h = static_cast<ASDouble>(PathData[Index + 1]);
+        One.v = static_cast<ASDouble>(PathData[Index + 2]);
+        Two.h = static_cast<ASDouble>(PathData[Index + 3]);
+        Two.v = static_cast<ASDouble>(PathData[Index + 4]);
+        Three.h = static_cast<ASDouble>(PathData[Index + 5]);
+        Three.v = static_cast<ASDouble>(PathData[Index + 6]);
 
         switch (Operator) {
         case kPDEMoveTo:
