@@ -235,6 +235,7 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentCreation\CreateDocument"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentCreation\CreateLayers"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% ContentCreation\CreateTransparency"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Security\AESEncryption"
+SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Security\AddDigitalSignature"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Security\AddPassword"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Security\AddRedaction"
 SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% Security\AddTriangularRedaction"
@@ -252,9 +253,9 @@ SET "DL_SAMPLE_LIST=%DL_SAMPLE_LIST% FileSystem\AlternateFileSystem"
 
 REM *** The total number of DL samples. This must be accurate!
 IF NOT "%ARCH%"=="ARM64" (
-  SET /A "NUM_DL_SAMPLES=71"
-) ELSE (
   SET /A "NUM_DL_SAMPLES=72"
+) ELSE (
+  SET /A "NUM_DL_SAMPLES=73"
 )
 
 
