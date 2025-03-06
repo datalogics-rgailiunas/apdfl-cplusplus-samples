@@ -198,9 +198,6 @@ void APDFLib::fillDirectories() {
     pdflData.cMapDirectory = fontDirList[1];
     pdflData.unicodeDirectory = (ASUTF16Val *)L"..\\..\\..\\..\\Resources\\Unicode";
 
-    // Set the OfficeMetrics directory.
-    pdflData.officeMetricsDirectory = (ASUTF16Val *)L"..\\..\\..\\..\\Resources\\OfficeMetrics";
-
     // Set the plugin directory and its length.
     static TCHAR pluginPathBuffer[1024];
     GetFullPathName(L"..\\..\\..\\Binaries", 1024, pluginPathBuffer, 0);
@@ -269,9 +266,6 @@ void APDFLib::fillDirectories() {
     // Set the Unicode directory.
     pdflData.cMapDirectory = (char *)fontDirList[1];
     pdflData.unicodeDirectory = (char *)"../../../../Resources/Unicode";
-
-    // Set the OfficeMetrics directory.
-    pdflData.officeMetricsDirectory = (char *)"../../../../Resources/OfficeMetrics";
 
     // Set the plugin
     pluginDirList[0] = (ASUTF16Val *)"../../../Binaries";
