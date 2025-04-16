@@ -2,7 +2,7 @@
 def ENV_LOC=[:]
 pipeline {
     parameters {
-        choice(name: 'PLATFORM_FILTER', choices: ['all', 'mac-apdfl-samples', 'mac-arm-apdfl-samples', 'linux-armv8-apdfl-samples', 'linux-apdfl-samples', 'windows-apdfl-samples', 'windows-ARM-apdfl-samples'], description: 'Run on specific platform')
+        choice(name: 'PLATFORM_FILTER', choices: ['all', 'mac-apdfl-samples', 'mac-arm-apdfl-samples', 'linux-armv8-apdfl-samples', 'linux-apdfl-rocky-x64-samples', 'linux-apdfl-centos-x86-samples', 'windows-apdfl-samples', 'windows-ARM-apdfl-samples'], description: 'Run on specific platform')
     }
     options{
         timeout(time: 1, unit: "HOURS")
@@ -24,7 +24,7 @@ pipeline {
                 axes {
                     axis {
                         name 'NODE'
-                        values 'mac-apdfl-samples', 'mac-arm-apdfl-samples', 'linux-armv8-apdfl-samples', 'windows-apdfl-samples', 'windows-ARM-apdfl-samples', 'linux-apdfl-samples'
+                        values 'mac-apdfl-samples', 'mac-arm-apdfl-samples', 'linux-armv8-apdfl-samples', 'windows-apdfl-samples', 'windows-ARM-apdfl-samples', 'linux-apdfl-rocky-x64-samples', 'linux-apdfl-centos-x86-samples'
                     }
                     axis {
                         name 'BITS'
@@ -35,11 +35,21 @@ pipeline {
                     exclude {
                         axis {
                             name 'NODE'
-                            values 'mac-apdfl-samples', 'mac-arm-apdfl-samples', 'linux-armv8-apdfl-samples', 'windows-ARM-apdfl-samples'
+                            values 'mac-apdfl-samples', 'mac-arm-apdfl-samples', 'linux-armv8-apdfl-samples', 'windows-ARM-apdfl-samples', 'linux-apdfl-rocky-x64-samples'
                         }
                         axis {
                             name 'BITS'
                             values '32'
+                        }
+                    }
+                    exclude {
+                        axis {
+                            name 'NODE'
+                            values 'linux-apdfl-centos-x86-samples'
+                        }
+                        axis {
+                            name 'BITS'
+                            values '64'
                         }
                     }
                 }
