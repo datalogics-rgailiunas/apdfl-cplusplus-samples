@@ -1,15 +1,16 @@
 //
 // Copyright (c) 2025, Datalogics, Inc. All rights reserved.
 //
+// This sample adds a digital signature with a logo to a PDF document.
 //
-// This sample adds a digital signature to a PDF document.
-//
-// Command-line:  <input-file> <output-file>    (All optional)
+// Command-line:  <input-file> <output-file> <logo file>   (All optional)
 //
 
 #include <iostream>
+#include <string>
 #include "InitializeLibrary.h"
 #include "APDFLDoc.h"
+#include "PERCalls.h"
 
 // Header that includes Digital Signature methods
 #include "DLExtrasCalls.h"
@@ -17,7 +18,14 @@
 #define INPUT_LOC "../../../../Resources/Sample_Input/"
 #define DEF_INPUT "SixPages.pdf"
 #define DEF_OUTPUT "AddDigitalSignature-out.pdf"
+#define DEF_LOGO_FILE "ducky_alpha.tif"
+
+// DEF_CERT_FILE points to the signer certificate which may be binary(.der file format)
+// or base - 64 encoded(.pem file format).
 #define DEF_CERT_FILE "Credentials/DER/RSA_certificate.der"
+
+// DEF_KEY_FILE points to the private key corresponding to the signer certificate defined above.
+// A key can be binary (.der file format) or base-64 encoded (.pem file format).
 #define DEF_KEY_FILE "Credentials/DER/RSA_privKey.der"
 
 int main(int argc, char **argv) {
@@ -30,10 +38,11 @@ int main(int argc, char **argv) {
         return errCode;
     }
 
-    std::string csInputFileName(argc > 1 ? argv[1] : INPUT_LOC DEF_INPUT);
-    std::string csOutputFileName(argc > 2 ? argv[2] : DEF_OUTPUT);
-    std::cout << "Will apply a digital signature to " << csInputFileName.c_str() << " and save as "
-              << csOutputFileName.c_str() << std::endl;
+    std::string const csInputFileName(argc > 1 ? argv[1] : INPUT_LOC DEF_INPUT);
+    std::string const csOutputFileName(argc > 2 ? argv[2] : DEF_OUTPUT);
+    std::string const csLogoFileName(argc > 3 ? argv[2] : INPUT_LOC DEF_LOGO_FILE);
+    std::cout << "Will apply a digital signature to " << csInputFileName.c_str() << " with a logo "
+              << csLogoFileName.c_str() << " and save as " << csOutputFileName.c_str() << std::endl;
 
     DURING
 
@@ -41,19 +50,27 @@ int main(int argc, char **argv) {
         APDFLDoc APDoc(csInputFileName.c_str(), true);
         PDDoc inDoc = APDoc.getPDDoc();
 
-        // Populate digital signature data structure
-        PDSignDocSignParamsRec signParams;
-        memset(&signParams, 0x0, sizeof(PDSignDocSignParamsRec));
+        // Setup Sign params
+        PDSignDocSignParams const signParams{PDSignDocSignInitParams()};
 
-        signParams.fieldID = CreateFieldWithQualifiedName;
-        ASText fieldName = ASTextNew();
-        ASTextSetEncoded(fieldName, "Signature_es_:signatureblock", (ASHostEncoding)PDGetHostEncoding());
-        signParams.sigFieldInfo.sigFieldIdAttr.name = fieldName;
+        PDSignDocSetFieldID(signParams, CreateFieldWithQualifiedName);
 
-        signParams.digestCat = sha256;
+        // Set the size and location of the signature box (optional)
+        // If not set, invisible signature will be placed on first page
+        ASFixedRect annotLocation;
+        annotLocation.left = ASFloatToFixed(1.0 * 72);
+        annotLocation.right = ASFloatToFixed(4.0 * 72);
+        annotLocation.top = ASFloatToFixed(6.0 * 72);
+        annotLocation.bottom = ASFloatToFixed(8.0 * 72);
+        PDSignDocSetSignatureBoxPageNumber(signParams, 0);
+        PDSignDocSetSignatureBoxRectangle(signParams, &annotLocation);
 
-        signParams.dataFmt = DERFmt;
-        signParams.storageFmt = OnDisk;
+        ASText fieldName = ASTextFromEncoded("Signature_es_:signatureblock", PDGetHostEncoding());
+        PDSignDocSetFieldName(signParams, fieldName);
+
+        // Set credential related attributes
+        PDSignDocSetDigestCategory(signParams, sha256);
+        PDSignDocSetCredentialDataFormat(signParams, NonPFX);
 
         ASPathName certPath = APDFLDoc::makePath(INPUT_LOC DEF_CERT_FILE);
         ASPathName keyPath = APDFLDoc::makePath(INPUT_LOC DEF_KEY_FILE);
@@ -64,43 +81,52 @@ int main(int argc, char **argv) {
         ASFile asKeyFileDER{nullptr};
         err = ASFileSysOpenFile64(nullptr, keyPath, (ASFILE_READ | ASFILE_SERIAL), &asKeyFileDER);
 
-        // No need to set credential size, since we're passing them as ASFile
-        signParams.sign.nonPfxParamsRec = {asCertFileDER, 0, asKeyFileDER, 0, nullptr, 0};
+        PDSignDocSetNonPfxSignerCert(signParams, asCertFileDER, 0, OnDisk);
+        PDSignDocSetNonPfxPrivateKey(signParams, asKeyFileDER, 0, OnDisk);
 
-        ASText name = ASTextNew();
-        ASTextSetEncoded(name, "John Doe", (ASHostEncoding)PDGetHostEncoding()); // AVAppGetLanguageEncoding()
+        // Setup the signer information
+        ASText name = ASTextFromEncoded("John Doe", PDGetHostEncoding());
+        ASText location = ASTextFromEncoded("Chicago, IL", PDGetHostEncoding());
+        ASText reason = ASTextFromEncoded("Approval", PDGetHostEncoding());
+        ASText contact = ASTextFromEncoded("Datalogics, Inc.", PDGetHostEncoding());
 
-        ASText location = ASTextNew();
-        ASTextSetEncoded(location, "Chicago, IL", (ASHostEncoding)PDGetHostEncoding());
+        // Setup the logo image (optional)
+        ASPathName logoPath = APDFLDoc::makePath(csLogoFileName.c_str());
+        ASFile asLogoFile{nullptr};
+        err = ASFileSysOpenFile64(nullptr, logoPath, (ASFILE_READ | ASFILE_SERIAL), &asLogoFile);
+        PDEImage logo{DLCreatePDEImageFromASFile(asLogoFile)};
+        ASFixed const opacity{FloatToASFixed(0.50f)};
 
-        ASText reason = ASTextNew();
-        ASTextSetEncoded(reason, "Approval", (ASHostEncoding)PDGetHostEncoding());
+        PDSignDocSetSignerInfo(signParams, logo, opacity, name, location, reason, contact,
+                               DisplayTraits::kDisplayAll);
 
-        ASText contact = ASTextNew();
-        ASTextSetEncoded(contact, "Datalogics, Inc.", (ASHostEncoding)PDGetHostEncoding());
+        // Setup Save params
+        PDSignDocSaveParams const saveParams{PDSignDocSaveInitParams()};
+        ASPathName outPathName = APDFLDoc::makePath(csOutputFileName.c_str());
 
-        signParams.signerInfo = {
-            nullptr, fixedZero, name, location, reason, contact, DisplayTraits::kDisplayAll};
+        PDSignDocSetOutputPath(saveParams, outPathName);
 
         // Finally, sign and save the document
-        PDSignDocSaveParamsRec saveParams;
-        memset(&saveParams, 0x0, sizeof(PDSignDocSaveParamsRec));
+        PDSignDocWithParams(inDoc, saveParams, signParams);
 
-        ASPathName pathOutput = APDFLDoc::makePath(csOutputFileName.c_str());
-        saveParams.newPath = pathOutput;
-        PDSignDocWithParams(inDoc, &saveParams, &signParams);
-
-        // cleanup
+        // Cleanup
         ASTextDestroy(name);
         ASTextDestroy(location);
         ASTextDestroy(reason);
         ASTextDestroy(contact);
 
+        // Release logo object
+        PDERelease(reinterpret_cast<PDEObject>(logo));
+        ASFileSysReleasePath(nullptr, logoPath);
+
+        // Release credential objects
+        ASFileSysReleasePath(nullptr, certPath);
+        ASFileSysReleasePath(nullptr, keyPath);
         ASFileClose(asCertFileDER);
         ASFileClose(asKeyFileDER);
 
         PDDocClose(inDoc);
-        ASFileSysReleasePath(nullptr, pathOutput);
+        ASFileSysReleasePath(nullptr, outPathName);
 
     HANDLER
         errCode = ERRORCODE;
