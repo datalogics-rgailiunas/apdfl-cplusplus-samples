@@ -79,6 +79,7 @@ SAMPLES = Annotations/CreateAnnotations \
           InformationExtraction/CountColorsInDoc \
           InformationExtraction/ExtractDocumentInfo \
           Printing/PostScriptInjection \
+          Security/AddDigitalSignature \
           Security/AddPassword \
           Security/AddRedaction \
           Security/AddRegexRedaction \

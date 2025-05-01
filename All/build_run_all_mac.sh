@@ -111,6 +111,7 @@ declare -a DL_SAMPLE_LIST=( \
   "InformationExtraction/ExtractDocumentInfo" \
   "Printing/PostScriptInjection" \
   "Security/AESEncryption" \
+  "Security/AddDigitalSignature" \
   "Security/AddPassword" \
   "Security/AddRedaction" \
   "Security/EncryptDocument" \
