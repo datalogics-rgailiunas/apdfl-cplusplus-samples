@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
         PDDoc inDoc = APDoc.getPDDoc();
 
         // Setup Sign params
-        PDSignDocSignParams const signParams{PDSignDocSignInitParams()};
+        PDSignDocSignParams const signParams = PDSignDocSignInitParams();
 
         PDSignDocSetFieldID(signParams, CreateFieldWithQualifiedName);
 
@@ -101,7 +101,7 @@ int main(int argc, char **argv) {
                                DisplayTraits::kDisplayAll);
 
         // Setup Save params
-        PDSignDocSaveParams const saveParams{PDSignDocSaveInitParams()};
+        PDSignDocSaveParams const saveParams = PDSignDocSaveInitParams();
         ASPathName outPathName = APDFLDoc::makePath(csOutputFileName.c_str());
 
         PDSignDocSetOutputPath(saveParams, outPathName);
