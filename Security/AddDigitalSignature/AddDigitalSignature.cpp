@@ -21,7 +21,7 @@
 #define DEF_LOGO_FILE "ducky_alpha.tif"
 
 // DEF_CERT_FILE points to the signer certificate which may be binary(.der file format)
-// or base - 64 encoded(.pem file format).
+// or base-64 encoded(.pem file format).
 #define DEF_CERT_FILE "Credentials/DER/RSA_certificate.der"
 
 // DEF_KEY_FILE points to the private key corresponding to the signer certificate defined above.
