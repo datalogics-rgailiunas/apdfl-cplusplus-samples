@@ -110,6 +110,7 @@ int main(int argc, char **argv) {
         PDSignDocWithParams(inDoc, saveParams, signParams);
 
         // Cleanup
+        ASTextDestroy(fieldName);
         ASTextDestroy(name);
         ASTextDestroy(location);
         ASTextDestroy(reason);
@@ -125,6 +126,7 @@ int main(int argc, char **argv) {
         ASFileClose(asCertFileDER);
         ASFileClose(asKeyFileDER);
 
+        ASFileClose(asLogoFile);
         PDDocClose(inDoc);
         ASFileSysReleasePath(nullptr, outPathName);
 
