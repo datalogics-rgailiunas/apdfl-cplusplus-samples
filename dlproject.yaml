@@ -7,7 +7,7 @@ config:
         # Conan configuration. `conan config install` installs configuration file from this URL.
         # See: https://docs.conan.io/en/latest/reference/commands/consumer/config.html#conan-config-install
         # This is usually a pointer to a Git repo, from which it clones the default branch
-        config_url: git@octocat.dlogics.com:datalogics/conan-config.git
+        config_url: git@github.com:datalogics/conan1-config.git
 
         # Conan profile that's used to configure the compiler
         # default is the profile Conan makes in the user's home directory
