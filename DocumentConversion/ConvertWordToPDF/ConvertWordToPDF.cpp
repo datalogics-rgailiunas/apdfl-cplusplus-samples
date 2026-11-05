@@ -54,6 +54,8 @@ static const char *DiagnosticKindName(OfficeToPDFDiagnosticKind kind) {
     case kOfficeToPDFDiagComment:                  return "comment";
     case kOfficeToPDFDiagFloatNotPlaced:           return "float not placed";
     case kOfficeToPDFDiagVariantUnavailable:       return "variant unavailable";
+    case kOfficeToPDFDiagFontNotEmbedded:          return "font not embedded";
+    case kOfficeToPDFDiagAccessibility:            return "accessibility";
     // A newer plugin may report a kind this header predates. Read the
     // diagnostic's asset and message, and see OfficeToPDFGetVersionString().
     default:                                       return "other";
